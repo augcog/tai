@@ -1,0 +1,9 @@
+number of success: 12
+number of fail: 1
+number of top 1: 5
+number of top 2: 8
+number of top 3: 10
+number of top 5: 10
+Average index: 1.75
+id:Sawyer (Level1) > doc (Level2) > ikfast (Level3) > (h1) IKFast Kinematics Solver > (h2) Getting Started
+question:What are the initial steps and considerations for setting up and running the IKFast code generator with MoveIt and OpenRAVE using a docker image, and how can one install the MoveIt IKFast package?

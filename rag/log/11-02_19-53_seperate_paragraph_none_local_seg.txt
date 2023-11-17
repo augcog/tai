@@ -1,0 +1,15 @@
+number of success: 9
+number of fail: 4
+number of top 1: 3
+number of top 2: 5
+number of top 3: 6
+number of top 5: 7
+Average index: 2.0
+id:Sawyer_md (Level1) > doc (Level2) > opw_kinematics (Level3) > (h1) OPW Kinematics Solver for Industrial Manipulators > (h2) Usage
+question:What automated feature does the MoveIt Setup Assistant offer in relation to the `kinematics.yaml` file, and how can you access it?
+id:Sawyer_md (Level1) > doc (Level2) > opw_kinematics (Level3) > (h1) OPW Kinematics Solver for Industrial Manipulators > (h2) Usage
+question:What is the purpose of the kinematics_solver parameter in the `kinematics.yaml` file, and what should it be replaced with to utilize the `MoveItOPWKinematicsPlugin?`
+id:Sawyer_md (Level1) > doc (Level2) > opw_kinematics (Level3) > (h1) OPW Kinematics Solver for Industrial Manipulators > (h2) Purpose
+question:In what situations is this package designed to be a preferable alternative to IK-Fast based solutions?
+id:Sawyer_md (Level1) > doc (Level2) > ikfast (Level3) > (h1) IKFast Kinematics Solver > (h2) Getting Started
+question:What are the initial steps and considerations for setting up and running the IKFast code generator with MoveIt and OpenRAVE using a docker image, and how can one install the MoveIt IKFast package?

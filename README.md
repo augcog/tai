@@ -48,8 +48,8 @@ conda activate myenv
 
 1. Clone this repository and navigate to the FastChat folder
 ```bash
-git clone https://github.com/lineUCB/TA-LLM.git --recursive
-cd TA-LLM
+git clone https://github.com/augcog/roarai.git --recursive
+cd roarai
 cd FastChat
 ```
 

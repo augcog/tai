@@ -1,0 +1,17 @@
+number of success: 8
+number of fail: 5
+number of top 1: 3
+number of top 2: 6
+number of top 3: 7
+number of top 5: 8
+Average index: 1.0
+id:Sawyer (Level1) > doc (Level2) > test_debugging (Level3) > (h1) Debugging Tests > (h2) CI Failures
+question:How does using Docker help in replicating CI environments locally? Are there any pitfalls or challenges you should be aware of when debugging within a Docker container?
+id:Sawyer (Level1) > doc (Level2) > opw_kinematics (Level3) > (h1) OPW Kinematics Solver for Industrial Manipulators > (h2) Usage
+question:What automated feature does the MoveIt Setup Assistant offer in relation to the `kinematics.yaml` file, and how can you access it?
+id:Sawyer (Level1) > doc (Level2) > opw_kinematics (Level3) > (h1) OPW Kinematics Solver for Industrial Manipulators > (h2) Purpose
+question:In what situations is this package designed to be a preferable alternative to IK-Fast based solutions?
+id:Sawyer (Level1) > doc (Level2) > ikfast (Level3) > (h1) IKFast Kinematics Solver > (h2) Getting Started
+question:What are the initial steps and considerations for setting up and running the IKFast code generator with MoveIt and OpenRAVE using a docker image, and how can one install the MoveIt IKFast package?
+id:Sawyer (Level1) > doc (Level2) > planning_with_approximated_constraint_manifolds (Level3) > (h1) Planning with Approximated Constraint Manifolds > (h2) Creating the Constraint Database > (h3) Defining constraints > (h4) PositionConstraint
+question:What is the PositionConstraint and how does it constrain the Cartesian positions allowed for a link?

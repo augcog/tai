@@ -1,0 +1,23 @@
+number of success: 5
+number of fail: 8
+number of top 1: 4
+number of top 2: 4
+number of top 3: 5
+number of top 5: 5
+Average index: 0.4
+id:Sawyer (Level1) > doc (Level2) > test_debugging (Level3) > (h1) Debugging Tests > (h2) CI Failures
+question:How does using Docker help in replicating CI environments locally? Are there any pitfalls or challenges you should be aware of when debugging within a Docker container?
+id:Sawyer (Level1) > doc (Level2) > test_debugging (Level3) > (h1) Debugging Tests > (h2) Run One Test
+question:When you use the command to run a specific test, e.g., rostest moveit_ros_planning_interface move_group_pick_place_test.test --text, how does this differ from running all tests for a package, and why might you want to focus on a single test rather than all of them?
+id:Sawyer (Level1) > doc (Level2) > opw_kinematics (Level3) > (h1) OPW Kinematics Solver for Industrial Manipulators > (h2) Usage
+question:What automated feature does the MoveIt Setup Assistant offer in relation to the `kinematics.yaml` file, and how can you access it?
+id:Sawyer (Level1) > doc (Level2) > opw_kinematics (Level3) > (h1) OPW Kinematics Solver for Industrial Manipulators > (h2) Usage
+question:What is the purpose of the kinematics_solver parameter in the `kinematics.yaml` file, and what should it be replaced with to utilize the `MoveItOPWKinematicsPlugin?`
+id:Sawyer (Level1) > doc (Level2) > opw_kinematics (Level3) > (h1) OPW Kinematics Solver for Industrial Manipulators > (h2) Purpose
+question:In what situations is this package designed to be a preferable alternative to IK-Fast based solutions?
+id:Sawyer (Level1) > doc (Level2) > planning_scene (Level3) > (h1) Planning Scene > (h2) Running the code
+question:roslaunch moveit_tutorials planning_scene_tutorial.launch
+id:Sawyer (Level1) > doc (Level2) > planning_with_approximated_constraint_manifolds (Level3) > (h1) Planning with Approximated Constraint Manifolds > (h2) Creating the Constraint Database > (h3) Defining constraints > (h4) PositionConstraint
+question:What is the PositionConstraint and how does it constrain the Cartesian positions allowed for a link?
+id:Sawyer (Level1) > doc (Level2) > planning_adapters (Level3) > (h1) Planning Adapter Tutorials > (h2) Planning Insights for different motion planners and planners with planning adapters
+question:Can you explain the significance of the parameter ridge_factor in CHOMP and its role in obstacle avoidance?If one wants to first produce an initial path using STOMP and then optimize it, which planner can be utilized after STOMP?

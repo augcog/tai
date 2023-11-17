@@ -1,0 +1,9 @@
+number of success: 12
+number of fail: 1
+number of top 1: 8
+number of top 2: 11
+number of top 3: 11
+number of top 5: 11
+Average index: 0.75
+id:Sawyer (Level1) > doc (Level2) > opw_kinematics (Level3) > (h1) OPW Kinematics Solver for Industrial Manipulators > (h2) Usage
+question:What automated feature does the MoveIt Setup Assistant offer in relation to the `kinematics.yaml` file, and how can you access it?

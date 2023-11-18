@@ -4,7 +4,8 @@ import openai
 import numpy as np
 from transformers import pipeline
 import torch
-
+from dotenv import load_dotenv
+load_dotenv()
 
 
 # TODO MODEL

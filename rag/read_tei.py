@@ -13,6 +13,8 @@ import voyageai
 from voyageai import get_embeddings,get_embedding
 from transformers import AutoModel
 from numpy.linalg import norm
+from dotenv import load_dotenv
+load_dotenv()
 # history=[]
 # history.append({"role": "system", "content": client.starting_prompt})
 # history.append({"role": "user", "content": message})

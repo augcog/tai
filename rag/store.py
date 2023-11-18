@@ -16,6 +16,8 @@ import json
 from transformers import AutoModel
 import string
 import tiktoken
+from dotenv import load_dotenv
+load_dotenv()
 from numpy.linalg import norm
 # history=[]
 # history.append({"role": "system", "content": client.starting_prompt})

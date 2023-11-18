@@ -1,12 +1,7 @@
 import string
 import tiktoken
-# def openai_model():
-#     openai.api_key = "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"
-#     openai.api_base = "https://api.openai.com/v1"
-#
-# def local_model():
-#     openai.api_key = "empty"
-#     openai.api_base = "http://localhost:8000/v1"
+from dotenv import load_dotenv
+load_dotenv()
 
 encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
 

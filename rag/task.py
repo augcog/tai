@@ -1,4 +1,6 @@
 import openai
+from dotenv import load_dotenv
+load_dotenv()
 
 def wizard_coder(history: list[dict]):
     DEFAULT_SYSTEM_PROMPT = history[0]['content']+'\n\n'

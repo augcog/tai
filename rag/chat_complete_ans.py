@@ -1,6 +1,8 @@
 import os
 import pickle
 import openai
+from dotenv import load_dotenv
+load_dotenv()
 
 openai.api_key = "empty"
 openai.api_base = "http://localhost:8000/v1"

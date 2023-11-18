@@ -133,11 +133,11 @@ for n in [900,800,700,600,500,400,300,200,100]:
         openai.api_key = "empty"
         openai.api_base = "http://localhost:8000/v1"
     elif model=='openai':
-        openai.api_key = "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"
+        openai.api_key = os.getenv("OPENAI_API_KEY")
     elif model=='cohere':
-        co = cohere.Client("5ZqmnmIRFFA6u4sgnbcDyEDrHefTeTqAWTKi0e34")
+        co = cohere.Client(os.getenv("COHERE_API_KEY"))
     elif model=='voyage':
-        voyageai.api_key = "tr_38b5af633b4125ce1bc7192df6125ee8d9a6771ae294562bdd5906cef987f3a403682154d10c8e0374b5f3202351339f1450ebd4c6e63364f5ac5767f3e488b0"
+        voyageai.api_key = os.getenv("VOYAGE_API_KEY")
     elif model=='jina':
         jina = AutoModel.from_pretrained('jinaai/jina-embeddings-v2-base-en', trust_remote_code=True)
 

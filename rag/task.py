@@ -1,5 +1,6 @@
 import openai
 from dotenv import load_dotenv
+import os
 load_dotenv()
 
 def wizard_coder(history: list[dict]):
@@ -24,7 +25,7 @@ if model=='local':
     openai.api_key = "empty"
     openai.api_base = "http://localhost:8000/v1"
 elif model=='openai':
-    openai.api_key = "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"
+    openai.api_key = os.getenv("OPENAI_API_KEY")
 
 human_message = '''
 What is the purpose of the kinematics_solver parameter in the `kinematics.yaml` file, and what should it be replaced with to utilize the `MoveItOPWKinematicsPlugin?`

@@ -14,7 +14,7 @@ load_dotenv()
 model="zephyr"
 
 def openai_model():
-    openai.api_key = "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"
+    openai.api_key = os.getenv("OPENAI_API_KEY")
     openai.api_base = "https://api.openai.com/v1"
 
 def local_model():

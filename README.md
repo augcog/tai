@@ -12,8 +12,8 @@
 - [Setup](#setup)
 - [Optional: Create a new enviornment](#optional-create-a-new-enviornment)
 - [Critical components to install](#critical-components-to-instal)
-- [Installing FastChat](#installing-fastChat)
 - [Installing EduGpt](#installing-eduGpt)
+- [Installing FastChat](#installing-fastChat)
 - [Creating a Discord Bot](#creating-a-discord-bot)
 - [Running Edugpt on FastChat](#running-edugpt-on-fastchat)
 
@@ -46,14 +46,13 @@ conda activate myenv
 
 ### Installing EduGpt
 
-1. Clone this repository and navigate to the FastChat folder
+1. Clone this repository and navigate to the RoarAi folder
 ```bash
 git clone https://github.com/augcog/roarai.git --recursive
 cd roarai
-cd FastChat
 ```
 
-2. Navigate to folder
+2. Navigate to the folder
 ```bash 
 cd edugpt
 ```

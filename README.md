@@ -44,12 +44,38 @@ conda activate myenv
 
 ## Critical components to install
 
-### Installing FastChat
+### Installing EduGpt
 
 1. Clone this repository and navigate to the FastChat folder
 ```bash
 git clone https://github.com/augcog/roarai.git --recursive
 cd roarai
+cd FastChat
+```
+
+2. Navigate to folder
+```bash 
+cd edugpt
+```
+
+3. Install requirements
+```bash 
+pip3 install -r requirements.txt
+```
+
+### Installing FastChat
+
+#### Method 1: With pip
+
+```bash
+pip3 install "fschat[model_worker,webui]"
+```
+
+#### Method 2: From source
+
+1. Clone this repository and navigate to the FastChat folder
+```bash
+git clone https://github.com/lm-sys/FastChat.git
 cd FastChat
 ```
 
@@ -62,18 +88,6 @@ brew install rust cmake
 ```bash
 pip3 install --upgrade pip  # enable PEP 660 support
 pip3 install -e ".[model_worker,webui]"
-```
-
-### Installing EduGpt
-
-1. Navigate to folder
-```bash 
-cd edugpt
-```
-
-2. Install requirements
-```bash 
-pip3 install -r requirements.txt
 ```
 
 ## Creating a Discord Bot

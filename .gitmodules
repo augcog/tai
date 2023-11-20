@@ -1,6 +1,3 @@
-[submodule "FastChat"]
-	path = FastChat
-	url = https://github.com/lm-sys/FastChat.git
 [submodule "edugpt"]
 	path = edugpt
 	url = https://github.com/FranardoHuang/edugpt.git

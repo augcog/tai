@@ -1,0 +1,12 @@
+Segment 1
+#Dash visualization (h1)
+
+Dash is a python framework which is suitable for building data visualization dashboards using pure python. Dash is written on top of plotly, react and flask and the graphs are defined using plotly python. The dash application is composed of two major parts :
+
+- `Layout` - Describes how the dashboard looks like
+- `Callbacks` - Used to update graphs, tables in the layout and makes the dashboard interactive.
+
+
+
+
+----------------------------------------

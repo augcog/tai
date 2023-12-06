@@ -1,0 +1,23 @@
+(Table of Contents)
+Business day functions (h1)
+
+
+(Page path)
+(h1) Business day functions
+
+(Segment 1)
+#Business day functions (h1)
+
+.. currentmodule:: numpy
+
+.. autosummary::
+:toctree: generated/
+
+busdaycalendar
+is_busday
+busday_offset
+busday_count
+
+
+
+--------------------------------------------------------------------------------

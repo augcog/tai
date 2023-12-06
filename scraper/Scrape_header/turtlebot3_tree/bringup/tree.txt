@@ -1,0 +1,122 @@
+Segment 1
+## (h2)
+[]
+
+##[Bringup](#bringup "#bringup") (h2)
+
+
+
+###[Run roscore](#run-roscore "#run-roscore") (h3)
+
+Run roscore from PC.
+
+```
+$ roscore
+
+```
+
+
+
+
+----------------------------------------
+Segment 2
+## (h2)
+[]
+
+##[Bringup](#bringup "#bringup") (h2)
+
+
+
+###[Bringup TurtleBot3](#bringup-turtlebot3 "#bringup-turtlebot3") (h3)
+
+Bring up basic packages from TurtleBot3 to start TurtleBot3 applications.
+
+```
+> roslaunch turtlebot3_bringup turtlebot3_robot.launch
+
+```
+
+![](/assets/images/icon_unfold.png) **Read more about loading TurtleBot3 on RViz**
+
+1. Bring up basic packages to start TurtleBot3 applications.  
+
+ Please use the proper keyword among `burger`, `waffle`, `waffle_pi` for the `TURTLEBOT3_MODEL` parameter.
+
+```
+> set TURTLEBOT3\_MODEL=waffle
+> roslaunch turtlebot3_bringup turtlebot3_remote.launch
+
+```
+2. Open a new ROS command window and enter the below command.
+
+```
+> rosrun rviz rviz -d "<full path to turtlebot3\_description>/rviz/model.rviz"
+
+```
+
+![](/assets/images/platform/turtlebot3/bringup/run_rviz.jpg)
+
+ Previous Page
+Next Page 
+
+$reference = $(".archive");
+$(window).resize(function() {
+ var newWidth = $reference.width() \* 0.90;
+ if (newWidth > 640) { newWidth = 640; }
+
+ // Resize all videos according to aspect ratio
+ $("iframe").each(
+ function(index, elem) {
+ elem.setAttribute("width", (newWidth).toFixed());
+ elem.setAttribute("height", (newWidth\*0.56).toFixed());
+ }
+ );
+// Kick off one resize to fix all videos on page load
+}).resize();
+
+© 2023 ROBOTIS. Powered by [Jekyll](http://jekyllrb.com "http://jekyllrb.com") & [Minimal Mistakes](https://mademistakes.com/work/minimal-mistakes-jekyll-theme/ "https://mademistakes.com/work/minimal-mistakes-jekyll-theme/").
+
+ var \_gaq = \_gaq || [];
+ \_gaq.push(['\_setAccount', 'UA-83196341-13']);
+ \_gaq.push(['\_trackPageview']);
+
+ (function() {
+ var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+ })();
+
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
+
+ gtag('config', 'G-155KHSC07K');
+
+
+
+
+----------------------------------------
+Segment 2
+## (h2)
+[]
+
+##[Bringup](#bringup "#bringup") (h2)
+
+
+
+###[Load TurtleBot3 on Rviz](#load-turtlebot3-on-rviz "#load-turtlebot3-on-rviz") (h3)
+
+1. Make sure to bring up the TurtleBot3
+2. Open a new terminal and enter the below command to launch RViz.
+
+```
+$ ros2 launch turtlebot3_bringup rviz2.launch.py
+
+```
+
+![](/assets/images/platform/turtlebot3/bringup/run_rviz.jpg)
+
+
+
+
+----------------------------------------

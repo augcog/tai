@@ -1,0 +1,163 @@
+(Table of Contents)
+Miscellaneous routines (h1)
+--Performance tuning (h2)
+--Memory ranges (h2)
+--Array mixins (h2)
+--NumPy version comparison (h2)
+--Utility (h2)
+
+
+(Page path)
+(h1) Miscellaneous routines > (h2) Performance tuning
+
+(Segment 1)
+#Miscellaneous routines (h1)
+
+.. toctree::
+
+.. currentmodule:: numpy
+
+
+##Performance tuning (h2)
+.. autosummary::
+:toctree: generated/
+
+setbufsize
+getbufsize
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Miscellaneous routines (h1)
+--Performance tuning (h2)
+--Memory ranges (h2)
+--Array mixins (h2)
+--NumPy version comparison (h2)
+--Utility (h2)
+
+
+(Page path)
+(h1) Miscellaneous routines > (h2) Memory ranges
+
+(Segment 2)
+#Miscellaneous routines (h1)
+
+.. toctree::
+
+.. currentmodule:: numpy
+
+
+##Memory ranges (h2)
+
+.. autosummary::
+:toctree: generated/
+
+shares_memory
+may_share_memory
+lib.array_utils.byte_bounds
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Miscellaneous routines (h1)
+--Performance tuning (h2)
+--Memory ranges (h2)
+--Array mixins (h2)
+--NumPy version comparison (h2)
+--Utility (h2)
+
+
+(Page path)
+(h1) Miscellaneous routines > (h2) Array mixins
+
+(Segment 3)
+#Miscellaneous routines (h1)
+
+.. toctree::
+
+.. currentmodule:: numpy
+
+
+##Array mixins (h2)
+.. autosummary::
+:toctree: generated/
+
+lib.mixins.NDArrayOperatorsMixin
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Miscellaneous routines (h1)
+--Performance tuning (h2)
+--Memory ranges (h2)
+--Array mixins (h2)
+--NumPy version comparison (h2)
+--Utility (h2)
+
+
+(Page path)
+(h1) Miscellaneous routines > (h2) NumPy version comparison
+
+(Segment 4)
+#Miscellaneous routines (h1)
+
+.. toctree::
+
+.. currentmodule:: numpy
+
+
+##NumPy version comparison (h2)
+.. autosummary::
+:toctree: generated/
+
+lib.NumpyVersion
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Miscellaneous routines (h1)
+--Performance tuning (h2)
+--Memory ranges (h2)
+--Array mixins (h2)
+--NumPy version comparison (h2)
+--Utility (h2)
+
+
+(Page path)
+(h1) Miscellaneous routines > (h2) Utility
+
+(Segment 5)
+#Miscellaneous routines (h1)
+
+.. toctree::
+
+.. currentmodule:: numpy
+
+
+##Utility (h2)
+
+.. autosummary::
+:toctree: generated/
+
+get_include
+show_config
+show_runtime
+broadcast_shapes
+lib.array_utils.normalize_axis_index
+lib.array_utils.normalize_axis_tuple
+
+.. automodule:: numpy.exceptions
+
+.. automodule:: numpy.dtypes
+
+
+
+--------------------------------------------------------------------------------

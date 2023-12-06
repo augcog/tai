@@ -1,0 +1,48 @@
+(Table of Contents)
+Get the local copy of the code (h1)
+Updating the code (h1)
+
+
+(Page path)
+(h1) Get the local copy of the code
+
+(Segment 1)
+#Get the local copy of the code (h1)
+
+From the command line::
+
+git clone https://github.com/numpy/numpy.git
+
+You now have a copy of the code tree in the new ``numpy`` directory.
+If this doesn't work you can try the alternative read-only url::
+
+git clone https://github.com/numpy/numpy.git
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Get the local copy of the code (h1)
+Updating the code (h1)
+
+
+(Page path)
+(h1) Updating the code
+
+(Segment 2)
+#Updating the code (h1)
+
+From time to time you may want to pull down the latest code.  Do this with::
+
+cd numpy
+git fetch
+git merge --ff-only
+
+The tree in ``numpy`` will now have the latest changes from the initial
+repository.
+
+
+
+
+--------------------------------------------------------------------------------

@@ -1,0 +1,212 @@
+(Table of Contents)
+String operations (h1)
+--String operations (h2)
+--Comparison (h2)
+--String information (h2)
+--Convenience class (h2)
+
+
+(Page path)
+(h1) String operations > (h2) String operations
+
+(Segment 1)
+#String operations (h1)
+
+.. currentmodule:: numpy.char
+
+.. module:: numpy.char
+
+The `numpy.char` module provides a set of vectorized string
+operations for arrays of type `numpy.str_` or `numpy.bytes_`. For example
+
+>>> np.char.capitalize(["python", "numpy"])
+array(['Python', 'Numpy'], dtype='<U6')
+>>> np.char.add(["num", "doc"], ["py", "umentation"])
+array(['numpy', 'documentation'], dtype='<U13')
+
+The methods in this module are based on the methods in :py:mod:`string`
+
+
+##String operations (h2)
+
+.. autosummary::
+:toctree: generated/
+
+add
+multiply
+mod
+capitalize
+center
+decode
+encode
+expandtabs
+join
+ljust
+lower
+lstrip
+partition
+replace
+rjust
+rpartition
+rsplit
+rstrip
+split
+splitlines
+strip
+swapcase
+title
+translate
+upper
+zfill
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+String operations (h1)
+--String operations (h2)
+--Comparison (h2)
+--String information (h2)
+--Convenience class (h2)
+
+
+(Page path)
+(h1) String operations > (h2) Comparison
+
+(Segment 2)
+#String operations (h1)
+
+.. currentmodule:: numpy.char
+
+.. module:: numpy.char
+
+The `numpy.char` module provides a set of vectorized string
+operations for arrays of type `numpy.str_` or `numpy.bytes_`. For example
+
+>>> np.char.capitalize(["python", "numpy"])
+array(['Python', 'Numpy'], dtype='<U6')
+>>> np.char.add(["num", "doc"], ["py", "umentation"])
+array(['numpy', 'documentation'], dtype='<U13')
+
+The methods in this module are based on the methods in :py:mod:`string`
+
+
+##Comparison (h2)
+
+Unlike the standard numpy comparison operators, the ones in the `char`
+module strip trailing whitespace characters before performing the
+comparison.
+
+.. autosummary::
+:toctree: generated/
+
+equal
+not_equal
+greater_equal
+less_equal
+greater
+less
+compare_chararrays
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+String operations (h1)
+--String operations (h2)
+--Comparison (h2)
+--String information (h2)
+--Convenience class (h2)
+
+
+(Page path)
+(h1) String operations > (h2) String information
+
+(Segment 3)
+#String operations (h1)
+
+.. currentmodule:: numpy.char
+
+.. module:: numpy.char
+
+The `numpy.char` module provides a set of vectorized string
+operations for arrays of type `numpy.str_` or `numpy.bytes_`. For example
+
+>>> np.char.capitalize(["python", "numpy"])
+array(['Python', 'Numpy'], dtype='<U6')
+>>> np.char.add(["num", "doc"], ["py", "umentation"])
+array(['numpy', 'documentation'], dtype='<U13')
+
+The methods in this module are based on the methods in :py:mod:`string`
+
+
+##String information (h2)
+
+.. autosummary::
+:toctree: generated/
+
+count
+endswith
+find
+index
+isalpha
+isalnum
+isdecimal
+isdigit
+islower
+isnumeric
+isspace
+istitle
+isupper
+rfind
+rindex
+startswith
+str_len
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+String operations (h1)
+--String operations (h2)
+--Comparison (h2)
+--String information (h2)
+--Convenience class (h2)
+
+
+(Page path)
+(h1) String operations > (h2) Convenience class
+
+(Segment 4)
+#String operations (h1)
+
+.. currentmodule:: numpy.char
+
+.. module:: numpy.char
+
+The `numpy.char` module provides a set of vectorized string
+operations for arrays of type `numpy.str_` or `numpy.bytes_`. For example
+
+>>> np.char.capitalize(["python", "numpy"])
+array(['Python', 'Numpy'], dtype='<U6')
+>>> np.char.add(["num", "doc"], ["py", "umentation"])
+array(['numpy', 'documentation'], dtype='<U13')
+
+The methods in this module are based on the methods in :py:mod:`string`
+
+
+##Convenience class (h2)
+
+.. autosummary::
+:toctree: generated/
+
+array
+asarray
+chararray
+
+
+
+--------------------------------------------------------------------------------

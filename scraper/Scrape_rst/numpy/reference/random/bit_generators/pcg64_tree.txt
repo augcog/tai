@@ -1,0 +1,92 @@
+(Table of Contents)
+Permuted Congruential Generator (64-bit, PCG64) (h1)
+--State (h2)
+--Parallel generation (h2)
+--Extending (h2)
+
+
+(Page path)
+(h1) Permuted Congruential Generator (64-bit, PCG64) > (h2) State
+
+(Segment 1)
+#Permuted Congruential Generator (64-bit, PCG64) (h1)
+
+.. currentmodule:: numpy.random
+
+.. autoclass:: PCG64
+:members: __init__
+:exclude-members: __init__
+
+
+##State (h2)
+
+.. autosummary::
+:toctree: generated/
+
+~PCG64.state
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Permuted Congruential Generator (64-bit, PCG64) (h1)
+--State (h2)
+--Parallel generation (h2)
+--Extending (h2)
+
+
+(Page path)
+(h1) Permuted Congruential Generator (64-bit, PCG64) > (h2) Parallel generation
+
+(Segment 2)
+#Permuted Congruential Generator (64-bit, PCG64) (h1)
+
+.. currentmodule:: numpy.random
+
+.. autoclass:: PCG64
+:members: __init__
+:exclude-members: __init__
+
+
+##Parallel generation (h2)
+.. autosummary::
+:toctree: generated/
+
+~PCG64.advance
+~PCG64.jumped
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Permuted Congruential Generator (64-bit, PCG64) (h1)
+--State (h2)
+--Parallel generation (h2)
+--Extending (h2)
+
+
+(Page path)
+(h1) Permuted Congruential Generator (64-bit, PCG64) > (h2) Extending
+
+(Segment 3)
+#Permuted Congruential Generator (64-bit, PCG64) (h1)
+
+.. currentmodule:: numpy.random
+
+.. autoclass:: PCG64
+:members: __init__
+:exclude-members: __init__
+
+
+##Extending (h2)
+.. autosummary::
+:toctree: generated/
+
+~PCG64.cffi
+~PCG64.ctypes
+
+
+
+--------------------------------------------------------------------------------

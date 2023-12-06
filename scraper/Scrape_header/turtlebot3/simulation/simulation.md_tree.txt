@@ -1,0 +1,330 @@
+(Table of Contents)
+[Simulation](#simulation "#simulation") (h1)
+--[Gazebo Simulation](#gazebo-simulation "#gazebo-simulation") (h2)
+----[Install Simulation Package](#install-simulation-package "#install-simulation-package") (h3)
+----[Launch Simulation World](#launch-simulation-world "#launch-simulation-world") (h3)
+----[Operate TurtleBot3](#operate-turtlebot3 "#operate-turtlebot3") (h3)
+----[Launch Simulation](#launch-simulation "#launch-simulation") (h3)
+
+
+(Page path)
+(1) [Simulation](#simulation "#simulation") > (2) [Gazebo Simulation](#gazebo-simulation "#gazebo-simulation") > (3) [Install Simulation Package](#install-simulation-package "#install-simulation-package")
+
+(Segment 1)
+#[Simulation](#simulation "#simulation") (h1)
+
+**NOTE**
+
+* Please run the Simulation on **Remote PC**.
+* Launching the Simulation for the first time on the Remote PC may take a while to setup the environment.
+
+![](/assets/images/icon_unfold.png)
+
+TurtleBot3 supports simulation development environment that can be programmed and developed with a virtual robot in the simulation. There are two development environments to do this, one is using a **fake node with 3D visualization tool RViz**, and the other is using the **3D robot simulator Gazebo**.
+
+* The **fake node** is suitable for testing with the robot model and movement, but it does not support sensors.
+* If you need to perform SLAM or Navigation, **Gazebo** would be a feasible solution as it supports sensors such as IMU, LDS, and camera.
+
+In this instruction, Gazebo will be mainly introduced which is most widely used among ROS developers.
+
+* **Gazebo Tutorials** : [http://gazebosim.org/tutorials](http://gazebosim.org/tutorials "http://gazebosim.org/tutorials")
+
+
+##[Gazebo Simulation](#gazebo-simulation "#gazebo-simulation") (h2)
+
+The contents in e-Manual can be updated without a prior notice and video contents could be outdated.
+
+This Gazebo Simulation uses **ROS Gazebo package**, therefore, proper Gazebo version must to be installed before running this instruction.
+
+
+###[Install Simulation Package](#install-simulation-package "#install-simulation-package") (h3)
+
+The **TurtleBot3 Simulation Package** requires `turtlebot3` and `turtlebot3_msgs` packages as prerequisite. Without these prerequisite packages, the Simulation cannot be launched.  
+
+Please follow the [PC Setup](/docs/en/platform/turtlebot3/quick-start/ "/docs/en/platform/turtlebot3/quick-start/") instructions if you did not install required packages and dependent packages.
+
+```
+$ cd ~/turtlebot3_ws/src/
+$ git clone -b humble-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
+$ cd ~/turtlebot3_ws && colcon build --symlink-install
+
+```
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+[Simulation](#simulation "#simulation") (h1)
+--[Gazebo Simulation](#gazebo-simulation "#gazebo-simulation") (h2)
+----[Install Simulation Package](#install-simulation-package "#install-simulation-package") (h3)
+----[Launch Simulation World](#launch-simulation-world "#launch-simulation-world") (h3)
+----[Operate TurtleBot3](#operate-turtlebot3 "#operate-turtlebot3") (h3)
+----[Launch Simulation](#launch-simulation "#launch-simulation") (h3)
+
+
+(Page path)
+(1) [Simulation](#simulation "#simulation") > (2) [Gazebo Simulation](#gazebo-simulation "#gazebo-simulation") > (3) [Launch Simulation World](#launch-simulation-world "#launch-simulation-world")
+
+(Segment 2)
+#[Simulation](#simulation "#simulation") (h1)
+
+**NOTE**
+
+* Please run the Simulation on **Remote PC**.
+* Launching the Simulation for the first time on the Remote PC may take a while to setup the environment.
+
+![](/assets/images/icon_unfold.png)
+
+TurtleBot3 supports simulation development environment that can be programmed and developed with a virtual robot in the simulation. There are two development environments to do this, one is using a **fake node with 3D visualization tool RViz**, and the other is using the **3D robot simulator Gazebo**.
+
+* The **fake node** is suitable for testing with the robot model and movement, but it does not support sensors.
+* If you need to perform SLAM or Navigation, **Gazebo** would be a feasible solution as it supports sensors such as IMU, LDS, and camera.
+
+In this instruction, Gazebo will be mainly introduced which is most widely used among ROS developers.
+
+* **Gazebo Tutorials** : [http://gazebosim.org/tutorials](http://gazebosim.org/tutorials "http://gazebosim.org/tutorials")
+
+
+##[Gazebo Simulation](#gazebo-simulation "#gazebo-simulation") (h2)
+
+The contents in e-Manual can be updated without a prior notice and video contents could be outdated.
+
+This Gazebo Simulation uses **ROS Gazebo package**, therefore, proper Gazebo version must to be installed before running this instruction.
+
+
+###[Launch Simulation World](#launch-simulation-world "#launch-simulation-world") (h3)
+
+Three simulation environments are prepared for TurtleBot3. Please select one of these environments to launch Gazebo.
+
+**Please make sure to completely terminate other Simulation world before launching a new world.**
+
+1. Empty World  
+
+![](/assets/images/platform/turtlebot3/simulation/turtlebot3_empty_world.png)
+
+```
+$ export TURTLEBOT3\_MODEL=burger
+$ ros2 launch turtlebot3_gazebo empty_world.launch.py
+
+```
+2. TurtleBot3 World  
+
+![](/assets/images/platform/turtlebot3/ros2/gazebo_world.png)
+
+```
+$ export TURTLEBOT3\_MODEL=waffle
+$ ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
+
+```
+3. TurtleBot3 House  
+
+![](/assets/images/platform/turtlebot3/simulation/turtlebot3_house.png)
+
+```
+$ export TURTLEBOT3\_MODEL=waffle_pi
+$ ros2 launch turtlebot3_gazebo turtlebot3_house.launch.py
+
+```
+
+**NOTE**: If TurtleBot3 House is launched for the first time, downloading the map may take more than a few minutes depending the network status.
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+[Simulation](#simulation "#simulation") (h1)
+--[Gazebo Simulation](#gazebo-simulation "#gazebo-simulation") (h2)
+----[Install Simulation Package](#install-simulation-package "#install-simulation-package") (h3)
+----[Launch Simulation World](#launch-simulation-world "#launch-simulation-world") (h3)
+----[Operate TurtleBot3](#operate-turtlebot3 "#operate-turtlebot3") (h3)
+----[Launch Simulation](#launch-simulation "#launch-simulation") (h3)
+
+
+(Page path)
+(1) [Simulation](#simulation "#simulation") > (2) [Gazebo Simulation](#gazebo-simulation "#gazebo-simulation") > (3) [Operate TurtleBot3](#operate-turtlebot3 "#operate-turtlebot3")
+
+(Segment 3)
+#[Simulation](#simulation "#simulation") (h1)
+
+**NOTE**
+
+* Please run the Simulation on **Remote PC**.
+* Launching the Simulation for the first time on the Remote PC may take a while to setup the environment.
+
+![](/assets/images/icon_unfold.png)
+
+TurtleBot3 supports simulation development environment that can be programmed and developed with a virtual robot in the simulation. There are two development environments to do this, one is using a **fake node with 3D visualization tool RViz**, and the other is using the **3D robot simulator Gazebo**.
+
+* The **fake node** is suitable for testing with the robot model and movement, but it does not support sensors.
+* If you need to perform SLAM or Navigation, **Gazebo** would be a feasible solution as it supports sensors such as IMU, LDS, and camera.
+
+In this instruction, Gazebo will be mainly introduced which is most widely used among ROS developers.
+
+* **Gazebo Tutorials** : [http://gazebosim.org/tutorials](http://gazebosim.org/tutorials "http://gazebosim.org/tutorials")
+
+
+##[Gazebo Simulation](#gazebo-simulation "#gazebo-simulation") (h2)
+
+The contents in e-Manual can be updated without a prior notice and video contents could be outdated.
+
+This Gazebo Simulation uses **ROS Gazebo package**, therefore, proper Gazebo version must to be installed before running this instruction.
+
+
+###[Operate TurtleBot3](#operate-turtlebot3 "#operate-turtlebot3") (h3)
+
+In order to teleoperate the TurtleBot3 with the keyboard, launch the teleoperation node with below command in a new terminal window.
+
+```
+$ ros2 run turtlebot3_teleop teleop_keyboard
+
+```
+
+![](/assets/images/icon_unfold.png) Read more about **How to run Autonomous Collision Avoidance**
+
+A simple collision avoidance node is prepared which keeps certain distance from obstacles and make turns to avoid collision.  
+
+In order to autonomously drive a TurtleBot3 in the **TurtleBot3 world**, please follow the instruction below.
+
+1. Terminate the turtlebot3\_teleop\_key node by entering `Ctrl` + `C` to the terminal that runs the teleop node.
+2. Enter the below command to the terminal.
+
+```
+$ ros2 run turtlebot3_gazebo turtlebot3_drive
+
+```
+
+![](/assets/images/icon_unfold.png) Read more about **How to visualize Simulation data(RViz2)**
+
+RViz2 visualizes published topics while simulation is running. You can launch RViz2 in a new terminal window by entering below command.
+
+```
+$ ros2 launch turtlebot3_bringup rviz2.launch.py
+
+```
+
+![](/assets/images/platform/turtlebot3/simulation/turtlebot3_gazebo_rviz.png)
+
+**NOTE**
+
+* Please run the Simulation on **Remote PC**.
+* Launching the Simulation for the first time on the Remote PC may take a while to setup the environment.
+
+![](/assets/images/icon_unfold.png) Read more about **TurtleBot3 Simulation**
+
+TurtleBot3 supports simulation development environment that can be programmed and developed with a virtual robot in the simulation. There are two development environments to do this, one is using a **fake node with 3D visualization tool RViz**, and the other is using the **3D robot simulator Gazebo**.
+
+* The **fake node** is suitable for testing with the robot model and movement, but it does not support sensors.
+* If you need to perform SLAM or Navigation, **Gazebo** would be a feasible solution as it supports sensors such as IMU, LDS, and camera.
+
+In this instruction, Gazebo will be mainly introduced which is most widely used among ROS developers.
+
+* **Gazebo Tutorials** : [http://gazebosim.org/tutorials](http://gazebosim.org/tutorials "http://gazebosim.org/tutorials")
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+[Simulation](#simulation "#simulation") (h1)
+--[Gazebo Simulation](#gazebo-simulation "#gazebo-simulation") (h2)
+----[Install Simulation Package](#install-simulation-package "#install-simulation-package") (h3)
+----[Launch Simulation World](#launch-simulation-world "#launch-simulation-world") (h3)
+----[Operate TurtleBot3](#operate-turtlebot3 "#operate-turtlebot3") (h3)
+----[Launch Simulation](#launch-simulation "#launch-simulation") (h3)
+
+
+(Page path)
+(1) [Simulation](#simulation "#simulation") > (2) [Gazebo Simulation](#gazebo-simulation "#gazebo-simulation") > (3) [Launch Simulation](#launch-simulation "#launch-simulation")
+
+(Segment 4)
+#[Simulation](#simulation "#simulation") (h1)
+
+**NOTE**
+
+* Please run the Simulation on **Remote PC**.
+* Launching the Simulation for the first time on the Remote PC may take a while to setup the environment.
+
+![](/assets/images/icon_unfold.png)
+
+TurtleBot3 supports simulation development environment that can be programmed and developed with a virtual robot in the simulation. There are two development environments to do this, one is using a **fake node with 3D visualization tool RViz**, and the other is using the **3D robot simulator Gazebo**.
+
+* The **fake node** is suitable for testing with the robot model and movement, but it does not support sensors.
+* If you need to perform SLAM or Navigation, **Gazebo** would be a feasible solution as it supports sensors such as IMU, LDS, and camera.
+
+In this instruction, Gazebo will be mainly introduced which is most widely used among ROS developers.
+
+* **Gazebo Tutorials** : [http://gazebosim.org/tutorials](http://gazebosim.org/tutorials "http://gazebosim.org/tutorials")
+
+
+##[Gazebo Simulation](#gazebo-simulation "#gazebo-simulation") (h2)
+
+The contents in e-Manual can be updated without a prior notice and video contents could be outdated.
+
+This Gazebo Simulation uses **ROS Gazebo package**, therefore, proper Gazebo version must to be installed before running this instruction.
+
+
+###[Launch Simulation](#launch-simulation "#launch-simulation") (h3)
+
+If you are running ROS1 Noetic, please replace `melodic` with `noetic` in the command below.
+
+1. To start the simulation, open one elevated command prompt.
+
+```
+> c:\opt\ros\melodic\x64\setup.bat
+> c:\ws\turtlebot3\devel\setup.bat
+> set TURTLEBOT3_MODEL=waffle
+> roslaunch turtlebot3_fake turtlebot3_fake.launch
+
+```
+2. Then, open another elevated command prompt.
+
+```
+c:\opt\ros\melodic\x64\setup.bat
+c:\ws\turtlebot3\devel\setup.bat
+set TURTLEBOT3_MODEL=waffle
+roslaunch turtlebot3_gazebo turtlebot3_simulation.launch
+
+```
+
+ Previous Page
+Next Page 
+
+$reference = $(".archive");
+$(window).resize(function() {
+ var newWidth = $reference.width() \* 0.90;
+ if (newWidth > 640) { newWidth = 640; }
+
+ // Resize all videos according to aspect ratio
+ $("iframe").each(
+ function(index, elem) {
+ elem.setAttribute("width", (newWidth).toFixed());
+ elem.setAttribute("height", (newWidth\*0.56).toFixed());
+ }
+ );
+// Kick off one resize to fix all videos on page load
+}).resize();
+
+© 2023 ROBOTIS. Powered by [Jekyll](http://jekyllrb.com "http://jekyllrb.com") & [Minimal Mistakes](https://mademistakes.com/work/minimal-mistakes-jekyll-theme/ "https://mademistakes.com/work/minimal-mistakes-jekyll-theme/").
+
+ var \_gaq = \_gaq || [];
+ \_gaq.push(['\_setAccount', 'UA-83196341-13']);
+ \_gaq.push(['\_trackPageview']);
+
+ (function() {
+ var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+ })();
+
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
+
+ gtag('config', 'G-155KHSC07K');
+
+
+
+
+--------------------------------------------------------------------------------

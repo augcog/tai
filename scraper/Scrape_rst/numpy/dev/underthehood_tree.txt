@@ -1,0 +1,41 @@
+(Table of Contents)
+ (h1)
+Under-the-hood documentation for developers (h1)
+
+
+(Page path)
+(h1) 
+
+(Segment 1)
+# (h1)
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+ (h1)
+Under-the-hood documentation for developers (h1)
+
+
+(Page path)
+(h1) Under-the-hood documentation for developers
+
+(Segment 2)
+#Under-the-hood documentation for developers (h1)
+
+These documents are intended as a low-level look into NumPy; focused
+towards developers.
+
+.. toctree::
+:maxdepth: 1
+
+internals
+internals.code-explanations
+alignment
+../user/byteswapping
+../user/basics.dispatch
+../user/basics.subclassing
+
+
+
+--------------------------------------------------------------------------------

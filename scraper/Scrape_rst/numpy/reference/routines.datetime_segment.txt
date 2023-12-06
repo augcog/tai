@@ -1,0 +1,16 @@
+Parsed Headers, Levels and Contents:
+h1: Business day functions
+Contents:
+  
+  .. currentmodule:: numpy
+  
+  .. autosummary::
+  :toctree: generated/
+  
+  busdaycalendar
+  is_busday
+  busday_offset
+  busday_count
+
+=====================================
+

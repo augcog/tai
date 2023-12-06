@@ -1,0 +1,59 @@
+Segment 1
+#Built-in typeset plugin (h1)
+
+The typeset plugin allows to preserve the enriched presentation of titles and
+headlines within the navigation and table of contents. This means that code
+blocks, icons, emojis and any other inline formatting can be rendered exactly
+as defined in the page's content.
+
+
+
+##Objective (h2)
+
+
+
+###How it works (h3)
+
+When [building your project], MkDocs extracts the plain text from headlines and
+drops the original formatting. This is generally useful and a good idea, since
+this information is made available to other plugins that might have problems
+when being passed HTML instead of plain text.
+
+However, it also means that the entire formatting is lost.
+
+The plugin hooks into the rendering process, extracts the original headlines,
+and makes them available to be used in templates and plugins. The templates of
+Material for MkDocs use this information to render an enriched version of the
+navigation and table of contents.
+
+  [building your project]: ../creating-your-site.md#building-your-site
+
+
+
+
+----------------------------------------
+Segment 2
+#Built-in typeset plugin (h1)
+
+The typeset plugin allows to preserve the enriched presentation of titles and
+headlines within the navigation and table of contents. This means that code
+blocks, icons, emojis and any other inline formatting can be rendered exactly
+as defined in the page's content.
+
+
+
+##Objective (h2)
+
+
+
+###When to use it (h3)
+
+It's generally recommended to use the plugin, because it is a drop-in solution
+that doesn't require any configuration and is designed to work out of the box.
+Since it doesn't overwrite but only adds information, it's not expected to
+interfere with other plugins.
+
+
+
+
+----------------------------------------

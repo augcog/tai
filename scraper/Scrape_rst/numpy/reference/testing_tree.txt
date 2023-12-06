@@ -1,0 +1,16 @@
+(Table of Contents)
+Testing Guidelines (h1)
+
+
+(Page path)
+(h1) Testing Guidelines
+
+(Segment 1)
+#Testing Guidelines (h1)
+
+.. include:: ../../TESTS.rst
+:start-line: 6
+
+
+
+--------------------------------------------------------------------------------

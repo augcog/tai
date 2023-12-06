@@ -1,0 +1,185 @@
+(Table of Contents)
+Highlights (h1)
+New functions (h1)
+--Allow matmul (`@` operator) to work with object arrays. (h2)
+Compatibility notes (h1)
+--Fix regression in matmul (`@` operator) for boolean types (h2)
+Improvements (h1)
+--Array comparison assertions include maximum differences (h2)
+Contributors (h1)
+Pull requests merged (h1)
+
+
+(Page path)
+(h1) Highlights
+
+(Segment 1)
+#Highlights (h1)
+
+- The ``np.testing.utils`` functions have been updated from 1.19.0-dev0.
+This improves the function documentation and error messages as well
+extending the ``assert_array_compare`` function to additional types.
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Highlights (h1)
+New functions (h1)
+--Allow matmul (`@` operator) to work with object arrays. (h2)
+Compatibility notes (h1)
+--Fix regression in matmul (`@` operator) for boolean types (h2)
+Improvements (h1)
+--Array comparison assertions include maximum differences (h2)
+Contributors (h1)
+Pull requests merged (h1)
+
+
+(Page path)
+(h1) New functions > (h2) Allow matmul (`@` operator) to work with object arrays.
+
+(Segment 2)
+#New functions (h1)
+
+
+##Allow matmul (`@` operator) to work with object arrays. (h2)
+This is an enhancement that was added in NumPy 1.17 and seems reasonable to
+include in the LTS 1.16 release series.
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Highlights (h1)
+New functions (h1)
+--Allow matmul (`@` operator) to work with object arrays. (h2)
+Compatibility notes (h1)
+--Fix regression in matmul (`@` operator) for boolean types (h2)
+Improvements (h1)
+--Array comparison assertions include maximum differences (h2)
+Contributors (h1)
+Pull requests merged (h1)
+
+
+(Page path)
+(h1) Compatibility notes > (h2) Fix regression in matmul (`@` operator) for boolean types
+
+(Segment 3)
+#Compatibility notes (h1)
+
+
+##Fix regression in matmul (`@` operator) for boolean types (h2)
+Booleans were being treated as integers rather than booleans,
+which was a regression from previous behavior.
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Highlights (h1)
+New functions (h1)
+--Allow matmul (`@` operator) to work with object arrays. (h2)
+Compatibility notes (h1)
+--Fix regression in matmul (`@` operator) for boolean types (h2)
+Improvements (h1)
+--Array comparison assertions include maximum differences (h2)
+Contributors (h1)
+Pull requests merged (h1)
+
+
+(Page path)
+(h1) Improvements > (h2) Array comparison assertions include maximum differences
+
+(Segment 4)
+#Improvements (h1)
+
+
+##Array comparison assertions include maximum differences (h2)
+Error messages from array comparison tests such as ``testing.assert_allclose``
+now include "max absolute difference" and "max relative difference," in
+addition to the previous "mismatch" percentage.  This information makes it
+easier to update absolute and relative error tolerances.
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Highlights (h1)
+New functions (h1)
+--Allow matmul (`@` operator) to work with object arrays. (h2)
+Compatibility notes (h1)
+--Fix regression in matmul (`@` operator) for boolean types (h2)
+Improvements (h1)
+--Array comparison assertions include maximum differences (h2)
+Contributors (h1)
+Pull requests merged (h1)
+
+
+(Page path)
+(h1) Contributors
+
+(Segment 5)
+#Contributors (h1)
+
+A total of 10 people contributed to this release.
+
+* CakeWithSteak
+* Charles Harris
+* Chris Burr
+* Eric Wieser
+* Fernando Saravia
+* Lars Grueter
+* Matti Picus
+* Maxwell Aladago
+* Qiming Sun
+* Warren Weckesser
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Highlights (h1)
+New functions (h1)
+--Allow matmul (`@` operator) to work with object arrays. (h2)
+Compatibility notes (h1)
+--Fix regression in matmul (`@` operator) for boolean types (h2)
+Improvements (h1)
+--Array comparison assertions include maximum differences (h2)
+Contributors (h1)
+Pull requests merged (h1)
+
+
+(Page path)
+(h1) Pull requests merged
+
+(Segment 6)
+#Pull requests merged (h1)
+
+A total of 14 pull requests were merged for this release.
+
+* `#14211 <https://github.com/numpy/numpy/pull/14211>`__: BUG: Fix uint-overflow if padding with linear_ramp and negative...
+* `#14275 <https://github.com/numpy/numpy/pull/14275>`__: BUG: fixing to allow unpickling of PY3 pickles from PY2
+* `#14340 <https://github.com/numpy/numpy/pull/14340>`__: BUG: Fix misuse of .names and .fields in various places (backport...
+* `#14423 <https://github.com/numpy/numpy/pull/14423>`__: BUG: test, fix regression in converting to ctypes.
+* `#14434 <https://github.com/numpy/numpy/pull/14434>`__: BUG: Fixed maximum relative error reporting in assert_allclose
+* `#14509 <https://github.com/numpy/numpy/pull/14509>`__: BUG: Fix regression in boolean matmul.
+* `#14686 <https://github.com/numpy/numpy/pull/14686>`__: BUG: properly define PyArray_DescrCheck
+* `#14853 <https://github.com/numpy/numpy/pull/14853>`__: BLD: add 'apt update' to shippable
+* `#14854 <https://github.com/numpy/numpy/pull/14854>`__: BUG: Fix _ctypes class circular reference. (#13808)
+* `#14856 <https://github.com/numpy/numpy/pull/14856>`__: BUG: Fix `np.einsum` errors on Power9 Linux and z/Linux
+* `#14863 <https://github.com/numpy/numpy/pull/14863>`__: BLD: Prevent -flto from optimising long double representation...
+* `#14864 <https://github.com/numpy/numpy/pull/14864>`__: BUG: lib: Fix histogram problem with signed integer arrays.
+* `#15172 <https://github.com/numpy/numpy/pull/15172>`__: ENH: Backport improvements to testing functions.
+* `#15191 <https://github.com/numpy/numpy/pull/15191>`__: REL: Prepare for 1.16.6 release.
+
+
+
+--------------------------------------------------------------------------------

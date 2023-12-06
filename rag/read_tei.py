@@ -15,6 +15,7 @@ from transformers import AutoModel
 from numpy.linalg import norm
 from dotenv import load_dotenv
 load_dotenv()
+print(os.getenv("OPENAI_API_KEY"))
 # history=[]
 # history.append({"role": "system", "content": client.starting_prompt})
 # history.append({"role": "user", "content": message})
@@ -82,7 +83,8 @@ def generate_log(success_retrieve, fail_retrieve,filename=None):
                        f"question:{i[1]}\n")
 
     return os.path.join(folder_path, filename)
-for n in [900,800,700,600,500,400,300,200,100]:
+# for n in [900,800,700,600,500,400,300,200,100]:
+for n in [400]:
     # TODO TECHNIQUE
     # technique = 'none'
     # technique = 'seperate_paragraph'
@@ -126,14 +128,13 @@ for n in [900,800,700,600,500,400,300,200,100]:
     # start=time.time()
     # chroma_client = chromadb.Client()
 
-    os.environ["OPENAI_API_BASE"] = "http://localhost:8000/v1"
-    os.environ["OPENAI_API_KEY"] = "empty"
-
     if model=='local'or model=='zephyr':
         openai.api_key = "empty"
         openai.api_base = "http://localhost:8000/v1"
     elif model=='openai':
+        print(os.getenv("OPENAI_API_KEY"))
         openai.api_key = os.getenv("OPENAI_API_KEY")
+        print(openai.api_key)
     elif model=='cohere':
         co = cohere.Client(os.getenv("COHERE_API_KEY"))
     elif model=='voyage':
@@ -168,24 +169,42 @@ for n in [900,800,700,600,500,400,300,200,100]:
 
     # history = [{"role": "system", "content": system_query_prompt}, {"role": "user", "content": ' In the setup environment step, tools like gdb and valgrind are installed. Can you elaborate on how these tools are used in debugging ROS projects, especially within the MoveIt context?'}]
     # history = [{"role": "system", "content": system_query_prompt}, {"role": "user", "content": 'What is the primary function of rosdep in the context of ROS (Robot Operating System)? Can you explain the significance of initializing rosdep using the commands sudo rosdep init and rosdep update, and why these steps are necessary before you can install any package dependencies?'}]
+    def remove_number(input_str):
+        # Splitting the string by spaces
+        parts = input_str.split(' ')
+
+        # Removing the last part which contains the number in parentheses
+        parts[-1] = parts[-1].split('(')[0]
+
+        # Joining the parts back together
+        output_str = ' '.join(parts)
+
+        return output_str
+
+    # Questions from pkl file
+    with open("questions/zephyr_400_questions.pkl", 'rb') as f:
+        questions = pickle.load(f)
+    for i in questions:
+        print(i)
+    questions = [(remove_number(i[0]),i[1]) for i in questions]
 
     # evaluation
-    questions = [
-        ("Sawyer (Level1) > doc (Level2) > hand_eye_calibration (Level3) > (h1) Hand-Eye Calibration > (h2) Collect Dataset", "Describe the process and significance of capturing a calibration dataset in robot kinematics, the role of the end-effector and calibration target's poses, the utility of multiple samples, and how tools like the 'Calibrate' tab and RViz help in this process."),
-        ("Sawyer (Level1) > doc (Level2) > test_debugging (Level3) > (h1) Debugging Tests > (h2) CI Failures", "How does using Docker help in replicating CI environments locally? Are there any pitfalls or challenges you should be aware of when debugging within a Docker container?"),
-        ("Sawyer (Level1) > doc (Level2) > test_debugging (Level3) > (h1) Debugging Tests > (h2) Run One Test", "When you use the command to run a specific test, e.g., rostest moveit_ros_planning_interface move_group_pick_place_test.test --text, how does this differ from running all tests for a package, and why might you want to focus on a single test rather than all of them?"),
-        ("Sawyer (Level1) > doc (Level2) > opw_kinematics (Level3) > (h1) OPW Kinematics Solver for Industrial Manipulators > (h2) Usage", "What automated feature does the MoveIt Setup Assistant offer in relation to the `kinematics.yaml` file, and how can you access it?"),
-        ("Sawyer (Level1) > doc (Level2) > opw_kinematics (Level3) > (h1) OPW Kinematics Solver for Industrial Manipulators > (h2) Usage", "What is the purpose of the kinematics_solver parameter in the `kinematics.yaml` file, and what should it be replaced with to utilize the `MoveItOPWKinematicsPlugin?`"),
-        ("Sawyer (Level1) > doc (Level2) > opw_kinematics (Level3) > (h1) OPW Kinematics Solver for Industrial Manipulators > (h2) Purpose", "In what situations is this package designed to be a preferable alternative to IK-Fast based solutions?"),
-        ("Sawyer (Level1) > doc (Level2) > planning_scene (Level3) > (h1) Planning Scene > (h2) Running the code", "roslaunch moveit_tutorials planning_scene_tutorial.launch"),
-        ("Sawyer (Level1) > doc (Level2) > move_group_python_interface (Level3) > (h1) Move Group Python Interface > (h2) The Entire Code" , "What is `move_group_python_interface/launch/move_group_python_interface_tutorial.launch` used for?"),
-        ("Sawyer (Level1) > doc (Level2) > bullet_collision_checker (Level3) > (h1) Using Bullet for Collision Checking > (h2) Running the Code > (h3) Continuous Collision Detection", "Describe the process and significance of Continuous Collision Detection (CCD) in the context of Bullet's capabilities."),
-        ("Sawyer (Level1) > doc (Level2) > ikfast (Level3) > (h1) IKFast Kinematics Solver > (h2) Getting Started", "What are the initial steps and considerations for setting up and running the IKFast code generator with MoveIt and OpenRAVE using a docker image, and how can one install the MoveIt IKFast package?"),
-        ("Sawyer (Level1) > doc (Level2) > ikfast (Level3) > (h1) IKFast Kinematics Solver > (h2) Creating the IKFast MoveIt plugin > (h3) Generate IKFast MoveIt plugin", "What is the primary goal of the \"Generate IKFast MoveIt plugin\" section?Where should the given command be issued to generate the IKFast MoveIt plugin?"),
-        ("Sawyer (Level1) > doc (Level2) > planning_with_approximated_constraint_manifolds (Level3) > (h1) Planning with Approximated Constraint Manifolds > (h2) Creating the Constraint Database > (h3) Defining constraints > (h4) PositionConstraint", "What is the PositionConstraint and how does it constrain the Cartesian positions allowed for a link?"),
-        ("Sawyer (Level1) > doc (Level2) > planning_adapters (Level3) > (h1) Planning Adapter Tutorials > (h2) Planning Insights for different motion planners and planners with planning adapters", "Can you explain the significance of the parameter ridge_factor in CHOMP and its role in obstacle avoidance?If one wants to first produce an initial path using STOMP and then optimize it, which planner can be utilized after STOMP?")
-
-    ]
+    # questions = [
+    #     ("Sawyer (Level1) > doc (Level2) > hand_eye_calibration (Level3) > (h1) Hand-Eye Calibration > (h2) Collect Dataset", "Describe the process and significance of capturing a calibration dataset in robot kinematics, the role of the end-effector and calibration target's poses, the utility of multiple samples, and how tools like the 'Calibrate' tab and RViz help in this process."),
+    #     ("Sawyer (Level1) > doc (Level2) > test_debugging (Level3) > (h1) Debugging Tests > (h2) CI Failures", "How does using Docker help in replicating CI environments locally? Are there any pitfalls or challenges you should be aware of when debugging within a Docker container?"),
+    #     ("Sawyer (Level1) > doc (Level2) > test_debugging (Level3) > (h1) Debugging Tests > (h2) Run One Test", "When you use the command to run a specific test, e.g., rostest moveit_ros_planning_interface move_group_pick_place_test.test --text, how does this differ from running all tests for a package, and why might you want to focus on a single test rather than all of them?"),
+    #     ("Sawyer (Level1) > doc (Level2) > opw_kinematics (Level3) > (h1) OPW Kinematics Solver for Industrial Manipulators > (h2) Usage", "What automated feature does the MoveIt Setup Assistant offer in relation to the `kinematics.yaml` file, and how can you access it?"),
+    #     ("Sawyer (Level1) > doc (Level2) > opw_kinematics (Level3) > (h1) OPW Kinematics Solver for Industrial Manipulators > (h2) Usage", "What is the purpose of the kinematics_solver parameter in the `kinematics.yaml` file, and what should it be replaced with to utilize the `MoveItOPWKinematicsPlugin?`"),
+    #     ("Sawyer (Level1) > doc (Level2) > opw_kinematics (Level3) > (h1) OPW Kinematics Solver for Industrial Manipulators > (h2) Purpose", "In what situations is this package designed to be a preferable alternative to IK-Fast based solutions?"),
+    #     ("Sawyer (Level1) > doc (Level2) > planning_scene (Level3) > (h1) Planning Scene > (h2) Running the code", "roslaunch moveit_tutorials planning_scene_tutorial.launch"),
+    #     ("Sawyer (Level1) > doc (Level2) > move_group_python_interface (Level3) > (h1) Move Group Python Interface > (h2) The Entire Code" , "What is `move_group_python_interface/launch/move_group_python_interface_tutorial.launch` used for?"),
+    #     ("Sawyer (Level1) > doc (Level2) > bullet_collision_checker (Level3) > (h1) Using Bullet for Collision Checking > (h2) Running the Code > (h3) Continuous Collision Detection", "Describe the process and significance of Continuous Collision Detection (CCD) in the context of Bullet's capabilities."),
+    #     ("Sawyer (Level1) > doc (Level2) > ikfast (Level3) > (h1) IKFast Kinematics Solver > (h2) Getting Started", "What are the initial steps and considerations for setting up and running the IKFast code generator with MoveIt and OpenRAVE using a docker image, and how can one install the MoveIt IKFast package?"),
+    #     ("Sawyer (Level1) > doc (Level2) > ikfast (Level3) > (h1) IKFast Kinematics Solver > (h2) Creating the IKFast MoveIt plugin > (h3) Generate IKFast MoveIt plugin", "What is the primary goal of the \"Generate IKFast MoveIt plugin\" section?Where should the given command be issued to generate the IKFast MoveIt plugin?"),
+    #     ("Sawyer (Level1) > doc (Level2) > planning_with_approximated_constraint_manifolds (Level3) > (h1) Planning with Approximated Constraint Manifolds > (h2) Creating the Constraint Database > (h3) Defining constraints > (h4) PositionConstraint", "What is the PositionConstraint and how does it constrain the Cartesian positions allowed for a link?"),
+    #     ("Sawyer (Level1) > doc (Level2) > planning_adapters (Level3) > (h1) Planning Adapter Tutorials > (h2) Planning Insights for different motion planners and planners with planning adapters", "Can you explain the significance of the parameter ridge_factor in CHOMP and its role in obstacle avoidance?If one wants to first produce an initial path using STOMP and then optimize it, which planner can be utilized after STOMP?")
+    #
+    # ]
     # questions = [
     #     ("Sawyer_md (Level1) > doc (Level2) > hand_eye_calibration (Level3) > (h1) Hand-Eye Calibration > (h2) Collect Dataset", "Describe the process and significance of capturing a calibration dataset in robot kinematics, the role of the end-effector and calibration target's poses, the utility of multiple samples, and how tools like the 'Calibrate' tab and RViz help in this process."),
     #     ("Sawyer_md (Level1) > doc (Level2) > test_debugging (Level3) > (h1) Debugging Tests > (h2) CI Failures", "How does using Docker help in replicating CI environments locally? Are there any pitfalls or challenges you should be aware of when debugging within a Docker container?"),
@@ -216,7 +235,7 @@ for n in [900,800,700,600,500,400,300,200,100]:
     if technique=='recursive_seperate':
 
         "recursive_seperate_none_openai_embedding_1100.pkl"
-        with open(f'pickle/{technique}_{method}_{model}_embedding_{n}.pkl', 'rb') as f:
+        with open(f'pickle/{technique}_{method}_{model}_embedding_{n}_textbook.pkl', 'rb') as f:
             data_loaded = pickle.load(f)
     else:
         with open(f'pickle/{technique}_{method}_{model}_embedding.pkl', 'rb') as f:
@@ -225,17 +244,7 @@ for n in [900,800,700,600,500,400,300,200,100]:
     id_list = data_loaded['id_list']
     doc_list = data_loaded['doc_list']
     embedding_list = data_loaded['embedding_list']
-    def remove_number(input_str):
-        # Splitting the string by spaces
-        parts = input_str.split(' ')
 
-        # Removing the last part which contains the number in parentheses
-        parts[-1] = parts[-1].split('(')[0]
-
-        # Joining the parts back together
-        output_str = ' '.join(parts)
-
-        return output_str
 
 
 

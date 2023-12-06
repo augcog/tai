@@ -1,0 +1,13 @@
+Parsed Headers, Levels and Contents:
+h1: Using NumPy C-API
+Contents:
+  
+  .. toctree::
+  
+  c-info.how-to-extend
+  c-info.python-as-glue
+  c-info.ufunc-tutorial
+  c-info.beyond-basics
+
+=====================================
+

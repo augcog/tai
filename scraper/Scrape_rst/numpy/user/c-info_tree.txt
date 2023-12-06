@@ -1,0 +1,20 @@
+(Table of Contents)
+Using NumPy C-API (h1)
+
+
+(Page path)
+(h1) Using NumPy C-API
+
+(Segment 1)
+#Using NumPy C-API (h1)
+
+.. toctree::
+
+c-info.how-to-extend
+c-info.python-as-glue
+c-info.ufunc-tutorial
+c-info.beyond-basics
+
+
+
+--------------------------------------------------------------------------------

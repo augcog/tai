@@ -1,0 +1,50 @@
+Parsed Headers, Levels and Contents:
+h1: Sorting, searching, and counting
+Contents:
+  
+  .. currentmodule:: numpy
+  
+  Sorting
+  -------
+  .. autosummary::
+  :toctree: generated/
+  
+  sort
+  lexsort
+  argsort
+  ndarray.sort
+  sort_complex
+  partition
+  argpartition
+  
+
+=====================================
+
+h2: Searching
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  argmax
+  nanargmax
+  argmin
+  nanargmin
+  argwhere
+  nonzero
+  flatnonzero
+  where
+  searchsorted
+  extract
+  
+
+=====================================
+
+h2: Counting
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  count_nonzero
+
+=====================================
+

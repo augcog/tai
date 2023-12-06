@@ -1,0 +1,1867 @@
+ html
+    Writing an action server and client (Python) — ROS 2 Documentation: Galactic  documentation
+        ROS 2 Documentation: Galactic
+          Installation
+            Ubuntu (Debian)
+            Windows (binary)
+            RHEL (RPM)
+            Alternatives
+              Ubuntu (source)
+              Ubuntu (binary)
+              Windows (source)
+              RHEL (source)
+              RHEL (binary)
+              macOS (source)
+              Fedora (source)
+              Latest development (source)
+            Maintain source checkout
+            Testing with pre-release binaries
+            DDS implementations
+              Connext security plugins
+              RTI Connext DDS
+              Eclipse Cyclone DDS
+              GurumNetworks GurumDDS
+              eProsima Fast DDS
+          Distributions
+            Humble Hawksbill (
+              humble
+            )
+              Humble Hawksbill changelog
+            Foxy Fitzroy (
+              foxy
+            )
+            Rolling Ridley (
+              rolling
+            )
+            Development Distribution
+              ROS 2 Iron Irwini (codename âironâ; May, 2023)
+            End-of-Life Distributions
+              Galactic Geochelone (
+                galactic
+              )
+                Galactic Geochelone changelog
+              Eloquent Elusor (
+                eloquent
+              )
+              Dashing Diademata (
+                dashing
+              )
+              Crystal Clemmys (
+                crystal
+              )
+              Bouncy Bolson (
+                bouncy
+              )
+              Ardent Apalone (
+                ardent
+              )
+              Beta 3 (
+                r2b3
+              )
+              Beta 2 (
+                r2b2
+              )
+              Beta 1 (
+                Asphalt
+              )
+              Alphas
+            Development process for a release
+          Tutorials
+            Beginner: CLI tools
+              Configuring environment
+              Using
+                turtlesim
+              and
+                rqt
+              Understanding nodes
+              Understanding topics
+              Understanding services
+              Understanding parameters
+              Understanding actions
+              Using
+                rqt_console
+              to view logs
+              Launching nodes
+              Recording and playing back data
+            Beginner: Client libraries
+              Using
+                colcon
+              to build packages
+              Creating a workspace
+              Creating a package
+              Writing a simple publisher and subscriber (C++)
+              Writing a simple publisher and subscriber (Python)
+              Writing a simple service and client (C++)
+              Writing a simple service and client (Python)
+              Creating custom msg and srv files
+              Implementing custom interfaces
+              Using parameters in a class (C++)
+              Using parameters in a class (Python)
+              Using
+                ros2doctor
+              to identify issues
+              Creating and using plugins (C++)
+            Intermediate
+              Managing Dependencies with rosdep
+              Creating an action
+              Writing an action server and client (C++)
+              Writing an action server and client (Python)
+              Composing multiple nodes in a single process
+              Monitoring for parameter changes (C++)
+              Launch
+                Creating a launch file
+                Integrating launch files into ROS 2 packages
+                Using substitutions
+                Using event handlers
+                Managing large projects
+                tf2
+                Introducing
+                  tf2
+                Writing a static broadcaster (Python)
+                Writing a static broadcaster (C++)
+                Writing a broadcaster (Python)
+                Writing a broadcaster (C++)
+                Writing a listener (Python)
+                Writing a listener (C++)
+                Adding a frame (Python)
+                Adding a frame (C++)
+                Using time (Python)
+                Using time (C++)
+                Traveling in time (Python)
+                Traveling in time (C++)
+                Debugging
+                Quaternion fundamentals
+                Using stamped datatypes with
+                  tf2_ros::MessageFilter
+              Testing
+                Running Tests in ROS 2 from the Command Line
+                Writing Basic Tests with Python
+              URDF
+                Building a visual robot model from scratch
+                Building a movable robot model
+                Adding physical and collision properties
+                Using Xacro to clean up your code
+                Using URDF with
+                  robot_state_publisher
+            Advanced
+              Enabling topic statistics (C++)
+              Using Fast DDS Discovery Server as discovery protocol [community-contributed]
+              Implementing a custom memory allocator
+              Unlocking the potential of Fast DDS middleware [community-contributed]
+              Recording a bag from a node (C++)
+              Recording a bag from a node (Python)
+              Simulation
+                Setting up a robot simulation (Webots)
+                Setting up a robot simulation (Ignition Gazebo)
+            Demos
+              Using quality-of-service settings for lossy networks
+              Managing nodes with managed lifecycles
+              Setting up efficient intra-process communication
+              Recording and playing back data with
+                rosbag
+              using the ROS 1 bridge
+              Understanding real-time programming
+              Experimenting with a dummy robot
+              Logging
+            Miscellaneous
+              Deploying on IBM Cloud Kubernetes [community-contributed]
+              Using Eclipse Oxygen with
+                rviz2
+              [community-contributed]
+              Building a real-time Linux kernel [community-contributed]
+              Building a package with Eclipse 2021-06
+          How-to Guides
+            Installation troubleshooting
+            Developing a ROS 2 package
+            ament_cmake user documentation
+            ament_cmake_python user documentation
+            Migrating launch files from ROS 1 to ROS 2
+            Using Python, XML, and YAML for ROS 2 Launch Files
+            Using ROS 2 launch to launch composable nodes
+            Migrating YAML parameter files from ROS 1 to ROS 2
+            Passing ROS arguments to nodes via the command-line
+            Synchronous vs. asynchronous service clients
+            DDS tuning information
+            rosbag2: Overriding QoS Policies
+            Working with multiple ROS 2 middleware implementations
+            Cross-compilation
+            Releasing a Package
+              First Time Release
+              Subsequent Releases
+              Release Team / Repository
+              Release Track
+            Using Python Packages with ROS 2
+            Porting RQt plugins to Windows
+            Running ROS 2 nodes in Docker [community-contributed]
+            Visualizing ROS 2 data with Foxglove Studio
+            ROS 2 Package Maintainer Guide
+            Building a custom Debian package
+            Building ROS 2 with tracing instrumentation
+            Topics vs Services vs Actions
+            Using variants
+            Using the
+              ros2
+              param
+            command-line tool
+            ROS 2 on Raspberry Pi
+            Using Callback Groups
+            Building RQt from source
+              Building RQt from source on macOS
+              Building RQt from source on Windows 10
+          Concepts
+            The ROS_DOMAIN_ID
+            About different ROS 2 DDS/RTPS vendors
+            About logging and logger configuration
+            About Quality of Service settings
+            About ROS 2 client libraries
+            About ROS 2 interfaces
+            About parameters in ROS 2
+            Executors
+            About topic statistics
+            Introspection with command line tools
+            Overview and usage of RQt
+            About Composition
+            On the mixing of ament and catkin (catment)
+            About Cross-compilation
+            About tf2
+            About the build system
+            About internal ROS 2 interfaces
+            About ROS 2 middleware implementations
+            About ROS 2 client libraries
+          Contact
+          The ROS 2 Project
+            Contributing
+              ROS 2 developer guide
+              Code style and language versions
+              Quality guide: ensuring code quality
+              Migration guide from ROS 1
+                Python migration guide from ROS 1
+              ROS Build Farms
+              Windows Tips and Tricks
+              Contributing to ROS 2 Documentation
+            Features Status
+            Feature Ideas
+            Roadmap
+            ROSCon Talks
+            Project Governance
+              ROS 2 Technical Steering Committee Charter
+              ROS 2 TSC applicant intake process
+              How to Start a Community Working Group
+            Marketing
+          Related Projects
+            Intel ROS 2 Projects
+            NVIDIA ROS 2 Projects
+          Glossary
+          Citations
+       ROS 2 Documentation: Galactic
+          »
+           Tutorials
+          »
+           Intermediate
+          »
+          Writing an action server and client (Python)
+           Edit on GitHub
+           You're reading the documentation for a version of ROS 2 that has reached its EOL (end-of-life), and is no longer officially supported.
+    If you want up-to-date information, please have a look at
+            Iron
+           .
+           Writing an action server and client (Python)
+            ï
+            Goal:
+           Implement an action server and client in Python.
+            Tutorial level:
+           Intermediate
+            Time:
+           15 minutes
+            Contents
+               Background
+               Prerequisites
+               Tasks
+                 1 Writing an action server
+                 2 Writing an action client
+               Summary
+               Related content
+             Background
+             ï
+            Actions are a form of asynchronous communication in ROS 2.
+             Action clients
+            send goal requests to
+             action servers
+            .
+             Action servers
+            send goal feedback and results to
+             action clients
+            .
+             Prerequisites
+             ï
+            You will need the
+              action_tutorials_interfaces
+            package and the
+              Fibonacci.action
+            interface defined in the previous tutorial,
+              Creating an action
+            .
+             Tasks
+             ï
+              1 Writing an action server
+              ï
+             Letâs focus on writing an action server that computes the Fibonacci sequence
+using the action we created in the
+               Creating an action
+             tutorial.
+             Until now, youâve created packages and used
+               ros2
+               run
+             to run your nodes.
+To keep things simple in this tutorial, however, weâll scope the action server to a single file.
+If youâd like to see what a complete package for the actions tutorials looks like, check out
+              action_tutorials
+             .
+             Open a new file in your home directory, letâs call it
+               fibonacci_action_server.py
+             ,
+and add the following code:
+                import
+                rclpy
+                from
+                rclpy.action
+                import
+                ActionServer
+                from
+                rclpy.node
+                import
+                Node
+                from
+                action_tutorials_interfaces.action
+                import
+                Fibonacci
+                class
+                FibonacciActionServer
+                (
+                Node
+                ):
+                def
+                __init__
+                (
+                self
+                ):
+                super
+                ()
+                .
+                __init__
+                (
+                'fibonacci_action_server'
+                )
+                self
+                .
+                _action_server
+                =
+                ActionServer
+                (
+                self
+                ,
+                Fibonacci
+                ,
+                'fibonacci'
+                ,
+                self
+                .
+                execute_callback
+                )
+                def
+                execute_callback
+                (
+                self
+                ,
+                goal_handle
+                ):
+                self
+                .
+                get_logger
+                ()
+                .
+                info
+                (
+                'Executing goal...'
+                )
+                result
+                =
+                Fibonacci
+                .
+                Result
+                ()
+                return
+                result
+                def
+                main
+                (
+                args
+                =
+                None
+                ):
+                rclpy
+                .
+                init
+                (
+                args
+                =
+                args
+                )
+                fibonacci_action_server
+                =
+                FibonacciActionServer
+                ()
+                rclpy
+                .
+                spin
+                (
+                fibonacci_action_server
+                )
+                if
+                __name__
+                ==
+                '__main__'
+                :
+                main
+                ()
+             Line 8 defines a class
+               FibonacciActionServer
+             that is a subclass of
+               Node
+             .
+The class is initialized by calling the
+               Node
+             constructor, naming our node
+               fibonacci_action_server
+             :
+                super
+                ()
+                .
+                __init__
+                (
+                'fibonacci_action_server'
+                )
+             In the constructor we also instantiate a new action server:
+                self
+                .
+                _action_server
+                =
+                ActionServer
+                (
+                self
+                ,
+                Fibonacci
+                ,
+                'fibonacci'
+                ,
+                self
+                .
+                execute_callback
+                )
+             An action server requires four arguments:
+               A ROS 2 node to add the action client to:
+                 self
+               .
+               The type of the action:
+                 Fibonacci
+               (imported in line 5).
+               The action name:
+                 'fibonacci'
+               .
+               A callback function for executing accepted goals:
+                 self.execute_callback
+               .
+This callback
+                must
+               return a result message for the action type.
+             We also define an
+               execute_callback
+             method in our class:
+                def
+                execute_callback
+                (
+                self
+                ,
+                goal_handle
+                ):
+                self
+                .
+                get_logger
+                ()
+                .
+                info
+                (
+                'Executing goal...'
+                )
+                result
+                =
+                Fibonacci
+                .
+                Result
+                ()
+                return
+                result
+             This is the method that will be called to execute a goal once it is accepted.
+             Letâs try running our action server:
+               Linux
+               macOS
+               Windows
+                 python3 fibonacci_action_server.py
+                 python3 fibonacci_action_server.py
+                 python fibonacci_action_server.py
+             In another terminal, we can use the command line interface to send a goal:
+               ros2 action send_goal fibonacci action_tutorials_interfaces/action/Fibonacci
+                "{order: 5}"
+             In the terminal that is running the action server, you should see a logged message âExecuting goalâ¦â followed by a warning that the goal state was not set.
+By default, if the goal handle state is not set in the execute callback it assumes the
+              aborted
+             state.
+             We can use the method
+              succeed()
+             on the goal handle to indicate that the goal was successful:
+                def
+                execute_callback
+                (
+                self
+                ,
+                goal_handle
+                ):
+                self
+                .
+                get_logger
+                ()
+                .
+                info
+                (
+                'Executing goal...'
+                )
+                 goal_handle
+                 .
+                 succeed
+                 ()
+                result
+                =
+                Fibonacci
+                .
+                Result
+                ()
+                return
+                result
+             Now if you restart the action server and send another goal, you should see the goal finished with the status
+               SUCCEEDED
+             .
+             Now letâs make our goal execution actually compute and return the requested Fibonacci sequence:
+                def
+                execute_callback
+                (
+                self
+                ,
+                goal_handle
+                ):
+                self
+                .
+                get_logger
+                ()
+                .
+                info
+                (
+                'Executing goal...'
+                )
+                 sequence
+                 =
+                 [
+                 0
+                 ,
+                 1
+                 ]
+                 for
+                 i
+                 in
+                 range
+                 (
+                 1
+                 ,
+                 goal_handle
+                 .
+                 request
+                 .
+                 order
+                 ):
+                 sequence
+                 .
+                 append
+                 (
+                 sequence
+                 [
+                 i
+                 ]
+                 +
+                 sequence
+                 [
+                 i
+                 -
+                 1
+                 ])
+                goal_handle
+                .
+                succeed
+                ()
+                result
+                =
+                Fibonacci
+                .
+                Result
+                ()
+                 result
+                 .
+                 sequence
+                 =
+                 sequence
+                return
+                result
+             After computing the sequence, we assign it to the result message field before returning.
+             Again, restart the action server and send another goal.
+You should see the goal finish with the proper result sequence.
+              1.2 Publishing feedback
+               ï
+              One of the nice things about actions is the ability to provide feedback to an action client during goal execution.
+We can make our action server publish feedback for action clients by calling the goal handleâs
+               publish_feedback()
+              method.
+              Weâll replace the
+                sequence
+              variable, and use a feedback message to store the sequence instead.
+After every update of the feedback message in the for-loop, we publish the feedback message and sleep for dramatic effect:
+                  import
+                  time
+                 import
+                 rclpy
+                 from
+                 rclpy.action
+                 import
+                 ActionServer
+                 from
+                 rclpy.node
+                 import
+                 Node
+                 from
+                 action_tutorials_interfaces.action
+                 import
+                 Fibonacci
+                 class
+                 FibonacciActionServer
+                 (
+                 Node
+                 ):
+                 def
+                 __init__
+                 (
+                 self
+                 ):
+                 super
+                 ()
+                 .
+                 __init__
+                 (
+                 'fibonacci_action_server'
+                 )
+                 self
+                 .
+                 _action_server
+                 =
+                 ActionServer
+                 (
+                 self
+                 ,
+                 Fibonacci
+                 ,
+                 'fibonacci'
+                 ,
+                 self
+                 .
+                 execute_callback
+                 )
+                 def
+                 execute_callback
+                 (
+                 self
+                 ,
+                 goal_handle
+                 ):
+                 self
+                 .
+                 get_logger
+                 ()
+                 .
+                 info
+                 (
+                 'Executing goal...'
+                 )
+                  feedback_msg
+                  =
+                  Fibonacci
+                  .
+                  Feedback
+                  ()
+                  feedback_msg
+                  .
+                  partial_sequence
+                  =
+                  [
+                  0
+                  ,
+                  1
+                  ]
+                 for
+                 i
+                 in
+                 range
+                 (
+                 1
+                 ,
+                 goal_handle
+                 .
+                 request
+                 .
+                 order
+                 ):
+                  feedback_msg
+                  .
+                  partial_sequence
+                  .
+                  append
+                  (
+                  feedback_msg
+                  .
+                  partial_sequence
+                  [
+                  i
+                  ]
+                  +
+                  feedback_msg
+                  .
+                  partial_sequence
+                  [
+                  i
+                  -
+                  1
+                  ])
+                  self
+                  .
+                  get_logger
+                  ()
+                  .
+                  info
+                  (
+                  'Feedback:
+                  {0}
+                  '
+                  .
+                  format
+                  (
+                  feedback_msg
+                  .
+                  partial_sequence
+                  ))
+                  goal_handle
+                  .
+                  publish_feedback
+                  (
+                  feedback_msg
+                  )
+                  time
+                  .
+                  sleep
+                  (
+                  1
+                  )
+                 goal_handle
+                 .
+                 succeed
+                 ()
+                 result
+                 =
+                 Fibonacci
+                 .
+                 Result
+                 ()
+                  result
+                  .
+                  sequence
+                  =
+                  feedback_msg
+                  .
+                  partial_sequence
+                 return
+                 result
+                 def
+                 main
+                 (
+                 args
+                 =
+                 None
+                 ):
+                 rclpy
+                 .
+                 init
+                 (
+                 args
+                 =
+                 args
+                 )
+                 fibonacci_action_server
+                 =
+                 FibonacciActionServer
+                 ()
+                 rclpy
+                 .
+                 spin
+                 (
+                 fibonacci_action_server
+                 )
+                 if
+                 __name__
+                 ==
+                 '__main__'
+                 :
+                 main
+                 ()
+              After restarting the action server, we can confirm that feedback is now published by using the command line tool with the
+                --feedback
+              option:
+                ros2 action send_goal --feedback fibonacci action_tutorials_interfaces/action/Fibonacci
+                 "{order: 5}"
+              2 Writing an action client
+              ï
+             Weâll also scope the action client to a single file.
+Open a new file, letâs call it
+               fibonacci_action_client.py
+             , and add the following boilerplate code:
+                import
+                rclpy
+                from
+                rclpy.action
+                import
+                ActionClient
+                from
+                rclpy.node
+                import
+                Node
+                from
+                action_tutorials_interfaces.action
+                import
+                Fibonacci
+                class
+                FibonacciActionClient
+                (
+                Node
+                ):
+                def
+                __init__
+                (
+                self
+                ):
+                super
+                ()
+                .
+                __init__
+                (
+                'fibonacci_action_client'
+                )
+                self
+                .
+                _action_client
+                =
+                ActionClient
+                (
+                self
+                ,
+                Fibonacci
+                ,
+                'fibonacci'
+                )
+                def
+                send_goal
+                (
+                self
+                ,
+                order
+                ):
+                goal_msg
+                =
+                Fibonacci
+                .
+                Goal
+                ()
+                goal_msg
+                .
+                order
+                =
+                order
+                self
+                .
+                _action_client
+                .
+                wait_for_server
+                ()
+                return
+                self
+                .
+                _action_client
+                .
+                send_goal_async
+                (
+                goal_msg
+                )
+                def
+                main
+                (
+                args
+                =
+                None
+                ):
+                rclpy
+                .
+                init
+                (
+                args
+                =
+                args
+                )
+                action_client
+                =
+                FibonacciActionClient
+                ()
+                future
+                =
+                action_client
+                .
+                send_goal
+                (
+                10
+                )
+                rclpy
+                .
+                spin_until_future_complete
+                (
+                action_client
+                ,
+                future
+                )
+                if
+                __name__
+                ==
+                '__main__'
+                :
+                main
+                ()
+             Weâve defined a class
+               FibonacciActionClient
+             that is a subclass of
+               Node
+             .
+The class is initialized by calling the
+               Node
+             constructor, naming our node
+               fibonacci_action_client
+             :
+                super
+                ()
+                .
+                __init__
+                (
+                'fibonacci_action_client'
+                )
+             Also in the class constructor, we create an action client using the custom action definition from the previous tutorial on
+               Creating an action
+             :
+                self
+                .
+                _action_client
+                =
+                ActionClient
+                (
+                self
+                ,
+                Fibonacci
+                ,
+                'fibonacci'
+                )
+             We create an
+               ActionClient
+             by passing it three arguments:
+               A ROS 2 node to add the action client to:
+                 self
+               The type of the action:
+                 Fibonacci
+               The action name:
+                 'fibonacci'
+             Our action client will be able to communicate with action servers of the same action name and type.
+             We also define a method
+               send_goal
+             in the
+               FibonacciActionClient
+             class:
+                def
+                send_goal
+                (
+                self
+                ,
+                order
+                ):
+                goal_msg
+                =
+                Fibonacci
+                .
+                Goal
+                ()
+                goal_msg
+                .
+                order
+                =
+                order
+                self
+                .
+                _action_client
+                .
+                wait_for_server
+                ()
+                return
+                self
+                .
+                _action_client
+                .
+                send_goal_async
+                (
+                goal_msg
+                )
+             This method waits for the action server to be available, then sends a goal to the server.
+It returns a future that we can later wait on.
+             After the class definition, we define a function
+               main()
+             that initializes ROS 2
+and creates an instance of our
+               FibonacciActionClient
+             node.
+It then sends a goal and waits until that goal has been completed.
+             Finally, we call
+               main()
+             in the entry point of our Python program.
+             Letâs test our action client by first running the action server built earlier:
+               Linux
+               macOS
+               Windows
+                 python3 fibonacci_action_server.py
+                 python3 fibonacci_action_server.py
+                 python fibonacci_action_server.py
+             In another terminal, run the action client:
+               Linux
+               macOS
+               Windows
+                 python3 fibonacci_action_client.py
+                 python3 fibonacci_action_client.py
+                 python fibonacci_action_client.py
+             You should see messages printed by the action server as it successfully executes the goal:
+                [
+               INFO
+                ]
+                [
+               fibonacci_action_server
+                ]
+               : Executing goal...
+                [
+               INFO
+                ]
+                [
+               fibonacci_action_server
+                ]
+               : Feedback: array
+                (
+                'i'
+               ,
+                [
+                0
+               ,
+                1
+               ,
+                1
+                ])
+                [
+               INFO
+                ]
+                [
+               fibonacci_action_server
+                ]
+               : Feedback: array
+                (
+                'i'
+               ,
+                [
+                0
+               ,
+                1
+               ,
+                1
+               ,
+                2
+                ])
+                [
+               INFO
+                ]
+                [
+               fibonacci_action_server
+                ]
+               : Feedback: array
+                (
+                'i'
+               ,
+                [
+                0
+               ,
+                1
+               ,
+                1
+               ,
+                2
+               ,
+                3
+                ])
+                [
+               INFO
+                ]
+                [
+               fibonacci_action_server
+                ]
+               : Feedback: array
+                (
+                'i'
+               ,
+                [
+                0
+               ,
+                1
+               ,
+                1
+               ,
+                2
+               ,
+                3
+               ,
+                5
+                ])
+                # etc.
+             The action client should start up, and then quickly finish.
+At this point, we have a functioning action client, but we donât see any results or get any feedback.
+              2.1 Getting a result
+               ï
+              So we can send a goal, but how do we know when it is completed?
+We can get the result information with a couple steps.
+First, we need to get a goal handle for the goal we sent.
+Then, we can use the goal handle to request the result.
+              Hereâs the complete code for this example:
+                 import
+                 rclpy
+                 from
+                 rclpy.action
+                 import
+                 ActionClient
+                 from
+                 rclpy.node
+                 import
+                 Node
+                 from
+                 action_tutorials_interfaces.action
+                 import
+                 Fibonacci
+                 class
+                 FibonacciActionClient
+                 (
+                 Node
+                 ):
+                 def
+                 __init__
+                 (
+                 self
+                 ):
+                 super
+                 ()
+                 .
+                 __init__
+                 (
+                 'fibonacci_action_client'
+                 )
+                 self
+                 .
+                 _action_client
+                 =
+                 ActionClient
+                 (
+                 self
+                 ,
+                 Fibonacci
+                 ,
+                 'fibonacci'
+                 )
+                 def
+                 send_goal
+                 (
+                 self
+                 ,
+                 order
+                 ):
+                 goal_msg
+                 =
+                 Fibonacci
+                 .
+                 Goal
+                 ()
+                 goal_msg
+                 .
+                 order
+                 =
+                 order
+                 self
+                 .
+                 _action_client
+                 .
+                 wait_for_server
+                 ()
+                 self
+                 .
+                 _send_goal_future
+                 =
+                 self
+                 .
+                 _action_client
+                 .
+                 send_goal_async
+                 (
+                 goal_msg
+                 )
+                 self
+                 .
+                 _send_goal_future
+                 .
+                 add_done_callback
+                 (
+                 self
+                 .
+                 goal_response_callback
+                 )
+                 def
+                 goal_response_callback
+                 (
+                 self
+                 ,
+                 future
+                 ):
+                 goal_handle
+                 =
+                 future
+                 .
+                 result
+                 ()
+                 if
+                 not
+                 goal_handle
+                 .
+                 accepted
+                 :
+                 self
+                 .
+                 get_logger
+                 ()
+                 .
+                 info
+                 (
+                 'Goal rejected :('
+                 )
+                 return
+                 self
+                 .
+                 get_logger
+                 ()
+                 .
+                 info
+                 (
+                 'Goal accepted :)'
+                 )
+                 self
+                 .
+                 _get_result_future
+                 =
+                 goal_handle
+                 .
+                 get_result_async
+                 ()
+                 self
+                 .
+                 _get_result_future
+                 .
+                 add_done_callback
+                 (
+                 self
+                 .
+                 get_result_callback
+                 )
+                 def
+                 get_result_callback
+                 (
+                 self
+                 ,
+                 future
+                 ):
+                 result
+                 =
+                 future
+                 .
+                 result
+                 ()
+                 .
+                 result
+                 self
+                 .
+                 get_logger
+                 ()
+                 .
+                 info
+                 (
+                 'Result:
+                 {0}
+                 '
+                 .
+                 format
+                 (
+                 result
+                 .
+                 sequence
+                 ))
+                 rclpy
+                 .
+                 shutdown
+                 ()
+                 def
+                 main
+                 (
+                 args
+                 =
+                 None
+                 ):
+                 rclpy
+                 .
+                 init
+                 (
+                 args
+                 =
+                 args
+                 )
+                 action_client
+                 =
+                 FibonacciActionClient
+                 ()
+                 action_client
+                 .
+                 send_goal
+                 (
+                 10
+                 )
+                 rclpy
+                 .
+                 spin
+                 (
+                 action_client
+                 )
+                 if
+                 __name__
+                 ==
+                 '__main__'
+                 :
+                 main
+                 ()
+              The
+               ActionClient.send_goal_async()
+              method returns a future to a goal handle.
+First we register a callback for when the future is complete:
+                 self
+                 .
+                 _send_goal_future
+                 .
+                 add_done_callback
+                 (
+                 self
+                 .
+                 goal_response_callback
+                 )
+              Note that the future is completed when an action server accepts or rejects the goal request.
+Letâs look at the
+                goal_response_callback
+              in more detail.
+We can check to see if the goal was rejected and return early since we know there will be no result:
+                 def
+                 goal_response_callback
+                 (
+                 self
+                 ,
+                 future
+                 ):
+                 goal_handle
+                 =
+                 future
+                 .
+                 result
+                 ()
+                 if
+                 not
+                 goal_handle
+                 .
+                 accepted
+                 :
+                 self
+                 .
+                 get_logger
+                 ()
+                 .
+                 info
+                 (
+                 'Goal rejected :('
+                 )
+                 return
+                 self
+                 .
+                 get_logger
+                 ()
+                 .
+                 info
+                 (
+                 'Goal accepted :)'
+                 )
+              Now that weâve got a goal handle, we can use it to request the result with the method
+               get_result_async()
+              .
+Similar to sending the goal, we will get a future that will complete when the result is ready.
+Letâs register a callback just like we did for the goal response:
+                 self
+                 .
+                 _get_result_future
+                 =
+                 goal_handle
+                 .
+                 get_result_async
+                 ()
+                 self
+                 .
+                 _get_result_future
+                 .
+                 add_done_callback
+                 (
+                 self
+                 .
+                 get_result_callback
+                 )
+              In the callback, we log the result sequence and shutdown ROS 2 for a clean exit:
+                 def
+                 get_result_callback
+                 (
+                 self
+                 ,
+                 future
+                 ):
+                 result
+                 =
+                 future
+                 .
+                 result
+                 ()
+                 .
+                 result
+                 self
+                 .
+                 get_logger
+                 ()
+                 .
+                 info
+                 (
+                 'Result:
+                 {0}
+                 '
+                 .
+                 format
+                 (
+                 result
+                 .
+                 sequence
+                 ))
+                 rclpy
+                 .
+                 shutdown
+                 ()
+              With an action server running in a separate terminal, go ahead and try running our Fibonacci action client!
+                Linux
+                macOS
+                Windows
+                  python3 fibonacci_action_client.py
+                  python3 fibonacci_action_client.py
+                  python fibonacci_action_client.py
+              You should see logged messages for the goal being accepted and the final result.
+              2.2 Getting feedback
+               ï
+              Our action client can send goals.
+Nice!
+But it would be great if we could get some feedback about the goals we send from the action server.
+              Hereâs the complete code for this example:
+                 import
+                 rclpy
+                 from
+                 rclpy.action
+                 import
+                 ActionClient
+                 from
+                 rclpy.node
+                 import
+                 Node
+                 from
+                 action_tutorials_interfaces.action
+                 import
+                 Fibonacci
+                 class
+                 FibonacciActionClient
+                 (
+                 Node
+                 ):
+                 def
+                 __init__
+                 (
+                 self
+                 ):
+                 super
+                 ()
+                 .
+                 __init__
+                 (
+                 'fibonacci_action_client'
+                 )
+                 self
+                 .
+                 _action_client
+                 =
+                 ActionClient
+                 (
+                 self
+                 ,
+                 Fibonacci
+                 ,
+                 'fibonacci'
+                 )
+                 def
+                 send_goal
+                 (
+                 self
+                 ,
+                 order
+                 ):
+                 goal_msg
+                 =
+                 Fibonacci
+                 .
+                 Goal
+                 ()
+                 goal_msg
+                 .
+                 order
+                 =
+                 order
+                 self
+                 .
+                 _action_client
+                 .
+                 wait_for_server
+                 ()
+                 self
+                 .
+                 _send_goal_future
+                 =
+                 self
+                 .
+                 _action_client
+                 .
+                 send_goal_async
+                 (
+                 goal_msg
+                 ,
+                 feedback_callback
+                 =
+                 self
+                 .
+                 feedback_callback
+                 )
+                 self
+                 .
+                 _send_goal_future
+                 .
+                 add_done_callback
+                 (
+                 self
+                 .
+                 goal_response_callback
+                 )
+                 def
+                 goal_response_callback
+                 (
+                 self
+                 ,
+                 future
+                 ):
+                 goal_handle
+                 =
+                 future
+                 .
+                 result
+                 ()
+                 if
+                 not
+                 goal_handle
+                 .
+                 accepted
+                 :
+                 self
+                 .
+                 get_logger
+                 ()
+                 .
+                 info
+                 (
+                 'Goal rejected :('
+                 )
+                 return
+                 self
+                 .
+                 get_logger
+                 ()
+                 .
+                 info
+                 (
+                 'Goal accepted :)'
+                 )
+                 self
+                 .
+                 _get_result_future
+                 =
+                 goal_handle
+                 .
+                 get_result_async
+                 ()
+                 self
+                 .
+                 _get_result_future
+                 .
+                 add_done_callback
+                 (
+                 self
+                 .
+                 get_result_callback
+                 )
+                 def
+                 get_result_callback
+                 (
+                 self
+                 ,
+                 future
+                 ):
+                 result
+                 =
+                 future
+                 .
+                 result
+                 ()
+                 .
+                 result
+                 self
+                 .
+                 get_logger
+                 ()
+                 .
+                 info
+                 (
+                 'Result:
+                 {0}
+                 '
+                 .
+                 format
+                 (
+                 result
+                 .
+                 sequence
+                 ))
+                 rclpy
+                 .
+                 shutdown
+                 ()
+                 def
+                 feedback_callback
+                 (
+                 self
+                 ,
+                 feedback_msg
+                 ):
+                 feedback
+                 =
+                 feedback_msg
+                 .
+                 feedback
+                 self
+                 .
+                 get_logger
+                 ()
+                 .
+                 info
+                 (
+                 'Received feedback:
+                 {0}
+                 '
+                 .
+                 format
+                 (
+                 feedback
+                 .
+                 partial_sequence
+                 ))
+                 def
+                 main
+                 (
+                 args
+                 =
+                 None
+                 ):
+                 rclpy
+                 .
+                 init
+                 (
+                 args
+                 =
+                 args
+                 )
+                 action_client
+                 =
+                 FibonacciActionClient
+                 ()
+                 action_client
+                 .
+                 send_goal
+                 (
+                 10
+                 )
+                 rclpy
+                 .
+                 spin
+                 (
+                 action_client
+                 )
+                 if
+                 __name__
+                 ==
+                 '__main__'
+                 :
+                 main
+                 ()
+              Hereâs the callback function for feedback messages:
+                 def
+                 feedback_callback
+                 (
+                 self
+                 ,
+                 feedback_msg
+                 ):
+                 feedback
+                 =
+                 feedback_msg
+                 .
+                 feedback
+                 self
+                 .
+                 get_logger
+                 ()
+                 .
+                 info
+                 (
+                 'Received feedback:
+                 {0}
+                 '
+                 .
+                 format
+                 (
+                 feedback
+                 .
+                 partial_sequence
+                 ))
+              In the callback we get the feedback portion of the message and print the
+                partial_sequence
+              field to the screen.
+              We need to register the callback with the action client.
+This is achieved by additionally passing the callback to the action client when we send a goal:
+                 self
+                 .
+                 _send_goal_future
+                 =
+                 self
+                 .
+                 _action_client
+                 .
+                 send_goal_async
+                 (
+                 goal_msg
+                 ,
+                 feedback_callback
+                 =
+                 self
+                 .
+                 feedback_callback
+                 )
+              Weâre all set. If we run our action client, you should see feedback being printed to the screen.
+             Summary
+             ï
+            In this tutorial, you put together a Python action server and action client line by line, and configured them to exchange goals, feedback, and results.
+             Related content
+             ï
+              There are several ways you could write an action server and client in Python; check out the
+                minimal_action_server
+              and
+                minimal_action_client
+              packages in the
+               ros2/examples
+              repo.
+              For more detailed information about ROS actions, please refer to the
+               design article
+              .
+          Previous
+          Next
+          © Copyright 2023, Open Robotics.
+        Built with
+         Sphinx
+        using a
+         theme
+        provided by
+         Read the Docs
+        .
+      Other Versions
+     v: galactic
+       Releases
+        Iron (latest)
+        Humble
+        Galactic (EOL)
+        Foxy (EOL)
+        Eloquent (EOL)
+        Dashing (EOL)
+        Crystal (EOL)
+       In Development
+        Rolling
+    jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+   Theme Analytics
+    window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-EVD5Z6G6NH', {
+          'anonymize_ip': false,
+      });

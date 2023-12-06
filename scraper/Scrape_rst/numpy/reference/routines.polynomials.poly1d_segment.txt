@@ -1,0 +1,52 @@
+Parsed Headers, Levels and Contents:
+h1: Poly1d
+Contents:
+  
+  .. currentmodule:: numpy
+  
+  Basics
+  ------
+  .. autosummary::
+  :toctree: generated/
+  
+  poly1d
+  polyval
+  poly
+  roots
+  
+
+=====================================
+
+h2: Fitting
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  polyfit
+  
+
+=====================================
+
+h2: Calculus
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  polyder
+  polyint
+  
+
+=====================================
+
+h2: Arithmetic
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  polyadd
+  polydiv
+  polymul
+  polysub
+
+=====================================
+

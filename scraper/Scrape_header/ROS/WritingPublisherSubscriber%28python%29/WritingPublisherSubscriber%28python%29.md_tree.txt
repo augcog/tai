@@ -1,0 +1,740 @@
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Writing a Simple Publisher and Subscriber (Python) (h1)
+--Writing the Publisher Node (h2)
+----The Code (h3)
+----The Code Explained (h3)
+--Writing the Subscriber Node (h2)
+--Building your nodes (h2)
+----Additional Resources (h3)
+--Video Demonstration (h2)
+
+
+(Page path)
+(1)  > (2)  > (3)  > (4) ROS 2 Documentation
+
+(Segment 1)
+# (h1)
+[]
+## (h2)
+[]
+### (h3)
+[]
+####ROS 2 Documentation (h4)
+
+The ROS Wiki is for ROS 1. Are you using ROS 2 ([Humble](http://docs.ros.org/en/humble/ "http://docs.ros.org/en/humble/"), [Iron](http://docs.ros.org/en/iron/ "http://docs.ros.org/en/iron/"), or [Rolling](http://docs.ros.org/en/rolling/ "http://docs.ros.org/en/rolling/"))?   
+[Check out the ROS 2 Project Documentation](http://docs.ros.org "http://docs.ros.org")  
+Package specific documentation can be found on [index.ros.org](https://index.ros.org "https://index.ros.org")
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Writing a Simple Publisher and Subscriber (Python) (h1)
+--Writing the Publisher Node (h2)
+----The Code (h3)
+----The Code Explained (h3)
+--Writing the Subscriber Node (h2)
+--Building your nodes (h2)
+----Additional Resources (h3)
+--Video Demonstration (h2)
+
+
+(Page path)
+(1) Wiki
+
+(Segment 2)
+#Wiki (h1)
+
+* [Distributions](/Distributions "/Distributions")
+* [ROS/Installation](/ROS/Installation "/ROS/Installation")
+* [ROS/Tutorials](/ROS/Tutorials "/ROS/Tutorials")
+* [RecentChanges](/RecentChanges "/RecentChanges")
+* [WritingPubl...ber(python)](/ROS/Tutorials/WritingPublisherSubscriber%28python%29 "/ROS/Tutorials/WritingPublisherSubscriber%28python%29")
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Writing a Simple Publisher and Subscriber (Python) (h1)
+--Writing the Publisher Node (h2)
+----The Code (h3)
+----The Code Explained (h3)
+--Writing the Subscriber Node (h2)
+--Building your nodes (h2)
+----Additional Resources (h3)
+--Video Demonstration (h2)
+
+
+(Page path)
+(1) Page
+
+(Segment 3)
+#Page (h1)
+
+* Immutable Page
+* [Comments](# "#")
+* [Info](/action/info/ROS/Tutorials/WritingPublisherSubscriber%28python%29?action=info "/action/info/ROS/Tutorials/WritingPublisherSubscriber%28python%29?action=info")
+* [Attachments](/action/AttachFile/ROS/Tutorials/WritingPublisherSubscriber%28python%29?action=AttachFile "/action/AttachFile/ROS/Tutorials/WritingPublisherSubscriber%28python%29?action=AttachFile")
+* More Actions:
+
+Raw Text
+Print View
+Render as Docbook
+Delete Cache
+------------------------
+Check Spelling
+Like Pages
+Local Site Map
+------------------------
+Rename Page
+Copy Page
+Delete Page
+------------------------
+My Pages
+Subscribe User
+------------------------
+Remove Spam
+Revert to this revision
+Package Pages
+Sync Pages
+------------------------
+CreatePdfDocument
+Load
+RawFile
+Save
+SlideShow
+
+<!--// Init menu
+actionsMenuInit('More Actions:');
+//-->
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Writing a Simple Publisher and Subscriber (Python) (h1)
+--Writing the Publisher Node (h2)
+----The Code (h3)
+----The Code Explained (h3)
+--Writing the Subscriber Node (h2)
+--Building your nodes (h2)
+----Additional Resources (h3)
+--Video Demonstration (h2)
+
+
+(Page path)
+(1) User
+
+(Segment 4)
+#User (h1)
+
+* [Login](/action/login/ROS/Tutorials/WritingPublisherSubscriber%28python%29?action=login "/action/login/ROS/Tutorials/WritingPublisherSubscriber%28python%29?action=login")
+
+|  |
+| --- |
+| **Note:** This tutorial assumes that you have completed the previous tutorials: [creating a ROS msg and srv](/ROS/Tutorials/CreatingMsgAndSrv "/ROS/Tutorials/CreatingMsgAndSrv").  |
+
+|  |
+| --- |
+| (!) Please ask about problems and questions regarding this tutorial on [answers.ros.org](http://answers.ros.org "http://answers.ros.org"). Don't forget to include in your question the link to this page, the versions of your OS & ROS, and also add appropriate tags. |
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Writing a Simple Publisher and Subscriber (Python) (h1)
+--Writing the Publisher Node (h2)
+----The Code (h3)
+----The Code Explained (h3)
+--Writing the Subscriber Node (h2)
+--Building your nodes (h2)
+----Additional Resources (h3)
+--Video Demonstration (h2)
+
+
+(Page path)
+(1) Writing a Simple Publisher and Subscriber (Python) > (2) Writing the Publisher Node > (3) The Code
+
+(Segment 5)
+#Writing a Simple Publisher and Subscriber (Python) (h1)
+
+**Description:** This tutorial covers how to write a publisher and subscriber node in python.  
+
+**Tutorial Level:** BEGINNER  
+
+**Next Tutorial:** [Examining the simple publisher and subscriber](/ROS/Tutorials/ExaminingPublisherSubscriber "/ROS/Tutorials/ExaminingPublisherSubscriber")   
+
+<!--
+// @@ Buildsystem macro
+function Buildsystem(sections) {
+ var dotversion = ".buildsystem."
+
+ // Tag shows unless already tagged
+ $.each(sections.show,
+ function() {
+ $("div" + dotversion + this).not(".versionshow,.versionhide").addClass("versionshow")
+ }
+ )
+
+ // Tag hides unless already tagged
+ $.each(sections.hide,
+ function() {
+ $("div" + dotversion + this).not(".versionshow,.versionhide").addClass("versionhide")
+ }
+ )
+
+ // Show or hide according to tag
+ $(".versionshow").removeClass("versionshow").filter("div").show()
+ $(".versionhide").removeClass("versionhide").filter("div").hide()
+}
+
+function getURLParameter(name) {
+ return decodeURIComponent(
+ (
+ new RegExp(
+ '[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)'
+ ).exec(location.search) || [,""]
+ )[1].replace(/\+/g, '%20')
+ ) || null;
+}
+
+$(document).ready(function() {
+ var activesystem = "catkin";
+ var url\_distro = getURLParameter('buildsystem');
+ if (url\_distro)
+ {
+ activesystem = url\_distro;
+ }
+ $("div.buildsystem").not("."+activesystem).hide();
+ $("#"+activesystem).click();
+ $("input.version:hidden").each(function() {
+ var bg = $(this).attr("value").split(":");
+ $("div.version." + bg[0]).css("background-color", bg[1]).removeClass(bg[0])
+ });
+})
+ // -->
+
+ catkin 
+ rosbuild 
+ Contents1. [Writing the Publisher Node](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Writing_the_Publisher_Node "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Writing_the_Publisher_Node")
+	1. [The Code](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code")
+	2. [The Code Explained](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code_Explained "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code_Explained")
+2. [Writing the Subscriber Node](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Writing_the_Subscriber_Node "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Writing_the_Subscriber_Node")
+	1. [The Code](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code-1 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code-1")
+	2. [The Code Explained](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code_Explained-1 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code_Explained-1")
+3. [Building your nodes](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Building_your_nodes "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Building_your_nodes")
+	1. [Additional Resources](#Additional_Resources "#Additional_Resources")
+4. [Video Demonstration](#Video_Demonstration "#Video_Demonstration")
+
+
+##Writing the Publisher Node (h2)
+
+"Node" is the ROS term for an executable that is connected to the ROS network. Here we'll create the publisher ("talker") node which will continually broadcast a message. Change directory into the beginner\_tutorials package, you created in the earlier tutorial, [creating a package](/ROS/Tutorials/CreatingPackage "/ROS/Tutorials/CreatingPackage"): 
+```
+$ roscd beginner_tutorials
+```
+
+
+###The Code (h3)
+
+Download the [listener.py](https://raw.github.com/ros/ros_tutorials/kinetic-devel/rospy_tutorials/001_talker_listener/listener.py "https://raw.github.com/ros/ros_tutorials/kinetic-devel/rospy_tutorials/001_talker_listener/listener.py") file into your scripts directory: 
+```
+$ roscd beginner_tutorials/scripts/
+$ wget https://raw.github.com/ros/ros_tutorials/kinetic-devel/rospy_tutorials/001_talker_listener/listener.py
+$ chmod +x listener.py
+```
+The file contents look close to: 
+
+document.write('<a href="#" onclick="return togglenumber(\'rospy\_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86\', 1, 1);" \
+ class="codenumbers">Toggle line numbers<\/a>');
+
+```
+ [1](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_1 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_1") #!/usr/bin/env python
+ [2](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_2 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_2") import rospy
+ [3](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_3 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_3") from std\_msgs.msg import String
+ [4](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_4 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_4") 
+ [5](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_5 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_5") def callback(data):
+ [6](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_6 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_6")  rospy.loginfo(rospy.get\_caller\_id() + "I heard %s", data.data)
+ [7](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_7 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_7")  
+ [8](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_8 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_8") def listener():
+ [9](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_9 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_9") 
+ [10](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_10 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_10")  # In ROS, nodes are uniquely named. If two nodes with the same
+ [11](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_11 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_11")  # name are launched, the previous one is kicked off. The
+ [12](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_12 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_12")  # anonymous=True flag means that rospy will choose a unique
+ [13](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_13 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_13")  # name for our 'listener' node so that multiple listeners can
+ [14](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_14 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_14")  # run simultaneously.
+ [15](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_15 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_15")  rospy.init\_node('listener', anonymous=True)
+ [16](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_16 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_16") 
+ [17](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_17 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_17")  rospy.Subscriber("chatter", String, callback)
+ [18](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_18 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_18") 
+ [19](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_19 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_19")  # spin() simply keeps python from exiting until this node is stopped
+ [20](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_20 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_20")  rospy.spin()
+ [21](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_21 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_21") 
+ [22](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_22 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_22") if \_\_name\_\_ == '\_\_main\_\_':
+ [23](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_23 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-56fb82d4681d7880a3d3a97f7af70cfe17618f86_23")  listener()
+
+```
+Then, edit the catkin\_install\_python() call in your CMakeLists.txt so it looks like the following: 
+```
+catkin_install_python(PROGRAMS scripts/talker.py scripts/listener.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+```
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Writing a Simple Publisher and Subscriber (Python) (h1)
+--Writing the Publisher Node (h2)
+----The Code (h3)
+----The Code Explained (h3)
+--Writing the Subscriber Node (h2)
+--Building your nodes (h2)
+----Additional Resources (h3)
+--Video Demonstration (h2)
+
+
+(Page path)
+(1) Writing a Simple Publisher and Subscriber (Python) > (2) Writing the Publisher Node > (3) The Code Explained
+
+(Segment 6)
+#Writing a Simple Publisher and Subscriber (Python) (h1)
+
+**Description:** This tutorial covers how to write a publisher and subscriber node in python.  
+
+**Tutorial Level:** BEGINNER  
+
+**Next Tutorial:** [Examining the simple publisher and subscriber](/ROS/Tutorials/ExaminingPublisherSubscriber "/ROS/Tutorials/ExaminingPublisherSubscriber")   
+
+<!--
+// @@ Buildsystem macro
+function Buildsystem(sections) {
+ var dotversion = ".buildsystem."
+
+ // Tag shows unless already tagged
+ $.each(sections.show,
+ function() {
+ $("div" + dotversion + this).not(".versionshow,.versionhide").addClass("versionshow")
+ }
+ )
+
+ // Tag hides unless already tagged
+ $.each(sections.hide,
+ function() {
+ $("div" + dotversion + this).not(".versionshow,.versionhide").addClass("versionhide")
+ }
+ )
+
+ // Show or hide according to tag
+ $(".versionshow").removeClass("versionshow").filter("div").show()
+ $(".versionhide").removeClass("versionhide").filter("div").hide()
+}
+
+function getURLParameter(name) {
+ return decodeURIComponent(
+ (
+ new RegExp(
+ '[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)'
+ ).exec(location.search) || [,""]
+ )[1].replace(/\+/g, '%20')
+ ) || null;
+}
+
+$(document).ready(function() {
+ var activesystem = "catkin";
+ var url\_distro = getURLParameter('buildsystem');
+ if (url\_distro)
+ {
+ activesystem = url\_distro;
+ }
+ $("div.buildsystem").not("."+activesystem).hide();
+ $("#"+activesystem).click();
+ $("input.version:hidden").each(function() {
+ var bg = $(this).attr("value").split(":");
+ $("div.version." + bg[0]).css("background-color", bg[1]).removeClass(bg[0])
+ });
+})
+ // -->
+
+ catkin 
+ rosbuild 
+ Contents1. [Writing the Publisher Node](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Writing_the_Publisher_Node "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Writing_the_Publisher_Node")
+	1. [The Code](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code")
+	2. [The Code Explained](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code_Explained "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code_Explained")
+2. [Writing the Subscriber Node](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Writing_the_Subscriber_Node "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Writing_the_Subscriber_Node")
+	1. [The Code](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code-1 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code-1")
+	2. [The Code Explained](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code_Explained-1 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code_Explained-1")
+3. [Building your nodes](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Building_your_nodes "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Building_your_nodes")
+	1. [Additional Resources](#Additional_Resources "#Additional_Resources")
+4. [Video Demonstration](#Video_Demonstration "#Video_Demonstration")
+
+
+##Writing the Publisher Node (h2)
+
+"Node" is the ROS term for an executable that is connected to the ROS network. Here we'll create the publisher ("talker") node which will continually broadcast a message. Change directory into the beginner\_tutorials package, you created in the earlier tutorial, [creating a package](/ROS/Tutorials/CreatingPackage "/ROS/Tutorials/CreatingPackage"): 
+```
+$ roscd beginner_tutorials
+```
+
+
+###The Code Explained (h3)
+
+The code for listener.py is similar to talker.py, except we've introduced a new callback-based mechanism for subscribing to messages. 
+
+document.write('<a href="#" onclick="return togglenumber(\'rospy\_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-c54953afb3f7ac20abfe7460208d0cd6c36c1d62\', 15, 1);" \
+ class="codenumbers">Toggle line numbers<\/a>');
+
+```
+ [15](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-c54953afb3f7ac20abfe7460208d0cd6c36c1d62_15 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-c54953afb3f7ac20abfe7460208d0cd6c36c1d62_15")  rospy.init\_node('listener', anonymous=True)
+ [16](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-c54953afb3f7ac20abfe7460208d0cd6c36c1d62_16 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-c54953afb3f7ac20abfe7460208d0cd6c36c1d62_16") 
+ [17](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-c54953afb3f7ac20abfe7460208d0cd6c36c1d62_17 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-c54953afb3f7ac20abfe7460208d0cd6c36c1d62_17")  rospy.Subscriber("chatter", String, callback)
+ [18](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-c54953afb3f7ac20abfe7460208d0cd6c36c1d62_18 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-c54953afb3f7ac20abfe7460208d0cd6c36c1d62_18") 
+ [19](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-c54953afb3f7ac20abfe7460208d0cd6c36c1d62_19 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-c54953afb3f7ac20abfe7460208d0cd6c36c1d62_19")  # spin() simply keeps python from exiting until this node is stopped
+ [20](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-c54953afb3f7ac20abfe7460208d0cd6c36c1d62_20 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.CA-c54953afb3f7ac20abfe7460208d0cd6c36c1d62_20")  rospy.spin()
+
+```
+ This declares that your node subscribes to the chatter topic which is of type std\_msgs.msgs.String. When new messages are received, callback is invoked with the message as the first argument. We also changed up the call to rospy.init\_node() somewhat. We've added the anonymous=True keyword argument. ROS requires that each node have a unique name. If a node with the same name comes up, it bumps the previous one. This is so that malfunctioning nodes can easily be kicked off the network. The anonymous=True flag tells rospy to generate a unique name for the node so that you can have multiple listener.py nodes run easily. The final addition, rospy.spin() simply keeps your node from exiting until the node has been shutdown. Unlike roscpp, rospy.spin() does not affect the subscriber callback functions, as those have their own threads. 
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Writing a Simple Publisher and Subscriber (Python) (h1)
+--Writing the Publisher Node (h2)
+----The Code (h3)
+----The Code Explained (h3)
+--Writing the Subscriber Node (h2)
+--Building your nodes (h2)
+----Additional Resources (h3)
+--Video Demonstration (h2)
+
+
+(Page path)
+(1) Writing a Simple Publisher and Subscriber (Python) > (2) Writing the Subscriber Node
+
+(Segment 7)
+#Writing a Simple Publisher and Subscriber (Python) (h1)
+
+**Description:** This tutorial covers how to write a publisher and subscriber node in python.  
+
+**Tutorial Level:** BEGINNER  
+
+**Next Tutorial:** [Examining the simple publisher and subscriber](/ROS/Tutorials/ExaminingPublisherSubscriber "/ROS/Tutorials/ExaminingPublisherSubscriber")   
+
+<!--
+// @@ Buildsystem macro
+function Buildsystem(sections) {
+ var dotversion = ".buildsystem."
+
+ // Tag shows unless already tagged
+ $.each(sections.show,
+ function() {
+ $("div" + dotversion + this).not(".versionshow,.versionhide").addClass("versionshow")
+ }
+ )
+
+ // Tag hides unless already tagged
+ $.each(sections.hide,
+ function() {
+ $("div" + dotversion + this).not(".versionshow,.versionhide").addClass("versionhide")
+ }
+ )
+
+ // Show or hide according to tag
+ $(".versionshow").removeClass("versionshow").filter("div").show()
+ $(".versionhide").removeClass("versionhide").filter("div").hide()
+}
+
+function getURLParameter(name) {
+ return decodeURIComponent(
+ (
+ new RegExp(
+ '[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)'
+ ).exec(location.search) || [,""]
+ )[1].replace(/\+/g, '%20')
+ ) || null;
+}
+
+$(document).ready(function() {
+ var activesystem = "catkin";
+ var url\_distro = getURLParameter('buildsystem');
+ if (url\_distro)
+ {
+ activesystem = url\_distro;
+ }
+ $("div.buildsystem").not("."+activesystem).hide();
+ $("#"+activesystem).click();
+ $("input.version:hidden").each(function() {
+ var bg = $(this).attr("value").split(":");
+ $("div.version." + bg[0]).css("background-color", bg[1]).removeClass(bg[0])
+ });
+})
+ // -->
+
+ catkin 
+ rosbuild 
+ Contents1. [Writing the Publisher Node](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Writing_the_Publisher_Node "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Writing_the_Publisher_Node")
+	1. [The Code](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code")
+	2. [The Code Explained](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code_Explained "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code_Explained")
+2. [Writing the Subscriber Node](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Writing_the_Subscriber_Node "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Writing_the_Subscriber_Node")
+	1. [The Code](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code-1 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code-1")
+	2. [The Code Explained](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code_Explained-1 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code_Explained-1")
+3. [Building your nodes](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Building_your_nodes "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Building_your_nodes")
+	1. [Additional Resources](#Additional_Resources "#Additional_Resources")
+4. [Video Demonstration](#Video_Demonstration "#Video_Demonstration")
+
+
+##Writing the Subscriber Node (h2)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Writing a Simple Publisher and Subscriber (Python) (h1)
+--Writing the Publisher Node (h2)
+----The Code (h3)
+----The Code Explained (h3)
+--Writing the Subscriber Node (h2)
+--Building your nodes (h2)
+----Additional Resources (h3)
+--Video Demonstration (h2)
+
+
+(Page path)
+(1) Writing a Simple Publisher and Subscriber (Python) > (2) Building your nodes > (3) Additional Resources
+
+(Segment 8)
+#Writing a Simple Publisher and Subscriber (Python) (h1)
+
+**Description:** This tutorial covers how to write a publisher and subscriber node in python.  
+
+**Tutorial Level:** BEGINNER  
+
+**Next Tutorial:** [Examining the simple publisher and subscriber](/ROS/Tutorials/ExaminingPublisherSubscriber "/ROS/Tutorials/ExaminingPublisherSubscriber")   
+
+<!--
+// @@ Buildsystem macro
+function Buildsystem(sections) {
+ var dotversion = ".buildsystem."
+
+ // Tag shows unless already tagged
+ $.each(sections.show,
+ function() {
+ $("div" + dotversion + this).not(".versionshow,.versionhide").addClass("versionshow")
+ }
+ )
+
+ // Tag hides unless already tagged
+ $.each(sections.hide,
+ function() {
+ $("div" + dotversion + this).not(".versionshow,.versionhide").addClass("versionhide")
+ }
+ )
+
+ // Show or hide according to tag
+ $(".versionshow").removeClass("versionshow").filter("div").show()
+ $(".versionhide").removeClass("versionhide").filter("div").hide()
+}
+
+function getURLParameter(name) {
+ return decodeURIComponent(
+ (
+ new RegExp(
+ '[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)'
+ ).exec(location.search) || [,""]
+ )[1].replace(/\+/g, '%20')
+ ) || null;
+}
+
+$(document).ready(function() {
+ var activesystem = "catkin";
+ var url\_distro = getURLParameter('buildsystem');
+ if (url\_distro)
+ {
+ activesystem = url\_distro;
+ }
+ $("div.buildsystem").not("."+activesystem).hide();
+ $("#"+activesystem).click();
+ $("input.version:hidden").each(function() {
+ var bg = $(this).attr("value").split(":");
+ $("div.version." + bg[0]).css("background-color", bg[1]).removeClass(bg[0])
+ });
+})
+ // -->
+
+ catkin 
+ rosbuild 
+ Contents1. [Writing the Publisher Node](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Writing_the_Publisher_Node "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Writing_the_Publisher_Node")
+	1. [The Code](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code")
+	2. [The Code Explained](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code_Explained "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code_Explained")
+2. [Writing the Subscriber Node](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Writing_the_Subscriber_Node "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Writing_the_Subscriber_Node")
+	1. [The Code](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code-1 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code-1")
+	2. [The Code Explained](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code_Explained-1 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code_Explained-1")
+3. [Building your nodes](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Building_your_nodes "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Building_your_nodes")
+	1. [Additional Resources](#Additional_Resources "#Additional_Resources")
+4. [Video Demonstration](#Video_Demonstration "#Video_Demonstration")
+
+
+##Building your nodes (h2)
+
+We use CMake as our build system and, yes, you have to use it even for Python nodes. This is to make sure that the autogenerated Python code for messages and services is created. We also use a Makefile for a bit of convenience. roscreate-pkg automatically created a Makefile, so you don't have to edit it. Now run make: 
+```
+$ make
+```
+
+Go to your catkin workspace and run catkin\_make: 
+```
+$ cd ~/catkin_ws
+$ catkin_make
+```
+
+ Now that you have written a simple publisher and subscriber, let's [examine the simple publisher and subscriber](/ROS/Tutorials/ExaminingPublisherSubscriber "/ROS/Tutorials/ExaminingPublisherSubscriber"). 
+
+###Additional Resources (h3)
+
+Here are some additional resources contributed by the community. 
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Writing a Simple Publisher and Subscriber (Python) (h1)
+--Writing the Publisher Node (h2)
+----The Code (h3)
+----The Code Explained (h3)
+--Writing the Subscriber Node (h2)
+--Building your nodes (h2)
+----Additional Resources (h3)
+--Video Demonstration (h2)
+
+
+(Page path)
+(1) Writing a Simple Publisher and Subscriber (Python) > (2) Video Demonstration
+
+(Segment 9)
+#Writing a Simple Publisher and Subscriber (Python) (h1)
+
+**Description:** This tutorial covers how to write a publisher and subscriber node in python.  
+
+**Tutorial Level:** BEGINNER  
+
+**Next Tutorial:** [Examining the simple publisher and subscriber](/ROS/Tutorials/ExaminingPublisherSubscriber "/ROS/Tutorials/ExaminingPublisherSubscriber")   
+
+<!--
+// @@ Buildsystem macro
+function Buildsystem(sections) {
+ var dotversion = ".buildsystem."
+
+ // Tag shows unless already tagged
+ $.each(sections.show,
+ function() {
+ $("div" + dotversion + this).not(".versionshow,.versionhide").addClass("versionshow")
+ }
+ )
+
+ // Tag hides unless already tagged
+ $.each(sections.hide,
+ function() {
+ $("div" + dotversion + this).not(".versionshow,.versionhide").addClass("versionhide")
+ }
+ )
+
+ // Show or hide according to tag
+ $(".versionshow").removeClass("versionshow").filter("div").show()
+ $(".versionhide").removeClass("versionhide").filter("div").hide()
+}
+
+function getURLParameter(name) {
+ return decodeURIComponent(
+ (
+ new RegExp(
+ '[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)'
+ ).exec(location.search) || [,""]
+ )[1].replace(/\+/g, '%20')
+ ) || null;
+}
+
+$(document).ready(function() {
+ var activesystem = "catkin";
+ var url\_distro = getURLParameter('buildsystem');
+ if (url\_distro)
+ {
+ activesystem = url\_distro;
+ }
+ $("div.buildsystem").not("."+activesystem).hide();
+ $("#"+activesystem).click();
+ $("input.version:hidden").each(function() {
+ var bg = $(this).attr("value").split(":");
+ $("div.version." + bg[0]).css("background-color", bg[1]).removeClass(bg[0])
+ });
+})
+ // -->
+
+ catkin 
+ rosbuild 
+ Contents1. [Writing the Publisher Node](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Writing_the_Publisher_Node "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Writing_the_Publisher_Node")
+	1. [The Code](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code")
+	2. [The Code Explained](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code_Explained "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code_Explained")
+2. [Writing the Subscriber Node](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Writing_the_Subscriber_Node "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Writing_the_Subscriber_Node")
+	1. [The Code](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code-1 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code-1")
+	2. [The Code Explained](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code_Explained-1 "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.The_Code_Explained-1")
+3. [Building your nodes](#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Building_your_nodes "#rospy_tutorials.2FTutorials.2FWritingPublisherSubscriber.Building_your_nodes")
+	1. [Additional Resources](#Additional_Resources "#Additional_Resources")
+4. [Video Demonstration](#Video_Demonstration "#Video_Demonstration")
+
+
+##Video Demonstration (h2)
+
+Watch the video below to have more explanation on Python Nodes Communication and step by step guide .  
+
+Wiki: ROS/Tutorials/WritingPublisherSubscriber(python) (last edited 2022-10-18 16:06:01 by [Muhammad Luqman](/Muhammad%20Luqman "Muhammad Luqman @ 103.138.11.4[103.138.11.4]"))
+
+Except where otherwise noted, the ROS wiki is licensed under the   
+
+
+
+
+--------------------------------------------------------------------------------

@@ -133,6 +133,17 @@ start=time.time()
 # Process each page
 # docs = traverse_files("/home/bot/dataset/edugpt/Scrape_header/ROS", "md", "ROS")
 docs = traverse_files("/home/bot/dataset/edugpt/Scrape_rst/Sawyer", "rst", "Sawyer")
+docs += traverse_files("/home/bot/dataset/edugpt/Scrape_textbook/textbook", "md", "Robotics textbook")
+# Define the path to your file
+file_path = 'documents/EECS106A_textbook.txt'
+
+# Open the file and read its contents into a string
+with open(file_path, 'r') as file:
+    segment = file.read()
+
+# Now file_contents holds the contents of the file as a string
+
+# docs.append((["textbook", "eecs"], [{'Page_table': "EECS 106", 'Page_path': "TEXTBOOK", 'Segment_print': segment}]))
 for i in docs:
     print(i)
 # human_embedding_prompt need to include toc_link, toc_page, title, section
@@ -215,7 +226,8 @@ print(len(docs))
 start=time.time()
 
 
-for n in [900,800,700,600,500,400,300,200,100]:
+# for n in [900,800,700,600,500,400,300,200,100]:
+for n in [400]:
     print(n)
     if model=='local' or model=='zephyr':
         openai.api_key = "empty"
@@ -234,16 +246,7 @@ for n in [900,800,700,600,500,400,300,200,100]:
     id_list = []
     doc_list=[]
     embedding_list=[]
-    # Define the path to your file
-    # file_path = 'documents/EECS106A_textbook.txt'
 
-    # Open the file and read its contents into a string
-    # with open(file_path, 'r') as file:
-    #     segment = file.read()
-
-    # Now file_contents holds the contents of the file as a string
-
-    # docs.append((["textbook", "eecs"], [{'Page_table': "page_toc", 'Page_path': "page_path", 'Segment_print': segment}]))
     for doc in tqdm(docs, desc="Processing documents"):
         document = []
         ids = []
@@ -371,7 +374,7 @@ for n in [900,800,700,600,500,400,300,200,100]:
 
     # Open a file in binary write mode and store the data using pickle
     if technique=='recursive_seperate':
-        with open(f'{technique}_{method}_{model}_embedding_{n}.pkl', 'wb') as f:
+        with open(f'{technique}_{method}_{model}_embedding_{n}_textbook.pkl', 'wb') as f:
             pickle.dump(data_to_store, f)
     else:
         with open(f'{technique}_{method}_{model}_embedding.pkl', 'wb') as f:

@@ -1,0 +1,662 @@
+(Table of Contents)
+NumPy 1.6.0 Release Notes (h1)
+Highlights (h1)
+New features (h1)
+--New 16-bit floating point type (h2)
+--New iterator (h2)
+--Legendre, Laguerre, Hermite, HermiteE polynomials in ``numpy.polynomial`` (h2)
+--Fortran assumed shape array and size function support in ``numpy.f2py`` (h2)
+--Other new functions (h2)
+Changes (h1)
+--``default error handling`` (h2)
+--``numpy.distutils`` (h2)
+--``numpy.testing`` (h2)
+--``C API`` (h2)
+Deprecated features (h1)
+Removed features (h1)
+--``numpy.fft`` (h2)
+--``numpy.memmap`` (h2)
+--``numpy.lib`` (h2)
+--``numpy.ma`` (h2)
+
+
+(Page path)
+(h1) NumPy 1.6.0 Release Notes
+
+(Segment 1)
+#NumPy 1.6.0 Release Notes (h1)
+
+This release includes several new features as well as numerous bug fixes and
+improved documentation.  It is backward compatible with the 1.5.0 release, and
+supports Python 2.4 - 2.7 and 3.1 - 3.2.
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+NumPy 1.6.0 Release Notes (h1)
+Highlights (h1)
+New features (h1)
+--New 16-bit floating point type (h2)
+--New iterator (h2)
+--Legendre, Laguerre, Hermite, HermiteE polynomials in ``numpy.polynomial`` (h2)
+--Fortran assumed shape array and size function support in ``numpy.f2py`` (h2)
+--Other new functions (h2)
+Changes (h1)
+--``default error handling`` (h2)
+--``numpy.distutils`` (h2)
+--``numpy.testing`` (h2)
+--``C API`` (h2)
+Deprecated features (h1)
+Removed features (h1)
+--``numpy.fft`` (h2)
+--``numpy.memmap`` (h2)
+--``numpy.lib`` (h2)
+--``numpy.ma`` (h2)
+
+
+(Page path)
+(h1) Highlights
+
+(Segment 2)
+#Highlights (h1)
+
+* Re-introduction of datetime dtype support to deal with dates in arrays.
+
+* A new 16-bit floating point type.
+
+* A new iterator, which improves performance of many functions.
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+NumPy 1.6.0 Release Notes (h1)
+Highlights (h1)
+New features (h1)
+--New 16-bit floating point type (h2)
+--New iterator (h2)
+--Legendre, Laguerre, Hermite, HermiteE polynomials in ``numpy.polynomial`` (h2)
+--Fortran assumed shape array and size function support in ``numpy.f2py`` (h2)
+--Other new functions (h2)
+Changes (h1)
+--``default error handling`` (h2)
+--``numpy.distutils`` (h2)
+--``numpy.testing`` (h2)
+--``C API`` (h2)
+Deprecated features (h1)
+Removed features (h1)
+--``numpy.fft`` (h2)
+--``numpy.memmap`` (h2)
+--``numpy.lib`` (h2)
+--``numpy.ma`` (h2)
+
+
+(Page path)
+(h1) New features > (h2) New 16-bit floating point type
+
+(Segment 3)
+#New features (h1)
+
+
+##New 16-bit floating point type (h2)
+
+This release adds support for the IEEE 754-2008 binary16 format, available as
+the data type ``numpy.half``.  Within Python, the type behaves similarly to
+`float` or `double`, and C extensions can add support for it with the exposed
+half-float API.
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+NumPy 1.6.0 Release Notes (h1)
+Highlights (h1)
+New features (h1)
+--New 16-bit floating point type (h2)
+--New iterator (h2)
+--Legendre, Laguerre, Hermite, HermiteE polynomials in ``numpy.polynomial`` (h2)
+--Fortran assumed shape array and size function support in ``numpy.f2py`` (h2)
+--Other new functions (h2)
+Changes (h1)
+--``default error handling`` (h2)
+--``numpy.distutils`` (h2)
+--``numpy.testing`` (h2)
+--``C API`` (h2)
+Deprecated features (h1)
+Removed features (h1)
+--``numpy.fft`` (h2)
+--``numpy.memmap`` (h2)
+--``numpy.lib`` (h2)
+--``numpy.ma`` (h2)
+
+
+(Page path)
+(h1) New features > (h2) New iterator
+
+(Segment 4)
+#New features (h1)
+
+
+##New iterator (h2)
+
+A new iterator has been added, replacing the functionality of the
+existing iterator and multi-iterator with a single object and API.
+This iterator works well with general memory layouts different from
+C or Fortran contiguous, and handles both standard NumPy and
+customized broadcasting. The buffering, automatic data type
+conversion, and optional output parameters, offered by
+ufuncs but difficult to replicate elsewhere, are now exposed by this
+iterator.
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+NumPy 1.6.0 Release Notes (h1)
+Highlights (h1)
+New features (h1)
+--New 16-bit floating point type (h2)
+--New iterator (h2)
+--Legendre, Laguerre, Hermite, HermiteE polynomials in ``numpy.polynomial`` (h2)
+--Fortran assumed shape array and size function support in ``numpy.f2py`` (h2)
+--Other new functions (h2)
+Changes (h1)
+--``default error handling`` (h2)
+--``numpy.distutils`` (h2)
+--``numpy.testing`` (h2)
+--``C API`` (h2)
+Deprecated features (h1)
+Removed features (h1)
+--``numpy.fft`` (h2)
+--``numpy.memmap`` (h2)
+--``numpy.lib`` (h2)
+--``numpy.ma`` (h2)
+
+
+(Page path)
+(h1) New features > (h2) Legendre, Laguerre, Hermite, HermiteE polynomials in ``numpy.polynomial``
+
+(Segment 5)
+#New features (h1)
+
+
+##Legendre, Laguerre, Hermite, HermiteE polynomials in ``numpy.polynomial`` (h2)
+
+Extend the number of polynomials available in the polynomial package. In
+addition, a new ``window`` attribute has been added to the classes in
+order to specify the range the ``domain`` maps to. This is mostly useful
+for the Laguerre, Hermite, and HermiteE polynomials whose natural domains
+are infinite and provides a more intuitive way to get the correct mapping
+of values without playing unnatural tricks with the domain.
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+NumPy 1.6.0 Release Notes (h1)
+Highlights (h1)
+New features (h1)
+--New 16-bit floating point type (h2)
+--New iterator (h2)
+--Legendre, Laguerre, Hermite, HermiteE polynomials in ``numpy.polynomial`` (h2)
+--Fortran assumed shape array and size function support in ``numpy.f2py`` (h2)
+--Other new functions (h2)
+Changes (h1)
+--``default error handling`` (h2)
+--``numpy.distutils`` (h2)
+--``numpy.testing`` (h2)
+--``C API`` (h2)
+Deprecated features (h1)
+Removed features (h1)
+--``numpy.fft`` (h2)
+--``numpy.memmap`` (h2)
+--``numpy.lib`` (h2)
+--``numpy.ma`` (h2)
+
+
+(Page path)
+(h1) New features > (h2) Fortran assumed shape array and size function support in ``numpy.f2py``
+
+(Segment 6)
+#New features (h1)
+
+
+##Fortran assumed shape array and size function support in ``numpy.f2py`` (h2)
+
+F2py now supports wrapping Fortran 90 routines that use assumed shape
+arrays.  Before such routines could be called from Python but the
+corresponding Fortran routines received assumed shape arrays as zero
+length arrays which caused unpredicted results. Thanks to Lorenz
+Hüdepohl for pointing out the correct way to interface routines with
+assumed shape arrays.
+
+In addition, f2py supports now automatic wrapping of Fortran routines
+that use two argument ``size`` function in dimension specifications.
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+NumPy 1.6.0 Release Notes (h1)
+Highlights (h1)
+New features (h1)
+--New 16-bit floating point type (h2)
+--New iterator (h2)
+--Legendre, Laguerre, Hermite, HermiteE polynomials in ``numpy.polynomial`` (h2)
+--Fortran assumed shape array and size function support in ``numpy.f2py`` (h2)
+--Other new functions (h2)
+Changes (h1)
+--``default error handling`` (h2)
+--``numpy.distutils`` (h2)
+--``numpy.testing`` (h2)
+--``C API`` (h2)
+Deprecated features (h1)
+Removed features (h1)
+--``numpy.fft`` (h2)
+--``numpy.memmap`` (h2)
+--``numpy.lib`` (h2)
+--``numpy.ma`` (h2)
+
+
+(Page path)
+(h1) New features > (h2) Other new functions
+
+(Segment 7)
+#New features (h1)
+
+
+##Other new functions (h2)
+
+``numpy.ravel_multi_index`` : Converts a multi-index tuple into
+an array of flat indices, applying boundary modes to the indices.
+
+``numpy.einsum`` : Evaluate the Einstein summation convention.  Using the
+Einstein summation convention, many common multi-dimensional array operations
+can be represented in a simple fashion.  This function provides a way compute
+such summations.
+
+``numpy.count_nonzero`` : Counts the number of non-zero elements in an array.
+
+``numpy.result_type`` and ``numpy.min_scalar_type`` : These functions expose
+the underlying type promotion used by the ufuncs and other operations to
+determine the types of outputs. These improve upon the ``numpy.common_type``
+and ``numpy.mintypecode`` which provide similar functionality but do
+not match the ufunc implementation.
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+NumPy 1.6.0 Release Notes (h1)
+Highlights (h1)
+New features (h1)
+--New 16-bit floating point type (h2)
+--New iterator (h2)
+--Legendre, Laguerre, Hermite, HermiteE polynomials in ``numpy.polynomial`` (h2)
+--Fortran assumed shape array and size function support in ``numpy.f2py`` (h2)
+--Other new functions (h2)
+Changes (h1)
+--``default error handling`` (h2)
+--``numpy.distutils`` (h2)
+--``numpy.testing`` (h2)
+--``C API`` (h2)
+Deprecated features (h1)
+Removed features (h1)
+--``numpy.fft`` (h2)
+--``numpy.memmap`` (h2)
+--``numpy.lib`` (h2)
+--``numpy.ma`` (h2)
+
+
+(Page path)
+(h1) Changes > (h2) ``default error handling``
+
+(Segment 8)
+#Changes (h1)
+
+
+##``default error handling`` (h2)
+
+The default error handling has been change from ``print`` to ``warn`` for
+all except for ``underflow``, which remains as ``ignore``.
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+NumPy 1.6.0 Release Notes (h1)
+Highlights (h1)
+New features (h1)
+--New 16-bit floating point type (h2)
+--New iterator (h2)
+--Legendre, Laguerre, Hermite, HermiteE polynomials in ``numpy.polynomial`` (h2)
+--Fortran assumed shape array and size function support in ``numpy.f2py`` (h2)
+--Other new functions (h2)
+Changes (h1)
+--``default error handling`` (h2)
+--``numpy.distutils`` (h2)
+--``numpy.testing`` (h2)
+--``C API`` (h2)
+Deprecated features (h1)
+Removed features (h1)
+--``numpy.fft`` (h2)
+--``numpy.memmap`` (h2)
+--``numpy.lib`` (h2)
+--``numpy.ma`` (h2)
+
+
+(Page path)
+(h1) Changes > (h2) ``numpy.distutils``
+
+(Segment 9)
+#Changes (h1)
+
+
+##``numpy.distutils`` (h2)
+
+The ``numpy.get_numpy_include`` function was removed, use ``numpy.get_include``
+instead.
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+NumPy 1.6.0 Release Notes (h1)
+Highlights (h1)
+New features (h1)
+--New 16-bit floating point type (h2)
+--New iterator (h2)
+--Legendre, Laguerre, Hermite, HermiteE polynomials in ``numpy.polynomial`` (h2)
+--Fortran assumed shape array and size function support in ``numpy.f2py`` (h2)
+--Other new functions (h2)
+Changes (h1)
+--``default error handling`` (h2)
+--``numpy.distutils`` (h2)
+--``numpy.testing`` (h2)
+--``C API`` (h2)
+Deprecated features (h1)
+Removed features (h1)
+--``numpy.fft`` (h2)
+--``numpy.memmap`` (h2)
+--``numpy.lib`` (h2)
+--``numpy.ma`` (h2)
+
+
+(Page path)
+(h1) Changes > (h2) ``numpy.testing``
+
+(Segment 10)
+#Changes (h1)
+
+
+##``numpy.testing`` (h2)
+
+The testing framework gained ``numpy.testing.assert_allclose``, which provides
+a more convenient way to compare floating point arrays than
+`assert_almost_equal`, `assert_approx_equal` and `assert_array_almost_equal`.
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+NumPy 1.6.0 Release Notes (h1)
+Highlights (h1)
+New features (h1)
+--New 16-bit floating point type (h2)
+--New iterator (h2)
+--Legendre, Laguerre, Hermite, HermiteE polynomials in ``numpy.polynomial`` (h2)
+--Fortran assumed shape array and size function support in ``numpy.f2py`` (h2)
+--Other new functions (h2)
+Changes (h1)
+--``default error handling`` (h2)
+--``numpy.distutils`` (h2)
+--``numpy.testing`` (h2)
+--``C API`` (h2)
+Deprecated features (h1)
+Removed features (h1)
+--``numpy.fft`` (h2)
+--``numpy.memmap`` (h2)
+--``numpy.lib`` (h2)
+--``numpy.ma`` (h2)
+
+
+(Page path)
+(h1) Changes > (h2) ``C API``
+
+(Segment 11)
+#Changes (h1)
+
+
+##``C API`` (h2)
+
+In addition to the APIs for the new iterator and half data type, a number
+of other additions have been made to the C API. The type promotion
+mechanism used by ufuncs is exposed via ``PyArray_PromoteTypes``,
+``PyArray_ResultType``, and ``PyArray_MinScalarType``. A new enumeration
+``NPY_CASTING`` has been added which controls what types of casts are
+permitted. This is used by the new functions ``PyArray_CanCastArrayTo``
+and ``PyArray_CanCastTypeTo``.  A more flexible way to handle
+conversion of arbitrary python objects into arrays is exposed by
+``PyArray_GetArrayParamsFromObject``.
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+NumPy 1.6.0 Release Notes (h1)
+Highlights (h1)
+New features (h1)
+--New 16-bit floating point type (h2)
+--New iterator (h2)
+--Legendre, Laguerre, Hermite, HermiteE polynomials in ``numpy.polynomial`` (h2)
+--Fortran assumed shape array and size function support in ``numpy.f2py`` (h2)
+--Other new functions (h2)
+Changes (h1)
+--``default error handling`` (h2)
+--``numpy.distutils`` (h2)
+--``numpy.testing`` (h2)
+--``C API`` (h2)
+Deprecated features (h1)
+Removed features (h1)
+--``numpy.fft`` (h2)
+--``numpy.memmap`` (h2)
+--``numpy.lib`` (h2)
+--``numpy.ma`` (h2)
+
+
+(Page path)
+(h1) Deprecated features
+
+(Segment 12)
+#Deprecated features (h1)
+
+The "normed" keyword in ``numpy.histogram`` is deprecated. Its functionality
+will be replaced by the new "density" keyword.
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+NumPy 1.6.0 Release Notes (h1)
+Highlights (h1)
+New features (h1)
+--New 16-bit floating point type (h2)
+--New iterator (h2)
+--Legendre, Laguerre, Hermite, HermiteE polynomials in ``numpy.polynomial`` (h2)
+--Fortran assumed shape array and size function support in ``numpy.f2py`` (h2)
+--Other new functions (h2)
+Changes (h1)
+--``default error handling`` (h2)
+--``numpy.distutils`` (h2)
+--``numpy.testing`` (h2)
+--``C API`` (h2)
+Deprecated features (h1)
+Removed features (h1)
+--``numpy.fft`` (h2)
+--``numpy.memmap`` (h2)
+--``numpy.lib`` (h2)
+--``numpy.ma`` (h2)
+
+
+(Page path)
+(h1) Removed features > (h2) ``numpy.fft``
+
+(Segment 13)
+#Removed features (h1)
+
+
+##``numpy.fft`` (h2)
+
+The functions `refft`, `refft2`, `refftn`, `irefft`, `irefft2`, `irefftn`,
+which were aliases for the same functions without the 'e' in the name, were
+removed.
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+NumPy 1.6.0 Release Notes (h1)
+Highlights (h1)
+New features (h1)
+--New 16-bit floating point type (h2)
+--New iterator (h2)
+--Legendre, Laguerre, Hermite, HermiteE polynomials in ``numpy.polynomial`` (h2)
+--Fortran assumed shape array and size function support in ``numpy.f2py`` (h2)
+--Other new functions (h2)
+Changes (h1)
+--``default error handling`` (h2)
+--``numpy.distutils`` (h2)
+--``numpy.testing`` (h2)
+--``C API`` (h2)
+Deprecated features (h1)
+Removed features (h1)
+--``numpy.fft`` (h2)
+--``numpy.memmap`` (h2)
+--``numpy.lib`` (h2)
+--``numpy.ma`` (h2)
+
+
+(Page path)
+(h1) Removed features > (h2) ``numpy.memmap``
+
+(Segment 14)
+#Removed features (h1)
+
+
+##``numpy.memmap`` (h2)
+
+The `sync()` and `close()` methods of memmap were removed.  Use `flush()` and
+"del memmap" instead.
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+NumPy 1.6.0 Release Notes (h1)
+Highlights (h1)
+New features (h1)
+--New 16-bit floating point type (h2)
+--New iterator (h2)
+--Legendre, Laguerre, Hermite, HermiteE polynomials in ``numpy.polynomial`` (h2)
+--Fortran assumed shape array and size function support in ``numpy.f2py`` (h2)
+--Other new functions (h2)
+Changes (h1)
+--``default error handling`` (h2)
+--``numpy.distutils`` (h2)
+--``numpy.testing`` (h2)
+--``C API`` (h2)
+Deprecated features (h1)
+Removed features (h1)
+--``numpy.fft`` (h2)
+--``numpy.memmap`` (h2)
+--``numpy.lib`` (h2)
+--``numpy.ma`` (h2)
+
+
+(Page path)
+(h1) Removed features > (h2) ``numpy.lib``
+
+(Segment 15)
+#Removed features (h1)
+
+
+##``numpy.lib`` (h2)
+
+The deprecated functions ``numpy.unique1d``, ``numpy.setmember1d``,
+``numpy.intersect1d_nu`` and ``numpy.lib.ufunclike.log2`` were removed.
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+NumPy 1.6.0 Release Notes (h1)
+Highlights (h1)
+New features (h1)
+--New 16-bit floating point type (h2)
+--New iterator (h2)
+--Legendre, Laguerre, Hermite, HermiteE polynomials in ``numpy.polynomial`` (h2)
+--Fortran assumed shape array and size function support in ``numpy.f2py`` (h2)
+--Other new functions (h2)
+Changes (h1)
+--``default error handling`` (h2)
+--``numpy.distutils`` (h2)
+--``numpy.testing`` (h2)
+--``C API`` (h2)
+Deprecated features (h1)
+Removed features (h1)
+--``numpy.fft`` (h2)
+--``numpy.memmap`` (h2)
+--``numpy.lib`` (h2)
+--``numpy.ma`` (h2)
+
+
+(Page path)
+(h1) Removed features > (h2) ``numpy.ma``
+
+(Segment 16)
+#Removed features (h1)
+
+
+##``numpy.ma`` (h2)
+
+Several deprecated items were removed from the ``numpy.ma`` module::
+
+* ``numpy.ma.MaskedArray`` "raw_data" method
+* ``numpy.ma.MaskedArray`` constructor "flag" keyword
+* ``numpy.ma.make_mask`` "flag" keyword
+* ``numpy.ma.allclose`` "fill_value" keyword
+
+
+
+
+
+--------------------------------------------------------------------------------

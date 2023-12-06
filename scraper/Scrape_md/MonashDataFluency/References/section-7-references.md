@@ -1,0 +1,6 @@
+# References
+
+* [Library Carpentry](https://librarycarpentry.github.io/) is another Software Carpentry spinoff focused on software skills for librarians.
+* [W3School](https://www.w3schools.com/python/default.asp)
+* [Tutorials Point Python](https://www.tutorialspoint.com/python/index.htm)
+* [Getting Started Image Source](https://www.octoparse.com/blog/web-scraping-introduction)

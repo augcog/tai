@@ -1,0 +1,564 @@
+(Table of Contents)
+----[RealSense™](#appendix-realsense "#appendix-realsense") (h3)
+----[Overview](#overview "#overview") (h3)
+----[Specifications](#specifications "#specifications") (h3)
+------[Technical Specifications](#technical-specifications "#technical-specifications") (h4)
+------[Minimum System Requirements](#minimum-system-requirements "#minimum-system-requirements") (h4)
+----[Intel® RealSense™ R200 for TurtleBot3](#intel-realsense-r200-for-turtlebot3 "#intel-realsense-r200-for-turtlebot3") (h3)
+----[Introduction Video](#introduction-video "#introduction-video") (h3)
+----[User Guide](#user-guide "#user-guide") (h3)
+------[Installation](#installation "#installation") (h4)
+--------[Stable] (h5)
+--------[Unstable] (h5)
+------[Run realsense\_camera Node](#run-realsense_camera-node "#run-realsense_camera-node") (h4)
+------[(Optional) To Try as the Example Video Shows](#optional-to-try-as-the-example-video-shows "#optional-to-try-as-the-example-video-shows") (h4)
+----[References](#references "#references") (h3)
+
+
+(Page path)
+(1)  > (2)  > (3) [RealSense™](#appendix-realsense "#appendix-realsense")
+
+(Segment 1)
+# (h1)
+[]
+## (h2)
+[]
+###[RealSense™](#appendix-realsense "#appendix-realsense") (h3)
+
+![](/assets/images/platform/turtlebot3/appendix_realsense/realsense_r200.png)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+----[RealSense™](#appendix-realsense "#appendix-realsense") (h3)
+----[Overview](#overview "#overview") (h3)
+----[Specifications](#specifications "#specifications") (h3)
+------[Technical Specifications](#technical-specifications "#technical-specifications") (h4)
+------[Minimum System Requirements](#minimum-system-requirements "#minimum-system-requirements") (h4)
+----[Intel® RealSense™ R200 for TurtleBot3](#intel-realsense-r200-for-turtlebot3 "#intel-realsense-r200-for-turtlebot3") (h3)
+----[Introduction Video](#introduction-video "#introduction-video") (h3)
+----[User Guide](#user-guide "#user-guide") (h3)
+------[Installation](#installation "#installation") (h4)
+--------[Stable] (h5)
+--------[Unstable] (h5)
+------[Run realsense\_camera Node](#run-realsense_camera-node "#run-realsense_camera-node") (h4)
+------[(Optional) To Try as the Example Video Shows](#optional-to-try-as-the-example-video-shows "#optional-to-try-as-the-example-video-shows") (h4)
+----[References](#references "#references") (h3)
+
+
+(Page path)
+(1)  > (2)  > (3) [Overview](#overview "#overview")
+
+(Segment 2)
+# (h1)
+[]
+## (h2)
+[]
+###[Overview](#overview "#overview") (h3)
+
+[Intel® RealSense™](https://click.intel.com/realsense.html "https://click.intel.com/realsense.html") is a platform for implementing gesture-based human-computer interaction techniques. It consists of series of consumer grade 3D cameras together with an easy to use machine perception library. The Intel® RealSense™ R200 camera is a USB 3.0 device that can provide color, depth, and infrared video streams. The TurtleBot3 Waffle model adopts Intel® RealSense™ R200 to enable 3D SLAM and navigation, and it is possible to apply various applications such as gesture recognition, object recognition and scene recognition based on 3D depth information obtained using RealSense™’s innovative Active Stereo Technology.
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+----[RealSense™](#appendix-realsense "#appendix-realsense") (h3)
+----[Overview](#overview "#overview") (h3)
+----[Specifications](#specifications "#specifications") (h3)
+------[Technical Specifications](#technical-specifications "#technical-specifications") (h4)
+------[Minimum System Requirements](#minimum-system-requirements "#minimum-system-requirements") (h4)
+----[Intel® RealSense™ R200 for TurtleBot3](#intel-realsense-r200-for-turtlebot3 "#intel-realsense-r200-for-turtlebot3") (h3)
+----[Introduction Video](#introduction-video "#introduction-video") (h3)
+----[User Guide](#user-guide "#user-guide") (h3)
+------[Installation](#installation "#installation") (h4)
+--------[Stable] (h5)
+--------[Unstable] (h5)
+------[Run realsense\_camera Node](#run-realsense_camera-node "#run-realsense_camera-node") (h4)
+------[(Optional) To Try as the Example Video Shows](#optional-to-try-as-the-example-video-shows "#optional-to-try-as-the-example-video-shows") (h4)
+----[References](#references "#references") (h3)
+
+
+(Page path)
+(1)  > (2)  > (3) [Specifications](#specifications "#specifications") > (4) [Technical Specifications](#technical-specifications "#technical-specifications")
+
+(Segment 3)
+# (h1)
+[]
+## (h2)
+[]
+###[Specifications](#specifications "#specifications") (h3)
+
+
+####[Technical Specifications](#technical-specifications "#technical-specifications") (h4)
+
+| Items | Specifications |
+| --- | --- |
+| RGB Video Resolution | 1920 x 1280, 2M |
+| IR Depth Resolution | 640 x 480, VGA |
+| Laser Projector | Class 1 IR Laser Projector (IEC 60825-1:2007 Edition 2) |
+| Frame Rate | 30 fps (RGB), 60 fps (IR depth) |
+| FOV (Field-of-View) | 77° (RGB), 70° (IR depth), Diagonal Field of View |
+| Range | 0.3m ~ 4.0m |
+| Operating Supply Voltage | 5V (via USB port) |
+| USB Port | USB 3.0 |
+| Dimensions | 101.56mm length x 9.55mm height x 3.8mm width |
+| Mass | Under 35g |
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+----[RealSense™](#appendix-realsense "#appendix-realsense") (h3)
+----[Overview](#overview "#overview") (h3)
+----[Specifications](#specifications "#specifications") (h3)
+------[Technical Specifications](#technical-specifications "#technical-specifications") (h4)
+------[Minimum System Requirements](#minimum-system-requirements "#minimum-system-requirements") (h4)
+----[Intel® RealSense™ R200 for TurtleBot3](#intel-realsense-r200-for-turtlebot3 "#intel-realsense-r200-for-turtlebot3") (h3)
+----[Introduction Video](#introduction-video "#introduction-video") (h3)
+----[User Guide](#user-guide "#user-guide") (h3)
+------[Installation](#installation "#installation") (h4)
+--------[Stable] (h5)
+--------[Unstable] (h5)
+------[Run realsense\_camera Node](#run-realsense_camera-node "#run-realsense_camera-node") (h4)
+------[(Optional) To Try as the Example Video Shows](#optional-to-try-as-the-example-video-shows "#optional-to-try-as-the-example-video-shows") (h4)
+----[References](#references "#references") (h3)
+
+
+(Page path)
+(1)  > (2)  > (3) [Specifications](#specifications "#specifications") > (4) [Minimum System Requirements](#minimum-system-requirements "#minimum-system-requirements")
+
+(Segment 4)
+# (h1)
+[]
+## (h2)
+[]
+###[Specifications](#specifications "#specifications") (h3)
+
+
+####[Minimum System Requirements](#minimum-system-requirements "#minimum-system-requirements") (h4)
+
+| Items | Specifications |
+| --- | --- |
+| Processors | 4th Generation and future Intel® Core™ processors |
+| Disk Storage | 1GB |
+| Memory | 2GB |
+| Interface | USB 3.0 |
+|  | Ubuntu 14.04 and 16.04 LTS (GCC 4.9 toolchain) |
+| Operating System | Windows 8.1 and Windows 10 (Visual Studio 2015 Update 2) |
+| for SDK | Mac OS X 10.7+ (Clang toolchain) |
+|  | Ostro |
+
+Here is the detail specification document: [Intel® RealSense™ Datasheet](https://software.intel.com/sites/default/files/managed/d7/a9/realsense-camera-r200-product-datasheet.pdf "https://software.intel.com/sites/default/files/managed/d7/a9/realsense-camera-r200-product-datasheet.pdf")
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+----[RealSense™](#appendix-realsense "#appendix-realsense") (h3)
+----[Overview](#overview "#overview") (h3)
+----[Specifications](#specifications "#specifications") (h3)
+------[Technical Specifications](#technical-specifications "#technical-specifications") (h4)
+------[Minimum System Requirements](#minimum-system-requirements "#minimum-system-requirements") (h4)
+----[Intel® RealSense™ R200 for TurtleBot3](#intel-realsense-r200-for-turtlebot3 "#intel-realsense-r200-for-turtlebot3") (h3)
+----[Introduction Video](#introduction-video "#introduction-video") (h3)
+----[User Guide](#user-guide "#user-guide") (h3)
+------[Installation](#installation "#installation") (h4)
+--------[Stable] (h5)
+--------[Unstable] (h5)
+------[Run realsense\_camera Node](#run-realsense_camera-node "#run-realsense_camera-node") (h4)
+------[(Optional) To Try as the Example Video Shows](#optional-to-try-as-the-example-video-shows "#optional-to-try-as-the-example-video-shows") (h4)
+----[References](#references "#references") (h3)
+
+
+(Page path)
+(1)  > (2)  > (3) [Intel® RealSense™ R200 for TurtleBot3](#intel-realsense-r200-for-turtlebot3 "#intel-realsense-r200-for-turtlebot3")
+
+(Segment 5)
+# (h1)
+[]
+## (h2)
+[]
+###[Intel® RealSense™ R200 for TurtleBot3](#intel-realsense-r200-for-turtlebot3 "#intel-realsense-r200-for-turtlebot3") (h3)
+
+The Intel® RealSense™ R200 is applied on TurtleBot3 Waffle.
+
+![](/assets/images/platform/turtlebot3/hardware_setup/turtlebot3_models.png)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+----[RealSense™](#appendix-realsense "#appendix-realsense") (h3)
+----[Overview](#overview "#overview") (h3)
+----[Specifications](#specifications "#specifications") (h3)
+------[Technical Specifications](#technical-specifications "#technical-specifications") (h4)
+------[Minimum System Requirements](#minimum-system-requirements "#minimum-system-requirements") (h4)
+----[Intel® RealSense™ R200 for TurtleBot3](#intel-realsense-r200-for-turtlebot3 "#intel-realsense-r200-for-turtlebot3") (h3)
+----[Introduction Video](#introduction-video "#introduction-video") (h3)
+----[User Guide](#user-guide "#user-guide") (h3)
+------[Installation](#installation "#installation") (h4)
+--------[Stable] (h5)
+--------[Unstable] (h5)
+------[Run realsense\_camera Node](#run-realsense_camera-node "#run-realsense_camera-node") (h4)
+------[(Optional) To Try as the Example Video Shows](#optional-to-try-as-the-example-video-shows "#optional-to-try-as-the-example-video-shows") (h4)
+----[References](#references "#references") (h3)
+
+
+(Page path)
+(1)  > (2)  > (3) [Introduction Video](#introduction-video "#introduction-video")
+
+(Segment 6)
+# (h1)
+[]
+## (h2)
+[]
+###[Introduction Video](#introduction-video "#introduction-video") (h3)
+
+The TurtleBot3 Waffle uses Intel® RealSense™ Camera R200 as a default vision sensor. Check this video out that shows how Intel® RealSense™ Camera R200 can be used in TurtleBot3 Waffle.
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+----[RealSense™](#appendix-realsense "#appendix-realsense") (h3)
+----[Overview](#overview "#overview") (h3)
+----[Specifications](#specifications "#specifications") (h3)
+------[Technical Specifications](#technical-specifications "#technical-specifications") (h4)
+------[Minimum System Requirements](#minimum-system-requirements "#minimum-system-requirements") (h4)
+----[Intel® RealSense™ R200 for TurtleBot3](#intel-realsense-r200-for-turtlebot3 "#intel-realsense-r200-for-turtlebot3") (h3)
+----[Introduction Video](#introduction-video "#introduction-video") (h3)
+----[User Guide](#user-guide "#user-guide") (h3)
+------[Installation](#installation "#installation") (h4)
+--------[Stable] (h5)
+--------[Unstable] (h5)
+------[Run realsense\_camera Node](#run-realsense_camera-node "#run-realsense_camera-node") (h4)
+------[(Optional) To Try as the Example Video Shows](#optional-to-try-as-the-example-video-shows "#optional-to-try-as-the-example-video-shows") (h4)
+----[References](#references "#references") (h3)
+
+
+(Page path)
+(1)  > (2)  > (3) [User Guide](#user-guide "#user-guide") > (4) [Installation](#installation "#installation") > (5) [Stable]
+
+(Segment 7)
+# (h1)
+[]
+## (h2)
+[]
+###[User Guide](#user-guide "#user-guide") (h3)
+
+[Intel® RealSense™ packages](http://wiki.ros.org/RealSense "http://wiki.ros.org/RealSense") enable the use of Intel® RealSense™ R200, F200, SR300 and ZR300 cameras with ROS. Below table describes packages required to operate Intel® RealSense™. You will be guided to install these packaged in the next section.
+
+| Package | Description |
+| --- | --- |
+| [librealsense](http://wiki.ros.org/librealsense "http://wiki.ros.org/librealsense") | Underlying library driver for communicating with Intel® RealSense™ camera |
+| [realsense\_camera](http://wiki.ros.org/realsense_camera "http://wiki.ros.org/realsense_camera") | ROS Intel® RealSense™ camera node for publishing camera |
+
+
+####[Installation](#installation "#installation") (h4)
+
+**Warning!** There are installation prerequisites for the Intel® RealSense™ package installation in http://wiki.ros.org/librealsense
+
+**[TurtleBot]** The following commands will install relevant Intel® RealSense™ library.
+
+```
+$ sudo apt-get install linux-headers-generic
+$ sudo apt-get install ros-kinetic-librealsense
+
+```
+
+**[TurtleBot]** To run the Intel® RealSense™ with ROS, the following package is needed. There are stable and unstable version packages. Choose one and install it.
+
+
+#####[Stable] (h5)
+
+```
+$ cd catkin_ws/src
+$ git clone https://github.com/intel-ros/realsense.git
+$ cd realsense
+$ git checkout 1.8.0
+$ cd catkin_ws && catkin_make -j2
+
+```
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+----[RealSense™](#appendix-realsense "#appendix-realsense") (h3)
+----[Overview](#overview "#overview") (h3)
+----[Specifications](#specifications "#specifications") (h3)
+------[Technical Specifications](#technical-specifications "#technical-specifications") (h4)
+------[Minimum System Requirements](#minimum-system-requirements "#minimum-system-requirements") (h4)
+----[Intel® RealSense™ R200 for TurtleBot3](#intel-realsense-r200-for-turtlebot3 "#intel-realsense-r200-for-turtlebot3") (h3)
+----[Introduction Video](#introduction-video "#introduction-video") (h3)
+----[User Guide](#user-guide "#user-guide") (h3)
+------[Installation](#installation "#installation") (h4)
+--------[Stable] (h5)
+--------[Unstable] (h5)
+------[Run realsense\_camera Node](#run-realsense_camera-node "#run-realsense_camera-node") (h4)
+------[(Optional) To Try as the Example Video Shows](#optional-to-try-as-the-example-video-shows "#optional-to-try-as-the-example-video-shows") (h4)
+----[References](#references "#references") (h3)
+
+
+(Page path)
+(1)  > (2)  > (3) [User Guide](#user-guide "#user-guide") > (4) [Installation](#installation "#installation") > (5) [Unstable]
+
+(Segment 8)
+# (h1)
+[]
+## (h2)
+[]
+###[User Guide](#user-guide "#user-guide") (h3)
+
+[Intel® RealSense™ packages](http://wiki.ros.org/RealSense "http://wiki.ros.org/RealSense") enable the use of Intel® RealSense™ R200, F200, SR300 and ZR300 cameras with ROS. Below table describes packages required to operate Intel® RealSense™. You will be guided to install these packaged in the next section.
+
+| Package | Description |
+| --- | --- |
+| [librealsense](http://wiki.ros.org/librealsense "http://wiki.ros.org/librealsense") | Underlying library driver for communicating with Intel® RealSense™ camera |
+| [realsense\_camera](http://wiki.ros.org/realsense_camera "http://wiki.ros.org/realsense_camera") | ROS Intel® RealSense™ camera node for publishing camera |
+
+
+####[Installation](#installation "#installation") (h4)
+
+**Warning!** There are installation prerequisites for the Intel® RealSense™ package installation in http://wiki.ros.org/librealsense
+
+**[TurtleBot]** The following commands will install relevant Intel® RealSense™ library.
+
+```
+$ sudo apt-get install linux-headers-generic
+$ sudo apt-get install ros-kinetic-librealsense
+
+```
+
+**[TurtleBot]** To run the Intel® RealSense™ with ROS, the following package is needed. There are stable and unstable version packages. Choose one and install it.
+
+
+#####[Unstable] (h5)
+
+```
+$ sudo apt-get install ros-kinetic-realsense-camera
+
+```
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+----[RealSense™](#appendix-realsense "#appendix-realsense") (h3)
+----[Overview](#overview "#overview") (h3)
+----[Specifications](#specifications "#specifications") (h3)
+------[Technical Specifications](#technical-specifications "#technical-specifications") (h4)
+------[Minimum System Requirements](#minimum-system-requirements "#minimum-system-requirements") (h4)
+----[Intel® RealSense™ R200 for TurtleBot3](#intel-realsense-r200-for-turtlebot3 "#intel-realsense-r200-for-turtlebot3") (h3)
+----[Introduction Video](#introduction-video "#introduction-video") (h3)
+----[User Guide](#user-guide "#user-guide") (h3)
+------[Installation](#installation "#installation") (h4)
+--------[Stable] (h5)
+--------[Unstable] (h5)
+------[Run realsense\_camera Node](#run-realsense_camera-node "#run-realsense_camera-node") (h4)
+------[(Optional) To Try as the Example Video Shows](#optional-to-try-as-the-example-video-shows "#optional-to-try-as-the-example-video-shows") (h4)
+----[References](#references "#references") (h3)
+
+
+(Page path)
+(1)  > (2)  > (3) [User Guide](#user-guide "#user-guide") > (4) [Run realsense\_camera Node](#run-realsense_camera-node "#run-realsense_camera-node")
+
+(Segment 9)
+# (h1)
+[]
+## (h2)
+[]
+###[User Guide](#user-guide "#user-guide") (h3)
+
+[Intel® RealSense™ packages](http://wiki.ros.org/RealSense "http://wiki.ros.org/RealSense") enable the use of Intel® RealSense™ R200, F200, SR300 and ZR300 cameras with ROS. Below table describes packages required to operate Intel® RealSense™. You will be guided to install these packaged in the next section.
+
+| Package | Description |
+| --- | --- |
+| [librealsense](http://wiki.ros.org/librealsense "http://wiki.ros.org/librealsense") | Underlying library driver for communicating with Intel® RealSense™ camera |
+| [realsense\_camera](http://wiki.ros.org/realsense_camera "http://wiki.ros.org/realsense_camera") | ROS Intel® RealSense™ camera node for publishing camera |
+
+
+####[Run realsense\_camera Node](#run-realsense_camera-node "#run-realsense_camera-node") (h4)
+
+**[TurtleBot]** Run the following command
+
+```
+$ roslaunch realsense_camera r200_nodelet_default.launch
+
+```
+
+While the realsense\_camera node is running, you can view various data from Intel® RealSense™ by launching rqt\_image\_view.
+
+**[Remote PC]** Run the following command
+
+```
+$ rqt_image_view
+
+```
+
+Once the gui application is appeared on the screen, you can select data topic name related to Intel® RealSense™ from drop down menu at the top of the application.
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+----[RealSense™](#appendix-realsense "#appendix-realsense") (h3)
+----[Overview](#overview "#overview") (h3)
+----[Specifications](#specifications "#specifications") (h3)
+------[Technical Specifications](#technical-specifications "#technical-specifications") (h4)
+------[Minimum System Requirements](#minimum-system-requirements "#minimum-system-requirements") (h4)
+----[Intel® RealSense™ R200 for TurtleBot3](#intel-realsense-r200-for-turtlebot3 "#intel-realsense-r200-for-turtlebot3") (h3)
+----[Introduction Video](#introduction-video "#introduction-video") (h3)
+----[User Guide](#user-guide "#user-guide") (h3)
+------[Installation](#installation "#installation") (h4)
+--------[Stable] (h5)
+--------[Unstable] (h5)
+------[Run realsense\_camera Node](#run-realsense_camera-node "#run-realsense_camera-node") (h4)
+------[(Optional) To Try as the Example Video Shows](#optional-to-try-as-the-example-video-shows "#optional-to-try-as-the-example-video-shows") (h4)
+----[References](#references "#references") (h3)
+
+
+(Page path)
+(1)  > (2)  > (3) [User Guide](#user-guide "#user-guide") > (4) [(Optional) To Try as the Example Video Shows](#optional-to-try-as-the-example-video-shows "#optional-to-try-as-the-example-video-shows")
+
+(Segment 10)
+# (h1)
+[]
+## (h2)
+[]
+###[User Guide](#user-guide "#user-guide") (h3)
+
+[Intel® RealSense™ packages](http://wiki.ros.org/RealSense "http://wiki.ros.org/RealSense") enable the use of Intel® RealSense™ R200, F200, SR300 and ZR300 cameras with ROS. Below table describes packages required to operate Intel® RealSense™. You will be guided to install these packaged in the next section.
+
+| Package | Description |
+| --- | --- |
+| [librealsense](http://wiki.ros.org/librealsense "http://wiki.ros.org/librealsense") | Underlying library driver for communicating with Intel® RealSense™ camera |
+| [realsense\_camera](http://wiki.ros.org/realsense_camera "http://wiki.ros.org/realsense_camera") | ROS Intel® RealSense™ camera node for publishing camera |
+
+
+####[(Optional) To Try as the Example Video Shows](#optional-to-try-as-the-example-video-shows "#optional-to-try-as-the-example-video-shows") (h4)
+
+**[TurtleBot]** Input `ctrl` + `c` to quit the previously run camera node, then run other realsense\_camera node
+
+```
+$ roslaunch realsense_camera r200_nodelet_rgbd.launch
+
+```
+
+**[TurtleBot]** Run turtlebot3\_bringup node to get datas for doing SLAM
+
+```
+$ roslaunch turtlebot3_bringup turtlebot3_robot.launch
+
+```
+
+**[Remote PC]** Run turtlebot3\_slam node to do SLAM
+
+```
+$ roslaunch turtlebot3_slam turtlebot3_slam.launch
+
+```
+
+**[Remote PC]** Run RViz
+
+```
+$ rosrun rviz rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_slam.rviz
+
+```
+
+**[Remote PC]** Click `Panels` - `Views` to open the view window
+
+**[Remote PC]** Click `TopDownOrtho (rviz)` and change it into `XYOrbit (rviz)`
+
+**[Remote PC]** Click `add` - `By topic` and find the PointCloud2 type `/points` topic in `/camera/depth`, then click it
+
+**[Remote PC]** Click PointCloud2 type topic on the left window, then change `Color Transformer` from `Intensity` to `AxisColor`. This will show the depth of each points by color description.
+
+**[Remote PC]** Click `add` - `By topic` and find the Image type `/image_color` topic in `/camera/rgb`, then click it. This will show the view of the rgb camera
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+----[RealSense™](#appendix-realsense "#appendix-realsense") (h3)
+----[Overview](#overview "#overview") (h3)
+----[Specifications](#specifications "#specifications") (h3)
+------[Technical Specifications](#technical-specifications "#technical-specifications") (h4)
+------[Minimum System Requirements](#minimum-system-requirements "#minimum-system-requirements") (h4)
+----[Intel® RealSense™ R200 for TurtleBot3](#intel-realsense-r200-for-turtlebot3 "#intel-realsense-r200-for-turtlebot3") (h3)
+----[Introduction Video](#introduction-video "#introduction-video") (h3)
+----[User Guide](#user-guide "#user-guide") (h3)
+------[Installation](#installation "#installation") (h4)
+--------[Stable] (h5)
+--------[Unstable] (h5)
+------[Run realsense\_camera Node](#run-realsense_camera-node "#run-realsense_camera-node") (h4)
+------[(Optional) To Try as the Example Video Shows](#optional-to-try-as-the-example-video-shows "#optional-to-try-as-the-example-video-shows") (h4)
+----[References](#references "#references") (h3)
+
+
+(Page path)
+(1)  > (2)  > (3) [References](#references "#references")
+
+(Segment 11)
+# (h1)
+[]
+## (h2)
+[]
+###[References](#references "#references") (h3)
+
+* [Intel® RealSense™ Datasheet](https://software.intel.com/sites/default/files/managed/d7/a9/realsense-camera-r200-product-datasheet.pdf "https://software.intel.com/sites/default/files/managed/d7/a9/realsense-camera-r200-product-datasheet.pdf")
+* [Data ranges](https://software.intel.com/en-us/articles/intel-realsense-data-ranges "https://software.intel.com/en-us/articles/intel-realsense-data-ranges")
+* [Intel® RealSense™ SDK](https://software.intel.com/en-us/intel-realsense-sdk "https://software.intel.com/en-us/intel-realsense-sdk")
+* [Purchase](https://click.intel.com/realsense.html "https://click.intel.com/realsense.html")
+
+ Previous Page
+Next Page 
+
+$reference = $(".archive");
+$(window).resize(function() {
+ var newWidth = $reference.width() \* 0.90;
+ if (newWidth > 640) { newWidth = 640; }
+
+ // Resize all videos according to aspect ratio
+ $("iframe").each(
+ function(index, elem) {
+ elem.setAttribute("width", (newWidth).toFixed());
+ elem.setAttribute("height", (newWidth\*0.56).toFixed());
+ }
+ );
+// Kick off one resize to fix all videos on page load
+}).resize();
+
+© 2023 ROBOTIS. Powered by [Jekyll](http://jekyllrb.com "http://jekyllrb.com") & [Minimal Mistakes](https://mademistakes.com/work/minimal-mistakes-jekyll-theme/ "https://mademistakes.com/work/minimal-mistakes-jekyll-theme/").
+
+ var \_gaq = \_gaq || [];
+ \_gaq.push(['\_setAccount', 'UA-83196341-13']);
+ \_gaq.push(['\_trackPageview']);
+
+ (function() {
+ var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+ })();
+
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
+
+ gtag('config', 'G-155KHSC07K');
+
+
+
+
+--------------------------------------------------------------------------------

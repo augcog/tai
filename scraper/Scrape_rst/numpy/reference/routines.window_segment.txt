@@ -1,0 +1,20 @@
+Parsed Headers, Levels and Contents:
+h1: Window functions
+Contents:
+  
+  .. currentmodule:: numpy
+  
+  Various windows
+  ---------------
+  
+  .. autosummary::
+  :toctree: generated/
+  
+  bartlett
+  blackman
+  hamming
+  hanning
+  kaiser
+
+=====================================
+

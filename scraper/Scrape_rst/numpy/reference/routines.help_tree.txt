@@ -1,0 +1,20 @@
+(Table of Contents)
+NumPy-specific help functions (h1)
+
+
+(Page path)
+(h1) NumPy-specific help functions
+
+(Segment 1)
+#NumPy-specific help functions (h1)
+
+.. currentmodule:: numpy
+
+.. autosummary::
+:toctree: generated/
+
+info
+
+
+
+--------------------------------------------------------------------------------

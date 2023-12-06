@@ -1,0 +1,185 @@
+Segment 1
+#Writing Markdown (h1)
+
+
+##Github Guide (h2)
+
+Here’s an overview of Markdown syntax that you can use anywhere on GitHub.com or in your own text files.
+
+
+
+###Headers (h3)
+
+```
+
+
+
+----------------------------------------
+Segment 2
+#This is an <h1> tag (h1)
+
+
+##This is an <h2> tag (h2)
+
+
+###### (h6)
+[]
+
+###### (h6)
+[]
+
+###### (h6)
+[]
+
+######This is an <h6> tag (h6)
+```
+
+
+
+
+----------------------------------------
+Segment 3
+#This is an <h1> tag (h1)
+
+
+##This is an <h2> tag (h2)
+
+
+###Emphasis (h3)
+
+```
+*This text will be italic*
+_This will also be italic_
+
+**This text will be bold**
+__This will also be bold__
+
+_You **can** combine them_
+```
+
+
+
+
+----------------------------------------
+Segment 4
+#This is an <h1> tag (h1)
+
+
+##This is an <h2> tag (h2)
+
+
+###Lists (h3)
+
+
+
+####Unordered (h4)
+
+```
+* Item 1
+* Item 2
+  * Item 2a
+  * Item 2b
+```
+
+
+
+
+----------------------------------------
+Segment 5
+#This is an <h1> tag (h1)
+
+
+##This is an <h2> tag (h2)
+
+
+###Lists (h3)
+
+
+
+####Ordered (h4)
+
+```
+1. Item 1
+1. Item 2
+1. Item 3
+   1. Item 3a
+   1. Item 3b
+```
+
+
+
+
+----------------------------------------
+Segment 6
+#This is an <h1> tag (h1)
+
+
+##This is an <h2> tag (h2)
+
+
+###Images (h3)
+
+```
+![GitHub Logo](/images/logo.png)
+Format: ![Alt Text](url)
+```
+
+
+
+
+----------------------------------------
+Segment 7
+#This is an <h1> tag (h1)
+
+
+##This is an <h2> tag (h2)
+
+
+###Links (h3)
+
+```
+http://github.com - automatic!
+[GitHub](http://github.com)
+```
+
+
+
+
+----------------------------------------
+Segment 8
+#This is an <h1> tag (h1)
+
+
+##This is an <h2> tag (h2)
+
+
+###Blockquotes (h3)
+
+```
+As Kanye West said:
+
+> We're living the future so
+> the present is our past.
+```
+
+
+
+
+----------------------------------------
+Segment 8
+#This is an <h1> tag (h1)
+
+
+##This is an <h2> tag (h2)
+
+
+###Inline code (h3)
+
+```
+I think you should use an
+`<addr>` element here instead.
+```
+
+
+
+----------------------------------------

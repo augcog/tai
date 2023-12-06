@@ -1,0 +1,36 @@
+Segment 1
+#Setting up the header (h1)
+
+Material for MkDocs' header can be customized to show an announcement bar that
+disappears upon scrolling, and provides some options for further configuration.
+It also includes the [search bar] and a place to display your project's
+[git repository], as explained in those dedicated guides.
+
+  [search bar]: setting-up-site-search.md
+  [git repository]: adding-a-git-repository.md
+
+
+
+##Configuration (h2)
+
+
+
+###Automatic hiding (h3)
+
+<!-- md:version 6.2.0 -->
+<!-- md:feature -->
+
+When autohiding is enabled, the header is automatically hidden when the
+user scrolls past a certain threshold, leaving more space for content. Add the
+following lines to `mkdocs.yml`:
+
+``` yaml
+theme:
+  features:
+    - header.autohide
+```
+
+
+
+
+----------------------------------------

@@ -1,0 +1,34 @@
+Parsed Headers, Levels and Contents:
+h1: SFC64 Small Fast Chaotic PRNG
+Contents:
+  
+  .. currentmodule:: numpy.random
+  
+  .. autoclass:: SFC64
+  :members: __init__
+  :exclude-members: __init__
+  
+
+=====================================
+
+h2: State
+Contents:
+  
+  .. autosummary::
+  :toctree: generated/
+  
+  ~SFC64.state
+  
+
+=====================================
+
+h2: Extending
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  ~SFC64.cffi
+  ~SFC64.ctypes
+
+=====================================
+

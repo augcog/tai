@@ -1,0 +1,2700 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Writing an action server and client (Python) — ROS 2 Documentation: Galactic  documentation
+  </title>
+  <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+  <link href="../../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+  <link href="../../../_static/graphviz.css" rel="stylesheet" type="text/css"/>
+  <link href="../../../_static/copybutton.css" rel="stylesheet" type="text/css"/>
+  <link href="../../../_static/tabs.css" rel="stylesheet" type="text/css"/>
+  <link href="../../../_static/favicon.ico" rel="shortcut icon"/>
+  <link href="https://docs.ros.org/en/galactic/Tutorials/Intermediate/Writing-an-Action-Server-Client/Py.html" rel="canonical"/>
+  <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js">
+  </script>
+  <script src="../../../_static/jquery.js">
+  </script>
+  <script src="../../../_static/underscore.js">
+  </script>
+  <script src="../../../_static/doctools.js">
+  </script>
+  <script src="../../../_static/clipboard.min.js">
+  </script>
+  <script src="../../../_static/copybutton.js">
+  </script>
+  <script src="../../../_static/tabs.js">
+  </script>
+  <script src="../../../_static/js/theme.js">
+  </script>
+  <link href="../../../genindex.html" rel="index" title="Index"/>
+  <link href="../../../search.html" rel="search" title="Search"/>
+  <link href="../Composition.html" rel="next" title="Composing multiple nodes in a single process"/>
+  <link href="Cpp.html" rel="prev" title="Writing an action server and client (C++)"/>
+ </head>
+ <body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+   <nav class="wy-nav-side" data-toggle="wy-nav-shift">
+    <div class="wy-side-scroll">
+     <div class="wy-side-nav-search">
+      <a class="icon icon-home" href="../../../index.html">
+       ROS 2 Documentation: Galactic
+       <img alt="Logo" class="logo" src="../../../_static/galactic-small.png"/>
+      </a>
+      <div role="search">
+       <form action="../../../search.html" class="wy-form" id="rtd-search-form" method="get">
+        <input name="q" placeholder="Search docs" type="text"/>
+        <input name="check_keywords" type="hidden" value="yes"/>
+        <input name="area" type="hidden" value="default"/>
+       </form>
+      </div>
+     </div>
+     <div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+      <ul class="current">
+       <li class="toctree-l1">
+        <a class="reference internal" href="../../../Installation.html">
+         Installation
+        </a>
+        <ul>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Installation/Ubuntu-Install-Debians.html">
+           Ubuntu (Debian)
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Installation/Windows-Install-Binary.html">
+           Windows (binary)
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Installation/RHEL-Install-RPMs.html">
+           RHEL (RPM)
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Installation/Alternatives.html">
+           Alternatives
+          </a>
+          <ul>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Installation/Alternatives/Ubuntu-Development-Setup.html">
+             Ubuntu (source)
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Installation/Alternatives/Ubuntu-Install-Binary.html">
+             Ubuntu (binary)
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Installation/Alternatives/Windows-Development-Setup.html">
+             Windows (source)
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Installation/Alternatives/RHEL-Development-Setup.html">
+             RHEL (source)
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Installation/Alternatives/RHEL-Install-Binary.html">
+             RHEL (binary)
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Installation/Alternatives/macOS-Development-Setup.html">
+             macOS (source)
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Installation/Alternatives/Fedora-Development-Setup.html">
+             Fedora (source)
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Installation/Alternatives/Latest-Development-Setup.html">
+             Latest development (source)
+            </a>
+           </li>
+          </ul>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Installation/Maintaining-a-Source-Checkout.html">
+           Maintain source checkout
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Installation/Testing.html">
+           Testing with pre-release binaries
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Installation/DDS-Implementations.html">
+           DDS implementations
+          </a>
+          <ul>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Installation/DDS-Implementations/Install-Connext-Security-Plugins.html">
+             Connext security plugins
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Installation/DDS-Implementations/Install-Connext-University-Eval.html">
+             RTI Connext DDS
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Installation/DDS-Implementations/Working-with-Eclipse-CycloneDDS.html">
+             Eclipse Cyclone DDS
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Installation/DDS-Implementations/Working-with-GurumNetworks-GurumDDS.html">
+             GurumNetworks GurumDDS
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Installation/DDS-Implementations/Working-with-eProsima-Fast-DDS.html">
+             eProsima Fast DDS
+            </a>
+           </li>
+          </ul>
+         </li>
+        </ul>
+       </li>
+       <li class="toctree-l1">
+        <a class="reference internal" href="../../../Releases.html">
+         Distributions
+        </a>
+        <ul>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Releases/Release-Humble-Hawksbill.html">
+           Humble Hawksbill (
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             humble
+            </span>
+           </code>
+           )
+          </a>
+          <ul>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Releases/Humble-Hawksbill-Complete-Changelog.html">
+             Humble Hawksbill changelog
+            </a>
+           </li>
+          </ul>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Releases/Release-Foxy-Fitzroy.html">
+           Foxy Fitzroy (
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             foxy
+            </span>
+           </code>
+           )
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Releases/Release-Rolling-Ridley.html">
+           Rolling Ridley (
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             rolling
+            </span>
+           </code>
+           )
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Releases/Development.html">
+           Development Distribution
+          </a>
+          <ul>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Releases/Release-Iron-Irwini.html">
+             ROS 2 Iron Irwini (codename ‘iron’; May, 2023)
+            </a>
+           </li>
+          </ul>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Releases/End-of-Life.html">
+           End-of-Life Distributions
+          </a>
+          <ul>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Releases/Release-Galactic-Geochelone.html">
+             Galactic Geochelone (
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               galactic
+              </span>
+             </code>
+             )
+            </a>
+            <ul>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../../../Releases/Galactic-Geochelone-Complete-Changelog.html">
+               Galactic Geochelone changelog
+              </a>
+             </li>
+            </ul>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Releases/Release-Eloquent-Elusor.html">
+             Eloquent Elusor (
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               eloquent
+              </span>
+             </code>
+             )
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Releases/Release-Dashing-Diademata.html">
+             Dashing Diademata (
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               dashing
+              </span>
+             </code>
+             )
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Releases/Release-Crystal-Clemmys.html">
+             Crystal Clemmys (
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               crystal
+              </span>
+             </code>
+             )
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Releases/Release-Bouncy-Bolson.html">
+             Bouncy Bolson (
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               bouncy
+              </span>
+             </code>
+             )
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Releases/Release-Ardent-Apalone.html">
+             Ardent Apalone (
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               ardent
+              </span>
+             </code>
+             )
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Releases/Beta3-Overview.html">
+             Beta 3 (
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               r2b3
+              </span>
+             </code>
+             )
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Releases/Beta2-Overview.html">
+             Beta 2 (
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               r2b2
+              </span>
+             </code>
+             )
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Releases/Beta1-Overview.html">
+             Beta 1 (
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               Asphalt
+              </span>
+             </code>
+             )
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../Releases/Alpha-Overview.html">
+             Alphas
+            </a>
+           </li>
+          </ul>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Releases/Release-Process.html">
+           Development process for a release
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="toctree-l1 current">
+        <a class="reference internal" href="../../../Tutorials.html">
+         Tutorials
+        </a>
+        <ul class="current">
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../Beginner-CLI-Tools.html">
+           Beginner: CLI tools
+          </a>
+          <ul>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-CLI-Tools/Configuring-ROS2-Environment.html">
+             Configuring environment
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-CLI-Tools/Introducing-Turtlesim/Introducing-Turtlesim.html">
+             Using
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               turtlesim
+              </span>
+             </code>
+             and
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               rqt
+              </span>
+             </code>
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-CLI-Tools/Understanding-ROS2-Nodes/Understanding-ROS2-Nodes.html">
+             Understanding nodes
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-CLI-Tools/Understanding-ROS2-Topics/Understanding-ROS2-Topics.html">
+             Understanding topics
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-CLI-Tools/Understanding-ROS2-Services/Understanding-ROS2-Services.html">
+             Understanding services
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-CLI-Tools/Understanding-ROS2-Parameters/Understanding-ROS2-Parameters.html">
+             Understanding parameters
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-CLI-Tools/Understanding-ROS2-Actions/Understanding-ROS2-Actions.html">
+             Understanding actions
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-CLI-Tools/Using-Rqt-Console/Using-Rqt-Console.html">
+             Using
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               rqt_console
+              </span>
+             </code>
+             to view logs
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-CLI-Tools/Launching-Multiple-Nodes/Launching-Multiple-Nodes.html">
+             Launching nodes
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-CLI-Tools/Recording-And-Playing-Back-Data/Recording-And-Playing-Back-Data.html">
+             Recording and playing back data
+            </a>
+           </li>
+          </ul>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../Beginner-Client-Libraries.html">
+           Beginner: Client libraries
+          </a>
+          <ul>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-Client-Libraries/Colcon-Tutorial.html">
+             Using
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               colcon
+              </span>
+             </code>
+             to build packages
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html">
+             Creating a workspace
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-Client-Libraries/Creating-Your-First-ROS2-Package.html">
+             Creating a package
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-Client-Libraries/Writing-A-Simple-Cpp-Publisher-And-Subscriber.html">
+             Writing a simple publisher and subscriber (C++)
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html">
+             Writing a simple publisher and subscriber (Python)
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-Client-Libraries/Writing-A-Simple-Cpp-Service-And-Client.html">
+             Writing a simple service and client (C++)
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-Client-Libraries/Writing-A-Simple-Py-Service-And-Client.html">
+             Writing a simple service and client (Python)
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-Client-Libraries/Custom-ROS2-Interfaces.html">
+             Creating custom msg and srv files
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-Client-Libraries/Single-Package-Define-And-Use-Interface.html">
+             Implementing custom interfaces
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-Client-Libraries/Using-Parameters-In-A-Class-CPP.html">
+             Using parameters in a class (C++)
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-Client-Libraries/Using-Parameters-In-A-Class-Python.html">
+             Using parameters in a class (Python)
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-Client-Libraries/Getting-Started-With-Ros2doctor.html">
+             Using
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               ros2doctor
+              </span>
+             </code>
+             to identify issues
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Beginner-Client-Libraries/Pluginlib.html">
+             Creating and using plugins (C++)
+            </a>
+           </li>
+          </ul>
+         </li>
+         <li class="toctree-l2 current">
+          <a class="reference internal" href="../../Intermediate.html">
+           Intermediate
+          </a>
+          <ul class="current">
+           <li class="toctree-l3">
+            <a class="reference internal" href="../Rosdep.html">
+             Managing Dependencies with rosdep
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../Creating-an-Action.html">
+             Creating an action
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="Cpp.html">
+             Writing an action server and client (C++)
+            </a>
+           </li>
+           <li class="toctree-l3 current">
+            <a class="current reference internal" href="#">
+             Writing an action server and client (Python)
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../Composition.html">
+             Composing multiple nodes in a single process
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../Monitoring-For-Parameter-Changes-CPP.html">
+             Monitoring for parameter changes (C++)
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../Launch/Launch-Main.html">
+             Launch
+            </a>
+            <ul>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Launch/Creating-Launch-Files.html">
+               Creating a launch file
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Launch/Launch-system.html">
+               Integrating launch files into ROS 2 packages
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Launch/Using-Substitutions.html">
+               Using substitutions
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Launch/Using-Event-Handlers.html">
+               Using event handlers
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Launch/Using-ROS2-Launch-For-Large-Projects.html">
+               Managing large projects
+              </a>
+             </li>
+            </ul>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../Tf2/Tf2-Main.html">
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               tf2
+              </span>
+             </code>
+            </a>
+            <ul>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Tf2/Introduction-To-Tf2.html">
+               Introducing
+               <code class="docutils literal notranslate">
+                <span class="pre">
+                 tf2
+                </span>
+               </code>
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Tf2/Writing-A-Tf2-Static-Broadcaster-Py.html">
+               Writing a static broadcaster (Python)
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Tf2/Writing-A-Tf2-Static-Broadcaster-Cpp.html">
+               Writing a static broadcaster (C++)
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Tf2/Writing-A-Tf2-Broadcaster-Py.html">
+               Writing a broadcaster (Python)
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Tf2/Writing-A-Tf2-Broadcaster-Cpp.html">
+               Writing a broadcaster (C++)
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Tf2/Writing-A-Tf2-Listener-Py.html">
+               Writing a listener (Python)
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Tf2/Writing-A-Tf2-Listener-Cpp.html">
+               Writing a listener (C++)
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Tf2/Adding-A-Frame-Py.html">
+               Adding a frame (Python)
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Tf2/Adding-A-Frame-Cpp.html">
+               Adding a frame (C++)
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Tf2/Learning-About-Tf2-And-Time-Py.html">
+               Using time (Python)
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Tf2/Learning-About-Tf2-And-Time-Cpp.html">
+               Using time (C++)
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Tf2/Time-Travel-With-Tf2-Py.html">
+               Traveling in time (Python)
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Tf2/Time-Travel-With-Tf2-Cpp.html">
+               Traveling in time (C++)
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Tf2/Debugging-Tf2-Problems.html">
+               Debugging
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Tf2/Quaternion-Fundamentals.html">
+               Quaternion fundamentals
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Tf2/Using-Stamped-Datatypes-With-Tf2-Ros-MessageFilter.html">
+               Using stamped datatypes with
+               <code class="docutils literal notranslate">
+                <span class="pre">
+                 tf2_ros::MessageFilter
+                </span>
+               </code>
+              </a>
+             </li>
+            </ul>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../Testing/Testing-Main.html">
+             Testing
+            </a>
+            <ul>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Testing/CLI.html">
+               Running Tests in ROS 2 from the Command Line
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../Testing/Python.html">
+               Writing Basic Tests with Python
+              </a>
+             </li>
+            </ul>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../URDF/URDF-Main.html">
+             URDF
+            </a>
+            <ul>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../URDF/Building-a-Visual-Robot-Model-with-URDF-from-Scratch.html">
+               Building a visual robot model from scratch
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../URDF/Building-a-Movable-Robot-Model-with-URDF.html">
+               Building a movable robot model
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../URDF/Adding-Physical-and-Collision-Properties-to-a-URDF-Model.html">
+               Adding physical and collision properties
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../URDF/Using-Xacro-to-Clean-Up-a-URDF-File.html">
+               Using Xacro to clean up your code
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../URDF/Using-URDF-with-Robot-State-Publisher.html">
+               Using URDF with
+               <code class="docutils literal notranslate">
+                <span class="pre">
+                 robot_state_publisher
+                </span>
+               </code>
+              </a>
+             </li>
+            </ul>
+           </li>
+          </ul>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../Advanced.html">
+           Advanced
+          </a>
+          <ul>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Advanced/Topic-Statistics-Tutorial/Topic-Statistics-Tutorial.html">
+             Enabling topic statistics (C++)
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Advanced/Discovery-Server/Discovery-Server.html">
+             Using Fast DDS Discovery Server as discovery protocol [community-contributed]
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Advanced/Allocator-Template-Tutorial.html">
+             Implementing a custom memory allocator
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Advanced/FastDDS-Configuration.html">
+             Unlocking the potential of Fast DDS middleware [community-contributed]
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Advanced/Recording-A-Bag-From-Your-Own-Node-CPP.html">
+             Recording a bag from a node (C++)
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Advanced/Recording-A-Bag-From-Your-Own-Node-Py.html">
+             Recording a bag from a node (Python)
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Advanced/Simulators/Simulation-Main.html">
+             Simulation
+            </a>
+            <ul>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../../Advanced/Simulators/Webots.html">
+               Setting up a robot simulation (Webots)
+              </a>
+             </li>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../../Advanced/Simulators/Ignition.html">
+               Setting up a robot simulation (Ignition Gazebo)
+              </a>
+             </li>
+            </ul>
+           </li>
+          </ul>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../Demos.html">
+           Demos
+          </a>
+          <ul>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Demos/Quality-of-Service.html">
+             Using quality-of-service settings for lossy networks
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Demos/Managed-Nodes.html">
+             Managing nodes with managed lifecycles
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Demos/Intra-Process-Communication.html">
+             Setting up efficient intra-process communication
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Demos/Rosbag-with-ROS1-Bridge.html">
+             Recording and playing back data with
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               rosbag
+              </span>
+             </code>
+             using the ROS 1 bridge
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Demos/Real-Time-Programming.html">
+             Understanding real-time programming
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Demos/dummy-robot-demo.html">
+             Experimenting with a dummy robot
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Demos/Logging-and-logger-configuration.html">
+             Logging
+            </a>
+           </li>
+          </ul>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../Miscellaneous.html">
+           Miscellaneous
+          </a>
+          <ul>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Miscellaneous/Deploying-ROS-2-on-IBM-Cloud.html">
+             Deploying on IBM Cloud Kubernetes [community-contributed]
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Miscellaneous/Eclipse-Oxygen-with-ROS-2-and-rviz2.html">
+             Using Eclipse Oxygen with
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               rviz2
+              </span>
+             </code>
+             [community-contributed]
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Miscellaneous/Building-Realtime-rt_preempt-kernel-for-ROS-2.html">
+             Building a real-time Linux kernel [community-contributed]
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../Miscellaneous/Building-ROS2-Package-with-eclipse-2021-06.html">
+             Building a package with Eclipse 2021-06
+            </a>
+           </li>
+          </ul>
+         </li>
+        </ul>
+       </li>
+       <li class="toctree-l1">
+        <a class="reference internal" href="../../../How-To-Guides.html">
+         How-to Guides
+        </a>
+        <ul>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Installation-Troubleshooting.html">
+           Installation troubleshooting
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Developing-a-ROS-2-Package.html">
+           Developing a ROS 2 package
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Ament-CMake-Documentation.html">
+           ament_cmake user documentation
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Ament-CMake-Python-Documentation.html">
+           ament_cmake_python user documentation
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Launch-files-migration-guide.html">
+           Migrating launch files from ROS 1 to ROS 2
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Launch-file-different-formats.html">
+           Using Python, XML, and YAML for ROS 2 Launch Files
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Launching-composable-nodes.html">
+           Using ROS 2 launch to launch composable nodes
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Parameters-YAML-files-migration-guide.html">
+           Migrating YAML parameter files from ROS 1 to ROS 2
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Node-arguments.html">
+           Passing ROS arguments to nodes via the command-line
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Sync-Vs-Async.html">
+           Synchronous vs. asynchronous service clients
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/DDS-tuning.html">
+           DDS tuning information
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Overriding-QoS-Policies-For-Recording-And-Playback.html">
+           rosbag2: Overriding QoS Policies
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Working-with-multiple-RMW-implementations.html">
+           Working with multiple ROS 2 middleware implementations
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Cross-compilation.html">
+           Cross-compilation
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Releasing/Releasing-a-Package.html">
+           Releasing a Package
+          </a>
+          <ul>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../How-To-Guides/Releasing/First-Time-Release.html">
+             First Time Release
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../How-To-Guides/Releasing/Subsequent-Releases.html">
+             Subsequent Releases
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../How-To-Guides/Releasing/Release-Team-Repository.html">
+             Release Team / Repository
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../How-To-Guides/Releasing/Release-Track.html">
+             Release Track
+            </a>
+           </li>
+          </ul>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Using-Python-Packages.html">
+           Using Python Packages with ROS 2
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/RQt-Port-Plugin-Windows.html">
+           Porting RQt plugins to Windows
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Run-2-nodes-in-single-or-separate-docker-containers.html">
+           Running ROS 2 nodes in Docker [community-contributed]
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Visualizing-ROS-2-Data-With-Foxglove-Studio.html">
+           Visualizing ROS 2 data with Foxglove Studio
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Package-maintainer-guide.html">
+           ROS 2 Package Maintainer Guide
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Building-a-Custom-Debian-Package.html">
+           Building a custom Debian package
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Building-ROS-2-with-Tracing-Instrumentation.html">
+           Building ROS 2 with tracing instrumentation
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Topics-Services-Actions.html">
+           Topics vs Services vs Actions
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Using-Variants.html">
+           Using variants
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Using-ros2-param.html">
+           Using the
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             ros2
+            </span>
+            <span class="pre">
+             param
+            </span>
+           </code>
+           command-line tool
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Installing-on-Raspberry-Pi.html">
+           ROS 2 on Raspberry Pi
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/Using-callback-groups.html">
+           Using Callback Groups
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../How-To-Guides/RQt-Source-Install.html">
+           Building RQt from source
+          </a>
+          <ul>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../How-To-Guides/RQt-Source-Install-MacOS.html">
+             Building RQt from source on macOS
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../How-To-Guides/RQt-Source-Install-Windows10.html">
+             Building RQt from source on Windows 10
+            </a>
+           </li>
+          </ul>
+         </li>
+        </ul>
+       </li>
+       <li class="toctree-l1">
+        <a class="reference internal" href="../../../Concepts.html">
+         Concepts
+        </a>
+        <ul>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Concepts/About-Domain-ID.html">
+           The ROS_DOMAIN_ID
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Concepts/About-Different-Middleware-Vendors.html">
+           About different ROS 2 DDS/RTPS vendors
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Concepts/About-Logging.html">
+           About logging and logger configuration
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Concepts/About-Quality-of-Service-Settings.html">
+           About Quality of Service settings
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Concepts/About-ROS-2-Client-Libraries.html">
+           About ROS 2 client libraries
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Concepts/About-ROS-Interfaces.html">
+           About ROS 2 interfaces
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Concepts/About-ROS-2-Parameters.html">
+           About parameters in ROS 2
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Concepts/About-Executors.html">
+           Executors
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Concepts/About-Topic-Statistics.html">
+           About topic statistics
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Concepts/About-Command-Line-Tools.html">
+           Introspection with command line tools
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Concepts/About-RQt.html">
+           Overview and usage of RQt
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Concepts/About-Composition.html">
+           About Composition
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Concepts/About-Catment.html">
+           On the mixing of ament and catkin (catment)
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Concepts/About-Cross-Compilation.html">
+           About Cross-compilation
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Concepts/About-Tf2.html">
+           About tf2
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Concepts/About-Build-System.html">
+           About the build system
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Concepts/About-Internal-Interfaces.html">
+           About internal ROS 2 interfaces
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Concepts/About-Middleware-Implementations.html">
+           About ROS 2 middleware implementations
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Concepts/About-ROS-2-Client-Libraries.html">
+           About ROS 2 client libraries
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="toctree-l1">
+        <a class="reference internal" href="../../../Contact.html">
+         Contact
+        </a>
+       </li>
+       <li class="toctree-l1">
+        <a class="reference internal" href="../../../The-ROS2-Project.html">
+         The ROS 2 Project
+        </a>
+        <ul>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../The-ROS2-Project/Contributing.html">
+           Contributing
+          </a>
+          <ul>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../The-ROS2-Project/Contributing/Developer-Guide.html">
+             ROS 2 developer guide
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../The-ROS2-Project/Contributing/Code-Style-Language-Versions.html">
+             Code style and language versions
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../The-ROS2-Project/Contributing/Quality-Guide.html">
+             Quality guide: ensuring code quality
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../The-ROS2-Project/Contributing/Migration-Guide.html">
+             Migration guide from ROS 1
+            </a>
+            <ul>
+             <li class="toctree-l4">
+              <a class="reference internal" href="../../../The-ROS2-Project/Contributing/Migration-Guide-Python.html">
+               Python migration guide from ROS 1
+              </a>
+             </li>
+            </ul>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../The-ROS2-Project/Contributing/Build-Farms.html">
+             ROS Build Farms
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../The-ROS2-Project/Contributing/Windows-Tips-and-Tricks.html">
+             Windows Tips and Tricks
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../The-ROS2-Project/Contributing/Contributing-To-ROS-2-Documentation.html">
+             Contributing to ROS 2 Documentation
+            </a>
+           </li>
+          </ul>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../The-ROS2-Project/Features.html">
+           Features Status
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../The-ROS2-Project/Feature-Ideas.html">
+           Feature Ideas
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../The-ROS2-Project/Roadmap.html">
+           Roadmap
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../The-ROS2-Project/ROSCon-Content.html">
+           ROSCon Talks
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../The-ROS2-Project/Governance.html">
+           Project Governance
+          </a>
+          <ul>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../The-ROS2-Project/Governance/ROS2-TSC-Charter.html">
+             ROS 2 Technical Steering Committee Charter
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../The-ROS2-Project/Governance/ROS2-TSC-Intake-process.html">
+             ROS 2 TSC applicant intake process
+            </a>
+           </li>
+           <li class="toctree-l3">
+            <a class="reference internal" href="../../../The-ROS2-Project/Governance/How-To-Start-A-Community-Working-Group.html">
+             How to Start a Community Working Group
+            </a>
+           </li>
+          </ul>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../The-ROS2-Project/Marketing.html">
+           Marketing
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="toctree-l1">
+        <a class="reference internal" href="../../../Related-Projects.html">
+         Related Projects
+        </a>
+        <ul>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Related-Projects/Intel-ROS2-Projects.html">
+           Intel ROS 2 Projects
+          </a>
+         </li>
+         <li class="toctree-l2">
+          <a class="reference internal" href="../../../Related-Projects/Nvidia-ROS2-Projects.html">
+           NVIDIA ROS 2 Projects
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="toctree-l1">
+        <a class="reference internal" href="../../../Glossary.html">
+         Glossary
+        </a>
+       </li>
+       <li class="toctree-l1">
+        <a class="reference internal" href="../../../Citations.html">
+         Citations
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+   </nav>
+   <section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+    <nav aria-label="Mobile navigation menu" class="wy-nav-top">
+     <i class="fa fa-bars" data-toggle="wy-nav-top">
+     </i>
+     <a href="../../../index.html">
+      ROS 2 Documentation: Galactic
+     </a>
+    </nav>
+    <div class="wy-nav-content">
+     <div class="rst-content">
+      <div aria-label="Page navigation" role="navigation">
+       <ul class="wy-breadcrumbs">
+        <li>
+         <a class="icon icon-home" href="../../../index.html">
+         </a>
+         »
+        </li>
+        <li>
+         <a href="../../../Tutorials.html">
+          Tutorials
+         </a>
+         »
+        </li>
+        <li>
+         <a href="../../Intermediate.html">
+          Intermediate
+         </a>
+         »
+        </li>
+        <li>
+         Writing an action server and client (Python)
+        </li>
+        <li class="wy-breadcrumbs-aside">
+         <a class="fa fa-github" href="https://github.com/ros2/ros2_documentation/blob/galactic/source/Tutorials/Intermediate/Writing-an-Action-Server-Client/Py.rst">
+          Edit on GitHub
+         </a>
+        </li>
+       </ul>
+       <hr/>
+      </div>
+      <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+       <div itemprop="articleBody">
+        <p>
+         <strong>
+          You're reading the documentation for a version of ROS 2 that has reached its EOL (end-of-life), and is no longer officially supported.
+    If you want up-to-date information, please have a look at
+          <a href="../../../../iron/Tutorials/Intermediate/Writing-an-Action-Server-Client/Py.html">
+           Iron
+          </a>
+          .
+         </strong>
+        </p>
+        <section id="writing-an-action-server-and-client-python">
+         <span id="actionspy">
+         </span>
+         <h1>
+          Writing an action server and client (Python)
+          <a class="headerlink" href="#writing-an-action-server-and-client-python" title="Permalink to this headline">
+           
+          </a>
+         </h1>
+         <p>
+          <strong>
+           Goal:
+          </strong>
+          Implement an action server and client in Python.
+         </p>
+         <p>
+          <strong>
+           Tutorial level:
+          </strong>
+          Intermediate
+         </p>
+         <p>
+          <strong>
+           Time:
+          </strong>
+          15 minutes
+         </p>
+         <div class="contents local topic" id="contents">
+          <p class="topic-title">
+           Contents
+          </p>
+          <ul class="simple">
+           <li>
+            <p>
+             <a class="reference internal" href="#background" id="id1">
+              Background
+             </a>
+            </p>
+           </li>
+           <li>
+            <p>
+             <a class="reference internal" href="#prerequisites" id="id2">
+              Prerequisites
+             </a>
+            </p>
+           </li>
+           <li>
+            <p>
+             <a class="reference internal" href="#tasks" id="id3">
+              Tasks
+             </a>
+            </p>
+            <ul>
+             <li>
+              <p>
+               <a class="reference internal" href="#writing-an-action-server" id="id4">
+                1 Writing an action server
+               </a>
+              </p>
+             </li>
+             <li>
+              <p>
+               <a class="reference internal" href="#writing-an-action-client" id="id5">
+                2 Writing an action client
+               </a>
+              </p>
+             </li>
+            </ul>
+           </li>
+           <li>
+            <p>
+             <a class="reference internal" href="#summary" id="id6">
+              Summary
+             </a>
+            </p>
+           </li>
+           <li>
+            <p>
+             <a class="reference internal" href="#related-content" id="id7">
+              Related content
+             </a>
+            </p>
+           </li>
+          </ul>
+         </div>
+         <section id="background">
+          <h2>
+           <a class="toc-backref" href="#id1">
+            Background
+           </a>
+           <a class="headerlink" href="#background" title="Permalink to this headline">
+            
+           </a>
+          </h2>
+          <p>
+           Actions are a form of asynchronous communication in ROS 2.
+           <em>
+            Action clients
+           </em>
+           send goal requests to
+           <em>
+            action servers
+           </em>
+           .
+           <em>
+            Action servers
+           </em>
+           send goal feedback and results to
+           <em>
+            action clients
+           </em>
+           .
+          </p>
+         </section>
+         <section id="prerequisites">
+          <h2>
+           <a class="toc-backref" href="#id2">
+            Prerequisites
+           </a>
+           <a class="headerlink" href="#prerequisites" title="Permalink to this headline">
+            
+           </a>
+          </h2>
+          <p>
+           You will need the
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             action_tutorials_interfaces
+            </span>
+           </code>
+           package and the
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             Fibonacci.action
+            </span>
+           </code>
+           interface defined in the previous tutorial,
+           <a class="reference internal" href="../Creating-an-Action.html">
+            <span class="doc">
+             Creating an action
+            </span>
+           </a>
+           .
+          </p>
+         </section>
+         <section id="tasks">
+          <h2>
+           <a class="toc-backref" href="#id3">
+            Tasks
+           </a>
+           <a class="headerlink" href="#tasks" title="Permalink to this headline">
+            
+           </a>
+          </h2>
+          <section id="writing-an-action-server">
+           <h3>
+            <a class="toc-backref" href="#id4">
+             1 Writing an action server
+            </a>
+            <a class="headerlink" href="#writing-an-action-server" title="Permalink to this headline">
+             
+            </a>
+           </h3>
+           <p>
+            Let’s focus on writing an action server that computes the Fibonacci sequence
+using the action we created in the
+            <a class="reference internal" href="../Creating-an-Action.html">
+             <span class="doc">
+              Creating an action
+             </span>
+            </a>
+            tutorial.
+           </p>
+           <p>
+            Until now, you’ve created packages and used
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              ros2
+             </span>
+             <span class="pre">
+              run
+             </span>
+            </code>
+            to run your nodes.
+To keep things simple in this tutorial, however, we’ll scope the action server to a single file.
+If you’d like to see what a complete package for the actions tutorials looks like, check out
+            <a class="reference external" href="https://github.com/ros2/demos/tree/galactic/action_tutorials">
+             action_tutorials
+            </a>
+            .
+           </p>
+           <p>
+            Open a new file in your home directory, let’s call it
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              fibonacci_action_server.py
+             </span>
+            </code>
+            ,
+and add the following code:
+           </p>
+           <div class="highlight-python notranslate">
+            <div class="highlight">
+             <pre><span></span><span class="kn">import</span> <span class="nn">rclpy</span>
+<span class="kn">from</span> <span class="nn">rclpy.action</span> <span class="kn">import</span> <span class="n">ActionServer</span>
+<span class="kn">from</span> <span class="nn">rclpy.node</span> <span class="kn">import</span> <span class="n">Node</span>
+
+<span class="kn">from</span> <span class="nn">action_tutorials_interfaces.action</span> <span class="kn">import</span> <span class="n">Fibonacci</span>
+
+
+<span class="k">class</span> <span class="nc">FibonacciActionServer</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">'fibonacci_action_server'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_action_server</span> <span class="o">=</span> <span class="n">ActionServer</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">Fibonacci</span><span class="p">,</span>
+            <span class="s1">'fibonacci'</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">execute_callback</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">execute_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">goal_handle</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Executing goal...'</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Fibonacci</span><span class="o">.</span><span class="n">Result</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="n">fibonacci_action_server</span> <span class="o">=</span> <span class="n">FibonacciActionServer</span><span class="p">()</span>
+
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">fibonacci_action_server</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre>
+            </div>
+           </div>
+           <p>
+            Line 8 defines a class
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              FibonacciActionServer
+             </span>
+            </code>
+            that is a subclass of
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              Node
+             </span>
+            </code>
+            .
+The class is initialized by calling the
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              Node
+             </span>
+            </code>
+            constructor, naming our node
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              fibonacci_action_server
+             </span>
+            </code>
+            :
+           </p>
+           <div class="highlight-python notranslate">
+            <div class="highlight">
+             <pre><span></span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">'fibonacci_action_server'</span><span class="p">)</span>
+</pre>
+            </div>
+           </div>
+           <p>
+            In the constructor we also instantiate a new action server:
+           </p>
+           <div class="highlight-python notranslate">
+            <div class="highlight">
+             <pre><span></span>        <span class="bp">self</span><span class="o">.</span><span class="n">_action_server</span> <span class="o">=</span> <span class="n">ActionServer</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">Fibonacci</span><span class="p">,</span>
+            <span class="s1">'fibonacci'</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">execute_callback</span><span class="p">)</span>
+</pre>
+            </div>
+           </div>
+           <p>
+            An action server requires four arguments:
+           </p>
+           <ol class="arabic simple">
+            <li>
+             <p>
+              A ROS 2 node to add the action client to:
+              <code class="docutils literal notranslate">
+               <span class="pre">
+                self
+               </span>
+              </code>
+              .
+             </p>
+            </li>
+            <li>
+             <p>
+              The type of the action:
+              <code class="docutils literal notranslate">
+               <span class="pre">
+                Fibonacci
+               </span>
+              </code>
+              (imported in line 5).
+             </p>
+            </li>
+            <li>
+             <p>
+              The action name:
+              <code class="docutils literal notranslate">
+               <span class="pre">
+                'fibonacci'
+               </span>
+              </code>
+              .
+             </p>
+            </li>
+            <li>
+             <p>
+              A callback function for executing accepted goals:
+              <code class="docutils literal notranslate">
+               <span class="pre">
+                self.execute_callback
+               </span>
+              </code>
+              .
+This callback
+              <strong>
+               must
+              </strong>
+              return a result message for the action type.
+             </p>
+            </li>
+           </ol>
+           <p>
+            We also define an
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              execute_callback
+             </span>
+            </code>
+            method in our class:
+           </p>
+           <div class="highlight-python notranslate">
+            <div class="highlight">
+             <pre><span></span>    <span class="k">def</span> <span class="nf">execute_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">goal_handle</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Executing goal...'</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Fibonacci</span><span class="o">.</span><span class="n">Result</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">result</span>
+</pre>
+            </div>
+           </div>
+           <p>
+            This is the method that will be called to execute a goal once it is accepted.
+           </p>
+           <p>
+            Let’s try running our action server:
+           </p>
+           <div class="sphinx-tabs docutils container">
+            <div aria-label="Tabbed content" class="closeable" role="tablist">
+             <button aria-controls="panel-0-TGludXg=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-0-TGludXg=" name="TGludXg=" role="tab" tabindex="0">
+              Linux
+             </button>
+             <button aria-controls="panel-0-bWFjT1M=" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-0-bWFjT1M=" name="bWFjT1M=" role="tab" tabindex="-1">
+              macOS
+             </button>
+             <button aria-controls="panel-0-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-0-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">
+              Windows
+             </button>
+            </div>
+            <div aria-labelledby="tab-0-TGludXg=" class="sphinx-tabs-panel group-tab" id="panel-0-TGludXg=" name="TGludXg=" role="tabpanel" tabindex="0">
+             <div class="highlight-bash notranslate">
+              <div class="highlight">
+               <pre><span></span>python3 fibonacci_action_server.py
+</pre>
+              </div>
+             </div>
+            </div>
+            <div aria-labelledby="tab-0-bWFjT1M=" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-0-bWFjT1M=" name="bWFjT1M=" role="tabpanel" tabindex="0">
+             <div class="highlight-bash notranslate">
+              <div class="highlight">
+               <pre><span></span>python3 fibonacci_action_server.py
+</pre>
+              </div>
+             </div>
+            </div>
+            <div aria-labelledby="tab-0-V2luZG93cw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-0-V2luZG93cw==" name="V2luZG93cw==" role="tabpanel" tabindex="0">
+             <div class="highlight-bash notranslate">
+              <div class="highlight">
+               <pre><span></span>python fibonacci_action_server.py
+</pre>
+              </div>
+             </div>
+            </div>
+           </div>
+           <p>
+            In another terminal, we can use the command line interface to send a goal:
+           </p>
+           <div class="highlight-bash notranslate">
+            <div class="highlight">
+             <pre><span></span>ros2 action send_goal fibonacci action_tutorials_interfaces/action/Fibonacci <span class="s2">"{order: 5}"</span>
+</pre>
+            </div>
+           </div>
+           <p>
+            In the terminal that is running the action server, you should see a logged message “Executing goal…” followed by a warning that the goal state was not set.
+By default, if the goal handle state is not set in the execute callback it assumes the
+            <em>
+             aborted
+            </em>
+            state.
+           </p>
+           <p>
+            We can use the method
+            <a class="reference external" href="http://docs.ros2.org/latest/api/rclpy/api/actions.html#rclpy.action.server.ServerGoalHandle.succeed">
+             succeed()
+            </a>
+            on the goal handle to indicate that the goal was successful:
+           </p>
+           <div class="highlight-python notranslate">
+            <div class="highlight">
+             <pre><span></span>    <span class="k">def</span> <span class="nf">execute_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">goal_handle</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Executing goal...'</span><span class="p">)</span>
+<span class="hll">        <span class="n">goal_handle</span><span class="o">.</span><span class="n">succeed</span><span class="p">()</span>
+</span>        <span class="n">result</span> <span class="o">=</span> <span class="n">Fibonacci</span><span class="o">.</span><span class="n">Result</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">result</span>
+</pre>
+            </div>
+           </div>
+           <p>
+            Now if you restart the action server and send another goal, you should see the goal finished with the status
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              SUCCEEDED
+             </span>
+            </code>
+            .
+           </p>
+           <p>
+            Now let’s make our goal execution actually compute and return the requested Fibonacci sequence:
+           </p>
+           <div class="highlight-python notranslate">
+            <div class="highlight">
+             <pre><span></span>    <span class="k">def</span> <span class="nf">execute_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">goal_handle</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Executing goal...'</span><span class="p">)</span>
+
+<span class="hll">        <span class="n">sequence</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</span><span class="hll">
+</span><span class="hll">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">order</span><span class="p">):</span>
+</span><span class="hll">            <span class="n">sequence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sequence</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">sequence</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</span>
+        <span class="n">goal_handle</span><span class="o">.</span><span class="n">succeed</span><span class="p">()</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Fibonacci</span><span class="o">.</span><span class="n">Result</span><span class="p">()</span>
+<span class="hll">        <span class="n">result</span><span class="o">.</span><span class="n">sequence</span> <span class="o">=</span> <span class="n">sequence</span>
+</span>        <span class="k">return</span> <span class="n">result</span>
+</pre>
+            </div>
+           </div>
+           <p>
+            After computing the sequence, we assign it to the result message field before returning.
+           </p>
+           <p>
+            Again, restart the action server and send another goal.
+You should see the goal finish with the proper result sequence.
+           </p>
+           <section id="publishing-feedback">
+            <h4>
+             1.2 Publishing feedback
+             <a class="headerlink" href="#publishing-feedback" title="Permalink to this headline">
+              
+             </a>
+            </h4>
+            <p>
+             One of the nice things about actions is the ability to provide feedback to an action client during goal execution.
+We can make our action server publish feedback for action clients by calling the goal handle’s
+             <a class="reference external" href="http://docs.ros2.org/latest/api/rclpy/api/actions.html#rclpy.action.server.ServerGoalHandle.publish_feedback">
+              publish_feedback()
+             </a>
+             method.
+            </p>
+            <p>
+             We’ll replace the
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               sequence
+              </span>
+             </code>
+             variable, and use a feedback message to store the sequence instead.
+After every update of the feedback message in the for-loop, we publish the feedback message and sleep for dramatic effect:
+            </p>
+            <div class="highlight-python notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="hll"><span class="kn">import</span> <span class="nn">time</span>
+</span>
+<span class="kn">import</span> <span class="nn">rclpy</span>
+<span class="kn">from</span> <span class="nn">rclpy.action</span> <span class="kn">import</span> <span class="n">ActionServer</span>
+<span class="kn">from</span> <span class="nn">rclpy.node</span> <span class="kn">import</span> <span class="n">Node</span>
+
+<span class="kn">from</span> <span class="nn">action_tutorials_interfaces.action</span> <span class="kn">import</span> <span class="n">Fibonacci</span>
+
+
+<span class="k">class</span> <span class="nc">FibonacciActionServer</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">'fibonacci_action_server'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_action_server</span> <span class="o">=</span> <span class="n">ActionServer</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">Fibonacci</span><span class="p">,</span>
+            <span class="s1">'fibonacci'</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">execute_callback</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">execute_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">goal_handle</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Executing goal...'</span><span class="p">)</span>
+
+<span class="hll">        <span class="n">feedback_msg</span> <span class="o">=</span> <span class="n">Fibonacci</span><span class="o">.</span><span class="n">Feedback</span><span class="p">()</span>
+</span><span class="hll">        <span class="n">feedback_msg</span><span class="o">.</span><span class="n">partial_sequence</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">order</span><span class="p">):</span>
+<span class="hll">            <span class="n">feedback_msg</span><span class="o">.</span><span class="n">partial_sequence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+</span><span class="hll">                <span class="n">feedback_msg</span><span class="o">.</span><span class="n">partial_sequence</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">feedback_msg</span><span class="o">.</span><span class="n">partial_sequence</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</span><span class="hll">            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Feedback: </span><span class="si">{0}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feedback_msg</span><span class="o">.</span><span class="n">partial_sequence</span><span class="p">))</span>
+</span><span class="hll">            <span class="n">goal_handle</span><span class="o">.</span><span class="n">publish_feedback</span><span class="p">(</span><span class="n">feedback_msg</span><span class="p">)</span>
+</span><span class="hll">            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span>
+        <span class="n">goal_handle</span><span class="o">.</span><span class="n">succeed</span><span class="p">()</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Fibonacci</span><span class="o">.</span><span class="n">Result</span><span class="p">()</span>
+<span class="hll">        <span class="n">result</span><span class="o">.</span><span class="n">sequence</span> <span class="o">=</span> <span class="n">feedback_msg</span><span class="o">.</span><span class="n">partial_sequence</span>
+</span>        <span class="k">return</span> <span class="n">result</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="n">fibonacci_action_server</span> <span class="o">=</span> <span class="n">FibonacciActionServer</span><span class="p">()</span>
+
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">fibonacci_action_server</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre>
+             </div>
+            </div>
+            <p>
+             After restarting the action server, we can confirm that feedback is now published by using the command line tool with the
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               --feedback
+              </span>
+             </code>
+             option:
+            </p>
+            <div class="highlight-bash notranslate">
+             <div class="highlight">
+              <pre><span></span>ros2 action send_goal --feedback fibonacci action_tutorials_interfaces/action/Fibonacci <span class="s2">"{order: 5}"</span>
+</pre>
+             </div>
+            </div>
+           </section>
+          </section>
+          <section id="writing-an-action-client">
+           <h3>
+            <a class="toc-backref" href="#id5">
+             2 Writing an action client
+            </a>
+            <a class="headerlink" href="#writing-an-action-client" title="Permalink to this headline">
+             
+            </a>
+           </h3>
+           <p>
+            We’ll also scope the action client to a single file.
+Open a new file, let’s call it
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              fibonacci_action_client.py
+             </span>
+            </code>
+            , and add the following boilerplate code:
+           </p>
+           <div class="highlight-python notranslate">
+            <div class="highlight">
+             <pre><span></span><span class="kn">import</span> <span class="nn">rclpy</span>
+<span class="kn">from</span> <span class="nn">rclpy.action</span> <span class="kn">import</span> <span class="n">ActionClient</span>
+<span class="kn">from</span> <span class="nn">rclpy.node</span> <span class="kn">import</span> <span class="n">Node</span>
+
+<span class="kn">from</span> <span class="nn">action_tutorials_interfaces.action</span> <span class="kn">import</span> <span class="n">Fibonacci</span>
+
+
+<span class="k">class</span> <span class="nc">FibonacciActionClient</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">'fibonacci_action_client'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_action_client</span> <span class="o">=</span> <span class="n">ActionClient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Fibonacci</span><span class="p">,</span> <span class="s1">'fibonacci'</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">send_goal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="p">):</span>
+        <span class="n">goal_msg</span> <span class="o">=</span> <span class="n">Fibonacci</span><span class="o">.</span><span class="n">Goal</span><span class="p">()</span>
+        <span class="n">goal_msg</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="n">order</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_action_client</span><span class="o">.</span><span class="n">wait_for_server</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_action_client</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span><span class="n">goal_msg</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="n">action_client</span> <span class="o">=</span> <span class="n">FibonacciActionClient</span><span class="p">()</span>
+
+    <span class="n">future</span> <span class="o">=</span> <span class="n">action_client</span><span class="o">.</span><span class="n">send_goal</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="n">action_client</span><span class="p">,</span> <span class="n">future</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre>
+            </div>
+           </div>
+           <p>
+            We’ve defined a class
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              FibonacciActionClient
+             </span>
+            </code>
+            that is a subclass of
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              Node
+             </span>
+            </code>
+            .
+The class is initialized by calling the
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              Node
+             </span>
+            </code>
+            constructor, naming our node
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              fibonacci_action_client
+             </span>
+            </code>
+            :
+           </p>
+           <div class="highlight-python notranslate">
+            <div class="highlight">
+             <pre><span></span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">'fibonacci_action_client'</span><span class="p">)</span>
+</pre>
+            </div>
+           </div>
+           <p>
+            Also in the class constructor, we create an action client using the custom action definition from the previous tutorial on
+            <a class="reference internal" href="../Creating-an-Action.html">
+             <span class="doc">
+              Creating an action
+             </span>
+            </a>
+            :
+           </p>
+           <div class="highlight-python notranslate">
+            <div class="highlight">
+             <pre><span></span>        <span class="bp">self</span><span class="o">.</span><span class="n">_action_client</span> <span class="o">=</span> <span class="n">ActionClient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Fibonacci</span><span class="p">,</span> <span class="s1">'fibonacci'</span><span class="p">)</span>
+</pre>
+            </div>
+           </div>
+           <p>
+            We create an
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              ActionClient
+             </span>
+            </code>
+            by passing it three arguments:
+           </p>
+           <ol class="arabic simple">
+            <li>
+             <p>
+              A ROS 2 node to add the action client to:
+              <code class="docutils literal notranslate">
+               <span class="pre">
+                self
+               </span>
+              </code>
+             </p>
+            </li>
+            <li>
+             <p>
+              The type of the action:
+              <code class="docutils literal notranslate">
+               <span class="pre">
+                Fibonacci
+               </span>
+              </code>
+             </p>
+            </li>
+            <li>
+             <p>
+              The action name:
+              <code class="docutils literal notranslate">
+               <span class="pre">
+                'fibonacci'
+               </span>
+              </code>
+             </p>
+            </li>
+           </ol>
+           <p>
+            Our action client will be able to communicate with action servers of the same action name and type.
+           </p>
+           <p>
+            We also define a method
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              send_goal
+             </span>
+            </code>
+            in the
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              FibonacciActionClient
+             </span>
+            </code>
+            class:
+           </p>
+           <div class="highlight-python notranslate">
+            <div class="highlight">
+             <pre><span></span>    <span class="k">def</span> <span class="nf">send_goal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="p">):</span>
+        <span class="n">goal_msg</span> <span class="o">=</span> <span class="n">Fibonacci</span><span class="o">.</span><span class="n">Goal</span><span class="p">()</span>
+        <span class="n">goal_msg</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="n">order</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_action_client</span><span class="o">.</span><span class="n">wait_for_server</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_action_client</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span><span class="n">goal_msg</span><span class="p">)</span>
+</pre>
+            </div>
+           </div>
+           <p>
+            This method waits for the action server to be available, then sends a goal to the server.
+It returns a future that we can later wait on.
+           </p>
+           <p>
+            After the class definition, we define a function
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              main()
+             </span>
+            </code>
+            that initializes ROS 2
+and creates an instance of our
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              FibonacciActionClient
+             </span>
+            </code>
+            node.
+It then sends a goal and waits until that goal has been completed.
+           </p>
+           <p>
+            Finally, we call
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              main()
+             </span>
+            </code>
+            in the entry point of our Python program.
+           </p>
+           <p>
+            Let’s test our action client by first running the action server built earlier:
+           </p>
+           <div class="sphinx-tabs docutils container">
+            <div aria-label="Tabbed content" class="closeable" role="tablist">
+             <button aria-controls="panel-1-TGludXg=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-1-TGludXg=" name="TGludXg=" role="tab" tabindex="0">
+              Linux
+             </button>
+             <button aria-controls="panel-1-bWFjT1M=" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-1-bWFjT1M=" name="bWFjT1M=" role="tab" tabindex="-1">
+              macOS
+             </button>
+             <button aria-controls="panel-1-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-1-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">
+              Windows
+             </button>
+            </div>
+            <div aria-labelledby="tab-1-TGludXg=" class="sphinx-tabs-panel group-tab" id="panel-1-TGludXg=" name="TGludXg=" role="tabpanel" tabindex="0">
+             <div class="highlight-bash notranslate">
+              <div class="highlight">
+               <pre><span></span>python3 fibonacci_action_server.py
+</pre>
+              </div>
+             </div>
+            </div>
+            <div aria-labelledby="tab-1-bWFjT1M=" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-1-bWFjT1M=" name="bWFjT1M=" role="tabpanel" tabindex="0">
+             <div class="highlight-bash notranslate">
+              <div class="highlight">
+               <pre><span></span>python3 fibonacci_action_server.py
+</pre>
+              </div>
+             </div>
+            </div>
+            <div aria-labelledby="tab-1-V2luZG93cw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-1-V2luZG93cw==" name="V2luZG93cw==" role="tabpanel" tabindex="0">
+             <div class="highlight-bash notranslate">
+              <div class="highlight">
+               <pre><span></span>python fibonacci_action_server.py
+</pre>
+              </div>
+             </div>
+            </div>
+           </div>
+           <p>
+            In another terminal, run the action client:
+           </p>
+           <div class="sphinx-tabs docutils container">
+            <div aria-label="Tabbed content" class="closeable" role="tablist">
+             <button aria-controls="panel-2-TGludXg=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-2-TGludXg=" name="TGludXg=" role="tab" tabindex="0">
+              Linux
+             </button>
+             <button aria-controls="panel-2-bWFjT1M=" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-2-bWFjT1M=" name="bWFjT1M=" role="tab" tabindex="-1">
+              macOS
+             </button>
+             <button aria-controls="panel-2-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-2-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">
+              Windows
+             </button>
+            </div>
+            <div aria-labelledby="tab-2-TGludXg=" class="sphinx-tabs-panel group-tab" id="panel-2-TGludXg=" name="TGludXg=" role="tabpanel" tabindex="0">
+             <div class="highlight-bash notranslate">
+              <div class="highlight">
+               <pre><span></span>python3 fibonacci_action_client.py
+</pre>
+              </div>
+             </div>
+            </div>
+            <div aria-labelledby="tab-2-bWFjT1M=" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-2-bWFjT1M=" name="bWFjT1M=" role="tabpanel" tabindex="0">
+             <div class="highlight-bash notranslate">
+              <div class="highlight">
+               <pre><span></span>python3 fibonacci_action_client.py
+</pre>
+              </div>
+             </div>
+            </div>
+            <div aria-labelledby="tab-2-V2luZG93cw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-2-V2luZG93cw==" name="V2luZG93cw==" role="tabpanel" tabindex="0">
+             <div class="highlight-bash notranslate">
+              <div class="highlight">
+               <pre><span></span>python fibonacci_action_client.py
+</pre>
+              </div>
+             </div>
+            </div>
+           </div>
+           <p>
+            You should see messages printed by the action server as it successfully executes the goal:
+           </p>
+           <div class="highlight-bash notranslate">
+            <div class="highlight">
+             <pre><span></span><span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span>fibonacci_action_server<span class="o">]</span>: Executing goal...
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span>fibonacci_action_server<span class="o">]</span>: Feedback: array<span class="o">(</span><span class="s1">'i'</span>, <span class="o">[</span><span class="m">0</span>, <span class="m">1</span>, <span class="m">1</span><span class="o">])</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span>fibonacci_action_server<span class="o">]</span>: Feedback: array<span class="o">(</span><span class="s1">'i'</span>, <span class="o">[</span><span class="m">0</span>, <span class="m">1</span>, <span class="m">1</span>, <span class="m">2</span><span class="o">])</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span>fibonacci_action_server<span class="o">]</span>: Feedback: array<span class="o">(</span><span class="s1">'i'</span>, <span class="o">[</span><span class="m">0</span>, <span class="m">1</span>, <span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span><span class="o">])</span>
+<span class="o">[</span>INFO<span class="o">]</span> <span class="o">[</span>fibonacci_action_server<span class="o">]</span>: Feedback: array<span class="o">(</span><span class="s1">'i'</span>, <span class="o">[</span><span class="m">0</span>, <span class="m">1</span>, <span class="m">1</span>, <span class="m">2</span>, <span class="m">3</span>, <span class="m">5</span><span class="o">])</span>
+<span class="c1"># etc.</span>
+</pre>
+            </div>
+           </div>
+           <p>
+            The action client should start up, and then quickly finish.
+At this point, we have a functioning action client, but we don’t see any results or get any feedback.
+           </p>
+           <section id="getting-a-result">
+            <h4>
+             2.1 Getting a result
+             <a class="headerlink" href="#getting-a-result" title="Permalink to this headline">
+              
+             </a>
+            </h4>
+            <p>
+             So we can send a goal, but how do we know when it is completed?
+We can get the result information with a couple steps.
+First, we need to get a goal handle for the goal we sent.
+Then, we can use the goal handle to request the result.
+            </p>
+            <p>
+             Here’s the complete code for this example:
+            </p>
+            <div class="highlight-python notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="kn">import</span> <span class="nn">rclpy</span>
+<span class="kn">from</span> <span class="nn">rclpy.action</span> <span class="kn">import</span> <span class="n">ActionClient</span>
+<span class="kn">from</span> <span class="nn">rclpy.node</span> <span class="kn">import</span> <span class="n">Node</span>
+
+<span class="kn">from</span> <span class="nn">action_tutorials_interfaces.action</span> <span class="kn">import</span> <span class="n">Fibonacci</span>
+
+
+<span class="k">class</span> <span class="nc">FibonacciActionClient</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">'fibonacci_action_client'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_action_client</span> <span class="o">=</span> <span class="n">ActionClient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Fibonacci</span><span class="p">,</span> <span class="s1">'fibonacci'</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">send_goal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="p">):</span>
+        <span class="n">goal_msg</span> <span class="o">=</span> <span class="n">Fibonacci</span><span class="o">.</span><span class="n">Goal</span><span class="p">()</span>
+        <span class="n">goal_msg</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="n">order</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_action_client</span><span class="o">.</span><span class="n">wait_for_server</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_goal_future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_action_client</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span><span class="n">goal_msg</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_goal_future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">goal_response_callback</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">goal_response_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
+        <span class="n">goal_handle</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">accepted</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Goal rejected :('</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Goal accepted :)'</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_result_future</span> <span class="o">=</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">get_result_async</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_result_future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_result_callback</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_result_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">result</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Result: </span><span class="si">{0}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">sequence</span><span class="p">))</span>
+        <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="n">action_client</span> <span class="o">=</span> <span class="n">FibonacciActionClient</span><span class="p">()</span>
+
+    <span class="n">action_client</span><span class="o">.</span><span class="n">send_goal</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">action_client</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre>
+             </div>
+            </div>
+            <p>
+             The
+             <a class="reference external" href="http://docs.ros2.org/latest/api/rclpy/api/actions.html#rclpy.action.client.ActionClient.send_goal_async">
+              ActionClient.send_goal_async()
+             </a>
+             method returns a future to a goal handle.
+First we register a callback for when the future is complete:
+            </p>
+            <div class="highlight-python notranslate">
+             <div class="highlight">
+              <pre><span></span>        <span class="bp">self</span><span class="o">.</span><span class="n">_send_goal_future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">goal_response_callback</span><span class="p">)</span>
+</pre>
+             </div>
+            </div>
+            <p>
+             Note that the future is completed when an action server accepts or rejects the goal request.
+Let’s look at the
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               goal_response_callback
+              </span>
+             </code>
+             in more detail.
+We can check to see if the goal was rejected and return early since we know there will be no result:
+            </p>
+            <div class="highlight-python notranslate">
+             <div class="highlight">
+              <pre><span></span>    <span class="k">def</span> <span class="nf">goal_response_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
+        <span class="n">goal_handle</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">accepted</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Goal rejected :('</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Goal accepted :)'</span><span class="p">)</span>
+</pre>
+             </div>
+            </div>
+            <p>
+             Now that we’ve got a goal handle, we can use it to request the result with the method
+             <a class="reference external" href="http://docs.ros2.org/latest/api/rclpy/api/actions.html#rclpy.action.client.ClientGoalHandle.get_result_async">
+              get_result_async()
+             </a>
+             .
+Similar to sending the goal, we will get a future that will complete when the result is ready.
+Let’s register a callback just like we did for the goal response:
+            </p>
+            <div class="highlight-python notranslate">
+             <div class="highlight">
+              <pre><span></span>        <span class="bp">self</span><span class="o">.</span><span class="n">_get_result_future</span> <span class="o">=</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">get_result_async</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_result_future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_result_callback</span><span class="p">)</span>
+</pre>
+             </div>
+            </div>
+            <p>
+             In the callback, we log the result sequence and shutdown ROS 2 for a clean exit:
+            </p>
+            <div class="highlight-python notranslate">
+             <div class="highlight">
+              <pre><span></span>    <span class="k">def</span> <span class="nf">get_result_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">result</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Result: </span><span class="si">{0}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">sequence</span><span class="p">))</span>
+        <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+</pre>
+             </div>
+            </div>
+            <p>
+             With an action server running in a separate terminal, go ahead and try running our Fibonacci action client!
+            </p>
+            <div class="sphinx-tabs docutils container">
+             <div aria-label="Tabbed content" class="closeable" role="tablist">
+              <button aria-controls="panel-3-TGludXg=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-3-TGludXg=" name="TGludXg=" role="tab" tabindex="0">
+               Linux
+              </button>
+              <button aria-controls="panel-3-bWFjT1M=" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-3-bWFjT1M=" name="bWFjT1M=" role="tab" tabindex="-1">
+               macOS
+              </button>
+              <button aria-controls="panel-3-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-3-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">
+               Windows
+              </button>
+             </div>
+             <div aria-labelledby="tab-3-TGludXg=" class="sphinx-tabs-panel group-tab" id="panel-3-TGludXg=" name="TGludXg=" role="tabpanel" tabindex="0">
+              <div class="highlight-bash notranslate">
+               <div class="highlight">
+                <pre><span></span>python3 fibonacci_action_client.py
+</pre>
+               </div>
+              </div>
+             </div>
+             <div aria-labelledby="tab-3-bWFjT1M=" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-3-bWFjT1M=" name="bWFjT1M=" role="tabpanel" tabindex="0">
+              <div class="highlight-bash notranslate">
+               <div class="highlight">
+                <pre><span></span>python3 fibonacci_action_client.py
+</pre>
+               </div>
+              </div>
+             </div>
+             <div aria-labelledby="tab-3-V2luZG93cw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-3-V2luZG93cw==" name="V2luZG93cw==" role="tabpanel" tabindex="0">
+              <div class="highlight-bash notranslate">
+               <div class="highlight">
+                <pre><span></span>python fibonacci_action_client.py
+</pre>
+               </div>
+              </div>
+             </div>
+            </div>
+            <p>
+             You should see logged messages for the goal being accepted and the final result.
+            </p>
+           </section>
+           <section id="getting-feedback">
+            <h4>
+             2.2 Getting feedback
+             <a class="headerlink" href="#getting-feedback" title="Permalink to this headline">
+              
+             </a>
+            </h4>
+            <p>
+             Our action client can send goals.
+Nice!
+But it would be great if we could get some feedback about the goals we send from the action server.
+            </p>
+            <p>
+             Here’s the complete code for this example:
+            </p>
+            <div class="highlight-python notranslate">
+             <div class="highlight">
+              <pre><span></span><span class="kn">import</span> <span class="nn">rclpy</span>
+<span class="kn">from</span> <span class="nn">rclpy.action</span> <span class="kn">import</span> <span class="n">ActionClient</span>
+<span class="kn">from</span> <span class="nn">rclpy.node</span> <span class="kn">import</span> <span class="n">Node</span>
+
+<span class="kn">from</span> <span class="nn">action_tutorials_interfaces.action</span> <span class="kn">import</span> <span class="n">Fibonacci</span>
+
+
+<span class="k">class</span> <span class="nc">FibonacciActionClient</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">'fibonacci_action_client'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_action_client</span> <span class="o">=</span> <span class="n">ActionClient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Fibonacci</span><span class="p">,</span> <span class="s1">'fibonacci'</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">send_goal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="p">):</span>
+        <span class="n">goal_msg</span> <span class="o">=</span> <span class="n">Fibonacci</span><span class="o">.</span><span class="n">Goal</span><span class="p">()</span>
+        <span class="n">goal_msg</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="n">order</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_action_client</span><span class="o">.</span><span class="n">wait_for_server</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_goal_future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_action_client</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span><span class="n">goal_msg</span><span class="p">,</span> <span class="n">feedback_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">feedback_callback</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_goal_future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">goal_response_callback</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">goal_response_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
+        <span class="n">goal_handle</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">accepted</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Goal rejected :('</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Goal accepted :)'</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_result_future</span> <span class="o">=</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">get_result_async</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_result_future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_result_callback</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_result_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">result</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Result: </span><span class="si">{0}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">sequence</span><span class="p">))</span>
+        <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">feedback_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feedback_msg</span><span class="p">):</span>
+        <span class="n">feedback</span> <span class="o">=</span> <span class="n">feedback_msg</span><span class="o">.</span><span class="n">feedback</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Received feedback: </span><span class="si">{0}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feedback</span><span class="o">.</span><span class="n">partial_sequence</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="n">action_client</span> <span class="o">=</span> <span class="n">FibonacciActionClient</span><span class="p">()</span>
+
+    <span class="n">action_client</span><span class="o">.</span><span class="n">send_goal</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">action_client</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre>
+             </div>
+            </div>
+            <p>
+             Here’s the callback function for feedback messages:
+            </p>
+            <div class="highlight-python notranslate">
+             <div class="highlight">
+              <pre><span></span>    <span class="k">def</span> <span class="nf">feedback_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feedback_msg</span><span class="p">):</span>
+        <span class="n">feedback</span> <span class="o">=</span> <span class="n">feedback_msg</span><span class="o">.</span><span class="n">feedback</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Received feedback: </span><span class="si">{0}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feedback</span><span class="o">.</span><span class="n">partial_sequence</span><span class="p">))</span>
+</pre>
+             </div>
+            </div>
+            <p>
+             In the callback we get the feedback portion of the message and print the
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               partial_sequence
+              </span>
+             </code>
+             field to the screen.
+            </p>
+            <p>
+             We need to register the callback with the action client.
+This is achieved by additionally passing the callback to the action client when we send a goal:
+            </p>
+            <div class="highlight-python notranslate">
+             <div class="highlight">
+              <pre><span></span>        <span class="bp">self</span><span class="o">.</span><span class="n">_send_goal_future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_action_client</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span><span class="n">goal_msg</span><span class="p">,</span> <span class="n">feedback_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">feedback_callback</span><span class="p">)</span>
+</pre>
+             </div>
+            </div>
+            <p>
+             We’re all set. If we run our action client, you should see feedback being printed to the screen.
+            </p>
+           </section>
+          </section>
+         </section>
+         <section id="summary">
+          <h2>
+           <a class="toc-backref" href="#id6">
+            Summary
+           </a>
+           <a class="headerlink" href="#summary" title="Permalink to this headline">
+            
+           </a>
+          </h2>
+          <p>
+           In this tutorial, you put together a Python action server and action client line by line, and configured them to exchange goals, feedback, and results.
+          </p>
+         </section>
+         <section id="related-content">
+          <h2>
+           <a class="toc-backref" href="#id7">
+            Related content
+           </a>
+           <a class="headerlink" href="#related-content" title="Permalink to this headline">
+            
+           </a>
+          </h2>
+          <ul class="simple">
+           <li>
+            <p>
+             There are several ways you could write an action server and client in Python; check out the
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               minimal_action_server
+              </span>
+             </code>
+             and
+             <code class="docutils literal notranslate">
+              <span class="pre">
+               minimal_action_client
+              </span>
+             </code>
+             packages in the
+             <a class="reference external" href="https://github.com/ros2/examples/tree/galactic/rclpy/actions">
+              ros2/examples
+             </a>
+             repo.
+            </p>
+           </li>
+           <li>
+            <p>
+             For more detailed information about ROS actions, please refer to the
+             <a class="reference external" href="http://design.ros2.org/articles/actions.html">
+              design article
+             </a>
+             .
+            </p>
+           </li>
+          </ul>
+         </section>
+        </section>
+       </div>
+      </div>
+      <footer>
+       <div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+        <a accesskey="p" class="btn btn-neutral float-left" href="Cpp.html" rel="prev" title="Writing an action server and client (C++)">
+         <span aria-hidden="true" class="fa fa-arrow-circle-left">
+         </span>
+         Previous
+        </a>
+        <a accesskey="n" class="btn btn-neutral float-right" href="../Composition.html" rel="next" title="Composing multiple nodes in a single process">
+         Next
+         <span aria-hidden="true" class="fa fa-arrow-circle-right">
+         </span>
+        </a>
+       </div>
+       <hr/>
+       <div role="contentinfo">
+        <p>
+         © Copyright 2023, Open Robotics.
+        </p>
+       </div>
+       Built with
+       <a href="https://www.sphinx-doc.org/">
+        Sphinx
+       </a>
+       using a
+       <a href="https://github.com/readthedocs/sphinx_rtd_theme">
+        theme
+       </a>
+       provided by
+       <a href="https://readthedocs.org">
+        Read the Docs
+       </a>
+       .
+      </footer>
+     </div>
+    </div>
+   </section>
+  </div>
+  <div aria-label="versions" class="rst-versions" data-toggle="rst-versions" role="note">
+   <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book">
+     Other Versions
+    </span>
+    v: galactic
+    <span class="fa fa-caret-down">
+    </span>
+   </span>
+   <div class="rst-other-versions">
+    <dl>
+     <dt>
+      Releases
+     </dt>
+     <dd>
+      <a href="../../../../iron/Tutorials/Intermediate/Writing-an-Action-Server-Client/Py.html">
+       Iron (latest)
+      </a>
+     </dd>
+     <dd>
+      <a href="../../../../humble/Tutorials/Intermediate/Writing-an-Action-Server-Client/Py.html">
+       Humble
+      </a>
+     </dd>
+     <dd>
+      <a href="Py.html">
+       Galactic (EOL)
+      </a>
+     </dd>
+     <dd>
+      <a href="../../../../foxy/Tutorials/Intermediate/Writing-an-Action-Server-Client/Py.html">
+       Foxy (EOL)
+      </a>
+     </dd>
+     <dd>
+      <a href="../../../../eloquent/index.html">
+       Eloquent (EOL)
+      </a>
+     </dd>
+     <dd>
+      <a href="../../../../dashing/index.html">
+       Dashing (EOL)
+      </a>
+     </dd>
+     <dd>
+      <a href="../../../../crystal/index.html">
+       Crystal (EOL)
+      </a>
+     </dd>
+    </dl>
+    <dl>
+     <dt>
+      In Development
+     </dt>
+     <dd>
+      <a href="../../../../rolling/Tutorials/Intermediate/Writing-an-Action-Server-Client/Py.html">
+       Rolling
+      </a>
+     </dd>
+    </dl>
+   </div>
+  </div>
+  <script>
+   jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+  <!-- Theme Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-EVD5Z6G6NH">
+  </script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-EVD5Z6G6NH', {
+          'anonymize_ip': false,
+      });
+  </script>
+ </body>
+</html>

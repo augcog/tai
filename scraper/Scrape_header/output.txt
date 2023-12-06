@@ -1,0 +1,74 @@
+
+
+    
+    You're reading the documentation for a version of ROS 2 that has reached its EOL (end-of-life), and is no longer officially supported.
+    If you want up-to-date information, please have a look at Iron.
+    
+  
+
+The Robot Operating System (ROS) is a set of software libraries and tools for building robot applications.
+From drivers and state-of-the-art algorithms to powerful developer tools, ROS has the open source tools you need for your next robotics project.
+Since ROS was started in 2007, a lot has changed in the robotics and ROS community.
+The goal of the ROS 2 project is to adapt to these changes, leveraging what is great about ROS 1 and improving what isnât.
+This site contains the documentation for ROS 2.
+If you are looking for ROS 1 documentation, check out the ROS wiki.
+If you use ROS 2 in your work, please see Citations to cite ROS 2.
+Installation
+Instructions to set up ROS 2 for the first time
+Tutorials
+The best place to start for new users!
+Hands-on sample projects that help you build a progression of necessary skills
+How-to Guides
+Quick answers to your âHow do Iâ¦?â questions without working through the Tutorials
+Concepts
+High-level explanations of core ROS 2 concepts covered in the Tutorials
+Contact
+Answers to your questions or a forum to start a discussion
+If youâre interested in the advancement of the ROS 2 project:
+Contributing
+Best practices and methodology for contributing to ROS 2, as well as instructions for migrating existing ROS 1 content to ROS 2
+Distributions
+Past, present and future ROS 2 distributions
+Features Status
+Features in the current release
+Feature Ideas
+Ideas for nice-to-have features that are not under active development
+Roadmap
+Planned work for ROS 2 development
+ROSCon Talks
+Presentations by the community on ROS 2
+Project Governance
+Information about the ROS Technical Steering Committee, Working Groups, and upcoming events
+Marketing
+Downloadable marketing materials
+ROS Answers (ROS 1, ROS 2)
+Q&A community website, similar to Stack Exchange
+See Contact Page for more information
+ROS Enhancement Proposals (REPs) (ROS 1, ROS 2)
+Proposals for new designs and conventions
+ROS Discourse (ROS 1, ROS 2)
+Forum for general discussions and announcements for the ROS community
+See the Contact Page for more information
+ROS Index (ROS 1, ROS 2)
+Indexed list of all packages (i.e. Python Package Index (PyPI) for ROS packages)
+See which ROS distributions a package supports
+Link to a packageâs repository, API documentation, or website
+Inspect a packageâs license, build type, maintainers, status, and dependencies
+Get more info for a package on ROS Answers
+ROS Prerelease (ROS 1)
+Generates commands to emulate the ROS Buildfarm on your local machine
+Currently only shows ROS 1 distributions
+ROS Robots (ROS 1, ROS 2)
+Showcases robots proects from the community
+Instructions on how to contribute a robot
+ROS Wiki (ROS 1)
+ROS 1 documentation and user modifiable content
+Active until at least the last ROS 1 distribution is EOL
+ROS.org (ROS 1, ROS 2)
+ROS 1 and ROS 2 product landing page, with high-level description of ROS and links to other ROS sites
+ROS 2 Docs
+API documentation up to and including Galactic
+ROS 2 Design
+Early design decisions behind ROS 2 development
+New design proposals should be submitted via ROS Enhancement Proposals (REPs)
+© Copyright 2023, Open Robotics.

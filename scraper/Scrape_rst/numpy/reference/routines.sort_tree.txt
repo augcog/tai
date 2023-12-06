@@ -1,0 +1,84 @@
+(Table of Contents)
+Sorting, searching, and counting (h1)
+--Searching (h2)
+--Counting (h2)
+
+
+(Page path)
+(h1) Sorting, searching, and counting > (h2) Searching
+
+(Segment 1)
+#Sorting, searching, and counting (h1)
+
+.. currentmodule:: numpy
+
+Sorting
+-------
+.. autosummary::
+:toctree: generated/
+
+sort
+lexsort
+argsort
+ndarray.sort
+sort_complex
+partition
+argpartition
+
+
+##Searching (h2)
+.. autosummary::
+:toctree: generated/
+
+argmax
+nanargmax
+argmin
+nanargmin
+argwhere
+nonzero
+flatnonzero
+where
+searchsorted
+extract
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Sorting, searching, and counting (h1)
+--Searching (h2)
+--Counting (h2)
+
+
+(Page path)
+(h1) Sorting, searching, and counting > (h2) Counting
+
+(Segment 2)
+#Sorting, searching, and counting (h1)
+
+.. currentmodule:: numpy
+
+Sorting
+-------
+.. autosummary::
+:toctree: generated/
+
+sort
+lexsort
+argsort
+ndarray.sort
+sort_complex
+partition
+argpartition
+
+
+##Counting (h2)
+.. autosummary::
+:toctree: generated/
+
+count_nonzero
+
+
+
+--------------------------------------------------------------------------------

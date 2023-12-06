@@ -1,0 +1,72 @@
+Parsed Headers, Levels and Contents:
+h1: Statistics
+Contents:
+  
+  .. currentmodule:: numpy
+  
+  
+
+=====================================
+
+h2: Order statistics
+Contents:
+  
+  .. autosummary::
+  :toctree: generated/
+  
+  ptp
+  percentile
+  nanpercentile
+  quantile
+  nanquantile
+  
+
+=====================================
+
+h2: Averages and variances
+Contents:
+  
+  .. autosummary::
+  :toctree: generated/
+  
+  median
+  average
+  mean
+  std
+  var
+  nanmedian
+  nanmean
+  nanstd
+  nanvar
+  
+
+=====================================
+
+h2: Correlating
+Contents:
+  
+  .. autosummary::
+  :toctree: generated/
+  
+  corrcoef
+  correlate
+  cov
+  
+
+=====================================
+
+h2: Histograms
+Contents:
+  
+  .. autosummary::
+  :toctree: generated/
+  
+  histogram
+  histogram2d
+  histogramdd
+  bincount
+  histogram_bin_edges
+  digitize
+
+=====================================
+

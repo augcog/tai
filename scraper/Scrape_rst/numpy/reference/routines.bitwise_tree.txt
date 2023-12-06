@@ -1,0 +1,74 @@
+(Table of Contents)
+Binary operations (h1)
+--Bit packing (h2)
+--Output formatting (h2)
+
+
+(Page path)
+(h1) Binary operations > (h2) Bit packing
+
+(Segment 1)
+#Binary operations (h1)
+
+.. currentmodule:: numpy
+
+Elementwise bit operations
+--------------------------
+.. autosummary::
+:toctree: generated/
+
+bitwise_and
+bitwise_or
+bitwise_xor
+invert
+left_shift
+right_shift
+
+
+##Bit packing (h2)
+.. autosummary::
+:toctree: generated/
+
+packbits
+unpackbits
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Binary operations (h1)
+--Bit packing (h2)
+--Output formatting (h2)
+
+
+(Page path)
+(h1) Binary operations > (h2) Output formatting
+
+(Segment 2)
+#Binary operations (h1)
+
+.. currentmodule:: numpy
+
+Elementwise bit operations
+--------------------------
+.. autosummary::
+:toctree: generated/
+
+bitwise_and
+bitwise_or
+bitwise_xor
+invert
+left_shift
+right_shift
+
+
+##Output formatting (h2)
+.. autosummary::
+:toctree: generated/
+
+binary_repr
+
+
+
+--------------------------------------------------------------------------------

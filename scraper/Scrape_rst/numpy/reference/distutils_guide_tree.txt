@@ -1,0 +1,22 @@
+(Table of Contents)
+NumPy distutils - users guide (h1)
+
+
+(Page path)
+(h1) NumPy distutils - users guide
+
+(Segment 1)
+#NumPy distutils - users guide (h1)
+
+.. warning::
+
+``numpy.distutils`` is deprecated, and will be removed for
+Python >= 3.12. For more details, see :ref:`distutils-status-migration`
+
+
+.. include:: ../../DISTUTILS.rst
+:start-line: 6
+
+
+
+--------------------------------------------------------------------------------

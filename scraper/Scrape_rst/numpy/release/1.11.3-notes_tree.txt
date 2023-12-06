@@ -1,0 +1,62 @@
+(Table of Contents)
+NumPy 1.11.3 Release Notes (h1)
+Contributors to maintenance/1.11.3 (h1)
+Pull Requests Merged (h1)
+
+
+(Page path)
+(h1) NumPy 1.11.3 Release Notes
+
+(Segment 1)
+#NumPy 1.11.3 Release Notes (h1)
+
+Numpy 1.11.3 fixes a bug that leads to file corruption when very large files
+opened in append mode are used in ``ndarray.tofile``. It supports Python
+versions 2.6 - 2.7 and 3.2 - 3.5. Wheels for Linux, Windows, and OS X can be
+found on PyPI.
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+NumPy 1.11.3 Release Notes (h1)
+Contributors to maintenance/1.11.3 (h1)
+Pull Requests Merged (h1)
+
+
+(Page path)
+(h1) Contributors to maintenance/1.11.3
+
+(Segment 2)
+#Contributors to maintenance/1.11.3 (h1)
+
+A total of 2 people contributed to this release.  People with a "+" by their
+names contributed a patch for the first time.
+
+- Charles Harris
+- Pavel Potocek +
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+NumPy 1.11.3 Release Notes (h1)
+Contributors to maintenance/1.11.3 (h1)
+Pull Requests Merged (h1)
+
+
+(Page path)
+(h1) Pull Requests Merged
+
+(Segment 3)
+#Pull Requests Merged (h1)
+
+- `#8341 <https://github.com/numpy/numpy/pull/8341>`__: BUG: Fix ndarray.tofile large file corruption in append mode.
+- `#8346 <https://github.com/numpy/numpy/pull/8346>`__: TST: Fix tests in PR #8341 for NumPy 1.11.x
+
+
+
+--------------------------------------------------------------------------------

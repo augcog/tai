@@ -1,0 +1,2468 @@
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) Expired deprecations > (h2) Deprecated numeric style dtype strings have been removed
+
+(Segment 1)
+#Expired deprecations (h1)
+
+
+##Deprecated numeric style dtype strings have been removed (h2)
+Using the strings ``"Bytes0"``, ``"Datetime64"``, ``"Str0"``, ``"Uint32"``,
+and ``"Uint64"`` as a dtype will now raise a ``TypeError``.
+
+(`gh-19539 <https://github.com/numpy/numpy/pull/19539>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) Expired deprecations > (h2) Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio
+
+(Segment 2)
+#Expired deprecations (h1)
+
+
+##Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+``numpy.loads`` was deprecated in v1.15, with the recommendation that users use
+``pickle.loads`` instead.  ``ndfromtxt`` and ``mafromtxt`` were both deprecated
+in v1.17 - users should use ``numpy.genfromtxt`` instead with the appropriate
+value for the ``usemask`` parameter.
+
+(`gh-19615 <https://github.com/numpy/numpy/pull/19615>`__)
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) Deprecations > (h2) Use delimiter rather than delimitor as kwarg in mrecords
+
+(Segment 3)
+#Deprecations (h1)
+
+
+##Use delimiter rather than delimitor as kwarg in mrecords (h2)
+The misspelled keyword argument ``delimitor`` of
+``numpy.ma.mrecords.fromtextfile()`` has been changed to ``delimiter``, using
+it will emit a deprecation warning.
+
+(`gh-19921 <https://github.com/numpy/numpy/pull/19921>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) Deprecations > (h2) Passing boolean ``kth`` values to (arg-)partition has been deprecated
+
+(Segment 4)
+#Deprecations (h1)
+
+
+##Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+``numpy.partition`` and ``numpy.argpartition`` would previously accept boolean
+values for the ``kth`` parameter, which would subsequently be converted into
+integers. This behavior has now been deprecated.
+
+(`gh-20000 <https://github.com/numpy/numpy/pull/20000>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) Deprecations > (h2) The ``np.MachAr`` class has been deprecated
+
+(Segment 5)
+#Deprecations (h1)
+
+
+##The ``np.MachAr`` class has been deprecated (h2)
+The ``numpy.MachAr`` class and ``finfo.machar <numpy.finfo>`` attribute have
+been deprecated. Users are encouraged to access the property if interest
+directly from the corresponding ``numpy.finfo`` attribute.
+
+(`gh-20201 <https://github.com/numpy/numpy/pull/20201>`__)
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) Compatibility notes > (h2) Distutils forces strict floating point model on clang
+
+(Segment 6)
+#Compatibility notes (h1)
+
+
+##Distutils forces strict floating point model on clang (h2)
+NumPy now sets the ``-ftrapping-math`` option on clang to enforce correct
+floating point error handling for universal functions.  Clang defaults to
+non-IEEE and C99 conform behaviour otherwise.  This change (using the
+equivalent but newer ``-ffp-exception-behavior=strict``) was attempted in NumPy
+1.21, but was effectively never used.
+
+(`gh-19479 <https://github.com/numpy/numpy/pull/19479>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) Compatibility notes > (h2) Removed floor division support for complex types
+
+(Segment 7)
+#Compatibility notes (h1)
+
+
+##Removed floor division support for complex types (h2)
+Floor division of complex types will now result in a ``TypeError``
+
+.. code-block:: python
+
+>>> a = np.arange(10) + 1j* np.arange(10)
+>>> a // 1
+TypeError: ufunc 'floor_divide' not supported for the input types...
+
+(`gh-19135 <https://github.com/numpy/numpy/pull/19135>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) Compatibility notes > (h2) ``numpy.vectorize`` functions now produce the same output class as the base function
+
+(Segment 8)
+#Compatibility notes (h1)
+
+
+##``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+When a function that respects ``numpy.ndarray`` subclasses is vectorized using
+``numpy.vectorize``, the vectorized function will now be subclass-safe also for
+cases that a signature is given (i.e., when creating a ``gufunc``): the output
+class will be the same as that returned by the first call to the underlying
+function.
+
+(`gh-19356 <https://github.com/numpy/numpy/pull/19356>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) Compatibility notes > (h2) Python 3.7 is no longer supported
+
+(Segment 9)
+#Compatibility notes (h1)
+
+
+##Python 3.7 is no longer supported (h2)
+Python support has been dropped. This is rather strict, there are changes that
+require Python >= 3.8.
+
+(`gh-19665 <https://github.com/numpy/numpy/pull/19665>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) Compatibility notes > (h2) str/repr of complex dtypes now include space after punctuation
+
+(Segment 10)
+#Compatibility notes (h1)
+
+
+##str/repr of complex dtypes now include space after punctuation (h2)
+The repr of ``np.dtype({"names": ["a"], "formats": [int], "offsets": [2]})`` is
+now ``dtype({'names': ['a'], 'formats': ['<i8'], 'offsets': [2], 'itemsize':
+10})``, whereas spaces where previously omitted after colons and between
+fields.
+
+The old behavior can be restored via ``np.set_printoptions(legacy="1.21")``.
+
+(`gh-19687 <https://github.com/numpy/numpy/pull/19687>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) Compatibility notes > (h2) Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64``
+
+(Segment 11)
+#Compatibility notes (h1)
+
+
+##Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+Fixed a bug in the ``advance`` method of ``PCG64DSXM`` and ``PCG64``. The bug
+only affects results when the step was larger than :math:`2^{64}` on platforms
+that do not support 128-bit integers(e.g., Windows and 32-bit Linux).
+
+(`gh-20049 <https://github.com/numpy/numpy/pull/20049>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) Compatibility notes > (h2) Change in generation of random 32 bit floating point variates
+
+(Segment 12)
+#Compatibility notes (h1)
+
+
+##Change in generation of random 32 bit floating point variates (h2)
+There was bug in the generation of 32 bit floating point values from the
+uniform distribution that would result in the least significant bit of the
+random variate always being 0.  This has been fixed.
+
+This change affects the variates produced by the ``random.Generator`` methods
+``random``, ``standard_normal``, ``standard_exponential``, and
+``standard_gamma``, but only when the dtype is specified as ``numpy.float32``.
+
+(`gh-20314 <https://github.com/numpy/numpy/pull/20314>`__)
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) C API changes > (h2) Masked inner-loops cannot be customized anymore
+
+(Segment 13)
+#C API changes (h1)
+
+
+##Masked inner-loops cannot be customized anymore (h2)
+The masked inner-loop selector is now never used.  A warning will be given in
+the unlikely event that it was customized.
+
+We do not expect that any code uses this.  If you do use it, you must unset the
+selector on newer NumPy version.  Please also contact the NumPy developers, we
+do anticipate providing a new, more specific, mechanism.
+
+The customization was part of a never-implemented feature to allow for faster
+masked operations.
+
+(`gh-19259 <https://github.com/numpy/numpy/pull/19259>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) C API changes > (h2) Experimental exposure of future DType and UFunc API
+
+(Segment 14)
+#C API changes (h1)
+
+
+##Experimental exposure of future DType and UFunc API (h2)
+The new header ``experimental_public_dtype_api.h`` allows to experiment with
+future API for improved universal function and especially user DType support.
+At this time it is advisable to experiment using the development version
+of NumPy since some changes are expected and new features will be unlocked.
+
+(`gh-19919 <https://github.com/numpy/numpy/pull/19919>`__)
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) New Features > (h2) NEP 49 configurable allocators
+
+(Segment 15)
+#New Features (h1)
+
+
+##NEP 49 configurable allocators (h2)
+As detailed in `NEP 49`_, the function used for allocation of the data segment
+of a ndarray can be changed. The policy can be set globally or in a context.
+For more information see the NEP and the :ref:`data_memory` reference docs.
+Also add a ``NUMPY_WARN_IF_NO_MEM_POLICY`` override to warn on dangerous use
+of transferring ownership by setting ``NPY_ARRAY_OWNDATA``.
+
+
+(`gh-17582 <https://github.com/numpy/numpy/pull/17582>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) New Features > (h2) Implementation of the NEP 47 (adopting the array API standard)
+
+(Segment 16)
+#New Features (h1)
+
+
+##Implementation of the NEP 47 (adopting the array API standard) (h2)
+An initial implementation of `NEP 47`_ (adoption the array API standard) has
+been added as ``numpy.array_api``. The implementation is experimental and will
+issue a UserWarning on import, as the `array API standard
+<https://data-apis.org/array-api/latest/index.html>`_ is still in draft state.
+``numpy.array_api`` is a conforming implementation of the array API standard,
+which is also minimal, meaning that only those functions and behaviors that are
+required by the standard are implemented (see the NEP for more info).
+Libraries wishing to make use of the array API standard are encouraged to use
+``numpy.array_api`` to check that they are only using functionality that is
+guaranteed to be present in standard conforming implementations.
+
+
+(`gh-18585 <https://github.com/numpy/numpy/pull/18585>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) New Features > (h2) Generate C/C++ API reference documentation from comments blocks is now possible
+
+(Segment 17)
+#New Features (h1)
+
+
+##Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+This feature depends on Doxygen_ in the generation process and on Breathe_ to
+integrate it with Sphinx.
+
+
+(`gh-18884 <https://github.com/numpy/numpy/pull/18884>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) New Features > (h2) Assign the platform-specific ``c_intp`` precision via a mypy plugin
+
+(Segment 18)
+#New Features (h1)
+
+
+##Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+The mypy_ plugin, introduced in `numpy/numpy#17843`_, has again been expanded:
+the plugin now is now responsible for setting the platform-specific precision
+of ``numpy.ctypeslib.c_intp``, the latter being used as data type for various
+``numpy.ndarray.ctypes`` attributes.
+
+Without the plugin, aforementioned type will default to ``ctypes.c_int64``.
+
+To enable the plugin, one must add it to their mypy `configuration file`_:
+
+.. code-block:: ini
+
+[mypy]
+plugins = numpy.typing.mypy_plugin
+
+
+
+(`gh-19062 <https://github.com/numpy/numpy/pull/19062>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) New Features > (h2) Add NEP 47-compatible dlpack support
+
+(Segment 19)
+#New Features (h1)
+
+
+##Add NEP 47-compatible dlpack support (h2)
+Add a ``ndarray.__dlpack__()`` method which returns a ``dlpack`` C structure
+wrapped in a ``PyCapsule``. Also add a ``np._from_dlpack(obj)`` function, where
+``obj`` supports ``__dlpack__()``, and returns an ``ndarray``.
+
+(`gh-19083 <https://github.com/numpy/numpy/pull/19083>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) New Features > (h2) ``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax``
+
+(Segment 20)
+#New Features (h1)
+
+
+##``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+``keepdims`` argument is added to ``numpy.argmin``, ``numpy.argmax``.  If set
+to ``True``, the axes which are reduced are left in the result as dimensions
+with size one.  The resulting array has the same number of dimensions and will
+broadcast with the input array.
+
+(`gh-19211 <https://github.com/numpy/numpy/pull/19211>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) New Features > (h2) ``bit_count`` to compute the number of 1-bits in an integer
+
+(Segment 21)
+#New Features (h1)
+
+
+##``bit_count`` to compute the number of 1-bits in an integer (h2)
+Computes the number of 1-bits in the absolute value of the input.
+This works on all the numpy integer types. Analogous to the builtin
+``int.bit_count`` or ``popcount`` in C++.
+
+.. code-block:: python
+
+>>> np.uint32(1023).bit_count()
+10
+>>> np.int32(-127).bit_count()
+7
+
+(`gh-19355 <https://github.com/numpy/numpy/pull/19355>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) New Features > (h2) The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError``
+
+(Segment 22)
+#New Features (h1)
+
+
+##The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+The ``ndim`` and ``axis`` parameters are now also stored as attributes
+within each ``numpy.AxisError`` instance.
+
+(`gh-19459 <https://github.com/numpy/numpy/pull/19459>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) New Features > (h2) Preliminary support for ``windows/arm64`` target
+
+(Segment 23)
+#New Features (h1)
+
+
+##Preliminary support for ``windows/arm64`` target (h2)
+``numpy`` added support for windows/arm64 target. Please note ``OpenBLAS``
+support is not yet available for windows/arm64 target.
+
+(`gh-19513 <https://github.com/numpy/numpy/pull/19513>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) New Features > (h2) Added support for LoongArch
+
+(Segment 24)
+#New Features (h1)
+
+
+##Added support for LoongArch (h2)
+LoongArch is a new instruction set, numpy compilation failure on LoongArch
+architecture, so add the commit.
+
+(`gh-19527 <https://github.com/numpy/numpy/pull/19527>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) New Features > (h2) A ``.clang-format`` file has been added
+
+(Segment 25)
+#New Features (h1)
+
+
+##A ``.clang-format`` file has been added (h2)
+Clang-format is a C/C++ code formatter, together with the added
+``.clang-format`` file, it produces code close enough to the NumPy
+C_STYLE_GUIDE for general use. Clang-format version 12+ is required due to the
+use of several new features, it is available in Fedora 34 and Ubuntu Focal
+among other distributions.
+
+(`gh-19754 <https://github.com/numpy/numpy/pull/19754>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) New Features > (h2) ``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer``
+
+(Segment 26)
+#New Features (h1)
+
+
+##``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+Based on its counterpart in Python ``float`` and ``int``, the numpy floating
+point and integer types now support ``float.is_integer``. Returns ``True`` if
+the number is finite with integral value, and ``False`` otherwise.
+
+.. code-block:: python
+
+>>> np.float32(-2.0).is_integer()
+True
+>>> np.float64(3.2).is_integer()
+False
+>>> np.int32(-2).is_integer()
+True
+
+(`gh-19803 <https://github.com/numpy/numpy/pull/19803>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) New Features > (h2) Symbolic parser for Fortran dimension specifications
+
+(Segment 27)
+#New Features (h1)
+
+
+##Symbolic parser for Fortran dimension specifications (h2)
+A new symbolic parser has been added to f2py in order to correctly parse
+dimension specifications. The parser is the basis for future improvements and
+provides compatibility with Draft Fortran 202x.
+
+(`gh-19805 <https://github.com/numpy/numpy/pull/19805>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) New Features > (h2) ``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable
+
+(Segment 28)
+#New Features (h1)
+
+
+##``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Mimicking :pep:`585`, the ``numpy.ndarray``, ``numpy.dtype`` and
+``numpy.number`` classes are now subscriptable for python 3.9 and later.
+Consequently, expressions that were previously only allowed in .pyi stub files
+or with the help of ``from __future__ import annotations`` are now also legal
+during runtime.
+
+.. code-block:: python
+
+>>> import numpy as np
+>>> from typing import Any
+
+>>> np.ndarray[Any, np.dtype[np.float64]]
+numpy.ndarray[typing.Any, numpy.dtype[numpy.float64]]
+
+(`gh-19879 <https://github.com/numpy/numpy/pull/19879>`__)
+
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) Improvements > (h2) ``ctypeslib.load_library`` can now take any path-like object
+
+(Segment 29)
+#Improvements (h1)
+
+
+##``ctypeslib.load_library`` can now take any path-like object (h2)
+All parameters in the can now take any :term:`python:path-like object`.
+This includes the likes of strings, bytes and objects implementing the
+:meth:`__fspath__<os.PathLike.__fspath__>` protocol.
+
+(`gh-17530 <https://github.com/numpy/numpy/pull/17530>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) Improvements > (h2) Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo``
+
+(Segment 30)
+#Improvements (h1)
+
+
+##Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+The attributes ``smallest_normal`` and ``smallest_subnormal`` are available as
+an extension of ``finfo`` class for any floating-point data type. To use these
+new attributes, write ``np.finfo(np.float64).smallest_normal`` or
+``np.finfo(np.float64).smallest_subnormal``.
+
+(`gh-18536 <https://github.com/numpy/numpy/pull/18536>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) Improvements > (h2) ``numpy.linalg.qr`` accepts stacked matrices as inputs
+
+(Segment 31)
+#Improvements (h1)
+
+
+##``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+``numpy.linalg.qr`` is able to produce results for stacked matrices as inputs.
+Moreover, the implementation of QR decomposition has been shifted to C from
+Python.
+
+(`gh-19151 <https://github.com/numpy/numpy/pull/19151>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) Improvements > (h2) ``numpy.fromregex`` now accepts ``os.PathLike`` implementations
+
+(Segment 32)
+#Improvements (h1)
+
+
+##``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+``numpy.fromregex`` now accepts objects implementing the ``__fspath__<os.PathLike>``
+protocol, *e.g.* ``pathlib.Path``.
+
+(`gh-19680 <https://github.com/numpy/numpy/pull/19680>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) Improvements > (h2) Add new methods for ``quantile`` and ``percentile``
+
+(Segment 33)
+#Improvements (h1)
+
+
+##Add new methods for ``quantile`` and ``percentile`` (h2)
+``quantile`` and ``percentile`` now have have a ``method=`` keyword argument
+supporting 13 different methods.  This replaces the ``interpolation=`` keyword
+argument.
+
+The methods are now aligned with nine methods which can be found in scientific
+literature and the R language.  The remaining methods are the previous
+discontinuous variations of the default "linear" one.
+
+Please see the documentation of ``numpy.percentile`` for more information.
+
+(`gh-19857 <https://github.com/numpy/numpy/pull/19857>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) Improvements > (h2) Missing parameters have been added to the ``nan<x>`` functions
+
+(Segment 34)
+#Improvements (h1)
+
+
+##Missing parameters have been added to the ``nan<x>`` functions (h2)
+A number of the ``nan<x>`` functions previously lacked parameters that were
+present in their ``<x>``-based counterpart, *e.g.* the ``where`` parameter was
+present in ``numpy.mean`` but absent from ``numpy.nanmean``.
+
+The following parameters have now been added to the ``nan<x>`` functions:
+
+* nanmin: ``initial`` & ``where``
+* nanmax: ``initial`` & ``where``
+* nanargmin: ``keepdims`` & ``out``
+* nanargmax: ``keepdims`` & ``out``
+* nansum: ``initial`` & ``where``
+* nanprod: ``initial`` & ``where``
+* nanmean: ``where``
+* nanvar: ``where``
+* nanstd: ``where``
+
+(`gh-20027 <https://github.com/numpy/numpy/pull/20027>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) Improvements > (h2) Annotating the main Numpy namespace
+
+(Segment 35)
+#Improvements (h1)
+
+
+##Annotating the main Numpy namespace (h2)
+Starting from the 1.20 release, PEP 484 type annotations have been included for
+parts of the NumPy library; annotating the remaining functions being a work in
+progress. With the release of 1.22 this process has been completed for the main
+NumPy namespace, which is now fully annotated.
+
+Besides the main namespace, a limited number of sub-packages contain
+annotations as well. This includes, among others, ``numpy.testing``,
+``numpy.linalg`` and ``numpy.random`` (available since 1.21).
+
+(`gh-20217 <https://github.com/numpy/numpy/pull/20217>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) Improvements > (h2) Vectorize umath module using AVX-512
+
+(Segment 36)
+#Improvements (h1)
+
+
+##Vectorize umath module using AVX-512 (h2)
+By leveraging Intel Short Vector Math Library (SVML), 18 umath functions
+(``exp2``, ``log2``, ``log10``, ``expm1``, ``log1p``, ``cbrt``, ``sin``,
+``cos``, ``tan``, ``arcsin``, ``arccos``, ``arctan``, ``sinh``, ``cosh``,
+``tanh``, ``arcsinh``, ``arccosh``, ``arctanh``) are vectorized using AVX-512
+instruction set for both single and double precision implementations.  This
+change is currently enabled only for Linux users and on processors with AVX-512
+instruction set.  It provides an average speed up of 32x and 14x for single and
+double precision functions respectively.
+
+(`gh-19478 <https://github.com/numpy/numpy/pull/19478>`__)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Expired deprecations (h1)
+--Deprecated numeric style dtype strings have been removed (h2)
+--Expired deprecations for ``loads``, ``ndfromtxt``, and ``mafromtxt`` in npyio (h2)
+Deprecations (h1)
+--Use delimiter rather than delimitor as kwarg in mrecords (h2)
+--Passing boolean ``kth`` values to (arg-)partition has been deprecated (h2)
+--The ``np.MachAr`` class has been deprecated (h2)
+Compatibility notes (h1)
+--Distutils forces strict floating point model on clang (h2)
+--Removed floor division support for complex types (h2)
+--``numpy.vectorize`` functions now produce the same output class as the base function (h2)
+--Python 3.7 is no longer supported (h2)
+--str/repr of complex dtypes now include space after punctuation (h2)
+--Corrected ``advance`` in ``PCG64DSXM`` and ``PCG64`` (h2)
+--Change in generation of random 32 bit floating point variates (h2)
+C API changes (h1)
+--Masked inner-loops cannot be customized anymore (h2)
+--Experimental exposure of future DType and UFunc API (h2)
+New Features (h1)
+--NEP 49 configurable allocators (h2)
+--Implementation of the NEP 47 (adopting the array API standard) (h2)
+--Generate C/C++ API reference documentation from comments blocks is now possible (h2)
+--Assign the platform-specific ``c_intp`` precision via a mypy plugin (h2)
+--Add NEP 47-compatible dlpack support (h2)
+--``keepdims`` optional argument added to ``numpy.argmin``, ``numpy.argmax`` (h2)
+--``bit_count`` to compute the number of 1-bits in an integer (h2)
+--The ``ndim`` and ``axis`` attributes have been added to ``numpy.AxisError`` (h2)
+--Preliminary support for ``windows/arm64`` target (h2)
+--Added support for LoongArch (h2)
+--A ``.clang-format`` file has been added (h2)
+--``is_integer`` is now available to ``numpy.floating`` and ``numpy.integer`` (h2)
+--Symbolic parser for Fortran dimension specifications (h2)
+--``ndarray``, ``dtype`` and ``number`` are now runtime-subscriptable (h2)
+Improvements (h1)
+--``ctypeslib.load_library`` can now take any path-like object (h2)
+--Add ``smallest_normal`` and ``smallest_subnormal`` attributes to ``finfo`` (h2)
+--``numpy.linalg.qr`` accepts stacked matrices as inputs (h2)
+--``numpy.fromregex`` now accepts ``os.PathLike`` implementations (h2)
+--Add new methods for ``quantile`` and ``percentile`` (h2)
+--Missing parameters have been added to the ``nan<x>`` functions (h2)
+--Annotating the main Numpy namespace (h2)
+--Vectorize umath module using AVX-512 (h2)
+--OpenBLAS v0.3.18 (h2)
+
+
+(Page path)
+(h1) Improvements > (h2) OpenBLAS v0.3.18
+
+(Segment 37)
+#Improvements (h1)
+
+
+##OpenBLAS v0.3.18 (h2)
+Update the OpenBLAS used in testing and in wheels to v0.3.18
+
+(`gh-20058 <https://github.com/numpy/numpy/pull/20058>`__)
+
+
+
+--------------------------------------------------------------------------------

@@ -1,0 +1,154 @@
+(Table of Contents)
+Development (h1)
+--Make a release (h2)
+--Upgrading content (h2)
+--Create semantic tags (h2)
+--Creating a new sensor (h2)
+--Benchmarking performance (h2)
+--Recorder binary file format (h2)
+--Generating collision boundaries (h2)
+
+
+(Page path)
+(1) Development > (2) Make a release
+
+(Segment 1)
+#Development (h1)
+CARLA is open source and designed to be highly extensible. This  allows users to create custom functionality or content to suit specialized applications or specific needs. The following tutorials detail how to achieve specific development aims with the CARLA codebase:  - [__Make release__](tuto_D_make_release.md)- [__Upgrading content__](tuto_D_contribute_assets.md)- [__Create semantic tags__](tuto_D_create_semantic_tags.md)- [__Create new sensor__](tuto_D_create_sensor.md)- [__Preformance benchmarking__](adv_benchmarking.md)- [__Recorder file format__](ref_recorder_binary_file_format.md)- [__Collision boundaries__](tuto_D_generate_colliders.md)
+##Make a release (h2)
+If you want to develop your own fork of CARLA and publish releases of your code, follow [__this guide__](tuto_D_make_release.md).
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Development (h1)
+--Make a release (h2)
+--Upgrading content (h2)
+--Create semantic tags (h2)
+--Creating a new sensor (h2)
+--Benchmarking performance (h2)
+--Recorder binary file format (h2)
+--Generating collision boundaries (h2)
+
+
+(Page path)
+(1) Development > (2) Upgrading content
+
+(Segment 2)
+#Development (h1)
+CARLA is open source and designed to be highly extensible. This  allows users to create custom functionality or content to suit specialized applications or specific needs. The following tutorials detail how to achieve specific development aims with the CARLA codebase:  - [__Make release__](tuto_D_make_release.md)- [__Upgrading content__](tuto_D_contribute_assets.md)- [__Create semantic tags__](tuto_D_create_semantic_tags.md)- [__Create new sensor__](tuto_D_create_sensor.md)- [__Preformance benchmarking__](adv_benchmarking.md)- [__Recorder file format__](ref_recorder_binary_file_format.md)- [__Collision boundaries__](tuto_D_generate_colliders.md)
+##Upgrading content (h2)
+Our content resides on a separate Git LFS repository. As part of our build system, we generate and upload a package containing the latest version of this content tagged with the current date and commit. Regularly, we upgrade the CARLA repository with a link to the latest version of the content package. Please follow [__these instructions__](tuto_D_contribute_assets.md) to upgrade content.
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Development (h1)
+--Make a release (h2)
+--Upgrading content (h2)
+--Create semantic tags (h2)
+--Creating a new sensor (h2)
+--Benchmarking performance (h2)
+--Recorder binary file format (h2)
+--Generating collision boundaries (h2)
+
+
+(Page path)
+(1) Development > (2) Create semantic tags
+
+(Segment 3)
+#Development (h1)
+CARLA is open source and designed to be highly extensible. This  allows users to create custom functionality or content to suit specialized applications or specific needs. The following tutorials detail how to achieve specific development aims with the CARLA codebase:  - [__Make release__](tuto_D_make_release.md)- [__Upgrading content__](tuto_D_contribute_assets.md)- [__Create semantic tags__](tuto_D_create_semantic_tags.md)- [__Create new sensor__](tuto_D_create_sensor.md)- [__Preformance benchmarking__](adv_benchmarking.md)- [__Recorder file format__](ref_recorder_binary_file_format.md)- [__Collision boundaries__](tuto_D_generate_colliders.md)
+##Create semantic tags (h2)
+CARLA has a set of semantic tags already defined suitable for most use cases. However, if you need additional classes you can add them as detailed in [__this guide__](tuto_D_create_semantic_tags.md)
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Development (h1)
+--Make a release (h2)
+--Upgrading content (h2)
+--Create semantic tags (h2)
+--Creating a new sensor (h2)
+--Benchmarking performance (h2)
+--Recorder binary file format (h2)
+--Generating collision boundaries (h2)
+
+
+(Page path)
+(1) Development > (2) Creating a new sensor
+
+(Segment 4)
+#Development (h1)
+CARLA is open source and designed to be highly extensible. This  allows users to create custom functionality or content to suit specialized applications or specific needs. The following tutorials detail how to achieve specific development aims with the CARLA codebase:  - [__Make release__](tuto_D_make_release.md)- [__Upgrading content__](tuto_D_contribute_assets.md)- [__Create semantic tags__](tuto_D_create_semantic_tags.md)- [__Create new sensor__](tuto_D_create_sensor.md)- [__Preformance benchmarking__](adv_benchmarking.md)- [__Recorder file format__](ref_recorder_binary_file_format.md)- [__Collision boundaries__](tuto_D_generate_colliders.md)
+##Creating a new sensor (h2)
+You can modify CARLA's C++ code to create new sensors for your custom use cases. Please find the details [__here__](tuto_D_create_sensor.md)
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Development (h1)
+--Make a release (h2)
+--Upgrading content (h2)
+--Create semantic tags (h2)
+--Creating a new sensor (h2)
+--Benchmarking performance (h2)
+--Recorder binary file format (h2)
+--Generating collision boundaries (h2)
+
+
+(Page path)
+(1) Development > (2) Benchmarking performance
+
+(Segment 5)
+#Development (h1)
+CARLA is open source and designed to be highly extensible. This  allows users to create custom functionality or content to suit specialized applications or specific needs. The following tutorials detail how to achieve specific development aims with the CARLA codebase:  - [__Make release__](tuto_D_make_release.md)- [__Upgrading content__](tuto_D_contribute_assets.md)- [__Create semantic tags__](tuto_D_create_semantic_tags.md)- [__Create new sensor__](tuto_D_create_sensor.md)- [__Preformance benchmarking__](adv_benchmarking.md)- [__Recorder file format__](ref_recorder_binary_file_format.md)- [__Collision boundaries__](tuto_D_generate_colliders.md)
+##Benchmarking performance (h2)
+CARLA has a benchmarking script to help with benchmarking performance on your system. Find the full details [__here__](adv_benchmarking.md)
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Development (h1)
+--Make a release (h2)
+--Upgrading content (h2)
+--Create semantic tags (h2)
+--Creating a new sensor (h2)
+--Benchmarking performance (h2)
+--Recorder binary file format (h2)
+--Generating collision boundaries (h2)
+
+
+(Page path)
+(1) Development > (2) Recorder binary file format
+
+(Segment 6)
+#Development (h1)
+CARLA is open source and designed to be highly extensible. This  allows users to create custom functionality or content to suit specialized applications or specific needs. The following tutorials detail how to achieve specific development aims with the CARLA codebase:  - [__Make release__](tuto_D_make_release.md)- [__Upgrading content__](tuto_D_contribute_assets.md)- [__Create semantic tags__](tuto_D_create_semantic_tags.md)- [__Create new sensor__](tuto_D_create_sensor.md)- [__Preformance benchmarking__](adv_benchmarking.md)- [__Recorder file format__](ref_recorder_binary_file_format.md)- [__Collision boundaries__](tuto_D_generate_colliders.md)
+##Recorder binary file format (h2)
+Details on the binary file format for the recorder can be found [__here__](ref_recorder_binary_file_format.md)
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Development (h1)
+--Make a release (h2)
+--Upgrading content (h2)
+--Create semantic tags (h2)
+--Creating a new sensor (h2)
+--Benchmarking performance (h2)
+--Recorder binary file format (h2)
+--Generating collision boundaries (h2)
+
+
+(Page path)
+(1) Development > (2) Generating collision boundaries
+
+(Segment 7)
+#Development (h1)
+CARLA is open source and designed to be highly extensible. This  allows users to create custom functionality or content to suit specialized applications or specific needs. The following tutorials detail how to achieve specific development aims with the CARLA codebase:  - [__Make release__](tuto_D_make_release.md)- [__Upgrading content__](tuto_D_contribute_assets.md)- [__Create semantic tags__](tuto_D_create_semantic_tags.md)- [__Create new sensor__](tuto_D_create_sensor.md)- [__Preformance benchmarking__](adv_benchmarking.md)- [__Recorder file format__](ref_recorder_binary_file_format.md)- [__Collision boundaries__](tuto_D_generate_colliders.md)
+##Generating collision boundaries (h2)
+Details on generating more accurate collision boundaries for vehicles can be found in [__this guide__](tuto_D_generate_colliders.md)
+
+
+--------------------------------------------------------------------------------

@@ -1,0 +1,256 @@
+Parsed Headers, Levels and Contents:
+h2: [Additional Sensors](#additional-sensors "#additional-sensors")
+Contents:
+
+TurtleBot3 can be attach to additional sensors. Examples shown here can be that how to use additional sensors such as IR, ultrasonic, switch, etc. in OpenCR of TurtleBot3.
+
+
+=====================================
+
+h3: [Bumper](#Bumper "#Bumper")
+Contents:
+
+* Device - [Touch\_sensor (TS-10)](http://emanual.robotis.com/docs/en/parts/sensor/ts-10/ "http://emanual.robotis.com/docs/en/parts/sensor/ts-10/")
+
+![](/assets/images/platform/turtlebot3/additional_sensors/touch_sensor.png)
+
+(Front side)
+
+![](/assets/images/platform/turtlebot3/additional_sensors/touch_sensor_front.png)
+
+(Back side)
+
+![](/assets/images/platform/turtlebot3/additional_sensors/touch_sensor_back.png)
+
+* Default PIN
+
+| Device | PIN |
+| --- | --- |
+| Front sensor | ROBOTIS\_5-PIN 3 |
+| Back sensor | ROBOTIS\_5-PIN 4 |
+
+**Tip :** If you want to use another PIN, refer to [OpenCR PIN Map](http://emanual.robotis.com/docs/en/parts/controller/opencr10/ "http://emanual.robotis.com/docs/en/parts/controller/opencr10/").
+
+* Run with Turtlebot3
+
+**WARNING** : Make sure to run the [Bringup](#bringup "#bringup") instruction before performing Example.
+
+**[Remote PC]** Launch the bumper launch file.
+
+```
+$ roslaunch turtlebot3_example turtlebot3_bumper.launch
+
+```
+
+* Run with Arduino IDE
+
+This example can be open [Arduino IDE](http://emanual.robotis.com/docs/en/parts/controller/opencr10/#arduino-ide "http://emanual.robotis.com/docs/en/parts/controller/opencr10/#arduino-ide").
+
+Select to `File` -> `Examples` -> `ROS` -> `2. Sensors` -> `a_Bumper`. Upload to OpenCR.
+
+**[Remote PC]** Run ros serial\_node package.
+
+```
+$ rosrun rosserial_python serial_node.py __name:=turtlebot3_core _port:=/dev/ttyACM0 _baud:=115200
+
+```
+
+**WARNING** : If you upload examples to OpenCR, you have to re-upload [turtlebot3\_core](http://emanual.robotis.com/docs/en/platform/turtlebot3/opencr_setup/#opencr-setup "http://emanual.robotis.com/docs/en/platform/turtlebot3/opencr_setup/#opencr-setup").
+
+
+=====================================
+
+h3: [IR](#IR "#IR")
+Contents:
+
+* Device - [IR\_sensor (IRSS-10)](http://emanual.robotis.com/docs/en/parts/sensor/irss-10/ "http://emanual.robotis.com/docs/en/parts/sensor/irss-10/")
+
+![](/assets/images/platform/turtlebot3/additional_sensors/IR_sensor.png)
+
+![](/assets/images/platform/turtlebot3/additional_sensors/IR_sensor_front.png)
+
+* Default PIN
+
+| Device | PIN |
+| --- | --- |
+| IR sensor | ROBOTIS\_5-PIN 2 |
+
+**Tip :** If you want to use another PIN, refer to [OpenCR PIN Map](http://emanual.robotis.com/docs/en/parts/controller/opencr10/ "http://emanual.robotis.com/docs/en/parts/controller/opencr10/").
+
+* Run with Turtlebot3
+
+**WARNING** : Make sure to run the [Bringup](#bringup "#bringup") instruction before performing Example.
+
+**[Remote PC]** Launch the cliff launch file.
+
+```
+$ roslaunch turtlebot3_example turtlebot3_cliff.launch
+
+```
+
+* Run with Arduino IDE
+
+This example can be open [Arduino IDE](http://emanual.robotis.com/docs/en/parts/controller/opencr10/#arduino-ide "http://emanual.robotis.com/docs/en/parts/controller/opencr10/#arduino-ide").
+
+Select to `File` -> `Examples` -> `ROS` -> `2. Sensors` -> `b_Cliff`. Upload to OpenCR.
+
+**[Remote PC]** Run ros serial\_node package.
+
+```
+$ rosrun rosserial_python serial_node.py __name:=turtlebot3_core _port:=/dev/ttyACM0 _baud:=115200
+
+```
+
+
+=====================================
+
+h3: [Ultrasonic](#Ultrasonic "#Ultrasonic")
+Contents:
+
+* Device - Ultrasonic sensor (HC-SR04)
+
+![](/assets/images/platform/turtlebot3/additional_sensors/sonar.png)
+
+* Default PIN:
+
+| Device | PIN |
+| --- | --- |
+| Trigger | BDPIN\_GPIO\_1 |
+| Echo | BDPIN\_GPIO\_2 |
+
+**Tip :** If you want to use another PIN, refer to [OpenCR PIN Map](http://emanual.robotis.com/docs/en/parts/controller/opencr10/ "http://emanual.robotis.com/docs/en/parts/controller/opencr10/").
+
+* Run with Turtlebot3
+
+**WARNING** : Make sure to run the [Bringup](#bringup "#bringup") instruction before performing Example.
+
+**[Remote PC]** Launch the sonar launch file.
+
+```
+$ roslaunch turtlebot3_example turtlebot3_sonar.launch
+
+```
+
+* Run with Arduino IDE
+
+This example can be open [Arduino IDE](http://emanual.robotis.com/docs/en/parts/controller/opencr10/#arduino-ide "http://emanual.robotis.com/docs/en/parts/controller/opencr10/#arduino-ide").
+
+Select to `File` -> `Examples` -> `ROS` -> `2. Sensors` -> `c_Ultrasonic`. Upload to OpenCR.
+
+**[Remote PC]** Run ros serial\_node package.
+
+```
+$ rosrun rosserial_python serial_node.py __name:=turtlebot3_core _port:=/dev/ttyACM0 _baud:=115200
+
+```
+
+
+=====================================
+
+h3: [Illumination](#Illumination "#Illumination")
+Contents:
+
+* Device - LDR sensor (Flying-Fish MH-sensor)
+
+![](/assets/images/platform/turtlebot3/additional_sensors/illumination.png)
+
+![](/assets/images/platform/turtlebot3/additional_sensors/illumination_front.png)
+
+* Default PIN
+
+| Device | PIN |
+| --- | --- |
+| Analog | A1 |
+
+**Tip :** If you want to use another PIN, refer to [OpenCR PIN Map](http://emanual.robotis.com/docs/en/parts/controller/opencr10/ "http://emanual.robotis.com/docs/en/parts/controller/opencr10/").
+
+* Run with Turtlebot3
+
+**WARNING** : Make sure to run the [Bringup](#bringup "#bringup") instruction before performing Example.
+
+**[Remote PC]** Launch the illumination launch file.
+
+```
+$ roslaunch turtlebot3_example turtlebot3_illumination.launch
+
+```
+
+* Run with Arduino IDE
+
+This example can be open [Arduino IDE](http://emanual.robotis.com/docs/en/parts/controller/opencr10/#arduino-ide "http://emanual.robotis.com/docs/en/parts/controller/opencr10/#arduino-ide").
+
+Select to `File` -> `Examples` -> `ROS` -> `2. Sensors` -> `d_Illumination`. Upload to OpenCR.
+
+**[Remote PC]** Run ros serial\_node package.
+
+```
+$ rosrun rosserial_python serial_node.py __name:=turtlebot3_core _port:=/dev/ttyACM0 _baud:=115200
+
+```
+
+
+=====================================
+
+h3: [LED](#LED "#LED")
+Contents:
+
+* Device - led (led101)
+
+![](/assets/images/platform/turtlebot3/additional_sensors/led.png)
+
+![](/assets/images/platform/turtlebot3/additional_sensors/led_top.png)
+
+* Default PIN
+
+| Device | PIN |
+| --- | --- |
+| Front\_left | BDPIN\_GPIO\_4 |
+| Front\_right | BDPIN\_GPIO\_6 |
+| Back\_left | BDPIN\_GPIO\_8 |
+| Back\_right | BDPIN\_GPIO\_10 |
+
+**Tip :** If you want to use another PIN, refer to [OpenCR PIN Map](http://emanual.robotis.com/docs/en/parts/controller/opencr10/ "http://emanual.robotis.com/docs/en/parts/controller/opencr10/").
+
+* Run
+
+This example is allways active when connected led. the leds show a specific pattern depend on the linear and angular velocity of Turtlebot3.
+
+ Previous Page
+Next Page 
+
+$reference = $(".archive");
+$(window).resize(function() {
+ var newWidth = $reference.width() \* 0.90;
+ if (newWidth > 640) { newWidth = 640; }
+
+ // Resize all videos according to aspect ratio
+ $("iframe").each(
+ function(index, elem) {
+ elem.setAttribute("width", (newWidth).toFixed());
+ elem.setAttribute("height", (newWidth\*0.56).toFixed());
+ }
+ );
+// Kick off one resize to fix all videos on page load
+}).resize();
+
+© 2023 ROBOTIS. Powered by [Jekyll](http://jekyllrb.com "http://jekyllrb.com") & [Minimal Mistakes](https://mademistakes.com/work/minimal-mistakes-jekyll-theme/ "https://mademistakes.com/work/minimal-mistakes-jekyll-theme/").
+
+ var \_gaq = \_gaq || [];
+ \_gaq.push(['\_setAccount', 'UA-83196341-13']);
+ \_gaq.push(['\_trackPageview']);
+
+ (function() {
+ var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+ })();
+
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
+
+ gtag('config', 'G-155KHSC07K');
+
+
+=====================================
+

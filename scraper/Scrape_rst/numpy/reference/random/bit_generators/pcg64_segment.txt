@@ -1,0 +1,45 @@
+Parsed Headers, Levels and Contents:
+h1: Permuted Congruential Generator (64-bit, PCG64)
+Contents:
+  
+  .. currentmodule:: numpy.random
+  
+  .. autoclass:: PCG64
+  :members: __init__
+  :exclude-members: __init__
+  
+
+=====================================
+
+h2: State
+Contents:
+  
+  .. autosummary::
+  :toctree: generated/
+  
+  ~PCG64.state
+  
+
+=====================================
+
+h2: Parallel generation
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  ~PCG64.advance
+  ~PCG64.jumped
+  
+
+=====================================
+
+h2: Extending
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  ~PCG64.cffi
+  ~PCG64.ctypes
+
+=====================================
+

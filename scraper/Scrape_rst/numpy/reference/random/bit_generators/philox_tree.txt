@@ -1,0 +1,92 @@
+(Table of Contents)
+Philox Counter-based RNG (h1)
+--State (h2)
+--Parallel generation (h2)
+--Extending (h2)
+
+
+(Page path)
+(h1) Philox Counter-based RNG > (h2) State
+
+(Segment 1)
+#Philox Counter-based RNG (h1)
+
+.. currentmodule:: numpy.random
+
+.. autoclass:: Philox
+:members: __init__
+:exclude-members: __init__
+
+
+##State (h2)
+
+.. autosummary::
+:toctree: generated/
+
+~Philox.state
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Philox Counter-based RNG (h1)
+--State (h2)
+--Parallel generation (h2)
+--Extending (h2)
+
+
+(Page path)
+(h1) Philox Counter-based RNG > (h2) Parallel generation
+
+(Segment 2)
+#Philox Counter-based RNG (h1)
+
+.. currentmodule:: numpy.random
+
+.. autoclass:: Philox
+:members: __init__
+:exclude-members: __init__
+
+
+##Parallel generation (h2)
+.. autosummary::
+:toctree: generated/
+
+~Philox.advance
+~Philox.jumped
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Philox Counter-based RNG (h1)
+--State (h2)
+--Parallel generation (h2)
+--Extending (h2)
+
+
+(Page path)
+(h1) Philox Counter-based RNG > (h2) Extending
+
+(Segment 3)
+#Philox Counter-based RNG (h1)
+
+.. currentmodule:: numpy.random
+
+.. autoclass:: Philox
+:members: __init__
+:exclude-members: __init__
+
+
+##Extending (h2)
+.. autosummary::
+:toctree: generated/
+
+~Philox.cffi
+~Philox.ctypes
+
+
+
+--------------------------------------------------------------------------------

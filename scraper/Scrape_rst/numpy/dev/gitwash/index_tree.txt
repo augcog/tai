@@ -1,0 +1,54 @@
+(Table of Contents)
+ (h1)
+Git for development (h1)
+
+
+(Page path)
+(h1) 
+
+(Segment 1)
+# (h1)
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+ (h1)
+Git for development (h1)
+
+
+(Page path)
+(h1) Git for development
+
+(Segment 2)
+#Git for development (h1)
+
+These pages describe a general git_ and github_ workflow.
+
+This is not a comprehensive git_ reference. It's tailored to the github_
+hosting service. You may well find better or quicker ways of getting stuff done
+with git_, but these should get you started.
+
+For general resources for learning git_ see :ref:`git-resources`.
+
+Have a look at the github_ install help pages available from `github help`_
+
+
+
+Contents:
+
+.. toctree::
+:maxdepth: 2
+
+git_intro
+following_latest
+development_setup
+configure_git
+dot2_dot3
+git_resources
+
+.. include:: git_links.inc
+
+
+
+--------------------------------------------------------------------------------

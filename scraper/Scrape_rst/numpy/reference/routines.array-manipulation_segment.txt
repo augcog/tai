@@ -1,0 +1,132 @@
+Parsed Headers, Levels and Contents:
+h1: Changing array shape
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  
+  reshape
+  ravel
+  ndarray.flat
+  ndarray.flatten
+  
+
+=====================================
+
+h1: Transpose-like operations
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  moveaxis
+  rollaxis
+  swapaxes
+  ndarray.T
+  transpose
+  
+
+=====================================
+
+h1: Changing number of dimensions
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  atleast_1d
+  atleast_2d
+  atleast_3d
+  broadcast
+  broadcast_to
+  broadcast_arrays
+  expand_dims
+  squeeze
+  
+
+=====================================
+
+h1: Changing kind of array
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  asarray
+  asanyarray
+  asmatrix
+  asfortranarray
+  ascontiguousarray
+  asarray_chkfinite
+  require
+  
+
+=====================================
+
+h1: Joining arrays
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  concatenate
+  stack
+  block
+  vstack
+  hstack
+  dstack
+  column_stack
+  
+
+=====================================
+
+h1: Splitting arrays
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  split
+  array_split
+  dsplit
+  hsplit
+  vsplit
+  
+
+=====================================
+
+h1: Tiling arrays
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  tile
+  repeat
+  
+
+=====================================
+
+h1: Adding and removing elements
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  delete
+  insert
+  append
+  resize
+  trim_zeros
+  unique
+  
+
+=====================================
+
+h1: Rearranging elements
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  flip
+  fliplr
+  flipud
+  reshape
+  roll
+  rot90
+
+=====================================
+

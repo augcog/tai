@@ -1,0 +1,165 @@
+(Table of Contents)
+Logic functions (h1)
+--Array contents (h2)
+--Array type testing (h2)
+--Logical operations (h2)
+--Comparison (h2)
+
+
+(Page path)
+(h1) Logic functions > (h2) Array contents
+
+(Segment 1)
+#Logic functions (h1)
+
+.. currentmodule:: numpy
+
+Truth value testing
+-------------------
+.. autosummary::
+:toctree: generated/
+
+all
+any
+
+
+##Array contents (h2)
+.. autosummary::
+:toctree: generated/
+
+isfinite
+isinf
+isnan
+isnat
+isneginf
+isposinf
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Logic functions (h1)
+--Array contents (h2)
+--Array type testing (h2)
+--Logical operations (h2)
+--Comparison (h2)
+
+
+(Page path)
+(h1) Logic functions > (h2) Array type testing
+
+(Segment 2)
+#Logic functions (h1)
+
+.. currentmodule:: numpy
+
+Truth value testing
+-------------------
+.. autosummary::
+:toctree: generated/
+
+all
+any
+
+
+##Array type testing (h2)
+.. autosummary::
+:toctree: generated/
+
+iscomplex
+iscomplexobj
+isfortran
+isreal
+isrealobj
+isscalar
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Logic functions (h1)
+--Array contents (h2)
+--Array type testing (h2)
+--Logical operations (h2)
+--Comparison (h2)
+
+
+(Page path)
+(h1) Logic functions > (h2) Logical operations
+
+(Segment 3)
+#Logic functions (h1)
+
+.. currentmodule:: numpy
+
+Truth value testing
+-------------------
+.. autosummary::
+:toctree: generated/
+
+all
+any
+
+
+##Logical operations (h2)
+.. autosummary::
+:toctree: generated/
+
+logical_and
+logical_or
+logical_not
+logical_xor
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+Logic functions (h1)
+--Array contents (h2)
+--Array type testing (h2)
+--Logical operations (h2)
+--Comparison (h2)
+
+
+(Page path)
+(h1) Logic functions > (h2) Comparison
+
+(Segment 4)
+#Logic functions (h1)
+
+.. currentmodule:: numpy
+
+Truth value testing
+-------------------
+.. autosummary::
+:toctree: generated/
+
+all
+any
+
+
+##Comparison (h2)
+.. autosummary::
+:toctree: generated/
+
+allclose
+isclose
+array_equal
+array_equiv
+
+.. autosummary::
+:toctree: generated/
+
+greater
+greater_equal
+less
+less_equal
+equal
+not_equal
+
+
+
+--------------------------------------------------------------------------------

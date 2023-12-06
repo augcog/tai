@@ -1,0 +1,276 @@
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Examining the Simple Service and Client (h1)
+--Running the Service (h2)
+--Running the Client (h2)
+--Further examples on Service and Client nodes (h2)
+
+
+(Page path)
+(1)  > (2)  > (3)  > (4) ROS 2 Documentation
+
+(Segment 1)
+# (h1)
+[]
+## (h2)
+[]
+### (h3)
+[]
+####ROS 2 Documentation (h4)
+
+The ROS Wiki is for ROS 1. Are you using ROS 2 ([Humble](http://docs.ros.org/en/humble/ "http://docs.ros.org/en/humble/"), [Iron](http://docs.ros.org/en/iron/ "http://docs.ros.org/en/iron/"), or [Rolling](http://docs.ros.org/en/rolling/ "http://docs.ros.org/en/rolling/"))?   
+[Check out the ROS 2 Project Documentation](http://docs.ros.org "http://docs.ros.org")  
+Package specific documentation can be found on [index.ros.org](https://index.ros.org "https://index.ros.org")
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Examining the Simple Service and Client (h1)
+--Running the Service (h2)
+--Running the Client (h2)
+--Further examples on Service and Client nodes (h2)
+
+
+(Page path)
+(1) Wiki
+
+(Segment 2)
+#Wiki (h1)
+
+* [Distributions](/Distributions "/Distributions")
+* [ROS/Installation](/ROS/Installation "/ROS/Installation")
+* [ROS/Tutorials](/ROS/Tutorials "/ROS/Tutorials")
+* [RecentChanges](/RecentChanges "/RecentChanges")
+* [ExaminingServiceClient](/ROS/Tutorials/ExaminingServiceClient "/ROS/Tutorials/ExaminingServiceClient")
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Examining the Simple Service and Client (h1)
+--Running the Service (h2)
+--Running the Client (h2)
+--Further examples on Service and Client nodes (h2)
+
+
+(Page path)
+(1) Page
+
+(Segment 3)
+#Page (h1)
+
+* Immutable Page
+* [Comments](# "#")
+* [Info](/action/info/ROS/Tutorials/ExaminingServiceClient?action=info "/action/info/ROS/Tutorials/ExaminingServiceClient?action=info")
+* [Attachments](/action/AttachFile/ROS/Tutorials/ExaminingServiceClient?action=AttachFile "/action/AttachFile/ROS/Tutorials/ExaminingServiceClient?action=AttachFile")
+* More Actions:
+
+Raw Text
+Print View
+Render as Docbook
+Delete Cache
+------------------------
+Check Spelling
+Like Pages
+Local Site Map
+------------------------
+Rename Page
+Copy Page
+Delete Page
+------------------------
+My Pages
+Subscribe User
+------------------------
+Remove Spam
+Revert to this revision
+Package Pages
+Sync Pages
+------------------------
+CreatePdfDocument
+Load
+RawFile
+Save
+SlideShow
+
+<!--// Init menu
+actionsMenuInit('More Actions:');
+//-->
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Examining the Simple Service and Client (h1)
+--Running the Service (h2)
+--Running the Client (h2)
+--Further examples on Service and Client nodes (h2)
+
+
+(Page path)
+(1) User
+
+(Segment 4)
+#User (h1)
+
+* [Login](/action/login/ROS/Tutorials/ExaminingServiceClient?action=login "/action/login/ROS/Tutorials/ExaminingServiceClient?action=login")
+
+|  |
+| --- |
+| **Note:** This tutorial assumes that you have completed the previous tutorials: writing a simple service and client [(python)](/ROS/Tutorials/WritingServiceClient%28python%29 "/ROS/Tutorials/WritingServiceClient%28python%29") [(c++)](/ROS/Tutorials/WritingServiceClient%28c%2B%2B%29 "/ROS/Tutorials/WritingServiceClient%28c%2B%2B%29").  |
+
+|  |
+| --- |
+| (!) Please ask about problems and questions regarding this tutorial on [answers.ros.org](http://answers.ros.org "http://answers.ros.org"). Don't forget to include in your question the link to this page, the versions of your OS & ROS, and also add appropriate tags. |
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Examining the Simple Service and Client (h1)
+--Running the Service (h2)
+--Running the Client (h2)
+--Further examples on Service and Client nodes (h2)
+
+
+(Page path)
+(1) Examining the Simple Service and Client > (2) Running the Service
+
+(Segment 5)
+#Examining the Simple Service and Client (h1)
+
+**Description:** This tutorial examines running the simple service and client.  
+
+**Tutorial Level:** BEGINNER  
+
+**Next Tutorial:** [Recording and playing back data](/ROS/Tutorials/Recording%20and%20playing%20back%20data "/ROS/Tutorials/Recording%20and%20playing%20back%20data")   
+
+ Contents1. [Running the Service](#Running_the_Service "#Running_the_Service")
+2. [Running the Client](#Running_the_Client "#Running_the_Client")
+3. [Further examples on Service and Client nodes](#Further_examples_on_Service_and_Client_nodes "#Further_examples_on_Service_and_Client_nodes")
+
+
+##Running the Service (h2)
+
+Let's start by running the service: 
+```
+$ rosrun beginner_tutorials add_two_ints_server     (C++)
+$ rosrun beginner_tutorials add_two_ints_server.py  (Python) 
+```
+You should see something similar to: 
+```
+Ready to add two ints.
+```
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Examining the Simple Service and Client (h1)
+--Running the Service (h2)
+--Running the Client (h2)
+--Further examples on Service and Client nodes (h2)
+
+
+(Page path)
+(1) Examining the Simple Service and Client > (2) Running the Client
+
+(Segment 6)
+#Examining the Simple Service and Client (h1)
+
+**Description:** This tutorial examines running the simple service and client.  
+
+**Tutorial Level:** BEGINNER  
+
+**Next Tutorial:** [Recording and playing back data](/ROS/Tutorials/Recording%20and%20playing%20back%20data "/ROS/Tutorials/Recording%20and%20playing%20back%20data")   
+
+ Contents1. [Running the Service](#Running_the_Service "#Running_the_Service")
+2. [Running the Client](#Running_the_Client "#Running_the_Client")
+3. [Further examples on Service and Client nodes](#Further_examples_on_Service_and_Client_nodes "#Further_examples_on_Service_and_Client_nodes")
+
+
+##Running the Client (h2)
+
+Now let's run the client with the necessary arguments: 
+```
+$ rosrun beginner_tutorials add_two_ints_client 1 3     (C++)
+$ rosrun beginner_tutorials add_two_ints_client.py 1 3  (Python) 
+```
+You should see something similar to: 
+```
+Requesting 1+3
+1 + 3 = 4
+```
+Now that you've successfully run your first server and client, let's learn how to [record and play back data](/ROS/Tutorials/Recording%20and%20playing%20back%20data "/ROS/Tutorials/Recording%20and%20playing%20back%20data"). 
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Examining the Simple Service and Client (h1)
+--Running the Service (h2)
+--Running the Client (h2)
+--Further examples on Service and Client nodes (h2)
+
+
+(Page path)
+(1) Examining the Simple Service and Client > (2) Further examples on Service and Client nodes
+
+(Segment 7)
+#Examining the Simple Service and Client (h1)
+
+**Description:** This tutorial examines running the simple service and client.  
+
+**Tutorial Level:** BEGINNER  
+
+**Next Tutorial:** [Recording and playing back data](/ROS/Tutorials/Recording%20and%20playing%20back%20data "/ROS/Tutorials/Recording%20and%20playing%20back%20data")   
+
+ Contents1. [Running the Service](#Running_the_Service "#Running_the_Service")
+2. [Running the Client](#Running_the_Client "#Running_the_Client")
+3. [Further examples on Service and Client nodes](#Further_examples_on_Service_and_Client_nodes "#Further_examples_on_Service_and_Client_nodes")
+
+
+##Further examples on Service and Client nodes (h2)
+
+If you want to investigate further and get a hands-on example, you can get one [here](https://github.com/fairlight1337/ros_service_examples/ "https://github.com/fairlight1337/ros_service_examples/"). A simple Client and Service combination shows the use of custom message types. The Service node is written in C++ while the Client is available in C++, Python and LISP. 
+
+Wiki: ROS/Tutorials/ExaminingServiceClient (last edited 2016-09-27 14:18:50 by [yoyekw](/yoyekw "yoyekw @ robot-NAT.elka.pw.edu.pl[194.29.160.190]"))
+
+Except where otherwise noted, the ROS wiki is licensed under the   
+
+
+
+
+--------------------------------------------------------------------------------

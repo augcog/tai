@@ -1,0 +1,60 @@
+Parsed Headers, Levels and Contents:
+h1: Data type routines
+Contents:
+  
+  .. currentmodule:: numpy
+  
+  .. autosummary::
+  :toctree: generated/
+  
+  can_cast
+  promote_types
+  min_scalar_type
+  result_type
+  common_type
+  
+
+=====================================
+
+h2: Creating data types
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  dtype
+  rec.format_parser
+  
+
+=====================================
+
+h2: Data type information
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  finfo
+  iinfo
+  
+
+=====================================
+
+h2: Data type testing
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  issubdtype
+  
+
+=====================================
+
+h2: Miscellaneous
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  typename
+  mintypecode
+
+=====================================
+

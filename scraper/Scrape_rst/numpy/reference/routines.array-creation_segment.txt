@@ -1,0 +1,127 @@
+Parsed Headers, Levels and Contents:
+h1: Array creation routines
+Contents:
+  
+  .. seealso:: :ref:`Array creation <arrays.creation>`
+  
+  .. currentmodule:: numpy
+  
+
+=====================================
+
+h2: From shape or value
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  empty
+  empty_like
+  eye
+  identity
+  ones
+  ones_like
+  zeros
+  zeros_like
+  full
+  full_like
+  
+
+=====================================
+
+h2: From existing data
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  array
+  asarray
+  asanyarray
+  ascontiguousarray
+  asmatrix
+  copy
+  frombuffer
+  from_dlpack
+  fromfile
+  fromfunction
+  fromiter
+  fromstring
+  loadtxt
+  
+  
+
+=====================================
+
+h2: Creating record arrays
+Contents:
+  
+  .. note:: Please refer to :ref:`arrays.classes.rec` for
+  record arrays.
+  
+  .. autosummary::
+  :toctree: generated/
+  
+  core.records.array
+  core.records.fromarrays
+  core.records.fromrecords
+  core.records.fromstring
+  core.records.fromfile
+  
+  
+
+=====================================
+
+h2: Creating character arrays (:mod:`numpy.char`)
+Contents:
+  
+  .. note:: :mod:`numpy.char` is the preferred alias for
+  ``numpy.core.defchararray`` module.
+  
+  .. autosummary::
+  :toctree: generated/
+  
+  core.defchararray.array
+  core.defchararray.asarray
+  
+
+=====================================
+
+h2: Numerical ranges
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  arange
+  linspace
+  logspace
+  geomspace
+  meshgrid
+  mgrid
+  ogrid
+  
+
+=====================================
+
+h2: Building matrices
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  diag
+  diagflat
+  tri
+  tril
+  triu
+  vander
+  
+
+=====================================
+
+h2: The Matrix class
+Contents:
+  .. autosummary::
+  :toctree: generated/
+  
+  bmat
+
+=====================================
+

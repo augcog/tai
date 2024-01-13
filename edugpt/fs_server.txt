@@ -1,0 +1,8 @@
+conda activate fschat
+cd .\Dropbox\ucb\local_gpt\FastChat\
+
+python -m fastchat.serve.controller
+
+python -m fastchat.serve.model_worker --model-names "gpt-3.5-turbo,text-davinci-003,text-embedding-ada-002" --model-path WizardLM/WizardLM-13B-V1.1 --num-gpus 2
+
+python -m fastchat.serve.openai_api_server --host localhost --port 8000

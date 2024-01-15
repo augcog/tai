@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [reading msgs from a bag file](/action/fullsearch/ROS/Tutorials/reading%20msgs%20from%20a%20bag%20file?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2Freading+msgs+from+a+bag+file%22 "Click to do a full-text search for this title")
+* [reading msgs from a bag file](/ROS/Tutorials/reading%20msgs%20from%20a%20bag%20file "/ROS/Tutorials/reading%20msgs%20from%20a%20bag%20file")
 
 #### ROS 2 Documentation
 

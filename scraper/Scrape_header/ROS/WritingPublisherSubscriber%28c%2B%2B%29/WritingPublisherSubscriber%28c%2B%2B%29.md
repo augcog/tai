@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [WritingPublisherSubscriber(c++)](/action/fullsearch/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FWritingPublisherSubscriber%28c%2B%2B%29%22 "Click to do a full-text search for this title")
+* [WritingPublisherSubscriber(c++)](/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29 "/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29")
 
 #### ROS 2 Documentation
 
@@ -615,7 +615,8 @@ document.write('<a href="#" onclick="return togglenumber(\'roscpp\_tutorials.2FT
 ```
 $ rosed beginner_tutorials CMakeLists.txt 
 ```
-It should look something like this: * ```
+It should look something like this: * 
+```
 cmake_minimum_required(VERSION 2.4.6)
 include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 

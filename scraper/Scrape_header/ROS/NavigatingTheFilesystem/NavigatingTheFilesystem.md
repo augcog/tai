@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [NavigatingTheFilesystem](/action/fullsearch/ROS/Tutorials/NavigatingTheFilesystem?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FNavigatingTheFilesystem%22 "Click to do a full-text search for this title")
+* [NavigatingTheFilesystem](/ROS/Tutorials/NavigatingTheFilesystem "/ROS/Tutorials/NavigatingTheFilesystem")
 
 #### ROS 2 Documentation
 
@@ -243,11 +243,13 @@ Example:
 ```
 $ rospack find roscpp
 ```
-Would return: * ```
+Would return: * 
+```
 YOUR_INSTALL_PATH/share/roscpp
 ```
 
-If, for example, you have used the [binary install](/fuerte/Installation/Ubuntu "/fuerte/Installation/Ubuntu") of [ROS Fuerte](/fuerte "/fuerte") on Ubuntu linux, you would see exactly: * ```
+If, for example, you have used the [binary install](/fuerte/Installation/Ubuntu "/fuerte/Installation/Ubuntu") of [ROS Fuerte](/fuerte "/fuerte") on Ubuntu linux, you would see exactly: * 
+```
 /opt/ros/fuerte/share/roscpp
 ```
 
@@ -265,7 +267,8 @@ To verify that we have changed to the roscpp package directory. Now let's print 
 ```
 $ pwd
 ```
-You should see: * ```
+You should see: * 
+```
 YOUR_INSTALL_PATH/share/roscpp
 ```
 
@@ -273,7 +276,8 @@ You can see that YOUR\_INSTALL\_PATH/share/roscpp is the same path that rospackÂ
 ```
 $ echo $ROS_PACKAGE_PATH
 ```
-If you have not modified your $ROS\_PACKAGE\_PATH, you should see: * ```
+If you have not modified your $ROS\_PACKAGE\_PATH, you should see: * 
+```
 YOUR_INSTALL_PATH/share:YOUR_INSTALL_PATH/stacks
 ```
 
@@ -285,7 +289,8 @@ roscd can also move to a subdirectory of a package or stack. Try:
 $ roscd roscpp/cmake
 $ pwd
 ```
-You should see: * ```
+You should see: * 
+```
 YOUR_INSTALL_PATH/share/roscpp/cmake
 ```
 
@@ -299,7 +304,8 @@ roscd without an argument will take you to $ROS\_WORKSPACE. Try:
 $ roscd
 $ pwd
 ```
-You should see: * ```
+You should see: * 
+```
  /home/user/fuerte_workspace
 ```
 
@@ -321,7 +327,8 @@ Example:
 ```
 $ rosls roscpp_tutorials
 ```
-Would return: * ```
+Would return: * 
+```
 bin  cmake  manifest.xml  srv
 ```
 
@@ -331,7 +338,8 @@ It can get tedious to type out an entire package name. In the previous example, 
 ```
 $ roscd roscpp_tut<<< now push the TAB key >>>
 ```
-After pushing the **TAB** key, the command line should fill out the rest. * ```
+After pushing the **TAB** key, the command line should fill out the rest. * 
+```
 $ roscd roscpp_tutorials/
 ```
 
@@ -339,15 +347,18 @@ This works because roscpp\_tutorials is currently the only ROS package that star
 ```
 $ roscd tur<<< now push the TAB key >>>
 ```
-After pushing the **TAB** key, the command line should fill out as much as possible: * ```
+After pushing the **TAB** key, the command line should fill out as much as possible: * 
+```
 $ roscd turtle
 ```
 
-However, in this case there are multiple packages that begin with turtle. Try typing **TAB** another time. This should display all the ROS packages that begin with turtle * ```
+However, in this case there are multiple packages that begin with turtle. Try typing **TAB** another time. This should display all the ROS packages that begin with turtle * 
+```
   turtle_actionlib/  turtlesim/         turtle_tf/
 ```
 
-On the command line you should still have * ```
+On the command line you should still have * 
+```
 $ roscd turtle
 ```
 
@@ -355,7 +366,8 @@ Now type a s after turtle and then push **TAB**
 ```
 $ roscd turtles<<< now push the TAB key >>>
 ```
-Since there is only one package that start with turtles, you should see: * ```
+Since there is only one package that start with turtles, you should see: * 
+```
 $ roscd turtlesim/
 ```
 
@@ -411,11 +423,13 @@ Example:
 ```
 $ rospack find roscpp
 ```
-would return: * ```
+would return: * 
+```
 YOUR_INSTALL_PATH/share/roscpp
 ```
 
-If you installed ROS Kinetic from apt on Ubuntu Linux you would see exactly: * ```
+If you installed ROS Kinetic from apt on Ubuntu Linux you would see exactly: * 
+```
 /opt/ros/kinetic/share/roscpp
 ```
 
@@ -433,7 +447,8 @@ Now let's print the working directory using the Unix command [pwd](http://ss64.c
 ```
 $ pwd
 ```
-You should see: * ```
+You should see: * 
+```
 YOUR_INSTALL_PATH/share/roscpp
 ```
 
@@ -441,7 +456,8 @@ You can see that YOUR\_INSTALL\_PATH/share/roscpp is the same path that rospackÂ
 ```
 $ echo $ROS_PACKAGE_PATH
 ```
-Your [ROS\_PACKAGE\_PATH](/ROS/EnvironmentVariables#ROS_PACKAGE_PATH "/ROS/EnvironmentVariables#ROS_PACKAGE_PATH") should contain a list of directories where you have ROS packages separated by colons. A typical [ROS\_PACKAGE\_PATH](/ROS/EnvironmentVariables#ROS_PACKAGE_PATH "/ROS/EnvironmentVariables#ROS_PACKAGE_PATH") might look like this: * ```
+Your [ROS\_PACKAGE\_PATH](/ROS/EnvironmentVariables#ROS_PACKAGE_PATH "/ROS/EnvironmentVariables#ROS_PACKAGE_PATH") should contain a list of directories where you have ROS packages separated by colons. A typical [ROS\_PACKAGE\_PATH](/ROS/EnvironmentVariables#ROS_PACKAGE_PATH "/ROS/EnvironmentVariables#ROS_PACKAGE_PATH") might look like this: * 
+```
 /opt/ros/kinetic/base/install/share
 ```
 
@@ -453,7 +469,8 @@ Similarly to other environment paths, you can add additional directories to your
 $ roscd roscpp/cmake
 $ pwd
 ```
-You should see: * ```
+You should see: * 
+```
 YOUR_INSTALL_PATH/share/roscpp/cmake
 ```
 
@@ -474,7 +491,8 @@ Example:
 ```
 $ rosls roscpp_tutorials
 ```
-would return: * ```
+would return: * 
+```
 cmake launch package.xml  srv
 ```
 
@@ -496,7 +514,8 @@ After pushing the **TAB** key, the command line should fill out as much as possi
 ```
 $ roscd turtle
 ```
-However, in this case there are multiple packages that begin with turtle. Try typing **TAB** another time. This should display all the ROS packages that begin with turtle: * ```
+However, in this case there are multiple packages that begin with turtle. Try typing **TAB** another time. This should display all the ROS packages that begin with turtle: * 
+```
 turtle_actionlib/  turtlesim/         turtle_tf/
 ```
 

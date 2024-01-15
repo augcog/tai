@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [MultipleMachines](/action/fullsearch/ROS/Tutorials/MultipleMachines?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FMultipleMachines%22 "Click to do a full-text search for this title")
+* [MultipleMachines](/ROS/Tutorials/MultipleMachines "/ROS/Tutorials/MultipleMachines")
 
 #### ROS 2 Documentation
 

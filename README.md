@@ -21,11 +21,11 @@
 
 Please install GPU PyTorch: https://pytorch.org/get-started/locally/
 
-## Optional: Create a new enviornment
+## Optional: Create a new environment
 
 Please install Anaconda: https://www.anaconda.com/download/
 
-1. Use terminal or an anaconda prompt
+1. Use a terminal or an anaconda prompt
 ```bash
 conda create --name myenv
 ```
@@ -37,7 +37,7 @@ conda create --name myenv
 proceed ([y]/n)?
 ```
 
-4. Now navigate to new enviornment for following instructions
+4. Now navigate to new environment for following instructions
 ```bash
 conda activate myenv
 ```
@@ -93,7 +93,7 @@ pip3 install -e ".[model_worker,webui]"
 
 ### Step 1: Creating a bot
 
-1. Go to https://discord.com/developers/applications create an application
+1. Go to https://discord.com/developers/applications and create an application
   
 2. Build a Discord bot under the application
   
@@ -113,16 +113,16 @@ pip3 install -e ".[model_worker,webui]"
 
    ![image](https://user-images.githubusercontent.com/89479282/205949600-0c7ddb40-7e82-47a0-b59a-b089f929d177.png)
 
-8. To use URL Generator go to general and create a redirect URI, please change the CLIENTID to application ID of your bot
+8. To use URL Generator, go to general and create a redirect URI. Please change the CLIENTID to application ID of your bot
 https://discordapp.com/oauth2/authorize?client_id=CLIENTID&scope=bot
 
 
 ### Step 2: Official API authentication
-
-#### Geanerate an OpenAI API key
+OpenAI API is needed only for the embedding model.
+#### Generate an OpenAI API key
 1. Go to https://beta.openai.com/account/api-keys
 
-2. Click Create new secret key
+2. Click Create a new secret key
 
    ![image](https://user-images.githubusercontent.com/89479282/207970699-2e0cb671-8636-4e27-b1f3-b75d6db9b57e.PNG)
 
@@ -152,17 +152,17 @@ https://discordapp.com/oauth2/authorize?client_id=CLIENTID&scope=bot
 
 1. Open 3 terminals or command prompts and navigate to the directory where you installed Fastchat
    
-2. On the first terminal launch the controller
+2. On the first terminal, launch the controller
 ```bash 
 python3 -m fastchat.serve.controller
 ```
 
-3. On the second terminal launch the controller, --model-name can be changed to model chosen. LangChain uses OpenAI model names by default, so we need to assign some faux OpenAI model names to our local model. --model-path should be changed to the path to edugpt
+3. On the second terminal, launch the model_worker, --model-name can be changed to model chosen. LangChain uses OpenAI model names by default, so we need to assign some faux OpenAI model names to our local model. --model-path should be changed to the path to edugpt
 ```bash 
-python3 -m fastchat.serve.model_worker --model-names "gpt-3.5-turbo,text-davinci-003,text-embedding-ada-002" --model-path lmsys/vicuna-7b-v1.5
+python3 -m fastchat.serve.model_worker --model-names "gpt-3.5-turbo,text-davinci-003,text-embedding-ada-002" --model-path HuggingFaceH4/zephyr-7b-beta
 ```
 
-4. On the second terminal launch the controller
+4. On the second terminal, launch the api server
 ```bash 
 python3 -m fastchat.serve.openai_api_server --host localhost --port 8000
 ```

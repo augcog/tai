@@ -94,7 +94,7 @@ def process_links_and_save(links, dir_name, delay):
         create_and_enter_dir(filename)
         
         save_to_file(f'{filename}.md', cleaned_markdown)
-        
+
         parser = MarkdownParser(f'{filename}.md')
         parser.print_header_tree()
         parser.print_segment()
@@ -172,11 +172,13 @@ def html_to_markdown(url):
     # Convert the HTML to Markdown
     markdown = md(response.text, heading_style="ATX", default_title=True)
 
-    return markdown
+    modified_content = re.sub(r'(?<!^)(```)', r'\n\1', markdown, flags=re.MULTILINE)
+    return modified_content
 
 def remove_consecutive_empty_lines(text):
     # Remove consecutive empty lines, leaving only single empty lines
     return re.sub(r'\n\s*\n', '\n\n', text)
+
 
 def save_to_file(file_name, content):
     # Save the content into the specified file

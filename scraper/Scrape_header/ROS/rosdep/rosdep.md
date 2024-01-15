@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [rosdep](/action/fullsearch/ROS/Tutorials/rosdep?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2Frosdep%22 "Click to do a full-text search for this title")
+* [rosdep](/ROS/Tutorials/rosdep "/ROS/Tutorials/rosdep")
 
 #### ROS 2 Documentation
 
@@ -162,7 +162,8 @@ Then,
 ```
 $ cat package.xml
 ```
-* ```
+* 
+```
 <package>
 
 ...
@@ -185,7 +186,8 @@ As you can see [turtlesim](/turtlesim "/turtlesim") needs those libraries and pa
 ```
 $ cat manifest.xml
 ```
-* ```
+* 
+```
 <package>
 
 ...
@@ -208,18 +210,21 @@ Download and install the system dependencies for turtlesim:
 ```
 $ rosdep install turtlesim
 ```
-If you've been following along with the tutorials, it's likely that this is the first time you've used rosdep. When you run this command, you'll get an error message: * ```
+If you've been following along with the tutorials, it's likely that this is the first time you've used rosdep. When you run this command, you'll get an error message: * 
+```
 ERROR: your rosdep installation has not been initialized yet.  Please run:
 
     sudo rosdep init
     rosdep update
 ```
 
-Just run those two commands and then try to install turtlesim's dependencies again. If you installed using binaries you will see: * ```
+Just run those two commands and then try to install turtlesim's dependencies again. If you installed using binaries you will see: * 
+```
 All required rosdeps installed successfully
 ```
 
-Otherwise you will see the output of installing the dependencies of turtlesim: * ```
+Otherwise you will see the output of installing the dependencies of turtlesim: * 
+```
 #!/usr/bin/bash
 
 set -o errexit

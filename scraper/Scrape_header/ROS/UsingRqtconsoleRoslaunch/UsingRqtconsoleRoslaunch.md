@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [UsingRqtconsoleRoslaunch](/action/fullsearch/ROS/Tutorials/UsingRqtconsoleRoslaunch?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FUsingRqtconsoleRoslaunch%22 "Click to do a full-text search for this title")
+* [UsingRqtconsoleRoslaunch](/ROS/Tutorials/UsingRqtconsoleRoslaunch "/ROS/Tutorials/UsingRqtconsoleRoslaunch")
 
 #### ROS 2 Documentation
 
@@ -170,11 +170,13 @@ You will see two windows popup: ![rqt_console(start).png](/ROS/Tutorials/UsingRq
 ```
 $ rosrun turtlesim turtlesim_node
 ```
-Since the default logger level is INFO you will see any info that the turtlesim publishes when it starts up, which should look like: ![rqt_console(turtlesimstart).png](/ROS/Tutorials/UsingRqtconsoleRoslaunch?action=AttachFile&do=get&target=rqt_console%28turtlesimstart%29.png "rqt_console(turtlesimstart).png") Now let's change the logger level to Warn by refreshing the nodes in the rqt\_logger\_level window and selecting Warn as shown below: ![rqt_logger_level(error).png](/ROS/Tutorials/UsingRqtconsoleRoslaunch?action=AttachFile&do=get&target=rqt_logger_level%28error%29.png "rqt_logger_level(error).png") Now let's run our turtle into the wall and see what is displayed in our rqt\_console: *For ROS Hydro and later,* * ```
+Since the default logger level is INFO you will see any info that the turtlesim publishes when it starts up, which should look like: ![rqt_console(turtlesimstart).png](/ROS/Tutorials/UsingRqtconsoleRoslaunch?action=AttachFile&do=get&target=rqt_console%28turtlesimstart%29.png "rqt_console(turtlesimstart).png") Now let's change the logger level to Warn by refreshing the nodes in the rqt\_logger\_level window and selecting Warn as shown below: ![rqt_logger_level(error).png](/ROS/Tutorials/UsingRqtconsoleRoslaunch?action=AttachFile&do=get&target=rqt_logger_level%28error%29.png "rqt_logger_level(error).png") Now let's run our turtle into the wall and see what is displayed in our rqt\_console: *For ROS Hydro and later,* * 
+```
 rostopic pub /turtle1/cmd_vel geometry_msgs/Twist -r 1 -- '{linear: {x: 2.0, y: 0.0, z: 0.0}, angular: {x: 0.0,y: 0.0,z: 0.0}}'
 ```
 
-*For ROS Groovy and earlier,* * ```
+*For ROS Groovy and earlier,* * 
+```
 rostopic pub /turtle1/command_velocity turtlesim/Velocity -r 1 -- 2.0  0.0
 ```
 
@@ -350,11 +352,13 @@ Now let's roslaunch the launch file:
 ```
 $ roslaunch beginner_tutorials turtlemimic.launch
 ```
-Two turtlesims will start and in a **new terminal** send the rostopic command: *For ROS Hydro and later,* * ```
+Two turtlesims will start and in a **new terminal** send the rostopic command: *For ROS Hydro and later,* * 
+```
 $ rostopic pub /turtlesim1/turtle1/cmd_vel geometry_msgs/Twist -r 1 -- '[2.0, 0.0, 0.0]' '[0.0, 0.0, -1.8]'
 ```
 
-*For ROS Groovy and earlier,* * ```
+*For ROS Groovy and earlier,* * 
+```
 $ rostopic pub /turtlesim1/turtle1/command_velocity turtlesim/Velocity -r 1 -- 2.0  -1.8
 ```
 

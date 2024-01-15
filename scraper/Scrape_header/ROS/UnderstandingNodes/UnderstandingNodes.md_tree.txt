@@ -16,7 +16,7 @@ Understanding ROS Nodes (h1)
 
 
 (Page path)
-(1)  > (2)  > (3)  > (4) ROS 2 Documentation
+(h1)  > (h2)  > (h3)  > (h4) ROS 2 Documentation
 
 (Segment 1)
 # (h1)
@@ -53,7 +53,7 @@ Understanding ROS Nodes (h1)
 
 
 (Page path)
-(1) Wiki
+(h1) Wiki
 
 (Segment 2)
 #Wiki (h1)
@@ -86,7 +86,7 @@ Understanding ROS Nodes (h1)
 
 
 (Page path)
-(1) Page
+(h1) Page
 
 (Segment 3)
 #Page (h1)
@@ -150,7 +150,7 @@ Understanding ROS Nodes (h1)
 
 
 (Page path)
-(1) User
+(h1) User
 
 (Segment 4)
 #User (h1)
@@ -187,7 +187,7 @@ Understanding ROS Nodes (h1)
 
 
 (Page path)
-(1) Understanding ROS Nodes > (2) Prerequisites
+(h1) Understanding ROS Nodes > (h2) Prerequisites
 
 (Segment 5)
 #Understanding ROS Nodes (h1)
@@ -238,7 +238,7 @@ Understanding ROS Nodes (h1)
 
 
 (Page path)
-(1) Understanding ROS Nodes > (2) Quick Overview of Graph Concepts
+(h1) Understanding ROS Nodes > (h2) Quick Overview of Graph Concepts
 
 (Segment 6)
 #Understanding ROS Nodes (h1)
@@ -291,7 +291,7 @@ Understanding ROS Nodes (h1)
 
 
 (Page path)
-(1) Understanding ROS Nodes > (2) Nodes
+(h1) Understanding ROS Nodes > (h2) Nodes
 
 (Segment 7)
 #Understanding ROS Nodes (h1)
@@ -338,7 +338,7 @@ Understanding ROS Nodes (h1)
 
 
 (Page path)
-(1) Understanding ROS Nodes > (2) Client Libraries
+(h1) Understanding ROS Nodes > (h2) Client Libraries
 
 (Segment 8)
 #Understanding ROS Nodes (h1)
@@ -387,7 +387,7 @@ Understanding ROS Nodes (h1)
 
 
 (Page path)
-(1) Understanding ROS Nodes > (2) roscore
+(h1) Understanding ROS Nodes > (h2) roscore
 
 (Segment 9)
 #Understanding ROS Nodes (h1)
@@ -415,7 +415,8 @@ roscore is the first thing you should run when using ROS. Please run:
 ```
 $ roscore
 ```
-You will see something similar to: * ```
+You will see something similar to: * 
+```
 ... logging to ~/.ros/log/9cf88ce4-b14d-11df-8a75-00251148e8cf/roslaunch-machine_name-13039.log
 Checking log directory for disk usage. This may take awhile.
 Press Ctrl-C to interrupt
@@ -469,7 +470,7 @@ Understanding ROS Nodes (h1)
 
 
 (Page path)
-(1) Understanding ROS Nodes > (2) Using rosnode
+(h1) Understanding ROS Nodes > (h2) Using rosnode
 
 (Segment 10)
 #Understanding ROS Nodes (h1)
@@ -500,7 +501,8 @@ rosnode displays information about the ROS nodes that are currently running. The
 $ rosnode list
 ```
 * You will see:
-* ```
+* 
+```
 /rosout
 ```
 
@@ -508,7 +510,8 @@ This showed us that there is only one node running: [rosout](/rosout "/rosout").
 ```
 $ rosnode info /rosout
 ```
-This gave us some more information about rosout, such as the fact that it publishes /rosout\_agg. * ```
+This gave us some more information about rosout, such as the fact that it publishes /rosout\_agg. * 
+```
 ------------------------------------------------------------------------
 Node [/rosout]
 Publications:
@@ -548,7 +551,7 @@ Understanding ROS Nodes (h1)
 
 
 (Page path)
-(1) Understanding ROS Nodes > (2) Using rosrun
+(h1) Understanding ROS Nodes > (h2) Using rosrun
 
 (Segment 11)
 #Understanding ROS Nodes (h1)
@@ -586,7 +589,8 @@ You will see the turtlesim window: * ![turtlesim.png](/ROS/Tutorials/Understandi
 ```
 $ rosnode list
 ```
-You will see something similar to: * ```
+You will see something similar to: * 
+```
 /rosout
 /turtlesim
 ```
@@ -600,7 +604,8 @@ Now, if we go back and use rosnode list:
 $ rosnode list
 ```
 * You will see something similar to:
-* ```
+* 
+```
 /my_turtle
 /rosout
 ```
@@ -611,7 +616,8 @@ We see our new /my\_turtle node. Let's use another rosnode command, ping, to tes
 ```
 $ rosnode ping my_turtle
 ```
-* ```
+* 
+```
 rosnode: node is [/my_turtle]
 pinging /my_turtle with a timeout of 3.0s
 xmlrpc reply from http://aqy:42235/     time=1.152992ms
@@ -642,7 +648,7 @@ Understanding ROS Nodes (h1)
 
 
 (Page path)
-(1) Understanding ROS Nodes > (2) Review
+(h1) Understanding ROS Nodes > (h2) Review
 
 (Segment 12)
 #Understanding ROS Nodes (h1)
@@ -693,7 +699,7 @@ Understanding ROS Nodes (h1)
 
 
 (Page path)
-(1) Understanding ROS Nodes > (2) Video Demonstration
+(h1) Understanding ROS Nodes > (h2) Video Demonstration
 
 (Segment 13)
 #Understanding ROS Nodes (h1)

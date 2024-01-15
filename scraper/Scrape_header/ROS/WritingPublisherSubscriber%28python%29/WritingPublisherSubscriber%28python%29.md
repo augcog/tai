@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [WritingPublisherSubscriber(python)](/action/fullsearch/ROS/Tutorials/WritingPublisherSubscriber%28python%29?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FWritingPublisherSubscriber%28python%29%22 "Click to do a full-text search for this title")
+* [WritingPublisherSubscriber(python)](/ROS/Tutorials/WritingPublisherSubscriber%28python%29 "/ROS/Tutorials/WritingPublisherSubscriber%28python%29")
 
 #### ROS 2 Documentation
 

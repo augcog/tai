@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [ExaminingServiceClient](/action/fullsearch/ROS/Tutorials/ExaminingServiceClient?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FExaminingServiceClient%22 "Click to do a full-text search for this title")
+* [ExaminingServiceClient](/ROS/Tutorials/ExaminingServiceClient "/ROS/Tutorials/ExaminingServiceClient")
 
 #### ROS 2 Documentation
 

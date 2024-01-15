@@ -10,7 +10,7 @@ Examining the Simple Publisher and Subscriber (h1)
 
 
 (Page path)
-(1)  > (2)  > (3)  > (4) ROS 2 Documentation
+(h1)  > (h2)  > (h3)  > (h4) ROS 2 Documentation
 
 (Segment 1)
 # (h1)
@@ -41,7 +41,7 @@ Examining the Simple Publisher and Subscriber (h1)
 
 
 (Page path)
-(1) Wiki
+(h1) Wiki
 
 (Segment 2)
 #Wiki (h1)
@@ -68,7 +68,7 @@ Examining the Simple Publisher and Subscriber (h1)
 
 
 (Page path)
-(1) Page
+(h1) Page
 
 (Segment 3)
 #Page (h1)
@@ -126,7 +126,7 @@ Examining the Simple Publisher and Subscriber (h1)
 
 
 (Page path)
-(1) User
+(h1) User
 
 (Segment 4)
 #User (h1)
@@ -157,7 +157,7 @@ Examining the Simple Publisher and Subscriber (h1)
 
 
 (Page path)
-(1) Examining the Simple Publisher and Subscriber > (2) Running the Publisher
+(h1) Examining the Simple Publisher and Subscriber > (h2) Running the Publisher
 
 (Segment 5)
 #Examining the Simple Publisher and Subscriber (h1)
@@ -190,7 +190,8 @@ In the last tutorial we made a publisher called "talker". Let's run it:
 $ rosrun beginner_tutorials talker      (C++)
 $ rosrun beginner_tutorials talker.py   (Python) 
 ```
-You will see something similar to: * ```
+You will see something similar to: * 
+```
 [INFO] [WallTime: 1314931831.774057] hello world 1314931831.77
 [INFO] [WallTime: 1314931832.775497] hello world 1314931832.77
 [INFO] [WallTime: 1314931833.778937] hello world 1314931833.78
@@ -216,7 +217,7 @@ Examining the Simple Publisher and Subscriber (h1)
 
 
 (Page path)
-(1) Examining the Simple Publisher and Subscriber > (2) Running the Subscriber
+(h1) Examining the Simple Publisher and Subscriber > (h2) Running the Subscriber
 
 (Segment 6)
 #Examining the Simple Publisher and Subscriber (h1)
@@ -239,7 +240,8 @@ In the last tutorial we made a subscriber called "listener". Let's run it:
 $ rosrun beginner_tutorials listener     (C++)
 $ rosrun beginner_tutorials listener.py  (Python) 
 ```
-You will see something similar to: * ```
+You will see something similar to: * 
+```
 [INFO] [WallTime: 1314931969.258941] /listener_17657_1314931968795I heard hello world 1314931969.26
 [INFO] [WallTime: 1314931970.262246] /listener_17657_1314931968795I heard hello world 1314931970.26
 [INFO] [WallTime: 1314931971.266348] /listener_17657_1314931968795I heard hello world 1314931971.26
@@ -266,7 +268,7 @@ Examining the Simple Publisher and Subscriber (h1)
 
 
 (Page path)
-(1) Examining the Simple Publisher and Subscriber > (2) Video Demonstration
+(h1) Examining the Simple Publisher and Subscriber > (h2) Video Demonstration
 
 (Segment 7)
 #Examining the Simple Publisher and Subscriber (h1)

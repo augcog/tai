@@ -11,7 +11,7 @@ Where Next? (h1)
 
 
 (Page path)
-(1)  > (2)  > (3)  > (4) ROS 2 Documentation
+(h1)  > (h2)  > (h3)  > (h4) ROS 2 Documentation
 
 (Segment 1)
 # (h1)
@@ -43,7 +43,7 @@ Where Next? (h1)
 
 
 (Page path)
-(1) Wiki
+(h1) Wiki
 
 (Segment 2)
 #Wiki (h1)
@@ -71,7 +71,7 @@ Where Next? (h1)
 
 
 (Page path)
-(1) Page
+(h1) Page
 
 (Segment 3)
 #Page (h1)
@@ -130,7 +130,7 @@ Where Next? (h1)
 
 
 (Page path)
-(1) User
+(h1) User
 
 (Segment 4)
 #User (h1)
@@ -162,7 +162,7 @@ Where Next? (h1)
 
 
 (Page path)
-(1) Where Next? > (2) Launching a Simulator
+(h1) Where Next? > (h2) Launching a Simulator
 
 (Segment 5)
 #Where Next? (h1)
@@ -198,7 +198,7 @@ Where Next? (h1)
 
 
 (Page path)
-(1) Where Next? > (2) Exploring RViz
+(h1) Where Next? > (h2) Exploring RViz
 
 (Segment 6)
 #Where Next? (h1)
@@ -234,7 +234,7 @@ Where Next? (h1)
 
 
 (Page path)
-(1) Where Next? > (2) Understanding TF
+(h1) Where Next? > (h2) Understanding TF
 
 (Segment 7)
 #Where Next? (h1)
@@ -270,7 +270,7 @@ Where Next? (h1)
 
 
 (Page path)
-(1) Where Next? > (2) Going Deeper
+(h1) Where Next? > (h2) Going Deeper
 
 (Segment 8)
 #Where Next? (h1)

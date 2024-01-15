@@ -15,7 +15,7 @@ When something goes wrong (h1)
 
 
 (Page path)
-(1)  > (2)  > (3)  > (4) ROS 2 Documentation
+(h1)  > (h2)  > (h3)  > (h4) ROS 2 Documentation
 
 (Segment 1)
 # (h1)
@@ -51,7 +51,7 @@ When something goes wrong (h1)
 
 
 (Page path)
-(1) Wiki
+(h1) Wiki
 
 (Segment 2)
 #Wiki (h1)
@@ -83,7 +83,7 @@ When something goes wrong (h1)
 
 
 (Page path)
-(1) Page
+(h1) Page
 
 (Segment 3)
 #Page (h1)
@@ -146,7 +146,7 @@ When something goes wrong (h1)
 
 
 (Page path)
-(1) User
+(h1) User
 
 (Segment 4)
 #User (h1)
@@ -178,7 +178,7 @@ When something goes wrong (h1)
 
 
 (Page path)
-(1) Running ROS across multiple machines
+(h1) Running ROS across multiple machines
 
 (Segment 5)
 #Running ROS across multiple machines (h1)
@@ -219,7 +219,7 @@ When something goes wrong (h1)
 
 
 (Page path)
-(1) Overview
+(h1) Overview
 
 (Segment 6)
 #Overview (h1)
@@ -250,7 +250,7 @@ When something goes wrong (h1)
 
 
 (Page path)
-(1) Talker / listener across two machines > (2) Start the master
+(h1) Talker / listener across two machines > (h2) Start the master
 
 (Segment 7)
 #Talker / listener across two machines (h1)
@@ -290,7 +290,7 @@ When something goes wrong (h1)
 
 
 (Page path)
-(1) Talker / listener across two machines > (2) Start the listener
+(h1) Talker / listener across two machines > (h2) Start the listener
 
 (Segment 8)
 #Talker / listener across two machines (h1)
@@ -331,7 +331,7 @@ When something goes wrong (h1)
 
 
 (Page path)
-(1) Talker / listener across two machines > (2) Start the talker
+(h1) Talker / listener across two machines > (h2) Start the talker
 
 (Segment 9)
 #Talker / listener across two machines (h1)
@@ -372,7 +372,7 @@ When something goes wrong (h1)
 
 
 (Page path)
-(1) Talker / listener across two machines > (2) Variation: connecting in the other direction
+(h1) Talker / listener across two machines > (h2) Variation: connecting in the other direction
 
 (Segment 10)
 #Talker / listener across two machines (h1)
@@ -419,7 +419,7 @@ When something goes wrong (h1)
 
 
 (Page path)
-(1) rostopic
+(h1) rostopic
 
 (Segment 11)
 #rostopic (h1)
@@ -454,7 +454,7 @@ When something goes wrong (h1)
 
 
 (Page path)
-(1) When something goes wrong
+(h1) When something goes wrong
 
 (Segment 12)
 #When something goes wrong (h1)

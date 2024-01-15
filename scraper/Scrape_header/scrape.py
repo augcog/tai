@@ -1,151 +1,210 @@
+
 import requests
 from bs4 import BeautifulSoup
-
-def scrape_website(url):
-    # Send a GET request to the website
-    response = requests.get(url)
-    
-    # Parse the HTML content of the page with BeautifulSoup
-    soup = BeautifulSoup(response.text, 'html.parser')
-    
-    # Find all the paragraph tags and get the text from each one
-    paragraphs = soup.find_all('p')
-    text = '\n'.join(paragraph.get_text() for paragraph in paragraphs)
-    
-    return text
-
-from urllib.parse import urljoin
 import os
-
-if not os.path.exists('tree'):
-    os.makedirs('tree')
-visited_urls = set()
-f = open('tree/output.txt', 'a')
-def print_tree(url, base_url, depth=0, max_depth=2, prefix=''): 
-    if depth > max_depth: 
-        return 
-
-    # Normalize the URL by removing trailing slashes
-    normalized_url = url.rstrip('/')
-    
-    if normalized_url in visited_urls:
-        return
-
-    # Send a GET request to the website
-    response = requests.get(url)
-
-    # Parse the HTML content of the page with BeautifulSoup
-    soup = BeautifulSoup(response.text, 'html.parser')
-
-    # Find all the links on the page
-    links = soup.find_all('a')
-
-    # Add the current URL to the set of visited URLs
-    visited_urls.add(normalized_url)
-    
-    # Write the URL to the output file
-    with open('tree/output.txt', 'a') as f:
-        f.write(f"{'--'*depth}{normalized_url}\n")
-
-    for link in links:
-        href = link.get('href')
-
-        # Ignore None hrefs and those starting with a hashtag
-        if href is None or href.startswith('#'): 
-            continue 
-
-        # Join the base url with the link href
-        full_url = urljoin(url, href)
-
-        # Only process URLs that start with the base URL
-        if full_url.startswith(base_url):
-            # Recursively print the tree structure for the current link
-            print_tree(full_url, base_url, depth+1, max_depth, prefix + '--')
-
+from header import MarkdownParser
+import urllib.robotparser as robotparser
+import time
+import re
 from termcolor import colored
-from bs4 import BeautifulSoup, NavigableString, Tag
+from urllib.parse import urljoin
 
-def print_html_tree(soup, depth=0):
-    # If this is a root node, find the div element with class 'my-nav-content'
-    if depth == 0:
-        content_roots = soup.find_all('div', {'class': lambda value: value and 'content' in value})
-        if content_roots:
-            soup = content_roots[0]  # Set the root of the tree to be the first content root found
+
+def remove_slash_and_hash(link):
+    """
+    Removes trailing slash (if present) and hash fragment from a given URL.
+
+    Parameters:
+    - link (str): The URL from which the last segment should be modified.
+
+    Returns:
+    - str: The modified URL without the trailing slash and hash fragment.
+    """
+    # Remove hash fragment
+    if not link:
+        return link
+    link = link.split('#')[0]
+    if not link:
+        return link
+    # print(link)
+    # Remove trailing slash
+    if link[-1] == '/':
+        link = link[:-1]
+
+    return link
+
+
+
+def create_and_enter_dir(directory_name):
+    # Create the directory if it doesn't exist
+    if not os.path.exists(directory_name):
+        os.mkdir(directory_name)
+    
+    # Change the current working directory
+    os.chdir(directory_name)
+
+def cd_home(url):
+    return '/'.join(url.split('/')[0:3])
+
+def get_crawl_delay(site_url, user_agent="*"):
+    robots_url = site_url.rstrip('/') + '/robots.txt'
+    
+    rp = robotparser.RobotFileParser()
+    rp.set_url(robots_url)
+    try:
+        rp.read()
+        delay = rp.crawl_delay(user_agent)
+        if delay:
+            return delay
         else:
-            print("No root element found with class containing 'content'")
-            return
+            return 0
+    except:
+        print("Error accessing or parsing robots.txt.")
+        return 0
 
-    colors = ['red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white']
-    color = colors[depth % len(colors)]  # Cycle through the colors
+def process_links_and_save(links, dir_name, delay):
+    """
+    Processes a list of links by converting them to markdown, cleaning up the markdown content, and saving the results to files. 
+    The files are saved within directories named after the last segment of each link.
+    
+    Parameters:
+    - links (list): A list of URLs to be processed.
+    - dir_name (str): The name of the main directory where the results should be saved.
+    - delay (int/float): The delay in seconds to wait between processing each link.
 
-    if hasattr(soup, 'children'):
-        texts = []
-        for child in soup.children:
-            if isinstance(child, Tag) and child.name == 'code':
-                texts.append("<code>" + child.text + "</code>")
-            elif isinstance(child, Tag) and child.name == 'a' and child.has_attr('href'):
-                texts.append("<link>" + child.text + "</link>")
-            elif isinstance(child, str):
-                text = child.strip()
-                if text:
-                    texts.append(text)
+    Returns:
+    None
+    """
+    create_and_enter_dir(dir_name)
+    for link in links:
+        if link[-1] == '/': 
+            link = link[:-1]
+        filename = link.split('/')[-1]
+        filename = filename.split('.')[0]
+        print(link)
+        print(filename)
+        
+        markdown_result = html_to_markdown(link)
+        if markdown_result == 1:
+            continue
+        
+        cleaned_markdown = remove_consecutive_empty_lines(markdown_result)
+        
+        cur_dir = os.getcwd()
+        create_and_enter_dir(filename)
+        
+        save_to_file(f'{filename}.md', cleaned_markdown)
 
-        # Combine the collected texts and print once
-        combined_text = ' '.join(texts)
-        if combined_text:
-            try:
-                print(colored('-'*depth + combined_text, color))
-            except UnicodeEncodeError:
-                print(colored('-'*depth + combined_text.encode('cp1252', errors='ignore').decode('cp1252'), color))
-        else:
-            # If no combined text is formed, continue traversing children
-            for child in soup.children:
-                print_html_tree(child, depth+1)
+        parser = MarkdownParser(f'{filename}.md')
+        parser.print_header_tree()
+        parser.print_segment()
+        parser.concat_print()
+        
+        os.chdir(cur_dir)
+        time.sleep(delay)
 
-    else:
-        text = soup.strip()
-        if text:
-            try:
-                print(colored('-'*depth + text, color))
-            except UnicodeEncodeError:
-                print(colored('-'*depth + text.encode('cp1252', errors='ignore').decode('cp1252'), color))
+def extract_unique_links(url, root, root_regex, root_filename, delay=0, found_links=[]):
+    """
+    Extract and print unique links from a given URL that start with a specified root.
+    
+    Parameters:
+    - url (str): The URL from which links are to be extracted.
+    - root (str): The root URL which extracted links should start with to be considered.
+    
+    Returns:
+    - list: A list of unique links that match the criteria.
+    """
+    print(colored(f"found_links{found_links}", 'red'))
+    reqs = requests.get(url)
+    soup = BeautifulSoup(reqs.text, 'html.parser')
+    
+    unique_links = set()  # Create an empty set to store unique links
+    
+    for link in soup.find_all('a'):
+        href = link.get('href')
+        href = remove_slash_and_hash(href)
+        if href in found_links or not href:
+            continue
+        # print(href)
+        clean_href = ''
+        if href.startswith('http://') or href.startswith('https://'):
+            clean_href = remove_slash_and_hash(href)
+        elif href and href.startswith('#'):
+            continue
+        elif href and href.startswith('/'):
+            clean_href = (remove_slash_and_hash(urljoin(cd_home(root), href)))
+        elif href and not (href.startswith('http://') or href.startswith('https://')) and '/' in href:
+            clean_href = (remove_slash_and_hash(urljoin(root, href)))
+        print(clean_href)
+        if re.match(root_regex, clean_href) and clean_href not in found_links:
+            unique_links.add(clean_href)
+
+    links = list(unique_links)
+
+    print(colored(f"links{links}", 'yellow'))
+    if not links:
+        return
+    process_links_and_save(links, root_filename, delay)
+    found_links.extend(links)
+    cur_dir = os.getcwd()
+    for link in links:
+        remove_slash_and_hash(link)
+        filename=link.split('/')[-1]
+        filename=filename.split('.')[0]
+        print(colored(f"filename{filename}", 'green'))
+        print(colored(f"link{link}", 'green'))
+        extract_unique_links(link, root, root_regex, filename, delay, found_links)
+        os.chdir(cur_dir)
+    
+
+from markdownify import markdownify as md
+
+def html_to_markdown(url):
+    # Fetch HTML content from the URL
+    try:
+        response = requests.get(url)
+        response.raise_for_status()  # Raise an exception for HTTP errors
+    except requests.RequestException as e:
+        print(f"Failed to retrieve the URL due to: {e}")
+        return 1
 
 
+    # Convert the HTML to Markdown
+    markdown = md(response.text, heading_style="ATX", default_title=True)
+
+    modified_content = re.sub(r'(?<!^)(```)', r'\n\1', markdown, flags=re.MULTILINE)
+    return modified_content
+
+def remove_consecutive_empty_lines(text):
+    # Remove consecutive empty lines, leaving only single empty lines
+    return re.sub(r'\n\s*\n', '\n\n', text)
 
 
+def save_to_file(file_name, content):
+    # Save the content into the specified file
+    with open(file_name, 'w', encoding='utf-8') as file:
+        file.write(content)
 
+# Test the function
+# url = "https://docs.opencv.org/4.x/"
+# root = "https://docs.opencv.org/4.x/"
+# ROS
+url = "https://wiki.ros.org/ROS/Tutorials/"
+root = "https://wiki.ros.org/ROS/Tutorials/"
+root_regex = r"^https://wiki.ros.org/ROS/Tutorials/"
+root_filename = "ROS"
+# opencv
+# url = "https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html"
+# root_regex = r"^https://docs.opencv.org/4.x\/\w+\/\w+\/tutorial_py"
+# root = "https://docs.opencv.org/4.x/d6/d00/"
+# root_filename = "opencv"
 
+# url = "https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/"
+# root = "https://emanual.robotis.com/docs/en/platform/turtlebot3/"
+# root_regex = r"^https://emanual.robotis.com/docs/en/platform/turtlebot3/"
+# root_filename = "turtlebot3"
+delay = get_crawl_delay(cd_home(url))
+links = extract_unique_links(url, root, root_regex, root_filename, delay)
 
-
-
-
-url = 'https://docs.ros.org/en/galactic/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Nodes/Understanding-ROS2-Nodes.html'
-# url = 'https://numpy.org/install/'
-response = requests.get(url)
-soup = BeautifulSoup(response.text, 'html.parser')
-pritify = soup.prettify()
-print(pritify)
-for i in range(10):
-    print()
-print_html_tree(soup)
-
-
-# The URL of the website you want to scrape
-url = 'https://docs.ros.org/en/galactic/index.html'
-# Print the tree structure of the website
-base_url = 'https://docs.ros.org/en/galactic/'
-# print_tree(base_url, base_url, max_depth=5)
-# Scrape the website
-text = scrape_website(url)
-
-# Write the text to a .txt file
-with open('output.txt', 'w', encoding='utf-8') as f:
-    f.write(text)
-
-# import requests
-
-# # Fetch the webpage
-# response = requests.get('https://docs.ros.org/en/galactic/index.html')
-
-# # Print the HTML content of the page
-# print(response.text)
+# inputs links, dir_name, delay
+# process_links_and_save(links, root_filename, delay)

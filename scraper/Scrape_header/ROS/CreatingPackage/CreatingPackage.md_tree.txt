@@ -29,7 +29,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1)  > (2)  > (3)  > (4) ROS 2 Documentation
+(h1)  > (h2)  > (h3)  > (h4) ROS 2 Documentation
 
 (Segment 1)
 # (h1)
@@ -79,7 +79,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1) Wiki
+(h1) Wiki
 
 (Segment 2)
 #Wiki (h1)
@@ -125,7 +125,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1) Page
+(h1) Page
 
 (Segment 3)
 #Page (h1)
@@ -202,7 +202,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1) User
+(h1) User
 
 (Segment 4)
 #User (h1)
@@ -252,7 +252,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1) Creating a ROS Package > (2) Using roscreate
+(h1) Creating a ROS Package > (h2) Using roscreate
 
 (Segment 5)
 #Creating a ROS Package (h1)
@@ -370,7 +370,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1) Creating a ROS Package > (2) Creating a New ROS Package
+(h1) Creating a ROS Package > (h2) Creating a New ROS Package
 
 (Segment 6)
 #Creating a ROS Package (h1)
@@ -457,7 +457,8 @@ Then create your package:
 ```
 $ roscreate-pkg beginner_tutorials std_msgs rospy roscpp
 ```
-You will see something similar to: * ```
+You will see something similar to: * 
+```
 Creating package directory ~/fuerte_workspace/sandbox/beginner_tutorials
 Creating include directory ~/fuerte_workspace/sandbox/beginner_tutorials/include/beginner_tutorials
 Creating cpp source directory ~/ros/ros_tutorials/beginner_tutorials/src
@@ -475,7 +476,8 @@ You're going to want to spend some time looking at beginner\_tutorials/manifest.
 $ rospack profile
 $ rospack find beginner_tutorials 
 ```
-* ```
+* 
+```
 YOUR_PACKAGE_PATH/beginner_tutorials
 ```
 
@@ -484,7 +486,8 @@ If this fails, it means ROS can't find your new package, which may be an issue w
 $ roscd beginner_tutorials 
 $ pwd
 ```
-* ```
+* 
+```
 YOUR_PACKAGE_PATH/beginner_tutorials
 ```
 
@@ -523,7 +526,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1) Creating a ROS Package > (2) First-order package dependencies
+(h1) Creating a ROS Package > (h2) First-order package dependencies
 
 (Segment 7)
 #Creating a ROS Package (h1)
@@ -602,7 +605,8 @@ When using roscreate-pkg earlier, a few package dependencies were provided. Thes
 ```
 $ rospack depends1 beginner_tutorials 
 ```
-* ```
+* 
+```
 std_msgs
 rospy
 roscpp
@@ -613,7 +617,8 @@ As you can see, rospack lists the same dependencies that were used as arguments 
 $ roscd beginner_tutorials
 $ cat manifest.xml
 ```
-* ```
+* 
+```
 <package>
 
 ...
@@ -660,7 +665,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1) Creating a ROS Package > (2) Indirect package dependencies
+(h1) Creating a ROS Package > (h2) Indirect package dependencies
 
 (Segment 8)
 #Creating a ROS Package (h1)
@@ -739,7 +744,8 @@ In many cases, a dependency will also have its own dependencies. For instance, r
 ```
 $ rospack depends1 rospy
 ```
-* ```
+* 
+```
 roslib
 roslang
 ```
@@ -748,7 +754,8 @@ A package can have quite a few indirect dependencies. Luckily rospack can recurs
 ```
 $ rospack depends beginner_tutorials
 ```
-* ```
+* 
+```
 rospack
 roslib
 std_msgs
@@ -765,7 +772,8 @@ rosconsole
 roscpp
 ```
 
-Note: in Fuerte, the list is much shorter: * ```
+Note: in Fuerte, the list is much shorter: * 
+```
 std_msgs
 roslang
 rospy
@@ -807,7 +815,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1) Creating a ROS Package > (2) ROS Client Libraries
+(h1) Creating a ROS Package > (h2) ROS Client Libraries
 
 (Segment 9)
 #Creating a ROS Package (h1)
@@ -917,7 +925,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1) Creating a ROS Package > (2) Review
+(h1) Creating a ROS Package > (h2) Review
 
 (Segment 10)
 #Creating a ROS Package (h1)
@@ -1046,7 +1054,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1) Creating a ROS Package > (2) What makes up a catkin Package?
+(h1) Creating a ROS Package > (h2) What makes up a catkin Package?
 
 (Segment 11)
 #Creating a ROS Package (h1)
@@ -1127,7 +1135,8 @@ For a package to be considered a catkin package it must meet a few requirements:
 * Each package must have its own folder 
 	+ This means no nested packages nor multiple packages sharing the same directory.
 
-The simplest possible package might have a structure which looks like this: * ```
+The simplest possible package might have a structure which looks like this: * 
+```
 my_package/
   CMakeLists.txt
   package.xml
@@ -1168,7 +1177,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1) Creating a ROS Package > (2) Packages in a catkin Workspace
+(h1) Creating a ROS Package > (h2) Packages in a catkin Workspace
 
 (Segment 12)
 #Creating a ROS Package (h1)
@@ -1242,7 +1251,8 @@ Contents1. [Using roscreate](#ROS.2FTutorials.2Frosbuild.2FCreatingPackage.Using
 
 ##Packages in a catkin Workspace (h2)
 
-The recommended method of working with catkin packages is using a [catkin workspace](/catkin/workspaces "/catkin/workspaces"), but you can also build catkin packages standalone. A trivial workspace might look like this: * ```
+The recommended method of working with catkin packages is using a [catkin workspace](/catkin/workspaces "/catkin/workspaces"), but you can also build catkin packages standalone. A trivial workspace might look like this: * 
+```
 workspace_folder/        -- WORKSPACE
   src/                   -- SOURCE SPACE
     CMakeLists.txt       -- 'Toplevel' CMake file, provided by catkin
@@ -1291,7 +1301,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1) Creating a ROS Package > (2) Creating a catkin Package
+(h1) Creating a ROS Package > (h2) Creating a catkin Package
 
 (Segment 13)
 #Creating a ROS Package (h1)
@@ -1415,7 +1425,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1) Creating a ROS Package > (2) Building a catkin workspace and sourcing the setup file
+(h1) Creating a ROS Package > (h2) Building a catkin workspace and sourcing the setup file
 
 (Segment 14)
 #Creating a ROS Package (h1)
@@ -1534,7 +1544,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1) Creating a ROS Package > (2) package dependencies > (3) First-order dependencies
+(h1) Creating a ROS Package > (h2) package dependencies > (h3) First-order dependencies
 
 (Segment 15)
 #Creating a ROS Package (h1)
@@ -1615,7 +1625,8 @@ When using [catkin\_create\_pkg](/catkin/commands/catkin_create_pkg "/catkin/com
 ```
 $ rospack depends1 beginner_tutorials 
 ```
-* ```
+* 
+```
 roscpp
 rospy
 std_msgs
@@ -1626,7 +1637,8 @@ As you can see, rospack lists the same dependencies that were used as arguments 
 $ roscd beginner_tutorials
 $ cat package.xml
 ```
-* ```
+* 
+```
 <package format="2">
 ...
   <buildtool_depend>catkin</buildtool_depend>
@@ -1672,7 +1684,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1) Creating a ROS Package > (2) package dependencies > (3) Indirect dependencies
+(h1) Creating a ROS Package > (h2) package dependencies > (h3) Indirect dependencies
 
 (Segment 16)
 #Creating a ROS Package (h1)
@@ -1753,7 +1765,8 @@ In many cases, a dependency will also have its own dependencies. For instance, r
 ```
 $ rospack depends1 rospy
 ```
-* ```
+* 
+```
 genpy
 roscpp
 rosgraph
@@ -1826,7 +1839,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1) Creating a ROS Package > (2) Customizing Your Package > (3) Customizing the package.xml > (4) description tag
+(h1) Creating a ROS Package > (h2) Customizing Your Package > (h3) Customizing the package.xml > (h4) description tag
 
 (Segment 17)
 #Creating a ROS Package (h1)
@@ -2009,7 +2022,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1) Creating a ROS Package > (2) Customizing Your Package > (3) Customizing the package.xml > (4) maintainer tags
+(h1) Creating a ROS Package > (h2) Customizing Your Package > (h3) Customizing the package.xml > (h4) maintainer tags
 
 (Segment 18)
 #Creating a ROS Package (h1)
@@ -2148,7 +2161,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1) Creating a ROS Package > (2) Customizing Your Package > (3) Customizing the package.xml > (4) license tags
+(h1) Creating a ROS Package > (h2) Customizing Your Package > (h3) Customizing the package.xml > (h4) license tags
 
 (Segment 19)
 #Creating a ROS Package (h1)
@@ -2287,7 +2300,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1) Creating a ROS Package > (2) Customizing Your Package > (3) Customizing the package.xml > (4) dependencies tags
+(h1) Creating a ROS Package > (h2) Customizing Your Package > (h3) Customizing the package.xml > (h4) dependencies tags
 
 (Segment 20)
 #Creating a ROS Package (h1)
@@ -2445,7 +2458,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1) Creating a ROS Package > (2) Customizing Your Package > (3) Customizing the package.xml > (4) Final package.xml
+(h1) Creating a ROS Package > (h2) Customizing Your Package > (h3) Customizing the package.xml > (h4) Final package.xml
 
 (Segment 21)
 #Creating a ROS Package (h1)
@@ -2593,7 +2606,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1) Creating a ROS Package > (2) Customizing Your Package > (3) Customizing the CMakeLists.txt
+(h1) Creating a ROS Package > (h2) Customizing Your Package > (h3) Customizing the CMakeLists.txt
 
 (Segment 22)
 #Creating a ROS Package (h1)
@@ -2709,7 +2722,7 @@ Creating a ROS Package (h1)
 
 
 (Page path)
-(1) Creating a ROS Package > (2) Video Demonstration
+(h1) Creating a ROS Package > (h2) Video Demonstration
 
 (Segment 23)
 #Creating a ROS Package (h1)

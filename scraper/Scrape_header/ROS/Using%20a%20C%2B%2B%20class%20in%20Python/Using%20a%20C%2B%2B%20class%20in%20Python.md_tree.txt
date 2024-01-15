@@ -17,7 +17,7 @@ Using a C++ class in Python (h1)
 
 
 (Page path)
-(1)  > (2)  > (3)  > (4) ROS 2 Documentation
+(h1)  > (h2)  > (h3)  > (h4) ROS 2 Documentation
 
 (Segment 1)
 # (h1)
@@ -55,7 +55,7 @@ Using a C++ class in Python (h1)
 
 
 (Page path)
-(1) Wiki
+(h1) Wiki
 
 (Segment 2)
 #Wiki (h1)
@@ -89,7 +89,7 @@ Using a C++ class in Python (h1)
 
 
 (Page path)
-(1) Page
+(h1) Page
 
 (Segment 3)
 #Page (h1)
@@ -154,7 +154,7 @@ Using a C++ class in Python (h1)
 
 
 (Page path)
-(1) User
+(h1) User
 
 (Segment 4)
 #User (h1)
@@ -188,7 +188,7 @@ Using a C++ class in Python (h1)
 
 
 (Page path)
-(1) Using a C++ class in Python > (2) Class without NodeHandle > (3) Creating the package and writing the C++ class
+(h1) Using a C++ class in Python > (h2) Class without NodeHandle > (h3) Creating the package and writing the C++ class
 
 (Segment 5)
 #Using a C++ class in Python (h1)
@@ -425,7 +425,7 @@ Using a C++ class in Python (h1)
 
 
 (Page path)
-(1) Using a C++ class in Python > (2) Class without NodeHandle > (3) Binding, C++ part
+(h1) Using a C++ class in Python > (h2) Class without NodeHandle > (h3) Binding, C++ part
 
 (Segment 6)
 #Using a C++ class in Python (h1)
@@ -617,7 +617,7 @@ Using a C++ class in Python (h1)
 
 
 (Page path)
-(1) Using a C++ class in Python > (2) Class without NodeHandle > (3) Binding, Python part
+(h1) Using a C++ class in Python > (h2) Class without NodeHandle > (h3) Binding, Python part
 
 (Segment 7)
 #Using a C++ class in Python (h1)
@@ -813,7 +813,7 @@ Using a C++ class in Python (h1)
 
 
 (Page path)
-(1) Using a C++ class in Python > (2) Class without NodeHandle > (3) Glueing everything together
+(h1) Using a C++ class in Python > (h2) Class without NodeHandle > (h3) Glueing everything together
 
 (Segment 8)
 #Using a C++ class in Python (h1)
@@ -1017,7 +1017,7 @@ Using a C++ class in Python (h1)
 
 
 (Page path)
-(1) Using a C++ class in Python > (2) Class without NodeHandle > (3) Testing the binding
+(h1) Using a C++ class in Python > (h2) Class without NodeHandle > (h3) Testing the binding
 
 (Segment 9)
 #Using a C++ class in Python (h1)
@@ -1140,7 +1140,7 @@ Using a C++ class in Python (h1)
 
 
 (Page path)
-(1) Using a C++ class in Python > (2) Class with NodeHandle
+(h1) Using a C++ class in Python > (h2) Class with NodeHandle
 
 (Segment 10)
 #Using a C++ class in Python (h1)
@@ -1254,7 +1254,7 @@ Using a C++ class in Python (h1)
 
 
 (Page path)
-(1) Using a C++ class in Python > (2) Class with container of ROS messages > (3) `std::vector<M>` as return type
+(h1) Using a C++ class in Python > (h2) Class with container of ROS messages > (h3) `std::vector<M>` as return type
 
 (Segment 11)
 #Using a C++ class in Python (h1)
@@ -1403,7 +1403,7 @@ Using a C++ class in Python (h1)
 
 
 (Page path)
-(1) Using a C++ class in Python > (2) Class with container of ROS messages > (3) `std::vector<M>` as argument type
+(h1) Using a C++ class in Python > (h2) Class with container of ROS messages > (h3) `std::vector<M>` as argument type
 
 (Segment 12)
 #Using a C++ class in Python (h1)

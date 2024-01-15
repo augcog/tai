@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [CreatingPackage](/action/fullsearch/ROS/Tutorials/CreatingPackage?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FCreatingPackage%22 "Click to do a full-text search for this title")
+* [CreatingPackage](/ROS/Tutorials/CreatingPackage "/ROS/Tutorials/CreatingPackage")
 
 #### ROS 2 Documentation
 
@@ -226,7 +226,8 @@ Then create your package:
 ```
 $ roscreate-pkg beginner_tutorials std_msgs rospy roscpp
 ```
-You will see something similar to: * ```
+You will see something similar to: * 
+```
 Creating package directory ~/fuerte_workspace/sandbox/beginner_tutorials
 Creating include directory ~/fuerte_workspace/sandbox/beginner_tutorials/include/beginner_tutorials
 Creating cpp source directory ~/ros/ros_tutorials/beginner_tutorials/src
@@ -244,7 +245,8 @@ You're going to want to spend some time looking at beginner\_tutorials/manifest.
 $ rospack profile
 $ rospack find beginner_tutorials 
 ```
-* ```
+* 
+```
 YOUR_PACKAGE_PATH/beginner_tutorials
 ```
 
@@ -253,7 +255,8 @@ If this fails, it means ROS can't find your new package, which may be an issue w
 $ roscd beginner_tutorials 
 $ pwd
 ```
-* ```
+* 
+```
 YOUR_PACKAGE_PATH/beginner_tutorials
 ```
 
@@ -264,7 +267,8 @@ When using roscreate-pkg earlier, a few package dependencies were provided. Thes
 ```
 $ rospack depends1 beginner_tutorials 
 ```
-* ```
+* 
+```
 std_msgs
 rospy
 roscpp
@@ -275,7 +279,8 @@ As you can see, rospack lists the same dependencies that were used as arguments 
 $ roscd beginner_tutorials
 $ cat manifest.xml
 ```
-* ```
+* 
+```
 <package>
 
 ...
@@ -294,7 +299,8 @@ In many cases, a dependency will also have its own dependencies. For instance, r
 ```
 $ rospack depends1 rospy
 ```
-* ```
+* 
+```
 roslib
 roslang
 ```
@@ -303,7 +309,8 @@ A package can have quite a few indirect dependencies. Luckily rospack can recurs
 ```
 $ rospack depends beginner_tutorials
 ```
-* ```
+* 
+```
 rospack
 roslib
 std_msgs
@@ -320,7 +327,8 @@ rosconsole
 roscpp
 ```
 
-Note: in Fuerte, the list is much shorter: * ```
+Note: in Fuerte, the list is much shorter: * 
+```
 std_msgs
 roslang
 rospy
@@ -361,7 +369,8 @@ For a package to be considered a catkin package it must meet a few requirements:
 * Each package must have its own folder 
 	+ This means no nested packages nor multiple packages sharing the same directory.
 
-The simplest possible package might have a structure which looks like this: * ```
+The simplest possible package might have a structure which looks like this: * 
+```
 my_package/
   CMakeLists.txt
   package.xml
@@ -369,7 +378,8 @@ my_package/
 
 ## Packages in a catkin Workspace
 
-The recommended method of working with catkin packages is using a [catkin workspace](/catkin/workspaces "/catkin/workspaces"), but you can also build catkin packages standalone. A trivial workspace might look like this: * ```
+The recommended method of working with catkin packages is using a [catkin workspace](/catkin/workspaces "/catkin/workspaces"), but you can also build catkin packages standalone. A trivial workspace might look like this: * 
+```
 workspace_folder/        -- WORKSPACE
   src/                   -- SOURCE SPACE
     CMakeLists.txt       -- 'Toplevel' CMake file, provided by catkin
@@ -420,7 +430,8 @@ When using [catkin\_create\_pkg](/catkin/commands/catkin_create_pkg "/catkin/com
 ```
 $ rospack depends1 beginner_tutorials 
 ```
-* ```
+* 
+```
 roscpp
 rospy
 std_msgs
@@ -431,7 +442,8 @@ As you can see, rospack lists the same dependencies that were used as arguments 
 $ roscd beginner_tutorials
 $ cat package.xml
 ```
-* ```
+* 
+```
 <package format="2">
 ...
   <buildtool_depend>catkin</buildtool_depend>
@@ -448,7 +460,8 @@ In many cases, a dependency will also have its own dependencies. For instance, r
 ```
 $ rospack depends1 rospy
 ```
-* ```
+* 
+```
 genpy
 roscpp
 rosgraph

@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [NavigatingTheWiki](/action/fullsearch/ROS/Tutorials/NavigatingTheWiki?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FNavigatingTheWiki%22 "Click to do a full-text search for this title")
+* [NavigatingTheWiki](/ROS/Tutorials/NavigatingTheWiki "/ROS/Tutorials/NavigatingTheWiki")
 
 #### ROS 2 Documentation
 

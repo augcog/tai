@@ -17,7 +17,7 @@ Understanding ROS Services and Parameters (h1)
 
 
 (Page path)
-(1)  > (2)  > (3)  > (4) ROS 2 Documentation
+(h1)  > (h2)  > (h3)  > (h4) ROS 2 Documentation
 
 (Segment 1)
 # (h1)
@@ -55,7 +55,7 @@ Understanding ROS Services and Parameters (h1)
 
 
 (Page path)
-(1) Wiki
+(h1) Wiki
 
 (Segment 2)
 #Wiki (h1)
@@ -89,7 +89,7 @@ Understanding ROS Services and Parameters (h1)
 
 
 (Page path)
-(1) Page
+(h1) Page
 
 (Segment 3)
 #Page (h1)
@@ -154,7 +154,7 @@ Understanding ROS Services and Parameters (h1)
 
 
 (Page path)
-(1) User
+(h1) User
 
 (Segment 4)
 #User (h1)
@@ -192,7 +192,7 @@ Understanding ROS Services and Parameters (h1)
 
 
 (Page path)
-(1) Understanding ROS Services and Parameters > (2) ROS Services
+(h1) Understanding ROS Services and Parameters > (h2) ROS Services
 
 (Segment 5)
 #Understanding ROS Services and Parameters (h1)
@@ -242,7 +242,7 @@ Understanding ROS Services and Parameters (h1)
 
 
 (Page path)
-(1) Understanding ROS Services and Parameters > (2) Using rosservice > (3) rosservice list
+(h1) Understanding ROS Services and Parameters > (h2) Using rosservice > (h3) rosservice list
 
 (Segment 6)
 #Understanding ROS Services and Parameters (h1)
@@ -283,7 +283,8 @@ rosservice uri          print service ROSRPC uri
 ```
 $ rosservice list
 ```
-The list command shows us that the turtlesim node provides nine services: reset, clear, spawn, kill, turtle1/set\_pen, /turtle1/teleport\_absolute, /turtle1/teleport\_relative, turtlesim/get\_loggers, and turtlesim/set\_logger\_level. There are also two services related to the separate rosout node: /rosout/get\_loggers and /rosout/set\_logger\_level. * ```
+The list command shows us that the turtlesim node provides nine services: reset, clear, spawn, kill, turtle1/set\_pen, /turtle1/teleport\_absolute, /turtle1/teleport\_relative, turtlesim/get\_loggers, and turtlesim/set\_logger\_level. There are also two services related to the separate rosout node: /rosout/get\_loggers and /rosout/set\_logger\_level. * 
+```
 /clear
 /kill
 /reset
@@ -323,7 +324,7 @@ Understanding ROS Services and Parameters (h1)
 
 
 (Page path)
-(1) Understanding ROS Services and Parameters > (2) Using rosservice > (3) rosservice type
+(h1) Understanding ROS Services and Parameters > (h2) Using rosservice > (h3) rosservice type
 
 (Segment 7)
 #Understanding ROS Services and Parameters (h1)
@@ -369,7 +370,8 @@ Let's find out what type the clear service is:
 ```
 $ rosservice type /clear
 ```
-* ```
+* 
+```
 std_srvs/Empty
 ```
 
@@ -397,7 +399,7 @@ Understanding ROS Services and Parameters (h1)
 
 
 (Page path)
-(1) Understanding ROS Services and Parameters > (2) Using rosservice > (3) rosservice call
+(h1) Understanding ROS Services and Parameters > (h2) Using rosservice > (h3) rosservice call
 
 (Segment 8)
 #Understanding ROS Services and Parameters (h1)
@@ -449,7 +451,8 @@ Let's look at the case where the service has arguments by looking at the informa
 ```
 $ rosservice type /spawn | rossrv show
 ```
-* ```
+* 
+```
 float32 x
 float32 y
 float32 theta
@@ -462,7 +465,8 @@ This service lets us spawn a new turtle at a given location and orientation. The
 ```
 $ rosservice call /spawn 2 2 0.2 ""
 ```
-The service call returns with the name of the newly created turtle * ```
+The service call returns with the name of the newly created turtle * 
+```
 name: turtle2
 ```
 
@@ -491,7 +495,7 @@ Understanding ROS Services and Parameters (h1)
 
 
 (Page path)
-(1) Understanding ROS Services and Parameters > (2) Using rosparam > (3) rosparam list
+(h1) Understanding ROS Services and Parameters > (h2) Using rosparam > (h3) rosparam list
 
 (Segment 9)
 #Understanding ROS Services and Parameters (h1)
@@ -533,7 +537,8 @@ Let's look at what parameters are currently on the param server:
 ```
 $ rosparam list
 ```
-Here we can see that the turtlesim node has three parameters on the param server for background color: * ```
+Here we can see that the turtlesim node has three parameters on the param server for background color: * 
+```
 /rosdistro
 /roslaunch/uris/host_nxt__43407
 /rosversion
@@ -567,7 +572,7 @@ Understanding ROS Services and Parameters (h1)
 
 
 (Page path)
-(1) Understanding ROS Services and Parameters > (2) Using rosparam > (3) rosparam set and rosparam get
+(h1) Understanding ROS Services and Parameters > (h2) Using rosparam > (h3) rosparam set and rosparam get
 
 (Segment 10)
 #Understanding ROS Services and Parameters (h1)
@@ -625,7 +630,8 @@ Now let's look at the values of other parameters on the param server. Let's get 
 ```
 $ rosparam get /turtlesim/background_g 
 ```
-* ```
+* 
+```
 86
 ```
 
@@ -633,7 +639,8 @@ We can also use rosparam get / to show us the contents of the entire Parameter
 ```
 $ rosparam get /
 ```
-* ```
+* 
+```
 rosdistro: 'noetic
 
   '
@@ -674,7 +681,7 @@ Understanding ROS Services and Parameters (h1)
 
 
 (Page path)
-(1) Understanding ROS Services and Parameters > (2) Using rosparam > (3) rosparam dump and rosparam load
+(h1) Understanding ROS Services and Parameters > (h2) Using rosparam > (h3) rosparam dump and rosparam load
 
 (Segment 11)
 #Understanding ROS Services and Parameters (h1)
@@ -727,7 +734,8 @@ You can even load these yaml files into new namespaces, e.g. copy\_turtle:
 $ rosparam load params.yaml copy_turtle
 $ rosparam get /copy_turtle/turtlesim/background_b
 ```
-* ```
+* 
+```
 255
 ```
 
@@ -755,7 +763,7 @@ Understanding ROS Services and Parameters (h1)
 
 
 (Page path)
-(1) Understanding ROS Services and Parameters > (2) Video Demonstration
+(h1) Understanding ROS Services and Parameters > (h2) Video Demonstration
 
 (Segment 12)
 #Understanding ROS Services and Parameters (h1)

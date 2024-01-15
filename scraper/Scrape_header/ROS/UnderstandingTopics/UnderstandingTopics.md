@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [UnderstandingTopics](/action/fullsearch/ROS/Tutorials/UnderstandingTopics?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FUnderstandingTopics%22 "Click to do a full-text search for this title")
+* [UnderstandingTopics](/ROS/Tutorials/UnderstandingTopics "/ROS/Tutorials/UnderstandingTopics")
 
 #### ROS 2 Documentation
 
@@ -165,7 +165,8 @@ Let's start by making sure that we have roscore running, **in a new terminal**:
 ```
 $ roscore
 ```
-If you left roscore running from the last tutorial, you may get the error message: * ```
+If you left roscore running from the last tutorial, you may get the error message: * 
+```
 roscore cannot run as another roscore/master is already running. 
 Please kill other roscore/master processes before relaunching
 ```
@@ -184,7 +185,8 @@ We'll also need something to drive the turtle around with. Please run **in a new
 ```
 $ rosrun turtlesim turtle_teleop_key
 ```
-* ```
+* 
+```
 [ INFO] 1254264546.878445000: Started node [/teleop_turtle], pid [5528], bound on [aqy], xmlrpc port [43918], tcpros port [55936], logging to [~/ros/ros/log/teleop_turtle_5528.log], using [real] time
 Reading from keyboard
 ---------------------------
@@ -199,7 +201,8 @@ Now that you can drive your turtle around, let's look at what's going on behind 
 The turtlesim\_node and the turtle\_teleop\_key node are communicating with each other over a ROS **Topic**. turtle\_teleop\_key is **publishing** the key strokes on a topic, while turtlesim **subscribes** to the same topic to receive the key strokes. Let's use [rqt\_graph](/rqt_graph "/rqt_graph") which shows the nodes and topics currently running. Note: If you're using electric or earlier, rqt is not available. Use rxgraph instead. 
 ### Using rqt\_graph
 
-rqt\_graph creates a dynamic graph of what's going on in the system. rqt\_graph is part of the rqt package. Unless you already have it installed, run: * ```
+rqt\_graph creates a dynamic graph of what's going on in the system. rqt\_graph is part of the rqt package. Unless you already have it installed, run: * 
+```
 $ sudo apt-get install ros-<distro>-rqt
 $ sudo apt-get install ros-<distro>-rqt-common-plugins
 ```
@@ -215,7 +218,8 @@ The rostopic tool allows you to get information about ROS **topics**. You can us
 ```
 $ rostopic -h
 ```
-* ```
+* 
+```
 rostopic bw     display bandwidth used by topic
 rostopic echo   print messages to screen
 rostopic hz     display publishing rate of topic    
@@ -290,7 +294,8 @@ rostopic list returns a list of all topics currently subscribed to and publishe
 ```
 $ rostopic list -h
 ```
-* ```
+* 
+```
 Usage: rostopic list [/topic]
 
 Options:
@@ -306,7 +311,8 @@ For rostopic list use the **verbose** option:
 ```
 $ rostopic list -v
 ```
-This displays a verbose list of topics to publish to and subscribe to and their type. *For ROS Hydro and later,* * ```
+This displays a verbose list of topics to publish to and subscribe to and their type. *For ROS Hydro and later,* * 
+```
 Published topics:
  * /turtle1/color_sensor [turtlesim/Color] 1 publisher
  * /turtle1/cmd_vel [geometry_msgs/Twist] 1 publisher
@@ -319,7 +325,8 @@ Subscribed topics:
  * /rosout [rosgraph_msgs/Log] 1 subscriber
 ```
 
-*For ROS Groovy and earlier,* * ```
+*For ROS Groovy and earlier,* * 
+```
 Published topics:
  * /turtle1/color_sensor [turtlesim/Color] 1 publisher
  * /turtle1/command_velocity [turtlesim/Velocity] 1 publisher
@@ -347,14 +354,17 @@ $ rostopic type /turtle1/cmd_vel
 ```
 
 	+ You should get: 
-	```
+
+```
 	geometry_msgs/Twist
-	```We can look at the details of the message using rosmsg: 
+
+```We can look at the details of the message using rosmsg: 
 ```
 $ rosmsg show geometry_msgs/Twist
 ```
 
-	+ ```
+	+ 
+```
 	geometry_msgs/Vector3 linear
 	  float64 x
 	  float64 y
@@ -363,7 +373,8 @@ $ rosmsg show geometry_msgs/Twist
 	  float64 x
 	  float64 y
 	  float64 z
-	```
+
+```
 
 *For ROS Groovy and earlier,* * Try: 
 ```
@@ -371,17 +382,21 @@ $ rostopic type /turtle1/command_velocity
 ```
 
 	+ You should get: 
-	```
+
+```
 	turtlesim/Velocity
-	```We can look at the details of the message using rosmsg: 
+
+```We can look at the details of the message using rosmsg: 
 ```
 $ rosmsg show turtlesim/Velocity
 ```
 
-	+ ```
+	+ 
+```
 	float32 linear
 	float32 angular
-	```
+
+```
 
 Now that we know what type of message turtlesim expects, we can publish commands to our turtle. 
 ## rostopic continued
@@ -453,11 +468,13 @@ turtlesim/Velocity
 2.0 1.8 
 ```
 
-You may have noticed that the turtle has stopped moving; this is because the turtle requires a steady stream of commands at 1 Hz to keep moving. We can publish a steady stream of commands using rostopic pub -r command: *For ROS Hydro and later,* * ```
+You may have noticed that the turtle has stopped moving; this is because the turtle requires a steady stream of commands at 1 Hz to keep moving. We can publish a steady stream of commands using rostopic pub -r command: *For ROS Hydro and later,* * 
+```
 $ rostopic pub /turtle1/cmd_vel geometry_msgs/Twist -r 1 -- '[2.0, 0.0, 0.0]' '[0.0, 0.0, -1.8]'
 ```
 
-*For ROS Groovy and earlier,* * ```
+*For ROS Groovy and earlier,* * 
+```
 $ rostopic pub /turtle1/command_velocity turtlesim/Velocity -r 1 -- 2.0  -1.8
 ```
 
@@ -478,7 +495,8 @@ Let's see how fast the turtlesim\_node is publishing /turtle1/pose:
 ```
 $ rostopic hz /turtle1/pose
 ```
-You will see: * ```
+You will see: * 
+```
 subscribed to [/turtle1/pose]
 average rate: 59.354
         min: 0.005s max: 0.027s std dev: 0.00284s window: 58
@@ -492,11 +510,13 @@ average rate: 59.463
         min: 0.004s max: 0.030s std dev: 0.00380s window: 290
 ```
 
-Now we can tell that the turtlesim is publishing data about our turtle at the rate of 60 Hz. We can also use rostopic type in conjunction with rosmsg show to get in depth information about a topic: *For ROS Hydro and later,* * ```
+Now we can tell that the turtlesim is publishing data about our turtle at the rate of 60 Hz. We can also use rostopic type in conjunction with rosmsg show to get in depth information about a topic: *For ROS Hydro and later,* * 
+```
 $ rostopic type /turtle1/cmd_vel | rosmsg show
 ```
 
-*For ROS Groovy and earlier,* * ```
+*For ROS Groovy and earlier,* * 
+```
 $ rostopic type /turtle1/command_velocity | rosmsg show
 ```
 

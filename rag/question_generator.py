@@ -8,8 +8,12 @@ import string
 
 load_dotenv()
 
-
+# TODO MODEL
 model = 'zephyr'
+# model = 'openai'
+# TODO TOKEN LIMIT
+n = 400
+
 if model == 'local' or model == 'zephyr':
     openai.api_key = "empty"
     openai.api_base = "http://localhost:8000/v1"
@@ -86,13 +90,8 @@ def generate_path_question(id, document):
 def string_subtraction(main_string, sub_string):
     return main_string.replace(sub_string, '', 1)  # The '1' ensures only the first occurrence is removed
 
-def traverse_files(path, file_format, start_folder_name):
-    # Ensure valid file format
-    if file_format not in ['rst', 'md']:
-        raise ValueError("Invalid file format. Allowed formats: 'rst', 'md'")
-
+def traverse_files(path, start_folder_name):
     results = []
-
     # Check if the provided path exists
     if not os.path.exists(path):
         raise ValueError(f"The provided path '{path}' does not exist.")
@@ -123,11 +122,10 @@ def traverse_files(path, file_format, start_folder_name):
                 results.append(([folder_tree, folder_path], content))
     return results
 docs = []
-docs = traverse_files("/home/bot/dataset/edugpt/Scrape_rst/Sawyer", "rst", "Sawyer")
+docs = traverse_files("../scraper/Scrape_rst/Sawyer", "Sawyer")
 # docs += traverse_files("/home/bot/dataset/edugpt/Scrape_textbook/textbook", "md", "Robotics textbook")
 questions =[]
 
-n = 400
 for doc in tqdm(docs, desc="Generating questions"):
     folder = doc[0]
     file = doc[1]

@@ -16,7 +16,7 @@ Next Tutorial: (h1)
 
 
 (Page path)
-(1)  > (2)  > (3)  > (4) ROS 2 Documentation
+(h1)  > (h2)  > (h3)  > (h4) ROS 2 Documentation
 
 (Segment 1)
 # (h1)
@@ -53,7 +53,7 @@ Next Tutorial: (h1)
 
 
 (Page path)
-(1) Wiki
+(h1) Wiki
 
 (Segment 2)
 #Wiki (h1)
@@ -86,7 +86,7 @@ Next Tutorial: (h1)
 
 
 (Page path)
-(1) Page
+(h1) Page
 
 (Segment 3)
 #Page (h1)
@@ -150,7 +150,7 @@ Next Tutorial: (h1)
 
 
 (Page path)
-(1) User
+(h1) User
 
 (Segment 4)
 #User (h1)
@@ -187,7 +187,7 @@ Next Tutorial: (h1)
 
 
 (Page path)
-(1) Reading messages from a bag file
+(h1) Reading messages from a bag file
 
 (Segment 5)
 #Reading messages from a bag file (h1)
@@ -230,7 +230,7 @@ Next Tutorial: (h1)
 
 
 (Page path)
-(1) See Also:
+(h1) See Also:
 
 (Segment 6)
 #See Also: (h1)
@@ -270,7 +270,7 @@ Next Tutorial: (h1)
 
 
 (Page path)
-(1) Download or record a bag file
+(h1) Download or record a bag file
 
 (Segment 7)
 #Download or record a bag file (h1)
@@ -307,7 +307,7 @@ Next Tutorial: (h1)
 
 
 (Page path)
-(1) Option 1: play back the messages immediately and look at the output in multiple terminals
+(h1) Option 1: play back the messages immediately and look at the output in multiple terminals
 
 (Segment 8)
 #Option 1: play back the messages immediately and look at the output in multiple terminals (h1)
@@ -468,7 +468,7 @@ Next Tutorial: (h1)
 
 
 (Page path)
-(1) Option 2: use the ros\_readbagfile script to easily extract the topics of interest > (2) More .yaml file analysis > (3) Example 1:
+(h1) Option 2: use the ros\_readbagfile script to easily extract the topics of interest > (h2) More .yaml file analysis > (h3) Example 1:
 
 (Segment 9)
 #Option 2: use the ros\_readbagfile script to easily extract the topics of interest (h1)
@@ -614,7 +614,7 @@ Next Tutorial: (h1)
 
 
 (Page path)
-(1) Option 2: use the ros\_readbagfile script to easily extract the topics of interest > (2) More .yaml file analysis > (3) Example 2:
+(h1) Option 2: use the ros\_readbagfile script to easily extract the topics of interest > (h2) More .yaml file analysis > (h3) Example 2:
 
 (Segment 10)
 #Option 2: use the ros\_readbagfile script to easily extract the topics of interest (h1)
@@ -775,7 +775,7 @@ Next Tutorial: (h1)
 
 
 (Page path)
-(1) Why use `ros\_readbagfile` for this purpose instead of `rostopic echo -b`?
+(h1) Why use `ros\_readbagfile` for this purpose instead of `rostopic echo -b`?
 
 (Segment 11)
 #Why use `ros\_readbagfile` for this purpose instead of `rostopic echo -b`? (h1)
@@ -817,7 +817,7 @@ Next Tutorial: (h1)
 
 
 (Page path)
-(1) Next Tutorial:
+(h1) Next Tutorial:
 
 (Segment 12)
 #Next Tutorial: (h1)

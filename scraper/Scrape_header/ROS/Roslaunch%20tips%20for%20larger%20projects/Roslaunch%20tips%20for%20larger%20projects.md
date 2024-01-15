@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [Roslaunch tips for larger projects](/action/fullsearch/ROS/Tutorials/Roslaunch%20tips%20for%20larger%20projects?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FRoslaunch+tips+for+larger+projects%22 "Click to do a full-text search for this title")
+* [Roslaunch tips for larger projects](/ROS/Tutorials/Roslaunch%20tips%20for%20larger%20projects "/ROS/Tutorials/Roslaunch%20tips%20for%20larger%20projects")
 
 #### ROS 2 Documentation
 

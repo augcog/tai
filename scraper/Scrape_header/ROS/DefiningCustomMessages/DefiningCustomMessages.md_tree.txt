@@ -12,7 +12,7 @@ Defining Custom Messages (h1)
 
 
 (Page path)
-(1)  > (2)  > (3)  > (4) ROS 2 Documentation
+(h1)  > (h2)  > (h3)  > (h4) ROS 2 Documentation
 
 (Segment 1)
 # (h1)
@@ -45,7 +45,7 @@ Defining Custom Messages (h1)
 
 
 (Page path)
-(1) Wiki
+(h1) Wiki
 
 (Segment 2)
 #Wiki (h1)
@@ -74,7 +74,7 @@ Defining Custom Messages (h1)
 
 
 (Page path)
-(1) Page
+(h1) Page
 
 (Segment 3)
 #Page (h1)
@@ -134,7 +134,7 @@ Defining Custom Messages (h1)
 
 
 (Page path)
-(1) User
+(h1) User
 
 (Segment 4)
 #User (h1)
@@ -167,7 +167,7 @@ Defining Custom Messages (h1)
 
 
 (Page path)
-(1) Defining Custom Messages > (2) Generating Messages
+(h1) Defining Custom Messages > (h2) Generating Messages
 
 (Segment 5)
 #Defining Custom Messages (h1)
@@ -259,7 +259,7 @@ Defining Custom Messages (h1)
 
 
 (Page path)
-(1) Defining Custom Messages > (2) Including or Importing Messages > (3) C++
+(h1) Defining Custom Messages > (h2) Including or Importing Messages > (h3) C++
 
 (Segment 6)
 #Defining Custom Messages (h1)
@@ -421,7 +421,7 @@ Defining Custom Messages (h1)
 
 
 (Page path)
-(1) Defining Custom Messages > (2) Including or Importing Messages > (3) Python
+(h1) Defining Custom Messages > (h2) Including or Importing Messages > (h3) Python
 
 (Segment 7)
 #Defining Custom Messages (h1)
@@ -525,7 +525,7 @@ Defining Custom Messages (h1)
 
 
 (Page path)
-(1) Defining Custom Messages > (2) Dependencies
+(h1) Defining Custom Messages > (h2) Dependencies
 
 (Segment 8)
 #Defining Custom Messages (h1)

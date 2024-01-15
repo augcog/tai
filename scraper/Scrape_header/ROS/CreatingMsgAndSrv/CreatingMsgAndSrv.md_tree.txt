@@ -18,7 +18,7 @@ Creating a ROS msg and srv (h1)
 
 
 (Page path)
-(1)  > (2)  > (3)  > (4) ROS 2 Documentation
+(h1)  > (h2)  > (h3)  > (h4) ROS 2 Documentation
 
 (Segment 1)
 # (h1)
@@ -57,7 +57,7 @@ Creating a ROS msg and srv (h1)
 
 
 (Page path)
-(1) Wiki
+(h1) Wiki
 
 (Segment 2)
 #Wiki (h1)
@@ -92,7 +92,7 @@ Creating a ROS msg and srv (h1)
 
 
 (Page path)
-(1) Page
+(h1) Page
 
 (Segment 3)
 #Page (h1)
@@ -158,7 +158,7 @@ Creating a ROS msg and srv (h1)
 
 
 (Page path)
-(1) User
+(h1) User
 
 (Segment 4)
 #User (h1)
@@ -197,7 +197,7 @@ Creating a ROS msg and srv (h1)
 
 
 (Page path)
-(1) Creating a ROS msg and srv > (2) Introduction to msg and srv
+(h1) Creating a ROS msg and srv > (h2) Introduction to msg and srv
 
 (Segment 5)
 #Creating a ROS msg and srv (h1)
@@ -324,7 +324,7 @@ Creating a ROS msg and srv (h1)
 
 
 (Page path)
-(1) Creating a ROS msg and srv > (2) Using msg > (3) Creating a msg
+(h1) Creating a ROS msg and srv > (h2) Using msg > (h3) Creating a msg
 
 (Segment 6)
 #Creating a ROS msg and srv (h1)
@@ -518,7 +518,7 @@ Creating a ROS msg and srv (h1)
 
 
 (Page path)
-(1) Creating a ROS msg and srv > (2) Using rosmsg
+(h1) Creating a ROS msg and srv > (h2) Using rosmsg
 
 (Segment 7)
 #Creating a ROS msg and srv (h1)
@@ -604,7 +604,8 @@ Example:
 ```
 $ rosmsg show beginner_tutorials/Num
 ```
-You will see: * ```
+You will see: * 
+```
 int64 num
 ```
 
@@ -615,7 +616,8 @@ If you can't remember which Package a msg is in, you can leave out the package n
 ```
 $ rosmsg show Num
 ```
-You will see: * ```
+You will see: * 
+```
 [beginner_tutorials/Num]:
 int64 num
 ```
@@ -644,7 +646,7 @@ Creating a ROS msg and srv (h1)
 
 
 (Page path)
-(1) Creating a ROS msg and srv > (2) Using srv > (3) Creating a srv
+(h1) Creating a ROS msg and srv > (h2) Using srv > (h3) Creating a srv
 
 (Segment 8)
 #Creating a ROS msg and srv (h1)
@@ -800,7 +802,7 @@ Creating a ROS msg and srv (h1)
 
 
 (Page path)
-(1) Creating a ROS msg and srv > (2) Using srv > (3) Using rossrv
+(h1) Creating a ROS msg and srv > (h2) Using srv > (h3) Using rossrv
 
 (Segment 9)
 #Creating a ROS msg and srv (h1)
@@ -889,7 +891,8 @@ Example:
 ```
 $ rossrv show beginner_tutorials/AddTwoInts
 ```
-You will see: * ```
+You will see: * 
+```
 int64 a
 int64 b
 ---
@@ -930,7 +933,7 @@ Creating a ROS msg and srv (h1)
 
 
 (Page path)
-(1) Creating a ROS msg and srv > (2) Common step for msg and srv
+(h1) Creating a ROS msg and srv > (h2) Common step for msg and srv
 
 (Segment 10)
 #Creating a ROS msg and srv (h1)
@@ -1070,7 +1073,7 @@ Creating a ROS msg and srv (h1)
 
 
 (Page path)
-(1) Creating a ROS msg and srv > (2) Getting Help
+(h1) Creating a ROS msg and srv > (h2) Getting Help
 
 (Segment 11)
 #Creating a ROS msg and srv (h1)
@@ -1199,7 +1202,7 @@ Creating a ROS msg and srv (h1)
 
 
 (Page path)
-(1) Creating a ROS msg and srv > (2) Review
+(h1) Creating a ROS msg and srv > (h2) Review
 
 (Segment 12)
 #Creating a ROS msg and srv (h1)
@@ -1312,7 +1315,7 @@ Creating a ROS msg and srv (h1)
 
 
 (Page path)
-(1) Creating a ROS msg and srv > (2) Next Tutorial
+(h1) Creating a ROS msg and srv > (h2) Next Tutorial
 
 (Segment 13)
 #Creating a ROS msg and srv (h1)

@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [WritingServiceClient(python)](/action/fullsearch/ROS/Tutorials/WritingServiceClient%28python%29?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FWritingServiceClient%28python%29%22 "Click to do a full-text search for this title")
+* [WritingServiceClient(python)](/ROS/Tutorials/WritingServiceClient%28python%29 "/ROS/Tutorials/WritingServiceClient%28python%29")
 
 #### ROS 2 Documentation
 
@@ -321,7 +321,8 @@ document.write('<a href="#" onclick="return togglenumber(\'rospy\_tutorials.2FTu
 
 ```
 
-Don't forget to make the node executable: * ```
+Don't forget to make the node executable: * 
+```
 chmod +x scripts/add_two_ints_server.py
 ```
 

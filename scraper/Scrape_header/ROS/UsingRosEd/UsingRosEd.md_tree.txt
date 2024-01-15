@@ -10,7 +10,7 @@ Using rosed to edit files in ROS (h1)
 
 
 (Page path)
-(1)  > (2)  > (3)  > (4) ROS 2 Documentation
+(h1)  > (h2)  > (h3)  > (h4) ROS 2 Documentation
 
 (Segment 1)
 # (h1)
@@ -41,7 +41,7 @@ Using rosed to edit files in ROS (h1)
 
 
 (Page path)
-(1) Wiki
+(h1) Wiki
 
 (Segment 2)
 #Wiki (h1)
@@ -68,7 +68,7 @@ Using rosed to edit files in ROS (h1)
 
 
 (Page path)
-(1) Page
+(h1) Page
 
 (Segment 3)
 #Page (h1)
@@ -126,7 +126,7 @@ Using rosed to edit files in ROS (h1)
 
 
 (Page path)
-(1) User
+(h1) User
 
 (Segment 4)
 #User (h1)
@@ -157,7 +157,7 @@ Using rosed to edit files in ROS (h1)
 
 
 (Page path)
-(1) Using rosed to edit files in ROS > (2) Using rosed
+(h1) Using rosed to edit files in ROS > (h2) Using rosed
 
 (Segment 5)
 #Using rosed to edit files in ROS (h1)
@@ -200,7 +200,7 @@ Using rosed to edit files in ROS (h1)
 
 
 (Page path)
-(1) Using rosed to edit files in ROS > (2) Using rosed with tab completion
+(h1) Using rosed to edit files in ROS > (h2) Using rosed with tab completion
 
 (Segment 6)
 #Using rosed to edit files in ROS (h1)
@@ -226,7 +226,8 @@ Example:
 ```
 $ rosed roscpp <tab><tab>
 ```
-* ```
+* 
+```
 Empty.srv                   package.xml
 GetLoggers.srv              roscpp-msg-extras.cmake
 Logger.msg                  roscpp-msg-paths.cmake
@@ -252,7 +253,7 @@ Using rosed to edit files in ROS (h1)
 
 
 (Page path)
-(1) Using rosed to edit files in ROS > (2) Editor
+(h1) Using rosed to edit files in ROS > (h2) Editor
 
 (Segment 7)
 #Using rosed to edit files in ROS (h1)
@@ -282,7 +283,8 @@ export EDITOR='emacs -nw'
 ```
 $ echo $EDITOR
 ```
-* ```
+* 
+```
 nano -w
 ```
 or 

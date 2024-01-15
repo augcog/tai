@@ -10,7 +10,7 @@ Managing System dependencies (h1)
 
 
 (Page path)
-(1)  > (2)  > (3)  > (4) ROS 2 Documentation
+(h1)  > (h2)  > (h3)  > (h4) ROS 2 Documentation
 
 (Segment 1)
 # (h1)
@@ -41,7 +41,7 @@ Managing System dependencies (h1)
 
 
 (Page path)
-(1) Wiki
+(h1) Wiki
 
 (Segment 2)
 #Wiki (h1)
@@ -68,7 +68,7 @@ Managing System dependencies (h1)
 
 
 (Page path)
-(1) Page
+(h1) Page
 
 (Segment 3)
 #Page (h1)
@@ -126,7 +126,7 @@ Managing System dependencies (h1)
 
 
 (Page path)
-(1) User
+(h1) User
 
 (Segment 4)
 #User (h1)
@@ -153,7 +153,7 @@ Managing System dependencies (h1)
 
 
 (Page path)
-(1) Managing System dependencies > (2) System Dependencies > (3) rosdep
+(h1) Managing System dependencies > (h2) System Dependencies > (h3) rosdep
 
 (Segment 5)
 #Managing System dependencies (h1)
@@ -191,7 +191,8 @@ Then,
 ```
 $ cat package.xml
 ```
-* ```
+* 
+```
 <package>
 
 ...
@@ -214,7 +215,8 @@ As you can see [turtlesim](/turtlesim "/turtlesim") needs those libraries and pa
 ```
 $ cat manifest.xml
 ```
-* ```
+* 
+```
 <package>
 
 ...
@@ -238,18 +240,21 @@ Download and install the system dependencies for turtlesim:
 ```
 $ rosdep install turtlesim
 ```
-If you've been following along with the tutorials, it's likely that this is the first time you've used rosdep. When you run this command, you'll get an error message: * ```
+If you've been following along with the tutorials, it's likely that this is the first time you've used rosdep. When you run this command, you'll get an error message: * 
+```
 ERROR: your rosdep installation has not been initialized yet.  Please run:
 
     sudo rosdep init
     rosdep update
 ```
 
-Just run those two commands and then try to install turtlesim's dependencies again. If you installed using binaries you will see: * ```
+Just run those two commands and then try to install turtlesim's dependencies again. If you installed using binaries you will see: * 
+```
 All required rosdeps installed successfully
 ```
 
-Otherwise you will see the output of installing the dependencies of turtlesim: * ```
+Otherwise you will see the output of installing the dependencies of turtlesim: * 
+```
 #!/usr/bin/bash
 
 set -o errexit
@@ -295,7 +300,7 @@ Managing System dependencies (h1)
 
 
 (Page path)
-(1) Managing System dependencies > (2) System Dependencies > (3) rosdistro/rosdep
+(h1) Managing System dependencies > (h2) System Dependencies > (h3) rosdistro/rosdep
 
 (Segment 6)
 #Managing System dependencies (h1)
@@ -333,7 +338,8 @@ Then,
 ```
 $ cat package.xml
 ```
-* ```
+* 
+```
 <package>
 
 ...
@@ -356,7 +362,8 @@ As you can see [turtlesim](/turtlesim "/turtlesim") needs those libraries and pa
 ```
 $ cat manifest.xml
 ```
-* ```
+* 
+```
 <package>
 
 ...

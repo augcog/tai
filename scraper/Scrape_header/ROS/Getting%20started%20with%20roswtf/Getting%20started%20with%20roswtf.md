@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [Getting started with roswtf](/action/fullsearch/ROS/Tutorials/Getting%20started%20with%20roswtf?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FGetting+started+with+roswtf%22 "Click to do a full-text search for this title")
+* [Getting started with roswtf](/ROS/Tutorials/Getting%20started%20with%20roswtf "/ROS/Tutorials/Getting%20started%20with%20roswtf")
 
 #### ROS 2 Documentation
 

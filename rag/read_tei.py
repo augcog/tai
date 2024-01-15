@@ -1,24 +1,39 @@
-
 from datetime import datetime
 import os
 import time
-# import chromadb
 import numpy as np
-# from chromadb.utils import embedding_functions
 import pickle
 import openai
-from sklearn.decomposition import PCA
 import cohere
 import voyageai
-from voyageai import get_embeddings,get_embedding
+from voyageai import get_embedding
 from transformers import AutoModel
-from numpy.linalg import norm
 from dotenv import load_dotenv
 load_dotenv()
 print(os.getenv("OPENAI_API_KEY"))
-# history=[]
-# history.append({"role": "system", "content": client.starting_prompt})
-# history.append({"role": "user", "content": message})
+
+# TODO TECHNIQUE
+# technique = 'none'
+# technique = 'seperate_paragraph'
+# technique = 'bullet'
+# technique = 'connected_bullet'
+# technique = 'seperate_paragraph_bullet'
+# technique = 'seperate_sentence'
+technique = 'recursive_seperate'
+# TODO METHOD
+# method='to_task'
+# method='to_doc'
+# method='to_doc_chat_completion'
+# method = 'to_task_chat_completion'
+method = 'none'
+# method='sum'
+# TODO MODEL
+# model='local'
+model = 'openai'
+# model='cohere'
+# model='voyage'
+# model='jina'
+# model='zephyr'
 
 def wizard_coder(history: list[dict]):
     DEFAULT_SYSTEM_PROMPT = history[0]['content']+'\n\n'
@@ -84,31 +99,8 @@ def generate_log(success_retrieve, fail_retrieve,filename=None):
 
     return os.path.join(folder_path, filename)
 # for n in [900,800,700,600,500,400,300,200,100]:
+# TODO TOKEN SIZE
 for n in [400]:
-    # TODO TECHNIQUE
-    # technique = 'none'
-    # technique = 'seperate_paragraph'
-    # technique = 'bullet'
-    # technique = 'connected_bullet'
-    # technique = 'seperate_paragraph_bullet'
-    # technique = 'seperate_sentence'
-    technique = 'recursive_seperate'
-
-    # TODO METHOD
-    # method='to_task'
-    # method='to_doc'
-    # method='to_doc_chat_completion'
-    # method = 'to_task_chat_completion'
-    method='none'
-    # method='sum'
-
-    # TODO MODEL
-    # model='local'
-    model='openai'
-    # model='cohere'
-    # model='voyage'
-    # model='jina'
-    # model='zephyr'
     if method=='to_task':
         system_embedding_prompt = ("Given the content and the document_hierarchy_path of a document, describe the tasks you can answer based on its content.")
         system_query_prompt = 'Rephrase the provided task in your own words without changing its original meaning.'

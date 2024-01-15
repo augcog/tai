@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [WhereNext](/action/fullsearch/ROS/Tutorials/WhereNext?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FWhereNext%22 "Click to do a full-text search for this title")
+* [WhereNext](/ROS/Tutorials/WhereNext "/ROS/Tutorials/WhereNext")
 
 #### ROS 2 Documentation
 

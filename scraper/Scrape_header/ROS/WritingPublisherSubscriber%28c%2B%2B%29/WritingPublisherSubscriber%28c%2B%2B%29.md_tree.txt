@@ -14,7 +14,7 @@ Writing a Simple Publisher and Subscriber (C++) (h1)
 
 
 (Page path)
-(1)  > (2)  > (3)  > (4) ROS 2 Documentation
+(h1)  > (h2)  > (h3)  > (h4) ROS 2 Documentation
 
 (Segment 1)
 # (h1)
@@ -49,7 +49,7 @@ Writing a Simple Publisher and Subscriber (C++) (h1)
 
 
 (Page path)
-(1) Wiki
+(h1) Wiki
 
 (Segment 2)
 #Wiki (h1)
@@ -80,7 +80,7 @@ Writing a Simple Publisher and Subscriber (C++) (h1)
 
 
 (Page path)
-(1) Page
+(h1) Page
 
 (Segment 3)
 #Page (h1)
@@ -142,7 +142,7 @@ Writing a Simple Publisher and Subscriber (C++) (h1)
 
 
 (Page path)
-(1) User
+(h1) User
 
 (Segment 4)
 #User (h1)
@@ -177,7 +177,7 @@ Writing a Simple Publisher and Subscriber (C++) (h1)
 
 
 (Page path)
-(1) Writing a Simple Publisher and Subscriber (C++) > (2) Writing the Publisher Node > (3) The Code
+(h1) Writing a Simple Publisher and Subscriber (C++) > (h2) Writing the Publisher Node > (h3) The Code
 
 (Segment 5)
 #Writing a Simple Publisher and Subscriber (C++) (h1)
@@ -354,7 +354,7 @@ Writing a Simple Publisher and Subscriber (C++) (h1)
 
 
 (Page path)
-(1) Writing a Simple Publisher and Subscriber (C++) > (2) Writing the Publisher Node > (3) The Code Explained
+(h1) Writing a Simple Publisher and Subscriber (C++) > (h2) Writing the Publisher Node > (h3) The Code Explained
 
 (Segment 6)
 #Writing a Simple Publisher and Subscriber (C++) (h1)
@@ -499,7 +499,7 @@ Writing a Simple Publisher and Subscriber (C++) (h1)
 
 
 (Page path)
-(1) Writing a Simple Publisher and Subscriber (C++) > (2) Writing the Subscriber Node
+(h1) Writing a Simple Publisher and Subscriber (C++) > (h2) Writing the Subscriber Node
 
 (Segment 7)
 #Writing a Simple Publisher and Subscriber (C++) (h1)
@@ -596,7 +596,7 @@ Writing a Simple Publisher and Subscriber (C++) (h1)
 
 
 (Page path)
-(1) Writing a Simple Publisher and Subscriber (C++) > (2) Building your nodes
+(h1) Writing a Simple Publisher and Subscriber (C++) > (h2) Building your nodes
 
 (Segment 8)
 #Writing a Simple Publisher and Subscriber (C++) (h1)
@@ -777,7 +777,7 @@ Writing a Simple Publisher and Subscriber (C++) (h1)
 
 
 (Page path)
-(1) Writing a Simple Publisher and Subscriber (C++) > (2) Additional Resources > (3) Video Tutorial
+(h1) Writing a Simple Publisher and Subscriber (C++) > (h2) Additional Resources > (h3) Video Tutorial
 
 (Segment 9)
 #Writing a Simple Publisher and Subscriber (C++) (h1)

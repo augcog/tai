@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [ExaminingPublisherSubscriber](/action/fullsearch/ROS/Tutorials/ExaminingPublisherSubscriber?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FExaminingPublisherSubscriber%22 "Click to do a full-text search for this title")
+* [ExaminingPublisherSubscriber](/ROS/Tutorials/ExaminingPublisherSubscriber "/ROS/Tutorials/ExaminingPublisherSubscriber")
 
 #### ROS 2 Documentation
 
@@ -161,7 +161,8 @@ In the last tutorial we made a publisher called "talker". Let's run it:
 $ rosrun beginner_tutorials talker      (C++)
 $ rosrun beginner_tutorials talker.py   (Python) 
 ```
-You will see something similar to: * ```
+You will see something similar to: * 
+```
 [INFO] [WallTime: 1314931831.774057] hello world 1314931831.77
 [INFO] [WallTime: 1314931832.775497] hello world 1314931832.77
 [INFO] [WallTime: 1314931833.778937] hello world 1314931833.78
@@ -178,7 +179,8 @@ In the last tutorial we made a subscriber called "listener". Let's run it:
 $ rosrun beginner_tutorials listener     (C++)
 $ rosrun beginner_tutorials listener.py  (Python) 
 ```
-You will see something similar to: * ```
+You will see something similar to: * 
+```
 [INFO] [WallTime: 1314931969.258941] /listener_17657_1314931968795I heard hello world 1314931969.26
 [INFO] [WallTime: 1314931970.262246] /listener_17657_1314931968795I heard hello world 1314931970.26
 [INFO] [WallTime: 1314931971.266348] /listener_17657_1314931968795I heard hello world 1314931971.26

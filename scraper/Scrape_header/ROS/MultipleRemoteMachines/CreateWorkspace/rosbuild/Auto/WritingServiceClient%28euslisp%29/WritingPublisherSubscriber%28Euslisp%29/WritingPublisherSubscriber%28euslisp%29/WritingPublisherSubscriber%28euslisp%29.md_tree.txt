@@ -1,0 +1,615 @@
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Writing a Simple Publisher and Subscriber (Euslisp) (h1)
+--Writing a Simple Publisher and Subscriber (Euslisp) (h2)
+------The Code (h4)
+------The Code Explained (h4)
+----Writing the Subscriber Node (h3)
+----Building your nodes (h3)
+----Running Nodes (h3)
+
+
+(Page path)
+(h1)  > (h2)  > (h3)  > (h4) ROS 2 Documentation
+
+(Segment 1)
+# (h1)
+[]
+## (h2)
+[]
+### (h3)
+[]
+####ROS 2 Documentation (h4)
+
+The ROS Wiki is for ROS 1. Are you using ROS 2 ([Humble](http://docs.ros.org/en/humble/ "http://docs.ros.org/en/humble/"), [Iron](http://docs.ros.org/en/iron/ "http://docs.ros.org/en/iron/"), or [Rolling](http://docs.ros.org/en/rolling/ "http://docs.ros.org/en/rolling/"))?   
+[Check out the ROS 2 Project Documentation](http://docs.ros.org "http://docs.ros.org")  
+Package specific documentation can be found on [index.ros.org](https://index.ros.org "https://index.ros.org")
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Writing a Simple Publisher and Subscriber (Euslisp) (h1)
+--Writing a Simple Publisher and Subscriber (Euslisp) (h2)
+------The Code (h4)
+------The Code Explained (h4)
+----Writing the Subscriber Node (h3)
+----Building your nodes (h3)
+----Running Nodes (h3)
+
+
+(Page path)
+(h1) Wiki
+
+(Segment 2)
+#Wiki (h1)
+
+* [Distributions](/Distributions "/Distributions")
+* [ROS/Installation](/ROS/Installation "/ROS/Installation")
+* [ROS/Tutorials](/ROS/Tutorials "/ROS/Tutorials")
+* [RecentChanges](/RecentChanges "/RecentChanges")
+* [WritingPubl...er(euslisp)](/ROS/Tutorials/WritingPublisherSubscriber%28euslisp%29 "/ROS/Tutorials/WritingPublisherSubscriber%28euslisp%29")
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Writing a Simple Publisher and Subscriber (Euslisp) (h1)
+--Writing a Simple Publisher and Subscriber (Euslisp) (h2)
+------The Code (h4)
+------The Code Explained (h4)
+----Writing the Subscriber Node (h3)
+----Building your nodes (h3)
+----Running Nodes (h3)
+
+
+(Page path)
+(h1) Page
+
+(Segment 3)
+#Page (h1)
+
+* Immutable Page
+* [Comments](# "#")
+* [Info](/action/info/ROS/Tutorials/WritingPublisherSubscriber%28euslisp%29?action=info "/action/info/ROS/Tutorials/WritingPublisherSubscriber%28euslisp%29?action=info")
+* [Attachments](/action/AttachFile/ROS/Tutorials/WritingPublisherSubscriber%28euslisp%29?action=AttachFile "/action/AttachFile/ROS/Tutorials/WritingPublisherSubscriber%28euslisp%29?action=AttachFile")
+* More Actions:
+
+Raw Text
+Print View
+Render as Docbook
+Delete Cache
+------------------------
+Check Spelling
+Like Pages
+Local Site Map
+------------------------
+Rename Page
+Copy Page
+Delete Page
+------------------------
+My Pages
+Subscribe User
+------------------------
+Remove Spam
+Revert to this revision
+Package Pages
+Sync Pages
+------------------------
+CreatePdfDocument
+Load
+RawFile
+Save
+SlideShow
+
+<!--// Init menu
+actionsMenuInit('More Actions:');
+//-->
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Writing a Simple Publisher and Subscriber (Euslisp) (h1)
+--Writing a Simple Publisher and Subscriber (Euslisp) (h2)
+------The Code (h4)
+------The Code Explained (h4)
+----Writing the Subscriber Node (h3)
+----Building your nodes (h3)
+----Running Nodes (h3)
+
+
+(Page path)
+(h1) User
+
+(Segment 4)
+#User (h1)
+
+* [Login](/action/login/ROS/Tutorials/WritingPublisherSubscriber%28euslisp%29?action=login "/action/login/ROS/Tutorials/WritingPublisherSubscriber%28euslisp%29?action=login")
+
+|  |
+| --- |
+| **Note:** This tutorial assumes that you have completed the previous tutorials: [creating a ROS msg and srv](/ROS/Tutorials/CreatingMsgAndSrv "/ROS/Tutorials/CreatingMsgAndSrv").  |
+
+|  |
+| --- |
+| (!) Please ask about problems and questions regarding this tutorial on [answers.ros.org](http://answers.ros.org "http://answers.ros.org"). Don't forget to include in your question the link to this page, the versions of your OS & ROS, and also add appropriate tags. |
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Writing a Simple Publisher and Subscriber (Euslisp) (h1)
+--Writing a Simple Publisher and Subscriber (Euslisp) (h2)
+------The Code (h4)
+------The Code Explained (h4)
+----Writing the Subscriber Node (h3)
+----Building your nodes (h3)
+----Running Nodes (h3)
+
+
+(Page path)
+(h1) Writing a Simple Publisher and Subscriber (Euslisp) > (h2) Writing a Simple Publisher and Subscriber (Euslisp) > (h3)  > (h4) The Code
+
+(Segment 5)
+#Writing a Simple Publisher and Subscriber (Euslisp) (h1)
+
+**Description:** This tutorial covers how to write a publisher and subscriber node in euslisp.  
+
+**Tutorial Level:** BEGINNER  
+
+**Next Tutorial:** [Writing a Simple Service and Client (Euslisp)](/ROS/Tutorials/WritingServiceClient%28euslisp%29 "/ROS/Tutorials/WritingServiceClient%28euslisp%29")   
+
+ Contents1. [Writing a Simple Publisher and Subscriber (Euslisp)](#Writing_a_Simple_Publisher_and_Subscriber_.28Euslisp.29 "#Writing_a_Simple_Publisher_and_Subscriber_.28Euslisp.29")
+	1. 1. [The Code](#The_Code "#The_Code")
+		2. [The Code Explained](#The_Code_Explained "#The_Code_Explained")
+	2. [Writing the Subscriber Node](#Writing_the_Subscriber_Node "#Writing_the_Subscriber_Node")
+		1. [The Code](#The_Code-1 "#The_Code-1")
+		2. [The Code Explained](#The_Code_Explained-1 "#The_Code_Explained-1")
+	3. [Building your nodes](#Building_your_nodes "#Building_your_nodes")
+	4. [Running Nodes](#Running_Nodes "#Running_Nodes")
+
+
+##Writing a Simple Publisher and Subscriber (Euslisp) (h2)
+
+"Node" is the ROS term for an executable that is connected to the ROS network. Here we'll create the publisher ("talker") node which will continually broadcast a message. Change directory into the beginner\_tutorials package, you created in the earlier tutorial, creating a package: 
+```
+roscd beginner_tutorials
+```
+
+
+### (h3)
+[]
+####The Code (h4)
+
+Next, let's create listener.l file under your new euslisp directly. 
+
+function isnumbered(obj) {
+ return obj.childNodes.length && obj.firstChild.childNodes.length && obj.firstChild.firstChild.className == 'LineNumber';
+}
+function nformat(num,chrs,add) {
+ var nlen = Math.max(0,chrs-(''+num).length), res = '';
+ while (nlen>0) { res += ' '; nlen-- }
+ return res+num+add;
+}
+function addnumber(did, nstart, nstep) {
+ var c = document.getElementById(did), l = c.firstChild, n = 1;
+ if (!isnumbered(c)) {
+ if (typeof nstart == 'undefined') nstart = 1;
+ if (typeof nstep == 'undefined') nstep = 1;
+ var n = nstart;
+ while (l != null) {
+ if (l.tagName == 'SPAN') {
+ var s = document.createElement('SPAN');
+ var a = document.createElement('A');
+ s.className = 'LineNumber';
+ a.appendChild(document.createTextNode(nformat(n,4,'')));
+ a.href = '#' + did + '\_' + n;
+ s.appendChild(a);
+ s.appendChild(document.createTextNode(' '));
+ n += nstep;
+ if (l.childNodes.length) {
+ l.insertBefore(s, l.firstChild);
+ }
+ else {
+ l.appendChild(s);
+ }
+ }
+ l = l.nextSibling;
+ }
+ }
+ return false;
+}
+function remnumber(did) {
+ var c = document.getElementById(did), l = c.firstChild;
+ if (isnumbered(c)) {
+ while (l != null) {
+ if (l.tagName == 'SPAN' && l.firstChild.className == 'LineNumber') l.removeChild(l.firstChild);
+ l = l.nextSibling;
+ }
+ }
+ return false;
+}
+function togglenumber(did, nstart, nstep) {
+ var c = document.getElementById(did);
+ if (isnumbered(c)) {
+ remnumber(did);
+ } else {
+ addnumber(did,nstart,nstep);
+ }
+ return false;
+}
+
+document.write('<a href="#" onclick="return togglenumber(\'CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa\', 1, 1);" \
+ class="codenumbers">Toggle line numbers<\/a>');
+
+```
+ [1](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_1 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_1") #!/usr/bin/env roseus
+ [2](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_2 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_2") ;;;
+ [3](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_3 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_3") ;;; euslisp version of ros\_tutorials/rospy\_tutorials/001\_talker\_listener
+ [4](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_4 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_4") ;;;
+ [5](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_5 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_5") 
+ [6](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_6 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_6") (ros::load-ros-manifest "roseus")
+ [7](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_7 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_7") ;;;
+ [8](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_8 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_8") 
+ [9](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_9 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_9") ;;;
+ [10](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_10 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_10") ;;;
+ [11](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_11 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_11") (ros::roseus "listener" :anonymous t)
+ [12](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_12 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_12") ;;(setq sys::\*gc-hook\* #'(lambda (a b) (format t ";; gc ~A ~A~%" a b)))
+ [13](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_13 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_13") 
+ [14](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_14 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_14") ;; callback function
+ [15](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_15 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_15") ;(defun string-cb (msg) (print (list 'cb (sys::thread-self) (send msg :data))))
+ [16](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_16 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_16") ;(ros::subscribe "chatter" std\_msgs::string #'string-cb)
+ [17](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_17 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_17") 
+ [18](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_18 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_18") ; lambda function
+ [19](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_19 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_19") ;(ros::subscribe "chatter" std\_msgs::string
+ [20](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_20 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_20") ; #'(lambda (msg) (ros::rosinfo 
+ [21](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_21 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_21") ; (format nil "I heard ~A" (send msg :data)))))
+ [22](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_22 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_22") 
+ [23](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_23 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_23") ;; method call
+ [24](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_24 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_24") (defclass string-cb-class
+ [25](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_25 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_25")  :super propertied-object
+ [26](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_26 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_26")  :slots ())
+ [27](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_27 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_27") (defmethod string-cb-class
+ [28](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_28 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_28")  (:init () (ros::subscribe "chatter" std\_msgs::string #'send self :string-cb))
+ [29](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_29 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_29")  (:string-cb (msg) (print (list 'cb self (send msg :data)))))
+ [30](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_30 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_30") (setq m (instance string-cb-class :init))
+ [31](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_31 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_31") 
+ [32](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_32 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_32") (do-until-key
+ [33](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_33 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_33")  (ros::spin-once)
+ [34](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_34 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_34")  ;;(sys::gc)
+ [35](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_35 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_35") )
+ [36](#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_36 "#CA-50a497b9421dd2ae5c537338b7af9b2f859ea6aa_36") ;(ros::spin)
+
+```
+Don't forget to make the node executable: 
+```
+$ chmod +x euslisp/listener.l
+```
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Writing a Simple Publisher and Subscriber (Euslisp) (h1)
+--Writing a Simple Publisher and Subscriber (Euslisp) (h2)
+------The Code (h4)
+------The Code Explained (h4)
+----Writing the Subscriber Node (h3)
+----Building your nodes (h3)
+----Running Nodes (h3)
+
+
+(Page path)
+(h1) Writing a Simple Publisher and Subscriber (Euslisp) > (h2) Writing a Simple Publisher and Subscriber (Euslisp) > (h3)  > (h4) The Code Explained
+
+(Segment 6)
+#Writing a Simple Publisher and Subscriber (Euslisp) (h1)
+
+**Description:** This tutorial covers how to write a publisher and subscriber node in euslisp.  
+
+**Tutorial Level:** BEGINNER  
+
+**Next Tutorial:** [Writing a Simple Service and Client (Euslisp)](/ROS/Tutorials/WritingServiceClient%28euslisp%29 "/ROS/Tutorials/WritingServiceClient%28euslisp%29")   
+
+ Contents1. [Writing a Simple Publisher and Subscriber (Euslisp)](#Writing_a_Simple_Publisher_and_Subscriber_.28Euslisp.29 "#Writing_a_Simple_Publisher_and_Subscriber_.28Euslisp.29")
+	1. 1. [The Code](#The_Code "#The_Code")
+		2. [The Code Explained](#The_Code_Explained "#The_Code_Explained")
+	2. [Writing the Subscriber Node](#Writing_the_Subscriber_Node "#Writing_the_Subscriber_Node")
+		1. [The Code](#The_Code-1 "#The_Code-1")
+		2. [The Code Explained](#The_Code_Explained-1 "#The_Code_Explained-1")
+	3. [Building your nodes](#Building_your_nodes "#Building_your_nodes")
+	4. [Running Nodes](#Running_Nodes "#Running_Nodes")
+
+
+##Writing a Simple Publisher and Subscriber (Euslisp) (h2)
+
+"Node" is the ROS term for an executable that is connected to the ROS network. Here we'll create the publisher ("talker") node which will continually broadcast a message. Change directory into the beginner\_tutorials package, you created in the earlier tutorial, creating a package: 
+```
+roscd beginner_tutorials
+```
+
+
+### (h3)
+[]
+####The Code Explained (h4)
+
+The code for listener.l is similar to talker.l, except we've introduced a new callback-based mechanism for subscribing to messages. 
+
+document.write('<a href="#" onclick="return togglenumber(\'CA-c9e23aed46354eac0ea6e53f9f73881f7cb8c63b\', 12, 1);" \
+ class="codenumbers">Toggle line numbers<\/a>');
+
+```
+ [12](#CA-c9e23aed46354eac0ea6e53f9f73881f7cb8c63b_12 "#CA-c9e23aed46354eac0ea6e53f9f73881f7cb8c63b_12") ;;(setq sys::\*gc-hook\* #'(lambda (a b) (format t ";; gc ~A ~A~%" a b)))
+ [13](#CA-c9e23aed46354eac0ea6e53f9f73881f7cb8c63b_13 "#CA-c9e23aed46354eac0ea6e53f9f73881f7cb8c63b_13") 
+ [14](#CA-c9e23aed46354eac0ea6e53f9f73881f7cb8c63b_14 "#CA-c9e23aed46354eac0ea6e53f9f73881f7cb8c63b_14") ;; callback function
+
+```
+ This declares that your node subscribes to the chatter topic which is of type std\_msgs::String. When new messages are received, callback is invoked with the message as the first argument. We also changed up the call to (ros::roseus ) somewhat. We've added the :anonymous t keyword argument. ROS requires that each node have a unique name. If a node with the same name comes up, it bumps the previous one. This is so that malfunctioning nodes can easily be kicked off the network. The :anonymous t flag tells roseus to generate a unique name for the node so that you can have multiple listener.l nodes run easily. The final addition, (ros::spin) simply keeps your node from exiting until the node has been shutdown. 
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Writing a Simple Publisher and Subscriber (Euslisp) (h1)
+--Writing a Simple Publisher and Subscriber (Euslisp) (h2)
+------The Code (h4)
+------The Code Explained (h4)
+----Writing the Subscriber Node (h3)
+----Building your nodes (h3)
+----Running Nodes (h3)
+
+
+(Page path)
+(h1) Writing a Simple Publisher and Subscriber (Euslisp) > (h2) Writing a Simple Publisher and Subscriber (Euslisp) > (h3) Writing the Subscriber Node
+
+(Segment 7)
+#Writing a Simple Publisher and Subscriber (Euslisp) (h1)
+
+**Description:** This tutorial covers how to write a publisher and subscriber node in euslisp.  
+
+**Tutorial Level:** BEGINNER  
+
+**Next Tutorial:** [Writing a Simple Service and Client (Euslisp)](/ROS/Tutorials/WritingServiceClient%28euslisp%29 "/ROS/Tutorials/WritingServiceClient%28euslisp%29")   
+
+ Contents1. [Writing a Simple Publisher and Subscriber (Euslisp)](#Writing_a_Simple_Publisher_and_Subscriber_.28Euslisp.29 "#Writing_a_Simple_Publisher_and_Subscriber_.28Euslisp.29")
+	1. 1. [The Code](#The_Code "#The_Code")
+		2. [The Code Explained](#The_Code_Explained "#The_Code_Explained")
+	2. [Writing the Subscriber Node](#Writing_the_Subscriber_Node "#Writing_the_Subscriber_Node")
+		1. [The Code](#The_Code-1 "#The_Code-1")
+		2. [The Code Explained](#The_Code_Explained-1 "#The_Code_Explained-1")
+	3. [Building your nodes](#Building_your_nodes "#Building_your_nodes")
+	4. [Running Nodes](#Running_Nodes "#Running_Nodes")
+
+
+##Writing a Simple Publisher and Subscriber (Euslisp) (h2)
+
+"Node" is the ROS term for an executable that is connected to the ROS network. Here we'll create the publisher ("talker") node which will continually broadcast a message. Change directory into the beginner\_tutorials package, you created in the earlier tutorial, creating a package: 
+```
+roscd beginner_tutorials
+```
+
+
+###Writing the Subscriber Node (h3)
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Writing a Simple Publisher and Subscriber (Euslisp) (h1)
+--Writing a Simple Publisher and Subscriber (Euslisp) (h2)
+------The Code (h4)
+------The Code Explained (h4)
+----Writing the Subscriber Node (h3)
+----Building your nodes (h3)
+----Running Nodes (h3)
+
+
+(Page path)
+(h1) Writing a Simple Publisher and Subscriber (Euslisp) > (h2) Writing a Simple Publisher and Subscriber (Euslisp) > (h3) Building your nodes
+
+(Segment 8)
+#Writing a Simple Publisher and Subscriber (Euslisp) (h1)
+
+**Description:** This tutorial covers how to write a publisher and subscriber node in euslisp.  
+
+**Tutorial Level:** BEGINNER  
+
+**Next Tutorial:** [Writing a Simple Service and Client (Euslisp)](/ROS/Tutorials/WritingServiceClient%28euslisp%29 "/ROS/Tutorials/WritingServiceClient%28euslisp%29")   
+
+ Contents1. [Writing a Simple Publisher and Subscriber (Euslisp)](#Writing_a_Simple_Publisher_and_Subscriber_.28Euslisp.29 "#Writing_a_Simple_Publisher_and_Subscriber_.28Euslisp.29")
+	1. 1. [The Code](#The_Code "#The_Code")
+		2. [The Code Explained](#The_Code_Explained "#The_Code_Explained")
+	2. [Writing the Subscriber Node](#Writing_the_Subscriber_Node "#Writing_the_Subscriber_Node")
+		1. [The Code](#The_Code-1 "#The_Code-1")
+		2. [The Code Explained](#The_Code_Explained-1 "#The_Code_Explained-1")
+	3. [Building your nodes](#Building_your_nodes "#Building_your_nodes")
+	4. [Running Nodes](#Running_Nodes "#Running_Nodes")
+
+
+##Writing a Simple Publisher and Subscriber (Euslisp) (h2)
+
+"Node" is the ROS term for an executable that is connected to the ROS network. Here we'll create the publisher ("talker") node which will continually broadcast a message. Change directory into the beginner\_tutorials package, you created in the earlier tutorial, creating a package: 
+```
+roscd beginner_tutorials
+```
+
+
+###Building your nodes (h3)
+
+We use CMake as our build system and, yes, you have to use it even for [EusLisp](/EusLisp "/EusLisp") nodes. This is to make sure that the autogenerated [EusLisp](/EusLisp "/EusLisp") code for messages and services is created. Go to your catkin workspace and run catkin\_make: 
+```
+$ cd ~/catkin_ws
+$ catkin_make
+```
+
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+------ROS 2 Documentation (h4)
+Wiki (h1)
+Page (h1)
+User (h1)
+Writing a Simple Publisher and Subscriber (Euslisp) (h1)
+--Writing a Simple Publisher and Subscriber (Euslisp) (h2)
+------The Code (h4)
+------The Code Explained (h4)
+----Writing the Subscriber Node (h3)
+----Building your nodes (h3)
+----Running Nodes (h3)
+
+
+(Page path)
+(h1) Writing a Simple Publisher and Subscriber (Euslisp) > (h2) Writing a Simple Publisher and Subscriber (Euslisp) > (h3) Running Nodes
+
+(Segment 9)
+#Writing a Simple Publisher and Subscriber (Euslisp) (h1)
+
+**Description:** This tutorial covers how to write a publisher and subscriber node in euslisp.  
+
+**Tutorial Level:** BEGINNER  
+
+**Next Tutorial:** [Writing a Simple Service and Client (Euslisp)](/ROS/Tutorials/WritingServiceClient%28euslisp%29 "/ROS/Tutorials/WritingServiceClient%28euslisp%29")   
+
+ Contents1. [Writing a Simple Publisher and Subscriber (Euslisp)](#Writing_a_Simple_Publisher_and_Subscriber_.28Euslisp.29 "#Writing_a_Simple_Publisher_and_Subscriber_.28Euslisp.29")
+	1. 1. [The Code](#The_Code "#The_Code")
+		2. [The Code Explained](#The_Code_Explained "#The_Code_Explained")
+	2. [Writing the Subscriber Node](#Writing_the_Subscriber_Node "#Writing_the_Subscriber_Node")
+		1. [The Code](#The_Code-1 "#The_Code-1")
+		2. [The Code Explained](#The_Code_Explained-1 "#The_Code_Explained-1")
+	3. [Building your nodes](#Building_your_nodes "#Building_your_nodes")
+	4. [Running Nodes](#Running_Nodes "#Running_Nodes")
+
+
+##Writing a Simple Publisher and Subscriber (Euslisp) (h2)
+
+"Node" is the ROS term for an executable that is connected to the ROS network. Here we'll create the publisher ("talker") node which will continually broadcast a message. Change directory into the beginner\_tutorials package, you created in the earlier tutorial, creating a package: 
+```
+roscd beginner_tutorials
+```
+
+
+###Running Nodes (h3)
+
+Make sure that a roscore is up and running: 
+```
+$ roscore
+```
+You will see something similar to: 
+```
+... logging to /u/nkoenig/ros-jaunty/ros/log/d92b213a-90d4-11de-9344-00301b8246bf/roslaunch-ncq-11315.log
+... loading XML file [/u/nkoenig/ros-jaunty/ros/tools/roslaunch/roscore.xml]
+Added core node of type [rosout/rosout] in namespace [/]
+started roslaunch server http://ncq:60287/
+
+SUMMARY
+========
+
+NODES
+
+starting new master (master configured for auto start)
+process[master]: started with pid [11338]
+ROS_MASTER_URI=http://ncq:11311/
+setting /run_id to d92b213a-90d4-11de-9344-00301b8246bf
++PARAM [/run_id] by /roslaunch
++PARAM [/roslaunch/uris/ncq:60287] by /roslaunch
+process[rosout-1]: started with pid [11353]
+started core service [/rosout]
++SERVICE [/rosout/get_loggers] /rosout http://ncq:36277/
++SERVICE [/rosout/set_logger_level] /rosout http://ncq:36277/
++SUB [/time] /rosout http://ncq:36277/
++PUB [/rosout_agg] /rosout http://ncq:36277/
++SUB [/rosout] /rosout http://ncq:36277/
+```
+Now, we're ready to run talker/listener node. Open a new terminal and type follwings: 
+```
+$ rosrun beginner_tutorials talker.l
+```
+Then, open another terminal and type: 
+```
+$ rosrun beginner_tutorials listener.l
+```
+rosrun is a simple script to run any node under pacakge, you can directly run the node by typing ./talker.l. Talker will outputs something like: 
+```
+Registered [/talker-9224-1233892469.83] with master node http://localhost:11311
+hello world 1233892469.86
+hello world 1233892470.86
+hello world 1233892471.86
+hello world 1233892472.86
+hello world 1233892473.86
+...
+```
+And listener will show: 
+```
+/listener-7457-1233891102.92: I heard hello world 1233892470.86
+/listener-7457-1233891102.92: I heard hello world 1233892471.86
+/listener-7457-1233891102.92: I heard hello world 1233892472.86
+/listener-7457-1233891102.92: I heard hello world 1233892473.86
+/listener-7457-1233891102.92: I heard hello world 1233892474.86
+...
+```
+Now you write your first listener node, you also able to use [rostopic](/rostopic "/rostopic") that listens any type rof topic. If you run rostopic echo topic\_name, you'll see outputs limilar to listener.l. 
+```
+$ rostopic echo chatter
+```
+
+```
+rostopic: topic is [/chatter]
+topic type is [std_msgs/String]
+---
+data: hello world 1241463489.67
+---
+data: hello world 1241463490.67
+---
+```
+Congratulations! You now use an [EusLisp](/EusLisp "/EusLisp") communicating with your ROS nodes! For more depth information, please check [roseus](/roseus "/roseus") package or move to a next tutorial. 
+
+---
+
+Wiki: ROS/Tutorials/WritingPublisherSubscriber(euslisp) (last edited 2014-12-17 05:28:20 by [Kei Okada](/Kei%20Okada "Kei Okada @ kokada-t440s.jsk.imi.i.u-tokyo.ac.jp[133.11.216.162]"))
+
+Except where otherwise noted, the ROS wiki is licensed under the   
+
+
+
+
+--------------------------------------------------------------------------------

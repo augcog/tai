@@ -299,7 +299,8 @@ Example:
 ```
 $ rosmsg show beginner_tutorials/Num
 ```
-You will see: * ```
+You will see: * 
+```
 int64 num
 ```
 
@@ -310,7 +311,8 @@ If you can't remember which Package a msg is in, you can leave out the package n
 ```
 $ rosmsg show Num
 ```
-You will see: * ```
+You will see: * 
+```
 [beginner_tutorials/Num]:
 int64 num
 ```
@@ -392,7 +394,8 @@ Example:
 ```
 $ rossrv show beginner_tutorials/AddTwoInts
 ```
-You will see: * ```
+You will see: * 
+```
 int64 a
 int64 b
 ---

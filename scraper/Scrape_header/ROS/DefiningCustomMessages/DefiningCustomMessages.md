@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [DefiningCustomMessages](/action/fullsearch/ROS/Tutorials/DefiningCustomMessages?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FDefiningCustomMessages%22 "Click to do a full-text search for this title")
+* [DefiningCustomMessages](/ROS/Tutorials/DefiningCustomMessages "/ROS/Tutorials/DefiningCustomMessages")
 
 #### ROS 2 Documentation
 

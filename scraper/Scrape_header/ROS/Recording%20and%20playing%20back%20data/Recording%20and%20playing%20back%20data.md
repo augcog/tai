@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [Recording and playing back data](/action/fullsearch/ROS/Tutorials/Recording%20and%20playing%20back%20data?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FRecording+and+playing+back+data%22 "Click to do a full-text search for this title")
+* [Recording and playing back data](/ROS/Tutorials/Recording%20and%20playing%20back%20data "/ROS/Tutorials/Recording%20and%20playing%20back%20data")
 
 #### ROS 2 Documentation
 

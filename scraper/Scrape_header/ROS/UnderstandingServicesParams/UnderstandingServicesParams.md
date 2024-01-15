@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [UnderstandingServicesParams](/action/fullsearch/ROS/Tutorials/UnderstandingServicesParams?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FUnderstandingServicesParams%22 "Click to do a full-text search for this title")
+* [UnderstandingServicesParams](/ROS/Tutorials/UnderstandingServicesParams "/ROS/Tutorials/UnderstandingServicesParams")
 
 #### ROS 2 Documentation
 
@@ -171,7 +171,8 @@ rosservice uri          print service ROSRPC uri
 ```
 $ rosservice list
 ```
-The list command shows us that the turtlesim node provides nine services: reset, clear, spawn, kill, turtle1/set\_pen, /turtle1/teleport\_absolute, /turtle1/teleport\_relative, turtlesim/get\_loggers, and turtlesim/set\_logger\_level. There are also two services related to the separate rosout node: /rosout/get\_loggers and /rosout/set\_logger\_level. * ```
+The list command shows us that the turtlesim node provides nine services: reset, clear, spawn, kill, turtle1/set\_pen, /turtle1/teleport\_absolute, /turtle1/teleport\_relative, turtlesim/get\_loggers, and turtlesim/set\_logger\_level. There are also two services related to the separate rosout node: /rosout/get\_loggers and /rosout/set\_logger\_level. * 
+```
 /clear
 /kill
 /reset
@@ -198,7 +199,8 @@ Let's find out what type the clear service is:
 ```
 $ rosservice type /clear
 ```
-* ```
+* 
+```
 std_srvs/Empty
 ```
 
@@ -219,7 +221,8 @@ Let's look at the case where the service has arguments by looking at the informa
 ```
 $ rosservice type /spawn | rossrv show
 ```
-* ```
+* 
+```
 float32 x
 float32 y
 float32 theta
@@ -232,7 +235,8 @@ This service lets us spawn a new turtle at a given location and orientation. The
 ```
 $ rosservice call /spawn 2 2 0.2 ""
 ```
-The service call returns with the name of the newly created turtle * ```
+The service call returns with the name of the newly created turtle * 
+```
 name: turtle2
 ```
 
@@ -255,7 +259,8 @@ Let's look at what parameters are currently on the param server:
 ```
 $ rosparam list
 ```
-Here we can see that the turtlesim node has three parameters on the param server for background color: * ```
+Here we can see that the turtlesim node has three parameters on the param server for background color: * 
+```
 /rosdistro
 /roslaunch/uris/host_nxt__43407
 /rosversion
@@ -287,7 +292,8 @@ Now let's look at the values of other parameters on the param server. Let's get 
 ```
 $ rosparam get /turtlesim/background_g 
 ```
-* ```
+* 
+```
 86
 ```
 
@@ -295,7 +301,8 @@ We can also use rosparam get / to show us the contents of the entire Parameter
 ```
 $ rosparam get /
 ```
-* ```
+* 
+```
 rosdistro: 'noetic
 
   '
@@ -329,7 +336,8 @@ You can even load these yaml files into new namespaces, e.g. copy\_turtle:
 $ rosparam load params.yaml copy_turtle
 $ rosparam get /copy_turtle/turtlesim/background_b
 ```
-* ```
+* 
+```
 255
 ```
 

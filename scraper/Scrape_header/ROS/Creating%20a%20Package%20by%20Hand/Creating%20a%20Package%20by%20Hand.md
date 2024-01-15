@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [Creating a Package by Hand](/action/fullsearch/ROS/Tutorials/Creating%20a%20Package%20by%20Hand?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FCreating+a+Package+by+Hand%22 "Click to do a full-text search for this title")
+* [Creating a Package by Hand](/ROS/Tutorials/Creating%20a%20Package%20by%20Hand "/ROS/Tutorials/Creating%20a%20Package%20by%20Hand")
 
 #### ROS 2 Documentation
 

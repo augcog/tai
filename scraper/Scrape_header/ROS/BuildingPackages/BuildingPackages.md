@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [BuildingPackages](/action/fullsearch/ROS/Tutorials/BuildingPackages?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FBuildingPackages%22 "Click to do a full-text search for this title")
+* [BuildingPackages](/ROS/Tutorials/BuildingPackages "/ROS/Tutorials/BuildingPackages")
 
 #### ROS 2 Documentation
 
@@ -247,7 +247,8 @@ You should already have a [catkin workspace](/catkin/Tutorials/create_a_workspac
 $ cd ~/catkin_ws/
 $ ls src
 ```
-* ```
+* 
+```
 beginner_tutorials/  CMakeLists.txt@  
 ```
 
@@ -255,7 +256,8 @@ You should see that there is a folder called beginner\_tutorials which you creat
 ```
 $ catkin_make
 ```
-You should see a lot of output from cmake and then make, which should be similar to this: * ```
+You should see a lot of output from cmake and then make, which should be similar to this: * 
+```
 Base path: /home/user/catkin_ws
 Source space: /home/user/catkin_ws/src
 Build space: /home/user/catkin_ws/build
@@ -305,7 +307,8 @@ Note that [catkin\_make](/catkin/commands/catkin_make "/catkin/commands/catkin_m
 ```
 $ ls
 ```
-* ```
+* 
+```
 build
 devel
 src
@@ -331,7 +334,8 @@ Try:
 ```
 $ rosmake beginner_tutorials
 ```
-This previous command may take a while to finish. As it is running you should see some output like: * ```
+This previous command may take a while to finish. As it is running you should see some output like: * 
+```
 [ rosmake ] No package specified.  Building ['beginner_tutorials']
 [ rosmake ] Logging to directory
 [ rosmake ] /home/dbking/.ros/rosmake_output-2009-09-22-03-17-14
@@ -347,7 +351,8 @@ This previous command may take a while to finish. As it is running you should se
 [rosmake-0] <<< beginner_tutorials <<< [PASS] [ 0.79 seconds ]
 ```
 
-On Fuerte, since dependencies are greatly reduced, this takes almost no time and produces: * ```
+On Fuerte, since dependencies are greatly reduced, this takes almost no time and produces: * 
+```
 [ rosmake ] rosmake starting...                                                                     
 [ rosmake ] Packages requested are: ['beginner_tutorials']                                          
 [ rosmake ] Logging to directory /home/alex/.ros/rosmake/rosmake_output-20120603-082414             

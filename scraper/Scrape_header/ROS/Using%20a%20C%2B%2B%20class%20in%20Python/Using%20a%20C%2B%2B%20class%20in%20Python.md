@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [Using a C++ class in Python](/action/fullsearch/ROS/Tutorials/Using%20a%20C%2B%2B%20class%20in%20Python?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FUsing+a+C%2B%2B+class+in+Python%22 "Click to do a full-text search for this title")
+* [Using a C++ class in Python](/ROS/Tutorials/Using%20a%20C%2B%2B%20class%20in%20Python "/ROS/Tutorials/Using%20a%20C%2B%2B%20class%20in%20Python")
 
 #### ROS 2 Documentation
 

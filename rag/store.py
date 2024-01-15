@@ -91,30 +91,21 @@ def string_subtraction(main_string, sub_string):
 '''
 Traverse through files
 '''
-def traverse_files(path, file_format, start_folder_name):
-    # Ensure valid file format
-    if file_format not in ['rst', 'md']:
-        raise ValueError("Invalid file format. Allowed formats: 'rst', 'md'")
-
+def traverse_files(path, start_folder_name):
     results = []
-
     # Check if the provided path exists
     if not os.path.exists(path):
         raise ValueError(f"The provided path '{path}' does not exist.")
-    # print(os.walk(path))
     folder_tree = f"{start_folder_name} (h1)\n"
     for root, dir, files in os.walk(path):
-        # print(root, dir, files)
-
         for file in files:
             if file.endswith('.pkl'):
                 path_list = [start_folder_name] + string_subtraction(root, path).split('/')[1:]
                 line = ((len(path_list)-1)*"--" + path_list[-1] + f" (L{len(path_list)})")
                 folder_tree += f"{line}\n"
-    # print(tree)
+
 
     for root, dir ,files in os.walk(path):
-        # print(root, dir, files)
         for file in files:
             if file.endswith('.pkl'):
                 # file path
@@ -122,28 +113,18 @@ def traverse_files(path, file_format, start_folder_name):
                 path_list = [start_folder_name] + string_subtraction(root, path).split('/')[1:]
                 with open(file_path, 'rb') as pkl_file:
                     content = pickle.load(pkl_file)
-                # print(path_list)
                 folder_path = ' > '.join(f"{item} (Level{i+1})" for i, item in enumerate(path_list))
-                # print(content)
                 results.append(([folder_tree, folder_path], content))
     return results
 
 
 start=time.time()
 # Process each page
-# docs = traverse_files("/home/bot/dataset/edugpt/Scrape_header/ROS", "md", "ROS")
-docs = traverse_files("/home/bot/dataset/edugpt/Scrape_rst/Sawyer", "rst", "Sawyer")
-docs += traverse_files("/home/bot/dataset/edugpt/Scrape_textbook/textbook", "md", "Robotics textbook")
-# Define the path to your file
-file_path = 'documents/EECS106A_textbook.txt'
+# TODO PROCESS DOCUMENTS
+# docs = traverse_files("../dataset/edugpt/Scrape_header/ROS", "ROS")
+docs = traverse_files("../scraper/Scrape_rst/Sawyer", "Sawyer")
+docs += traverse_files("../scraper/Scrape_textbook/textbook", "Robotics textbook")
 
-# Open the file and read its contents into a string
-with open(file_path, 'r') as file:
-    segment = file.read()
-
-# Now file_contents holds the contents of the file as a string
-
-# docs.append((["textbook", "eecs"], [{'Page_table': "EECS 106", 'Page_path': "TEXTBOOK", 'Segment_print': segment}]))
 for i in docs:
     print(i)
 # human_embedding_prompt need to include toc_link, toc_page, title, section
@@ -162,7 +143,8 @@ technique = 'recursive_seperate'
 # method='to_doc_chat_completion'
 # method = 'to_task_chat_completion'
 method='none'
-# method='sum'fail = []
+# method='sum'
+# fail = []
 
 # TODO MODEL
 # model='local'
@@ -227,6 +209,7 @@ start=time.time()
 
 
 # for n in [900,800,700,600,500,400,300,200,100]:
+# TODO TOKEN LIMIT
 for n in [400]:
     print(n)
     if model=='local' or model=='zephyr':
@@ -253,7 +236,6 @@ for n in [400]:
         embedding = []
         folder = doc[0]
         file = doc[1]
-        # print(doc)
         # elements needed for embedding
         folder_tree = folder[0]
         folder_path = folder[1]
@@ -287,25 +269,11 @@ for n in [400]:
                 segment = [line for line in segment if line and line[0].isdigit()]
             elif technique == 'recursive_seperate':
                 n=n
-                # print(segment)
                 segment = send_split_message_user(segment, n)
-                if False:
-                    for i,seg in enumerate(segment):
-                        print(i,[seg])
-                    print("---")
             elif technique == 'none':
                 segment = [segment]
             for smaller_chunk in segment:
-                # print(smaller_chunk)
                 hp = human_embedding_prompt.format(segment=smaller_chunk, segment_path=folder_path + " > " + segment_path)
-            # history = [{"role": "system", "content": sp}, {"role": "user", "content": hp}]
-            # input = wizard_coder(history)
-            # print(segment)
-            # embedding.append(openai.Embedding.create(model="text-embedding-ada-002", input=input)['data'][0]['embedding'])
-            # ids.append(segment_path)
-            # document.append(segment)
-            #     print(smaller_chunk)
-            #     print(smaller_chunk)
                 try:
                     if method == 'none' or method =='to_doc_chat_completion':
                         history = [{"role": "user", "content": hp.strip()}]
@@ -330,7 +298,6 @@ for n in [400]:
                         embedding.append(jina.encode([hp])[0])
                     id = folder_path + " > " + segment_path + f"({count})"
                     ids.append(id)
-                    # print(type(smaller_chunk), len(smaller_chunk))
                     doc_list.append(smaller_chunk)
 
                 except openai.error.APIError as e:
@@ -338,13 +305,8 @@ for n in [400]:
                     fail.append(folder_path + " > " + segment_path)
                 count += 1
 
-        # for id in ids:
-        #     print(id)
-        # print("----------------------")
         id_list.extend(ids)
-        # doc_list.extend(document)
         embedding_list.extend(embedding)
-        # collection.add(documents=document, ids=ids, embeddings=embedding)
     id_list=np.array(id_list)
     doc_list=np.array(doc_list)
     embedding_list=np.array(embedding_list)
@@ -367,20 +329,16 @@ for n in [400]:
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
 
-    # Change the current working directory to the new folder
-    os.chdir(folder_name)
-
     print("Current Working Directory:", os.getcwd())
 
     # Open a file in binary write mode and store the data using pickle
     if technique=='recursive_seperate':
-        with open(f'{technique}_{method}_{model}_embedding_{n}_textbook.pkl', 'wb') as f:
+        with open(f'{folder_name}/test_{technique}_{method}_{model}_embedding_{n}_textbook.pkl', 'wb') as f:
             pickle.dump(data_to_store, f)
     else:
-        with open(f'{technique}_{method}_{model}_embedding.pkl', 'wb') as f:
+        with open(f'{folder_name}/{technique}_{method}_{model}_embedding.pkl', 'wb') as f:
             pickle.dump(data_to_store, f)
 
     print("failed embeddings")
-    os.chdir("..")
     for i in fail:
         print(i)

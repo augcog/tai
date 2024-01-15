@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [CreatingMsgAndSrv](/action/fullsearch/ROS/Tutorials/CreatingMsgAndSrv?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FCreatingMsgAndSrv%22 "Click to do a full-text search for this title")
+* [CreatingMsgAndSrv](/ROS/Tutorials/CreatingMsgAndSrv "/ROS/Tutorials/CreatingMsgAndSrv")
 
 #### ROS 2 Documentation
 
@@ -334,7 +334,8 @@ Example:
 ```
 $ rosmsg show beginner_tutorials/Num
 ```
-You will see: * ```
+You will see: * 
+```
 int64 num
 ```
 
@@ -345,7 +346,8 @@ If you can't remember which Package a msg is in, you can leave out the package n
 ```
 $ rosmsg show Num
 ```
-You will see: * ```
+You will see: * 
+```
 [beginner_tutorials/Num]:
 int64 num
 ```
@@ -415,7 +417,8 @@ Example:
 ```
 $ rossrv show beginner_tutorials/AddTwoInts
 ```
-You will see: * ```
+You will see: * 
+```
 int64 a
 int64 b
 ---

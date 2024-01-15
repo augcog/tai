@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [Packaging your ROS project as a snap](/action/fullsearch/ROS/Tutorials/Packaging%20your%20ROS%20project%20as%20a%20snap?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FPackaging+your+ROS+project+as+a+snap%22 "Click to do a full-text search for this title")
+* [Packaging your ROS project as a snap](/ROS/Tutorials/Packaging%20your%20ROS%20project%20as%20a%20snap "/ROS/Tutorials/Packaging%20your%20ROS%20project%20as%20a%20snap")
 
 #### ROS 2 Documentation
 

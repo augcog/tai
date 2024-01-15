@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [UsingRxconsoleRoslaunch](/action/fullsearch/ROS/Tutorials/UsingRxconsoleRoslaunch?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FUsingRxconsoleRoslaunch%22 "Click to do a full-text search for this title")
+* [UsingRxconsoleRoslaunch](/ROS/Tutorials/UsingRxconsoleRoslaunch "/ROS/Tutorials/UsingRxconsoleRoslaunch")
 
 #### ROS 2 Documentation
 

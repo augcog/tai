@@ -21,7 +21,7 @@ Packaging your ROS project as a snap (h1)
 
 
 (Page path)
-(1)  > (2)  > (3)  > (4) ROS 2 Documentation
+(h1)  > (h2)  > (h3)  > (h4) ROS 2 Documentation
 
 (Segment 1)
 # (h1)
@@ -63,7 +63,7 @@ Packaging your ROS project as a snap (h1)
 
 
 (Page path)
-(1) Wiki
+(h1) Wiki
 
 (Segment 2)
 #Wiki (h1)
@@ -101,7 +101,7 @@ Packaging your ROS project as a snap (h1)
 
 
 (Page path)
-(1) Page
+(h1) Page
 
 (Segment 3)
 #Page (h1)
@@ -170,7 +170,7 @@ Packaging your ROS project as a snap (h1)
 
 
 (Page path)
-(1) User
+(h1) User
 
 (Segment 4)
 #User (h1)
@@ -224,7 +224,7 @@ Packaging your ROS project as a snap (h1)
 
 
 (Page path)
-(1) Packaging your ROS project as a snap > (2) What are snaps?
+(h1) Packaging your ROS project as a snap > (h2) What are snaps?
 
 (Segment 5)
 #Packaging your ROS project as a snap (h1)
@@ -296,7 +296,7 @@ Packaging your ROS project as a snap (h1)
 
 
 (Page path)
-(1) Packaging your ROS project as a snap > (2) Creating a snap > (3) The snapcraft file > (4) Metadata
+(h1) Packaging your ROS project as a snap > (h2) Creating a snap > (h3) The snapcraft file > (h4) Metadata
 
 (Segment 6)
 #Packaging your ROS project as a snap (h1)
@@ -474,7 +474,7 @@ Packaging your ROS project as a snap (h1)
 
 
 (Page path)
-(1) Packaging your ROS project as a snap > (2) Creating a snap > (3) The snapcraft file > (4) Base
+(h1) Packaging your ROS project as a snap > (h2) Creating a snap > (h3) The snapcraft file > (h4) Base
 
 (Segment 7)
 #Packaging your ROS project as a snap (h1)
@@ -648,7 +648,7 @@ Packaging your ROS project as a snap (h1)
 
 
 (Page path)
-(1) Packaging your ROS project as a snap > (2) Creating a snap > (3) The snapcraft file > (4) Security model
+(h1) Packaging your ROS project as a snap > (h2) Creating a snap > (h3) The snapcraft file > (h4) Security model
 
 (Segment 8)
 #Packaging your ROS project as a snap (h1)
@@ -822,7 +822,7 @@ Packaging your ROS project as a snap (h1)
 
 
 (Page path)
-(1) Packaging your ROS project as a snap > (2) Creating a snap > (3) The snapcraft file > (4) Parts
+(h1) Packaging your ROS project as a snap > (h2) Creating a snap > (h3) The snapcraft file > (h4) Parts
 
 (Segment 9)
 #Packaging your ROS project as a snap (h1)
@@ -1001,7 +1001,7 @@ Packaging your ROS project as a snap (h1)
 
 
 (Page path)
-(1) Packaging your ROS project as a snap > (2) Creating a snap > (3) The snapcraft file > (4) Apps
+(h1) Packaging your ROS project as a snap > (h2) Creating a snap > (h3) The snapcraft file > (h4) Apps
 
 (Segment 10)
 #Packaging your ROS project as a snap (h1)
@@ -1177,7 +1177,7 @@ Packaging your ROS project as a snap (h1)
 
 
 (Page path)
-(1) Packaging your ROS project as a snap > (2) Creating a snap > (3) Building the snap
+(h1) Packaging your ROS project as a snap > (h2) Creating a snap > (h3) Building the snap
 
 (Segment 11)
 #Packaging your ROS project as a snap (h1)
@@ -1333,7 +1333,7 @@ Packaging your ROS project as a snap (h1)
 
 
 (Page path)
-(1) Packaging your ROS project as a snap > (2) Testing the snap > (3) The snapcraft.yaml
+(h1) Packaging your ROS project as a snap > (h2) Testing the snap > (h3) The snapcraft.yaml
 
 (Segment 12)
 #Packaging your ROS project as a snap (h1)
@@ -1473,7 +1473,7 @@ Packaging your ROS project as a snap (h1)
 
 
 (Page path)
-(1) Packaging your ROS project as a snap > (2) Testing the snap > (3) The snapcraft.yaml explained
+(h1) Packaging your ROS project as a snap > (h2) Testing the snap > (h3) The snapcraft.yaml explained
 
 (Segment 13)
 #Packaging your ROS project as a snap (h1)
@@ -1619,7 +1619,7 @@ Packaging your ROS project as a snap (h1)
 
 
 (Page path)
-(1) Packaging your ROS project as a snap > (2) Testing the snap > (3) Actually create the snap
+(h1) Packaging your ROS project as a snap > (h2) Testing the snap > (h3) Actually create the snap
 
 (Segment 14)
 #Packaging your ROS project as a snap (h1)
@@ -1731,7 +1731,7 @@ Packaging your ROS project as a snap (h1)
 
 
 (Page path)
-(1) Packaging your ROS project as a snap > (2) Sharing the snap with the world
+(h1) Packaging your ROS project as a snap > (h2) Sharing the snap with the world
 
 (Segment 15)
 #Packaging your ROS project as a snap (h1)

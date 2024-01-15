@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [UnderstandingNodes](/action/fullsearch/ROS/Tutorials/UnderstandingNodes?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FUnderstandingNodes%22 "Click to do a full-text search for this title")
+* [UnderstandingNodes](/ROS/Tutorials/UnderstandingNodes "/ROS/Tutorials/UnderstandingNodes")
 
 #### ROS 2 Documentation
 
@@ -180,7 +180,8 @@ roscore is the first thing you should run when using ROS. Please run:
 ```
 $ roscore
 ```
-You will see something similar to: * ```
+You will see something similar to: * 
+```
 ... logging to ~/.ros/log/9cf88ce4-b14d-11df-8a75-00251148e8cf/roslaunch-machine_name-13039.log
 Checking log directory for disk usage. This may take awhile.
 Press Ctrl-C to interrupt
@@ -221,7 +222,8 @@ rosnode displays information about the ROS nodes that are currently running. The
 $ rosnode list
 ```
 * You will see:
-* ```
+* 
+```
 /rosout
 ```
 
@@ -229,7 +231,8 @@ This showed us that there is only one node running: [rosout](/rosout "/rosout").
 ```
 $ rosnode info /rosout
 ```
-This gave us some more information about rosout, such as the fact that it publishes /rosout\_agg. * ```
+This gave us some more information about rosout, such as the fact that it publishes /rosout\_agg. * 
+```
 ------------------------------------------------------------------------
 Node [/rosout]
 Publications:
@@ -263,7 +266,8 @@ You will see the turtlesim window: * ![turtlesim.png](/ROS/Tutorials/Understandi
 ```
 $ rosnode list
 ```
-You will see something similar to: * ```
+You will see something similar to: * 
+```
 /rosout
 /turtlesim
 ```
@@ -277,7 +281,8 @@ Now, if we go back and use rosnode list:
 $ rosnode list
 ```
 * You will see something similar to:
-* ```
+* 
+```
 /my_turtle
 /rosout
 ```
@@ -288,7 +293,8 @@ We see our new /my\_turtle node. Let's use another rosnode command, ping, to tes
 ```
 $ rosnode ping my_turtle
 ```
-* ```
+* 
+```
 rosnode: node is [/my_turtle]
 pinging /my_turtle with a timeout of 3.0s
 xmlrpc reply from http://aqy:42235/     time=1.152992ms

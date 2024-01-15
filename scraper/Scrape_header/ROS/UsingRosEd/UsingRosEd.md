@@ -65,7 +65,7 @@ function handleSubmit() {
 
 * [ROS](/ROS "/ROS")
 * [Tutorials](/ROS/Tutorials "/ROS/Tutorials")
-* [UsingRosEd](/action/fullsearch/ROS/Tutorials/UsingRosEd?action=fullsearch&context=180&value=linkto%3A%22ROS%2FTutorials%2FUsingRosEd%22 "Click to do a full-text search for this title")
+* [UsingRosEd](/ROS/Tutorials/UsingRosEd "/ROS/Tutorials/UsingRosEd")
 
 #### ROS 2 Documentation
 
@@ -165,7 +165,8 @@ Example:
 ```
 $ rosed roscpp <tab><tab>
 ```
-* ```
+* 
+```
 Empty.srv                   package.xml
 GetLoggers.srv              roscpp-msg-extras.cmake
 Logger.msg                  roscpp-msg-paths.cmake
@@ -189,7 +190,8 @@ export EDITOR='emacs -nw'
 ```
 $ echo $EDITOR
 ```
-* ```
+* 
+```
 nano -w
 ```
 or 

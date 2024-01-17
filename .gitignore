@@ -166,3 +166,6 @@ cython_debug/
 log
 
 .DS_Store
+
+#csv
+.csv

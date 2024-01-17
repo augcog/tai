@@ -20,7 +20,8 @@ data = {
     'response': []
 }
 # Number of data sets you want to train on
-n=5
+# Example: n=10
+n=len(dataset)
 selected_dataset=dataset[:n]
 print(selected_dataset)
 for i in range(n):
@@ -36,18 +37,19 @@ for i in range(n):
             "content": question
         },
     ]
-# Generate samples using the API
+    # Generate samples using the API
     response = openai.ChatCompletion.create(
         model="gpt-4",
         messages=messages,
         max_tokens=50  # Adjust based on your needs
     )
     print(response)
-# Extract response and append to your container
+    # Extract response and append to your container
     data['id'].append(selected_dataset['id'][i])
     data['system_prompt'].append(system_prompt)
     data['question'].append(question)
     data['response'].append(response['choices'][0]['message']['content'].replace('\n\n','\n'))
+
 # Convert the dictionary to a DataFrame
 df = pd.DataFrame(data)
 # Save the DataFrame to a CSV file

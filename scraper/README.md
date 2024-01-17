@@ -34,9 +34,9 @@ Quick start package installation (h1)
   root_filename = "ROS"
   ```
   - `url`: the url where your webside starts
-  - `root`: the url where you wan your website to recurse until
+  - `root`: the url where you want your website to recurse until
   - `root_regex`: the format of the url that it needs to follow
-  - `root_filename`: the filename you want toi store all your data
+  - `root_filename`: the filename you want to store all your data
 - `Scraper_md`:
   In order to use this folder you need to provide the url to the folder of mkdocs.yaml of the repo.
   `url="https://github.com/carla-simulator/carla/blob/master/mkdocs.yml"`
@@ -48,6 +48,6 @@ Quick start package installation (h1)
   starting='index'
   url=f"https://github.com/numpy/numpy/blob/main/doc/source/index.rst?plain=1"
   ```
-  - mkdir ad os.chdir is just setting your directory name
+  - mkdir and os.chdir is just setting your directory name
   - `starting`: the name of your first rst file. (It's usually index)
-  - `url`: the url to the index.rst of the repo. Notice you have to add `?plain=` to the end of the url as that obtains th raw code of the rst file. 
+  - `url`: the url to the index.rst of the repo. Notice you have to add `?plain=1` to the end of the url as that obtains th raw code of the rst file. 

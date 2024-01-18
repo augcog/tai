@@ -16,11 +16,9 @@ Steps to follow:
 
 1) In the file you will find a vaiable `n=len(dataset)` this is used to adjust the number of datasets you would like to train on.
 2) run `OpenOrca.py`
-3) All your data set can be found in `updated_dataset.csv` in the same folder.
-
-updated_dataset.csv will containt these headers `id,system_prompt,question,response`
-
-`id`: id of the dataset
-`system_prompt`: system_prompt given to GPT-4
-`question`: question given to GPT-4
-`reponse`: reponse given by GPT-4
+3) All your data set can be found in `updated_dataset.csv` in the same folder.  
+    - updated_dataset.csv will containt these headers `id,system_prompt,question,response`
+      - `id`: id of the dataset
+      - `system_prompt`: system_prompt given to GPT-4
+      - `question`: question given to GPT-4
+      - `reponse`: reponse given by GPT-4

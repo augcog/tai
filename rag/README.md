@@ -1,6 +1,6 @@
 # RAG (Retrieval Augmented Generation)
 ## Chunking documents and converting them into embeddings
-- In `store.py` there is a few combinition of embedding models, prompting methods chunking techniques to use.
+- In `embedding_create.py` there is a few combinition of embedding models, prompting methods chunking techniques to use.
 - Embedding models
   1) local
   2) openai(best performance)
@@ -115,9 +115,9 @@
 
 ## Retrieval
 - In the retrieval process the code will convert the question into an embedding(question embedding) and find the document embedding that has the closest euclidient distance.
-- The file we will be using in this case is `read_tei.py`
+- The file we will be using in this case is `retrieval_test.py`
 ### How to use
-1) Like `store.py` you will be given a selections of techniques, prompting methods, embedding models and token size. IMPORTANT!!!: Make sure the selections in `read_tei.py` matches the selections in `store.py`
+1) Like `embedding_create.py` you will be given a selections of techniques, prompting methods, embedding models and token size. IMPORTANT!!!: Make sure the selections in `retrieval_test.py` matches the selections in `store.py`
     ```
     # TODO TECHNIQUE
     # technique = 'none'
@@ -146,7 +146,7 @@
     # TODO TOKEN SIZE
     for n in [400]:
     ```
-2) Just run the code `python3 read_tei.py` on `~/roarai/rag` and you will be able to see how well is the retrieval of your embedding model.
+2) Just run the code `python3 retrieval_test.py` on `~/roarai/rag` and you will be able to see how well is the retrieval of your embedding model.
 3) There will be a log showing how well the embedding model has performed. go to `log` directory and the format of the file would be:  
 FILE_NAME_FORMAT:  
 ```

@@ -1,0 +1,438 @@
+Parsed Headers, Levels and Contents:
+h1: Creating a ROS msg and srv
+Contents:
+
+**Description:** This tutorial covers how to create and build msg and srv files as well as the [rosmsg](/rosmsg "/rosmsg"), rossrv and roscp commandline tools.  
+
+**Tutorial Level:** BEGINNER  
+
+**Next Tutorial:** Writing a simple publisher and subscriber [(python)](/ROS/Tutorials/WritingPublisherSubscriber%28python%29 "/ROS/Tutorials/WritingPublisherSubscriber%28python%29") [(c++)](/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29 "/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29")  
+
+<!--
+// @@ Buildsystem macro
+function Buildsystem(sections) {
+ var dotversion = ".buildsystem."
+
+ // Tag shows unless already tagged
+ $.each(sections.show,
+ function() {
+ $("div" + dotversion + this).not(".versionshow,.versionhide").addClass("versionshow")
+ }
+ )
+
+ // Tag hides unless already tagged
+ $.each(sections.hide,
+ function() {
+ $("div" + dotversion + this).not(".versionshow,.versionhide").addClass("versionhide")
+ }
+ )
+
+ // Show or hide according to tag
+ $(".versionshow").removeClass("versionshow").filter("div").show()
+ $(".versionhide").removeClass("versionhide").filter("div").hide()
+}
+
+function getURLParameter(name) {
+ return decodeURIComponent(
+ (
+ new RegExp(
+ '[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)'
+ ).exec(location.search) || [,""]
+ )[1].replace(/\+/g, '%20')
+ ) || null;
+}
+
+$(document).ready(function() {
+ var activesystem = "catkin";
+ var url\_distro = getURLParameter('buildsystem');
+ if (url\_distro)
+ {
+ activesystem = url\_distro;
+ }
+ $("div.buildsystem").not("."+activesystem).hide();
+ $("#"+activesystem).click();
+ $("input.version:hidden").each(function() {
+ var bg = $(this).attr("value").split(":");
+ $("div.version." + bg[0]).css("background-color", bg[1]).removeClass(bg[0])
+ });
+})
+ // -->
+
+ catkin 
+ rosbuild 
+ Contents1. [Introduction to msg and srv](#Introduction_to_msg_and_srv "#Introduction_to_msg_and_srv")
+2. [Using msg](#Using_msg "#Using_msg")
+	1. [Creating a msg](#Creating_a_msg "#Creating_a_msg")
+3. [Using rosmsg](#Using_rosmsg "#Using_rosmsg")
+4. [Using srv](#Using_srv "#Using_srv")
+	1. [Creating a srv](#Creating_a_srv "#Creating_a_srv")
+	2. [Using rossrv](#Using_rossrv "#Using_rossrv")
+5. [Common step for msg and srv](#Common_step_for_msg_and_srv "#Common_step_for_msg_and_srv")
+6. [Getting Help](#Getting_Help "#Getting_Help")
+7. [Review](#Review "#Review")
+8. [Next Tutorial](#Next_Tutorial "#Next_Tutorial")
+
+
+=====================================
+
+h2: Introduction to msg and srv
+Contents:
+
+* [msg](/msg "/msg"): msg files are simple text files that describe the fields of a ROS message. They are used to generate source code for messages in different languages.
+* [srv](/srv "/srv"): an srv file describes a service. It is composed of two parts: a request and a response.
+
+msg files are stored in the msg directory of a package, and srv files are stored in the srv directory. msgs are just simple text files with a field type and field name per line. The field types you can use are: * int8, int16, int32, int64 (plus uint\*)
+* float32, float64
+* string
+* time, duration
+* other msg files
+* variable-length array[] and fixed-length array[C]
+
+There is also a special type in ROS: Header, the header contains a timestamp and coordinate frame information that are commonly used in ROS. You will frequently see the first line in a msg file have Header header. Here is an example of a msg that uses a Header, a string primitive, and two other msgs : 
+```
+  Header header
+  string child_frame_id
+  geometry_msgs/PoseWithCovariance pose
+  geometry_msgs/TwistWithCovariance twist
+```
+srv files are just like msg files, except they contain two parts: a request and a response. The two parts are separated by a '---' line. Here is an example of a srv file: 
+```
+int64 A
+int64 B
+---
+int64 Sum
+```
+In the above example, A and B are the request, and Sum is the response. 
+
+=====================================
+
+h2: Using msg
+Contents:
+
+
+=====================================
+
+h3: Creating a msg
+Contents:
+
+Let's define a new msg in the package that was created in the previous tutorial. 
+```
+$ roscd beginner_tutorials
+$ mkdir msg
+$ echo "int64 num" > msg/Num.msg
+```
+The example .msg file above contains only 1 line. You can, of course, create a more complex file by adding multiple elements, one per line, like this: 
+```
+string first_name
+string last_name
+uint8 age
+uint32 score
+```
+There's one more step, though. We need to make sure that the msg files are turned into source code for C++, Python, and other languages: Open package.xml, and make sure these two lines are in it and [uncommented](http://www.htmlhelp.com/reference/wilbur/misc/comment.html "http://www.htmlhelp.com/reference/wilbur/misc/comment.html"): 
+```
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
+```
+Note that at build time, we need "message\_generation", while at runtime, we only need "message\_runtime". Open CMakeLists.txt in your favorite text editor ([rosed](/ROS/Tutorials/UsingRosEd "/ROS/Tutorials/UsingRosEd") from the previous tutorial is a good option). Add the message\_generation dependency to the find\_package call which already exists in your CMakeLists.txt so that you can generate messages. You can do this by simply adding message\_generation to the list of COMPONENTS such that it looks like this: 
+```
+# Do not just add this to your CMakeLists.txt, modify the existing text to add message_generation before the closing parenthesis
+find_package(catkin REQUIRED COMPONENTS
+   roscpp
+   rospy
+   std_msgs
+   message_generation
+)
+```
+You may notice that sometimes your project builds fine even if you did not call find\_package with all dependencies. This is because catkin combines all your projects into one, so if an earlier project calls find\_package, yours is configured with the same values. But forgetting the call means your project can easily break when built in isolation. Also make sure you export the message runtime dependency. 
+```
+catkin_package(
+  ...
+  CATKIN_DEPENDS message_runtime ...
+  ...)
+```
+Find the following block of code: 
+```
+# add_message_files(
+#   FILES
+#   Message1.msg
+#   Message2.msg
+# )
+```
+Uncomment it by removing the # symbols and then replace the stand in Message\*.msg files with your .msg file, such that it looks like this: 
+```
+add_message_files(
+  FILES
+  Num.msg
+)
+```
+By adding the .msg files manually, we make sure that CMake knows when it has to reconfigure the project after you add other .msg files. Now we must ensure the generate\_messages() function is called. *For ROS Hydro and later,* you need to uncomment these lines: 
+```
+# generate_messages(
+#   DEPENDENCIES
+#   std_msgs
+# )
+```
+* so it looks like: 
+```
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
+```
+
+*In earlier versions,* you may just need to uncomment one line: 
+```
+generate_messages()
+```
+
+```
+$ roscd beginner_tutorials
+$ mkdir msg
+$ echo "int64 num" > msg/Num.msg
+```
+The example above is the simplest, where the .msg file contains only 1 line. You can, of course, create more complex files by adding multiple elements per line like this: 
+```
+string first_name
+string last_name
+uint8 age
+uint32 score
+```
+There's one more step, though. We need to make sure that the msg files are turned into source code for C++, Python, and other languages. Open CMakeLists.txt in your favorite text editor ([rosed](/ROS/Tutorials/UsingRosEd "/ROS/Tutorials/UsingRosEd") from the previous tutorial is a good option) and remove # to uncomment the following line: 
+```
+# rosbuild_genmsg()
+```
+
+Now you're ready to generate source files from your msg definition. If you want to do so right now, skip next sections to [Common step for msg and srv](/ROS/Tutorials/CreatingMsgAndSrv#Common_step_for_msg_and_srv "/ROS/Tutorials/CreatingMsgAndSrv#Common_step_for_msg_and_srv"). 
+
+
+=====================================
+
+h2: Using rosmsg
+Contents:
+
+That's all you need to do to create a msg. Let's make sure that ROS can see it using the rosmsg show command. Usage: 
+```
+$ rosmsg show [message type]
+```
+Example: 
+```
+$ rosmsg show beginner_tutorials/Num
+```
+You will see: * 
+```
+int64 num
+```
+
+In the previous example, the message type consists of two parts: * beginner\_tutorials -- the package where the message is defined
+* Num -- The name of the msg Num.
+
+If you can't remember which Package a msg is in, you can leave out the package name. Try: 
+```
+$ rosmsg show Num
+```
+You will see: * 
+```
+[beginner_tutorials/Num]:
+int64 num
+```
+
+
+=====================================
+
+h2: Using srv
+Contents:
+
+
+=====================================
+
+h3: Creating a srv
+Contents:
+
+Let's use the package we just created to create a srv: 
+```
+$ roscd beginner_tutorials
+$ mkdir srv
+```
+Instead of creating a new srv definition by hand, we will copy an existing one from another package. For that, roscp is a useful commandline tool for copying files from one package to another. Usage: 
+```
+$ roscp [package_name] [file_to_copy_path] [copy_path]
+```
+Now we can copy a service from the [rospy\_tutorials](/rospy_tutorials "/rospy_tutorials") package: 
+```
+$ roscp rospy_tutorials AddTwoInts.srv srv/AddTwoInts.srv
+```
+There's one more step, though. We need to make sure that the srv files are turned into source code for C++, Python, and other languages. Unless you have done so already, open package.xml, and make sure these two lines are in it and [uncommented](http://www.htmlhelp.com/reference/wilbur/misc/comment.html "http://www.htmlhelp.com/reference/wilbur/misc/comment.html"): 
+```
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
+```
+As before, note that at build time, we need "message\_generation", while at runtime, we only need "message\_runtime". Unless you have done so already for messages in the previous step, add the message\_generation dependency to generate messages in CMakeLists.txt: 
+```
+# Do not just add this line to your CMakeLists.txt, modify the existing line
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  rospy
+  std_msgs
+  message_generation
+)
+```
+(Despite its name, message\_generation works for both msg and srv.) Also you need the same changes to package.xml for services as for messages, so look above for the additional dependencies required. Remove # to uncomment the following lines: 
+```
+# add_service_files(
+#   FILES
+#   Service1.srv
+#   Service2.srv
+# )
+```
+And replace the placeholder Service\*.srv files for your service files: 
+```
+add_service_files(
+  FILES
+  AddTwoInts.srv
+)
+```
+
+Once again, open CMakeLists.txt and remove # to uncomment the following line: 
+```
+# rosbuild_gensrv()
+```
+
+Now you're ready to generate source files from your service definition. If you want to do so right now, skip next sections to [Common step for msg and srv](/ROS/Tutorials/CreatingMsgAndSrv#Common_step_for_msg_and_srv "/ROS/Tutorials/CreatingMsgAndSrv#Common_step_for_msg_and_srv"). 
+
+
+=====================================
+
+h3: Using rossrv
+Contents:
+
+That's all you need to do to create a srv. Let's make sure that ROS can see it using the rossrv show command. Usage: 
+```
+$ rossrv show <service type>
+```
+Example: 
+```
+$ rossrv show beginner_tutorials/AddTwoInts
+```
+You will see: * 
+```
+int64 a
+int64 b
+---
+int64 sum
+```
+
+Similar to rosmsg, you can find service files like this without specifying package name: 
+```
+$ rossrv show AddTwoInts
+[beginner_tutorials/AddTwoInts]:
+int64 a
+int64 b
+---
+int64 sum
+```
+Here, two services are shown. The first is the one you just created in the beginner\_tutorials package, and the second is the pre-existing one from the rospy\_tutorials package. 
+
+=====================================
+
+h2: Common step for msg and srv
+Contents:
+
+Unless you have already done this in the previous steps, change in CMakeLists.txt. : 
+```
+# generate_messages(
+#   DEPENDENCIES
+# #  std_msgs  # Or other packages containing msgs
+# )
+```
+Uncomment it and add any packages you depend on which contain .msg files that your messages use (in this case std\_msgs), such that it looks like this: 
+```
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
+```
+Now that we have made some new messages we need to make our package again: 
+```
+# In your catkin workspace
+$ roscd beginner_tutorials
+$ cd ../..
+$ catkin_make
+$ cd -
+```
+
+Now that we have made some new messages we need to make our package again: 
+```
+$ rosmake beginner_tutorials
+```
+
+An alternative to the catkin\_make system is to use catkin build 
+```
+# In your catkin workspace
+$ roscd beginner_tutorials
+$ cd ../..
+$ catkin build
+$ cd -
+```
+Any .msg file in the msg directory will generate code for use in all supported languages. The C++ message header file will be generated in ~/catkin\_ws/devel/include/beginner\_tutorials/. The Python script will be created in ~/catkin\_ws/devel/lib/python2.7/dist-packages/beginner\_tutorials/msg. The lisp file appears in ~/catkin\_ws/devel/share/common-lisp/ros/beginner\_tutorials/msg/. Similarly, any .srv files in the srv directory will have generated code in supported languages. For C++, this will generate header files in the same directory as the message header files. For Python and Lisp, there will be an 'srv' folder beside the 'msg' folders. The full specification for the message format is available at the [Message Description Language](/ROS/Message_Description_Language "/ROS/Message_Description_Language") page. If you are building C++ nodes which use your new messages, you will also need to declare a dependency between your node and your message, as described in the [catkin msg/srv build documentation](http://docs.ros.org/latest/api/catkin/html/howto/format2/building_msgs.html "http://docs.ros.org/latest/api/catkin/html/howto/format2/building_msgs.html"). 
+
+
+=====================================
+
+h2: Getting Help
+Contents:
+
+We've seen quite a few ROS tools already. It can be difficult to keep track of what arguments each command requires. Luckily, most ROS tools provide their own help. Try: 
+```
+$ rosmsg -h
+```
+* You should see a list of different rosmsg subcommands. 
+```
+Commands:
+  rosmsg show     Show message description
+  rosmsg list     List all messages
+  rosmsg md5      Display message md5sum
+  rosmsg package  List messages in a package
+  rosmsg packages List packages that contain messages
+```
+
+You can also get help for subcommands 
+```
+$ rosmsg show -h
+```
+* This shows the arguments that are needed for rosmsg show: 
+```
+Usage: rosmsg show [options] <message type>
+
+Options:
+  -h, --help  show this help message and exit
+  -r, --raw   show raw message text, including comments
+```
+
+
+=====================================
+
+h2: Review
+Contents:
+
+Let's just list some of the commands we've used so far: * rospack = ros+pack(age) : provides information related to ROS packages
+* roscd = ros+cd : **c**hanges **d**irectory to a ROS package or stack
+* rosls = ros+ls : **l**ist**s** files in a ROS package
+* roscp = ros+cp : **c**o**p**ies files from/to a ROS package
+* rosmsg = ros+msg : provides information related to ROS message definitions
+* rossrv = ros+srv : provides information related to ROS service definitions
+* catkin\_make : makes (compiles) a ROS package 
+	+ rosmake = ros+make : makes (compiles) a ROS package (if you're not using a catkin workspace)
+* catkin build: makes (compiles) a ROS package in an isolated manner while maintaining efficiency due to parallelisation 
+	+ catkin\_make + catkin\_make\_isolated
+
+
+=====================================
+
+h2: Next Tutorial
+Contents:
+
+Now that you've made a new ROS msg and srv, let's look at writing a simple publisher and subscriber [(python)](/ROS/Tutorials/WritingPublisherSubscriber%28python%29 "/ROS/Tutorials/WritingPublisherSubscriber%28python%29") [(c++)](/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29 "/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29"). 
+
+
+=====================================
+

@@ -12,10 +12,10 @@
 - [Setup](#setup)
 - [Optional: Create a new enviornment](#optional-create-a-new-enviornment)
 - [Critical components to install](#critical-components-to-instal)
-- [Installing EduGpt](#installing-eduGpt)
+- [Installing EduGPT](#installing-EduGPT)
 - [Installing FastChat](#installing-fastChat)
 - [Creating a Discord Bot](#creating-a-discord-bot)
-- [Running Edugpt on FastChat](#running-edugpt-on-fastchat)
+- [Running EduGPT on FastChat](#running-EduGPT-on-fastchat)
 
 # Setup
 
@@ -44,7 +44,7 @@ conda activate myenv
 
 ## Critical components to install
 
-### Installing EduGpt
+### Installing EduGPT
 
 1. Clone this repository and navigate to the RoarAi folder
 ```bash
@@ -54,7 +54,7 @@ cd roarai
 
 2. Navigate to the folder
 ```bash 
-cd edugpt
+cd EduGPT
 ```
 
 3. Install requirements
@@ -148,7 +148,7 @@ OpenAI API is needed only for the embedding model.
    * `docker ps` to see the list of running services
    * `docker stop <BOT CONTAINER ID>` to stop the running bot
 
-## Running Edugpt on FastChat
+## Running EduGPT on FastChat
 
 1. Open 3 terminals or command prompts and navigate to the directory where you installed Fastchat
    
@@ -157,9 +157,26 @@ OpenAI API is needed only for the embedding model.
 python3 -m fastchat.serve.controller
 ```
 
-3. On the second terminal, launch the model_worker, --model-name can be changed to model chosen. LangChain uses OpenAI model names by default, so we need to assign some faux OpenAI model names to our local model. --model-path should be changed to the path to edugpt
+3. On the second terminal, launch the model_worker, --model-name can be changed to model chosen. LangChain uses OpenAI model names by default, so we need to assign some faux OpenAI model names to our local model. --model-path should be changed to the path to EduGPT
 ```bash 
 python3 -m fastchat.serve.model_worker --model-names "gpt-3.5-turbo,text-davinci-003,text-embedding-ada-002" --model-path HuggingFaceH4/zephyr-7b-beta
+```
+
+### Running EduGPT on FastChat on Apple
+
+1. Single GPU
+```bash 
+python3 -m fastchat.serve.cli --model-path HuggingFaceH4/zephyr-7b-beta
+```
+
+2. Multiple GPU
+```bash 
+python3 -m fastchat.serve.cli --model-path HuggingFaceH4/zephyr-7b-beta --num-gpus 2
+```
+
+3. CPU Only
+```bash 
+python3 -m fastchat.serve.cli --model-path HuggingFaceH4/zephyr-7b-beta --device cpu
 ```
 
 4. On the second terminal, launch the api server

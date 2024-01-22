@@ -1,4 +1,7 @@
 # scrapper
+
+This scraper tool is designed to efficiently extract content from web pages or documents formatted in Markdown, reStructuredText (rst), and plain text. It simplifies the process of collecting text for automated content retrieval.
+
 - We have scraper for different formats.
   1) Mardown
   2) Rst

@@ -157,26 +157,14 @@ OpenAI API is needed only for the embedding model.
 python3 -m fastchat.serve.controller
 ```
 
-3. On the second terminal, launch the model_worker, --model-name can be changed to model chosen. LangChain uses OpenAI model names by default, so we need to assign some faux OpenAI model names to our local model. --model-path should be changed to the path to EduGPT
-```bash 
+3. On the second terminal, launch the model_worker, --model-name can be changed to model chosen. LangChain uses OpenAI model names by default, so we need to assign some faux OpenAI model names to our local model. --model-path should be changed to the path to EduGPT. Below are different options depending on whether it is running on one GPU or CPU
+```bash
+# One GPU
 python3 -m fastchat.serve.model_worker --model-names "gpt-3.5-turbo,text-davinci-003,text-embedding-ada-002" --model-path HuggingFaceH4/zephyr-7b-beta
-```
-
-### Running EduGPT on FastChat on Apple
-
-1. Single GPU
-```bash 
-python3 -m fastchat.serve.cli --model-path HuggingFaceH4/zephyr-7b-beta
-```
-
-2. Multiple GPU
-```bash 
-python3 -m fastchat.serve.cli --model-path HuggingFaceH4/zephyr-7b-beta --num-gpus 2
-```
-
-3. CPU Only
-```bash 
-python3 -m fastchat.serve.cli --model-path HuggingFaceH4/zephyr-7b-beta --device cpu
+# Multiple GPU
+python3 -m fastchat.serve.model_worker --model-names "gpt-3.5-turbo,text-davinci-003,text-embedding-ada-002" --model-path HuggingFaceH4/zephyr-7b-beta --num-gpus 2 #change depending on GPUs available
+# CPU
+python3 -m fastchat.serve.model_worker --model-names "gpt-3.5-turbo,text-davinci-003,text-embedding-ada-002" --model-path HuggingFaceH4/zephyr-7b-beta --device cpu
 ```
 
 4. On the second terminal, launch the api server

@@ -1,4 +1,11 @@
 # RAG (Retrieval Augmented Generation)
+To enhance the efficiency of RAG applications, this folder breaks down unstructured data into segments and creates embeddings for each segment. These embeddings are subsequently stored in a vector database, allowing EduGPT to access and retrieve them to assist students effectively.
+
+## Contents
+- [Chunking documents and converting them into embeddings](#chunking-documents-and-converting-them-into-embeddings)
+- [Question generator](#question-generator)
+- [Retrieval](#retrieval)
+
 ## Chunking documents and converting them into embeddings
 - In `store.py` there is a few combinition of embedding models, prompting methods chunking techniques to use.
 - Embedding models

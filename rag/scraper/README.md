@@ -74,3 +74,5 @@ Quick start package installation (h1)
   - mkdir and os.chdir is just setting your directory name
   - `starting`: the name of your first rst file. (It's usually index)
   - `url`: the url to the index.rst of the repo. Notice you have to add `?plain=1` to the end of the url as that obtains th raw code of the rst file. 
+  
+Now that you already have your documents ready, it's time to convert them into embeddings. 

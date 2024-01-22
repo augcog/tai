@@ -1,6 +1,11 @@
 # RAG (Retrieval Augmented Generation)
-## Chunking documents and converting them into embeddings
-- In `embedding_create.py` there is a few combinition of embedding models, prompting methods chunking techniques to use.
+This entire folder serves as a purpose to help you scrape your documents, convert them into embeddings and test the retrieval of the embeddings.
+
+## Pre-requisites
+- Visit the `scraper` folder and follow the instructions there to scrape your documents.
+## Chunking documents and converting them into embeddings  
+After scraping the documents, we need to convert them into embeddings. Before converting them into embeddings, we need to process the documents into segments. The reason for this is because the embedding model has a token size limit. If the document is too long, the embedding model will not be able to process it. Therefore, we need to split the documents into segments.
+- In `embedding_create.py` there is a few combination of embedding models, prompting methods chunking techniques to use. This python file will then create an embedding database for all of the documents scraped and can be retrieved later to assist users in their queries.
 - Embedding models
   1) local
   2) openai(best performance)
@@ -28,7 +33,7 @@
       system_embedding_prompt = "Summarize"
   ```
   1) `to_task`: the motive of this method is to convert the documents to tasks the users might query.
-  2) `to_doc`: the motive of this mthod is to convert the vice versa of `to_task`. It produces a document based on the user's query.
+  2) `to_doc`: the motive of this method is to convert the vice versa of `to_task`. It produces a document based on the user's query.
   3) `sum`: A simple system prompt
     
   `4, 5` are methods that uses the chat_completion function from the respective model to handle the `to_doc` and `to_task` methods.
@@ -78,10 +83,10 @@
 2) Select the documents processed by our scraper in this format.
     ```
     # TODO PROCESS DOCUMENTS
-    docs = traverse_files("../scraper/Scrape_rst/Sawyer", "Sawyer")
-    docs += traverse_files("../scraper/Scrape_textbook/textbook", "Robotics textbook")
+    docs = traverse_files("./scraper/Scrape_rst/Sawyer", "Sawyer")
+    docs += traverse_files("./scraper/Scrape_textbook/textbook", "Robotics textbook")
     ```
-    FORMAT: `"../scraper/<SCRAPE_TOOL>/<DOCUMENT>/", "<DOCUMENT>")`  
+    FORMAT: `"./scraper/<SCRAPE_TOOL>/<DOCUMENT>/", "<DOCUMENT>")`  
     
 3) After setting up these run `python3 store.py` on `~/roarai/rag/` and you will be able to produce your embeddings
 4) You can find all of your embeddings in the the directory in rag caclled `pickle`.  
@@ -104,9 +109,9 @@
 2) Select the documents processed by our scraper in this format. 
     ```
     # TODO PROCESS DOCUMENTS
-    docs = traverse_files("../scraper/Scrape_rst/Sawyer", "Sawyer")
+    docs = traverse_files("./scraper/Scrape_rst/Sawyer", "Sawyer")
     ```
-    FORMAT: `"../scraper/<SCRAPE_TOOL>/<DOCUMENT>/", "<DOCUMENT>")`  
+    FORMAT: `"./scraper/<SCRAPE_TOOL>/<DOCUMENT>/", "<DOCUMENT>")`  
     
 3) After setting up these run `python3 questions_generator.py` on `~/roarai/rag` and you will be able to produce your questions
 4) You can find all of your questions in the directory in rag called `questions`.  

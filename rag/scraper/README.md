@@ -1,30 +1,66 @@
 # scrapper
 - We have scraper for different formats.
-  1) Mardown
+  1) General
   2) Rst
-  3) Plain
-- What a scrapping tool does in general is it converts a particullar page of a document into a tree structure accordingly to it's heading levels.
-```
-(Table of Contents)
-Quick start package installation (h1)
---Before you begin (h2)
-----Windows (h3)
-----Linux (h3)
---CARLA installation (h2)
-----A. Debian CARLA installation (h3)
-----B. Package installation (h3)
---Import additional assets (h2)
---Install client library (h2)
-----CARLA versions prior to 0.9.12 (h3)
-----CARLA 0.9.12+ (h3)
---Running CARLA (h2)
-------Command-line options (h4)
---Updating CARLA (h2)
---Follow-up (h2)
-```
-- Each segment would be the path from the root to the leaf node.
-  - For example, the path to the node Linux would be `(h1) Quick Start Package Installation -> (h2) Before You Begin -> (h3) Linux`.
-  - The purpose of grouping the documents in this tree structure is to allow the embedding model to understand the relationship between the headers. If the embedding model is only given the content of `(h3) Linux`, it would not know what it is related to nor how we get to the point `(h3) Linux`. By adding the segments from previous headers, it becomes complete information that explains: this information is about "installation", then continues with "steps you need to do before you begin", and how you begin in "Linux". 
+  3) Markdown
+- Scrapper usually takes a root url and recursively scrapes the entire website.
+  ```
+  (rag) bot@botPC:~/roarai/rag/scraper/Scrape_header$ tree opencv/
+  opencv/
+  ├── tutorial_py_table_of_contents_bindings
+  │   ├── segment.txt
+  │   ├── tutorial_py_bindings_basics
+  │   │   ├── segment.txt
+  │   │   ├── tutorial_py_bindings_basics.md
+  │   │   └── tutorial_py_bindings_basics.md_tree.txt
+  │   ├── tutorial_py_root
+  │   │   ├── segment.txt
+  │   │   ├── tutorial_py_root.md
+  │   │   └── tutorial_py_root.md_tree.txt
+  │   ├── tutorial_py_table_of_contents_bindings.md
+  │   └── tutorial_py_table_of_contents_bindings.md_tree.txt
+  ├── tutorial_py_table_of_contents_calib3d
+  │   ├── segment.txt
+  │   ├── tutorial_py_calibration
+  │   │   ├── segment.txt
+  │   │   ├── tutorial_py_calibration.md
+  │   │   └── tutorial_py_calibration.md_tree.txt
+  │   ├── tutorial_py_depthmap
+  │   │   ├── segment.txt
+  │   │   ├── tutorial_py_depthmap.md
+  │   │   └── tutorial_py_depthmap.md_tree.txt
+  │   ├── tutorial_py_epipolar_geometry
+  │   │   ├── segment.txt
+  │   │   ├── tutorial_py_epipolar_geometry.md
+  │   │   └── tutorial_py_epipolar_geometry.md_tree.txt
+  ```
+  This is an example of the tree structure of the entire website from the root webpage `opencv`.  
+  - Each webpage will have an individual folder containing, `<webpage_name>.md`, `segment.txt`, and `<website_name>.md_tree.txt`.
+    - `<webpage_name>.md`: This is the entire content of the webpage in markdown format.
+    - `segment.txt`: This file contains all the headers and it's contents. 
+    - `<webpage_name>.md_tree.txt`: This file contains the tree structure and the segments of the tree structure of the webpage.
+      - Here is what a tree structure looks like in a webpage. 
+      ```
+      (Table of Contents)
+      Quick start package installation (h1)
+      --Before you begin (h2)
+      ----Windows (h3)
+      ----Linux (h3)
+      --CARLA installation (h2)
+      ----A. Debian CARLA installation (h3)
+      ----B. Package installation (h3)
+      --Import additional assets (h2)
+      --Install client library (h2)
+      ----CARLA versions prior to 0.9.12 (h3)
+      ----CARLA 0.9.12+ (h3)
+      --Running CARLA (h2)
+      ------Command-line options (h4)
+      --Updating CARLA (h2)
+      --Follow-up (h2)
+      ```
+    - Each segment would be the path from the root to the leaf node.
+      - For example, the path to the node Linux would be `(h1) Quick Start Package Installation -> (h2) Before You Begin -> (h3) Linux`.
+      - The purpose of grouping the documents in this tree structure is to allow the embedding model to understand the relationship between the headers. If the embedding model is only given the content of `(h3) Linux`, it would not know what it is related to nor how we get to the point `(h3) Linux`. By adding the segments from previous headers, it becomes complete information that explains: this information is about "installation", then continues with "steps you need to do before you begin", and how you begin in "Linux". 
 ## Folders for scraper
 - In every scraping folder, there will be a code called `scrape.py` that is the place you will use to scrape your documents. 
   - `scrape.py` will scrape the documents from the root url recursively until the entire website is scraped.  
@@ -41,7 +77,7 @@ Quick start package installation (h1)
     ('div', {'id': 'page', 'lang': 'en', dir: 'ltr'})
   ]
   ```
-  - `url`: the url where your webside starts
+  - `url`: the url where your website starts
   - `root`: the url where you want your website to recurse until
   - `root_regex`: the format of the url that it needs to follow
   - `root_filename`: the filename you want to store all your data

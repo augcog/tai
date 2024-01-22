@@ -1,0 +1,58 @@
+Parsed Headers, Levels and Contents:
+h1: Examining the Simple Service and Client
+Contents:
+
+**Description:** This tutorial examines running the simple service and client.  
+
+**Tutorial Level:** BEGINNER  
+
+**Next Tutorial:** [Recording and playing back data](/ROS/Tutorials/Recording%20and%20playing%20back%20data "/ROS/Tutorials/Recording%20and%20playing%20back%20data")   
+
+ Contents1. [Running the Service](#Running_the_Service "#Running_the_Service")
+2. [Running the Client](#Running_the_Client "#Running_the_Client")
+3. [Further examples on Service and Client nodes](#Further_examples_on_Service_and_Client_nodes "#Further_examples_on_Service_and_Client_nodes")
+
+
+=====================================
+
+h2: Running the Service
+Contents:
+
+Let's start by running the service: 
+```
+$ rosrun beginner_tutorials add_two_ints_server     (C++)
+$ rosrun beginner_tutorials add_two_ints_server.py  (Python) 
+```
+You should see something similar to: 
+```
+Ready to add two ints.
+```
+
+
+=====================================
+
+h2: Running the Client
+Contents:
+
+Now let's run the client with the necessary arguments: 
+```
+$ rosrun beginner_tutorials add_two_ints_client 1 3     (C++)
+$ rosrun beginner_tutorials add_two_ints_client.py 1 3  (Python) 
+```
+You should see something similar to: 
+```
+Requesting 1+3
+1 + 3 = 4
+```
+Now that you've successfully run your first server and client, let's learn how to [record and play back data](/ROS/Tutorials/Recording%20and%20playing%20back%20data "/ROS/Tutorials/Recording%20and%20playing%20back%20data"). 
+
+=====================================
+
+h2: Further examples on Service and Client nodes
+Contents:
+
+If you want to investigate further and get a hands-on example, you can get one [here](https://github.com/fairlight1337/ros_service_examples/ "https://github.com/fairlight1337/ros_service_examples/"). A simple Client and Service combination shows the use of custom message types. The Service node is written in C++ while the Client is available in C++, Python and LISP. 
+
+
+=====================================
+

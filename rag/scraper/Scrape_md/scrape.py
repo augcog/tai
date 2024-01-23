@@ -56,7 +56,8 @@ def fetch_urls(base_url, nav):
             url=os.path.join(base_url,i)
             url+="?plain=1"
             print(url)
-            parser=MarkdownParser(url, filename)
+            print("FILENAME: " + filename)
+            parser=MarkdownParser(url, filename.replace('.md',''))
             if parser.fail:
                 continue
             parser.print_header_tree()
@@ -86,7 +87,7 @@ def fetch_urls(base_url, nav):
                 child_url+="?plain=1"
                 print(child_url)
                 filename=child
-                parser=MarkdownParser(child_url, filename)
+                parser=MarkdownParser(child_url, filename.replace('.md',''))
                 if parser.fail:
                     continue
                 get_save_content(filename,child_url)
@@ -102,7 +103,7 @@ def fetch_urls(base_url, nav):
             url=os.path.join(base_url,value)
             url+="?plain=1"
             print(url)
-            parser=MarkdownParser(url, filename)
+            parser=MarkdownParser(url, filename.replace('.md',''))
             if parser.fail:
                 continue
             parser.print_header_tree()
@@ -161,20 +162,28 @@ def extract_yaml_sections(data: str) -> str:
 if __name__ == '__main__':
     # TODO
     # Carla
+    create_and_enter_dir('carla')
     url="https://github.com/carla-simulator/carla/blob/master/mkdocs.yml"
     # Mkdocs
+    # create_and_enter_dir('mkdocs')
     # url = "https://github.com/mkdocs/mkdocs/blob/master/mkdocs.yml"
     # uwasystemhealth
+    # create_and_enter_dir('uwasystemhealth')
     # url = "https://github.com/uwasystemhealth/shl-mkdocs-tutorial-and-template/blob/template/mkdocs.yml"
     # MonashDataFluency
+    # create_and_enter_dir('MonashDataFluency')
     # url = "https://github.com/MonashDataFluency/python-web-scraping/blob/master/mkdocs.yml"
     # MkDocsMaterial
+    # create_and_enter_dir('mkdocs')
     # url = "https://github.com/squidfunk/mkdocs-material/blob/master/mkdocs.yml"
     # openml
+    # create_and_enter_dir('openml')
     # url = "https://github.com/openml/docs/blob/master/mkdocs.yml"
     # awsome-kurbenetes
+    # create_and_enter_dir('awsome-kurbenetes')
     # url = "https://github.com/nubenetes/awesome-kubernetes/blob/master/mkdocs.yml"
     # python-web-scraping
+    # create_and_enter_dir('python-web-scraping')
     # url = "https://github.com/MonashDataFluency/python-web-scraping/blob/master/mkdocs.yml"
     def cd_back_link(url, num_parts_to_remove=1):
         if not url:
@@ -186,7 +195,7 @@ if __name__ == '__main__':
    
     
     response=requests.get(url)
-    data=json.loads(response.text)  
+    data=json.loads(response.text)
     # print(json.dumps(data, indent=4))   
     content=data['payload']['blob']['rawLines']
     content = '\n'.join(content)
@@ -213,12 +222,5 @@ if __name__ == '__main__':
     base_url = replace_backslash_with_slash(base_url)
     print("base:"+base_url)
     nav = parsed_yaml['nav']
-    # Name
-    create_and_enter_dir('carla')
-
     fetch_urls(base_url, nav)
-    # get_content("https://github.com/carla-simulator/carla/blob/master/Docs/index.md?plain=1")
-
-
-    # Print the extracted information
     

@@ -1,5 +1,11 @@
 # RAG (Retrieval Augmented Generation)
-This entire folder serves as a purpose to help you scrape your documents, convert them into embeddings and test the retrieval of the embeddings.
+To enhance the efficiency of RAG applications, this folder breaks down unstructured data into segments and creates embeddings for each segment. These embeddings are subsequently stored in a vector database, allowing EduGPT to access and retrieve them to assist students effectively.
+
+## Contents
+- [Pre-requisites](#pre-requisites)
+- [Chunking documents and converting them into embeddings](#chunking-documents-and-converting-them-into-embeddings)
+- [Question generator](#question-generator)
+- [Retrieval](#retrieval)
 
 ## Pre-requisites
 - Visit the `scraper` folder and follow the instructions there to scrape your documents.

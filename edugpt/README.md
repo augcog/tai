@@ -1,6 +1,6 @@
 # ROARAI: Assistant Discord Bot
 
-> ### Build your own Discord bot using ChatGPT
+> ### Build your own Discord bot using Open-Sourced Models and ChatGPT 
 
 ---
 
@@ -8,7 +8,8 @@
 
 ![image](https://user-images.githubusercontent.com/89479282/206497774-47d960cd-1aeb-4fba-9af5-1f9d6ff41f00.gif)
 
-EduGPT utilizes Zephyr 7B Beta as its open-source base model, with Zephyr-7B-β being a fine-tuned iteration of mistralai/Mistral-7B-v0.1. To enhance its capabilities, EduGPT leverages a Retrieval-augmented Generation (RAG) agent. This is achieved through the utilization of the local_handle_response function in edugpt/src/responses.py, allowing EduGPT to seamlessly access contextual information and deliver accurate responses to students' inquiries.
+EduGPT utilizes Zephyr 7B Beta as its open-source base model, with Zephyr-7B-β being a fine-tuned iteration of mistralai/Mistral-7B-v0.1. To enhance its capabilities, EduGPT leverages a Retrieval-augmented Generation (RAG) agent. 
+The RAG agent is utilized in the local_handle_response function in edugpt/src/responses.py. This function allows the response of the EduGPT bot to be complemented through course content that was already embedded for easy access. By sorting through the vector database and comparing similarities, the response will be able to pull from relevant information to address the student's question. This allows EduGPT to seamlessly access contextual information and deliver accurate responses to students' inquiries.
 
 
 ## Contents

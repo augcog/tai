@@ -5,40 +5,30 @@
   3) Markdown
 - Scrapper usually takes a root url and recursively scrapes the entire website.
   ```
-  (rag) bot@botPC:~/roarai/rag/scraper/Scrape_header$ tree opencv/
-  opencv/
-  ├── tutorial_py_table_of_contents_bindings
-  │   ├── segment.txt
-  │   ├── tutorial_py_bindings_basics
-  │   │   ├── segment.txt
-  │   │   ├── tutorial_py_bindings_basics.md
-  │   │   └── tutorial_py_bindings_basics.md_tree.txt
-  │   ├── tutorial_py_root
-  │   │   ├── segment.txt
-  │   │   ├── tutorial_py_root.md
-  │   │   └── tutorial_py_root.md_tree.txt
-  │   ├── tutorial_py_table_of_contents_bindings.md
-  │   └── tutorial_py_table_of_contents_bindings.md_tree.txt
-  ├── tutorial_py_table_of_contents_calib3d
-  │   ├── segment.txt
-  │   ├── tutorial_py_calibration
-  │   │   ├── segment.txt
-  │   │   ├── tutorial_py_calibration.md
-  │   │   └── tutorial_py_calibration.md_tree.txt
-  │   ├── tutorial_py_depthmap
-  │   │   ├── segment.txt
-  │   │   ├── tutorial_py_depthmap.md
-  │   │   └── tutorial_py_depthmap.md_tree.txt
-  │   ├── tutorial_py_epipolar_geometry
-  │   │   ├── segment.txt
-  │   │   ├── tutorial_py_epipolar_geometry.md
-  │   │   └── tutorial_py_epipolar_geometry.md_tree.txt
+  (rag) bot@botPC:~/roarai/rag/scraper/Scrape_md/carla$ tree .
+  .
+  ├── CARLA Ecosystem
+  │   ├── ANSYS
+  │   │   ├── ecosys_ansys.md
+  │   │   ├── ecosys_ansys.pkl
+  │   │   ├── ecosys_ansys_segment.txt
+  │   │   └── ecosys_ansys_tree.txt
+  │   ├── AWS
+  │   │   ├── tuto_G_rllib_integration.md
+  │   │   ├── tuto_G_rllib_integration.pkl
+  │   │   ├── tuto_G_rllib_integration_segment.txt
+  │   │   └── tuto_G_rllib_integration_tree.txt
+  │   ├── CarSIM
+  │   │   ├── tuto_G_carsim_integration.md
+  │   │   ├── tuto_G_carsim_integration.pkl
+  │   │   ├── tuto_G_carsim_integration_segment.txt
+  │   │   └── tuto_G_carsim_integration_tree.txt
   ```
-  This is an example of the tree structure of the entire website from the root webpage `opencv`.  
-  - Each webpage will have an individual folder containing, `<webpage_name>.md`, `segment.txt`, and `<website_name>.md_tree.txt`.
+  This is an example of the result of running the entire code. It forms a tree structure of the entire website from the root webpage `Carla`.  
+  - Each webpage will have an individual folder containing, `<webpage_name>.md`, `<webpage_name>_segment.txt`, and `<webpage_name>_md_tree.txt`.
     - `<webpage_name>.md`: This is the entire content of the webpage in markdown format.
-    - `segment.txt`: This file contains all the headers and it's contents. 
-    - `<webpage_name>.md_tree.txt`: This file contains the tree structure and the segments of the tree structure of the webpage.
+    - `<webpage_name>_segment.txt`: This file contains all the headers and it's contents. 
+    - `<webpage_name>_tree.txt`: This file contains the tree structure and the segments of the tree structure of the webpage.
       - Here is what a tree structure looks like in a webpage. 
       ```
       (Table of Contents)
@@ -97,8 +87,11 @@
 
          
 - `Scraper_md`:
-  In order to use this folder you need to provide the url to the folder of mkdocs.yaml of the repo.  
-  `url="https://github.com/carla-simulator/carla/blob/master/mkdocs.yml"`
+  In order to use this folder you need to provide the url to the folder of mkdocs.yaml of the repo and the name of the folder you want to save your documents at.  
+  ```
+  create_and_enter_dir('carla')
+  url="https://github.com/carla-simulator/carla/blob/master/mkdocs.yml"
+  ```
 - `Scraper_rst`:
   In order to use this folder you will need to edit some variables accordingly to your needs
   ```

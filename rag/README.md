@@ -1,5 +1,11 @@
 # RAG (Retrieval Augmented Generation)
-This entire folder serves as a purpose to help you scrape your documents, convert them into embeddings and test the retrieval of the embeddings.
+- This entire folder serves as a purpose to help you scrape your documents, convert them into embeddings and test the retrieval of the embeddings.
+- Our entire system follows this pipeline
+    1) Scrape documents
+    2) Chunk documents and convert them into embeddings
+    3) Generate questions based on the documents
+    4) Test the retrieval of the embeddings
+
 
 ## Pre-requisites
 - Visit the `scraper` folder and follow the instructions there to scrape your documents.

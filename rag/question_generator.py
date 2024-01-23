@@ -123,7 +123,7 @@ def traverse_files(path, start_folder_name):
     return results
 docs = []
 docs = traverse_files("../scraper/Scrape_rst/Sawyer", "Sawyer")
-# docs += traverse_files("/home/bot/dataset/edugpt/Scrape_textbook/textbook", "md", "Robotics textbook")
+# docs += traverse_files("/home/bot/dataset/edugpt/Scrape_pdf/textbook", "md", "Robotics textbook")
 questions =[]
 
 for doc in tqdm(docs, desc="Generating questions"):

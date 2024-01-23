@@ -8,7 +8,7 @@ class MarkdownParser:
     
     def __init__(self, filename):
         self.filename = filename
-        self.headers_content_dict = None
+        self.headers_content_dict = {}
         self.fail=False
         if self.fetch_data() == 1:
             self.fail=True
@@ -59,7 +59,7 @@ class MarkdownParser:
 
     def fetch_data(self):
         try:
-            with open(self.filename, 'r', encoding='utf-8') as file:
+            with open(f"{self.filename}.md", 'r', encoding='utf-8') as file:
                 md_content = file.readlines()
             self.headers_content_dict = MarkdownParser.extract_headers_and_content(md_content)
         except FileNotFoundError:
@@ -76,7 +76,7 @@ class MarkdownParser:
         return result
 
     def print_segment(self):
-        new_filename = "segment.txt"
+        new_filename = f"{self.filename}_segment.txt"
         with open(new_filename, 'w', encoding='utf-8') as f:
             f.write("Parsed Headers, Levels and Contents:\n")
             for (header, level), content in self.headers_content_dict.items():

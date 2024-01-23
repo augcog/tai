@@ -94,7 +94,7 @@ def process_links_and_save(links, dir_name, delay, content_tags):
         
         save_to_file(f'{filename}.md', cleaned_markdown)
 
-        parser = MarkdownParser(f'{filename}.md')
+        parser = MarkdownParser(f'{filename}')
         parser.print_header_tree()
         parser.print_segment()
         parser.concat_print()

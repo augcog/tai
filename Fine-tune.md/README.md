@@ -1,0 +1,20 @@
+# Fine-Tuning Zephyr-7b Model
+
+###  Table of Contents <a name=" 1. Introduction"></a>
+   1. Introduction
+   2. Setup
+   3. Execution 
+ 
+###  1. Introduction <a name=" 1. Introduction"></a>
+
+This is a guide on fine-tuning the HuggingFace H4/zephyr-7b-beta model. We provide a dummy_conversation.json dataset for testing the fine-tuning effects, which you can replace with other datasets.
+
+### 2. Set Up <a name="Set Up"></a>
+Before you begin, make sure you have the required libraries installed. You can install them using pip:
+ 
+	 pip install torch accelerate bitsandbytes datasets transformers peft wandb
+
+### 3. Execution  <a name="how-to-execute"></a>
+You can execute the script using the following command:
+	
+ 	python train.py

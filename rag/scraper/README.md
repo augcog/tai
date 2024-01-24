@@ -103,5 +103,18 @@
   - mkdir and os.chdir is just setting your directory name
   - `starting`: the name of your first rst file. (It's usually index)
   - `url`: the url to the index.rst of the repo. Notice you have to add `?plain=1` to the end of the url as that obtains th raw code of the rst file. 
+- `Scrape_pdf`:  
+  First we will need to convert the pdf into a markdown format. We will use a tool called nougat. 
+    - run `pip install nougat-ocr` to install nougat
+    - Go to `nougat.py` and choose the pdf you want to convert and the name of the folder you want to save your documents at.
+      ```
+      pdf_to_md('~/Downloads/MLS.pdf', 'textbook')
+      ```
+    - After you get your markdown folder now run `header.py` to segment the contents of the markdown file into headers and contents.
+      ```
+      # TODO
+      parser = MarkdownParser('textbook/MLS.mmd')
+      ```
+  
   
 Now that you already have your documents ready, it's time to convert them into embeddings. 

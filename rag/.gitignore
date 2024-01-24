@@ -1,0 +1,9 @@
+/documents/*
+/pickle/*
+/log/*
+
+# Remove documents scraped
+/scraper/Scrape_header/*/
+/scraper/Scrape_rst/*/
+/scraper/Scrape_md/*/
+/scraper/Scrape_pdf/*/

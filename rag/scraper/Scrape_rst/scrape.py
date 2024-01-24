@@ -6,6 +6,27 @@ import re
 from termcolor import colored
 global parser
 ignore=["glossary","*"]
+
+
+def main():
+    # Numpy
+    mkdir('numpy')
+    os.chdir('numpy')
+    starting='index'
+    url=f"https://github.com/numpy/numpy/blob/main/doc/source/index.rst?plain=1"
+
+    # Sawyer
+    # mkdir('Sawyer')
+    # os.chdir('Sawyer')
+    # starting='index'
+    # url = f"https://github.com/ros-planning/moveit_tutorials/blob/master/index.rst?plain=1"
+
+    home_url= url.rsplit('/', 1)[0]
+    # Current directory
+    home_dir=os.getcwd()
+    tree_call(starting,url,home_url,home_dir)
+
+
 def fetch_and_save_data(filename, url):
     """
     Fetch data from a given URL, save it to a file, and print certain parts of the JSON.
@@ -122,19 +143,4 @@ def tree_call(cur_file, url, home_url, home_dir):
 
 
 if __name__ == "__main__":
-    # Numpy
-    mkdir('numpy')
-    os.chdir('numpy')
-    starting='index'
-    url=f"https://github.com/numpy/numpy/blob/main/doc/source/index.rst?plain=1"
-
-    # Sawyer
-    # mkdir('Sawyer')
-    # os.chdir('Sawyer')
-    # starting='index'
-    # url = f"https://github.com/ros-planning/moveit_tutorials/blob/master/index.rst?plain=1"
-
-    home_url= url.rsplit('/', 1)[0]
-    # Current directory
-    home_dir=os.getcwd()
-    tree_call(starting,url,home_url,home_dir)
+    main()

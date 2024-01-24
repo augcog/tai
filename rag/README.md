@@ -2,24 +2,28 @@
 To enhance the efficiency of RAG applications, this folder breaks down unstructured data into segments and creates embeddings for each segment. These embeddings are subsequently stored in a vector database, allowing EduGPT to access and retrieve them to assist students effectively.
 
 ## Contents
-- [Pre-requisites](#pre-requisites)
-- [Chunking documents and converting them into embeddings](#chunking-documents-and-converting-them-into-embeddings)
-- [Question generator](#question-generator)
-- [Retrieval](#retrieval)
+- [Creating Embeddings](#creating-embeddings)
+  - [Pre-requisites](#pre-requisites)
+  - [Chunking documents and converting them into embeddings](#chunking-documents-and-converting-them-into-embeddings)
+- [Evaluation](#evaluation)
+  - [Question generator](#question-generator)
+  - [Retrieval](#retrieval)
 
-## Pre-requisites
-- Visit the `scraper` folder and follow the instructions there to scrape your documents.
-## Chunking documents and converting them into embeddings  
-After scraping the documents, we need to convert them into embeddings. Before converting them into embeddings, we need to process the documents into segments. The reason for this is because the embedding model has a token size limit. If the document is too long, the embedding model will not be able to process it. Therefore, we need to split the documents into segments.
-- In `embedding_create.py` there is a few combination of embedding models, prompting methods chunking techniques to use. This python file will then create an embedding database for all of the documents scraped and can be retrieved later to assist users in their queries.
-- Embedding models
+## Creating Embeddings
+### Pre-requisites
+- Begin by visiting the [scraper](scraper) folder and follow the instructions there to scrape your documents.
+### Chunking documents and converting them into embeddings  
+When scraping documents for embedding, it's crucial to preprocess them into segments. This is because the embedding model has a token size limit and cannot process excessively long documents effectively. 
+Segmenting documents ensures each portion fits within the model's token capacity, allowing for successful embedding. The `embedding_create.py` script offers a variety of embedding models, prompting methods, 
+and chunking techniques. This script will create an embedding database for all the scraped documents, which can later be retrieved to assist users with their queries.
+- **Embedding models**
   1) local
   2) openai(best performance)
   3) cohere
   4) jina
   5) zephyr
   6) voyage
-- Methods
+- **Methods**
   1) to_task
   2) to_doc
   3) sum
@@ -38,8 +42,8 @@ After scraping the documents, we need to convert them into embeddings. Before co
   elif method=='sum':
       system_embedding_prompt = "Summarize"
   ```
-  1) `to_task`: the motive of this method is to convert the documents to tasks the users might query.
-  2) `to_doc`: the motive of this method is to convert the vice versa of `to_task`. It produces a document based on the user's query.
+  1) `to_task`: converts documents into tasks users might query.
+  2) `to_doc`: vice versa of `to_task`. Produces a document based on the user's query.
   3) `sum`: A simple system prompt
     
   `4, 5` are methods that uses the chat_completion function from the respective model to handle the `to_doc` and `to_task` methods.
@@ -59,7 +63,7 @@ After scraping the documents, we need to convert them into embeddings. Before co
     ```
     You can either add on to this list or edit this to another token size you wish to test with. 
    
-### How to use
+#### How to run
 1) Uncomment out the technique, method or model you want to use. It already chooses the most optimize and efficient options for our embedding
     ```
     # TODO TECHNIQUE
@@ -94,17 +98,18 @@ After scraping the documents, we need to convert them into embeddings. Before co
     ```
     FORMAT: `"./scraper/<SCRAPE_TOOL>/<DOCUMENT>/", "<DOCUMENT>")`  
     
-3) After setting up these run `python3 store.py` on `~/roarai/rag/` and you will be able to produce your embeddings
+3) After setting up these run `python3 embedding_create` on `~/roarai/rag/` and you will be able to produce your embeddings
 4) You can find all of your embeddings in the the directory in rag caclled `pickle`.  
    FILE_NAME_FORMAT: ```{technique}_{method}_{model}_embedding_{n}_textbook.pkl```
 5) CONGRATS now you have your own set of embeddings. Time to test for the retrieval of the embeddings.
 
-## Question generator
+## Evaluation
+### Question generator
 - In order to test the retrieval of our embeddings we need to have some questions related to the document and see if it is able to retrieve the documents that can answer the question.
 - `question_generator.py` generates questions based on each segments of the documents. It allows you to select which model to use and choose the token limit for each segment.
 
-### How to use
-1) Uncomment the model you would like to use and set the token size limit accordingly to the token size limit on your `store.py`
+#### How to use
+1) Uncomment the model you would like to use and set the token size limit accordingly to the token size limit on your `embedding_create.py`
     ```
     # TODO MODEL
     model = 'zephyr'
@@ -124,11 +129,11 @@ After scraping the documents, we need to convert them into embeddings. Before co
     FILE_NAME_FORMAT: `'{model}_{n}_questions.pkl`
 5) CONGRATS now you have your own question set. Now lets move on to the retrieval testing with this questions.
 
-## Retrieval
+### Retrieval
 - In the retrieval process the code will convert the question into an embedding(question embedding) and find the document embedding that has the closest euclidient distance.
 - The file we will be using in this case is `retrieval_test.py`
-### How to use
-1) Like `embedding_create.py` you will be given a selections of techniques, prompting methods, embedding models and token size. IMPORTANT!!!: Make sure the selections in `retrieval_test.py` matches the selections in `store.py`
+#### How to run
+1) Like `embedding_create.py` you will be given a selections of techniques, prompting methods, embedding models and token size. IMPORTANT!!!: Make sure the selections in `retrieval_test.py` matches the selections in `embedding_create.py`
     ```
     # TODO TECHNIQUE
     # technique = 'none'
@@ -164,7 +169,7 @@ FILE_NAME_FORMAT:
 '{current_time}_{technique}_{method}_{model}_{n}_seg.txt'
 '{current_time}_{technique}_{method}_{model}_{n}_page.txt'
 ```  
-The difference between these 3 evaluations is seg evaluaties if that particular segment is succesfully retrieved. Page evaluates if the page is succesfully retrieved. 
+The difference between these 3 evaluations is seg evaluates if that particular segment is successfully retrieved. Page evaluates if the page is successfully retrieved. 
 Example of evaluation: 
 ```
 /_seg.txt
@@ -180,6 +185,6 @@ question:What automated feature does the MoveIt Setup Assistant offer in relatio
 id:Sawyer (Level1) > doc (Level2) > opw_kinematics (Level3) > (h1) OPW Kinematics Solver for Industrial Manipulators > (h2) Purpose
 question:In what situations is this package designed to be a preferable alternative to IK-Fast based solutions?
 ```
-The bottom it lists the segements that it failed to retrieve. 
+The bottom it lists the segments that it failed to retrieve. 
 
    

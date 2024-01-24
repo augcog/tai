@@ -8,7 +8,7 @@ To enhance the efficiency of RAG applications, this folder breaks down unstructu
 - [Retrieval](#retrieval)
 
 ## Pre-requisites
-- Begin by visiting the `scraper` folder and follow the instructions there to scrape your documents.
+- Begin by visiting the [scraper](scraper/README.md) folder and follow the instructions there to scrape your documents.
 ## Chunking documents and converting them into embeddings  
 When scraping documents for embedding, it's crucial to preprocess them into segments. This is because the embedding model has a token size limit and cannot process excessively long documents effectively. 
 Segmenting documents ensures each portion fits within the model's token capacity, allowing for successful embedding. The `embedding_create.py` script offers a variety of embedding models, prompting methods, 

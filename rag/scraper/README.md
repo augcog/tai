@@ -55,9 +55,9 @@
 ## Folders for scraper
 - In every scraping folder, there will be a code called `scrape.py` that is the place you will use to scrape your documents. 
   - `scrape.py` will scrape the documents from the root url recursively until the entire website is scraped.  
-- [Scrape_header](Scrape_header/README.md)
-- [Scrape_md](Scrape_md/README.md)
-- [Scrape_rst](Scrape_rst/README.md)
-- [Scrape_pdf](Scrape_pdf/README.md)  
+- [Scrape_header](Scrape_header/README.md): For general websites
+- [Scrape_md](Scrape_md/README.md): For websites that uses markdown
+- [Scrape_rst](Scrape_rst/README.md): For websites that uses rst
+- [Scrape_pdf](Scrape_pdf/README.md): For pdfs
 
 Now that you already have your documents ready, it's time to convert them into embeddings. 

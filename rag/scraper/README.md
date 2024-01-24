@@ -3,6 +3,7 @@
   1) General
   2) Rst
   3) Markdown
+  4) Pdf
 - Scrapper usually takes a root url and recursively scrapes the entire website.
   ```
   (rag) bot@botPC:~/roarai/rag/scraper/Scrape_md/carla$ tree .
@@ -54,67 +55,9 @@
 ## Folders for scraper
 - In every scraping folder, there will be a code called `scrape.py` that is the place you will use to scrape your documents. 
   - `scrape.py` will scrape the documents from the root url recursively until the entire website is scraped.  
-- `Scraper_header`:  
-- Use this folder if you want to scrape a website that has a headers and contents.
-  In order to use this folder you need edit some variables accordingly to your needs:
-  ```
-  # TODO
-  url = "https://wiki.ros.org/ROS/Tutorials/"
-  root = "https://wiki.ros.org/ROS/Tutorials/"
-  root_regex = r"^https://wiki.ros.org/ROS/Tutorials/"
-  root_filename = "ROS"
-  content_tags = [
-    ('div', {'id': 'page', 'lang': 'en', dir: 'ltr'})
-  ]
-  ```
-  - `url`: the url where your website starts
-  - `root`: the url where you want your website to recurse until
-  - `root_regex`: the format of the url that it needs to follow
-  - `root_filename`: the filename you want to store all your data
-  - `content_tags`: the tags that you want to scrape
-    - content_tags will be slightly confusing to find I will give the step by step process to find this.
-      1) Go to the website you want to scrape
-      2) For Linux and Windows press `Ctrl + Shift + C` and for Mac press `Command + Option + I`  
-         ![Inspect_page](images/page_inspect.png)  
-         You will se something like this.
-      3) Now hover your cursor to the part where you want to scrape the content and click onto it.  
-         ![Inspect_content](images/content_inspect.png)
-      4) Notice that the tag name of the content is `<div id="page" lang="en" dir="ltr">`.  
-         So now you just need to paste the tag into `content_tags` accordingly to the format.  
-         Format:```(<tag_type>, {<tag_attribute>:<tag_attribute_value>, ...other_attributes and attribute values })```
-      5) In this case <tag_type> = div, <tag_attribute> = id, <tag_attribute_value> = page, etc.
-      6) So the final result would be `('div', {'id': 'page', 'lang': 'en', dir: 'ltr'})`
+- [Scrape_header](Scrape_header/README.md)
+- [Scrape_md](Scrape_md/README.md)
+- [Scrape_rst](Scrape_rst/README.md)
+- [Scrape_pdf](Scrape_pdf/README.md)  
 
-         
-- `Scraper_md`:
-  In order to use this folder you need to provide the url to the folder of mkdocs.yaml of the repo and the name of the folder you want to save your documents at.  
-  ```
-  create_and_enter_dir('carla')
-  url="https://github.com/carla-simulator/carla/blob/master/mkdocs.yml"
-  ```
-- `Scraper_rst`:
-  In order to use this folder you will need to edit some variables accordingly to your needs
-  ```
-  mkdir('numpy')
-  os.chdir('numpy')
-  starting='index'
-  url=f"https://github.com/numpy/numpy/blob/main/doc/source/index.rst?plain=1"
-  ```
-  - mkdir and os.chdir is just setting your directory name
-  - `starting`: the name of your first rst file. (It's usually index)
-  - `url`: the url to the index.rst of the repo. Notice you have to add `?plain=1` to the end of the url as that obtains th raw code of the rst file. 
-- `Scrape_pdf`:  
-  First we will need to convert the pdf into a markdown format. We will use a tool called nougat. 
-    - run `pip install nougat-ocr` to install nougat
-    - Go to `nougat.py` and choose the pdf you want to convert and the name of the folder you want to save your documents at.
-      ```
-      pdf_to_md('~/Downloads/MLS.pdf', 'textbook')
-      ```
-    - After you get your markdown folder now run `header.py` to segment the contents of the markdown file into headers and contents.
-      ```
-      # TODO
-      parser = MarkdownParser('textbook/MLS.mmd')
-      ```
-  
-  
 Now that you already have your documents ready, it's time to convert them into embeddings. 

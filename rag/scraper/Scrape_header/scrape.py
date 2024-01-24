@@ -9,6 +9,39 @@ from termcolor import colored
 from urllib.parse import urljoin
 from markdownify import markdownify as md
 
+
+def main():
+    # TODO
+    # ROS
+    # url = "https://wiki.ros.org/ROS/Tutorials/"
+    # root = "https://wiki.ros.org/ROS/Tutorials/"
+    # root_regex = r"^https://wiki.ros.org/ROS/Tutorials/"
+    # root_filename = "ROS"
+    # content_tags = [
+    #     ('div', {'id': 'page', 'lang': 'en', 'dir': 'ltr'}),
+    # ]
+
+    # opencv
+    # url = "https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html"
+    # root_regex = r"^https://docs.opencv.org/4.x\/\w+\/\w+\/tutorial_py"
+    # root = "https://docs.opencv.org/4.x/d6/d00/"
+    # root_filename = "opencv"
+    # content_tags = [
+    #     ('div', {'class': 'contents'})
+    # ]
+
+    url = "https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/"
+    root = "https://emanual.robotis.com/docs/en/platform/turtlebot3/"
+    root_regex = r"^https://emanual.robotis.com/docs/en/platform/turtlebot3/"
+    root_filename = "turtlebot3"
+    content_tags = [
+        ('div', {'class': 'archive', 'id': 'archive'}),
+    ]
+    delay = get_crawl_delay(cd_home(url))
+    extract_unique_links(url, root, root_regex, root_filename, content_tags, delay)
+
+
+
 def remove_slash_and_hash(link):
     """
     Removes trailing slash (if present) and hash fragment from a given URL.
@@ -192,36 +225,6 @@ def save_to_file(file_name, content):
     with open(file_name, 'w', encoding='utf-8') as file:
         file.write(content)
 
-# Test the function
-# url = "https://docs.opencv.org/4.x/"
-# root = "https://docs.opencv.org/4.x/"
-# ROS
-url = "https://wiki.ros.org/ROS/Tutorials/"
-root = "https://wiki.ros.org/ROS/Tutorials/"
-root_regex = r"^https://wiki.ros.org/ROS/Tutorials/"
-root_filename = "ROS"
-content_tags = [
-    ('div', {'id': 'page', 'lang': 'en', 'dir': 'ltr'}),
-]
+if __name__ == "__main__":
+    main()
 
-# opencv
-# url = "https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html"
-# root_regex = r"^https://docs.opencv.org/4.x\/\w+\/\w+\/tutorial_py"
-# root = "https://docs.opencv.org/4.x/d6/d00/"
-# root_filename = "opencv"
-# content_tags = [
-#     ('div', {'class': 'contents'})
-# ]
-
-# url = "https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/"
-# root = "https://emanual.robotis.com/docs/en/platform/turtlebot3/"
-# root_regex = r"^https://emanual.robotis.com/docs/en/platform/turtlebot3/"
-# root_filename = "turtlebot3"
-# content_tags = [
-#     ('div', {'class': 'archive', 'id': 'archive'}),
-# ]
-delay = get_crawl_delay(cd_home(url))
-links = extract_unique_links(url, root, root_regex, root_filename, content_tags, delay)
-
-# inputs links, dir_name, delay
-# process_links_and_save(links, root_filename, delay)

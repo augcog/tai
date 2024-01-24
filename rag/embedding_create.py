@@ -113,7 +113,7 @@ start=time.time()
 # TODO PROCESS DOCUMENTS
 # docs = traverse_files("../dataset/edugpt/Scrape_header/ROS", "ROS")
 docs = traverse_files("./scraper/Scrape_rst/Sawyer", "Sawyer")
-docs += traverse_files("./scraper/Scrape_textbook/textbook", "Robotics textbook")
+docs += traverse_files("./scraper/Scrape_pdf/textbook", "Robotics textbook")
 
 # TODO TECHNIQUE
 # technique = 'none'

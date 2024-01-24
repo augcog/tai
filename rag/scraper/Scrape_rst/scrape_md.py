@@ -17,6 +17,10 @@ ignore=["glossary","*"]
 
 
 def main():
+    """
+    The main function to start the scraping process.
+    It sets up the initial directory, URL, and other parameters, and then calls tree_call to begin recursive scraping.
+    """
     # Numpy
     # mkdir('numpy')
     # os.chdir('numpy')

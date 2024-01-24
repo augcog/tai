@@ -1,6 +1,6 @@
-# ROARAI: Assistant Discord Bot
+# ROARAI: Teaching Assistant Discord Bot
 
-> ### Build your own Discord bot using Open-Sourced Models and ChatGPT 
+> ### Build your own TA Discord bot using Open-Sourced Models and OpenAI Embedding API
 
 ---
 

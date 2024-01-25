@@ -16,7 +16,11 @@ To enhance the efficiency of RAG applications, this folder breaks down unstructu
 ### Chunking documents and converting them into embeddings
 When scraping documents for embedding, it's crucial to preprocess them into segments. This is because the embedding model has a token size limit and cannot process excessively long documents effectively. 
 Segmenting documents ensures each portion fits within the model's token capacity, allowing for successful embedding. The `embedding_create.py` script offers a variety of embedding models, prompting methods, 
-and chunking techniques. This script will create an embedding database for all the scraped documents, which can later be retrieved to assist users with their queries.
+and chunking techniques. This script will create an embedding database for all the scraped documents, which can later be retrieved to assist users with their queries.  
+
+**Quick run**: `python3 embedding_create.py`. This will run the code with the default settings and default documents. 
+
+If you want to change the settings:
 - **Embedding models**
   1) local
   2) openai(best performance)
@@ -108,6 +112,7 @@ and chunking techniques. This script will create an embedding database for all t
 ### Question generator
 - In order to test the retrieval of our embeddings we need to have some questions related to the document and see if it is able to retrieve the documents that can answer the question.
 - `question_generator.py` generates questions based on each segments of the documents. It allows you to select which model to use and choose the token limit for each segment.
+- **Quick run**: `python3 question_generator.py`. THis runs the code with the default settings and default documents.
 
 #### How to use
 1) Uncomment the model you would like to use and set the token size limit accordingly to the token size limit on your `embedding_create.py`
@@ -133,6 +138,7 @@ and chunking techniques. This script will create an embedding database for all t
 ### Retrieval
 - In the retrieval process the code will convert the question into an embedding(question embedding) and find the document embedding that has the closest euclidient distance.
 - The file we will be using in this case is `retrieval_test.py`
+- **Quick run**: `retrieval.py`. THis runs the code with the default settings and default documents.
 #### How to run
 1) Like `embedding_create.py` you will be given a selections of techniques, prompting methods, embedding models and token size. IMPORTANT!!!: Make sure the selections in `retrieval_test.py` matches the selections in `embedding_create.py`
     ```

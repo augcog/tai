@@ -7,7 +7,7 @@
  
 ###  1. Introduction <a name=" 1. Introduction"></a>
 
-This is a guide on fine-tuning the HuggingFace H4/zephyr-7b-beta model. We provide a dummy_conversation.json dataset for testing the fine-tuning effects, which you can replace with other datasets.
+This is a guide on fine-tuning the HuggingFace H4/zephyr-7b-beta model, including an example of fine-tuning using the Open-Orca/OpenOrca dataset.
 
 ### 2. Set Up <a name="Set Up"></a>
 Before you begin, make sure you have the required libraries installed. You can install them using pip:
@@ -17,4 +17,4 @@ Before you begin, make sure you have the required libraries installed. You can i
 ### 3. Execution  <a name="how-to-execute"></a>
 You can execute the script using the following command:
 	
- 	python train.py
+ 	python train.py Open-Orca/OpenOrca 

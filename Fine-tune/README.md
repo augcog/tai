@@ -15,6 +15,6 @@ Before you begin, make sure you have the required libraries installed. You can i
 	 pip install torch accelerate bitsandbytes datasets transformers peft wandb
 
 ### 3. Execution  <a name="how-to-execute"></a>
-You can execute the script using the following command:
+You can execute the script using the following command，datasets are usually downloaded to the path ~/.cache/huggingface/datasets.
 	
  	python Fine-tune.py Open-Orca/OpenOrca 

@@ -17,4 +17,4 @@ Before you begin, make sure you have the required libraries installed. You can i
 ### 3. Execution  <a name="how-to-execute"></a>
 You can execute the script using the following command:
 	
- 	python train.py Open-Orca/OpenOrca 
+ 	python Fine-tune.py Open-Orca/OpenOrca 

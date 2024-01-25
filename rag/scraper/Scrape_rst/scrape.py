@@ -9,11 +9,15 @@ ignore=["glossary","*"]
 
 
 def main():
+    """
+    The main function to start the scraping process.
+    It sets up the initial directory, URL, and other parameters, and then calls tree_call to begin recursive scraping.
+    """
     # Numpy
-    mkdir('numpy')
-    os.chdir('numpy')
-    starting='index'
-    url=f"https://github.com/numpy/numpy/blob/main/doc/source/index.rst?plain=1"
+    # mkdir('numpy')
+    # os.chdir('numpy')
+    # starting='index'
+    # url=f"https://github.com/numpy/numpy/blob/main/doc/source/index.rst?plain=1"
 
     # Sawyer
     # mkdir('Sawyer')
@@ -21,6 +25,17 @@ def main():
     # starting='index'
     # url = f"https://github.com/ros-planning/moveit_tutorials/blob/master/index.rst?plain=1"
 
+    # conda
+    # mkdir('conda')
+    # os.chdir('conda')
+    # starting='index'
+    # url = "https://github.com/conda/conda-docs/blob/main/docs/source/index.rst?plain=1"
+
+    # conda getting started
+    mkdir('conda_getting started')
+    os.chdir('conda_getting started')
+    starting='index'
+    url = "https://github.com/conda/conda/blob/main/docs/source/user-guide/index.rst?plain=1"
     home_url= url.rsplit('/', 1)[0]
     # Current directory
     home_dir=os.getcwd()
@@ -34,7 +49,6 @@ def fetch_and_save_data(filename, url):
     :param url: The URL to fetch data from.
     :return: None
     """
-    print(f"url:{url}")
     response = requests.get(url)
 
     # Error handling for HTTP request
@@ -49,7 +63,6 @@ def fetch_and_save_data(filename, url):
 
     # Saving the entire fetched JSON to a file
     data=data['payload']['blob']['rawLines']
-    print(data)
     filename = filename.split("/")[-1]
     with open(f"{filename}.rst", "w", encoding='utf-8') as outfile:
         for i in data:
@@ -58,6 +71,10 @@ def fetch_and_save_data(filename, url):
     print("Saved the fetched data to a file.")
 
 def mkdir(dir_name):
+    """
+    Creates a directory with the given name if it doesn't already exist.
+    - dir_name (str): The name of the directory to be created.
+    """
     # Normalize the directory path to handle cases like "dir1//dir2"
     dir_name = os.path.normpath(dir_name)
 
@@ -68,6 +85,13 @@ def mkdir(dir_name):
         print(f"{dir_name} already exists!")
 
 def tree_call(cur_file, url, home_url, home_dir):
+    """
+    Recursively navigates through the file structure of a website and fetches content based on RST files.
+    - cur_file (str): The current file being processed.
+    - url (str): The URL of the current file.
+    - home_url (str): The base URL of the website.
+    - home_dir (str): The base directory on the local filesystem.
+    """
     filename=f"{cur_file}"
     code=fetch_and_save_data(filename,url)
     if code==1:
@@ -83,36 +107,24 @@ def tree_call(cur_file, url, home_url, home_dir):
     def cd_dir(num=1):
         for _ in range(num):
             os.chdir('..')
-        # To verify, let's print the current working directory after the change(s)
-        print(os.getcwd())
     parser = RSTParser(f"{filename}.rst")
     parser.print_header_tree()
     parser.save_parsed_data()
     parser.concat_print()
-    # print(parser.toctree_content)
-    # print(f"prev:{url}")
     url=cd_back_link(url)
-    # print(f"cur:{url}")
     current_directory = os.getcwd()
-    # print(f"Current directory is {current_directory}")
     
     for sublink in parser.toctree_content:
         if sublink.startswith('/'):
-            # print("case1")
             sublink=sublink[1:]
             part=sublink.split("/")
-            # print(f"part:{part}")
             cur_name,dir=part[-1],'/'.join(part[:-1])
             if cur_name=='*' or re.match(r'^https.*',sublink) is not None:
                 continue
-            # print(f"cur_name:{cur_name}")
             os.chdir(home_dir)
-            # print(f"dir_before:{dir}")
             mkdir(dir)
-            
             if dir:
                 os.chdir(dir)
-            # print(f"dir:{dir}")
             sublink=sublink[:-4] if sublink.endswith('.rst') else sublink
             temp_url=url
             url=home_url+sublink+".rst?plain=1"
@@ -122,17 +134,13 @@ def tree_call(cur_file, url, home_url, home_dir):
             os.chdir(current_directory)
             
         else:
-            # print("case2")
             part=sublink.split("/")
             cur_name,dir=part[-1],'/'.join(part[:-1])
             if cur_name in ignore or re.match(r'^https.*',sublink) is not None:
-                continue    
-            # print(f"cur_name:{cur_name}")
-            # print(f"dir_before:{dir}")
+                continue
             mkdir(dir)
             if dir:
                 os.chdir(dir)
-            # print(f"dir:{dir}")
             sublink=sublink[:-4] if sublink.endswith('.rst') else sublink
             url+=sublink+".rst?plain=1"
             print(url)

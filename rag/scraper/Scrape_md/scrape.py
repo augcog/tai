@@ -7,6 +7,10 @@ from header import MarkdownParser
 
 
 def main():
+    """
+    The main function that initializes and orchestrates the process of scraping GitHub repositories' mkdocs.yml files.
+    It sets up the URL of the mkdocs.yml file from various repositories and initiates the scraping process.
+    """
     # TODO
     # Carla
     create_and_enter_dir('carla')
@@ -36,41 +40,41 @@ def main():
 
     response = requests.get(url)
     data = json.loads(response.text)
-    # print(json.dumps(data, indent=4))
     content = data['payload']['blob']['rawLines']
     content = '\n'.join(content)
-    print(extract_yaml_sections(content))
     content = extract_yaml_sections(content)
-    # # print(content)
-
     parsed_yaml = yaml.load(content, Loader=yaml.SafeLoader)
-
-    # print(json.dumps(parsed_yaml, indent=4))
     repo_url = parsed_yaml['repo_url']
     edit_url = parsed_yaml.get('edit_uri')
     if edit_url:
         edit_url.replace('\\', '/').replace('edit/', 'blob/')
     docs_dir = parsed_yaml.get('docs_dir', None)
-
-    print(f"repo:{repo_url}")
-    print(f"edit:{edit_url}")
     if docs_dir:
         base_url = os.path.join(cd_back_link(url), docs_dir)
     else:
         base_url = os.path.join(cd_back_link(url), "docs/")
     base_url = replace_backslash_with_slash(base_url)
-    print("base:" + base_url)
     nav = parsed_yaml['nav']
     fetch_urls(base_url, nav)
 
 
 def cd_back_link(url, num_parts_to_remove=1):
+    """
+    Navigates back in the URL structure by the specified number of parts.
+    - url (str): The URL to navigate back from.
+    - num_parts_to_remove (int, optional): The number of segments to remove from the end of the URL. Default is 1.
+    - Returns: The modified URL.
+    """
     if not url:
         return ""
     for _ in range(num_parts_to_remove):
         url = url.rsplit('/', 1)[0]
         return url
 def create_and_enter_dir(directory_name):
+    """
+    Creates a directory with the given name and changes the current working directory to it.
+    - directory_name (str): The name of the directory to be created.
+    """
     # Create the directory if it doesn't exist
     if not os.path.exists(directory_name):
         os.mkdir(directory_name)
@@ -79,6 +83,12 @@ def create_and_enter_dir(directory_name):
     os.chdir(directory_name)
 
 def get_save_content(file_name, url):
+    """
+    Retrieves content from the given URL and saves it to a file.
+    - file_name (str): Name of the file to save the content.
+    - url (str): URL to fetch the content from.
+    - Returns: The content fetched from the URL.
+    """
     # Fetch the content from the URL
     response = requests.get(url)
     data = json.loads(response.text)
@@ -94,13 +104,22 @@ def get_save_content(file_name, url):
     return content
 
 def fetch_file_content_from_github(url):
+    """
+    Fetches the file content from a GitHub URL.
+    - url (str): The GitHub URL from which the file content is to be fetched.
+    - Returns: The decoded content of the file.
+    """
     response = requests.get(url)
     data = response.json()
-    print(data)
     content = base64.b64decode(data['content']).decode('utf-8')
     return content
 
 def get_url_child(url):
+    """
+    Fetches child markdown file names from a given GitHub directory URL.
+    - url (str): The GitHub directory URL to fetch the markdown files from.
+    - Returns: A list of markdown file names.
+    """
     response = requests.get(url)
     childs=[]
     data=json.loads(response.text)
@@ -112,16 +131,18 @@ def get_url_child(url):
     return childs
 
 def fetch_urls(base_url, nav):
+    """
+    Recursively fetches URLs and their content based on the navigation structure defined in the mkdocs.yml file.
+    - base_url (str): The base URL for the mkdocs documentation.
+    - nav (list): A list or dictionary defining the navigation structure from mkdocs.yml.
+    """
     for i in nav:
 
         cur_dir=os.getcwd()
-        print(i)
         if isinstance(i, str) and i.endswith(".md"):
             filename=i.split("/")[-1]
             url=os.path.join(base_url,i)
             url+="?plain=1"
-            print(url)
-            print("FILENAME: " + filename)
             parser=MarkdownParser(url, filename.replace('.md',''))
             if parser.fail:
                 continue
@@ -143,14 +164,12 @@ def fetch_urls(base_url, nav):
         elif value.endswith('/') and not value.startswith('http'):
             cur_child_dir=os.getcwd()
             url=os.path.join(base_url,value)
-            print(url)
             childs=get_url_child(url)
             for child in childs:
                 filename=i.split("/")[-1]
                 create_and_enter_dir(child.replace('.md',''))
                 child_url=os.path.join(url,child)
                 child_url+="?plain=1"
-                print(child_url)
                 filename=child
                 parser=MarkdownParser(child_url, filename.replace('.md',''))
                 if parser.fail:
@@ -167,7 +186,6 @@ def fetch_urls(base_url, nav):
             filename=value.split("/")[-1]
             url=os.path.join(base_url,value)
             url+="?plain=1"
-            print(url)
             parser=MarkdownParser(url, filename.replace('.md',''))
             if parser.fail:
                 continue
@@ -179,9 +197,18 @@ def fetch_urls(base_url, nav):
 
         os.chdir(cur_dir)
 def replace_backslash_with_slash(path):
+    """
+    Replaces backslashes with slashes in a given file path.
+    - path (str): The file path to modify.
+    - Returns: The modified file path with slashes.
+    """
     return path.replace('\\', '/')
 
 def create_and_enter_dir(directory_name):
+    """
+    Creates a directory with the specified name and changes the current working directory to it.
+    - directory_name (str): The name of the directory to be created.
+    """
     # Create the directory if it doesn't exist
     directory_name = directory_name.replace('/', '-')
     if not os.path.exists(directory_name):

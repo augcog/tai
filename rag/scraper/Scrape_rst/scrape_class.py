@@ -66,7 +66,7 @@ class RSTParser:
                     skip_next_line = False
                     continue
 
-                if i < len(lines) - 1 and re.match(r"[-=~^\"'#]+$", lines[i + 1].strip()) and not not_header:
+                if i < len(lines) - 1 and re.match(r"[-=~^\"'#*_+@!$%&]{5,}", lines[i + 1].strip()) and not not_header:
                     underline_char = lines[i + 1].strip()[0]
 
                     if underline_char not in self.header_levels:
@@ -81,9 +81,9 @@ class RSTParser:
 
                     skip_next_line = True
 
-                elif i > 0 and re.match(r"[-=~^\"'#]+$", lines[i - 1].strip()) and i < (len(lines)-1) and re.match(r"[-=~^\"'#]+$", lines[i + 1].strip()) and not not_header:
-                    underline_char = lines[i + 1].strip()[0]
-
+                elif i > 0 and re.match(r"[-=~^\"'#*_+@!$%&]{5,}", lines[i - 1].strip()) and i < (len(lines)-1) and re.match(r"[-=~^\"'#*_+@!$%&]{5,}", lines[i + 1].strip()) and not not_header:
+                    underline_char = 2*lines[i + 1].strip()[0]
+                    # print("!!!!!!!!!!!!!!" + underline_char)
                     if underline_char not in self.header_levels:
                         self.header_levels[underline_char] = len(self.header_levels) + 1
 
@@ -144,7 +144,7 @@ class RSTParser:
         new_filename = self.filename.replace('.rst', '_tree.txt')
         top_header = []
         counter = 1
-        heading_levels = {'h1': 1, 'h2': 2, 'h3': 3, 'h4': 4}  # Add more if needed
+        heading_levels = {'h1': 1, 'h2': 2, 'h3': 3, 'h4': 4, 'h5': 5, 'h6': 6, 'h7':7}  # Add more if needed
 
         with open(new_filename, 'w', encoding='utf-8') as f:
             for (header, level), content in self.found_headers.items():

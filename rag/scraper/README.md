@@ -1,10 +1,15 @@
 # scrapper
-- We have scraper for different formats.
-  1) General
-  2) Rst
-  3) Markdown
-  4) Pdf
-- Scrapper usually takes a root url and recursively scrapes the entire website.
+## Folders for scraper
+- Scrapper usually takes a root url or pdf and scrapes the entire website or pdf. 
+- In every scraping folder, there will be a code called `scrape.py` that is the place you will use to scrape your documents. 
+  - `scrape.py` will scrape the documents from the root url recursively until the entire website is scraped.  
+- [Scrape_header](Scrape_header/): For general websites
+- [Scrape_md](Scrape_md/): For websites that uses markdown
+- [Scrape_rst](Scrape_rst/): For websites that uses rst
+- [Scrape_pdf](Scrape_pdf/): For pdfs
+
+## End Results
+- After running the scrapper, you will get a folder with this following tree structure that will be used in `rag/embedding_crate.py`.
   ```
   (rag) bot@botPC:~/roarai/rag/scraper/Scrape_md/carla$ tree .
   .
@@ -52,12 +57,5 @@
     - Each segment would be the path from the root to the leaf node.
       - For example, the path to the node Linux would be `(h1) Quick Start Package Installation -> (h2) Before You Begin -> (h3) Linux`.
       - The purpose of grouping the documents in this tree structure is to allow the embedding model to understand the relationship between the headers. If the embedding model is only given the content of `(h3) Linux`, it would not know what it is related to nor how we get to the point `(h3) Linux`. By adding the segments from previous headers, it becomes complete information that explains: this information is about "installation", then continues with "steps you need to do before you begin", and how you begin in "Linux". 
-## Folders for scraper
-- In every scraping folder, there will be a code called `scrape.py` that is the place you will use to scrape your documents. 
-  - `scrape.py` will scrape the documents from the root url recursively until the entire website is scraped.  
-- [Scrape_header](Scrape_header/): For general websites
-- [Scrape_md](Scrape_md/): For websites that uses markdown
-- [Scrape_rst](Scrape_rst/): For websites that uses rst
-- [Scrape_pdf](Scrape_pdf/): For pdfs
 
 Now that you already have your documents ready, it's time to convert them into embeddings. 

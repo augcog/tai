@@ -7,8 +7,14 @@ import openai
 import cohere
 import voyageai
 from voyageai import get_embedding
-from transformers import AutoModel
+from transformers import AutoModel, AutoTokenizer
 from dotenv import load_dotenv
+import torch
+import torch.nn.functional as F
+from torch import Tensor
+from FlagEmbedding import BGEM3FlagModel
+from angle_emb import AnglE, Prompts
+
 load_dotenv()
 print(os.getenv("OPENAI_API_KEY"))
 
@@ -29,12 +35,27 @@ method = 'none'
 # method='sum'
 # TODO MODEL
 # model='local'
-model = 'openai'
+# model = 'openai'
+# model = 'openai_ada_002'
+# model = 'openai_3_small'
+# model = 'openai_3_large'
 # model='cohere'
 # model='voyage'
 # model='jina'
 # model='zephyr'
-
+# model = 'SFR'
+# model = 'BGE'
+# model = 'e5-mistral'
+# model='UAE-Large'
+model='BGE'
+# TODO BGE TECHNIQUE
+if model=='BGE':
+    # bge_technique='colbert'
+    # bge_technique='sparse'
+    # bge_technique='dense'
+    # bge_technique='sparse+dense'
+    bge_technique='sparse+dense+colbert'
+    # bge_technique='sparse+e5-mistral+colbert'
 def wizard_coder(history: list[dict]):
     DEFAULT_SYSTEM_PROMPT = history[0]['content']+'\n\n'
     B_INST, E_INST = "### Instruction:\n", "\n\n### Response:\n"
@@ -52,7 +73,7 @@ def gpt(history: list[dict]):
     return '\n---\n'.join(l)
 
 
-def generate_log(success_retrieve, fail_retrieve,filename=None):
+def generate_log(success_retrieve, fail_retrieve,time_taken,filename=None):
     """
     Generate a logging-style output based on the success_retrieve and fail_retrieve lists.
     Write the output to a file within the "log" folder based on the current date and time.
@@ -86,6 +107,7 @@ def generate_log(success_retrieve, fail_retrieve,filename=None):
 
     # Write the output to the file
     with open(os.path.join(folder_path, filename), 'w') as file:
+        file.write("Time taken for embeddings: {:.2f} seconds\n".format(time_taken))
         file.write("number of success: " + str(len(success_retrieve)) + "\n")
         file.write("number of fail: " + str(len(fail_retrieve)) + "\n")
         file.write("number of top 1: " + str(count_top_1) + "\n")
@@ -98,6 +120,62 @@ def generate_log(success_retrieve, fail_retrieve,filename=None):
                        f"question:{i[1]}\n")
 
     return os.path.join(folder_path, filename)
+
+def bge_compute_score(
+    query_embedding,
+    document_embeddings,
+    weights_for_different_modes,
+    secondary_query_embedding,
+    secondary_document_embeddings,
+):
+    all_scores = {
+        'colbert': [],
+        'sparse': [],
+        'dense': [],
+        'sparse+dense': [],
+        'colbert+sparse+dense': [],
+    }
+
+    if weights_for_different_modes is None:
+        weights_for_different_modes = [1, 1., 1.]
+        weight_sum = 3
+        print("default weights for dense, sparse, colbert are [1.0, 1.0, 1.0]")
+    else:
+        assert len(weights_for_different_modes) == 3
+        weight_sum = sum(weights_for_different_modes)
+
+    # Loop through each document embedding
+    for i in range(len(document_embeddings)):
+    # for doc_embedding, secondary_doc_embedding in zip(document_embeddings, secondary_document_embeddings):
+        # Compute scores for the current document embedding against the query embedding
+        if 'dense' in bge_technique:
+            dense_score = query_embedding['dense_vecs'] @ document_embeddings[i]['dense_vecs'].T
+        else:
+            dense_score = np.dot(secondary_query_embedding, secondary_document_embeddings[i])
+        # dense_score = embedding_model.dense_score(query_embedding['dense_vecs'], doc_embedding['dense_vecs'])
+        sparse_score = embedding_model_add.compute_lexical_matching_score(query_embedding['lexical_weights'], document_embeddings[i]['lexical_weights'])
+        colbert_score = embedding_model_add.colbert_score(query_embedding['colbert_vecs'], document_embeddings[i]['colbert_vecs'])
+
+        # Assuming scores are returned as tensors, convert them to Python scalars
+        colbert_score_val = colbert_score
+        sparse_score_val = sparse_score
+        dense_score_val = dense_score
+
+        # Store the scores
+        all_scores['colbert'].append(colbert_score_val)
+        all_scores['sparse'].append(sparse_score_val)
+        all_scores['dense'].append(dense_score_val)
+        all_scores['sparse+dense'].append(
+            (sparse_score_val * weights_for_different_modes[1] + dense_score_val * weights_for_different_modes[0]) /
+            (weights_for_different_modes[1] + weights_for_different_modes[0])
+        )
+        all_scores['colbert+sparse+dense'].append(
+            (colbert_score_val * weights_for_different_modes[2] + sparse_score_val * weights_for_different_modes[1] +
+             dense_score_val * weights_for_different_modes[0]) / weight_sum
+        )
+
+    return all_scores
+
 # for n in [900,800,700,600,500,400,300,200,100]:
 # TODO TOKEN SIZE
 for n in [400]:
@@ -115,17 +193,72 @@ for n in [400]:
     if model=='local'or model=='zephyr':
         openai.api_key = "empty"
         openai.api_base = "http://localhost:8000/v1"
-    elif model=='openai':
-        print(os.getenv("OPENAI_API_KEY"))
+    elif model in ['openai_ada_002','openai_3_small','openai_3_large']:
+        # print(os.getenv("OPENAI_API_KEY"))
         openai.api_key = os.getenv("OPENAI_API_KEY")
-        print(openai.api_key)
+        # print(openai.api_key)
     elif model=='cohere':
         co = cohere.Client(os.getenv("COHERE_API_KEY"))
     elif model=='voyage':
         voyageai.api_key = os.getenv("VOYAGE_API_KEY")
     elif model=='jina':
         jina = AutoModel.from_pretrained('jinaai/jina-embeddings-v2-base-en', trust_remote_code=True)
+    elif model=='SFR':
+        task = 'Given a web search query, retrieve relevant passages that answer the query'
+        def last_token_pool(last_hidden_states: Tensor,
+                            attention_mask: Tensor) -> Tensor:
+            left_padding = (attention_mask[:, -1].sum() == attention_mask.shape[0])
+            if left_padding:
+                return last_hidden_states[:, -1]
+            else:
+                sequence_lengths = attention_mask.sum(dim=1) - 1
+                batch_size = last_hidden_states.shape[0]
+                return last_hidden_states[torch.arange(batch_size, device=last_hidden_states.device), sequence_lengths]
 
+
+        def SFR(task_description: str, query: str) -> str:
+            return f'Instruct: {task_description}\nQuery: {query}'
+        # load model and tokenizer
+        tokenizer = AutoTokenizer.from_pretrained('Salesforce/SFR-Embedding-Mistral')
+        embedding_model = AutoModel.from_pretrained('Salesforce/SFR-Embedding-Mistral')
+        tokenizer.add_eos_token = True
+
+        # get the embeddings
+        max_length = 4096
+    elif model == 'e5-mistral' or 'e5-mistral' in bge_technique:
+        task = 'Given a web search query, retrieve relevant passages that answer the query'
+        def last_token_pool(last_hidden_states: Tensor,
+                            attention_mask: Tensor) -> Tensor:
+            left_padding = (attention_mask[:, -1].sum() == attention_mask.shape[0])
+            if left_padding:
+                return last_hidden_states[:, -1]
+            else:
+                sequence_lengths = attention_mask.sum(dim=1) - 1
+                batch_size = last_hidden_states.shape[0]
+                return last_hidden_states[torch.arange(batch_size, device=last_hidden_states.device), sequence_lengths]
+
+
+        def SFR(task_description: str, query: str) -> str:
+            return f'Instruct: {task_description}\nQuery: {query}'
+        tokenizer = AutoTokenizer.from_pretrained('intfloat/e5-mistral-7b-instruct')
+        embedding_model = AutoModel.from_pretrained('intfloat/e5-mistral-7b-instruct')
+        tokenizer.add_eos_token = True
+
+        # get the embeddings
+        max_length = 4096
+    elif model == 'UAE-Large':
+        angle = AnglE.from_pretrained('WhereIsAI/UAE-Large-V1', pooling_strategy='cls').cuda()
+        angle.set_prompt(prompt=Prompts.C)
+
+    if model=='BGE':
+        from FlagEmbedding import BGEM3FlagModel
+        embedding_model_add = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True)
+
+    # RERANKER
+    from FlagEmbedding import FlagReranker
+
+    reranker = FlagReranker('BAAI/bge-reranker-large',
+                            use_fp16=True)  # Setting use_fp16 to True speeds up computation with a slight performance degradation
     def chat_completion(system_message, human_message):
         system_message = system_message
         messages=[{"role": "system", "content": system_message}, {"role": "user", "content": human_message}]
@@ -138,21 +271,12 @@ for n in [400]:
             model='gpt-3.5-turbo', messages=messages, temperature=0
         )
         # print(completion)
-
         answer=completion['choices'][0]['message']["content"]
 
         return answer
 
 
     start=time.time()
-    # Sawyer
-    # history = [{"role": "system", "content": system_query_prompt}, {"role": "user", "content": 'How does using Docker help in replicating CI environments locally? Are there any pitfalls or challenges you should be aware of when debugging within a Docker container?'}]
-    # history = [{"role": "system", "content": system_query_prompt}, {"role": "user", "content": 'When you use the command to run a specific test, e.g., rostest moveit_ros_planning_interface move_group_pick_place_test.test --text, how does this differ from running all tests for a package, and why might you want to focus on a single test rather than all of them?'}]
-    # history = [{"role": "system", "content": system_query_prompt}, {"role": "user", "content": "In the process of hand-eye calibration using the visual calibration target, what are the default parameters for the target, and how does one verify its successful creation in the system?"}]
-    # ROS
-
-    # history = [{"role": "system", "content": system_query_prompt}, {"role": "user", "content": ' In the setup environment step, tools like gdb and valgrind are installed. Can you elaborate on how these tools are used in debugging ROS projects, especially within the MoveIt context?'}]
-    # history = [{"role": "system", "content": system_query_prompt}, {"role": "user", "content": 'What is the primary function of rosdep in the context of ROS (Robot Operating System)? Can you explain the significance of initializing rosdep using the commands sudo rosdep init and rosdep update, and why these steps are necessary before you can install any package dependencies?'}]
     def remove_number(input_str):
         # Splitting the string by spaces
         parts = input_str.split(' ')
@@ -171,40 +295,8 @@ for n in [400]:
     for i in questions:
         print(i)
     questions = [(remove_number(i[0]),i[1]) for i in questions]
-
-    # evaluation
-    # questions = [
-    #     ("Sawyer (Level1) > doc (Level2) > hand_eye_calibration (Level3) > (h1) Hand-Eye Calibration > (h2) Collect Dataset", "Describe the process and significance of capturing a calibration dataset in robot kinematics, the role of the end-effector and calibration target's poses, the utility of multiple samples, and how tools like the 'Calibrate' tab and RViz help in this process."),
-    #     ("Sawyer (Level1) > doc (Level2) > test_debugging (Level3) > (h1) Debugging Tests > (h2) CI Failures", "How does using Docker help in replicating CI environments locally? Are there any pitfalls or challenges you should be aware of when debugging within a Docker container?"),
-    #     ("Sawyer (Level1) > doc (Level2) > test_debugging (Level3) > (h1) Debugging Tests > (h2) Run One Test", "When you use the command to run a specific test, e.g., rostest moveit_ros_planning_interface move_group_pick_place_test.test --text, how does this differ from running all tests for a package, and why might you want to focus on a single test rather than all of them?"),
-    #     ("Sawyer (Level1) > doc (Level2) > opw_kinematics (Level3) > (h1) OPW Kinematics Solver for Industrial Manipulators > (h2) Usage", "What automated feature does the MoveIt Setup Assistant offer in relation to the `kinematics.yaml` file, and how can you access it?"),
-    #     ("Sawyer (Level1) > doc (Level2) > opw_kinematics (Level3) > (h1) OPW Kinematics Solver for Industrial Manipulators > (h2) Usage", "What is the purpose of the kinematics_solver parameter in the `kinematics.yaml` file, and what should it be replaced with to utilize the `MoveItOPWKinematicsPlugin?`"),
-    #     ("Sawyer (Level1) > doc (Level2) > opw_kinematics (Level3) > (h1) OPW Kinematics Solver for Industrial Manipulators > (h2) Purpose", "In what situations is this package designed to be a preferable alternative to IK-Fast based solutions?"),
-    #     ("Sawyer (Level1) > doc (Level2) > planning_scene (Level3) > (h1) Planning Scene > (h2) Running the code", "roslaunch moveit_tutorials planning_scene_tutorial.launch"),
-    #     ("Sawyer (Level1) > doc (Level2) > move_group_python_interface (Level3) > (h1) Move Group Python Interface > (h2) The Entire Code" , "What is `move_group_python_interface/launch/move_group_python_interface_tutorial.launch` used for?"),
-    #     ("Sawyer (Level1) > doc (Level2) > bullet_collision_checker (Level3) > (h1) Using Bullet for Collision Checking > (h2) Running the Code > (h3) Continuous Collision Detection", "Describe the process and significance of Continuous Collision Detection (CCD) in the context of Bullet's capabilities."),
-    #     ("Sawyer (Level1) > doc (Level2) > ikfast (Level3) > (h1) IKFast Kinematics Solver > (h2) Getting Started", "What are the initial steps and considerations for setting up and running the IKFast code generator with MoveIt and OpenRAVE using a docker image, and how can one install the MoveIt IKFast package?"),
-    #     ("Sawyer (Level1) > doc (Level2) > ikfast (Level3) > (h1) IKFast Kinematics Solver > (h2) Creating the IKFast MoveIt plugin > (h3) Generate IKFast MoveIt plugin", "What is the primary goal of the \"Generate IKFast MoveIt plugin\" section?Where should the given command be issued to generate the IKFast MoveIt plugin?"),
-    #     ("Sawyer (Level1) > doc (Level2) > planning_with_approximated_constraint_manifolds (Level3) > (h1) Planning with Approximated Constraint Manifolds > (h2) Creating the Constraint Database > (h3) Defining constraints > (h4) PositionConstraint", "What is the PositionConstraint and how does it constrain the Cartesian positions allowed for a link?"),
-    #     ("Sawyer (Level1) > doc (Level2) > planning_adapters (Level3) > (h1) Planning Adapter Tutorials > (h2) Planning Insights for different motion planners and planners with planning adapters", "Can you explain the significance of the parameter ridge_factor in CHOMP and its role in obstacle avoidance?If one wants to first produce an initial path using STOMP and then optimize it, which planner can be utilized after STOMP?")
-    #
-    # ]
-    # questions = [
-    #     ("Sawyer_md (Level1) > doc (Level2) > hand_eye_calibration (Level3) > (h1) Hand-Eye Calibration > (h2) Collect Dataset", "Describe the process and significance of capturing a calibration dataset in robot kinematics, the role of the end-effector and calibration target's poses, the utility of multiple samples, and how tools like the 'Calibrate' tab and RViz help in this process."),
-    #     ("Sawyer_md (Level1) > doc (Level2) > test_debugging (Level3) > (h1) Debugging Tests > (h2) CI Failures", "How does using Docker help in replicating CI environments locally? Are there any pitfalls or challenges you should be aware of when debugging within a Docker container?"),
-    #     ("Sawyer_md (Level1) > doc (Level2) > test_debugging (Level3) > (h1) Debugging Tests > (h2) Run One Test", "When you use the command to run a specific test, e.g., rostest moveit_ros_planning_interface move_group_pick_place_test.test --text, how does this differ from running all tests for a package, and why might you want to focus on a single test rather than all of them?"),
-    #     ("Sawyer_md (Level1) > doc (Level2) > opw_kinematics (Level3) > (h1) OPW Kinematics Solver for Industrial Manipulators > (h2) Usage", "What automated feature does the MoveIt Setup Assistant offer in relation to the `kinematics.yaml` file, and how can you access it?"),
-    #     ("Sawyer_md (Level1) > doc (Level2) > opw_kinematics (Level3) > (h1) OPW Kinematics Solver for Industrial Manipulators > (h2) Usage", "What is the purpose of the kinematics_solver parameter in the `kinematics.yaml` file, and what should it be replaced with to utilize the `MoveItOPWKinematicsPlugin?`"),
-    #     ("Sawyer_md (Level1) > doc (Level2) > opw_kinematics (Level3) > (h1) OPW Kinematics Solver for Industrial Manipulators > (h2) Purpose", "In what situations is this package designed to be a preferable alternative to IK-Fast based solutions?"),
-    #     ("Sawyer_md (Level1) > doc (Level2) > planning_scene (Level3) > (h1) Planning Scene > (h2) Running the code", "roslaunch moveit_tutorials planning_scene_tutorial.launch"),
-    #     ("Sawyer_md (Level1) > doc (Level2) > move_group_python_interface (Level3) > (h1) Move Group Python Interface > (h2) The Entire Code" , "What is `move_group_python_interface/launch/move_group_python_interface_tutorial.launch` used for?"),
-    #     ("Sawyer_md (Level1) > doc (Level2) > bullet_collision_checker (Level3) > (h1) Using Bullet for Collision Checking > (h2) Running the Code > (h3) Continuous Collision Detection", "Describe the process and significance of Continuous Collision Detection (CCD) in the context of Bullet's capabilities."),
-    #     ("Sawyer_md (Level1) > doc (Level2) > ikfast (Level3) > (h1) IKFast Kinematics Solver > (h2) Getting Started", "What are the initial steps and considerations for setting up and running the IKFast code generator with MoveIt and OpenRAVE using a docker image, and how can one install the MoveIt IKFast package?"),
-    #     ("Sawyer_md (Level1) > doc (Level2) > ikfast (Level3) > (h1) IKFast Kinematics Solver > (h2) Creating the IKFast MoveIt plugin > (h3) Generate IKFast MoveIt plugin", "What is the primary goal of the \"Generate IKFast MoveIt plugin\" section?Where should the given command be issued to generate the IKFast MoveIt plugin?"),
-    #     ("Sawyer_md (Level1) > doc (Level2) > planning_with_approximated_constraint_manifolds (Level3) > (h1) Planning with Approximated Constraint Manifolds > (h2) Creating the Constraint Database > (h3) Defining constraints > (h4) PositionConstraint", "What is the PositionConstraint and how does it constrain the Cartesian positions allowed for a link?"),
-    #     ("Sawyer_md (Level1) > doc (Level2) > planning_adapters (Level3) > (h1) Planning Adapter Tutorials > (h2) Planning Insights for different motion planners and planners with planning adapters", "Can you explain the significance of the parameter ridge_factor in CHOMP and its role in obstacle avoidance?If one wants to first produce an initial path using STOMP and then optimize it, which planner can be utilized after STOMP?")
-    # ]
-
+    success_retrieve_reranker = []
+    fail_retrieve_reranker = []
     success_retrieve = []
     success_page_retrieve=[]
     fail_retrieve = []
@@ -219,8 +311,11 @@ for n in [400]:
     if technique=='recursive_seperate':
 
         "recursive_seperate_none_openai_embedding_1100.pkl"
-        with open(f'pickle/{technique}_{method}_{model}_embedding_{n}_textbook.pkl', 'rb') as f:
+        with open(f'pickle/{technique}_{method}_{model}_embedding_{n}.pkl', 'rb') as f:
             data_loaded = pickle.load(f)
+        if model=='BGE' and 'e5-mistral' in bge_technique:
+            with open(f'pickle/{technique}_{method}_e5-mistral_embedding_{n}.pkl', 'rb') as f:
+                secondary_data_loaded = pickle.load(f)
     else:
         with open(f'pickle/{technique}_{method}_{model}_embedding.pkl', 'rb') as f:
             data_loaded = pickle.load(f)
@@ -228,7 +323,14 @@ for n in [400]:
     id_list = data_loaded['id_list']
     doc_list = data_loaded['doc_list']
     embedding_list = data_loaded['embedding_list']
-
+    secondary_id_list = None
+    secondary_doc_list = None
+    secondary_embedding_list = None
+    secondary_query_embed = None
+    if model=='BGE' and 'e5-mistral' in bge_technique:
+        secondary_id_list = secondary_data_loaded['id_list']
+        secondary_doc_list = secondary_data_loaded['doc_list']
+        secondary_embedding_list = secondary_data_loaded['embedding_list']
 
 
 
@@ -253,7 +355,13 @@ for n in [400]:
         # q = collection.query(query_texts=wizard_coder(history), n_results=10, include=["distances"])
         if model=='local':
             query_embed=np.array(openai.Embedding.create(model="text-embedding-ada-002", input=wizard_coder(history))['data'][0]['embedding'])
-        elif model=='openai' or model=='zephyr':
+        elif (model=='openai_ada_002'):
+            query_embed=np.array(openai.Embedding.create(model="text-embedding-ada-002", input=gpt(history))['data'][0]['embedding'])
+        elif (model=='openai_3_small'):
+            query_embed=np.array(openai.Embedding.create(model="text-embedding-3-small", input=gpt(history))['data'][0]['embedding'])
+        elif (model=='openai_3_large'):
+            query_embed=np.array(openai.Embedding.create(model="text-embedding-3-large", input=gpt(history))['data'][0]['embedding'])
+        elif (model=='zephyr'):
             query_embed=np.array(openai.Embedding.create(model="text-embedding-ada-002", input=gpt(history))['data'][0]['embedding'])
         elif model=='cohere':
             query_embed=np.array(co.embed(texts=[question],
@@ -263,10 +371,39 @@ for n in [400]:
             query_embed=np.array(get_embedding(question, model="voyage-01"))
         elif model=='jina':
             query_embed=np.array(jina.encode([question])[0])
-        print(query_embed.shape)
-        print(embedding_list.shape)
-        # need to devide
-        cosine_similarities = np.dot(embedding_list, query_embed)  # Dot product since vectors are normalized
+        elif model in ['SFR', 'e5-mistral'] or 'e5-mistral' in bge_technique:
+            batch_dict = tokenizer([SFR(task, question)], return_tensors="pt", padding=True, truncation=True, max_length=max_length-1)
+            output = embedding_model(**batch_dict)
+            embed=last_token_pool(output.last_hidden_state, batch_dict['attention_mask'])
+            normalized_embed = F.normalize(embed, p=2, dim=1)
+            if 'e5-mistral' in bge_technique:
+                secondary_query_embed = np.array(normalized_embed.detach().numpy()[0]).T
+            else:
+                query_embed=np.array(normalized_embed.detach().numpy()[0]).T
+        elif model=='UAE-Large':
+            query_embed = angle.encode({'text': question}, to_numpy=True)[0]
+        if model == 'BGE':
+            query_embed = embedding_model_add.encode(question, return_dense=True, return_sparse=True, return_colbert_vecs=True)
+        if model == 'BGE':
+            score_list = bge_compute_score(query_embed, embedding_list, [0.4, 0.2, 0.4], secondary_query_embed, secondary_embedding_list)
+            if bge_technique == 'colbert':
+                cosine_similarities = score_list['colbert']
+            elif bge_technique == 'sparse':
+                cosine_similarities = score_list['sparse']
+            elif bge_technique == 'dense':
+                cosine_similarities = score_list['dense']
+            elif bge_technique == 'sparse+dense':
+                cosine_similarities = score_list['sparse+dense']
+            elif bge_technique in ['sparse+dense+colbert', 'sparse+e5-mistral+colbert']:
+                cosine_similarities = score_list['colbert+sparse+dense']
+            cosine_similarities = np.array(cosine_similarities)
+        else:
+            print(query_embed.shape)
+            print(embedding_list.shape)
+            # Compute cosine similarity
+            cosine_similarities = np.dot(embedding_list, query_embed)
+
+
 
         # Get top 10 indices
         top_10_indices = np.argsort(cosine_similarities)[::-1]
@@ -314,6 +451,30 @@ for n in [400]:
             print("Failed")
             fail_retrieve.append((id, question))
 
+        # RERANKER
+        ranker = []
+        top_10_documents = documents[:6]
+        top_10_ids = np.array(ids[:6])
+        for doc in top_10_documents:
+            score = reranker.compute_score([question, doc])
+            print(score)
+            ranker.append(score)
+        sorted_indices = np.argsort(ranker)[::-1]
+        reranked_10_docs = top_10_documents[sorted_indices]
+        reranked_10_ids = top_10_ids[sorted_indices]
+        reranked_10_ids = list(reranked_10_ids)
+        seen = set()
+        sorted_ids_without_number = [remove_number(id) for id in reranked_10_ids if not (remove_number(id) in seen or seen.add(remove_number(id)))]
+        for i in sorted_ids_without_number:
+            print(i)
+        if id in sorted_ids_without_number:
+            print("Success")
+            k = sorted_ids_without_number.index(id)
+            print("Reranker Index:", k)
+            success_retrieve_reranker.append((id, k))
+        else:
+            print("Failed")
+            fail_retrieve_reranker.append((id, question))
         page_id = id.split(' > (h1)')[0]
         if sum(page_id in i for i in ids_without_number) > 0:
             print("Success in page")
@@ -334,7 +495,25 @@ for n in [400]:
         doc_page_list=doc_list[page_index]
         id_page_list=id_list[page_index]
         # Compute cosine similarity
-        cosine_similarities = np.dot(embedding_page_list, query_embed)  # Dot product since vectors are normalized
+        if model == 'BGE':
+            score_list = bge_compute_score(query_embed, embedding_page_list, [0.4, 0.2, 0.4], secondary_query_embed, secondary_embedding_list)
+            if bge_technique == 'colbert':
+                cosine_similarities = score_list['colbert']
+            elif bge_technique == 'sparse':
+                cosine_similarities = score_list['sparse']
+            elif bge_technique == 'dense':
+                cosine_similarities = score_list['dense']
+            elif bge_technique == 'sparse+dense':
+                cosine_similarities = score_list['sparse+dense']
+            elif bge_technique in ['sparse+dense+colbert', 'sparse+e5-mistral+colbert']:
+                cosine_similarities = score_list['colbert+sparse+dense']
+            cosine_similarities = np.array(cosine_similarities)
+        else:
+            print(query_embed.shape)
+            print(embedding_list.shape)
+            # Compute cosine similarity
+            cosine_similarities = np.dot(embedding_list, query_embed)
+        # cosine_similarities = np.dot(embedding_page_list, query_embed)  # Dot product since vectors are normalized
         # Get top 10 indices
         top_10_indices = np.argsort(cosine_similarities)[::-1]
         ids = id_page_list[top_10_indices]
@@ -355,17 +534,41 @@ for n in [400]:
             print("Failed in multi step")
             fail_multi_retrieve.append((id, question))
     os.chdir('..')
-
-    if technique=='recursive_seperate':
-        log_path = generate_log(success_retrieve, fail_retrieve, filename=f"{technique}_{method}_{model}_{n}_seg")
-        log_path = generate_log(success_page_retrieve, fail_page_retrieve, filename=f"{technique}_{method}_{model}_{n}_page")
-        log_path = generate_log(success_multi_retrieve, fail_multi_retrieve, filename=f"{technique}_{method}_{model}_{n}_multi")
+    query_time = time.time() - start
+    query_time = time.time() - start
+    if model == 'BGE':
+        log_path_seg = generate_log(success_retrieve, fail_retrieve, query_time,
+                                    filename=f"{technique}_{method}_{model}_{bge_technique}_{n}_seg")
+        log_path_reranker = generate_log(success_retrieve_reranker, fail_retrieve_reranker, query_time,
+                                            filename=f"{technique}_{method}_{model}_{bge_technique}_{n}_reranker")
+        log_path_page = generate_log(success_page_retrieve, fail_page_retrieve, query_time,
+                                     filename=f"{technique}_{method}_{model}_{bge_technique}_{n}_page")
+        log_path_multi = generate_log(success_multi_retrieve, fail_multi_retrieve, query_time,
+                                      filename=f"{technique}_{method}_{model}_{bge_technique}_{n}_multi")
+    elif technique == 'recursive_seperate':
+        log_path_seg = generate_log(success_retrieve, fail_retrieve, query_time,
+                                    filename=f"{technique}_{method}_{model}_{n}_seg")
+        log_path_reranker = generate_log(success_retrieve_reranker, fail_retrieve_reranker, query_time,
+                                        filename=f"{technique}_{method}_{model}_{n}_reranker")
+        log_path_page = generate_log(success_page_retrieve, fail_page_retrieve, query_time,
+                                     filename=f"{technique}_{method}_{model}_{n}_page")
+        log_path_multi = generate_log(success_multi_retrieve, fail_multi_retrieve, query_time,
+                                      filename=f"{technique}_{method}_{model}_{n}_multi")
     else:
-        log_path = generate_log(success_retrieve, fail_retrieve, filename=f"{technique}_{method}_{model}_seg")
-        log_path = generate_log(success_page_retrieve, fail_page_retrieve, filename=f"{technique}_{method}_{model}_page")
-        log_path = generate_log(success_multi_retrieve, fail_multi_retrieve, filename=f"{technique}_{method}_{model}_multi")
-    print(f"Log saved to: {log_path}")
-    print('query time:',time.time()-start)
+        log_path_seg = generate_log(success_retrieve, fail_retrieve, query_time,
+                                    filename=f"{technique}_{method}_{model}_seg")
+        log_path_reranker = generate_log(success_retrieve_reranker, fail_retrieve_reranker, query_time,
+                                        filename=f"{technique}_{method}_{model}_reranker")
+        log_path_page = generate_log(success_page_retrieve, fail_page_retrieve, query_time,
+                                     filename=f"{technique}_{method}_{model}_page")
+        log_path_multi = generate_log(success_multi_retrieve, fail_multi_retrieve, query_time,
+                                      filename=f"{technique}_{method}_{model}_multi")
+
+    # Example of how you might print or use the log paths
+    print(f"Segment log saved to: {log_path_seg}")
+    print(f"Page log saved to: {log_path_page}")
+    print(f"Multi-step log saved to: {log_path_multi}")
+    print('query time:',query_time)
 
 
 

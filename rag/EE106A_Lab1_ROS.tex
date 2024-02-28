@@ -1,0 +1,603 @@
+\documentclass{article}
+\usepackage[margin=.7in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{fancyvrb}
+\usepackage{listings}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    citecolor=blue
+}
+
+\begin{document}
+\title{EECS C106A: Remote Lab 1 - Introduction to ROS and Gazebo \footnote{Developed by Amay Saxena and Tiffany Cappellari, Fall 2020 (the year of the plague).}}
+\author{}
+\date{Fall 2020}
+\maketitle
+\vspace{-0.1in}
+
+\noindent\rule{\columnwidth}{0.5pt}
+\vspace{-0.15in}
+\section*{Goals}
+By the end of this lab you should be able to:
+\begin{itemize}
+\item Set up a new ROS environment, including creating a new workspace and creating a package with the appropriate dependencies specified
+\item Use the \verb=catkin= tool to build the packages contained in a ROS workspace
+\item Run nodes using \verb=rosrun=
+\item Use ROS's built-in tools to examine the topics and services used by a given node
+\item Run a simple Gazebo simulation
+\end{itemize}
+
+\noindent\rule{\columnwidth}{0.5pt}
+\vspace{0.15in}
+
+If you get stuck at any point in the lab you may submit a help request during your lab section at \url{https://tinyurl.com/106alabs20}.\\
+
+\emph{A quick note:} Most of this lab is borrowed from the official ROS tutorials at \url{http://www.ros.org/wiki/ROS/Tutorials}. We've tried to pick out the material you'll find most useful later in the semester, but feel free to explore the other tutorials too if you're interested in learning more.\\
+
+\textbf{Note:} For all labs this semester you may collaborate with a lab partner but we expect everyone to do every part of the labs themselves. You should work closely with your partner to overcome obstacles in the labs but each member of the team must do the lab themselves.
+
+\tableofcontents
+
+
+
+
+% Docker + VNC stuff
+
+% For all remote labs this semester we will be using a combination of Docker and VNC Viewer to create a virtual machine. We need to use these because Robotic Operation System (ROS) only works on Linux machines. A \textit{Virtual Machine} allows you to take a small chunk of your computer's processing power and memory to emulate a separate machine, isolated from the rest of the processes on your computer. This new \textit{virtual} machine can then be running any operating system and processes you want, without interacting with the rest of your computer. Here, we will use it to run an instance of Ubuntu so that you can use ROS even if you don't have a Linux computer.
+
+% \subsection{Docker}
+% Docker takes "images" of a virtual machine and creates "containers" for you to use. According to Docker's website, "Containers are a standardized unit of software that allows developers to isolate their app from its environment." What this means is that each container is a separate instance of an image. When you create a container, you can stop and start the same container with the same files still saved on it; however, the files you create and save on a container will not be shared across multiple containers. Please be aware that if you delete a container, you also delete any files you have saved on it. 
+
+% \subsection{VNC Viewer}
+% VNC Viewer creates a remote desktop for you to use. Because Docker does not have a UI for your virtual machine and we need to use the Gazebo GUI for our labs, we need to use VNC to pull up a desktop for your container. 
+
+\section{What is ROS?}
+The ROS website says:
+\begin{quote}
+ROS is an open-source, meta-operating system for your robot. It provides the services you would expect from an operating system, including hardware abstraction, low-level device control, implementation of commonly-used functionality, message-passing between processes, and package management. It also provides tools and libraries for obtaining, building, writing, and running code across multiple computers.
+
+The ROS runtime ``graph'' is a peer-to-peer network of processes that are loosely coupled using the ROS communication infrastructure. ROS implements several different styles of communication, including synchronous RPC-style communication over services, asynchronous streaming of data over topics, and storage of data on a Parameter Server.
+\end{quote}
+
+This isn't terribly enlightening to a new user, so we'll simplify a little bit. For the purposes of this class, we'll be concerned with two big pieces of ROS's functionality: the \emph{computation graph} and the \emph{file system}.
+
+\subsection{Computation graph}
+A typical robotic system has numerous sensing, actuation, and computing components. Consider a two-joint manipulator arm for a pick-and-place task. This system might have:
+\begin{itemize}
+\item Two motors, each connected to a revolute joint
+\item A motorized gripper on the end of the arm
+\item A stationary camera that observes the robot's workspace
+\item An infrared distance sensor next to the gripper on the manipulator arm
+\end{itemize}
+
+To pick up an object on a table, the robot might first use the camera to measure the position of the object, then command the arm to move toward the object's position. As the arm nears the object, the robot could use the IR distance sensor to detect when the object is properly positioned in the gripper, at which point it will command the gripper to close around the object. Given this sequence of tasks, how should we structure the robot's control software?
+
+A useful abstraction for many robotic systems is to divide the control software into various low-level, independent control loops that each manage a single task on the robot, then couple these low level loops together with higher-level logic. In our example system above, we might divide the control software into:
+\begin{itemize}
+\item Two control loops (one for each joint) that, given a position or velocity command, control the power applied to the joint motor based on position sensor measurements at the joint
+\item Another control loop that receives commands to open or close the gripper, then switches the gripper motor on and off while controlling the power applied to it to avoid crushing objects
+\item A sensing loop that reads individual images from the camera at 30 Hz
+\item A sensing loop that reads the output of the IR distance sensor at 100 Hz
+\item A single high-level module that performs the supervisory control of the whole system
+\end{itemize}
+
+Given this structure for the robot's software, the control flow for the pick-and-place task could be the following: The high-level supervisor queries the camera sensing loop for a single image. It uses a vision algorithm to compute the location of the object to grasp, then computes the joint angles necessary to move the manipulator arm to this location and sends position commands to each of the joint control loops telling them to move to this position. As the arm nears the target, the supervisor queries the IR sensor loop for the distance to the object at a rate of 5 Hz and issues several more fine motion commands to the joint control loops to position the arm correctly. Finally, the supervisor signals the gripper control loop to close the gripper.
+
+An important feature of this design is that the supervisor need not know the implementation details of any of the low-level control loops. It interacts with each only through simple control messages. This encapsulation of functionality within each individual control loop makes the system modular, and makes it easier to reuse the same code across many robotic platforms.
+
+The ROS computation graph lets us build this style of software easily. In ROS, each individual control loop is a \emph{node} within the computation graph. A node is simply an executable file that performs some task. Nodes exchange control messages, sensor readings, and other data by publishing or subscribing to \emph{topics} or by sending requests to \emph{services} offered by other nodes (these concepts will be discussed in detail later in the lab).
+
+Nodes can be written in a variety of languages, including Python and C++, and ROS transparently handles the details of converting between different datatypes, exchanging messages between nodes, etc.
+
+\subsection{File system}
+As you might imagine, large software systems written using this model can become quite complex (nodes written in different languages, nodes that depend on third-party libraries and drivers, nodes that depend on other nodes, etc.). To help with this situation, ROS provides a system for organizing your ROS code into logical units and managing dependencies between these units. Specifically, ROS code is contained in \emph{packages}. ROS provides a collection of tools to manage packages that will be discussed in more detail in the following sections.
+
+\section{Setting Up and Using Your Virtual Machine}
+% \subsection{Set Up}
+% \begin{enumerate}
+%     \item Download VMware (\href{https://software.berkeley.edu/vmware}{https://software.berkeley.edu/vmware}). We recommend using VMware Fusion 11.
+%     \item Download our image here \color{red} \textbf{Insert link to VM image here} \color{black}
+%     % \item Follow the workstation set up tutorial from Rethink Robotics \color{blue} \href{https://sdk.rethinkrobotics.com/intera/Workstation_Setup?fbclid=IwAR2ClPhqoS3fZNMNTQYDGuuBfnVEANeBAB4nvZQHy_5QxMBOv5jxCTXfMlc#Configure_Robot_Communication.2FROS_Workspace}{here} \color{black}.
+%     % \begin{itemize}
+%     %     \item Please make sure you are following instructions for ROS Kinetic for Ubuntu 16.04.
+%     %     \item Follow all instructions up until you reach the \textit{Configure Robot Communication/ROS Workspace} section. For this section, you only need to follow the instructions for copying \verb=intera.sh= into your workspace and changing the ROS version inside \verb=intera.sh= from "indigo" to "kinetic". You do not need to edit the hostname or IP address.
+%     % \end{itemize}
+%     % \item Follow the instructions for downloading Sawyer simulation packages \color{blue} \href{https://sdk.rethinkrobotics.com/intera/Gazebo_Tutorial?fbclid=IwAR13FWbCWmZeCEVQVg4mZJmIC0zxOL1qdP02cWd7EAVJncQckJ7T0UeTFMM}{here} \color{black}.
+% \end{enumerate}
+
+% Docker + VNC set up
+
+% \subsection{Set Up}
+% \begin{enumerate}
+%     \item Download Docker (\href{https://www.docker.com/products/docker-desktop}{https://www.docker.com/products/docker-desktop}). This will require 1.35 GB of space.
+%     \item Download VNC Viewer (\href{https://www.realvnc.com/en/connect/download/viewer/}{https://www.realvnc.com/en/connect/download/viewer/}) This will require 7.7 MB of space.
+%     \item Open up a terminal window and run: 
+%     \begin{Verbatim}[frame=single]
+%     docker pull bpinaya/robond-docker 
+%     \end{Verbatim}
+%     to get the Docker image we will be using this semester. ROS Kinetic, Gazebo, and the necessary packages for them to communicate should already be installed.
+%     \item To create and start a new Docker container run: 
+%     \begin{Verbatim}[frame=single]
+%     docker run -it -p 6080:80 -p 5910:5900 bpinaya/robond-docker 
+%     \end{Verbatim}
+%     \begin{itemize}
+%         \item When a container with this image is running the container uses 100 MB of space.
+%         \item If you get an error saying that the port is unavailable, change the port number (the numbers after the second \verb=-p=). For example, I originally had \verb=5900:5900= and had to change it to \verb=5910:5900=.
+%     \end{itemize}
+%     \item Open VNC Viewer and enter \verb=localhost:5910= (or whatever your port number is) to start the UI. A pop up with a desktop should appear on screen.
+%     \begin{itemize}
+%         \item You can open the terminal in the VM by going to Start (far bottom left corner button) $\rightarrow$ System Tools $\rightarrow$ LXTerminal
+%     \end{itemize}
+% \end{enumerate}
+
+Your virtual machine should be set up and ready to use after completing Lab 0. It should be done \textit{before} beginning this lab. If you have not completed Lab 0 yet, you must go back and finish it first.
+
+Please note that if you delete your container your files saved in the VM will also be deleted so we \textbf{highly recommend you use GitHub} or some other form of version control just in case. This will also make it easier for collaboration between you and your lab partner. Just don't forget to make your repo \textbf{private}!
+
+\section{Gradescope Submission}
+In this class we use an autograder on Gradescope in order to automatically grade everyone's checkoffs. Please create a \verb=.txt= file containing \textbf{only your SID} and nothing else (the file should only be 8 or 10 bytes in size) and upload it to the Lab Checkoffs assignment on Gradescope. The autograder will automatically run and you should see a score of 0 points. You \textbf{must} do this in order to get credit for the labs. You may name your file whatever you would like as long as it is a \verb=.txt= file.\\
+
+Throughout the semester we will automatically be rerunning the autograder at the end of each lab module (more about the modules \href{https://ucb-ee106.github.io/106a-fa20site/policies/#labs}{here}) to update your lab score. Please be aware that it is your responsibility to check your score periodically and make sure there isn't a mistake. If you believe there is a mistake please email Tiffany as soon as possible so that it can be corrected.
+
+% \subsection{Useful Docker Commands}
+% Here are some useful Docker commands you can use in your terminal (not from inside your VM though).
+% \begin{itemize}
+%     \item To see all running containers: 
+%     \begin{Verbatim}[frame=single]
+%     docker ps
+%     \end{Verbatim}
+%     You can also see a list of your existing containers and can start and stop them from the Docker desktop UI. The name of the container there is the name you can use for the stop and start commands below (i.e. \verb=docker start awesome_poitras=)
+%     \item To see all containers (running and stopped):
+%     \begin{Verbatim}[frame=single]
+%     docker ps -a
+%     \end{Verbatim}
+%     \item To stop a container: 
+%     \begin{Verbatim}[frame=single]
+%     docker stop <container_name>
+%     \end{Verbatim} 
+%     Stopping a container does not delete it. It just stops running and you can later restart it. We recommend stopping a container when you are not currently using it.
+%     \item To restart a container: 
+%     \begin{Verbatim}[frame=single]
+%     docker start <container_name>
+%     \end{Verbatim}
+%     \item To delete a container: 
+%     \begin{Verbatim}[frame=single]
+%     docker rm <container_name>
+%     \end{Verbatim} 
+%     \textbf{Note}: sometimes clicking the delete button for a container from the Docker desktop UI does not actually delete the container. You should always double check with \verb=docker ps -a= that the container is actually gone or delete the container from the terminal instead of the UI.
+% \end{itemize}
+
+\section{Initial configuration}
+The virtual machines you're using already have ROS installed from Lab 0. Open the \verb=.bashrc= file, located in your root directory (denoted `` \verb=~= ''), in a text editor (If you don't have a preferred editor, we recommend either \href{https://www.sublimetext.com/}{Sublime Text} or vim). Then add the following line to the end of the file if it is not already there:
+\begin{Verbatim}[frame=single]
+source /opt/ros/kinetic/setup.bash
+\end{Verbatim}
+% source /scratch/shared/baxter_ws/devel/setup.bash
+% export ROS_HOSTNAME=$(hostname --short).local
+
+Save and close the file when you're done editing, then execute the command ``\verb=source ~/.bashrc='' to update your environment with the new settings. This line tells Ubuntu to run a ROS-specific configuration script every time you open a new terminal window. This script sets several environment variables that tell the system where the ROS installation is located.
+
+% The second line edits the \verb=$ROS_PACKAGE_PATH= environment variable.
+% This variable is particularly important, as it tells ROS which directories to search for software packages. Any code you want to run with ROS must be located beneath one of the directories specified in the list.
+% By default, ROS's \verb=setup.bash= file adds the directories for all of ROS's built-in packages to the package path.
+% However, the Baxter SDK contains additional packages that we want to be able to run, so we must add its directory to the package path as well. The SDK is located in the \verb=/scratch/shared= directory.
+% When you create your own workspaces, you will need to run a workspace specific \verb=setup.bash= file to ensure that your packages are located on the ROS path (we will discuss this in more detail in Section \ref{sec:ws_and_pack}).
+
+\section{Navigating the ROS file system}
+
+The basic unit of software organization in ROS is the \emph{package}. A package can contain executables, source code, libraries, and other resources. A \verb=package.xml= file is included in the root directory of each package. The \verb=package.xml= contains metadata about the package contents, and most importantly, about which other packages this package depends on. Let's examine a package within the Baxter robot SDK as an example.
+
+\subsection{File system tools}
+ROS provides a collection of tools to create, edit, and manage packages. One of the most useful is \verb=rospack=, which returns information about a specific package. For example, you can run the command
+\begin{Verbatim}[frame=single]
+rospack find baxter_examples
+\end{Verbatim}
+in order to find the filepath for where \verb=baxter_examples= is located.
+
+\emph{Note}: To get info on the options and functionality of many ROS command line utilities, run the utility plus ``\verb=help='' (e.g., just run ``\verb=rospack help='').
+
+\subsection{Anatomy of a package}
+In a terminal window, try running
+\begin{Verbatim}[frame=single]
+roscd baxter_examples
+\end{Verbatim}
+What happened? what do you think the command \verb=roscd= does? What do you think \verb=rosls= does? Try it out!\\
+
+The \verb=baxter_examples= package contains several example nodes which demonstrate the motion control features of Baxter. The folder contains several items:
+\begin{itemize}
+    \setlength\itemsep{0pt}
+    \item \verb=\src= - source code for nodes
+    \item \verb=package.xml= - the package's configuration and dependencies
+    \item \verb=\launch= - launch files that start ROS and relevant packages all at once
+    \item \verb=\scripts= - another folder to store nodes
+\end{itemize}
+
+\begin{samepage}
+Other packages might contain some additional items:
+\begin{itemize}
+    \item \verb=\lib= - extra libraries used in the package
+    \item \verb=\msg= and \verb=\srv= - message and service definitions which define the protocols nodes use to exchange data
+\end{itemize}
+\end{samepage}
+
+If you open the \verb=package.xml= it should look something like this:
+\begin{Verbatim}[frame=single]
+<?xml version="1.0"?>
+<package>
+  <name>baxter_examples</name>
+  <version>1.2.0</version>
+  <description>
+    Example programs for Baxter SDK usage.
+  </description>
+
+  <maintainer email="rsdk.support@rethinkrobotics.com">
+    Rethink Robotics Inc.
+  </maintainer>
+  <license>BSD</license>
+  <url type="website">http://sdk.rethinkrobotics.com</url>
+  <url type="repository">
+    https://github.com/RethinkRobotics/baxter_examples
+  </url>
+  <url type="bugtracker">
+    https://github.com/RethinkRobotics/baxter_examples/issues
+  </url>
+  <author>Rethink Robotics Inc.</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>rospy</build_depend>
+  <build_depend>xacro</build_depend>
+  <build_depend>actionlib</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>control_msgs</build_depend>
+  <build_depend>trajectory_msgs</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>baxter_core_msgs</build_depend>
+  <build_depend>baxter_interface</build_depend>
+
+  <run_depend>rospy</run_depend>
+  <run_depend>xacro</run_depend>
+  <run_depend>actionlib</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>control_msgs</run_depend>
+  <run_depend>trajectory_msgs</run_depend>
+  <run_depend>cv_bridge</run_depend>
+  <run_depend>dynamic_reconfigure</run_depend>
+  <run_depend>baxter_core_msgs</run_depend>
+  <run_depend>baxter_interface</run_depend>
+
+</package>
+\end{Verbatim}
+
+Along with some metadata about the package, the \verb=package.xml= specifies 11 packages on which \verb=baxter_examples= depends. The packages with \verb=<build_depend>= are the packages used during the build phase and the ones with \verb=<run_depend>= are used during the run phase. The \verb=rospy= dependency is important - \verb=rospy= is the ROS library that Python nodes use to communicate with other nodes in the computation graph. The corresponding library for C++ nodes is \verb=roscpp=.
+The \verb=build_depend= tags indicate packages used during the build phase.
+The \verb=run_depend= tags indicate packages used during runtime.
+
+% BROKEN - SAVE UNTIL LAB 2
+% \verb=rospack= can also give information on the dependencies of packages. Run the command
+% \begin{Verbatim}[frame=single]
+% rospack depends1 joint_position
+% \end{Verbatim}
+% which should return the same four dependencies you saw before in \verb=package.xml=. Next, try
+% \begin{Verbatim}[frame=single]
+% rospack depends joint_position
+% \end{Verbatim}
+% Any ideas as to where the extra dependencies came from?
+
+% Next, let's test out a couple more convenient commands for working with packages. Run
+% \begin{Verbatim}[frame=single]
+% rosls baxter_examples
+% \end{Verbatim}
+% and then
+% \begin{Verbatim}[frame=single]
+% roscd baxter_examples
+% \end{Verbatim}
+% The function of these commands should become apparent quickly. Any ideas what they do?
+
+
+\section{Creating ROS Workspaces and Packages}\label{sec:ws_and_pack}
+You're now ready to create your own ROS package. To do this, we also need to create a catkin workspace. Since all ROS code must be contained within a package in a workspace, this is something you'll do frequently. Don't forget to do all this \textit{inside} of your VM.
+
+\subsection{Creating a workspace}
+A workspace is a collection of packages that are built together. ROS uses the \verb=catkin= tool to build all code in a workspace, and do some bookkeeping to easily run code in packages. Each time you start a new project (i.e. lab or final project) you will want to create and initialize a new catkin workspace.\\
+
+For this lab, begin by creating a directory for all of your lab workspaces for the semester. 
+\begin{Verbatim}[frame=single]
+mkdir ros_workspaces
+\end{Verbatim}
+Then create a directory with 
+\begin{Verbatim}[frame=single]
+mkdir ros_workspaces/lab1
+\end{Verbatim} 
+for Lab 1's workspace. The directory ``\verb=ros_workspaces='' will eventually conatin several lab-specific workspaces (named \verb=lab1=, \verb=lab2=, etc.) \\
+
+Next, create a folder \verb=src= in your new workspace directory (\verb=lab1=). From inside the new \verb=src= folder, run:
+\begin{Verbatim}[frame=single]
+catkin_init_workspace
+\end{Verbatim}
+It should create a single file called \verb=CMakeLists.txt=\\
+
+After you fill \verb=/src= with packages, you can build them by running ``\verb=catkin_make='' from the workspace directory (\verb=lab1= in this case). Try running this command now, just to make sure the build system works. You should notice two new directories alongside \verb=src=: \verb=build= and \verb=devel=. ROS uses these directories to store information related to building your packages (in \verb=build=) as well as automatically generated files, like binary executables and header files (in \verb=devel=).
+
+Two other useful commands to know are \verb=rmdir= to remove an empty directory and \verb=rm -r= to remove a non-empty directory.
+
+\subsection{Creating a new package}
+Now you're now ready to create a package. From inside the \verb=src=  directory, run
+\begin{Verbatim}[frame=single]
+catkin_create_pkg foo
+\end{Verbatim}
+Examine the contents of your newly created package, and open its \verb=package.xml= file. By default, you will see that the only dependency created is for the catkin tool itself:
+\begin{Verbatim}[frame=single]
+<buildtool_depend>catkin</buildtool_depend>
+\end{Verbatim}
+
+Next, we'll try the same command, but we'll specify a few dependencies for our new package. Return to the \verb=src= directory and run the following command:
+\begin{Verbatim}[frame=single]
+catkin_create_pkg bar rospy roscpp std_msgs geometry_msgs turtlesim gazebo_ros
+\end{Verbatim}
+Examine the \verb=package.xml= file for the new package and verify that the dependencies have been added. You're now ready to add source code, message and service definitions, and other resources to your project.
+
+\subsection{Building a package}
+Now imagine you've added all your resources to the new package. The last step before you can use the package with ROS is to \emph{build} it. This is accomplished with
+\begin{Verbatim}[frame=single]
+catkin_make
+\end{Verbatim} 
+You need to run it from the root of your workspace (\verb=lab1= in this case). \\
+\verb=catkin_make= builds all the packages and their dependencies in the correct order. If everything worked, \verb=catkin_make= should print a bunch of configuration and build information for your new packages ``\verb=foo='' and ``\verb=bar='', with no errors.\\
+
+You should also notice that the \verb=devel= directory contains a script called ``\verb=setup.bash=.'' ``Sourcing'' this script will prepare your ROS environment for using the packages contained in this workspace (among other functions, it adds ``\verb=~/ros_workspaces/lab1/src='' to the \verb=$ROS_PACKAGE_PATH=). Run the commands
+\begin{Verbatim}[frame=single]
+echo $ROS_PACKAGE_PATH
+source devel/setup.bash
+echo $ROS_PACKAGE_PATH
+\end{Verbatim}
+and note the difference between the output of the first and second \verb=echo=.
+
+\noindent\rule{\columnwidth}{0.5pt}
+
+\textbf{Note: }\emph{Anytime that you want to use a non-built-in package, such as one that you have created, you will need to source the} \verb=devel/setup.bash= \emph{file for that package's workspace.}
+
+\noindent\rule{\columnwidth}{0.5pt}
+
+\begin{samepage}
+To summarize what we've done, here's what your directory structure should look like:
+
+\begin{Verbatim}[frame=single, samepage=true]
+ros_workspaces
+  lab1
+    build
+    devel
+      setup.bash
+    src
+      CMakeLists.txt
+      foo
+        CMakeLists.txt
+        package.xml
+      bar
+        CMakeLists.txt
+        package.xml
+        include
+        src
+\end{Verbatim}
+\end{samepage}
+
+
+% Checkoff #1
+\vspace{0.25in}
+\begin{samepage}
+\noindent\rule{\columnwidth}{0.5pt}
+
+\subsection*{Checkpoint 1}
+
+Submit a checkoff request at \url{https://tinyurl.com/106alabs20} for a TA to come and check your work. You should be able to:
+
+
+\begin{itemize}
+\item Show your TA that you have submitted a \verb=.txt= file to the Lab Checkoffs assignment on Gradescope
+\item Explain the contents of your \verb=~/ros_workspaces= directory
+
+\item Demonstrate the use of the \verb=catkin_make= command
+% Run catkin_make and ensure that it works
+\item Explain the contents of a \verb=package.xml= file
+% Show where dependencies are listed for a package
+\item Use ROS's utility functions to get data about packages
+% Run rospack find foo
+\end{itemize}
+
+\noindent\rule{\columnwidth}{0.5pt}
+\end{samepage}
+\vspace{0.25in}
+
+% Page break after first checkpoint
+\pagebreak
+
+\section{Understanding ROS nodes}
+We're now ready to test out some actual software running on ROS. First, a quick review of some computation graph concepts:
+\begin{itemize}
+\item \emph{Node}: an executable that uses ROS to communicate with other nodes
+\item \emph{Message}: a ROS datatype used to exchange data between nodes
+\item \emph{Topic}: nodes can \emph{publish} messages to a topic as well as \emph{subscribe} to a topic to receive messages
+\end{itemize}
+
+Now let's test out some built-in examples of ROS nodes.
+
+\subsection{Running roscore}
+First, run the command
+\begin{Verbatim}[frame=single]
+roscore
+\end{Verbatim}
+This starts a server that all other ROS nodes use to communicate. Leave \verb=roscore= running and open a second terminal window (\verb=Ctrl+Shift+T= or \verb=Ctrl+Shift+N=).
+
+As with packages, ROS provides a collection of tools we can use to get information about the nodes and topics that make up the current computation graph. Try running
+\begin{Verbatim}[frame=single]
+rosnode list
+\end{Verbatim}
+This tells us that the only node currently running is \verb=/rosout=, which listens for debugging and error messages published by other nodes and logs them to a file. We can get more information on the \verb=/rosout= node by running
+\begin{Verbatim}[frame=single]
+rosnode info /rosout
+\end{Verbatim}
+whose output shows that \verb=/rosout= publishes the \verb=/rosout_agg= topic, subscribes to the \verb=/rosout= topic, and offers the \verb=/set_logger_level= and \verb=/get_loggers= services.
+
+The \verb=/rosout= node isn't very exciting. Let's look at some other built-in ROS nodes that have more interesting behavior.
+
+\subsection{Running turtlesim}
+To start additional nodes, we use the \verb=rosrun= command. The syntax is
+\begin{Verbatim}[frame=single]
+rosrun [package_name] [executable_name]
+\end{Verbatim}
+
+The ROS equivalent of a ``hello world'' program is turtlesim. To run turtlesim, we first want to start the \verb=turtlesim_node= executable, which is located in the \verb=turtlesim= package, so we open a new terminal window and run
+\begin{Verbatim}[frame=single]
+rosrun turtlesim turtlesim_node
+\end{Verbatim}
+
+A turtlesim window should appear. Repeat the two \verb=rosnode= commands from above and compare the results. You should see a new node called \verb=/turtlesim= that publishes and subscribes to a number of additional topics.
+
+\section{Understanding ROS topics}
+Now we're ready to make our turtle do something. Leave the \verb=roscore= and \verb=turtlesim_node= windows open from the previous section. In a yet another new terminal window, use \verb=rosrun= to start the \verb=turtle_teleop_key= executable in the \verb=turtlesim= package:
+
+\begin{Verbatim}[frame=single]
+rosrun turtlesim turtle_teleop_key
+\end{Verbatim}
+
+You should now be able to drive your turtle around the screen with the arrow keys when in this terminal window.
+
+\subsection{Using rqt\_graph}
+Let's take a closer look at what's going on here. We'll use a tool called \verb=rqt_graph= to visulize the current computation graph. Open a new terminal window and run
+\begin{Verbatim}[frame=single]
+rosrun rqt_graph rqt_graph
+\end{Verbatim}
+
+This should produce an illustration similar to Figure \ref{rqt} (it might not look exactly the same but that's fine). In this example, the \verb=teleop_turtle= node is capturing your keystrokes and publishing them as control messages on the \verb=/turtle1/cmd_vel= topic. The \verb=/turtlesim= node then subscibes to this same topic to receive the control messages.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=6.5in]{img/rqt_graph.png}
+\caption{Output of rqt\_plot when running turtlesim.}
+\label{rqt}
+\end{figure}
+
+\subsection{Using rostopic}
+Let's take a closer look at the \verb=/turtle1/cmd_vel= topic. We can use the \verb=rostopic= tool. First, let's look at individual messages that \verb=/teleop_turtle= is publishing to the topic. We will use ``\verb=rostopic echo='' to echo those messages. Open a new terminal window and run
+\begin{Verbatim}[frame=single]
+rostopic echo /turtle1/cmd_vel
+\end{Verbatim}
+
+Now move the turtle with the arrow keys and observe the messages published on the topic. Return to your \verb=rqt_graph= window, and click the refresh button (blue circle arrow icon in the top left corner). You should now see that a second node (the \verb=rostopic= node) has subscribed to the \verb=/turtle1/cmd_vel= topic, as shown in Figure \ref{rqt2}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=6.5in]{img/rqt2.png}
+\caption{Output of rqt\_graph when running turtlesim and viewing a topic using rostopic echo.}
+\label{rqt2}
+\end{figure}
+
+While \verb=rqt_graph= only shows topics with at least one publisher and subscriber, we can view all the topics published or subscribed to by all nodes by running
+\begin{Verbatim}[frame=single]
+rostopic list
+\end{Verbatim}
+
+For even more information, including the message type used for each topic, we can use the verbose option:
+\begin{Verbatim}[frame=single]
+rostopic list -v
+\end{Verbatim}
+
+Keep the turtlesim running for use in the next section.
+
+\section{Understanding ROS services}
+\emph{Services} are another method nodes can use to pass data between each other. While topics are typically used to exchange a continuous stream of data, a service allows one node to \emph{request} data from another node, and receive a \emph{response}. Requests and responses are to services as messages are to topics: that is, they are containers of relevant information for their associated service or topic.
+
+\subsection{Using rosservice}
+The \verb=rosservice= tool is analogous to \verb=rostopic=, but for services rather than topics. We can call
+\begin{Verbatim}[frame=single]
+rosservice list
+\end{Verbatim}
+to show all the services offered by currently running nodes.
+
+We can also see what type of data is included in a request/response for a service. Check the service type for the \verb=/clear= service by running
+\begin{Verbatim}[frame=single]
+rosservice type /clear
+\end{Verbatim}
+This tells us that the service is of type \verb=std_srvs/Empty=, which means that the service does not require any data as part of its request, and does not return any data in its response.
+
+\subsection{Calling services}
+Let's try calling the the \verb=/clear= service. While this would usually be done programmatically from inside a node, we can do it manually using the \verb=rosservice call= command. The syntax is
+\begin{Verbatim}[frame=single]
+rosservice call [service] [arguments]
+\end{Verbatim}
+
+Because the \verb=/clear= service does not take any input data, we can call it without arguments
+\begin{Verbatim}[frame=single]
+rosservice call /clear
+\end{Verbatim}
+If we look back at the \verb=turtlesim= window, we see that our call has cleared the background.
+
+We can also call services that require arguments. Use \verb=rosservice type= to find the datatype for the \verb=/spawn= service. The query should return \verb=turtlesim/Spawn=, which tells us that the service is of type \verb=Spawn=, and that this service type is defined in the \verb=turtlesim= package. Use \verb=rospack find turtlesim= to get the location of the \verb=turtlesim= package (hint: you could also use ``\verb=roscd='' to navigate to the \verb=turtlesim= package), then open the \verb=Spawn.srv= service definition, located in the package's \verb=/srv= subfolder. The file should look like
+\begin{Verbatim}[frame=single]
+float32 x
+float32 y
+float32 theta
+string name
+---
+string name
+\end{Verbatim}
+
+This definition tells us that the \verb=/spawn= service takes four arguments in its request: three decimal numbers giving the position and orientation of the new turtle, and a single string specifying the new turtle's name. The second portion of the definition tells us that the service returns one data item: a string with the new name we specified in the request.
+
+Now let's call the \verb=/spawn= service to create a new turtle, specifying the values for each of the four arguments, in order:
+\begin{Verbatim}[frame=single]
+rosservice call /spawn 2.0 2.0 1.2 "newturtle"
+\end{Verbatim}
+The service call returns the name of the newly created turtle, and you should see the second turtle appear in the \verb=turtlesim= window.
+
+\section{A Quick Introduction to Gazebo}
+In many of the upcoming labs, we will be using the Gazebo simulation environment. To start Gazebo, make sure \verb=roscore= is running and run
+\begin{Verbatim}[frame=single]
+rosrun gazebo_ros gazebo
+\end{Verbatim}
+The Gazebo GUI should then pop up. To verify it is properly publishing to ROS topics, open another terminal window and run
+\begin{Verbatim}[frame=single]
+rostopic list
+\end{Verbatim}
+You should see a list like this:
+\begin{Verbatim}[frame=single]
+/gazebo/link_states
+/gazebo/model_states
+/gazebo/parameter_descriptions
+/gazebo/parameter_updates
+/gazebo/set_link_state
+/gazebo/set_model_state
+\end{Verbatim}
+
+% Checkoff #2
+\begin{samepage}
+\vspace{0.25in}
+\noindent\rule{\columnwidth}{0.5pt}
+\vspace{-0.15in}
+\subsection*{Checkpoint 2}
+Submit a checkoff request at \url{https://tinyurl.com/106alabs20}. You should be able to:
+\begin{itemize}
+\item Explain what a \emph{node}, \emph{topic}, and \emph{message} are
+\item Drive your turtle around the screen using arrow keys
+\item Use ROS's utility functions to view data on topics and messages
+\item Show your Gazebo GUI and explain what you think the topics being published are for.
+% Open rqt_graph and explain which windows correspond to which bubbles
+% Point out nodes and topics on graph
+% Find what type of message is published on a topic using rostopic/rosnode info
+\end{itemize}
+
+\noindent\rule{\columnwidth}{0.5pt}
+\vspace{0.25in}
+\end{samepage}
+
+
+
+
+\end{document}

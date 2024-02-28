@@ -32,7 +32,6 @@ def send_split_message_user(response, token_limit=300):
     msg_list = []
     # print(token_limit)
     tokens = token_size(response)
-
     if tokens > token_limit:
         start = 0
         while start < len(response):
@@ -95,20 +94,14 @@ def traverse_files(path, start_folder_name):
     # Check if the provided path exists
     if not os.path.exists(path):
         raise ValueError(f"The provided path '{path}' does not exist.")
-    # print(os.walk(path))
     folder_tree = f"{start_folder_name} (h1)\n"
     for root, dir, files in os.walk(path):
-        # print(root, dir, files)
-
         for file in files:
             if file.endswith('.pkl'):
                 path_list = [start_folder_name] + string_subtraction(root, path).split('/')[1:]
                 line = ((len(path_list)-1)*"--" + path_list[-1] + f" (L{len(path_list)})")
                 folder_tree += f"{line}\n"
-    # print(tree)
-
     for root, dir ,files in os.walk(path):
-        # print(root, dir, files)
         for file in files:
             if file.endswith('.pkl'):
                 # file path
@@ -122,7 +115,7 @@ def traverse_files(path, start_folder_name):
                 results.append(([folder_tree, folder_path], content))
     return results
 docs = []
-docs = traverse_files("../scraper/Scrape_rst/Sawyer", "Sawyer")
+docs = traverse_files("./scraper/Scrape_rst/Sawyer", "Sawyer")
 # docs += traverse_files("/home/bot/dataset/edugpt/Scrape_pdf/textbook", "md", "Robotics textbook")
 questions =[]
 

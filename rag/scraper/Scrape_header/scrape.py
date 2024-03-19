@@ -17,13 +17,13 @@ def main():
     """
     # TODO
     # ROS
-    # url = "https://wiki.ros.org/ROS/Tutorials/"
-    # root = "https://wiki.ros.org/ROS/Tutorials/"
-    # root_regex = r"^https://wiki.ros.org/ROS/Tutorials/"
-    # root_filename = "ROS"
-    # content_tags = [
-    #     ('div', {'id': 'page', 'lang': 'en', 'dir': 'ltr'}),
-    # ]
+    url = "https://wiki.ros.org/ROS/Tutorials/"
+    root = "https://wiki.ros.org/ROS/Tutorials/"
+    root_regex = r"^https://wiki.ros.org/ROS/Tutorials/"
+    root_filename = "ROS"
+    content_tags = [
+        ('div', {'id': 'page', 'lang': 'en', 'dir': 'ltr'}),
+    ]
 
     # opencv
     # url = "https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html"
@@ -72,13 +72,13 @@ def main():
 
 
     # lgsvl
-    url = "https://www.svlsimulator.com/docs/"
-    root = "https://www.svlsimulator.com/docs/"
-    root_regex = r"^https://www.svlsimulator.com/docs/"
-    root_filename = "lgsvl"
-    content_tags = [
-        ('div', {'role': 'main'}),
-    ]
+    # url = "https://www.svlsimulator.com/docs/"
+    # root = "https://www.svlsimulator.com/docs/"
+    # root_regex = r"^https://www.svlsimulator.com/docs/"
+    # root_filename = "lgsvl"
+    # content_tags = [
+    #     ('div', {'role': 'main'}),
+    # ]
     delay = get_crawl_delay(cd_home(url))
     extract_unique_links(url, root, root_regex, root_filename, content_tags, delay)
 

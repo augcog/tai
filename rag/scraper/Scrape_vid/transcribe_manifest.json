@@ -1,8 +1,8 @@
 {
-    "audio_filepath": "/home/bot/roarai/rag/scraper/Scrape_vid/transcibe_manifest.json",
-    "duration": 40.0,
-    "taskname": "asr",
-    "source_lang": "en",
-    "target_lang": "en",
-    "pnc": "yes"
+"audio_filepath": "/home/bot/roarai/rag/scraper/Scrape_vid/transcibe_manifest.json",
+"duration": 40.0,
+"taskname": "asr",
+"source_lang": "en",
+"target_lang": "en",
+"pnc": "yes"
 }

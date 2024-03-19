@@ -14,7 +14,7 @@ predicted_text = canary_model.transcribe(
     batch_size=16,  # batch size to run the inference with
 )
 print(predicted_text)
-
-# python [NEMO_GIT_FOLDER]/examples/asr/transcribe_speech.py \
-#  pretrained_name="nvidia/canary-1b" \
-#  audio_dir="test.wav"
+#
+# # python [NEMO_GIT_FOLDER]/examples/asr/transcribe_speech.py \
+# #  pretrained_name="nvidia/canary-1b" \
+# #  audio_dir="test.wav"

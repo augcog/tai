@@ -8,4 +8,7 @@
 /scraper/Scrape_md/*/
 /scraper/Scrape_pdf/*/
 
+# Remove all videos and audio files
 *mp4
+*wav
+*mp3

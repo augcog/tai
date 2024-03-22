@@ -116,9 +116,8 @@ def process_links_and_save(links, dir_name, delay, content_tags):
         if link[-1] == '/': 
             link = link[:-1]
         filename = link.split('/')[-1]
-        #filename = filename.split('.')[0]
 
-        print("filename" + filename)
+        print("filename " + filename)
 
         if "proj" in link or "lab" in link or "hw" in link or "disc" in link:
             parts = link.split("/")
@@ -128,7 +127,6 @@ def process_links_and_save(links, dir_name, delay, content_tags):
         if "_1pp" in link:
             continue
         
-        print("last 4 char" + filename[-4:])
         if filename[-4:] == ".pdf":
             name = filename.split('.')[0]
             create_and_enter_dir(name)
@@ -142,7 +140,7 @@ def process_links_and_save(links, dir_name, delay, content_tags):
             os.chdir(parent_directory)
         elif filename[-4:] == ".zip":
             continue;
-        else: 
+        else:
             filename = filename.split('.')[0]
             markdown_result = html_to_markdown(link, content_tags)
             if markdown_result == 1:
@@ -166,25 +164,6 @@ def process_links_and_save(links, dir_name, delay, content_tags):
             current_directory = os.getcwd()
             parent_directory = os.path.dirname(current_directory)
             os.chdir(parent_directory)
-        
-        # markdown_result = html_to_markdown(link, content_tags)
-        # if markdown_result == 1:
-            # continue
-        
-        # cleaned_markdown = remove_consecutive_empty_lines(markdown_result)
-        
-        # cur_dir = os.getcwd()
-        # create_and_enter_dir(filename)
-        
-        # save_to_file(f'{filename}.md', cleaned_markdown)
-
-        # parser = MarkdownParser(f'{filename}')
-        # parser.print_header_tree()
-        # parser.print_segment()
-        # parser.concat_print()
-        
-        # os.chdir(cur_dir)
-        # time.sleep(delay)
 
 def extract_unique_links(url, root, root_regex, root_filename, content_tags, layer, delay=0, found_links=[]):
     

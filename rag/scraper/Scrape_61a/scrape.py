@@ -20,11 +20,17 @@ def main():
     url = "https://cs61a.org/"
     root = "https://cs61a.org/"
     root_regex = r"^https://cs61a.org/"
-    root_filename = "cs61a_website"
+    root_filename = "cs61a_website_ver2"
     content_tags = [('section', {'id': 'calendar', 'class': 'table', 'cellpadding': '5px'}), ('div', {'class': 'col-md-9'})]
     delay = 0
     
     extract_unique_links(url, root, root_regex, root_filename, content_tags, 0, delay)
+    #create_and_enter_dir("test")
+    #cur_dir = os.getcwd()
+    #print(cur_dir)
+    #file_path = download_pdf("https://cs61a.org/exam/fa23/mt2/61a-fa23-mt2.pdf", cur_dir)
+    #print(file_path)
+    #pdf_to_md(file_path, cur_dir)
 
 
 def remove_slash_and_hash(link):
@@ -111,13 +117,29 @@ def process_links_and_save(links, dir_name, delay, content_tags):
             link = link[:-1]
         filename = link.split('/')[-1]
         #filename = filename.split('.')[0]
-        
+
         print("filename" + filename)
+
+        if "proj" in link or "lab" in link or "hw" in link or "disc" in link:
+            parts = link.split("/")
+            folder = parts[-2]
+            create_and_enter_dir(folder)
+
+        if "_1pp" in link:
+            continue
+        
         print("last 4 char" + filename[-4:])
         if filename[-4:] == ".pdf":
+            name = filename.split('.')[0]
+            create_and_enter_dir(name)
             cur_dir = os.getcwd()
             file_path = download_pdf(link, cur_dir)
-            pdf_to_md(file_path, cur_dir)
+
+            #pdf_to_md(file_path, cur_dir)
+
+            current_directory = os.getcwd()
+            parent_directory = os.path.dirname(current_directory)
+            os.chdir(parent_directory)
         elif filename[-4:] == ".zip":
             continue;
         else: 
@@ -139,6 +161,11 @@ def process_links_and_save(links, dir_name, delay, content_tags):
             
             os.chdir(cur_dir)
             time.sleep(delay)
+        
+        if "proj" in link or "lab" in link or "hw" in link or "disc" in link:
+            current_directory = os.getcwd()
+            parent_directory = os.path.dirname(current_directory)
+            os.chdir(parent_directory)
         
         # markdown_result = html_to_markdown(link, content_tags)
         # if markdown_result == 1:

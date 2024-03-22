@@ -20,7 +20,7 @@ def main():
     url = "https://cs61a.org/"
     root = "https://cs61a.org/"
     root_regex = r"^https://cs61a.org/"
-    root_filename = "cs61a_website_ver2"
+    root_filename = "cs61a_website_ver3"
     content_tags = [('section', {'id': 'calendar', 'class': 'table', 'cellpadding': '5px'}), ('div', {'class': 'col-md-9'})]
     delay = 0
     
@@ -119,11 +119,6 @@ def process_links_and_save(links, dir_name, delay, content_tags):
 
         print("filename " + filename)
 
-        if "proj" in link or "lab" in link or "hw" in link or "disc" in link:
-            parts = link.split("/")
-            folder = parts[-2]
-            create_and_enter_dir(folder)
-
         if "_1pp" in link:
             continue
         
@@ -141,6 +136,11 @@ def process_links_and_save(links, dir_name, delay, content_tags):
         elif filename[-4:] == ".zip":
             continue;
         else:
+            if "proj" in link or "lab" in link or "hw" in link or "disc" in link:
+                parts = link.split("/")
+                folder = parts[-2]
+                create_and_enter_dir(folder)
+
             filename = filename.split('.')[0]
             markdown_result = html_to_markdown(link, content_tags)
             if markdown_result == 1:
@@ -159,11 +159,11 @@ def process_links_and_save(links, dir_name, delay, content_tags):
             
             os.chdir(cur_dir)
             time.sleep(delay)
-        
-        if "proj" in link or "lab" in link or "hw" in link or "disc" in link:
-            current_directory = os.getcwd()
-            parent_directory = os.path.dirname(current_directory)
-            os.chdir(parent_directory)
+
+            if "proj" in link or "lab" in link or "hw" in link or "disc" in link:
+                current_directory = os.getcwd()
+                parent_directory = os.path.dirname(current_directory)
+                os.chdir(parent_directory)
 
 def extract_unique_links(url, root, root_regex, root_filename, content_tags, layer, delay=0, found_links=[]):
     

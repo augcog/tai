@@ -8,10 +8,15 @@ from tqdm import tqdm
 import cohere
 import voyageai
 from voyageai import get_embedding
-from transformers import AutoModel
+from transformers import AutoModel, AutoTokenizer
 import string
 import tiktoken
 from dotenv import load_dotenv
+import torch
+import torch.nn.functional as F
+from torch import Tensor
+from angle_emb import AnglE, Prompts
+
 load_dotenv()
 
 def rfind_punctuation(s, start, end):
@@ -114,7 +119,9 @@ start=time.time()
 # docs = traverse_files("../dataset/edugpt/Scrape_header/ROS", "ROS")
 docs = traverse_files("./scraper/Scrape_rst/Sawyer", "Sawyer")
 docs += traverse_files("./scraper/Scrape_pdf/textbook", "Robotics textbook")
-
+docs += traverse_files("./scraper/Scrape_header/ROS", "ROS")
+docs += traverse_files("./scraper/Scrape_header/opencv", "opencv")
+docs += traverse_files("./scraper/Scrape_header/turtlebot3", "turtlebot3")
 # TODO TECHNIQUE
 # technique = 'none'
 # technique = 'bullet'
@@ -133,11 +140,20 @@ method='none'
 
 # TODO MODEL
 # model='local'
-model='openai'
+# model='openai'
+# model = 'openai_ada_002'
+# model = 'openai_3_small'
+# model = 'openai_3_large'
 # model='cohere'
 # model='jina'
 # model='zephyr'
 # model='voyage'
+# model='SFR'
+# model='e5-mistral'
+# model='UAE-Large'
+model='BGE'
+model='GRITLM'
+
 
 system_embedding_prompt = ''
 system_query_prompt = ''
@@ -191,6 +207,7 @@ print(len(docs))
 start=time.time()
 
 
+
 # for n in [900,800,700,600,500,400,300,200,100]:
 # TODO TOKEN LIMIT
 for n in [400]:
@@ -198,7 +215,7 @@ for n in [400]:
     if model=='local' or model=='zephyr':
         openai.api_key = "empty"
         openai.api_base = "http://localhost:8000/v1"
-    elif model=='openai':
+    elif model in ['openai_ada_002', 'openai_3_small', 'openai_3_large']:
         openai.api_key = os.getenv("OPENAI_API_KEY")
     elif model=='cohere':
         co = cohere.Client(os.getenv("COHERE_API_KEY"))
@@ -206,6 +223,47 @@ for n in [400]:
         voyageai.api_key = os.getenv("VOYAGE_API_KEY")
     elif model=='jina':
         jina = AutoModel.from_pretrained('jinaai/jina-embeddings-v2-base-en', trust_remote_code=True)
+    elif model=='SFR':
+        def last_token_pool(last_hidden_states: Tensor,
+                            attention_mask: Tensor) -> Tensor:
+            left_padding = (attention_mask[:, -1].sum() == attention_mask.shape[0])
+            if left_padding:
+                return last_hidden_states[:, -1]
+            else:
+                sequence_lengths = attention_mask.sum(dim=1) - 1
+                batch_size = last_hidden_states.shape[0]
+                return last_hidden_states[torch.arange(batch_size, device=last_hidden_states.device), sequence_lengths]
+        tokenizer = AutoTokenizer.from_pretrained('Salesforce/SFR-Embedding-Mistral')
+        embedding_model = AutoModel.from_pretrained('Salesforce/SFR-Embedding-Mistral')
+        tokenizer.add_eos_token = True
+
+        # get the embeddings
+        max_length = 4096
+    elif model=='e5-mistral':
+        def last_token_pool(last_hidden_states: Tensor,
+                            attention_mask: Tensor) -> Tensor:
+            left_padding = (attention_mask[:, -1].sum() == attention_mask.shape[0])
+            if left_padding:
+                return last_hidden_states[:, -1]
+            else:
+                sequence_lengths = attention_mask.sum(dim=1) - 1
+                batch_size = last_hidden_states.shape[0]
+                return last_hidden_states[torch.arange(batch_size, device=last_hidden_states.device), sequence_lengths]
+        tokenizer = AutoTokenizer.from_pretrained('intfloat/e5-mistral-7b-instruct')
+        embedding_model = AutoModel.from_pretrained('intfloat/e5-mistral-7b-instruct')
+        tokenizer.add_eos_token = True
+
+        # get the embeddings
+        max_length = 4096
+    elif model=='UAE-Large':
+        angle = AnglE.from_pretrained('WhereIsAI/UAE-Large-V1', pooling_strategy='cls').cuda()
+        angle.set_prompt(prompt=Prompts.C)
+    elif model=='BGE':
+        from FlagEmbedding import BGEM3FlagModel
+        embedding_model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True)
+    elif model=='GRITLM':
+        from gritlm import GritLM
+        embedding_model = GritLM("GritLM/GritLM-7B", torch_dtype="auto")
     fail = []
 
 
@@ -268,8 +326,12 @@ for n in [400]:
                         embedding.append(openai.Embedding.create(model="text-embedding-ada-002", input=hp.strip())['data'][0]['embedding'])
                     elif model == 'zephyr':
                         embedding.append(openai.Embedding.create(model="text-embedding-ada-002", input=gpt(history))['data'][0]['embedding'])
-                    elif model == 'openai':
+                    elif model == 'openai_ada_002':
                         embedding.append(openai.Embedding.create(model="text-embedding-ada-002", input=gpt(history))['data'][0]['embedding'])
+                    elif model == 'openai_3_small':
+                        embedding.append(openai.Embedding.create(model="text-embedding-3-small", input=gpt(history))['data'][0]['embedding'])
+                    elif model == 'openai_3_large':
+                        embedding.append(openai.Embedding.create(model="text-embedding-3-large", input=gpt(history))['data'][0]['embedding'])
                     elif model == 'cohere':
                         embedding.extend(co.embed(texts=[hp],
                                          model="embed-english-v3.0",
@@ -279,6 +341,17 @@ for n in [400]:
                         embedding.append(get_embedding(hp, model="voyage-01"))
                     elif model == 'jina':
                         embedding.append(jina.encode([hp])[0])
+                    elif model in ['SFR','e5-mistral']:
+                        batch_dict = tokenizer([hp], max_length=max_length - 1, padding=True, truncation=True, return_tensors="pt")
+                        output = embedding_model(**batch_dict)
+                        embed=last_token_pool(output.last_hidden_state, batch_dict['attention_mask'])
+                        normalized_embedding= F.normalize(embed, p=2, dim=-1)
+                        embedding.extend(normalized_embedding.tolist())
+                    elif model == 'UAE-Large':
+                        embedding.extend(angle.encode({'text': hp},to_numpy=True))
+                    elif model == 'BGE':
+                        # print(embedding_model.encode(hp, return_dense=True, return_sparse=True, return_colbert_vecs=True))
+                        embedding.append(embedding_model.encode(hp, return_dense=True, return_sparse=True, return_colbert_vecs=True))
                     id = folder_path + " > " + segment_path + f"({count})"
                     ids.append(id)
                     doc_list.append(smaller_chunk)
@@ -316,7 +389,7 @@ for n in [400]:
 
     # Open a file in binary write mode and store the data using pickle
     if technique=='recursive_seperate':
-        with open(f'{folder_name}/test_{technique}_{method}_{model}_embedding_{n}_textbook.pkl', 'wb') as f:
+        with open(f'{folder_name}/{technique}_{method}_{model}_embedding_{n}_106_full.pkl', 'wb') as f:
             pickle.dump(data_to_store, f)
     else:
         with open(f'{folder_name}/{technique}_{method}_{model}_embedding.pkl', 'wb') as f:

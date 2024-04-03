@@ -13,7 +13,7 @@ async def send_split_message(self, response: str, message: Message,send=True):
     msg_list = []
     # print(len(response))
     # print(response)
-    if len(response) > char_limit and "```" not in response:
+    if len(response) > char_limit:
         is_code_block = False
         parts = response.split("```")
 
@@ -96,12 +96,21 @@ async def send_split_message(self, response: str, message: Message,send=True):
                 msg=await message.followup.send(response)
         else:
             msg_list.append(response)
+    i=1
+    while i<len(msg_list):
+        #check if sum of len of i-1 and i is less than 2000 if yes then combine them
+        if len(msg_list[i-1])+len(msg_list[i])<2000:
+            msg_list[i-1]+=msg_list[i]
+            msg_list.pop(i)
+        else:
+            i+=1
+
     return msg if send else [msg for msg in msg_list if msg.strip()]
 
 async def send_split_message_user(user,response,send=True):
     char_limit = 1900
     msg_list = []
-    if len(response) > char_limit and "```" not in response:
+    if len(response) > char_limit:
         is_code_block = False
         parts = response.split("```")
         for i in range(len(parts)):
@@ -174,4 +183,12 @@ async def send_split_message_user(user,response,send=True):
             msg = await user.send(response)
         else:
             msg_list.append(response)
+    i = 1
+    while i < len(msg_list):
+        # check if sum of len of i-1 and i is less than 2000 if yes then combine them
+        if len(msg_list[i - 1]) + len(msg_list[i]) < 2000:
+            msg_list[i - 1] += msg_list[i]
+            msg_list.pop(i)
+        else:
+            i += 1
     return msg if send else [msg for msg in msg_list if msg.strip()]

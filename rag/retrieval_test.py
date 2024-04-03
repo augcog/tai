@@ -366,7 +366,3 @@ for n in [400]:
         log_path = generate_log(success_multi_retrieve, fail_multi_retrieve, filename=f"{technique}_{method}_{model}_multi")
     print(f"Log saved to: {log_path}")
     print('query time:',time.time()-start)
-
-
-
-

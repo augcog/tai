@@ -10,7 +10,7 @@ from utils.message_utils import send_split_message
 
 from dotenv import load_dotenv
 from discord import app_commands
-
+import time
 import openai
 
 load_dotenv()
@@ -103,6 +103,7 @@ class aclient(discord.Client):
                 response, history = await responses.official_handle_response(user_message, self, user, stream=True)
                 end = ''
             elif self.chat_model == "LOCAL":
+                latest_time = time.time()
                 response, history = await responses.local_handle_response(user_message, self, user, stream=True, rag=True)
                 end = f"\n If you want me to coninue, use /chat continue.\n To help us improve, please rate this response using the reactions below(👍or👎)."
             # msg=await send_split_message(self, response, message)
@@ -120,12 +121,13 @@ class aclient(discord.Client):
                 nonlocal sent
                 sent = task.result()  # get the result of the send task
                 send_allowed.set()  # set send_allowed
-
+            first = True
             async for chunk in response:
                 if self.chat_model == "OFFICIAL":
                     collected_messages.append(chunk['choices'][0]['delta'])
                     msg = ''.join([m.get('content', '') for m in collected_messages])
                 elif self.chat_model == "LOCAL":
+                    # print(chunk)
                     collected_messages.append(chunk['choices'][0]['delta'])
                     msg = ''.join([m.get('content', '') for m in collected_messages])
                 if not send_allowed.is_set():
@@ -134,7 +136,12 @@ class aclient(discord.Client):
                     continue
                 msg_split = await send_split_message(client, msg, message, send=False)
                 index = len(msg_split)
-
+                if first:
+                    first = False
+                    print('time taken to answer:', time.time() - latest_time)
+                # length = [len(i) for i in msg_split]
+                # content = [i for i in msg_split]
+                # print(length, content)
                 if index == 0:
                     continue
                 send_allowed.clear()
@@ -149,6 +156,11 @@ class aclient(discord.Client):
             await send_allowed.wait()  # wait for the last send to complete
             msg_split = await send_split_message(client, msg, message, send=False)
             index = len(msg_split)
+            # length = [len(i) for i in msg_split]
+            # content = [i for i in msg_split]
+            # print(length, content)
+            # TODO timer
+            # print('time taken to answer:', time.time() - latest_time)
             if index == current_index:
                 sent = await sent.edit(content=msg_split[-1]+ end)
             else:

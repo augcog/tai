@@ -7,4 +7,4 @@ def pdf_to_md(pdf_file_path, folder_name):
 
 
 if __name__ == '__main__':
-    pdf_to_md("~/Downloads/MLS.pdf", "MLS")
+    pdf_to_md("proj0.pdf", "Discussion")

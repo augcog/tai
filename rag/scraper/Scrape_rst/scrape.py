@@ -20,10 +20,10 @@ def main():
     # url=f"https://github.com/numpy/numpy/blob/main/doc/source/index.rst?plain=1"
 
     # Sawyer
-    # mkdir('Sawyer')
-    # os.chdir('Sawyer')
-    # starting='index'
-    # url = f"https://github.com/ros-planning/moveit_tutorials/blob/master/index.rst?plain=1"
+    mkdir('Sawyer')
+    os.chdir('Sawyer')
+    starting='index'
+    url = f"https://github.com/ros-planning/moveit_tutorials/blob/master/index.rst?plain=1"
 
     # conda
     # mkdir('conda')
@@ -32,10 +32,10 @@ def main():
     # url = "https://github.com/conda/conda-docs/blob/main/docs/source/index.rst?plain=1"
 
     # conda getting started
-    mkdir('conda_getting started')
-    os.chdir('conda_getting started')
-    starting='index'
-    url = "https://github.com/conda/conda/blob/main/docs/source/user-guide/index.rst?plain=1"
+    # mkdir('conda_getting started')
+    # os.chdir('conda_getting started')
+    # starting='index'
+    # url = "https://github.com/conda/conda/blob/main/docs/source/user-guide/index.rst?plain=1"
     home_url= url.rsplit('/', 1)[0]
     # Current directory
     home_dir=os.getcwd()
@@ -49,17 +49,9 @@ def fetch_and_save_data(filename, url):
     :param url: The URL to fetch data from.
     :return: None
     """
-    response = requests.get(url)
-
-    # Error handling for HTTP request
-    if response.status_code != 200:
-        print(colored("Failed to retrieve the content.","red"))
-        return 1
-    try:
-        data = json.loads(response.text)
-    except json.JSONDecodeError:
-        print("Failed to parse the response as JSON.")
-        return 
+    headers = {'Accept': 'application/json'}
+    response = requests.get(url, headers=headers)
+    data = response.json()
 
     # Saving the entire fetched JSON to a file
     data=data['payload']['blob']['rawLines']

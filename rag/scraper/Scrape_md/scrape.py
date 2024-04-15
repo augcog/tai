@@ -13,8 +13,8 @@ def main():
     """
     # TODO
     # Carla
-    create_and_enter_dir('carla')
-    url = "https://github.com/carla-simulator/carla/blob/master/mkdocs.yml"
+    # create_and_enter_dir('carla')
+    # url = "https://github.com/carla-simulator/carla/blob/master/mkdocs.yml"
 
     # Mkdocs
     # create_and_enter_dir('mkdocs')
@@ -23,8 +23,8 @@ def main():
     # create_and_enter_dir('uwasystemhealth')
     # url = "https://github.com/uwasystemhealth/shl-mkdocs-tutorial-and-template/blob/template/mkdocs.yml"
     # MonashDataFluency
-    # create_and_enter_dir('MonashDataFluency')
-    # url = "https://github.com/MonashDataFluency/python-web-scraping/blob/master/mkdocs.yml"
+    create_and_enter_dir('MonashDataFluency')
+    url = "https://github.com/MonashDataFluency/python-web-scraping/blob/master/mkdocs.yml"
     # MkDocsMaterial
     # create_and_enter_dir('mkdocs')
     # url = "https://github.com/squidfunk/mkdocs-material/blob/master/mkdocs.yml"
@@ -38,8 +38,10 @@ def main():
     # create_and_enter_dir('python-web-scraping')
     # url = "https://github.com/MonashDataFluency/python-web-scraping/blob/master/mkdocs.yml"
 
-    response = requests.get(url)
-    data = json.loads(response.text)
+    headers = {'Accept': 'application/json'}
+    response = requests.get(url, headers=headers)
+    data = response.json()
+    print(data)
     content = data['payload']['blob']['rawLines']
     content = '\n'.join(content)
     content = extract_yaml_sections(content)
@@ -90,8 +92,9 @@ def get_save_content(file_name, url):
     - Returns: The content fetched from the URL.
     """
     # Fetch the content from the URL
-    response = requests.get(url)
-    data = json.loads(response.text)
+    headers = {'Accept': 'application/json'}
+    response = requests.get(url, headers=headers)
+    data = response.json()
     content = data['payload']['blob']['rawLines']
     
     # Convert the content list into a single string
@@ -120,9 +123,10 @@ def get_url_child(url):
     - url (str): The GitHub directory URL to fetch the markdown files from.
     - Returns: A list of markdown file names.
     """
-    response = requests.get(url)
+    headers = {'Accept': 'application/json'}
+    response = requests.get(url, headers=headers)
+    data = response.json()
     childs=[]
-    data=json.loads(response.text)
     md_files=data["payload"]["tree"]["items"]
     for i in md_files:
         name = i['name']
@@ -136,8 +140,9 @@ def fetch_urls(base_url, nav):
     - base_url (str): The base URL for the mkdocs documentation.
     - nav (list): A list or dictionary defining the navigation structure from mkdocs.yml.
     """
+    print(f"nav: {nav}")
+    # nav = [list(i.values())[0] if isinstance(i, dict) else i for i in nav]
     for i in nav:
-
         cur_dir=os.getcwd()
         if isinstance(i, str) and i.endswith(".md"):
             filename=i.split("/")[-1]
@@ -165,8 +170,9 @@ def fetch_urls(base_url, nav):
             cur_child_dir=os.getcwd()
             url=os.path.join(base_url,value)
             childs=get_url_child(url)
+            print(childs)
             for child in childs:
-                filename=i.split("/")[-1]
+                filename=value.split("/")[-1]
                 create_and_enter_dir(child.replace('.md',''))
                 child_url=os.path.join(url,child)
                 child_url+="?plain=1"

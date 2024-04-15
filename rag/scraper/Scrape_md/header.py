@@ -59,15 +59,9 @@ class MarkdownParser:
 
 
     def fetch_data(self):
-        response = requests.get(self.url)
-        if response.status_code != 200:
-            print(colored("Failed to retrieve the content.","red"))
-            return 1
-        try:
-            data = json.loads(response.text)
-        except json.JSONDecodeError:
-            print("Failed to parse the response as JSON.")
-            return 
+        headers = {'Accept': 'application/json'}
+        response = requests.get(self.url, headers=headers)
+        data = response.json()
         md_content = data['payload']['blob']['rawLines']
         self.headers_content_dict = MarkdownParser.extract_headers_and_content(md_content)
 

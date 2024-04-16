@@ -40,20 +40,19 @@ class MarkdownParser:
             # If inside a code block, continue without processing
             if in_code_block:
                 if curheader:
-                    headers_content[curheader] += f"{line}"
-                continue
-
-            # Process headers outside code blocks
-            if line.startswith('#'):
-                header = line
-                header_level = MarkdownParser.count_consecutive_hashes(header)
-                header = header.strip('#').strip()
-                headers_content[(header, header_level)] = ""
-                curheader = (header, header_level)
+                    headers_content[curheader] += f"{line}\n"
             else:
-                if not curheader:
-                    continue
-                headers_content[curheader] += f"{line}"
+                # Process headers outside code blocks
+                if line.startswith('#'):
+                    header = line
+                    header_level = MarkdownParser.count_consecutive_hashes(header)
+                    header = header.strip('#').strip()
+                    headers_content[(header, header_level)] = ""
+                    curheader = (header, header_level)
+                else:
+                    if not curheader:
+                        continue
+                    headers_content[curheader] += f"{line}\n"
 
         return headers_content
 
@@ -166,9 +165,9 @@ class MarkdownParser:
                     dict_list.append({'Page_table': page_toc, 'Page_path': page_path, 'Segment_print': segment})
         self.save_content_to_pkl(dict_list, filename=f'{self.filename}.pkl')
 
-# # Example usage:
-# url = "https://github.com/carla-simulator/carla/blob/master/Docs/index.md?plain=1"
-# parser = MarkdownParser(url, )
-# parser.print_header_tree()
-# parser.print_segment()
-# parser.concat_print()
+# Example usage:
+url = "https://github.com/carla-simulator/carla/blob/master/Docs/adv_opendrive.md?plain=1"
+parser = MarkdownParser(url, "TEST")
+parser.print_header_tree()
+parser.print_segment()
+parser.concat_print()

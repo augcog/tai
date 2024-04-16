@@ -166,8 +166,8 @@ class MarkdownParser:
         self.save_content_to_pkl(dict_list, filename=f'{self.filename}.pkl')
 
 # Example usage:
-url = "https://github.com/carla-simulator/carla/blob/master/Docs/adv_opendrive.md?plain=1"
-parser = MarkdownParser(url, "TEST")
-parser.print_header_tree()
-parser.print_segment()
-parser.concat_print()
+# url = "https://github.com/carla-simulator/carla/blob/master/Docs/adv_opendrive.md?plain=1"
+# parser = MarkdownParser(url, "TEST")
+# parser.print_header_tree()
+# parser.print_segment()
+# parser.concat_print()

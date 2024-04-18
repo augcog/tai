@@ -3,6 +3,7 @@ To enhance the efficiency of RAG applications, this folder breaks down unstructu
 
 ## Contents
 - [Creating Embeddings](#creating-embeddings)
+  - [Environments](#environments)
   - [Pre-requisites](#pre-requisites)
   - [Chunking documents and converting them into embeddings](#chunking-documents-and-converting-them-into-embeddings)
 - [Evaluation](#evaluation)
@@ -10,6 +11,9 @@ To enhance the efficiency of RAG applications, this folder breaks down unstructu
   - [Retrieval](#retrieval)
 
 ## Creating Embeddings
+### Environments
+Run this to install the required packages
+```python -m pip install -r requirements.txt```
 ### Pre-requisites
 - Begin by visiting the [scraper](scraper) folder and follow the instructions there to scrape your documents.
 

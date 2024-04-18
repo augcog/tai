@@ -1,3 +1,4 @@
+import os
 import re
 import requests
 import json
@@ -59,7 +60,7 @@ class MarkdownParser:
 
     def fetch_data(self):
         try:
-            with open(f"{self.filename}.md", 'r', encoding='utf-8') as file:
+            with open(f"{self.filename}", 'r', encoding='utf-8') as file:
                 md_content = file.readlines()
             self.headers_content_dict = MarkdownParser.extract_headers_and_content(md_content)
         except FileNotFoundError:

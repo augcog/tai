@@ -1,4 +1,5 @@
 # scrapper
+
 ## Folders for scraper
 - Scrapper usually takes a root url or pdf and scrapes the entire website or pdf. 
 - In every scraping folder, there will be a code called `scrape.py` that is the place you will use to scrape your documents. 
@@ -7,6 +8,7 @@
 - [Scrape_md](Scrape_md/): For websites that uses markdown
 - [Scrape_rst](Scrape_rst/): For websites that uses rst
 - [Scrape_pdf](Scrape_pdf/): For pdfs
+- [Scrape_vid](Scrape_vid/): For videos
 
 ## End Results
 - After running the scrapper, you will get a folder with this following tree structure that will be used in `rag/embedding_crate.py`.

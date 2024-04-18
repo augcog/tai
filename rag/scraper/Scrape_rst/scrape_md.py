@@ -34,8 +34,8 @@ def main():
     # url = f"https://github.com/ros-planning/moveit_tutorials/blob/master/index.rst?plain=1"
 
     # conda getting started
-    mkdir('conda_getting started')
-    os.chdir('conda_getting started')
+    mkdir('conda_getting_started_md')
+    os.chdir('conda_getting_started_md')
     starting='index'
     url = "https://github.com/conda/conda/blob/main/docs/source/user-guide/index.rst?plain=1"
 
@@ -53,17 +53,9 @@ def fetch_and_save_data(filename, url):
     :return: None
     """
     print(f"url:{url}")
-    response = requests.get(url)
-
-    # Error handling for HTTP request
-    if response.status_code != 200:
-        print(colored("Failed to retrieve the content.","red"))
-        return 1
-    try:
-        data = json.loads(response.text)
-    except json.JSONDecodeError:
-        print("Failed to parse the response as JSON.")
-        return 
+    headers = {'Accept': 'application/json'}
+    response = requests.get(url, headers=headers)
+    data = response.json()
 
     # Saving the entire fetched JSON to a file
     data='\n'.join(data['payload']['blob']['rawLines'])
@@ -103,9 +95,9 @@ def tree_call(cur_file, url, home_url, home_dir):
         for _ in range(num):
             os.chdir('..')
         # To verify, let's print the current working directory after the change(s)
-        print(os.getcwd())
-    parser = RSTParser(f"{filename}.rst")
-    parser_md = MarkdownParser(f'{filename}.md')
+        # print(os.getcwd())
+    parser = RSTParser(os.path.join(os.getcwd(),f"{filename}.rst"))
+    parser_md = MarkdownParser(os.path.join(os.getcwd(),f"{filename}.md"))
     parser_md.print_header_tree()
     parser_md.print_segment()
     parser_md.concat_print()

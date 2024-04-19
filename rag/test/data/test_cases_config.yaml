@@ -1,0 +1,28 @@
+# Config file for the test suite
+
+# Comments:
+# For expected_diffs:
+# `-` means the line is removed from the expected output
+# `+` means the line is added to the expected output
+
+
+unit_tests:
+  example_format:
+    - input_path: data/unit_tests/example_format/input/example_input.pdf
+      expected_output_path: data/unit_tests/example_format/expected_output/example_output.mmd
+
+    - input_path: data/unit_tests/example_format/input/example_input_2.pdf
+      expected_output_path: data/unit_tests/example_format/expected_output/example_output_2.mmd
+
+  pdf_to_md:
+    - input_path: data/unit_tests/pdf/input/61a-sp24-mt2_sol_2_pages.pdf
+      expected_output_path: data/unit_tests/pdf/expected_output/61a-sp24-mt2_sol_2_pages.mmd
+
+  md_to_md:
+    - input_path: data/unit_tests/md/input/section-0-brief-python-refresher.md
+      expected_output_path: data/unit_tests/md/expected_output/section-0-brief-python-refresher_tree.md
+
+integrated_tests:
+  one_plain_folder_and_to_md+to_pdf:
+      - input_folder: data/integrated_tests/input_folder1
+        expected_output_folder: data/integrated_tests/expected_output_folder1

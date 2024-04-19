@@ -1,0 +1,8 @@
+[MISSING_PAGE_EMPTY:1]
+
+3. What would the output of the following lines of code be? Be sure to draw a box-and-pointer diagram! public static void main(String[] args) { IntList L1 = IntList.list(8, 3, 6, 4); IntList L2 = IntList.list(4, 5, 9, 0); IntList L3 = L2; int x = 4; mystery(L1, L3, x); System.out.println(L1); System.out.println(L2); System.out.println(x); } public static void mystery(IntList L1, IntList L2, int x) { L1.head = 23; L2.tail.tail = L1.tail; L1.tail.head = L2.tail.head; x += 16; L2 = IntList.list(1, 2); } Solution:
+[23, 3, 5, 4]
+[4, 5, 3, 5, 4]
+4. Let's say a method has the following signature: "public int foo(int x)". What is stored in the variable x? The value 4 is stored in x, since x is of primitive int type.
+
+5. Similarly, let's say some other method has the following signature: "public boolean boo(IntList y)". What is stored in the variable y? What happens if we change the value of y in boo? Since y is of type IntList (an object), it stores a pointer to an IntList (in other words, it stores the address where the IntList is located in memory). When this pointer is changed in boo, the original IntList that y pointed to will remain unchanged.

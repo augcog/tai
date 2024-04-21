@@ -1,40 +1,43 @@
 """Utility functions to help with testing.
 """
-import difflib
-import filecmp
-import os
-from pathlib import Path
-from typing import List, Tuple, Optional, Dict
-from colorama import init, Fore, Style
-import logging
 
+import difflib
+import logging
+from pathlib import Path
+from typing import List
+
+from colorama import Fore, Style, init
 
 # Initialize colorama
 init(autoreset=True)
 # Below code uses multiple times of `Style.RESET_ALL` due to some unsolved issue
 # ...but at lease the color now works as expected
-logging.basicConfig(level=logging.DEBUG,
-                    format=f'{Fore.WHITE}%(asctime)s - %(levelname)s - %(message)s{Style.RESET_ALL}')
+logging.basicConfig(
+    level=logging.DEBUG,
+    format=f"{Fore.WHITE}%(asctime)s - %(levelname)s - %(message)s{Style.RESET_ALL}",
+)
 
 
 def get_diffs(expected_contents: str, output_contents: str, fromfile: str, tofile: str) -> List[str]:
     """Generates and returns a list of differences between two sets of text, including file names."""
-    return list(difflib.unified_diff(
-        expected_contents.splitlines(keepends=True),
-        output_contents.splitlines(keepends=True),
-        fromfile=fromfile,
-        tofile=tofile,
-        lineterm=''
-    ))
+    return list(
+        difflib.unified_diff(
+            expected_contents.splitlines(keepends=True),
+            output_contents.splitlines(keepends=True),
+            fromfile=fromfile,
+            tofile=tofile,
+            lineterm="",
+        )
+    )
 
 
 def format_diff_line(line: str) -> str:
     """Applies color formatting to diff output lines."""
-    if line.startswith('+'):
+    if line.startswith("+"):
         return Fore.GREEN + line
-    elif line.startswith('-'):
+    elif line.startswith("-"):
         return Fore.RED + line
-    elif line.startswith('@@'):
+    elif line.startswith("@@"):
         return Fore.CYAN + line
     return line
 
@@ -71,8 +74,8 @@ def compare_folders(expected_dir: Path, output_dir: Path) -> bool:
     Returns:
         bool: True if the folders match, False otherwise.
     """
-    expected_files = {file.relative_to(expected_dir) for file in expected_dir.rglob('*') if file.is_file()}
-    output_files = {file.relative_to(output_dir) for file in output_dir.rglob('*') if file.is_file()}
+    expected_files = {file.relative_to(expected_dir) for file in expected_dir.rglob("*") if file.is_file()}
+    output_files = {file.relative_to(output_dir) for file in output_dir.rglob("*") if file.is_file()}
 
     all_matched = True
     # Compare common files

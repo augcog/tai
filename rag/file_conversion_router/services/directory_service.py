@@ -42,7 +42,6 @@ def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path]) ->
     input_dir = Path(input_dir)
     output_dir = Path(output_dir)
 
-    # Validate that input_dir is a directory
     if not input_dir.is_dir():
         raise ValueError(f"Provided input path {input_dir} is not a directory.")
 

@@ -90,6 +90,30 @@ class aclient(discord.Client):
         await message.response.defer(ephemeral=self.isPrivate) if self.is_replying_all == "False" else None
         await self.message_queue.put((message, user_message))
 
+    # @staticmethod
+    # def edit(index, current_index, sent, message, msg_split, send_allowed):
+    #     """Runs an asyncio event loop to handle async operations within a thread."""
+    #     async def send_messages():
+    #         nonlocal current_index, sent
+    #         if index == current_index:
+    #             # Await the async edit call
+    #             sent=await sent.edit(content=msg_split[current_index - 1])
+    #         else:
+    #             while current_index < index:
+    #                 # Await the async edit call
+    #                 sent=await sent.edit(content=msg_split[current_index - 1])
+    #                 # Await the async send follow-up message call
+    #                 sent=await message.followup.send(msg_split[current_index])
+    #                 current_index += 1
+    #         # Signal that sending is done
+    #         # send_allowed.set()
+    #         pass
+    #
+    #     loop = asyncio.new_event_loop()
+    #     asyncio.set_event_loop(loop)
+    #     loop.run_until_complete(send_messages())
+    #     loop.close()
+
     async def send_message(self, message, user_message):
         if self.is_replying_all == "False":
             user = message.user.id
@@ -105,7 +129,8 @@ class aclient(discord.Client):
             elif self.chat_model == "LOCAL":
                 latest_time = time.time()
                 response, history = await responses.local_handle_response(user_message, self, user, stream=True, rag=True)
-                end = f"\n If you want me to coninue, use /chat continue.\n To help us improve, please rate this response using the reactions below(👍or👎)."
+                # end = f"\n If you want me to coninue, use /chat continue.\n To help us improve, please rate this response using the reactions below(👍or👎)."
+                end = f"\n\nTo help us improve, please rate this response using the reactions below(👍or👎)."
             # msg=await send_split_message(self, response, message)
 
             collected_messages = []
@@ -116,20 +141,31 @@ class aclient(discord.Client):
             current_index = 1
             send_allowed = asyncio.Event()
             send_allowed.set()
-
             def on_send_done(task):
                 nonlocal sent
                 sent = task.result()  # get the result of the send task
                 send_allowed.set()  # set send_allowed
             first = True
-            async for chunk in response:
+            send_time = time.time()
+            send_task= None
+            for chunk in response:
                 if self.chat_model == "OFFICIAL":
                     collected_messages.append(chunk['choices'][0]['delta'])
                     msg = ''.join([m.get('content', '') for m in collected_messages])
                 elif self.chat_model == "LOCAL":
                     # print(chunk)
-                    collected_messages.append(chunk['choices'][0]['delta'])
-                    msg = ''.join([m.get('content', '') for m in collected_messages])
+                    # collected_messages.append(chunk['choices'][0]['delta'])
+
+                    collected_messages.append(chunk.replace("<|eot_id|>", ""))
+                    # msg = ''.join([m.get('content', '') for m in collected_messages])
+                    msg = ''.join([m for m in collected_messages])
+                print(chunk,end='')
+                if time.time() - send_time > 0.5:
+                    await send_allowed.wait()
+                    print('time taken to answer:', time.time() - send_time)
+                    send_time = time.time()
+                # if send_task and send_task.done():
+                #     send_allowed.set()
                 if not send_allowed.is_set():
                     continue
                 if not msg:
@@ -139,9 +175,6 @@ class aclient(discord.Client):
                 if first:
                     first = False
                     print('time taken to answer:', time.time() - latest_time)
-                # length = [len(i) for i in msg_split]
-                # content = [i for i in msg_split]
-                # print(length, content)
                 if index == 0:
                     continue
                 send_allowed.clear()
@@ -168,7 +201,8 @@ class aclient(discord.Client):
             if self.chat_model == "OFFICIAL":
                 role = ''.join([m.get('role', '') for m in collected_messages])
             elif self.chat_model == "LOCAL":
-                role = ''.join([m.get('role', '') for m in collected_messages])
+                # role = ''.join([m.get('role', '') for m in collected_messages])
+                role = ''.join([m for m in collected_messages])
             assistance_message = {"role": role, "content": msg}
             history.append(assistance_message)
             await client.set_chat_history(user, history)
@@ -195,27 +229,4 @@ class aclient(discord.Client):
             else:
                 await message.followup.send(
                     f"> **ERROR: Something went wrong, please try again later!** \n ```ERROR MESSAGE: {e}```")
-
-    # async def send_start_prompt(self):
-    #     discord_channel_id = os.getenv("DISCORD_CHANNEL_ID")
-    #     try:
-    #         if self.starting_prompt:
-    #             if (discord_channel_id):
-    #                 logger.info(f"Send system prompt with size {len(self.starting_prompt)}")
-    #                 response = ""
-    #                 if self.chat_model == "OFFICIAL":
-    #                     response = f"{response}{await responses.official_handle_response(self.starting_prompt, self)}"
-    #                 elif self.chat_model == "LOCAL":
-    #                     response = f"{response}{await responses.local_handle_response(self.starting_prompt, self)}"
-    #                 channel = self.get_channel(int(discord_channel_id))
-    #                 await channel.send(response)
-    #                 logger.info(f"System prompt response:{response}")
-    #             else:
-    #                 logger.info("No Channel selected. Skip sending system prompt.")
-    #         else:
-    #             logger.info(f"Not given starting prompt. Skiping...")
-    #     except Exception as e:
-    #         logger.exception(f"Error while sending system prompt: {e}")
-
-
 client = aclient()

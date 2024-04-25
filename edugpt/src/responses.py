@@ -6,11 +6,44 @@ import openai
 import numpy as np
 from dotenv import load_dotenv
 from FlagEmbedding import BGEM3FlagModel
+import transformers
+import torch
+from threading import Thread
 import time
 # lode embedding model
 embedding_model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True)
 
 load_dotenv()
+
+model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
+auto_tokenizer = transformers.AutoTokenizer.from_pretrained(model_id)
+streamer_iterator = transformers.TextIteratorStreamer(auto_tokenizer, skip_prompt=True)
+pipeline = transformers.pipeline(
+    "text-generation",
+    model=model_id,
+    model_kwargs={"torch_dtype": torch.bfloat16},
+    device="cuda",
+)
+
+def prompt_generator(messages):
+
+    terminators = [
+        pipeline.tokenizer.eos_token_id,
+        pipeline.tokenizer.convert_tokens_to_ids("<|eot_id|>")
+    ]
+    prompt = pipeline.tokenizer.apply_chat_template(
+        messages,
+        tokenize=False,
+        add_generation_prompt=True
+    )
+
+    outputs = pipeline(
+        prompt,
+        max_new_tokens=1000,
+        eos_token_id=terminators,
+        do_sample=True,
+        streamer=streamer_iterator
+    )
 # Write scores for
 def bge_compute_score(
     query_embedding,
@@ -121,6 +154,8 @@ async def local_handle_response(message, client,user,stream=False,rag=False):
         doc_list = data_loaded['doc_list']
         embedding_list = data_loaded['embedding_list']
         id_list = data_loaded['id_list']
+        url_list = data_loaded['url_list']
+        time_list = data_loaded['time_list']
 
 
         history = [{"role": "user", "content": message}]
@@ -138,16 +173,30 @@ async def local_handle_response(message, client,user,stream=False,rag=False):
         indices = np.argsort(cosine_similarities)[::-1]
         id = id_list[indices]
         docs = doc_list[indices]
+        print(type(url_list))
+        url = url_list[indices]
+        time = time_list[indices]
         top_docs=docs[:3]
+
 
         distances = np.sort(cosine_similarities)[-3:][::-1]
         top_id = id[:3]
+        top_url = url[:3]
+        top_time = time[:3]
         print(distances)
         insert_document = ""
+        reference = []
         for i in range(len(top_docs)):
+            if top_url[i] and top_time[i]:
+                reference.append(f"{top_url[i]}&t={top_time[i]}")
+            elif top_url[i] and not top_time[i]:
+                reference.append(f"{top_url[i]}")
+            else:
+                reference.append("")
             if distances[i] > 0.45:
                 insert_document += f"\"\"\"{top_id[i]}\n{top_docs[i]}\"\"\"\n"
                 print(top_id[i])
+        print(reference)
         # print(insert_document)
         count = 0
         # start_time = time.time()
@@ -215,7 +264,14 @@ async def local_handle_response(message, client,user,stream=False,rag=False):
         return response['choices'][0]['message']['content'].replace('\n\n\n','')
 
     else:
-        response= await openai.ChatCompletion.acreate(model=client.openAI_gpt_engine, messages=history, temperature=0.3,max_tokens=1000,stream=True)
+        # response= await openai.ChatCompletion.acreate(model=client.openAI_gpt_engine, messages=history, temperature=0.3,max_tokens=1000,stream=True)
+
+        # prompt_generator(history)
+        t = Thread(target=prompt_generator, args=(history,))
+        t.start()
+        # for i in streamer_iterator:
+        #     print(i, end="")
+        response = streamer_iterator
         return response,history
 
 

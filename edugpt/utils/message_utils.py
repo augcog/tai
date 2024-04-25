@@ -9,7 +9,7 @@ def rfind_punctuation(s, start, end):
 
 
 async def send_split_message(self, response: str, message: Message,send=True):
-    char_limit = 1900
+    char_limit = 1800
     msg_list = []
     # print(len(response))
     # print(response)
@@ -108,7 +108,7 @@ async def send_split_message(self, response: str, message: Message,send=True):
     return msg if send else [msg for msg in msg_list if msg.strip()]
 
 async def send_split_message_user(user,response,send=True):
-    char_limit = 1900
+    char_limit = 1800
     msg_list = []
     if len(response) > char_limit:
         is_code_block = False

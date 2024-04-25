@@ -155,7 +155,8 @@ class aclient(discord.Client):
                 elif self.chat_model == "LOCAL":
                     # print(chunk)
                     # collected_messages.append(chunk['choices'][0]['delta'])
-                    collected_messages.append(chunk)
+
+                    collected_messages.append(chunk.replace("<|eot_id|>", ""))
                     # msg = ''.join([m.get('content', '') for m in collected_messages])
                     msg = ''.join([m for m in collected_messages])
                 print(chunk,end='')
@@ -228,27 +229,4 @@ class aclient(discord.Client):
             else:
                 await message.followup.send(
                     f"> **ERROR: Something went wrong, please try again later!** \n ```ERROR MESSAGE: {e}```")
-
-    # async def send_start_prompt(self):
-    #     discord_channel_id = os.getenv("DISCORD_CHANNEL_ID")
-    #     try:
-    #         if self.starting_prompt:
-    #             if (discord_channel_id):
-    #                 logger.info(f"Send system prompt with size {len(self.starting_prompt)}")
-    #                 response = ""
-    #                 if self.chat_model == "OFFICIAL":
-    #                     response = f"{response}{await responses.official_handle_response(self.starting_prompt, self)}"
-    #                 elif self.chat_model == "LOCAL":
-    #                     response = f"{response}{await responses.local_handle_response(self.starting_prompt, self)}"
-    #                 channel = self.get_channel(int(discord_channel_id))
-    #                 await channel.send(response)
-    #                 logger.info(f"System prompt response:{response}")
-    #             else:
-    #                 logger.info("No Channel selected. Skip sending system prompt.")
-    #         else:
-    #             logger.info(f"Not given starting prompt. Skiping...")
-    #     except Exception as e:
-    #         logger.exception(f"Error while sending system prompt: {e}")
-
-
 client = aclient()

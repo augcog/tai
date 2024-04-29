@@ -1,15 +1,15 @@
 """Internal service to process a directory of files and schedule conversion tasks for each file.
 """
-import os
 import logging
-from typing import Dict, Union
-from pathlib import Path
+import os
 from concurrent.futures import as_completed
-
-from rag.file_conversion_router.services.task_manager import schedule_conversion
+from pathlib import Path
+from typing import Dict, Union
 
 from rag.file_conversion_router.conversion.base_converter import BaseConverter
 from rag.file_conversion_router.conversion.pdf_to_md import PdfToMdConverter
+from rag.file_conversion_router.services.task_manager import schedule_conversion
+
 # from rag.file_conversion_router.conversion.text_to_md import TextToMdConverter
 # from rag.file_conversion_router.conversion.md_to_md import MdToMdConverter
 # from rag.file_conversion_router.conversion.video_to_md import VideoToMdConverter

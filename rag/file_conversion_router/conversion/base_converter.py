@@ -4,9 +4,9 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Union
 
-from rag.file_conversion_router.utils.utils import ensure_path
+from rag.file_conversion_router.utils.logger import conversion_logger, logger
 from rag.file_conversion_router.utils.markdown_parser import MarkdownParser
-from rag.file_conversion_router.utils.logger import logger, conversion_logger
+from rag.file_conversion_router.utils.utils import ensure_path
 
 
 class BaseConverter(ABC):

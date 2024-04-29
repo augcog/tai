@@ -1,6 +1,7 @@
-from pathlib import Path
-from rag.file_conversion_router.conversion.base_converter import BaseConverter
 import subprocess
+from pathlib import Path
+
+from rag.file_conversion_router.conversion.base_converter import BaseConverter
 from rag.file_conversion_router.utils.hardware_detection import detect_gpu_setup
 
 

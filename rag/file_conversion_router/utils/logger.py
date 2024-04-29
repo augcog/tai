@@ -1,7 +1,8 @@
-from rag.file_conversion_router.utils.time_measure import Timer
+import functools
 import logging
 from pathlib import Path
-import functools
+
+from rag.file_conversion_router.utils.time_measure import Timer
 
 # Configure logging at the module level
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')

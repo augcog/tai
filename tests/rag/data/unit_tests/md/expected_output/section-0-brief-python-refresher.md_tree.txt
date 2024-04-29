@@ -1,9 +1,23 @@
-[![Open In Colab](../images/colab-badge.svg)](https://colab.research.google.com/github/MonashDataFluency/python-web-scraping/blob/master/notebooks/section-0-brief-python-refresher.ipynb)
+(Table of Contents)
+----Jupyter-style notebooks on Google Colaboratory - A quick tour (h3)
+----Dataframes (h3)
+------Challenge (h4)
+----JSON (h3)
+----Regex (h3)
+------Challenge (h4)
+----From a web scraping perspective (h3)
+----References (h3)
 
-<center><img src="../images/xkcd_python.png"></center>
-<center>https://xkcd.com/license.html (CC BY-NC 2.5)</center>
 
-### Jupyter-style notebooks on Google Colaboratory - A quick tour
+(Page path)
+(h1)  > (h2)  > (h3) Jupyter-style notebooks on Google Colaboratory - A quick tour
+
+(Segment 1)
+# (h1)
+[]
+## (h2)
+[]
+###Jupyter-style notebooks on Google Colaboratory - A quick tour (h3)
 ---
 
 1. Go to [this](https://colab.research.google.com) link  and login with your Google account.
@@ -23,7 +37,30 @@ print("Hello world!!")
 In this section we will take a quick tour of some of the concepts that will be used for the rest of our web scraping workshop.
 
 
-### Dataframes
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+----Jupyter-style notebooks on Google Colaboratory - A quick tour (h3)
+----Dataframes (h3)
+------Challenge (h4)
+----JSON (h3)
+----Regex (h3)
+------Challenge (h4)
+----From a web scraping perspective (h3)
+----References (h3)
+
+
+(Page path)
+(h1)  > (h2)  > (h3) Dataframes > (h4) Challenge
+
+(Segment 2)
+# (h1)
+[]
+## (h2)
+[]
+###Dataframes (h3)
 ---
 
 One of the most powerful data structures in Python is the Pandas `DataFrame`. It allows tabular data, including `csv` (comma seperated values) and `tsv` (tab seperated values), to be processed and manipulated.  
@@ -155,7 +192,8 @@ df[(df['City'] == 'Melbourne') & (df['University'] == 'Monash')]
 |  1 | Rob    | Economist |    66 | Melbourne | Monash       |
 
 
-#### Challenge
+
+####Challenge (h4)
 ---
 
 How can we filter people from `Melbourne` and above the Age of `50`?
@@ -241,7 +279,30 @@ df_res
 |  6 | Steve  | Doctor         |    52 | Brisbane  | UQ           |
 
 
-### JSON
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+----Jupyter-style notebooks on Google Colaboratory - A quick tour (h3)
+----Dataframes (h3)
+------Challenge (h4)
+----JSON (h3)
+----Regex (h3)
+------Challenge (h4)
+----From a web scraping perspective (h3)
+----References (h3)
+
+
+(Page path)
+(h1)  > (h2)  > (h3) JSON
+
+(Segment 3)
+# (h1)
+[]
+## (h2)
+[]
+###JSON (h3)
 ---
 
 JSON stands for *JavaScript Object Notation*.
@@ -330,7 +391,30 @@ print(y)
     }
     
 
-### Regex
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+----Jupyter-style notebooks on Google Colaboratory - A quick tour (h3)
+----Dataframes (h3)
+------Challenge (h4)
+----JSON (h3)
+----Regex (h3)
+------Challenge (h4)
+----From a web scraping perspective (h3)
+----References (h3)
+
+
+(Page path)
+(h1)  > (h2)  > (h3) Regex > (h4) Challenge
+
+(Segment 4)
+# (h1)
+[]
+## (h2)
+[]
+###Regex (h3)
 ---
 
 Regular expressions or regex are a powerful tool to extract key pieces of data from raw text.
@@ -496,7 +580,8 @@ num_regex.findall(my_str)
 
 
 
-#### Challenge
+
+####Challenge (h4)
 ---
 
 What regular expression can be used to match the numbers **only** at the end of the string:
@@ -590,13 +675,62 @@ print(names, titles)
     ['Sam', 'Rob'] ['Physicist', 'Economist']
     
 
-### From a web scraping perspective
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+----Jupyter-style notebooks on Google Colaboratory - A quick tour (h3)
+----Dataframes (h3)
+------Challenge (h4)
+----JSON (h3)
+----Regex (h3)
+------Challenge (h4)
+----From a web scraping perspective (h3)
+----References (h3)
+
+
+(Page path)
+(h1)  > (h2)  > (h3) From a web scraping perspective
+
+(Segment 5)
+# (h1)
+[]
+## (h2)
+[]
+###From a web scraping perspective (h3)
 - `JSON` and `XML` are the most widely used formats to carry data all over the internet.
 - To work with `CSV`s (or `TSV`s), Pandas DataFrames are the de facto standard.
 - Regexes help us extract key pieces of information (sub-strings) from raw, messy and unstructured text (strings).
 
-### References
+
+
+
+--------------------------------------------------------------------------------
+(Table of Contents)
+----Jupyter-style notebooks on Google Colaboratory - A quick tour (h3)
+----Dataframes (h3)
+------Challenge (h4)
+----JSON (h3)
+----Regex (h3)
+------Challenge (h4)
+----From a web scraping perspective (h3)
+----References (h3)
+
+
+(Page path)
+(h1)  > (h2)  > (h3) References
+
+(Segment 6)
+# (h1)
+[]
+## (h2)
+[]
+###References (h3)
 
 - https://xkcd.com/353/
 - https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html
 - https://realpython.com/regex-python/
+
+
+--------------------------------------------------------------------------------

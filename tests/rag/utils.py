@@ -18,6 +18,19 @@ logging.basicConfig(
 )
 
 
+def is_binary_file(file_path: Path) -> bool:
+    """Determine if a file is binary based on its file extension."""
+    binary_extensions = ['.pkl', '.bin', '.dat']
+    return file_path.suffix in binary_extensions
+
+
+def read_file_contents(file_path: Path, binary: bool) -> bytes:
+    """Reads file contents as binary or text."""
+    mode = 'rb' if binary else 'r'
+    with file_path.open(mode) as file:
+        return file.read()
+
+
 def get_diffs(expected_contents: str, output_contents: str, fromfile: str, tofile: str) -> List[str]:
     """Generates and returns a list of differences between two sets of text, including file names."""
     return list(

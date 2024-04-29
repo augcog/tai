@@ -113,5 +113,6 @@ def helper_unit_test_on_converter(input_path: str, expected_output_paths: List[s
     for idx, suffix in enumerate([".md", ".md.pkl", ".md_tree.txt"]):
         output_file_path = output_folder / f"{input_path.stem}{suffix}"
         assert output_file_path.exists(), f"File {output_file_path} does not exist."
-        assert compare_files(expected_paths[idx], output_file_path), \
-            f"File conversion for {input_path} did not meet expectations."
+        assert compare_files(
+            expected_paths[idx], output_file_path
+        ), f"File conversion for {input_path} did not meet expectations."

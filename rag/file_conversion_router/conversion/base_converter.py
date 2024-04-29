@@ -1,5 +1,6 @@
 """Base class for all file type converters.
 """
+
 from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Union

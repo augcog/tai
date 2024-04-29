@@ -1,5 +1,6 @@
 """Task manager module for scheduling file conversion tasks.
 """
+
 import logging
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -10,8 +11,9 @@ executor = ThreadPoolExecutor(max_workers=10)
 ConverterFunc = Callable[[str, str], Any]
 
 
-def schedule_conversion(converter_func: ConverterFunc,
-                        input_path: Union[str, Path], output_path: Union[str, Path]) -> Any:
+def schedule_conversion(
+    converter_func: ConverterFunc, input_path: Union[str, Path], output_path: Union[str, Path]
+) -> Any:
     """Schedule a file conversion task using a thread pool and return the future.
 
     Returns:

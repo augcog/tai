@@ -1,5 +1,6 @@
 """Internal service to process a directory of files and schedule conversion tasks for each file.
 """
+
 import logging
 import os
 from concurrent.futures import as_completed
@@ -20,7 +21,7 @@ ConverterMapping = Dict[str, BaseConverter]
 
 # Mapping from file extensions to their corresponding conversion classes
 converter_mapping: ConverterMapping = {
-    '.pdf': PdfToMdConverter(),
+    ".pdf": PdfToMdConverter(),
     # '.txt': TextToMdConverter(),
     # '.md': MdToMdConverter(),
     # '.mp4': VideoToMdConverter(),
@@ -56,12 +57,12 @@ def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path]) ->
     futures = []
 
     # Iterate over all files with specified extensions
-    for input_file_path in input_dir.rglob('*'):
+    for input_file_path in input_dir.rglob("*"):
         if input_file_path.suffix in valid_extensions and input_file_path.is_file():
             # Construct the output subdirectory and file path
             output_subdir = output_dir / input_file_path.relative_to(input_dir).parent
             output_subdir.mkdir(parents=True, exist_ok=True)
-            output_file_path = output_subdir / (input_file_path.stem + '.md')
+            output_file_path = output_subdir / (input_file_path.stem + ".md")
 
             # Get the converter based on the file extension
             converter = converter_mapping[input_file_path.suffix]

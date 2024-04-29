@@ -21,18 +21,18 @@ logging.basicConfig(
 
 def hex_dump(binary_data: bytes) -> str:
     """Generate a hex dump of binary data."""
-    return binascii.hexlify(binary_data).decode('ascii')
+    return binascii.hexlify(binary_data).decode("ascii")
 
 
 def is_binary_file(file_path: Path) -> bool:
     """Determine if a file is binary based on its file extension."""
-    binary_extensions = ['.pkl', '.bin', '.dat']
+    binary_extensions = [".pkl", ".bin", ".dat"]
     return file_path.suffix in binary_extensions
 
 
 def read_file_contents(file_path: Path, binary: bool) -> Union[bytes, str]:
     """Reads file contents as binary or text."""
-    mode = 'rb' if binary else 'r'
+    mode = "rb" if binary else "r"
     with file_path.open(mode) as file:
         return file.read()
 

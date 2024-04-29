@@ -1,8 +1,9 @@
 """Public API for the file conversion router module.
 """
-from pathlib import Path
 
+from pathlib import Path
 from typing import Union
+
 from rag.file_conversion_router.services.directory_service import process_folder
 
 

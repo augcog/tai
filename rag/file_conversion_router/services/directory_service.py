@@ -4,20 +4,19 @@
 import logging
 from concurrent.futures import as_completed
 from pathlib import Path
-from typing import Dict, Union, Type
+from typing import Dict, Type, Union
 
 from rag.file_conversion_router.conversion.base_converter import BaseConverter
-from rag.file_conversion_router.conversion.pdf_converter import PdfConverter
 from rag.file_conversion_router.conversion.md_converter import MarkdownConverter
+from rag.file_conversion_router.conversion.pdf_converter import PdfConverter
 from rag.file_conversion_router.services.task_manager import schedule_conversion
-
 
 ConverterMapping = Dict[str, Type[BaseConverter]]
 
 # Mapping from file extensions to their corresponding conversion classes
 converter_mapping: ConverterMapping = {
     ".pdf": PdfConverter,
-    '.md': MarkdownConverter,
+    ".md": MarkdownConverter,
 }
 
 

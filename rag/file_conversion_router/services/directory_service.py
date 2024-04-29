@@ -2,31 +2,22 @@
 """
 
 import logging
-import os
 from concurrent.futures import as_completed
 from pathlib import Path
-from typing import Dict, Union
+from typing import Dict, Union, Type
 
 from rag.file_conversion_router.conversion.base_converter import BaseConverter
-from rag.file_conversion_router.conversion.pdf_to_md import PdfToMdConverter
+from rag.file_conversion_router.conversion.pdf_converter import PdfConverter
+from rag.file_conversion_router.conversion.md_converter import MarkdownConverter
 from rag.file_conversion_router.services.task_manager import schedule_conversion
 
-# from rag.file_conversion_router.conversion.text_to_md import TextToMdConverter
-# from rag.file_conversion_router.conversion.md_to_md import MdToMdConverter
-# from rag.file_conversion_router.conversion.video_to_md import VideoToMdConverter
-# from rag.file_conversion_router.conversion.audio_to_md import AudioToMdConverter
-# from rag.file_conversion_router.conversion.latex_to_md import LatexToMdConverter
 
-ConverterMapping = Dict[str, BaseConverter]
+ConverterMapping = Dict[str, Type[BaseConverter]]
 
 # Mapping from file extensions to their corresponding conversion classes
 converter_mapping: ConverterMapping = {
-    ".pdf": PdfToMdConverter(),
-    # '.txt': TextToMdConverter(),
-    # '.md': MdToMdConverter(),
-    # '.mp4': VideoToMdConverter(),
-    # '.mp3': AudioToMdConverter(),
-    # '.tex': LatexToMdConverter(),
+    ".pdf": PdfConverter,
+    '.md': MarkdownConverter,
 }
 
 
@@ -62,11 +53,12 @@ def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path]) ->
             # Construct the output subdirectory and file path
             output_subdir = output_dir / input_file_path.relative_to(input_dir).parent
             output_subdir.mkdir(parents=True, exist_ok=True)
-            output_file_path = output_subdir / (input_file_path.stem + ".md")
+            output_file_path = output_subdir / input_file_path.stem
 
-            # Get the converter based on the file extension
-            converter = converter_mapping[input_file_path.suffix]
-            if converter:
+            # Instantiate a new converter object for each file based on the file extension
+            converter_class = converter_mapping.get(input_file_path.suffix)
+            if converter_class:
+                converter = converter_class()
                 future = schedule_conversion(converter.convert, input_file_path, output_file_path)
                 futures.append(future)
                 logging.info(f"Scheduled conversion for {input_file_path} to {output_file_path}")

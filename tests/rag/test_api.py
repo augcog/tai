@@ -1,10 +1,24 @@
-# file_conversion_router/tests/test_api.py
-from unittest.mock import patch
+from pathlib import Path
 
-from rag.file_conversion_router import api
+import pytest
+
+from rag.file_conversion_router.api import convert_directory
+from tests.rag.conftest import load_test_cases_config
+from tests.rag.utils import compare_folders
 
 
-def test_convert_directory():
-    with patch("file_conversion_router.services.directory_service.process_folder") as mocked_process:
-        api.convert_directory("input", "output")
-        mocked_process.assert_called_once_with("input", "output")
+@pytest.mark.parametrize(
+    "input_folder, expected_output_folder",
+    [
+        *load_test_cases_config("integrated_tests", "plain_folder_3_pdfs"),
+        *load_test_cases_config("integrated_tests", "nested_folder_pdf+md"),
+    ]
+)
+def test_folder_conversion(input_folder: str, expected_output_folder: str, tmp_path):
+    input_path = Path(input_folder)
+    expected_path = Path(expected_output_folder)
+    output_path = tmp_path / "output"
+    convert_directory(input_path, output_path)
+    assert compare_folders(
+        expected_path, output_path
+    ), f"Folder conversion for {input_folder} did not meet expectations."

@@ -3,19 +3,26 @@
 
 import difflib
 import logging
+
+import binascii
 from pathlib import Path
-from typing import List
+from typing import List, Union
 
 from colorama import Fore, Style, init
 
 # Initialize colorama
 init(autoreset=True)
 # Below code uses multiple times of `Style.RESET_ALL` due to some unsolved issue
-# ...but at lease the color now works as expected
+# but at lease the color now works as expected
 logging.basicConfig(
     level=logging.DEBUG,
     format=f"{Fore.WHITE}%(asctime)s - %(levelname)s - %(message)s{Style.RESET_ALL}",
 )
+
+
+def hex_dump(binary_data: bytes) -> str:
+    """Generate a hex dump of binary data."""
+    return binascii.hexlify(binary_data).decode('ascii')
 
 
 def is_binary_file(file_path: Path) -> bool:
@@ -24,7 +31,7 @@ def is_binary_file(file_path: Path) -> bool:
     return file_path.suffix in binary_extensions
 
 
-def read_file_contents(file_path: Path, binary: bool) -> bytes:
+def read_file_contents(file_path: Path, binary: bool) -> Union[bytes, str]:
     """Reads file contents as binary or text."""
     mode = 'rb' if binary else 'r'
     with file_path.open(mode) as file:
@@ -68,22 +75,34 @@ def format_and_print_diff(differences: List[str], fromfile: str, tofile: str) ->
 
 def compare_files(expected_path: Path, output_path: Path) -> bool:
     """Compares two files, checks for differences, and prints formatted differences, including file paths."""
-    expected_contents = expected_path.read_text()
-    output_contents = output_path.read_text()
+    binary = is_binary_file(expected_path) or is_binary_file(output_path)
+    expected_contents = read_file_contents(expected_path, binary)
+    output_contents = read_file_contents(output_path, binary)
+
     fromfile = str(expected_path)
     tofile = str(output_path)
-    actual_diffs = get_diffs(expected_contents, output_contents, fromfile, tofile)
-    format_and_print_diff(actual_diffs, fromfile, tofile)
-    return not actual_diffs  # Return True if no differences
+
+    if binary:
+        # Generate hex dumps for binary files and compare them
+        hex_expected = hex_dump(expected_contents)
+        hex_output = hex_dump(output_contents)
+        diffs = get_diffs(hex_expected, hex_output, fromfile, tofile)
+    else:
+        diffs = get_diffs(expected_contents, output_contents, fromfile, tofile)
+
+    format_and_print_diff(diffs, fromfile, tofile)
+    return not diffs  # Return True if no differences
 
 
 def compare_folders(expected_dir: Path, output_dir: Path) -> bool:
     """
     Compares all files within two directories recursively, reports differences,
     and specifies which files are being compared.
+
     Args:
         expected_dir (Path): The directory containing the expected files.
         output_dir (Path): The directory containing the output files.
+
     Returns:
         bool: True if the folders match, False otherwise.
     """

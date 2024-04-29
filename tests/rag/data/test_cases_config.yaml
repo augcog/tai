@@ -8,19 +8,28 @@
 
 unit_tests:
   example_format:
-    - input_path: unit_tests/example_format/input/example_input.pdf
-      expected_output_path: unit_tests/example_format/expected_output/example_output.mmd
+    - input_path: unit_tests/example_format/input/example_input.md
+      expected_output_paths:
+        - unit_tests/example_format/expected_output/example_input_tree.txt
+        - unit_tests/example_format/expected_output/example_input.pkl
 
-    - input_path: unit_tests/example_format/input/example_input_2.pdf
-      expected_output_path: unit_tests/example_format/expected_output/example_output_2.mmd
-
-  pdf_to_md:
+  pdf_converter:
     - input_path: unit_tests/pdf/input/61a-sp24-mt2_sol_2_pages.pdf
-      expected_output_path: unit_tests/pdf/expected_output/61a-sp24-mt2_sol_2_pages.mmd
+      expected_output_paths:
+#       Revise the filenames of below test cases when MarkdownParser fixes the generated filenames
+        - unit_tests/pdf/expected_output/61a-sp24-mt2_sol_2_pages.md
+        - unit_tests/pdf/expected_output/61a-sp24-mt2_sol_2_pages.md.pkl
+        - unit_tests/pdf/expected_output/61a-sp24-mt2_sol_2_pages.md_tree.txt
 
-  md_to_md:
+  md_converter:
     - input_path: unit_tests/md/input/section-0-brief-python-refresher.md
-      expected_output_path: unit_tests/md/expected_output/section-0-brief-python-refresher_tree.md
+      expected_output_paths:
+        - unit_tests/md/expected_output/section-0-brief-python-refresher.md
+        - unit_tests/md/expected_output/section-0-brief-python-refresher.md.pkl
+        - unit_tests/md/expected_output/section-0-brief-python-refresher.md_tree.txt
+
+#  video generate _tree.txt + pkl as well
+
 
 integrated_tests:
   one_plain_folder_and_to_md+to_pdf:

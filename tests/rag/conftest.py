@@ -3,8 +3,10 @@ from pathlib import Path
 import pytest
 import yaml
 
-# from rag.file_conversion_router.conversion.md_to_md import MdToMdConverter
-from rag.file_conversion_router.conversion.pdf_to_md import PdfToMdConverter
+from rag.file_conversion_router.conversion.md_converter import MarkdownConverter
+from rag.file_conversion_router.conversion.pdf_converter import PdfConverter
+from tests.rag.utils import compare_files
+from typing import List
 
 # Define common base paths
 BASE_PATH = Path(__file__).parent
@@ -39,6 +41,8 @@ def resolve_paths(config, base_path):
         for key, value in config.items():
             if key.endswith("_path") or key.endswith("_folder"):
                 config[key] = str((base_path / value).resolve())
+            elif key.endswith("_paths"):
+                config[key] = [str((base_path / path).resolve()) for path in value]
             else:
                 resolve_paths(value, base_path)
     elif isinstance(config, list):
@@ -66,9 +70,11 @@ def load_test_cases_config(*keys):
     True
     >>> all(isinstance(item, tuple) for item in result)
     True
-    >>> result[0][0].endswith('tests/rag/data/unit_tests/example_format/input/example_input.pdf')
+    >>> result[0][0].endswith('tests/rag/data/unit_tests/example_format/input/example_input.md')
     True
-    >>> result[0][1].endswith('tests/rag/data/unit_tests/example_format/expected_output/example_output.mmd')
+    >>> result[0][1][0].endswith('tests/rag/data/unit_tests/example_format/expected_output/example_input_tree.txt')
+    True
+    >>> result[0][1][1].endswith('tests/rag/data/unit_tests/example_format/expected_output/example_input.pkl')
     True
     """
     global TEST_CASES_CONFIG
@@ -88,10 +94,24 @@ def load_test_cases_config(*keys):
 
 
 @pytest.fixture(scope="function")
-def pdf_to_md_converter():
-    return PdfToMdConverter()
+def pdf_converter():
+    return PdfConverter()
 
 
-# @pytest.fixture(scope="function")
-# def md_to_md_converter():
-#     return MdToMdConverter()
+@pytest.fixture(scope="function")
+def md_converter():
+    return MarkdownConverter()
+
+
+def helper_unit_test_on_converter(input_path: str, expected_output_paths: List[str], tmp_path, converter):
+    input_path = Path(input_path)
+    expected_paths = [Path(expected_output_path) for expected_output_path in expected_output_paths]
+    output_folder = tmp_path / input_path.stem
+    converter.convert(input_path, output_folder)
+
+    # TODO: revise this test after MarkdownParser fixes the output file path name issue
+    for idx, suffix in enumerate([".md", ".md.pkl", ".md_tree.txt"]):
+        output_file_path = output_folder / f"{input_path.stem}{suffix}"
+        assert output_file_path.exists(), f"File {output_file_path} does not exist."
+        assert compare_files(expected_paths[idx], output_file_path), \
+            f"File conversion for {input_path} did not meet expectations."

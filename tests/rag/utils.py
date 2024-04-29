@@ -1,10 +1,9 @@
 """Utility functions to help with testing.
 """
 
+import binascii
 import difflib
 import logging
-
-import binascii
 from pathlib import Path
 from typing import List, Union
 

@@ -107,7 +107,7 @@ importlib-metadata==6.8.0
 importlib-resources==6.1.0
 inflect==7.0.0
 intervaltree==3.1.0
-ipython==8.22.1
+ipython==8.18.1
 ipywidgets==8.1.2
 isort==5.13.2
 itsdangerous==2.1.2
@@ -190,7 +190,6 @@ packaging==23.2
 paddle2onnx==1.1.0
 paddleaudio==1.0.2
 paddlefsl==1.1.0
-paddlenlp==2.7.2
 paddlepaddle==2.6.0
 paddlespeech-feat==0.1.0
 pandas==2.2.2
@@ -267,7 +266,7 @@ ruamel.yaml.clib==0.2.8
 sacremoses==0.1.1
 safetensors==0.4.2
 scenedetect==0.6.3
-scikit-image==0.23.1
+scikit-image==0.22.0
 scikit-learn==1.4.2
 scipy==1.13.0
 sconf==0.2.5
@@ -324,7 +323,7 @@ transformers==4.38.2
 triton==2.2.0
 typeguard==4.1.5
 typer==0.9.0
-typing_extensions==4.8.0
+typing_extensions==4.9.0
 tzdata==2024.1
 umap-learn==0.5.5
 update==0.0.1
@@ -347,6 +346,5 @@ xxhash==3.4.1
 yacs==0.1.8
 yapf==0.40.2
 yarl==1.9.4
-youtokentome==1.0.6
 zhon==2.0.2
 zipp==3.17.0

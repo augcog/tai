@@ -4,13 +4,15 @@ import pytest
 
 from tests.rag.conftest import load_test_cases_config
 from tests.rag.utils import compare_files
-
+import os
 
 @pytest.mark.parametrize(
     "input_path, expected_output_path",
     load_test_cases_config("unit_tests", "pdf_to_md"),
 )
 def test_pdf_to_md_conversion(input_path: str, expected_output_path: str, tmp_path, pdf_to_md_converter):
+
+    os.environ['PYTORCH_ENABLE_MPS_FALLBACK'] = '1'
     input_path, expected_path = Path(input_path), Path(expected_output_path)
     output_path = tmp_path / input_path.with_suffix(".mmd").name
     pdf_to_md_converter.convert(input_path, output_path)

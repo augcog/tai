@@ -9,7 +9,10 @@ from tests.rag.utils import compare_folders
 
 @pytest.mark.parametrize(
     "input_folder, expected_output_folder",
-    load_test_cases_config("integrated_tests", "one_plain_folder_and_to_md+to_pdf"),
+    [
+        *load_test_cases_config("integrated_tests", "plain_folder_3_pdfs"),
+        *load_test_cases_config("integrated_tests", "nested_folder_pdf+md"),
+    ]
 )
 def test_folder_conversion(input_folder: str, expected_output_folder: str, tmp_path):
     input_path = Path(input_folder)

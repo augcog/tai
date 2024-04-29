@@ -1,5 +1,6 @@
 import re
-from typing import Dict, Tuple, List
+from typing import Dict, List, Tuple
+
 
 def count_consecutive_hashes(line: str) -> int:
     """Count consecutive '#' characters at the start of the string."""

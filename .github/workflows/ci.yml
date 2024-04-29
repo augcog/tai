@@ -15,10 +15,18 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set up Python 3.8
+    - name: Set up Python 3.9
       uses: actions/setup-python@v2
       with:
-        python-version: '3.8'
+        python-version: '3.9'
+
+    - name: Cache Python packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('rag/requirements.txt') }}-v1
+        restore-keys: |
+          ${{ runner.os }}-pip-
 
     - name: Install Cython
       run: python -m pip install Cython

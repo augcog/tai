@@ -17,7 +17,7 @@ class MarkdownParser:
     @staticmethod
     def determine_level(s):
         level = 0
-        if s.startswith('## Chapter'):
+        if s.startswith("## Chapter"):
             level = 1
         else:
             for char in s:
@@ -48,13 +48,13 @@ class MarkdownParser:
                 continue
 
             # Process headers outside code blocks
-            if line.strip().startswith('#'):
+            if line.strip().startswith("#"):
                 if curheader:
                     headers_content.append((curheader, curcontent))
 
                 header = line
                 header_level = MarkdownParser.determine_level(header)
-                header = header.strip('#').strip()
+                header = header.strip("#").strip()
                 curheader = (header, header_level)
                 curcontent = ""
             else:
@@ -69,7 +69,7 @@ class MarkdownParser:
 
     def fetch_data(self):
         try:
-            with open(self.filename, 'r', encoding='utf-8') as file:
+            with open(self.filename, "r", encoding="utf-8") as file:
                 md_content = file.readlines()
             self.headers_content_list = MarkdownParser.extract_headers_and_content(md_content)
         except FileNotFoundError:
@@ -82,14 +82,14 @@ class MarkdownParser:
         all_headers = [header[0] for header in self.headers_content_list]
 
         for title, level in all_headers:
-            indent = '--' * (level - 1)
+            indent = "--" * (level - 1)
             header_tag = f"(h{level})"
             result += f"{indent}{title} {header_tag}\n"
         return result
 
     def print_segment(self):
         new_filename = "resume.md/segment.txt"
-        with open(new_filename, 'w', encoding='utf-8') as f:
+        with open(new_filename, "w", encoding="utf-8") as f:
             f.write("Parsed Headers, Levels and Contents:\n")
             for (header, level), content in self.headers_content_list:
                 f.write(f"h{level}: {header}\n")
@@ -97,8 +97,8 @@ class MarkdownParser:
                 f.write(content)
                 f.write("\n=====================================\n\n")
 
-    def save_content_to_pkl(self, dict_list, filename='filename.pkl'):
-        with open(filename, 'wb') as file:
+    def save_content_to_pkl(self, dict_list, filename="filename.pkl"):
+        with open(filename, "wb") as file:
             pickle.dump(dict_list, file)
 
     def concat_print(self):
@@ -106,7 +106,7 @@ class MarkdownParser:
         new_filename = f"{self.filename}_tree.txt"
         top_header = []
         counter = 1
-        with open(new_filename, 'w', encoding='utf-8') as f:
+        with open(new_filename, "w", encoding="utf-8") as f:
             for (header, level), content in self.headers_content_list:
                 page_toc = ""
                 page_path = ""
@@ -117,33 +117,33 @@ class MarkdownParser:
                     top_header.append((header, content, level))
                 else:
                     # Table of Contents
-                    page_toc += ("(Table of Contents)\n")
-                    page_toc += (f"{self.print_header_tree()}\n")
+                    page_toc += "(Table of Contents)\n"
+                    page_toc += f"{self.print_header_tree()}\n"
 
                     # Page Path
-                    page_path += ("(Page path)\n")
+                    page_path += "(Page path)\n"
                     first = True
                     for h, c, l in top_header:
                         if first:
-                            page_path += (f"(h{l}) {h}")
+                            page_path += f"(h{l}) {h}"
                             first = not first
                         else:
-                            page_path += (" > ")
-                            page_path += (f"(h{l}) {h}")
+                            page_path += " > "
+                            page_path += f"(h{l}) {h}"
                     # Segment Print
-                    segment += (f"(Segment {counter})\n")
+                    segment += f"(Segment {counter})\n"
                     for h, c, l in top_header:
-                        hash_symbols = '#' * l
-                        segment += (f"{hash_symbols}{h} (h{l})\n")
-                        segment += (f"{c}\n")
+                        hash_symbols = "#" * l
+                        segment += f"{hash_symbols}{h} (h{l})\n"
+                        segment += f"{c}\n"
                         # Writing Part
                     f.write(page_toc + "\n")
                     f.write(page_path + "\n\n")
                     f.write(segment + "\n")
-                    f.write('\n' + '-' * 80 + '\n')
-                    top_header = top_header[:(level - 1)]
+                    f.write("\n" + "-" * 80 + "\n")
+                    top_header = top_header[: (level - 1)]
                     top_header.append((header, content, level))
-                    dict_list.append({'Page_table': page_toc, 'Page_path': page_path, 'Segment_print': segment})
+                    dict_list.append({"Page_table": page_toc, "Page_path": page_path, "Segment_print": segment})
                     counter += 1
                 # end of for loop
                 all_headers = [header[0] for header in self.headers_content_list]
@@ -152,39 +152,40 @@ class MarkdownParser:
                     page_path = ""
                     segment = ""
                     # Table of Contents
-                    page_toc += ("(Table of Contents)\n")
-                    page_toc += (f"{self.print_header_tree()}\n")
+                    page_toc += "(Table of Contents)\n"
+                    page_toc += f"{self.print_header_tree()}\n"
 
                     # Page Path
-                    page_path += ("(Page path)\n")
+                    page_path += "(Page path)\n"
                     first = True
                     for h, c, l in top_header:
                         if first:
-                            page_path += (f"(h{l}) {h}")
+                            page_path += f"(h{l}) {h}"
                             first = not first
                         else:
-                            page_path += (" > ")
-                            page_path += (f"(h{l}) {h}")
+                            page_path += " > "
+                            page_path += f"(h{l}) {h}"
                     # Segment Print
-                    segment += (f"(Segment {counter})\n")
+                    segment += f"(Segment {counter})\n"
                     for h, c, l in top_header:
-                        hash_symbols = '#' * l
-                        segment += (f"{hash_symbols}{h} (h{l})\n")
-                        segment += (f"{c}\n")
+                        hash_symbols = "#" * l
+                        segment += f"{hash_symbols}{h} (h{l})\n"
+                        segment += f"{c}\n"
                         # Writing Part
                     f.write(page_toc + "\n")
                     f.write(page_path + "\n\n")
                     f.write(segment + "\n")
-                    f.write('\n' + '-' * 80 + '\n')
-                    top_header = top_header[:(level - 1)]
+                    f.write("\n" + "-" * 80 + "\n")
+                    top_header = top_header[: (level - 1)]
                     top_header.append((header, content, level))
-                    dict_list.append({'Page_table': page_toc, 'Page_path': page_path, 'Segment_print': segment})
-        self.save_content_to_pkl(dict_list, filename=f'{self.filename}.pkl')
+                    dict_list.append({"Page_table": page_toc, "Page_path": page_path, "Segment_print": segment})
+        self.save_content_to_pkl(dict_list, filename=f"{self.filename}.pkl")
 
 
 # TODO
 parser = MarkdownParser(
-    '/Users/jingchaozhong/Desktop/quick_folders/Cal Study/roar-ai/roarai/rag/scraper/Scrape_pdf/CS61A/123/section-0-brief-python-refresher.md')
+    "/Users/jingchaozhong/Desktop/quick_folders/Cal Study/roar-ai/roarai/rag/scraper/Scrape_pdf/CS61A/123/section-0-brief-python-refresher.md"
+)
 
 print(parser.print_header_tree())
 # parser.print_segment()

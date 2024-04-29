@@ -31,10 +31,13 @@ class PdfConverter(BaseConverter):
             "nougat",
             str(input_path),
             # nougat requires the argument output path to be a directory, not file, so we need to handle it here
-            "-o", str(output_path.parent),
+            "-o",
+            str(output_path.parent),
             "--no-skipping",
-            "--model", self.model_tag,
-            "--batchsize", str(self.batch_size)
+            "--model",
+            self.model_tag,
+            "--batchsize",
+            str(self.batch_size),
         ]
         try:
             subprocess.run(command, check=True, capture_output=True, text=True)

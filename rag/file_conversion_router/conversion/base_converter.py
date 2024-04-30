@@ -77,13 +77,14 @@ class BaseConverter(ABC):
 
         self._logger.info("Conversion is already in progress, waiting for it to complete.")
         # This will block until the future is completed
-        result = future.result()
+        future.result()
+        cached_paths = ConversionCache.get_cached_paths(file_hash)
         self._logger.info(
             f"Future completed, using cached files for input path: {input_path} "
             f"in output folder: {output_folder}."
-            f"\n Cached content are: {[str(path) for path in result]}."
+            f"\n Cached content are: {[str(path) for path in cached_paths]}."
         )
-        self._use_cached_files(result, output_folder)
+        self._use_cached_files(cached_paths, output_folder)
 
     @conversion_logger
     def _convert_to_markdown(self, input_path: Path, output_path: Path) -> None:
@@ -115,7 +116,6 @@ class BaseConverter(ABC):
         _, conversion_time = self._perform_conversion(input_path, output_folder)
         paths = [self._md_path, self._tree_txt_path, self._pkl_path]
         ConversionCache.set_cached_paths_and_time(file_hash, paths, conversion_time)
-        return paths
 
     def _use_cached_files(self, cached_paths: List[Path], output_folder: Path) -> None:
         """Use cached files and copy them to the specified output folder."""

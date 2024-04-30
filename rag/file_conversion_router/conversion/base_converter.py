@@ -47,8 +47,8 @@ class BaseConverter(ABC):
             output_folder: The folder where the output files will be saved. e.g. 'path/to/output_folder'
                 other files will be saved in the output folder, e.g.:
                 - 'path/to/output_folder/file.md'
-                - 'path/to/output_folder/file_tree.txt'
-                - 'path/to/output_folder/file.pkl'
+                - 'path/to/output_folder/file.md_tree.txt'
+                - 'path/to/output_folder/file.md.pkl'
         """
         input_path, output_folder = ensure_path(input_path), ensure_path(output_folder)
         if not input_path.exists():
@@ -58,6 +58,7 @@ class BaseConverter(ABC):
         file_hash = calculate_hash(input_path)
         with self._cache_lock:
             if file_hash in self._cache:
+                output_folder = output_folder / input_path.stem
                 cached_paths = self._cache[file_hash]
                 self._logger.info("Cached result found, using cached files.")
                 self._use_cached_files(cached_paths, output_folder)
@@ -89,17 +90,20 @@ class BaseConverter(ABC):
         input_path = ensure_path(input_path)
         output_folder = ensure_path(output_folder)
         self._md_path = ensure_path(output_folder / f"{input_path.stem}.md")
-        # TODO: below two paths are currently not used
-        #  since current MarkdownParser does not support custom output paths.
-        self._tree_txt_path = ensure_path(output_folder / f"{input_path.stem}_tree.txt")
-        self._pkl_path = ensure_path(output_folder / f"{input_path.stem}.pkl")
+        # TODO: current MarkdownParser does not support custom output paths,
+        #  below paths are only used for caching purposes at the moment.
+        self._tree_txt_path = ensure_path(output_folder / f"{input_path.stem}.md_tree.txt")
+        self._pkl_path = ensure_path(output_folder / f"{input_path.stem}.md.pkl")
 
     def _use_cached_files(self, cached_paths, output_folder):
         """Use cached files and copy them to the specified output folder."""
+        output_folder = ensure_path(output_folder)
+        output_folder.mkdir(parents=True, exist_ok=True)
+
         md_path, tree_txt_path, pkl_path = cached_paths
-        copy2(md_path, output_folder)
-        copy2(tree_txt_path, output_folder)
-        copy2(pkl_path, output_folder)
+        for path in (md_path, tree_txt_path, pkl_path):
+            copy2(path, output_folder)
+
         self._logger.info(f"Copied cached files to {output_folder}.")
 
     def _perform_conversion(self, input_path: Path, output_folder: Path):

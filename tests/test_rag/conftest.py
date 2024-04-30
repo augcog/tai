@@ -110,7 +110,7 @@ def helper_unit_test_on_converter(input_path: str, expected_output_paths: List[s
     converter.convert(input_path, output_folder)
 
     # TODO: revise this test after MarkdownParser fixes the output file path name issue
-    for idx, suffix in enumerate([".md", ".md.pkl", ".md_tree.txt"]):
+    for idx, suffix in enumerate([".md", ".md.pkl", ".md.tree.txt"]):
         output_file_path = output_folder / f"{input_path.stem}{suffix}"
         assert output_file_path.exists(), f"File {output_file_path} does not exist."
         assert compare_files(

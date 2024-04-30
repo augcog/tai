@@ -100,7 +100,7 @@ class MarkdownParser:
 
     def concat_print(self):
         dict_list = []
-        new_filename = f"{self.filename}_tree.txt"
+        new_filename = f"{self.filename}.tree.txt"
         top_header = []
         counter = 1
         with open(new_filename, "w", encoding="utf-8") as f:

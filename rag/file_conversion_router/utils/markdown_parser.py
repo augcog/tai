@@ -180,11 +180,11 @@ class MarkdownParser:
 
 
 # TODO
-parser = MarkdownParser(
-    "/Users/jingchaozhong/Desktop/quick_folders/Cal Study/roar-ai/roarai/rag/scraper/Scrape_pdf/CS61A/123/section-0-brief-python-refresher.md"
-)
-
-print(parser.print_header_tree())
-# parser.print_segment()
-# parser.print_segment()
-parser.concat_print()
+# parser = MarkdownParser(
+#     "/Users/jingchaozhong/Desktop/quick_folders/Cal Study/roar-ai/roarai/rag/scraper/Scrape_pdf/CS61A/123/section-0-brief-python-refresher.md"
+# )
+#
+# print(parser.print_header_tree())
+# # parser.print_segment()
+# # parser.print_segment()
+# parser.concat_print()

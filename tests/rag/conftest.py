@@ -6,7 +6,7 @@ import yaml
 
 from rag.file_conversion_router.conversion.md_converter import MarkdownConverter
 from rag.file_conversion_router.conversion.pdf_converter import PdfConverter
-from tests.rag.utils import compare_files
+from utils import compare_files
 
 # Define common base paths
 BASE_PATH = Path(__file__).parent

@@ -10,7 +10,7 @@ unit_tests:
   example_format:
     - input_path: unit_tests/example_format/input/example_input.md
       expected_output_paths:
-        - unit_tests/example_format/expected_output/example_input_tree.txt
+        - unit_tests/example_format/expected_output/example_input.tree.txt
         - unit_tests/example_format/expected_output/example_input.pkl
 
   pdf_converter:
@@ -20,14 +20,14 @@ unit_tests:
         - unit_tests/pdf/expected_output/61a-sp24-mt2_sol_2_pages.md
         - unit_tests/pdf/expected_output/61a-sp24-mt2_sol_2_pages.md.pkl
 #       Bug for now: this example tree txt file is empty because of the bug in MarkdownParser
-        - unit_tests/pdf/expected_output/61a-sp24-mt2_sol_2_pages.md_tree.txt
+        - unit_tests/pdf/expected_output/61a-sp24-mt2_sol_2_pages.md.tree.txt
 
   md_converter:
     - input_path: unit_tests/md/input/section-0-brief-python-refresher.md
       expected_output_paths:
         - unit_tests/md/expected_output/section-0-brief-python-refresher.md
         - unit_tests/md/expected_output/section-0-brief-python-refresher.md.pkl
-        - unit_tests/md/expected_output/section-0-brief-python-refresher.md_tree.txt
+        - unit_tests/md/expected_output/section-0-brief-python-refresher.md.tree.txt
 
 #  video generate _tree.txt + pkl as well
 

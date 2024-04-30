@@ -4,6 +4,7 @@
 from abc import ABC, abstractmethod
 from pathlib import Path
 from shutil import copy2
+from concurrent.futures import Future
 from threading import Lock
 from typing import Union
 
@@ -27,6 +28,7 @@ class BaseConverter(ABC):
     the base class will handle the rest of the conversion process.
     """
     _cache = {}  # Class-level cache shared across all instances
+    _futures_cache = {}  # Class-level cache for futures
     _cache_lock = Lock()  # Lock for thread-safe cache operations
 
     def __init__(self):
@@ -70,11 +72,31 @@ class BaseConverter(ABC):
                 self._use_cached_files(cached_paths, output_folder)
                 return
 
-        # This method embeds the abstract method `_to_markdown`, which need to be implemented by the child class.
-        self._perform_conversion(input_path, output_folder)
+            if file_hash not in self._futures_cache:
+                self._logger.info(f"No future cache found for input path: {input_path}, starting conversion.")
+                future = Future()
+                self._futures_cache[file_hash] = future
+                execute_conversion = True
+            else:
+                self._logger.info(
+                    f"Future cache found for input path: {input_path}, "
+                    f"waiting for the conversion to finish."
+                )
+                future = self._futures_cache[file_hash]
+                execute_conversion = False
 
-        with self._cache_lock:
-            self._cache[file_hash] = (self._md_path, self._tree_txt_path, self._pkl_path)
+        if execute_conversion:
+            try:
+                result = self._convert_and_cache(input_path, output_folder, file_hash)
+                future.set_result(result)
+            except Exception as e:
+                future.set_exception(e)
+            finally:
+                with self._cache_lock:
+                    del self._futures_cache[file_hash]
+        else:
+            result = future.result()
+            self._use_cached_files(result, output_folder)
 
     @conversion_logger
     def _convert_to_markdown(self, input_path: Path, output_path: Path) -> None:
@@ -99,6 +121,15 @@ class BaseConverter(ABC):
         #  since the markdown parser generates below file paths by default
         self._tree_txt_path = ensure_path(output_folder / f"{input_path.stem}.md.tree.txt")
         self._pkl_path = ensure_path(output_folder / f"{input_path.stem}.md.pkl")
+
+    def _convert_and_cache(self, input_path: Path, output_folder: Path, file_hash: str):
+        self._setup_output_paths(input_path, output_folder)
+        # This method embeds the abstract method `_to_markdown`, which need to be implemented by the child class.
+        self._perform_conversion(input_path, output_folder)
+        paths = (self._md_path, self._tree_txt_path, self._pkl_path)
+        with self._cache_lock:
+            self._cache[file_hash] = paths
+        return paths
 
     def _use_cached_files(self, cached_paths, output_folder):
         """Use cached files and copy them to the specified output folder."""

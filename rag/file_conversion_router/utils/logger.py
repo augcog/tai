@@ -30,6 +30,6 @@ def conversion_logger(method):
             f"[{timer.interval:.2f} seconds] Successfully executed {method.__name__} "
             f"for {input_path} to {output_path}"
         )
-        return result
+        return result, timer.interval
 
     return wrapper

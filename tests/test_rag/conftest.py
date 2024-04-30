@@ -3,10 +3,10 @@ from typing import List
 
 import pytest
 import yaml
+from utils import compare_files
 
 from rag.file_conversion_router.conversion.md_converter import MarkdownConverter
 from rag.file_conversion_router.conversion.pdf_converter import PdfConverter
-from utils import compare_files
 
 # Define common base paths
 BASE_PATH = Path(__file__).parent

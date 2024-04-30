@@ -2,9 +2,9 @@ from pathlib import Path
 
 import pytest
 
-from rag.file_conversion_router.api import convert_directory
-from tests.rag.conftest import load_test_cases_config
-from tests.rag.utils import compare_folders
+from rag.file_conversion_router.services.directory_service import process_folder
+from tests.test_rag.conftest import load_test_cases_config
+from tests.utils import compare_folders
 
 
 @pytest.mark.parametrize(
@@ -18,7 +18,7 @@ def test_folder_conversion(input_folder: str, expected_output_folder: str, tmp_p
     input_path = Path(input_folder)
     expected_path = Path(expected_output_folder)
     output_path = tmp_path / "output"
-    convert_directory(input_path, output_path)
+    process_folder(input_path, output_path)
     assert compare_folders(
         expected_path, output_path
     ), f"Folder conversion for {input_folder} did not meet expectations."

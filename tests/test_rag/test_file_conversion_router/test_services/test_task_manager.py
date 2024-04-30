@@ -4,8 +4,8 @@ from typing import List
 import pytest
 
 from rag.file_conversion_router.services.task_manager import schedule_conversion
-from tests.rag.conftest import load_test_cases_config
-from tests.rag.utils import compare_files
+from tests.test_rag.conftest import load_test_cases_config
+from tests.utils import compare_files
 
 
 @pytest.mark.parametrize(

@@ -2,7 +2,7 @@ from typing import List
 
 import pytest
 
-from tests.rag.conftest import helper_unit_test_on_converter, load_test_cases_config
+from tests.test_rag.conftest import helper_unit_test_on_converter, load_test_cases_config
 
 
 @pytest.mark.parametrize(

@@ -6,7 +6,7 @@ from concurrent.futures import as_completed
 from pathlib import Path
 from typing import Dict, Type, Union
 
-from rag.file_conversion_router.conversion.base_converter import BaseConverter
+from rag.file_conversion_router.conversion.base_converter import BaseConverter, ConversionCache
 from rag.file_conversion_router.conversion.md_converter import MarkdownConverter
 from rag.file_conversion_router.conversion.pdf_converter import PdfConverter
 from rag.file_conversion_router.services.task_manager import schedule_conversion
@@ -74,3 +74,4 @@ def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path]) ->
             logging.error(f"Conversion failed: {e}")
 
     logging.info(f"Completed processing for directory: {input_dir}")
+    logging.info(f"Saved conversion time [{ConversionCache.calc_total_savings()} seconds] by using cached results.")

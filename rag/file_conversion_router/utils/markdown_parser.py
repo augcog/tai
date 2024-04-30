@@ -3,6 +3,7 @@ import pickle
 from termcolor import colored
 
 
+# TODO clean this markdown parser when have time
 class MarkdownParser:
     def __init__(self, filename):
         self.filename = filename
@@ -179,7 +180,6 @@ class MarkdownParser:
         self.save_content_to_pkl(dict_list, filename=f"{self.filename}.pkl")
 
 
-# TODO
 # parser = MarkdownParser(
 #     "/Users/jingchaozhong/Desktop/quick_folders/Cal Study/roar-ai/roarai/rag/scraper/Scrape_pdf/CS61A/123/section-0-brief-python-refresher.md"
 # )

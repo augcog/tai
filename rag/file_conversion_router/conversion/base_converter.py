@@ -47,7 +47,7 @@ class BaseConverter(ABC):
             output_folder: The folder where the output files will be saved. e.g. 'path/to/output_folder'
                 other files will be saved in the output folder, e.g.:
                 - 'path/to/output_folder/file.md'
-                - 'path/to/output_folder/file.md_tree.txt'
+                - 'path/to/output_folder/file.md.tree.txt'
                 - 'path/to/output_folder/file.md.pkl'
         """
         input_path, output_folder = ensure_path(input_path), ensure_path(output_folder)
@@ -55,16 +55,20 @@ class BaseConverter(ABC):
             self._logger.error(f"The file {input_path} does not exist.")
             raise FileNotFoundError(f"The file {input_path} does not exist.")
 
+        self._setup_output_paths(input_path, output_folder)
+
         file_hash = calculate_hash(input_path)
         with self._cache_lock:
             if file_hash in self._cache:
-                output_folder = output_folder / input_path.stem
                 cached_paths = self._cache[file_hash]
-                self._logger.info("Cached result found, using cached files.")
+                self._logger.info(
+                    f"Cached result found, using cached files "
+                    f"for input path: {input_path} "
+                    f"in output folder: {output_folder}.\n"
+                    f"Cached content are: {[str(path) for path in cached_paths]}."
+                )
                 self._use_cached_files(cached_paths, output_folder)
                 return
-
-        self._setup_output_paths(input_path, output_folder)
 
         # This method embeds the abstract method `_to_markdown`, which need to be implemented by the child class.
         self._perform_conversion(input_path, output_folder)
@@ -91,8 +95,9 @@ class BaseConverter(ABC):
         output_folder = ensure_path(output_folder)
         self._md_path = ensure_path(output_folder / f"{input_path.stem}.md")
         # TODO: current MarkdownParser does not support custom output paths,
-        #  below paths are only used for caching purposes at the moment.
-        self._tree_txt_path = ensure_path(output_folder / f"{input_path.stem}.md_tree.txt")
+        #  below paths are only used for caching purposes at the moment,
+        #  since the markdown parser generates below file paths by default
+        self._tree_txt_path = ensure_path(output_folder / f"{input_path.stem}.md.tree.txt")
         self._pkl_path = ensure_path(output_folder / f"{input_path.stem}.md.pkl")
 
     def _use_cached_files(self, cached_paths, output_folder):
@@ -101,8 +106,10 @@ class BaseConverter(ABC):
         output_folder.mkdir(parents=True, exist_ok=True)
 
         md_path, tree_txt_path, pkl_path = cached_paths
-        for path in (md_path, tree_txt_path, pkl_path):
-            copy2(path, output_folder)
+        correct_file_name = self._md_path.stem
+        for path, suffix in zip((md_path, tree_txt_path, pkl_path), (".md", ".md.tree.txt", ".md.pkl")):
+            des_path = Path(copy2(path, output_folder))
+            des_path.rename(output_folder / f"{correct_file_name}{suffix}")
 
         self._logger.info(f"Copied cached files to {output_folder}.")
 

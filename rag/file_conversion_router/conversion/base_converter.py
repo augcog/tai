@@ -6,7 +6,7 @@ from pathlib import Path
 from shutil import copy2
 from concurrent.futures import Future
 from threading import Lock
-from typing import Union
+from typing import Union, Dict, List
 
 from rag.file_conversion_router.utils.logger import conversion_logger, logger
 from rag.file_conversion_router.utils.markdown_parser import MarkdownParser
@@ -27,9 +27,6 @@ class BaseConverter(ABC):
     As long as a child class can convert a file to Markdown,
     the base class will handle the rest of the conversion process.
     """
-    _cache = {}  # Class-level cache shared across all instances
-    _futures_cache = {}  # Class-level cache for futures
-    _cache_lock = Lock()  # Lock for thread-safe cache operations
 
     def __init__(self):
         self._md_parser = None
@@ -60,42 +57,36 @@ class BaseConverter(ABC):
         self._setup_output_paths(input_path, output_folder)
 
         file_hash = calculate_hash(input_path)
-        with self._cache_lock:
-            if file_hash in self._cache:
-                cached_paths = self._cache[file_hash]
-                self._logger.info(
-                    f"Cached result found, using cached files "
-                    f"for input path: {input_path} "
-                    f"in output folder: {output_folder}.\n"
-                    f"Cached content are: {[str(path) for path in cached_paths]}."
-                )
-                self._use_cached_files(cached_paths, output_folder)
-                return
+        cached_paths = ConversionCache.get_cached_paths(file_hash)
+        if cached_paths:
+            self._logger.info(
+                f"Cached result found, using cached files for input path: {input_path} "
+                f"in output folder: {output_folder}."
+                f"\n Cached content are: {[str(path) for path in cached_paths]}."
+            )
+            self._use_cached_files(cached_paths, output_folder)
+            return
 
-            if file_hash not in self._futures_cache:
-                self._logger.info(f"No future cache found for input path: {input_path}, starting conversion.")
-                future = Future()
-                self._futures_cache[file_hash] = future
-                execute_conversion = True
-            else:
-                self._logger.info(
-                    f"Future cache found for input path: {input_path}, "
-                    f"waiting for the conversion to finish."
-                )
-                future = self._futures_cache[file_hash]
-                execute_conversion = False
-
-        if execute_conversion:
+        future = ConversionCache.get_future(file_hash)
+        if not future.running():
             try:
+                self._logger.info(f"No future cached for this file, starting conversion for {input_path}.")
                 result = self._convert_and_cache(input_path, output_folder, file_hash)
                 future.set_result(result)
+                ConversionCache.set_cached_paths(file_hash, result)
             except Exception as e:
                 future.set_exception(e)
             finally:
-                with self._cache_lock:
-                    del self._futures_cache[file_hash]
+                ConversionCache.clear_future(file_hash)
         else:
+            self._logger.info(f"Future already running for this file, waiting for result.")
             result = future.result()
+            self._logger.info(
+                f"Future completed, using cached files for input path: {input_path} "
+                f"in output folder: {output_folder}."
+                f"\n Cached content are: {[str(path) for path in cached_paths]}."
+            )
+
             self._use_cached_files(result, output_folder)
 
     @conversion_logger
@@ -111,7 +102,7 @@ class BaseConverter(ABC):
         """
         self._md_parser.concat_print()
 
-    def _setup_output_paths(self, input_path: Union[str, Path], output_folder: Union[str, Path]):
+    def _setup_output_paths(self, input_path: Union[str, Path], output_folder: Union[str, Path]) -> None:
         """Set up the output paths for the Markdown, tree txt, and pkl files."""
         input_path = ensure_path(input_path)
         output_folder = ensure_path(output_folder)
@@ -122,16 +113,15 @@ class BaseConverter(ABC):
         self._tree_txt_path = ensure_path(output_folder / f"{input_path.stem}.md.tree.txt")
         self._pkl_path = ensure_path(output_folder / f"{input_path.stem}.md.pkl")
 
-    def _convert_and_cache(self, input_path: Path, output_folder: Path, file_hash: str):
+    def _convert_and_cache(self, input_path: Path, output_folder: Path, file_hash: str) -> List[Path]:
         self._setup_output_paths(input_path, output_folder)
-        # This method embeds the abstract method `_to_markdown`, which need to be implemented by the child class.
+        # This method embeds the abstract method `_to_markdown`, which needs to be implemented by the child class.
         self._perform_conversion(input_path, output_folder)
-        paths = (self._md_path, self._tree_txt_path, self._pkl_path)
-        with self._cache_lock:
-            self._cache[file_hash] = paths
+        paths = [self._md_path, self._tree_txt_path, self._pkl_path]
+        ConversionCache.set_cached_paths(file_hash, paths)
         return paths
 
-    def _use_cached_files(self, cached_paths, output_folder):
+    def _use_cached_files(self, cached_paths: List[Path], output_folder: Path) -> None:
         """Use cached files and copy them to the specified output folder."""
         output_folder = ensure_path(output_folder)
         output_folder.mkdir(parents=True, exist_ok=True)
@@ -141,10 +131,9 @@ class BaseConverter(ABC):
         for path, suffix in zip((md_path, tree_txt_path, pkl_path), (".md", ".md.tree.txt", ".md.pkl")):
             des_path = Path(copy2(path, output_folder))
             des_path.rename(output_folder / f"{correct_file_name}{suffix}")
+            self._logger.info(f"Copied cached file from {path} to {des_path}.")
 
-        self._logger.info(f"Copied cached files to {output_folder}.")
-
-    def _perform_conversion(self, input_path: Path, output_folder: Path):
+    def _perform_conversion(self, input_path: Path, output_folder: Path) -> None:
         """Perform the file conversion process."""
         self._convert_to_markdown(input_path, self._md_path)
         self._md_parser = MarkdownParser(self._md_path)
@@ -154,3 +143,32 @@ class BaseConverter(ABC):
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:
         """Convert the input file to Expected Markdown format. To be implemented by subclasses."""
         raise NotImplementedError("This method should be overridden by subclasses.")
+
+
+class ConversionCache:
+    """A class to handle caching of conversion results."""
+    _cache: Dict[str, List[Path]] = {}
+    _futures_cache: Dict[str, Future] = {}
+    _lock = Lock()
+
+    @classmethod
+    def get_cached_paths(cls, file_hash: str) -> Union[List[Path], None]:
+        with cls._lock:
+            return cls._cache.get(file_hash)
+
+    @classmethod
+    def set_cached_paths(cls, file_hash: str, paths: List[Path]) -> None:
+        with cls._lock:
+            cls._cache[file_hash] = paths
+
+    @classmethod
+    def get_future(cls, file_hash: str) -> Future:
+        with cls._lock:
+            if file_hash not in cls._futures_cache:
+                cls._futures_cache[file_hash] = Future()
+            return cls._futures_cache[file_hash]
+
+    @classmethod
+    def clear_future(cls, file_hash: str) -> None:
+        with cls._lock:
+            del cls._futures_cache[file_hash]

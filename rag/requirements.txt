@@ -6,6 +6,7 @@ FlagEmbedding==1.2.9
 gritlm==1.0.0
 markdownify==0.12.1
 moviepy==1.0.3
+nougat-ocr==0.1.17
 openai==0.28.0
 openai_whisper==20231117
 packaging==24.0

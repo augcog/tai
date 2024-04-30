@@ -17,6 +17,7 @@ ConverterMapping = Dict[str, Type[BaseConverter]]
 converter_mapping: ConverterMapping = {
     ".pdf": PdfConverter,
     ".md": MarkdownConverter,
+    #     TODO: Add more file types and converters here
 }
 
 

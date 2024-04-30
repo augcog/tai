@@ -1,5 +1,6 @@
 angle_emb==0.3.10
 beautifulsoup4==4.12.3
+colorama==0.4.6
 cohere==5.3.3
 FlagEmbedding==1.2.9
 gritlm==1.0.0
@@ -8,11 +9,10 @@ moviepy==1.0.3
 openai==0.28.0
 openai_whisper==20231117
 packaging==24.0
+pytest==8.1.1
 python-dotenv==1.0.1
 pytube==15.0.0
 PyYAML==6.0.1
-PyYAML==6.0.1
-rag==0.1.0
 Requests==2.31.0
 rst_to_myst==0.4.0
 scenedetect==0.6.3

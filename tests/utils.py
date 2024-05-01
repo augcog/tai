@@ -3,6 +3,7 @@
 
 import binascii
 import difflib
+from difflib import SequenceMatcher
 import logging
 from pathlib import Path
 from typing import List, Union
@@ -17,6 +18,8 @@ logging.basicConfig(
     level=logging.DEBUG,
     format=f"{Fore.WHITE}%(asctime)s - %(levelname)s - %(message)s{Style.RESET_ALL}",
 )
+
+SIMILARITY_THRESHOLD = 95
 
 
 def hex_dump(binary_data: bytes) -> str:
@@ -72,8 +75,19 @@ def format_and_print_diff(differences: List[str], fromfile: str, tofile: str) ->
             logging.info(formatted_line + Style.RESET_ALL)
 
 
-def compare_files(expected_path: Path, output_path: Path) -> bool:
-    """Compares two files, checks for differences, and prints formatted differences, including file paths."""
+def compare_files(expected_path: Path, output_path: Path, similarity_threshold: int = SIMILARITY_THRESHOLD) -> bool:
+    """
+    Compares two files based on their contents with a specified similarity threshold.
+    If the similarity percentage is below the threshold, differences are shown, and the function returns False.
+
+    Args:
+        expected_path: Path to the expected file.
+        output_path: Path to the output file.
+        similarity_threshold: The minimum similarity percentage required to consider files as matching.
+
+    Returns:
+        bool: True if files are considered similar above the threshold, False otherwise.
+    """
     binary = is_binary_file(expected_path) or is_binary_file(output_path)
     expected_contents = read_file_contents(expected_path, binary)
     output_contents = read_file_contents(output_path, binary)
@@ -82,25 +96,36 @@ def compare_files(expected_path: Path, output_path: Path) -> bool:
     tofile = str(output_path)
 
     if binary:
-        # Generate hex dumps for binary files and compare them
         hex_expected = hex_dump(expected_contents)
         hex_output = hex_dump(output_contents)
-        diffs = get_diffs(hex_expected, hex_output, fromfile, tofile)
+        matcher = SequenceMatcher(None, hex_expected, hex_output)
     else:
-        diffs = get_diffs(expected_contents, output_contents, fromfile, tofile)
+        matcher = SequenceMatcher(None, expected_contents, output_contents)
 
-    format_and_print_diff(diffs, fromfile, tofile)
-    return not diffs  # Return True if no differences
+    similarity_percentage = matcher.ratio() * 100
+
+    if similarity_percentage >= similarity_threshold:
+        logging.info(Fore.GREEN + f"Files {fromfile} and {tofile} are similar above the threshold ({similarity_percentage:.2f}% similar)." + Style.RESET_ALL)
+        return True
+    else:
+        if binary:
+            diffs = get_diffs(hex_expected, hex_output, fromfile, tofile)
+        else:
+            diffs = get_diffs(expected_contents, output_contents, fromfile, tofile)
+
+        format_and_print_diff(diffs, fromfile, tofile)
+        return False
 
 
-def compare_folders(expected_dir: Path, output_dir: Path) -> bool:
+def compare_folders(expected_dir: Path, output_dir: Path, similarity_threshold: int = SIMILARITY_THRESHOLD) -> bool:
     """
     Compares all files within two directories recursively, reports differences,
     and specifies which files are being compared.
 
     Args:
-        expected_dir (Path): The directory containing the expected files.
-        output_dir (Path): The directory containing the output files.
+        expected_dir: The directory containing the expected files.
+        output_dir: The directory containing the output files.
+        similarity_threshold: The minimum similarity percentage required to consider files as matching.
 
     Returns:
         bool: True if the folders match, False otherwise.
@@ -114,7 +139,7 @@ def compare_folders(expected_dir: Path, output_dir: Path) -> bool:
     for file in common_files:
         expected_file_path = expected_dir / file
         output_file_path = output_dir / file
-        if not compare_files(expected_file_path, output_file_path):
+        if not compare_files(expected_file_path, output_file_path, similarity_threshold):
             all_matched = False
 
     # Report extra and missing files

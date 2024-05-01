@@ -13,7 +13,7 @@ class MarkdownParser:
         self.fail = False
 
         if not filepath.exists():
-            raise FileNotFoundError(f"Failed to not existing markdown file: {filepath}")
+            raise FileNotFoundError(f"Failed to read not existing markdown file: {filepath}")
         if self.fetch_data() == 1:
             self.fail = True
 
@@ -106,6 +106,8 @@ class MarkdownParser:
         filepath = self.output_folder / filename
         with open(filepath, "wb") as file:
             pickle.dump(dict_list, file)
+        #     TODO: DELETE
+        print(f"Here is generated pkl file: {filepath}")
 
     def concat_print(self):
         dict_list = []

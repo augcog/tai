@@ -44,13 +44,23 @@ class PdfConverter(BaseConverter):
             str(self.batch_size),
         ]
         try:
-            subprocess.run(command, check=True, capture_output=True, text=True)
-            # Now change the file name of generated mmd file to align with the expected md file path from base converter
+            result = subprocess.run(command, check=False, capture_output=True, text=True)
+            self._logger.info(f"Output: {result.stdout}")
+            self._logger.info(f"Errors: {result.stderr}")
+            if result.returncode != 0:
+                self._logger.error(f"Command exited with a non-zero status: {result.returncode}")
+            # # Now change the file name of generated mmd file to align with the expected md file path from base converter
+            # output_mmd_path = output_path.parent / f"{input_path.stem}.mmd"
+            # # Rename it to `md` file
+            # output_mmd_path.rename(output_path)
+
             output_mmd_path = output_path.parent / f"{input_path.stem}.mmd"
-            # Rename it to `md` file
-            output_mmd_path.rename(output_path)
-        except subprocess.CalledProcessError as e:
-            self._logger.error(f"Failed to execute conversion command: {e.stderr}")
+            try:
+                output_mmd_path.rename(output_path)
+            except FileNotFoundError:
+                self._logger.error(f"Failed to rename the output file: {output_mmd_path}")
+        except Exception as e:
+            self._logger.error(f"An error occurred {str(e)})")
             # TODO: Revise below testing purpose code for Github Action
             output_mmd_path = output_path.parent / f"{input_path.stem}.mmd"
             try:

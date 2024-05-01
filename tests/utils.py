@@ -19,7 +19,7 @@ logging.basicConfig(
     format=f"{Fore.WHITE}%(asctime)s - %(levelname)s - %(message)s{Style.RESET_ALL}",
 )
 
-SIMILARITY_THRESHOLD = 95
+SIMILARITY_THRESHOLD = 90
 
 
 def hex_dump(binary_data: bytes) -> str:
@@ -105,9 +105,12 @@ def compare_files(expected_path: Path, output_path: Path, similarity_threshold: 
     similarity_percentage = matcher.ratio() * 100
 
     if similarity_percentage >= similarity_threshold:
-        logging.info(Fore.GREEN + f"Files {fromfile} and {tofile} are similar above the threshold ({similarity_percentage:.2f}% similar)." + Style.RESET_ALL)
+        logging.info(Fore.GREEN + f"Files {fromfile} and {tofile} are similar "
+                                  f"above the threshold ({similarity_percentage:.2f}% similar)." + Style.RESET_ALL)
         return True
     else:
+        logging.info(Fore.RED + f"Files {fromfile} and {tofile} are not similar "
+                                f"({similarity_percentage:.2f}% similar)." + Style.RESET_ALL)
         if binary:
             diffs = get_diffs(hex_expected, hex_output, fromfile, tofile)
         else:

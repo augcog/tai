@@ -1,16 +1,22 @@
 import pickle
+from pathlib import Path
 
 from termcolor import colored
 
 
 # TODO clean this markdown parser when have time
 class MarkdownParser:
-    def __init__(self, filename):
-        self.filename = filename
+    def __init__(self, filepath: Path):
+        self.filepath = filepath
+        self.output_folder = Path(filepath).parent
         self.headers_content_list = []
         self.fail = False
+
+        if not filepath.exists():
+            raise FileNotFoundError(f"Failed to not existing markdown file: {filepath}")
         if self.fetch_data() == 1:
             self.fail = True
+
 
     @staticmethod
     def determine_level(s):
@@ -67,11 +73,11 @@ class MarkdownParser:
 
     def fetch_data(self):
         try:
-            with open(self.filename, "r", encoding="utf-8") as file:
+            with open(self.filepath, "r", encoding="utf-8") as file:
                 md_content = file.readlines()
             self.headers_content_list = MarkdownParser.extract_headers_and_content(md_content)
         except FileNotFoundError:
-            print(colored(f"File '{self.filename}' not found.", "red"))
+            print(colored(f"File '{self.filepath}' not found.", "red"))
             return 1
         self.headers_content_list = MarkdownParser.extract_headers_and_content(md_content)
 
@@ -87,7 +93,8 @@ class MarkdownParser:
 
     def print_segment(self):
         new_filename = "resume.md/segment.txt"
-        with open(new_filename, "w", encoding="utf-8") as f:
+        filepath = self.output_folder / new_filename
+        with open(filepath, "w", encoding="utf-8") as f:
             f.write("Parsed Headers, Levels and Contents:\n")
             for (header, level), content in self.headers_content_list:
                 f.write(f"h{level}: {header}\n")
@@ -96,15 +103,17 @@ class MarkdownParser:
                 f.write("\n=====================================\n\n")
 
     def save_content_to_pkl(self, dict_list, filename="filename.pkl"):
-        with open(filename, "wb") as file:
+        filepath = self.output_folder / filename
+        with open(filepath, "wb") as file:
             pickle.dump(dict_list, file)
 
     def concat_print(self):
         dict_list = []
-        new_filename = f"{self.filename}.tree.txt"
+        new_filename = f"{self.filepath}.tree.txt"
+        tree_file_path = self.output_folder / new_filename
         top_header = []
         counter = 1
-        with open(new_filename, "w", encoding="utf-8") as f:
+        with open(tree_file_path, "w", encoding="utf-8") as f:
             for (header, level), content in self.headers_content_list:
                 page_toc = ""
                 page_path = ""
@@ -177,7 +186,7 @@ class MarkdownParser:
                     top_header = top_header[: (level - 1)]
                     top_header.append((header, content, level))
                     dict_list.append({"Page_table": page_toc, "Page_path": page_path, "Segment_print": segment})
-        self.save_content_to_pkl(dict_list, filename=f"{self.filename}.pkl")
+        self.save_content_to_pkl(dict_list, filename=f"{self.filepath}.pkl")
 
 
 # parser = MarkdownParser(

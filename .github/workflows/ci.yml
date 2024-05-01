@@ -47,4 +47,4 @@ jobs:
       run: echo "PYTHONPATH=${{ github.workspace }}" >> $GITHUB_ENV
 
     - name: Run pytest
-      run: pytest tests
+      run: pytest tests -n 2 --capture=no  # Disable capturing to allow live logging

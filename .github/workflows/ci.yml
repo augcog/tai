@@ -46,10 +46,5 @@ jobs:
     - name: Set PYTHONPATH
       run: echo "PYTHONPATH=${{ github.workspace }}" >> $GITHUB_ENV
 
-#    TODO: This step is for debugging purposes only. Remove it when done.
-    - name: List files in test directory
-      run: ls -la /home/runner/work/roarai/roarai/tests/test_rag/data/unit_tests/md/expected_output/
-
-
     - name: Run pytest
       run: pytest tests/test_rag/test_file_conversion_router/test_converters/test_md_converter.py

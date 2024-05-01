@@ -26,7 +26,8 @@ jobs:
         path: |
           ~/.cache/pip
           .pytest_cache
-        key: ${{ runner.os }}-pip-${{ hashFiles('rag/requirements.txt') }}-${{ github.run_number }}
+          ${{ env.pythonLocation }}/lib/python3.9/site-packages
+        key: ${{ runner.os }}-pip-${{ hashFiles('rag/requirements.txt') }}-${{ github.sha }}
         restore-keys: |
           ${{ runner.os }}-pip-${{ hashFiles('rag/requirements.txt') }}-
           ${{ runner.os }}-pip-

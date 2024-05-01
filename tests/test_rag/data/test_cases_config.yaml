@@ -34,7 +34,7 @@ unit_tests:
 
 integrated_tests:
   plain_folder_3_pdfs:
-      - input_folder: integrated_tests/input_folder1_plain_folder_3_pdfs_folder_pdf+md
+      - input_folder: integrated_tests/input_folder1_plain_folder_3_pdfs
         expected_output_folder: integrated_tests/expected_output_folder1_plain_folder_3_pdfs
 
   nested_folder_pdf+md:

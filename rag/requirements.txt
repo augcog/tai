@@ -19,7 +19,7 @@ rst_to_myst==0.4.0
 scenedetect==0.6.3
 termcolor==2.4.0
 tiktoken==0.6.0
-tokenizers==0.15.0
+tokenizers==0.15.2
 torch==2.3.0
 tqdm==4.66.2
 transformers==4.38.2

@@ -48,3 +48,4 @@ jobs:
 
     - name: Run pytest
       run: pytest tests/test_rag/test_file_conversion_router/test_converters/test_md_converter.py
+      working-directory: ${{ github.workspace }}

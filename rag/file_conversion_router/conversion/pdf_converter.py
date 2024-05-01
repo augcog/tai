@@ -20,6 +20,10 @@ class PdfConverter(BaseConverter):
         """Validate model tag and batch size."""
         if not isinstance(self.batch_size, int) or self.batch_size <= 0:
             raise ValueError("Batch size must be a positive integer")
+        # https://github.com/facebookresearch/nougat/issues/179#issuecomment-1831849650
+        if self.device_type == "cpu":
+            self.batch_size = 0
+            self._logger.info("Forcing batch size to 0 for running on CPU")
         acceptable_models = ["0.1.0-small", "0.1.0-base"]
         if self.model_tag not in acceptable_models:
             raise ValueError(f"Model tag must be one of {acceptable_models}")

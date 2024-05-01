@@ -18,8 +18,8 @@ class PdfConverter(BaseConverter):
 
     def _validate_parameters(self):
         """Validate model tag and batch size."""
-        if not isinstance(self.batch_size, int) or self.batch_size <= 0:
-            raise ValueError("Batch size must be a positive integer")
+        if not isinstance(self.batch_size, int) or self.batch_size < 0:
+            raise ValueError("Batch size must be a non-negative integer.")
         # https://github.com/facebookresearch/nougat/issues/179#issuecomment-1831849650
         if self.device_type == "cpu":
             self.batch_size = 0
@@ -49,22 +49,10 @@ class PdfConverter(BaseConverter):
             self._logger.info(f"Errors: {result.stderr}")
             if result.returncode != 0:
                 self._logger.error(f"Command exited with a non-zero status: {result.returncode}")
-            # # Now change the file name of generated mmd file to align with the expected md file path from base converter
-            # output_mmd_path = output_path.parent / f"{input_path.stem}.mmd"
-            # # Rename it to `md` file
-            # output_mmd_path.rename(output_path)
-
+            # Now change the file name of generated mmd file to align with the expected md file path from base converter
             output_mmd_path = output_path.parent / f"{input_path.stem}.mmd"
-            try:
-                output_mmd_path.rename(output_path)
-            except FileNotFoundError:
-                self._logger.error(f"Failed to rename the output file: {output_mmd_path}")
+            # Rename it to `md` file
+            output_mmd_path.rename(output_path)
         except Exception as e:
             self._logger.error(f"An error occurred {str(e)})")
-            # TODO: Revise below testing purpose code for Github Action
-            output_mmd_path = output_path.parent / f"{input_path.stem}.mmd"
-            try:
-                output_mmd_path.rename(output_path)
-            except FileNotFoundError:
-                self._logger.error(f"Failed to rename the output file: {output_mmd_path}")
-            # raise
+            raise

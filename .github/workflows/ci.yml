@@ -12,31 +12,36 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        python-version: [3.9]  # Adjust this as necessary for other versions
+
     steps:
     - uses: actions/checkout@v3
 
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v4
+    - name: Set up Python and cache pip
+      uses: actions/setup-python@v4.5.0
       with:
-        python-version: '3.9'
-        cache: 'pip'
+        python-version: ${{ matrix.python-version }}
+        cache: 'pip'  # Enabling built-in pip caching
+
+    - name: Cache Python environment
+      uses: actions/cache@v3.2.4
+      id: env-cache
+      with:
+        path: ${{ env.pythonLocation }}
+        key: ${{ runner.os }}-pythonenv-${{ matrix.python-version }}-${{ hashFiles('rag/requirements.txt') }}
+
+    - name: Install pip dependencies
+      if: steps.env-cache.outputs.cache-hit != 'true'
+      run: |
+        pip install -r rag/requirements.txt
 
     - name: Cache pytest artifacts
-      uses: actions/cache@v2
+      uses: actions/cache@v3.2.4
       with:
         path: .pytest_cache
-        key: ${{ runner.os }}-pytest-${{ hashFiles('**/test_*.py') }}-${{ github.run_number }}
-        restore-keys: |
-          ${{ runner.os }}-pytest-${{ hashFiles('**/test_*.py') }}-
-          ${{ runner.os }}-pytest-
-
-    - name: Upgrade pip and Install Cython
-      run: |
-        python -m pip install --upgrade pip
-        pip install Cython
-
-    - name: Install dependencies
-      run: pip install -r rag/requirements.txt
+        key: ${{ runner.os }}-pytest-${{ github.sha }}
 
     - name: Set PYTHONPATH
       run: echo "PYTHONPATH=${{ github.workspace }}" >> $GITHUB_ENV

@@ -2,15 +2,15 @@
 """
 
 from abc import ABC, abstractmethod
+from concurrent.futures import Future, ThreadPoolExecutor
 from pathlib import Path
 from shutil import copy2
-from concurrent.futures import Future, ThreadPoolExecutor
 from threading import Lock
-from typing import Union, Dict, List
+from typing import Dict, List, Union
 
 from rag.file_conversion_router.utils.logger import conversion_logger, logger
 from rag.file_conversion_router.utils.markdown_parser import MarkdownParser
-from rag.file_conversion_router.utils.utils import ensure_path, calculate_hash
+from rag.file_conversion_router.utils.utils import calculate_hash, ensure_path
 
 
 class BaseConverter(ABC):

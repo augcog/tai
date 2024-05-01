@@ -1,7 +1,7 @@
 # file_conversion_router/utils/file_utils.py
+from hashlib import sha256
 from pathlib import Path
 from typing import Union
-from hashlib import sha256
 
 
 def ensure_path(path: Union[str, Path]) -> Path:

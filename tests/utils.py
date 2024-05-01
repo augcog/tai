@@ -3,8 +3,8 @@
 
 import binascii
 import difflib
-from difflib import SequenceMatcher
 import logging
+from difflib import SequenceMatcher
 from pathlib import Path
 from typing import List, Union
 

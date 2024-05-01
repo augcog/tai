@@ -7,6 +7,9 @@ The File Conversion Router efficiently converts various supported file types wit
 #### Installation
 Ensure Python version 3.9 or higher is installed.
 1. Install the required packages listed in `requirements.txt`.
+> Special Note: Transformer version needs to be lower than `4.39.0`. Current `rag/requirements.txt` has the version set to `4.38.2`.
+> 
+> Reference: https://github.com/binary-husky/gpt_academic/issues/1653#issuecomment-2016794493
 
 #### Configuration
 1. **Specify the Source Folder**: Identify the folder containing the files to be converted.

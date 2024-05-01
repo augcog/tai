@@ -101,13 +101,14 @@ class MarkdownParser:
                 f.write("Contents:\n")
                 f.write(content)
                 f.write("\n=====================================\n\n")
+        print(f"Generated segment file: {filepath}")
 
     def save_content_to_pkl(self, dict_list, filename="filename.pkl"):
         filepath = self.output_folder / filename
         with open(filepath, "wb") as file:
             pickle.dump(dict_list, file)
         #     TODO: DELETE
-        print(f"Here is generated pkl file: {filepath}")
+        print(f"Generated pkl file: {filepath}")
 
     def concat_print(self):
         dict_list = []
@@ -188,6 +189,7 @@ class MarkdownParser:
                     top_header = top_header[: (level - 1)]
                     top_header.append((header, content, level))
                     dict_list.append({"Page_table": page_toc, "Page_path": page_path, "Segment_print": segment})
+        print(f"Generated tree file: {tree_file_path}")
         self.save_content_to_pkl(dict_list, filename=f"{self.filepath}.pkl")
 
 

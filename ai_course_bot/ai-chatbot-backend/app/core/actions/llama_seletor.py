@@ -23,6 +23,7 @@ load_dotenv()
 model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
 auto_tokenizer = transformers.AutoTokenizer.from_pretrained(model_id)
 streamer_iterator = transformers.TextIteratorStreamer(auto_tokenizer, skip_prompt=True)
+print("Loading model...")
 pipeline = transformers.pipeline(
     "text-generation",
     model=model_id,
@@ -93,12 +94,12 @@ def bge_compute_score(
 
     return all_scores
 
-async def local_selector(messages:List[Message],stream=True,rag=True):
+def local_selector(messages:List[Message],stream=True,rag=True):
     insert_document = ""
     user_message = messages[-1].content
     if rag:
-        picklefile = "recursive_seperate_none_BGE_embedding_400.pkl"
-        path_to_pickle = os.path.join("embedding/", picklefile)
+        picklefile = "recursive_seperate_none_BGE_embedding_400_106_full.pkl"
+        path_to_pickle = os.path.join("/home/bot/roarai/rag/pickle/", picklefile)
         with open(path_to_pickle, 'rb') as f:
             data_loaded = pickle.load(f)
         doc_list = data_loaded['doc_list']
@@ -164,7 +165,9 @@ def local_parser(stream):
             yield chunk.replace("<|eot_id|>", "")
 
 def local_formatter(messages: List[ROARChatCompletionMessage]) -> List[Message]:
-    response: [Message] = [] # type: ignore
+    response: List[Message] = [] # type: ignore
+    system_message = "You are a Teaching Assistant. You are responsible for answering questions and providing guidance to students."
+    response.append(Message(role="system", content=system_message))
     for message in messages:
         response.append(Message(role=message.role, content=message.content))
     return response

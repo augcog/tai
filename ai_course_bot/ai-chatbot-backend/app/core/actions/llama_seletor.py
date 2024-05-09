@@ -99,7 +99,7 @@ def local_selector(messages:List[Message],stream=True,rag=True):
     user_message = messages[-1].content
     if rag:
         picklefile = "recursive_seperate_none_BGE_embedding_400_106_full.pkl"
-        path_to_pickle = os.path.join("/home/bot/roarai/rag/pickle/", picklefile)
+        path_to_pickle = os.path.join("./app/embedding/", picklefile)
         with open(path_to_pickle, 'rb') as f:
             data_loaded = pickle.load(f)
         doc_list = data_loaded['doc_list']

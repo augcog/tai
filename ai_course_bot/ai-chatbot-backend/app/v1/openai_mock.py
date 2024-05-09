@@ -7,7 +7,7 @@ import uuid
 import time
 from fastapi.responses import StreamingResponse
 from app.core.actions.model_selector import course_selection
-from app.core.actions.local_seletor import local_selector, local_parser, local_formatter
+from app.core.actions.llama_seletor import local_selector, local_parser, local_formatter
 
 def generate_data():
         for number in range(1, 51):  # Generating numbers from 1 to 100

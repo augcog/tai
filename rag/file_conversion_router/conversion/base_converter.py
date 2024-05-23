@@ -1,4 +1,4 @@
-"""Base class for all file type converters.
+"""Base classes for all file type converters.
 """
 
 from abc import ABC, abstractmethod
@@ -14,18 +14,18 @@ from rag.file_conversion_router.utils.utils import calculate_hash, ensure_path
 
 
 class BaseConverter(ABC):
-    """Base class for all file type converters.
+    """Base classes for all file type converters.
 
-    This base class defines the interface for all type converters, with a standardized workflow, which outputs 3 files:
+    This base classes defines the interface for all type converters, with a standardized workflow, which outputs 3 files:
     - Markdown
     - Tree txt
     - Pickle
 
-    All child class need to implement the abstract methods:
+    All child classes need to implement the abstract methods:
     - _to_markdown
 
-    As long as a child class can convert a file to Markdown,
-    the base class will handle the rest of the conversion process.
+    As long as a child classes can convert a file to Markdown,
+    the base classes will handle the rest of the conversion process.
     """
 
     def __init__(self):
@@ -112,7 +112,7 @@ class BaseConverter(ABC):
 
     def _convert_and_cache(self, input_path: Path, output_folder: Path, file_hash: str) -> List[Path]:
         self._setup_output_paths(input_path, output_folder)
-        # This method embeds the abstract method `_to_markdown`, which needs to be implemented by the child class.
+        # This method embeds the abstract method `_to_markdown`, which needs to be implemented by the child classes.
         _, conversion_time = self._perform_conversion(input_path, output_folder)
         paths = [self._md_path, self._tree_txt_path, self._pkl_path]
         ConversionCache.set_cached_paths_and_time(file_hash, paths, conversion_time)
@@ -141,9 +141,13 @@ class BaseConverter(ABC):
         """Convert the input file to Expected Markdown format. To be implemented by subclasses."""
         raise NotImplementedError("This method should be overridden by subclasses.")
 
+    @abstractmethod
+    def _to_page(self, input_path: Path, output_path: Path) -> None:
+        """Convert the input file to Expected Page format. To be implemented by subclasses."""
+        raise NotImplementedError("This method should be overridden by subclasses.")
 
 class ConversionCache:
-    """A class to handle caching of conversion results."""
+    """A classes to handle caching of conversion results."""
     _cache: Dict[str, List[Path]] = {}
     _futures_cache: Dict[str, Future] = {}
     # Store the time taken for each file conversion

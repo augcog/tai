@@ -117,11 +117,13 @@ start=time.time()
 # Process each page
 # TODO PROCESS DOCUMENTS
 # docs = traverse_files("../dataset/edugpt/Scrape_header/ROS", "ROS")
-docs = traverse_files("./scraper/Scrape_rst/Sawyer", "Sawyer")
+docs = traverse_files("./scraper/Scrape_vid/Denero", "61A")
+docs += traverse_files("./scraper/Scrape_rst/Sawyer", "Sawyer")
 docs += traverse_files("./scraper/Scrape_pdf/textbook", "Robotics textbook")
 docs += traverse_files("./scraper/Scrape_header/ROS", "ROS")
 docs += traverse_files("./scraper/Scrape_header/opencv", "opencv")
 docs += traverse_files("./scraper/Scrape_header/turtlebot3", "turtlebot3")
+
 # TODO TECHNIQUE
 # technique = 'none'
 # technique = 'bullet'
@@ -152,7 +154,7 @@ method='none'
 # model='e5-mistral'
 # model='UAE-Large'
 model='BGE'
-model='GRITLM'
+# model='GRITLM'
 
 
 system_embedding_prompt = ''
@@ -270,7 +272,8 @@ for n in [400]:
     id_list = []
     doc_list=[]
     embedding_list=[]
-
+    url_list=[]
+    time_list=[]
     for doc in tqdm(docs, desc="Processing documents"):
         document = []
         ids = []
@@ -355,6 +358,14 @@ for n in [400]:
                     id = folder_path + " > " + segment_path + f"({count})"
                     ids.append(id)
                     doc_list.append(smaller_chunk)
+                    if 'url' not in chunk:
+                        url_list.append('')
+                    else:
+                        url_list.append(chunk['url'])
+                    if 'time' not in chunk:
+                        time_list.append('')
+                    else:
+                        time_list.append(chunk['time'])
 
                 except openai.error.APIError as e:
                     print(f"Embedding error: {e}")
@@ -366,6 +377,8 @@ for n in [400]:
     id_list=np.array(id_list)
     doc_list=np.array(doc_list)
     embedding_list=np.array(embedding_list)
+    url_list=np.array(url_list)
+    time_list=np.array(time_list)
     print(id_list.shape)
     print(doc_list.shape)
     print(embedding_list.shape)
@@ -375,7 +388,9 @@ for n in [400]:
     data_to_store = {
         'id_list': id_list,
         'doc_list': doc_list,
-        'embedding_list': embedding_list
+        'embedding_list': embedding_list,
+        'url_list': url_list,
+        'time_list': time_list
     }
 
     # Define the folder name

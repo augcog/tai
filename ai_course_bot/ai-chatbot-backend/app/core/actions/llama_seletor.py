@@ -9,6 +9,7 @@ from threading import Thread
 from typing import List
 from app.core.models.chat_completion import Message as ROARChatCompletionMessage
 from pydantic import BaseModel
+import threading
 
 
 class Message(BaseModel):
@@ -22,7 +23,7 @@ load_dotenv()
 
 model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
 auto_tokenizer = transformers.AutoTokenizer.from_pretrained(model_id)
-streamer_iterator = transformers.TextIteratorStreamer(auto_tokenizer, skip_prompt=True)
+# streamer_iterator = transformers.TextIteratorStreamer(auto_tokenizer, skip_prompt=True)
 print("Loading model...")
 pipeline = transformers.pipeline(
     "text-generation",
@@ -31,25 +32,26 @@ pipeline = transformers.pipeline(
     device="cuda",
 )
 
-def prompt_generator(messages):
+lock = threading.Lock()
+def prompt_generator(messages,streamer_iterator):
+    with lock:
+        terminators = [
+            pipeline.tokenizer.eos_token_id,
+            pipeline.tokenizer.convert_tokens_to_ids("<|eot_id|>")
+        ]
+        prompt = pipeline.tokenizer.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=True
+        )
 
-    terminators = [
-        pipeline.tokenizer.eos_token_id,
-        pipeline.tokenizer.convert_tokens_to_ids("<|eot_id|>")
-    ]
-    prompt = pipeline.tokenizer.apply_chat_template(
-        messages,
-        tokenize=False,
-        add_generation_prompt=True
-    )
-
-    outputs = pipeline(
-        prompt,
-        max_new_tokens=1000,
-        eos_token_id=terminators,
-        do_sample=True,
-        streamer=streamer_iterator
-    )
+        outputs = pipeline(
+            prompt,
+            max_new_tokens=1000,
+            eos_token_id=terminators,
+            do_sample=True,
+            streamer=streamer_iterator
+        )
 # Write scores for
 def bge_compute_score(
     query_embedding,
@@ -149,7 +151,8 @@ def local_selector(messages:List[Message],stream=True,rag=True):
         # system_message="通过阅读以下材料,用中文回答我的指示"
         # print(chat_completion(system_message, insert_document))
     messages[-1].content = user_message
-    t = Thread(target=prompt_generator, args=(messages,))
+    streamer_iterator=transformers.TextIteratorStreamer(auto_tokenizer, skip_prompt=True)
+    t = Thread(target=prompt_generator, args=(messages,streamer_iterator,))
     t.start()
     # for i in streamer_iterator:
     #     print(i, end="")

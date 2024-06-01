@@ -113,8 +113,6 @@ class ScrapeRst(BaseScraper):
                 url = cd_back_link(url, len(part)) + '/'
                 os.chdir(current_directory)
 
-    def github_url_to_doc_url(self, github_url):
-
     def scrape(self):
         create_and_enter_dir(self.filename)
         home_url = self.url.rsplit('/', 1)[0]

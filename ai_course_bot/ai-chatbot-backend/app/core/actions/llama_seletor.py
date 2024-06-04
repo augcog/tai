@@ -10,6 +10,8 @@ from typing import List
 from app.core.models.chat_completion import Message as ROARChatCompletionMessage
 from pydantic import BaseModel
 import threading
+import urllib.parse
+
 
 
 class Message(BaseModel):
@@ -96,6 +98,14 @@ def bge_compute_score(
 
     return all_scores
 
+
+def clean_path(url_path):
+    decoded_path = urllib.parse.unquote(url_path)
+    cleaned_path = decoded_path.replace('%28', '(').replace('%29', ')').replace('%2B', '+')
+    cleaned_path = cleaned_path.replace('>', ' > ')
+    cleaned_path = cleaned_path.replace('(', ' (').replace(')', ') ')
+    cleaned_path = ' '.join(cleaned_path.split())
+    return cleaned_path
 def local_selector(messages:List[Message],stream=True,rag=True):
     insert_document = ""
     user_message = messages[-1].content
@@ -125,9 +135,11 @@ def local_selector(messages:List[Message],stream=True,rag=True):
         distances = np.sort(cosine_similarities)[-3:][::-1]
         top_id = id[:3]
         top_url = url[:3]
+        # top_url= [f"https://www.youtube.com/watch?v={i}" for i in range(1,4)]
         top_time = time[:3]
         insert_document = ""
         reference = []
+        n=0
         for i in range(len(top_docs)):
             if top_url[i] and top_time[i]:
                 reference.append(f"{top_url[i]}&t={top_time[i]}")
@@ -136,7 +148,13 @@ def local_selector(messages:List[Message],stream=True,rag=True):
             else:
                 reference.append("")
             if distances[i] > 0.45:
-                insert_document += f"\"\"\"{top_id[i]}\n{top_docs[i]}\"\"\"\n"
+                n+=1
+                if top_url[i]:
+                    insert_document += f"\"\"\"Reference Number: {n}\nReference: {top_id[i]}\nReference Url: {top_url[i]}\nDocument: {top_docs[i]}\"\"\"\n\n"
+                else:
+                    cleaned_path = clean_path(top_id[i])
+                    insert_document += f"\"\"\"Reference Number: {n}\nReference: {cleaned_path}\nDocument: {top_docs[i]}\"\"\"\n\n"
+                    # print("CLEANED PATH",cleaned_path)
                 print(top_id[i])
         print(reference)
     if not insert_document:
@@ -145,12 +163,16 @@ def local_selector(messages:List[Message],stream=True,rag=True):
         # system_message="用中文回答我的指示"
         # print(chat_completion(system_message, insert_document))
     else:
+        print("INSERT DOCUMENT",insert_document)
         insert_document += f'Instruction: {user_message}'
         # insert_document += "用中文回答我的指示\n"
-        user_message = f"Understand the documents and use it to answer the instruction.\n---\n{insert_document}"
+        user_message = f"Understand the {n} reference documents and use it to answer the instruction. If there is no reference url print Reference of the document used to answer instruction. If reference url exists in the documents add at end [reference summary](URL).\n---\n{insert_document}"
         # system_message="通过阅读以下材料,用中文回答我的指示"
         # print(chat_completion(system_message, insert_document))
+    print("USER MESSAGE",user_message)
     messages[-1].content = user_message
+
+    print(messages)
     streamer_iterator=transformers.TextIteratorStreamer(auto_tokenizer, skip_prompt=True)
     t = Thread(target=prompt_generator, args=(messages,streamer_iterator,))
     t.start()

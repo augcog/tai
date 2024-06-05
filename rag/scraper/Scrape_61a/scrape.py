@@ -20,18 +20,22 @@ def main():
     url = "https://cs61a.org/"
     root = "https://cs61a.org/"
     root_regex = r"^https://cs61a.org/"
-    root_filename = "cs61a_website_ver3"
+    root_filename = "cs61a_website_ver5"
     content_tags = [('section', {'id': 'calendar', 'class': 'table', 'cellpadding': '5px'}), ('div', {'class': 'col-md-9'})]
     delay = 0
-    
-    extract_unique_links(url, root, root_regex, root_filename, content_tags, 0, delay)
-    #create_and_enter_dir("test")
-    #cur_dir = os.getcwd()
-    #print(cur_dir)
-    #file_path = download_pdf("https://cs61a.org/exam/fa23/mt2/61a-fa23-mt2.pdf", cur_dir)
-    #print(file_path)
-    #pdf_to_md(file_path, cur_dir)
+    depth = 2
 
+    # eecs106b website
+    #url = "https://ucb-ee106.github.io/106b-sp23site/"
+    #root = "https://ucb-ee106.github.io/106b-sp23site/"
+    #root_regex = r"^https://ucb-ee106.github.io/106b-sp23site/"
+    #root_filename = "eecs106b_website_test"
+    #content_tags = [('main', {'class': 'main-content'})]
+    #delay = 0
+    #depth = 4
+    
+    links = extract_unique_links(url, root, root_regex, root_filename, content_tags, 0, depth, delay)
+    process_links(links, root_filename, 0, content_tags)
 
 def remove_slash_and_hash(link):
     """
@@ -62,6 +66,7 @@ def create_and_enter_dir(directory_name):
     - directory_name (str): The name of the directory to be created and entered.
     """
     # Create the directory if it doesn't exist
+    print(directory_name)
     if not os.path.exists(directory_name):
         os.mkdir(directory_name)
     
@@ -98,76 +103,11 @@ def get_crawl_delay(site_url, user_agent="*"):
         print("Error accessing or parsing robots.txt.")
         return 0
 
-def process_links_and_save(links, dir_name, delay, content_tags):
-    """
-    Processes a list of links by converting them to markdown, cleaning up the markdown content, and saving the results to files. 
-    The files are saved within directories named after the last segment of each link.
+def extract_unique_links(url, root, root_regex, root_filename, content_tags, layer, depth, delay=0, found_links=[]):
+
+    print(url)
     
-    Parameters:
-    - links (list): A list of URLs to be processed.
-    - dir_name (str): The name of the main directory where the results should be saved.
-    - delay (int/float): The delay in seconds to wait between processing each link.
-
-    Returns:
-    None
-    """
-    create_and_enter_dir(dir_name)
-    for link in links:
-        if link[-1] == '/': 
-            link = link[:-1]
-        filename = link.split('/')[-1]
-
-        print("filename " + filename)
-
-        if "_1pp" in link:
-            continue
-        
-        if filename[-4:] == ".pdf":
-            name = filename.split('.')[0]
-            create_and_enter_dir(name)
-            cur_dir = os.getcwd()
-            file_path = download_pdf(link, cur_dir)
-
-            #pdf_to_md(file_path, cur_dir)
-
-            current_directory = os.getcwd()
-            parent_directory = os.path.dirname(current_directory)
-            os.chdir(parent_directory)
-        elif filename[-4:] == ".zip":
-            continue;
-        else:
-            if "proj" in link or "lab" in link or "hw" in link or "disc" in link:
-                parts = link.split("/")
-                folder = parts[-2]
-                create_and_enter_dir(folder)
-
-            filename = filename.split('.')[0]
-            markdown_result = html_to_markdown(link, content_tags)
-            if markdown_result == 1:
-                continue
-        
-            cleaned_markdown = remove_consecutive_empty_lines(markdown_result)
-
-            cur_dir = os.getcwd()
-            create_and_enter_dir(filename)
-            save_to_file(f'{filename}.md', cleaned_markdown)
-
-            parser = MarkdownParser(f'{filename}')
-            parser.print_header_tree()
-            parser.print_segment()
-            parser.concat_print()
-            
-            os.chdir(cur_dir)
-            time.sleep(delay)
-
-            if "proj" in link or "lab" in link or "hw" in link or "disc" in link:
-                current_directory = os.getcwd()
-                parent_directory = os.path.dirname(current_directory)
-                os.chdir(parent_directory)
-
-def extract_unique_links(url, root, root_regex, root_filename, content_tags, layer, delay=0, found_links=[]):
-    
-    if (layer == 2):
+    if (layer == depth):
         return;
 
     # print("extract_unique_links")
@@ -181,7 +121,7 @@ def extract_unique_links(url, root, root_regex, root_filename, content_tags, lay
     Returns:
     - list: A list of unique links that match the criteria.
     """
-    print(colored(f"found_links{found_links}", 'red'))
+    #print(colored(f"found_links{found_links}", 'red'))
     reqs = requests.get(url)
     soup = BeautifulSoup(reqs.text, 'html.parser')
     # print(url)
@@ -206,18 +146,19 @@ def extract_unique_links(url, root, root_regex, root_filename, content_tags, lay
             unique_links.add(clean_href)
 
     links = list(unique_links)
-    print(links)
     if not links:
         return
-    process_links_and_save(links, root_filename, delay, content_tags=content_tags)
     found_links.extend(links)
     cur_dir = os.getcwd()
     for link in links:
         remove_slash_and_hash(link)
         filename=link.split('/')[-1]
         filename=filename.split('.')[0]
+        if link[-4:] == ".pdf" or link[-4] == ".zip":
+            continue
         extract_unique_links(link, root, root_regex, filename, content_tags, layer+1, delay, found_links)
         os.chdir(cur_dir)
+    return found_links
 
 def html_to_markdown(url, content_tags):
     """
@@ -286,15 +227,59 @@ def download_pdf(url, directory):
     if response.status_code == 200:
         with open(file_path, 'wb') as f:
             f.write(response.content)
-        print(f"PDF downloaded successfully to: {file_path}")
+        #print(f"PDF downloaded successfully to: {file_path}")
+        return file_path
     else:
         print(f"Failed to download PDF. Status code: {response.status_code}")
-    return file_path
 
-def pdf_to_md(file_path, folder_name):
-    command = f"nougat {file_path} -o {folder_name}"
-    os.system(command)
+def check_link_status(link):
+    try:
+        response = requests.head(link)
+        if response.status_code == 404:
+            return True
+        else:
+            return False
+    except requests.exceptions.RequestException as e:
+        print(f"Error checking link status for {link}: {e}")
+        return False  # Assume link is not a 404 error
 
+def process_links(links, dir_name, delay, content_tags):
+    create_and_enter_dir(dir_name)
+    current_directory = os.getcwd()
+    for link in links:
+        if (check_link_status(link)):
+            continue;
+        segments = link.split("/")[3:]
+        filename = segments[-1]
+        for segment in segments:
+            renamed = segment.split('.')[0]
+            if (renamed == ""):
+                continue
+            create_and_enter_dir(renamed)
+            
+        if filename[-4:] == ".pdf":
+            name = filename.split('.')[0]
+            cur_dir = os.getcwd()
+            file_path = download_pdf(link, cur_dir)
+            os.chdir(current_directory)
+        elif filename[-4:] == ".zip":
+            os.chdir(current_directory)
+            continue;
+        else: 
+            filename = filename.split('.')[0]
+            markdown_result = html_to_markdown(link, content_tags)
+            if markdown_result == 1:
+                continue
+        
+            cleaned_markdown = remove_consecutive_empty_lines(markdown_result)
+            save_to_file(f'{filename}.md', cleaned_markdown)
+
+            #parser = MarkdownParser(f'{filename}')
+            #parser.print_header_tree()
+            #parser.print_segment()
+            #parser.concat_print()
+
+            os.chdir(current_directory)
 
 if __name__ == "__main__":
     main()

@@ -131,7 +131,11 @@ class ScrapeHeader(BaseScraper):
     
     def download_pdf(self, url, filename):
         """
-        Downloads the pdf file at the url. Returns 1 on failure, file path on success.
+        Downloads the PDF file at the url.
+        Parameters:
+        - url (str): The URL to download the PDF from
+        - filename(str): Name of the PDF file
+        Returns: 1 on failure, file path on success.
         """
         file_path = os.path.join(os.getcwd(), filename)
         response = requests.get(url)

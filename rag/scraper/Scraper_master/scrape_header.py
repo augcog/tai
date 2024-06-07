@@ -146,12 +146,11 @@ class ScrapeHeader(BaseScraper):
     
     # Override
     def content_extract(self, filename, url, **kwargs):
-        content_tags=kwargs['content_tags']
-
         if url[-4] == ".pdf":
             pdf_result = self.download_pdf(url, filename)
             return pdf_result
         else:
+            content_tags=kwargs['content_tags']
             markdown_result = self.html_to_markdown(url, content_tags)
             cleaned_markdown = remove_consecutive_empty_lines(markdown_result)
             print("saving file...")

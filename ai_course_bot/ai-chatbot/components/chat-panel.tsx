@@ -93,7 +93,8 @@ export function ChatPanel({
                 id,
                 content: value,
                 role: 'user',
-                tool_call_id: data
+                tool_call_id: data,
+                data: data
               })
             }}
             input={input}

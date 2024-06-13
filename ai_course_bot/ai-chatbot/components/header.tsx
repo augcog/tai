@@ -11,7 +11,8 @@ import { UserMenu } from '@/components/user-menu'
 import { SidebarMobile } from './sidebar-mobile'
 import { SidebarToggle } from './sidebar-toggle'
 import { ChatHistory } from './chat-history'
-import { SelectCourse } from '@/components/select-course'
+import { LoginButton } from '@/components/login-button'
+import Image from 'next/image'
 
 async function UserOrLogin() {
   const session = await auth()
@@ -23,21 +24,22 @@ async function UserOrLogin() {
             <ChatHistory userId={session.user.id} />
           </SidebarMobile>
           <SidebarToggle />
+
         </>
       ) : (
-        <Link href="/" target="_blank" rel="nofollow">
-          <IconNextChat className="size-6 mr-2 dark:hidden" inverted />
-          <IconNextChat className="hidden size-6 mr-2 dark:block" />
-        </Link>
+          
+          <Link href="/" target="_blank" rel="nofollow">
+            {/* <Image src="/TAI_prompt.png" alt="logo" width={50} height={50} /> */}
+          {/* <IconNextChat className="size-6 mr-2 dark:hidden" inverted />
+          <IconNextChat className="hidden size-6 mr-2 dark:block" /> */}
+          </Link>
       )}
       <div className="flex items-center">
         <IconSeparator className="size-6 text-muted-foreground/50" />
         {session?.user ? (
           <UserMenu user={session.user} />
         ) : (
-          <Button variant="link" asChild className="-ml-2">
-            <Link href="/sign-in?callbackUrl=/">Login</Link>
-          </Button>
+          <LoginButton />
         )}
       </div>
     </>
@@ -53,9 +55,9 @@ export function Header() {
         </React.Suspense>
       </div>
       <div className="flex items-center justify-end space-x-2">
-        <SelectCourse />
-
+        <Image src="/TAI_logo.png" alt="logo" width={40} height={40} />
       </div>
+
     </header>
   )
 }

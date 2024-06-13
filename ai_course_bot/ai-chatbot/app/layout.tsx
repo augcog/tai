@@ -16,16 +16,16 @@ export const metadata = {
   },
   description: 'An AI-powered chatbot built with Next.js and Vercel for college course helps.',
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png'
+    icon: '/TAI_prompt.png',
+    shortcut: '/TAI_prompt.png',
+    apple: '/TAI_prompt.png'
   }
 }
 
 export const viewport = {
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' }
+    // { media: '(prefers-color-scheme: dark)', color: 'black' }
   ]
 }
 

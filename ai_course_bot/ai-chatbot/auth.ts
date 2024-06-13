@@ -15,7 +15,13 @@ export const {
   handlers: { GET, POST },
   auth
 } = NextAuth({
-  providers: [GitHub, Google],
+  providers: [
+    Google(
+      {
+        authorization: 'https://accounts.google.com/o/oauth2/auth?response_type=code&hd=berkeley.edu' // force berkeley.edu login
+      }
+    )
+  ],
   callbacks: {
     jwt({ token, profile }) {
       if (profile) {

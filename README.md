@@ -30,3 +30,13 @@ The TAI project is a collaborative effort by researchers and students at UC Berk
 - Tianlun Zhang
 - Yikang Yu
 - Charles Xu
+
+## Acknowledgements
+
+We are deeply grateful for the support and contributions from the following organizations:
+
+- **Qualcomm**: For their generous AI Hub sponsorship, which has been instrumental in our progress.
+- **Nimbus-Nova**: For their exceptional work in system design and architecture.
+- **Hitch Interactive**: For their unwavering general support, which has been crucial to our success.
+
+

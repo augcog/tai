@@ -129,11 +129,14 @@ class ScrapeRst(BaseScraper):
         save_to_file(f"{filename}.rst", content)
 
     def metadata_extract(self, filename, url, **kwargs):
-        yaml_content = f"URL: {url}"
+        yaml_content = f"GitHub URL: {url}\n"
+        yaml_content += f"Site URL: {self.doc_url.replace('index.html', '')}{'/'.join(url.split('/')[url.split('/').index('master') + 1:]).replace('.rst?plain=1', '.html')}"
         save_to_file(f'{filename}_metadata.yaml', yaml_content)
 
 if __name__ == "__main__":
     filename = "Moveit"
-    doc_url = "https://moveit.picknik.ai/main/index.html"
-    github_url = f"https://github.com/ros-planning/moveit_tutorials/blob/main/index.rst?plain=1"
+    # doc_url = "https://moveit.picknik.ai/main/index.html"
+    # github_url = f"https://github.com/ros-planning/moveit_tutorials/blob/main/index.rst?plain=1"
+    doc_url = "https://moveit.github.io/moveit_tutorials/index.html"
+    github_url = "https://github.com/moveit/moveit_tutorials/blob/master/index.rst"
     ScrapeRst(github_url, doc_url, filename).scrape()

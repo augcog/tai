@@ -192,8 +192,7 @@ class ScrapeMd(BaseScraper):
         save_to_file(filename, markdown)
 
     def metadata_extract(self, filename, url, **kwargs):
-        yaml_content = f"GitHub URL: {url}\n"
-        yaml_content +=  f"Site URL: {self.site_url}{url.split('/')[-1].split('.md')[0]}/"
+        yaml_content = f"URL: {self.site_url}{url.split('/')[-1].split('.md')[0]}/"
         save_to_file(f'{filename}_metadata.yaml', yaml_content)
 
 if __name__ == '__main__':

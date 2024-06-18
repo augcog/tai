@@ -21,9 +21,9 @@ class ScrapeRst(BaseScraper):
         :param url: The URL to fetch data from.
         :return: None
         """
-        # print(f"Fetching data from {url}")
+        print(f"Fetching data from {url}")
         headers = {'Accept': 'application/json'}
-        response = requests.get(url, headers=headers)
+        response = requests.get(url+'?plain=1', headers=headers)
         data = response.json()
 
         # Saving the entire fetched JSON to a file
@@ -63,13 +63,12 @@ class ScrapeRst(BaseScraper):
                     cur += 1
             else:
                 i += 1
-        print(f"toctree:")
-        for link in toctree_content:
-            print(link)
+        # print(f"toctree:")
+        # for link in toctree_content:
+        #     print(link)
         return toctree_content
 
     def tree_call(self, cur_file, url, home_url, home_dir):
-        print(f"in {url}")
         """
         Recursively navigates through the file structure of a website and fetches content based on RST files.
         - cur_file (str): The current file being processed.
@@ -95,8 +94,8 @@ class ScrapeRst(BaseScraper):
                 create_and_enter_dir(dir)
                 sublink = sublink[:-4] if sublink.endswith('.rst') else sublink
                 temp_url = url
-                url = home_url + sublink + ".rst?plain=1"
-                print(url)
+                url = home_url + sublink + ".rst"
+                # print(url)
                 self.tree_call(cur_name, url, home_url, home_dir)
                 url = temp_url
                 os.chdir(current_directory)
@@ -108,7 +107,7 @@ class ScrapeRst(BaseScraper):
                     continue
                 create_and_enter_dir(dir)
                 sublink = sublink[:-4] if sublink.endswith('.rst') else sublink
-                url += sublink + ".rst?plain=1"
+                url += sublink + ".rst"
                 self.tree_call(cur_name, url, home_url, home_dir)
                 url = cd_back_link(url, len(part)) + '/'
                 os.chdir(current_directory)
@@ -129,8 +128,7 @@ class ScrapeRst(BaseScraper):
         save_to_file(f"{filename}.rst", content)
 
     def metadata_extract(self, filename, url, **kwargs):
-        yaml_content = f"GitHub URL: {url}\n"
-        yaml_content += f"Site URL: {self.doc_url.replace('index.html', '')}{'/'.join(url.split('/')[url.split('/').index('master') + 1:]).replace('.rst?plain=1', '.html')}"
+        yaml_content = f"URL: {self.doc_url.replace('index.html', '')}{'/'.join(url.split('/')[url.split('/').index('master') + 1:]).replace('.rst', '.html')}"
         save_to_file(f'{filename}_metadata.yaml', yaml_content)
 
 if __name__ == "__main__":

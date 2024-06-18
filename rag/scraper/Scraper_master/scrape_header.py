@@ -63,6 +63,7 @@ class ScrapeHeader(BaseScraper):
         """
         reqs = requests.get(url, headers=self.http_header)
         soup = BeautifulSoup(reqs.text, 'html.parser')
+        print(soup)
         unique_links = set()  # Create an empty set to store unique links
         for link in soup.find_all('a'):
             href = link.get('href')

@@ -31,22 +31,22 @@ def download_videos(video_urls, base_path):
 
         download_filename = stream.download(output_path=video_path)
 
-        # Construct WAV filename in the same unique folder
-        wav_filename = os.path.join(video_path, os.path.splitext(os.path.basename(download_filename))[0] + '.wav')
-
-        # Convert to AV
-        convert_mp4_to_wav(download_filename, wav_filename)
+        # # Construct WAV filename in the same unique folder
+        # wav_filename = os.path.join(video_path, os.path.splitext(os.path.basename(download_filename))[0] + '.wav')
+        #
+        # # Convert to AV
+        # convert_mp4_to_wav(download_filename, wav_filename)
 def get_directories(path):
     return sorted([d for d in os.listdir(path) if os.path.isdir(os.path.join(path, d))])
 
 
-base_path = 'Denero'
+base_path = 'Denero_videos'
 os.makedirs(base_path, exist_ok=True)
 playlist_url = 'https://www.youtube.com/watch?v=31EDjrN1x5k&list=PL6BsET-8jgYUA8ryM_zeRA3H_RAMNBrN3&ab_channel=JohnDeNero'
 video_urls = get_playlist_urls(playlist_url)
 download_videos(video_urls, base_path)
-print(video_urls)
-print(get_directories(base_path))
-segment = Segment(base_path, video_urls)
-segment.process_video_audio_to_md()
-segment.process_video_audio()
+# print(video_urls)
+# print(get_directories(base_path))
+# segment = Segment(base_path, video_urls)
+# segment.process_video_audio_to_md()
+# segment.process_video_audio()

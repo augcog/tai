@@ -3,7 +3,9 @@ from pathlib import Path
 
 from rag.file_conversion_router.conversion.base_converter import BaseConverter
 from rag.file_conversion_router.utils.hardware_detection import detect_gpu_setup
-
+from rag.file_conversion_router.classes.page import Page
+from rag.file_conversion_router.classes.chunk import Chunk
+import yaml
 
 class PdfConverter(BaseConverter):
     def __init__(self, model_tag: str = "0.1.0-small", batch_size: int = 4):
@@ -29,14 +31,14 @@ class PdfConverter(BaseConverter):
             raise ValueError(f"Model tag must be one of {acceptable_models}")
 
     # Override
-    def _to_markdown(self, input_path: Path, output_path: Path) -> None:
+    def _to_markdown(self, input_path: Path) -> Path:
         """Perform PDF to Markdown conversion using Nougat with the detected hardware configuration."""
         command = [
             "nougat",
             str(input_path),
             # nougat requires the argument output path to be a directory, not file, so we need to handle it here
             "-o",
-            str(output_path.parent),
+            str(input_path.parent),
             "--no-skipping",
             "--model",
             self.model_tag,
@@ -50,9 +52,31 @@ class PdfConverter(BaseConverter):
             if result.returncode != 0:
                 self._logger.error(f"Command exited with a non-zero status: {result.returncode}")
             # Now change the file name of generated mmd file to align with the expected md file path from base converter
-            output_mmd_path = output_path.parent / f"{input_path.stem}.mmd"
+            output_mmd_path = input_path.parent / f"{input_path.stem}.mmd"
             # Rename it to `md` file
-            output_mmd_path.rename(output_path)
+            return output_mmd_path
+            # output_mmd_path.rename(output_path)
         except Exception as e:
             self._logger.error(f"An error occurred {str(e)})")
             raise
+
+    def _to_page(self, input_path: Path, output_path: Path, url) -> Page:
+        """Perform Markdown to Page conversion."""
+        input_path = self._to_markdown(input_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        # parent = input_path.parent
+        stem = input_path.stem
+        filetype = input_path.suffix.split(".")[1]
+        with open(input_path, "r") as input_file:
+            text = input_file.read()
+        metadata = output_path / (stem+"_metadata.yaml")
+        with open(metadata, "r") as metadata_file:
+            metadata_content = yaml.safe_load(metadata_file)
+        url = metadata_content["URL"]
+        return Page(content={'text': text}, filetype=filetype, page_url=url)
+
+    def _to_chunk(self, page: Page) -> list[Chunk]:
+        """Perform Page to Chunk conversion."""
+        page.page_seperate_to_segments()
+        page.tree_print()
+        return page.tree_segments_to_chunks()

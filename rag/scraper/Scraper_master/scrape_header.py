@@ -129,15 +129,38 @@ class ScrapeHeader(BaseScraper):
             modified_content = re.sub(r'(?<!^)(```)', r'\n\1', final_markdown, flags=re.MULTILINE)
             final_markdown = modified_content
         return final_markdown
+    
+    def download_pdf(self, url, filename):
+        """
+        Downloads the PDF file at the url.
+        Parameters:
+        - url (str): The URL to download the PDF from
+        - filename(str): Name of the PDF file
+        Returns: 1 on failure, file path on success.
+        """
+        file_path = os.path.join(os.getcwd(), filename)
+        response = requests.get(url)
+        if response.status_code == 200:
+            with open(file_path, 'wb') as f:
+                f.write(response.content)
+                print(f"PDF downloaded successfully to: {file_path}")
+                return file_path
+        else:
+            print(f"Failed to download file. HTTP Status Code: {response.status_code}")
+            return 1
+    
     # Override
     def content_extract(self, filename, url, **kwargs):
-        content_tags=kwargs['content_tags']
-
-        markdown_result = self.html_to_markdown(url, content_tags)
-        cleaned_markdown = remove_consecutive_empty_lines(markdown_result)
-        print("saving file...")
-        save_to_file(f'{filename}.md', cleaned_markdown)
-        return markdown_result
+        if url[-4] == ".pdf":
+            pdf_result = self.download_pdf(url, filename)
+            return pdf_result
+        else:
+            content_tags=kwargs['content_tags']
+            markdown_result = self.html_to_markdown(url, content_tags)
+            cleaned_markdown = remove_consecutive_empty_lines(markdown_result)
+            print("saving file...")
+            save_to_file(f'{filename}.md', cleaned_markdown)
+            return markdown_result
 
     def metadata_extract(self, filename, url, **kwargs):
         yaml_content = f"URL: {url}"

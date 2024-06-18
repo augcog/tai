@@ -8,8 +8,9 @@ from utils import create_and_enter_dir, cd_back_link, replace_backslash_with_sla
 
 
 class ScrapeMd(BaseScraper):
-    def __init__(self, url, root_filename):
-        super().__init__(url)
+    def __init__(self, scrape_url, site_url, root_filename):
+        super().__init__(scrape_url)
+        self.site_url = site_url
         self.root_filename = root_filename
 
     def get_content(self, url):
@@ -191,12 +192,13 @@ class ScrapeMd(BaseScraper):
         save_to_file(filename, markdown)
 
     def metadata_extract(self, filename, url, **kwargs):
-        yaml_content = f"URL: {url}"
+        yaml_content = f"GitHub URL: {url}\n"
+        yaml_content +=  f"Site URL: {self.site_url}{url.split('/')[-1].split('.md')[0]}/"
         save_to_file(f'{filename}_metadata.yaml', yaml_content)
 
 if __name__ == '__main__':
     root_filename = 'MonashDataFluency'
-
+    site_url = "https://monashdatafluency.github.io/python-web-scraping/"
     github_url = "https://github.com/MonashDataFluency/python-web-scraping/blob/master/mkdocs.yml"
-    ScrapeMd(github_url, root_filename).scrape()
+    ScrapeMd(github_url, site_url, root_filename).scrape()
 

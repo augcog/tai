@@ -18,6 +18,8 @@ class ScrapeHeader(BaseScraper):
         self.root_filename = root_filename
         self.content_tags = content_tags
         self.delay = get_crawl_delay(cd_home(url))
+        self.http_header = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
+        
     def process_links_and_save(self, links, dir_name, delay, content_tags):
         """
         Processes a list of links by converting them to markdown, cleaning up the markdown content, and saving the results to files.
@@ -59,7 +61,7 @@ class ScrapeHeader(BaseScraper):
         Returns:
         - list: A list of unique links that match the criteria.
         """
-        reqs = requests.get(url)
+        reqs = requests.get(url, headers=self.http_header)
         soup = BeautifulSoup(reqs.text, 'html.parser')
         print(soup)
         unique_links = set()  # Create an empty set to store unique links
@@ -103,7 +105,7 @@ class ScrapeHeader(BaseScraper):
         - Returns: Converted markdown content.
         """
         try:
-            response = requests.get(url)
+            response = requests.get(url, headers=self.http_header)
             response.raise_for_status()  # Raise an exception for HTTP errors
         except requests.RequestException as e:
             print(f"Failed to retrieve the URL due to: {e}")
@@ -139,7 +141,7 @@ class ScrapeHeader(BaseScraper):
         Returns: 1 on failure, file path on success.
         """
         file_path = os.path.join(os.getcwd(), filename)
-        response = requests.get(url)
+        response = requests.get(url, headers=self.http_header)
         if response.status_code == 200:
             with open(file_path, 'wb') as f:
                 f.write(response.content)
@@ -176,14 +178,14 @@ if __name__ == "__main__":
     # root = "https://docs.opencv.org/4.x/d6/d00/"
     # root_filename = "opencv"
     # content_tags = [
-    #     ('div', {'class': 'contents'})
+        # ('div', {'class': 'contents'})
     # ]
-    url = "https://www.berkeley.edu/about/"
-    root = "https://www.berkeley.edu"
-    root_regex = r"^https://www.berkeley.edu/\w+"
-    root_filename = "berkeley"
-    content_tags = [
-    ]
+
+    url = "https://www.berkeley.edu/"
+    root_regex = r"^https://www.berkeley.edu/y"
+    root = "https://www.berkeley.edu/"
+    root_filename = "Berkeley_Website"
+    content_tags = []
     scrapper = ScrapeHeader(url, root, root_regex, root_filename, content_tags)
     scrapper.scrape()
 

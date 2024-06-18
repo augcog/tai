@@ -11,6 +11,7 @@ from typing import Dict, List, Union
 from rag.file_conversion_router.utils.logger import conversion_logger, logger
 from rag.file_conversion_router.utils.markdown_parser import MarkdownParser
 from rag.file_conversion_router.utils.utils import calculate_hash, ensure_path
+from rag.file_conversion_router.classes.page import Page
 
 
 class BaseConverter(ABC):
@@ -92,6 +93,10 @@ class BaseConverter(ABC):
         self._to_markdown(input_path, output_path)
 
     @conversion_logger
+    def _convert_to_page(self, input_path: Path, output_path: Path) -> Page:
+        return self._to_page(input_path, output_path)
+
+    @conversion_logger
     def _convert_md_to_tree_txt_and_pkl(self, input_path: Path, output_folder: Path) -> None:
         """Convert the input Markdown file to a tree txt file and a pkl file.
 
@@ -132,17 +137,13 @@ class BaseConverter(ABC):
     @conversion_logger
     def _perform_conversion(self, input_path: Path, output_folder: Path) -> None:
         """Perform the file conversion process."""
-        self._convert_to_markdown(input_path, self._md_path)
+        self._convert_to_page(input_path, self._md_path)
         self._md_parser = MarkdownParser(self._md_path)
         self._convert_md_to_tree_txt_and_pkl(self._md_path, output_folder)
 
-    @abstractmethod
-    def _to_markdown(self, input_path: Path, output_path: Path) -> None:
-        """Convert the input file to Expected Markdown format. To be implemented by subclasses."""
-        raise NotImplementedError("This method should be overridden by subclasses.")
 
     @abstractmethod
-    def _to_page(self, input_path: Path, output_path: Path) -> None:
+    def _to_page(self, input_path: Path, output_path: Path) -> Page:
         """Convert the input file to Expected Page format. To be implemented by subclasses."""
         raise NotImplementedError("This method should be overridden by subclasses.")
 

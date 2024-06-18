@@ -61,6 +61,7 @@ class ScrapeHeader(BaseScraper):
         """
         reqs = requests.get(url)
         soup = BeautifulSoup(reqs.text, 'html.parser')
+        print(soup)
         unique_links = set()  # Create an empty set to store unique links
         for link in soup.find_all('a'):
             href = link.get('href')
@@ -147,12 +148,18 @@ class ScrapeHeader(BaseScraper):
             self.extract_unique_links(self.url,self.root,self.root_regex,self.root_filename,self.content_tags, self.delay)
 
 if __name__ == "__main__":
-    url = "https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html"
-    root_regex = r"^https://docs.opencv.org/4.x\/\w+\/\w+\/tutorial_py"
-    root = "https://docs.opencv.org/4.x/d6/d00/"
-    root_filename = "opencv"
+    # url = "https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html"
+    # root_regex = r"^https://docs.opencv.org/4.x\/\w+\/\w+\/tutorial_py"
+    # root = "https://docs.opencv.org/4.x/d6/d00/"
+    # root_filename = "opencv"
+    # content_tags = [
+    #     ('div', {'class': 'contents'})
+    # ]
+    url = "https://www.berkeley.edu/about/"
+    root = "https://www.berkeley.edu"
+    root_regex = r"^https://www.berkeley.edu/\w+"
+    root_filename = "berkeley"
     content_tags = [
-        ('div', {'class': 'contents'})
     ]
     scrapper = ScrapeHeader(url, root, root_regex, root_filename, content_tags)
     scrapper.scrape()

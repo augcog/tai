@@ -30,7 +30,7 @@ def create_and_enter_dir(directory_name):
     Parameters:
     - directory_name (str): The name of the directory to be created and entered.
     """
-    print(directory_name)
+    # print(directory_name)
     if not os.path.exists(directory_name):
         os.makedirs(directory_name, exist_ok=True)
     os.chdir(directory_name)

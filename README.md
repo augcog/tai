@@ -19,7 +19,7 @@ To ready the vector database for the RAG system, a web scraper is employed to ex
 The TAI project is equipped with a comprehensive test suite that ensures the reliability and accuracy of the system. The tests are designed to evaluate the functionality of the core algorithms, including the Llama3 model, BGE-M3 embedding model, and Sqlite-vss vector database. By running these tests, users can verify the performance of the TAI system and identify any potential issues that may arise during operation.
 
 ## Credits
-The TAI project is a collaborative effort by researchers and students at UC Berkeley. The project is led by Director Allen Yang and includes contributions from the following individuals:
+The TAI project is a collaborative effort by researchers and students at UC Berkeley. The project is led by Director [Dr. Allen Y. Yang](https://people.eecs.berkeley.edu/~yang/) and includes contributions from the following individuals:
 
 - Franco Leonardo Huang
 - Wei Quan Lai
@@ -35,8 +35,8 @@ The TAI project is a collaborative effort by researchers and students at UC Berk
 
 We are deeply grateful for the support and contributions from the following organizations:
 
-- **Qualcomm**: For their generous AI Hub sponsorship, which has been instrumental in our progress.
-- **Nimbus-Nova**: For their exceptional work in system design and architecture.
-- **Hitch Interactive**: For their unwavering general support, which has been crucial to our success.
+- **[Qualcomm](https://www.qualcomm.com/)**: For their generous AI Hub sponsorship, which has been instrumental in our progress.
+- **[Nimbus-Nova](https://www.nimbus-nova.com/)**: For their exceptional work in system design and architecture.
+- **[Hitch Interactive](https://hitchinteractive.com/)**: For their unwavering general support, which has been crucial to our success.
 
 

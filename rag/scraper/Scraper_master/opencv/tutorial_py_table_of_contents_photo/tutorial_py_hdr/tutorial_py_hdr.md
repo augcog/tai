@@ -113,8 +113,8 @@ image
 # Additional Resources
 
 1. Paul E Debevec and Jitendra Malik. Recovering high dynamic range radiance maps from photographs. In ACM SIGGRAPH 2008 classes, page 31. ACM, 2008. [[68]](../../d0/de3/citelist.html#CITEREF_DM97 "../../d0/de3/citelist.html#CITEREF_DM97")
-2. Mark A Robertson, Sean Borman, and Robert L Stevenson. Dynamic range improvement through multiple exposures. In Image Processing, 1999. ICIP 99. Proceedings. 1999 International Conference on, volume 3, pages 159â163. IEEE, 1999. [[225]](../../d0/de3/citelist.html#CITEREF_RB99 "../../d0/de3/citelist.html#CITEREF_RB99")
-3. Tom Mertens, Jan Kautz, and Frank Van Reeth. Exposure fusion. In Computer Graphics and Applications, 2007. PG'07. 15th Pacific Conference on, pages 382â390. IEEE, 2007. [[187]](../../d0/de3/citelist.html#CITEREF_MK07 "../../d0/de3/citelist.html#CITEREF_MK07")
+2. Mark A Robertson, Sean Borman, and Robert L Stevenson. Dynamic range improvement through multiple exposures. In Image Processing, 1999. ICIP 99. Proceedings. 1999 International Conference on, volume 3, pages 159â163. IEEE, 1999. [[226]](../../d0/de3/citelist.html#CITEREF_RB99 "../../d0/de3/citelist.html#CITEREF_RB99")
+3. Tom Mertens, Jan Kautz, and Frank Van Reeth. Exposure fusion. In Computer Graphics and Applications, 2007. PG'07. 15th Pacific Conference on, pages 382â390. IEEE, 2007. [[188]](../../d0/de3/citelist.html#CITEREF_MK07 "../../d0/de3/citelist.html#CITEREF_MK07")
 4. Images from [Wikipedia-HDR](https://en.wikipedia.org/wiki/High-dynamic-range_imaging "https://en.wikipedia.org/wiki/High-dynamic-range_imaging")
 
 # Exercises

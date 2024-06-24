@@ -30,12 +30,12 @@ Header parser parse the header files based on some wrapper macros added to funct
 Functions are extended using `CV_EXPORTS_W` macro. An example is shown below. 
 
 [CV\_EXPORTS\_W](../../db/de0/group__core__utils.html#ga67ea671a3582ce612ac3c281e067f480 "../../db/de0/group__core__utils.html#ga67ea671a3582ce612ac3c281e067f480") void equalizeHist( InputArray src, OutputArray dst );
-[CV\_EXPORTS\_W](../../db/de0/group__core__utils.html#ga67ea671a3582ce612ac3c281e067f480 "../../db/de0/group__core__utils.html#ga67ea671a3582ce612ac3c281e067f480")#define CV\_EXPORTS\_W**Definition** cvdef.h:464
+[CV\_EXPORTS\_W](../../db/de0/group__core__utils.html#ga67ea671a3582ce612ac3c281e067f480 "../../db/de0/group__core__utils.html#ga67ea671a3582ce612ac3c281e067f480")#define CV\_EXPORTS\_W**Definition** cvdef.h:472
  Header parser can understand the input and output arguments from keywords like InputArray, OutputArray etc. The arguments semantics are kept in Python: anything that is modified in C++ will be modified in Python. And vice-versa read-only Python objects cannot be modified by OpenCV, if they are used as output. Such situation will cause Python exception. Sometimes, the parameters that are passed by reference in C++ may be used as input, output or both. Macros `CV_OUT`, `CV_IN_OUT` allow to solve ambiguity and generate correct bindings. 
 
 [CV\_EXPORTS\_W](../../db/de0/group__core__utils.html#ga67ea671a3582ce612ac3c281e067f480 "../../db/de0/group__core__utils.html#ga67ea671a3582ce612ac3c281e067f480") void minEnclosingCircle( InputArray points,
  [CV\_OUT](../../db/de0/group__core__utils.html#ga4e999bc21cb894d3ed789f3f0bc26778 "../../db/de0/group__core__utils.html#ga4e999bc21cb894d3ed789f3f0bc26778") Point2f& center, [CV\_OUT](../../db/de0/group__core__utils.html#ga4e999bc21cb894d3ed789f3f0bc26778 "../../db/de0/group__core__utils.html#ga4e999bc21cb894d3ed789f3f0bc26778") float& radius );
-[CV\_OUT](../../db/de0/group__core__utils.html#ga4e999bc21cb894d3ed789f3f0bc26778 "../../db/de0/group__core__utils.html#ga4e999bc21cb894d3ed789f3f0bc26778")#define CV\_OUT**Definition** cvdef.h:470
+[CV\_OUT](../../db/de0/group__core__utils.html#ga4e999bc21cb894d3ed789f3f0bc26778 "../../db/de0/group__core__utils.html#ga4e999bc21cb894d3ed789f3f0bc26778")#define CV\_OUT**Definition** cvdef.h:478
  For large classes also, `CV_EXPORTS_W` is used. To extend class methods, `CV_WRAP` is used. Similarly, `CV_PROP` is used for class fields. 
 
 class [CV\_EXPORTS\_W](../../db/de0/group__core__utils.html#ga67ea671a3582ce612ac3c281e067f480 "../../db/de0/group__core__utils.html#ga67ea671a3582ce612ac3c281e067f480") CLAHE : public Algorithm
@@ -46,7 +46,7 @@ public:
  [CV\_WRAP](../../db/de0/group__core__utils.html#gae435babf3ce7cca990524b23adf6b4a3 "../../db/de0/group__core__utils.html#gae435babf3ce7cca990524b23adf6b4a3") virtual void setClipLimit(double clipLimit) = 0;
  [CV\_WRAP](../../db/de0/group__core__utils.html#gae435babf3ce7cca990524b23adf6b4a3 "../../db/de0/group__core__utils.html#gae435babf3ce7cca990524b23adf6b4a3") virtual double getClipLimit() const = 0;
 }
-[CV\_WRAP](../../db/de0/group__core__utils.html#gae435babf3ce7cca990524b23adf6b4a3 "../../db/de0/group__core__utils.html#gae435babf3ce7cca990524b23adf6b4a3")#define CV\_WRAP**Definition** cvdef.h:473
+[CV\_WRAP](../../db/de0/group__core__utils.html#gae435babf3ce7cca990524b23adf6b4a3 "../../db/de0/group__core__utils.html#gae435babf3ce7cca990524b23adf6b4a3")#define CV\_WRAP**Definition** cvdef.h:481
  Overloaded functions can be extended using `CV_EXPORTS_AS`. But we need to pass a new name so that each function will be called by that name in Python. Take the case of integral function below. Three functions are available, so each one is named with a suffix in Python. Similarly `CV_WRAP_AS` can be used to wrap overloaded methods. 
 
 [CV\_EXPORTS\_W](../../db/de0/group__core__utils.html#ga67ea671a3582ce612ac3c281e067f480 "../../db/de0/group__core__utils.html#ga67ea671a3582ce612ac3c281e067f480") void integral( InputArray src, OutputArray sum, int sdepth = -1 );
@@ -57,7 +57,7 @@ public:
 [CV\_EXPORTS\_AS](../../db/de0/group__core__utils.html#ga288d5d11e4d8675aab962ec2b2066855 "../../db/de0/group__core__utils.html#ga288d5d11e4d8675aab962ec2b2066855")(integral3) void integral( InputArray src, OutputArray sum,
  OutputArray sqsum, OutputArray tilted,
  int sdepth = -1, int sqdepth = -1 );
-[CV\_EXPORTS\_AS](../../db/de0/group__core__utils.html#ga288d5d11e4d8675aab962ec2b2066855 "../../db/de0/group__core__utils.html#ga288d5d11e4d8675aab962ec2b2066855")#define CV\_EXPORTS\_AS(synonym)**Definition** cvdef.h:466
+[CV\_EXPORTS\_AS](../../db/de0/group__core__utils.html#ga288d5d11e4d8675aab962ec2b2066855 "../../db/de0/group__core__utils.html#ga288d5d11e4d8675aab962ec2b2066855")#define CV\_EXPORTS\_AS(synonym)**Definition** cvdef.h:474
  Small classes/structs are extended using `CV_EXPORTS_W_SIMPLE`. These structs are passed by value to C++ functions. Examples are `KeyPoint`, `Match` etc. Their methods are extended by `CV_WRAP` and fields are extended by `CV_PROP_RW`. 
 
 class [CV\_EXPORTS\_W\_SIMPLE](../../db/de0/group__core__utils.html#ga13d649e3f5582a106caaa98f187dd34b "../../db/de0/group__core__utils.html#ga13d649e3f5582a106caaa98f187dd34b") DMatch
@@ -73,8 +73,8 @@ public:
 
  [CV\_PROP\_RW](../../db/de0/group__core__utils.html#ga9e800d960e0fc30e7f83c67c98e69ed2 "../../db/de0/group__core__utils.html#ga9e800d960e0fc30e7f83c67c98e69ed2") float distance;
 };
-[CV\_EXPORTS\_W\_SIMPLE](../../db/de0/group__core__utils.html#ga13d649e3f5582a106caaa98f187dd34b "../../db/de0/group__core__utils.html#ga13d649e3f5582a106caaa98f187dd34b")#define CV\_EXPORTS\_W\_SIMPLE**Definition** cvdef.h:465
-[CV\_PROP\_RW](../../db/de0/group__core__utils.html#ga9e800d960e0fc30e7f83c67c98e69ed2 "../../db/de0/group__core__utils.html#ga9e800d960e0fc30e7f83c67c98e69ed2")#define CV\_PROP\_RW**Definition** cvdef.h:472
+[CV\_EXPORTS\_W\_SIMPLE](../../db/de0/group__core__utils.html#ga13d649e3f5582a106caaa98f187dd34b "../../db/de0/group__core__utils.html#ga13d649e3f5582a106caaa98f187dd34b")#define CV\_EXPORTS\_W\_SIMPLE**Definition** cvdef.h:473
+[CV\_PROP\_RW](../../db/de0/group__core__utils.html#ga9e800d960e0fc30e7f83c67c98e69ed2 "../../db/de0/group__core__utils.html#ga9e800d960e0fc30e7f83c67c98e69ed2")#define CV\_PROP\_RW**Definition** cvdef.h:480
  Some other small classes/structs can be exported using `CV_EXPORTS_W_MAP` where it is exported to a Python native dictionary. `Moments()` is an example of it. 
 
 class [CV\_EXPORTS\_W\_MAP](../../db/de0/group__core__utils.html#gaff7195942cab00fc5eafdd8ed777fac5 "../../db/de0/group__core__utils.html#gaff7195942cab00fc5eafdd8ed777fac5") Moments
@@ -84,7 +84,7 @@ public:
  [CV\_PROP\_RW](../../db/de0/group__core__utils.html#ga9e800d960e0fc30e7f83c67c98e69ed2 "../../db/de0/group__core__utils.html#ga9e800d960e0fc30e7f83c67c98e69ed2") double mu20, mu11, mu02, mu30, mu21, mu12, mu03;
  [CV\_PROP\_RW](../../db/de0/group__core__utils.html#ga9e800d960e0fc30e7f83c67c98e69ed2 "../../db/de0/group__core__utils.html#ga9e800d960e0fc30e7f83c67c98e69ed2") double nu20, nu11, nu02, nu30, nu21, nu12, nu03;
 };
-[CV\_EXPORTS\_W\_MAP](../../db/de0/group__core__utils.html#gaff7195942cab00fc5eafdd8ed777fac5 "../../db/de0/group__core__utils.html#gaff7195942cab00fc5eafdd8ed777fac5")#define CV\_EXPORTS\_W\_MAP**Definition** cvdef.h:467
+[CV\_EXPORTS\_W\_MAP](../../db/de0/group__core__utils.html#gaff7195942cab00fc5eafdd8ed777fac5 "../../db/de0/group__core__utils.html#gaff7195942cab00fc5eafdd8ed777fac5")#define CV\_EXPORTS\_W\_MAP**Definition** cvdef.h:475
  So these are the major extension macros available in OpenCV. Typically, a developer has to put proper macros in their appropriate positions. Rest is done by generator scripts. Sometimes, there may be an exceptional cases where generator scripts cannot create the wrappers. Such functions need to be handled manually, to do this write your own `pyopencv_*.hpp` extending headers and put them into misc/python subdirectory of your module. But most of the time, a code written according to OpenCV coding guidelines will be automatically wrapped by generator scripts.
 
 More advanced cases involves providing Python with additional features that does not exist in the C++ interface such as extra methods, type mappings, or to provide default arguments. We will take `UMat` datatype as an example of such cases later on. First, to provide Python-specific methods, `CV_WRAP_PHANTOM` is utilized in a similar manner to `CV_WRAP`, except that it takes the method header as its argument, and you would need to provide the method body in your own `pyopencv_*.hpp` extension. `UMat::queue()` and `UMat::context()` are an example of such phantom methods that does not exist in C++ interface, but are needed to handle OpenCL functionalities at the Python side. Second, if an already-existing datatype(s) is mappable to your class, it is highly preferable to indicate such capacity using `CV_WRAP_MAPPABLE` with the source type as its argument, rather than crafting your own binding function(s). This is the case of `UMat` which maps from `Mat`. Finally, if a default argument is needed, but it is not provided in the native C++ interface, you can provide it for Python side as the argument of `CV_WRAP_DEFAULT`. As per the `UMat::getMat` example below: 
@@ -104,8 +104,8 @@ public:
 
  [CV\_WRAP\_AS](../../db/de0/group__core__utils.html#ga6a1f29cf8d55c0ee1b4687f6006da0b9 "../../db/de0/group__core__utils.html#ga6a1f29cf8d55c0ee1b4687f6006da0b9")(get) Mat getMat(int flags [CV\_WRAP\_DEFAULT](../../db/de0/group__core__utils.html#ga92152159130797a2713a0992dd5239d2 "../../db/de0/group__core__utils.html#ga92152159130797a2713a0992dd5239d2")(ACCESS\_RW)) const;
 };
-[CV\_WRAP\_AS](../../db/de0/group__core__utils.html#ga6a1f29cf8d55c0ee1b4687f6006da0b9 "../../db/de0/group__core__utils.html#ga6a1f29cf8d55c0ee1b4687f6006da0b9")#define CV\_WRAP\_AS(synonym)**Definition** cvdef.h:474
-[CV\_WRAP\_PHANTOM](../../db/de0/group__core__utils.html#ga6c6ee613d3eebd87f9f391fcde4a6cde "../../db/de0/group__core__utils.html#ga6c6ee613d3eebd87f9f391fcde4a6cde")#define CV\_WRAP\_PHANTOM(phantom\_header)**Definition** cvdef.h:476
-[CV\_WRAP\_DEFAULT](../../db/de0/group__core__utils.html#ga92152159130797a2713a0992dd5239d2 "../../db/de0/group__core__utils.html#ga92152159130797a2713a0992dd5239d2")#define CV\_WRAP\_DEFAULT(val)**Definition** cvdef.h:477
-[CV\_WRAP\_MAPPABLE](../../db/de0/group__core__utils.html#gacbb88034b7de34a8b35aa42f3216a94e "../../db/de0/group__core__utils.html#gacbb88034b7de34a8b35aa42f3216a94e")#define CV\_WRAP\_MAPPABLE(mappable)**Definition** cvdef.h:475
+[CV\_WRAP\_AS](../../db/de0/group__core__utils.html#ga6a1f29cf8d55c0ee1b4687f6006da0b9 "../../db/de0/group__core__utils.html#ga6a1f29cf8d55c0ee1b4687f6006da0b9")#define CV\_WRAP\_AS(synonym)**Definition** cvdef.h:482
+[CV\_WRAP\_PHANTOM](../../db/de0/group__core__utils.html#ga6c6ee613d3eebd87f9f391fcde4a6cde "../../db/de0/group__core__utils.html#ga6c6ee613d3eebd87f9f391fcde4a6cde")#define CV\_WRAP\_PHANTOM(phantom\_header)**Definition** cvdef.h:484
+[CV\_WRAP\_DEFAULT](../../db/de0/group__core__utils.html#ga92152159130797a2713a0992dd5239d2 "../../db/de0/group__core__utils.html#ga92152159130797a2713a0992dd5239d2")#define CV\_WRAP\_DEFAULT(val)**Definition** cvdef.h:485
+[CV\_WRAP\_MAPPABLE](../../db/de0/group__core__utils.html#gacbb88034b7de34a8b35aa42f3216a94e "../../db/de0/group__core__utils.html#gacbb88034b7de34a8b35aa42f3216a94e")#define CV\_WRAP\_MAPPABLE(mappable)**Definition** cvdef.h:483
  

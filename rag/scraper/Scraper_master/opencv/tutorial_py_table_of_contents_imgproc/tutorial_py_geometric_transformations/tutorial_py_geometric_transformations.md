@@ -83,7 +83,7 @@ rows,cols = img.shape
 # cols-1 and rows-1 are the coordinate limits.
 M = [cv.getRotationMatrix2D](../../da/d54/group__imgproc__transform.html#gafbbc470ce83812914a70abfb604f4326 "../../da/d54/group__imgproc__transform.html#gafbbc470ce83812914a70abfb604f4326")(((cols-1)/2.0,(rows-1)/2.0),90,1)
 dst = [cv.warpAffine](../../da/d54/group__imgproc__transform.html#ga0203d9ee5fcd28d40dbc4a1ea4451983 "../../da/d54/group__imgproc__transform.html#ga0203d9ee5fcd28d40dbc4a1ea4451983")(img,M,(cols,rows))
-[cv::getRotationMatrix2D](../../da/d54/group__imgproc__transform.html#gafbbc470ce83812914a70abfb604f4326 "../../da/d54/group__imgproc__transform.html#gafbbc470ce83812914a70abfb604f4326")Mat getRotationMatrix2D(Point2f center, double angle, double scale)Calculates an affine matrix of 2D rotation.**Definition** imgproc.hpp:2587
+[cv::getRotationMatrix2D](../../da/d54/group__imgproc__transform.html#gafbbc470ce83812914a70abfb604f4326 "../../da/d54/group__imgproc__transform.html#gafbbc470ce83812914a70abfb604f4326")Mat getRotationMatrix2D(Point2f center, double angle, double scale)Calculates an affine matrix of 2D rotation.**Definition** imgproc.hpp:2585
  See the result:
 
 ![](../../rotation.jpg)

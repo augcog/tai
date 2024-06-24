@@ -1,8 +1,7 @@
 import string
-from rag.file_conversion_router.classes.segment import Segment
 from rag.file_conversion_router.classes.chunk import Chunk
 import tiktoken
-
+import pickle
 class Page:
     def __init__(self, pagename: str, content: dict, filetype: str, page_url: str = ""):
         """
@@ -19,6 +18,7 @@ class Page:
         self.page_url = page_url
         self.segments = []
         self.tree_segments = []
+        self.chunks = []
 
     def recursive_separate(self, response: str, token_limit: int = 400) -> list:
         """
@@ -113,7 +113,6 @@ class Page:
 
         return headers_content
     def page_seperate_to_segments(self) -> None:
-        # print(self.content['text'])
         self.segments = [i for i in self.extract_headers_and_content(self.content['text'])]
 
     def print_header_tree(self):
@@ -123,90 +122,79 @@ class Page:
             header_tag = f"(h{level})"
             result += f"{indent}{title} {header_tag}\n"
         return result
+
     def tree_print(self):
-        new_filename = f"{self.pagename}_tree.txt"
+        new_filename = f"{self.pagename}_tree.txt"  # No need to use this
         top_header = []
         counter = 1
-        with open(new_filename, 'w', encoding='utf-8') as f:
-            for (header, level), content in self.segments:
-                page_toc = ""
-                page_path = ""
-                segment = ""
-                if len(top_header) < level:
-                    for i in range(len(top_header), level - 1):
-                        top_header.append(("", [], i + 1))
-                    top_header.append((header, content, level))
+
+        for (header, level), content in self.segments:
+            page_toc = ""
+            page_path = ""
+            segment = ""
+            if len(top_header) < level:
+                for i in range(len(top_header), level - 1):
+                    top_header.append(("", [], i + 1))
+                top_header.append((header, content, level))
+            else:
+                # Table of Contents
+                page_toc += "(Table of Contents)\n"
+                page_toc += f"{self.print_header_tree()}\n"
+
+                # Page Path
+                page_path += "(Page path)\n"
+                first = True
+                for h, c, l in top_header:
+                    if first:
+                        page_path += f"(h{l}) {h}"
+                        first = not first
+                    else:
+                        page_path += " > "
+                        page_path += f"(h{l}) {h}"
+                # Segment Print
+                segment += f"(Segment {counter})\n"
+                header_list = [header[0] for header in top_header]
+                for h, c, l in top_header:
+                    hash_symbols = '#' * l
+                    segment += f"{hash_symbols}{h} (h{l})\n"
+                    segment += f"{c}\n"
+                # Store the information in tree_segments
+                self.tree_segments.append({'Page_table': page_toc, 'Page_path': header_list, 'Segment_print': segment})
+                top_header = top_header[:(level - 1)]
+                top_header.append((header, content, level))
+                counter += 1
+
+        # Handle the last segment
+        all_headers = [header[0] for header in self.segments]
+        if (header, level) == all_headers[-1]:
+            page_toc = ""
+            page_path = ""
+            segment = ""
+            # Table of Contents
+            page_toc += "(Table of Contents)\n"
+            page_toc += f"{self.print_header_tree()}\n"
+
+            # Page Path
+            page_path += "(Page path)\n"
+            first = True
+            for h, c, l in top_header:
+                if first:
+                    page_path += f"(h{l}) {h}"
+                    first = not first
                 else:
-                    # Table of Contents
-                    page_toc += ("(Table of Contents)\n")
-                    page_toc += (f"{self.print_header_tree()}\n")
-
-                    # Page Path
-                    page_path += ("(Page path)\n")
-                    first = True
-                    for h, c, l in top_header:
-                        if first:
-                            page_path += (f"(h{l}) {h}")
-                            first = not first
-                        else:
-                            page_path += (" > ")
-                            page_path += (f"(h{l}) {h}")
-                    # Segment Print
-                    segment += (f"(Segment {counter})\n")
-                    header_list = [header[0] for header in top_header]
-                    for h, c, l in top_header:
-                        hash_symbols = '#' * l
-                        segment += (f"{hash_symbols}{h} (h{l})\n")
-                        segment += (f"{c}\n")
-                        # Writing Part
-                    f.write(page_toc + "\n")
-                    f.write(page_path + "\n\n")
-                    f.write(segment + "\n")
-                    f.write('\n' + '-' * 80 + '\n')
-                    # print(top_header)
-                    top_header = top_header[:(level - 1)]
-                    top_header.append((header, content, level))
-
-                    print(header_list)
-                    self.tree_segments.append({'Page_table': page_toc, 'Page_path': header_list, 'Segment_print': segment})
-                    counter += 1
-                # end of for loop
-                all_headers = [header[0] for header in self.segments]
-                if (header, level) == all_headers[-1]:
-                    page_toc = ""
-                    page_path = ""
-                    segment = ""
-                    # Table of Contents
-                    page_toc += ("(Table of Contents)\n")
-                    page_toc += (f"{self.print_header_tree()}\n")
-
-                    # Page Path
-                    page_path += ("(Page path)\n")
-                    first = True
-                    for h, c, l in top_header:
-                        if first:
-                            page_path += (f"(h{l}) {h}")
-                            first = not first
-                        else:
-                            page_path += (" > ")
-                            page_path += (f"(h{l}) {h}")
-                    # Segment Print
-                    segment += (f"(Segment {counter})\n")
-                    header_list = [header[0] for header in top_header]
-                    for h, c, l in top_header:
-                        hash_symbols = '#' * l
-                        segment += (f"{hash_symbols}{h} (h{l})\n")
-                        segment += (f"{c}\n")
-                        # Writing Part
-                    f.write(page_toc + "\n")
-                    f.write(page_path + "\n\n")
-                    f.write(segment + "\n")
-                    f.write('\n' + '-' * 80 + '\n')
-                    top_header = top_header[:(level - 1)]
-                    top_header.append((header, content, level))
-
-                    print(header_list)
-                    self.tree_segments.append({'Page_table': page_toc, 'Page_path': header_list, 'Segment_print': segment})
+                    page_path += " > "
+                    page_path += f"(h{l}) {h}"
+            # Segment Print
+            segment += f"(Segment {counter})\n"
+            header_list = [header[0] for header in top_header]
+            for h, c, l in top_header:
+                hash_symbols = '#' * l
+                segment += f"{hash_symbols}{h} (h{l})\n"
+                segment += f"{c}\n"
+            # Store the information in tree_segments
+            self.tree_segments.append({'Page_table': page_toc, 'Page_path': header_list, 'Segment_print': segment})
+            top_header = top_header[:(level - 1)]
+            top_header.append((header, content, level))
 
     def tree_segments_to_chunks(self):
         def generate_hyperlink_header(header_text):
@@ -227,15 +215,16 @@ class Page:
             hyperlink_header = lower_text.replace(' ', '-')
 
             return hyperlink_header
-        chunks = []
         # seperate with recursive seperate
         for i in self.tree_segments:
             content_chunks = self.recursive_separate(i['Segment_print'], 400)
-            for content_chunk in content_chunks:
+            for count, content_chunk in enumerate(content_chunks):
                 headers = i['Page_path']
                 urls = [f"{self.page_url}#{generate_hyperlink_header(header)}" for header in headers]
-                chunks.append(Chunk(i['Page_path'], content_chunk, urls))
-        return chunks
+                page_path = ' > '.join(f"{item} (h{i+1})" for i, item in enumerate(i['Page_path'])) + f" ({count})"
+                self.chunks.append(Chunk(page_path, content_chunk, urls))
+        return self.chunks
+
     def to_file(self, output_path: str) -> None:
         """
         Write the page content to a file.
@@ -244,9 +233,30 @@ class Page:
             output_path (str): The path where the file will be written.
         """
         with open(output_path, "w") as f:
-            f.write(str(self.content))
+            f.write(str(self))
 
-    def __str__(self):
-        return (f"Page: {self.content}\n"
-                f"filetype: {self.filetype}\n"
-                f"url: {self.page_url}\n")
+    def to_chunk(self) -> None:
+        """
+        Convert the page content to a list of Chunk objects.
+
+        Returns:
+            list[Chunk]: List of Chunk objects.
+        """
+        self.page_seperate_to_segments()
+        self.tree_print()
+        self.chunks = self.tree_segments_to_chunks()
+
+    def chunks_to_pkl(self, output_path: str) -> None:
+        """
+        Write the page content chunks to a pkl file.
+
+        Args:
+            output_path (str): The path where the pkl file will be written.
+        """
+        with open(output_path, "wb") as f:
+            pickle.dump(self.chunks, f)
+
+    # def __str__(self):
+    #     return (f"Page: {self.content}\n"
+    #             f"filetype: {self.filetype}\n"
+    #             f"url: {self.page_url}\n")

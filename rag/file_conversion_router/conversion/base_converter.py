@@ -94,15 +94,8 @@ class BaseConverter(ABC):
 
     @conversion_logger
     def _convert_to_page(self, input_path: Path, output_path: Path) -> Page:
-        return self._to_page(input_path, output_path)
-
-    @conversion_logger
-    def _convert_md_to_tree_txt_and_pkl(self, input_path: Path, output_folder: Path) -> None:
-        """Convert the input Markdown file to a tree txt file and a pkl file.
-
-        Files will be saved in the same folder as the Markdown filepath set up in the MarkdownParser initialization.
-        """
-        self._md_parser.concat_print()
+        page = self._to_page(input_path, output_path)
+        return page
 
     def _setup_output_paths(self, input_path: Union[str, Path], output_folder: Union[str, Path]) -> None:
         """Set up the output paths for the Markdown, tree txt, and pkl files."""
@@ -137,15 +130,16 @@ class BaseConverter(ABC):
     @conversion_logger
     def _perform_conversion(self, input_path: Path, output_folder: Path) -> None:
         """Perform the file conversion process."""
-        self._convert_to_page(input_path, self._md_path)
-        self._md_parser = MarkdownParser(self._md_path)
-        self._convert_md_to_tree_txt_and_pkl(self._md_path, output_folder)
-
+        page = self._convert_to_page(input_path, output_folder)[0]
+        page.to_chunk()
+        pkl_file = output_folder.with_suffix(".pkl")
+        page.chunks_to_pkl(str(pkl_file))
 
     @abstractmethod
     def _to_page(self, input_path: Path, output_path: Path) -> Page:
         """Convert the input file to Expected Page format. To be implemented by subclasses."""
         raise NotImplementedError("This method should be overridden by subclasses.")
+
 
 class ConversionCache:
     """A classes to handle caching of conversion results."""

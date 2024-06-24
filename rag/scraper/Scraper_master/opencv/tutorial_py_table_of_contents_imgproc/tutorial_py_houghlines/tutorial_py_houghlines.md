@@ -74,7 +74,7 @@ In the hough transform, you can see that even for a line with two arguments, it 
 ![](../../houghlines4.png)
 
 image
-OpenCV implementation is based on Robust Detection of Lines Using the Progressive Probabilistic Hough Transform by Matas, J. and Galambos, C. and Kittler, J.V. [[184]](../../d0/de3/citelist.html#CITEREF_Matas00 "../../d0/de3/citelist.html#CITEREF_Matas00"). The function used is **[cv.HoughLinesP()](../../dd/d1a/group__imgproc__feature.html#ga8618180a5948286384e3b7ca02f6feeb "Finds line segments in a binary image using the probabilistic Hough transform.")**. It has two new arguments.
+OpenCV implementation is based on Robust Detection of Lines Using the Progressive Probabilistic Hough Transform by Matas, J. and Galambos, C. and Kittler, J.V. [[185]](../../d0/de3/citelist.html#CITEREF_Matas00 "../../d0/de3/citelist.html#CITEREF_Matas00"). The function used is **[cv.HoughLinesP()](../../dd/d1a/group__imgproc__feature.html#ga8618180a5948286384e3b7ca02f6feeb "Finds line segments in a binary image using the probabilistic Hough transform.")**. It has two new arguments.
 
 * **minLineLength** - Minimum length of line. Line segments shorter than this are rejected.
 * **maxLineGap** - Maximum allowed gap between line segments to treat them as a single line.

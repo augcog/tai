@@ -63,11 +63,12 @@ class ScrapeHeader(BaseScraper):
         """
         reqs = requests.get(url, headers=self.http_header)
         soup = BeautifulSoup(reqs.text, 'html.parser')
-        print(soup)
+        #print(soup)
         unique_links = set()  # Create an empty set to store unique links
         for link in soup.find_all('a'):
             href = link.get('href')
             href = remove_slash_and_hash(href)
+            print(href)
             if href in found_links or not href:
                 continue
             clean_href = ''
@@ -159,9 +160,10 @@ class ScrapeHeader(BaseScraper):
         else:
             content_tags=kwargs['content_tags']
             markdown_result = self.html_to_markdown(url, content_tags)
-            cleaned_markdown = remove_consecutive_empty_lines(markdown_result)
-            print("saving file...")
-            save_to_file(f'{filename}.md', cleaned_markdown)
+            if markdown_result != 1:
+                cleaned_markdown = remove_consecutive_empty_lines(markdown_result)
+                print("saving file...")
+                save_to_file(f'{filename}.md', cleaned_markdown)
             return markdown_result
 
     def metadata_extract(self, filename, url, **kwargs):
@@ -180,18 +182,6 @@ if __name__ == "__main__":
     content_tags = [
         ('div', {'class': 'contents'})
     ]
-    # url = "https://wiki.ros.org/ROS/Tutorials/"
-    # root = "https://wiki.ros.org/ROS/Tutorials/"
-    # root_regex = r"^https://wiki.ros.org/ROS/Tutorials/"
-    # root_filename = "ROS"
-    # content_tags = [
-    #     ('div', {'id': 'page', 'lang': 'en', 'dir': 'ltr'}),
-    # ]
-    # url = "https://www.berkeley.edu/"
-    # root_regex = r"^https://www.berkeley.edu/y"
-    # root = "https://www.berkeley.edu/"
-    # root_filename = "Berkeley_Website"
-    # content_tags = []
     scrapper = ScrapeHeader(url, root, root_regex, root_filename, content_tags)
     scrapper.scrape()
 

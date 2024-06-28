@@ -2,6 +2,7 @@ from pathlib import Path
 import time
 import whisper
 from rag.file_conversion_router.conversion.base_converter import BaseConverter
+from rag.file_conversion_router.classes.vidpage import VidPage
 from rag.file_conversion_router.classes.page import Page
 from moviepy.editor import AudioFileClip
 from scenedetect import open_video, SceneManager
@@ -10,36 +11,45 @@ from scenedetect.scene_manager import save_images, write_scene_list
 from transformers import pipeline, set_seed, AutoTokenizer, AutoModelForCausalLM
 import torch
 import os
+import yaml
 
 class VideoConverter(BaseConverter):
+    model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
+    auto_tokenizer = None
+    pipeline = None
     def __init__(self):
         super().__init__()
-        self.model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
         # Initialize the tokenizer and model only once when the classes is instantiated
-        self.auto_tokenizer = AutoTokenizer.from_pretrained(self.model_id)
-        self.pipeline = pipeline(
-            'text-generation',
-            model=self.model_id,
-            model_kwargs={"torch_dtype": torch.bfloat16},
-            device="cuda"
-        )  # Assumes a GPU is available at device 0
-    # Override
+        self.paragraphs = []
+
+    @staticmethod
+    def initialize_static_resources():
+        if VideoConverter.auto_tokenizer is None:
+            VideoConverter.auto_tokenizer = AutoTokenizer.from_pretrained(VideoConverter.model_id)
+
+            VideoConverter.pipeline = pipeline(
+                'text-generation',
+                model=VideoConverter.model_id,
+                model_kwargs={"torch_dtype": torch.bfloat16},
+                device="cuda"
+            )
     def title_with_chat_completion(self, text):
+        VideoConverter.initialize_static_resources()
         terminators = [
-            self.pipeline.tokenizer.eos_token_id,
-            self.pipeline.tokenizer.convert_tokens_to_ids("<|eot_id|>")
+            VideoConverter.pipeline.tokenizer.eos_token_id,
+            VideoConverter.pipeline.tokenizer.convert_tokens_to_ids("<|eot_id|>")
         ]
 
         messages = [
             {"role": "system", "content": "Generate a title for the following text. Only answer one title"},
             {"role": "user", "content": text}
         ]
-        prompt = self.pipeline.tokenizer.apply_chat_template(
+        prompt = VideoConverter.pipeline.tokenizer.apply_chat_template(
             messages,
             tokenize=False,
             add_generation_prompt=True
         )
-        outputs = self.pipeline(
+        outputs = VideoConverter.pipeline(
             prompt,
             max_new_tokens=1000,  # Adjust based on desired title length
             eos_token_id=terminators,
@@ -68,14 +78,15 @@ class VideoConverter(BaseConverter):
         print(f"Transcription completed in {time.time() - start_time} seconds.")
         return segments
 
-    def convert_mp4_to_wav(self, mp4_file_path):
+    def convert_mp4_to_wav(self, mp4_file_path, output_path):
         wav_file_path = mp4_file_path.with_suffix(".wav")
-        audio_clip = AudioFileClip(mp4_file_path)  # Load the audio track from the MP4 file
-        audio_clip.write_audiofile(wav_file_path)  # Save the audio as a WAV file
+        print(mp4_file_path)
+        audio_clip = AudioFileClip(str(mp4_file_path))  # Load the audio track from the MP4 file
+        audio_clip.write_audiofile(str(wav_file_path))  # Save the audio as a WAV file
         audio_clip.close()  # Close the clip to free resources
         return wav_file_path
 
-    def process_video_scenes(self, video_path):
+    def process_video_scenes(self, video_path, output_path):
         def setup_scene_detection(video_path, custom_window_width=50, custom_weights=None):
             video = open_video(video_path)
             scene_manager = SceneManager()
@@ -125,7 +136,7 @@ class VideoConverter(BaseConverter):
                     print(f"  - {image_path}")
             return scene_times
 
-        video, scene_manager, images_output_dir = setup_scene_detection(video_path)
+        video, scene_manager, images_output_dir = setup_scene_detection(str(video_path))
         scene_times = detect_scenes_and_save_images(video, scene_manager, images_output_dir)
         return scene_times
 
@@ -136,9 +147,14 @@ class VideoConverter(BaseConverter):
         for seg_start, seg_end in seg_time:
             paragraph = [chunk['text'] for chunk in transcript if seg_start <= chunk['start'] <= seg_end]
             paragraphs.append((paragraph, seg_start))
+        self.paragraphs = paragraphs
         return paragraphs
 
-    def _to_markdown(self, paragraphs):
+    def _to_markdown(self, input_path, output_path):
+        audio = self.convert_mp4_to_wav(input_path, output_path)
+        seg_time = self.process_video_scenes(input_path, output_path)
+        transcript = self.transcribe_audio_with_whisper(str(audio))
+        paragraphs = self.paragraph_generator(transcript, seg_time)
         markdown_content = ""
         for i, (paragraph, time) in enumerate(paragraphs):
             paragraph_text = ''.join(paragraph)
@@ -146,22 +162,29 @@ class VideoConverter(BaseConverter):
                 title = self.title_with_chat_completion(paragraph_text)
                 markdown_content += f'# {title}\n\n'
                 markdown_content += f'{paragraph_text}\n\n'
-        return markdown_content
+        md_path = output_path.with_suffix(".md")
+        with open(md_path, 'w') as md_file:
+            md_file.write(markdown_content)
+        return md_path
 
     def _to_page(self, input_path: Path, output_path: Path) -> Page:
         """Perform mp4 to Page conversion."""
-        video = input_path
-        audio = self.convert_mp4_to_wav(input_path)
+
         output_path.parent.mkdir(parents=True, exist_ok=True)
+        parent = input_path.parent
         stem = input_path.stem
         filetype = input_path.suffix.split(".")[1]
-        seg_time = self.process_video_scenes(video)
-        transcript = self.transcribe_audio_with_whisper(audio)
-        paragraphs = self.paragraph_generator(transcript, seg_time)
-        # to markdown
-        md_path = os.path.join(output_path, f'{video.stem}_content.md')
-        md_content = self._to_markdown(paragraphs)
-        with open(md_path, 'w') as md_file:
-            md_file.write(md_content)
+        md_path = self._to_markdown(input_path, output_path)
+        with open(md_path, "r") as md_file:
+            md_content = md_file.read()
+        metadata = parent / (stem+"_metadata.yml")
+        with open(metadata, "r") as metadata_file:
+            metadata_content = yaml.safe_load(metadata_file)
+        url = metadata_content["URL"]
+        timestamp = [i[1] for i in self.paragraphs]
+        page = VidPage(pagename=stem,content={"text": md_content, "timestamp": timestamp}, filetype=filetype, page_url=url)
 
-        return Page(content={"text": md_content}, filetype=filetype, page_url=url)
+        return page
+
+converter = VideoConverter()
+converter._to_page(Path("/home/bot/roarai/rag/scraper/Scraper_master/Denero_videos/Self-Reference/Self-Reference.mp4"), Path("/home/bot/roarai/rag/scraper/Scraper_master/test"))

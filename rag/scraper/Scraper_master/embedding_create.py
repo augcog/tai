@@ -94,35 +94,6 @@ docs = traverse_files("Moveit_pkl", "Moveit")
 # model='UAE-Large'
 model='BGE'
 # model='GRITLM'
-#
-#
-# system_embedding_prompt = ''
-# system_query_prompt = ''
-#
-#
-# if method=='to_task':
-#     system_embedding_prompt = ("Given the content and the document_hierarchy_path of a document, describe the tasks you can answer based on its content.")
-#     system_query_prompt = 'Rephrase the provided task in your own words without changing its original meaning.'
-# elif method=='to_doc':
-#     system_embedding_prompt = ("Summarize the content of the given document and its document_hierarchy_path. Think of the related tasks and scenarios it can help with.")
-#     system_query_prompt = 'Given the task, generate a document that can help you to answer this task.'
-# elif method=='sum':
-#     system_embedding_prompt = "Summarize"
-#
-#
-#
-# '''
-# # This part is embedding
-# '''
-# print('read time:',time.time()-start)
-# print(len(docs))
-# start=time.time()
-#
-#
-#
-# # for n in [900,800,700,600,500,400,300,200,100]:
-# # TODO TOKEN LIMIT
-#
 
 if model=='local' or model=='zephyr':
     openai.api_key = "empty"

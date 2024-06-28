@@ -256,7 +256,3 @@ class Page:
         with open(output_path, "wb") as f:
             pickle.dump(self.chunks, f)
 
-    # def __str__(self):
-    #     return (f"Page: {self.content}\n"
-    #             f"filetype: {self.filetype}\n"
-    #             f"url: {self.page_url}\n")

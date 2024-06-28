@@ -20,6 +20,7 @@ converter_mapping: ConverterMapping = {
     ".pdf": PdfConverter,
     ".md": MarkdownConverter,
     ".rst": RstConverter,
+    ".mp4": VideoConverter,
     #     TODO: Add more file types and converters here
 }
 
@@ -82,7 +83,3 @@ def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path]) ->
 
 
 
-
-input_directory = Path("/home/bot/roarai/rag/scraper/Scraper_master/opencv")
-output_directory = Path("/home/bot/roarai/rag/scraper/Scraper_master/opencv_pkl")
-process_folder(input_directory, output_directory)

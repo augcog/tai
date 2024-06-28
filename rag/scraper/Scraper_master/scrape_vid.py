@@ -22,7 +22,7 @@ class ScrapeVid(BaseScraper):
 
     def metadata_extract(self, filename, url, **kwargs):
         yaml_content = f"URL: {url}"
-        save_to_file(f'{filename}_metadata.yaml', yaml_content)
+        save_to_file(f'{filename}', yaml_content)
 
     def scrape(self):
         video_urls = self.get_playlist_urls(self.url)
@@ -36,6 +36,7 @@ class ScrapeVid(BaseScraper):
             os.makedirs(video_path, exist_ok=True)
 
             download_filename = stream.download(output_path=video_path)
+            os.rename(download_filename, os.path.join(video_path, safe_title + ".mp4"))
             metadata_filename = os.path.join(video_path, safe_title + "_metadata.yml")
             self.metadata_extract(metadata_filename, url)
 

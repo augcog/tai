@@ -12,7 +12,7 @@ from rag.file_conversion_router.utils.logger import conversion_logger, logger
 from rag.file_conversion_router.utils.markdown_parser import MarkdownParser
 from rag.file_conversion_router.utils.utils import calculate_hash, ensure_path
 from rag.file_conversion_router.classes.page import Page
-
+from rag.file_conversion_router.classes.vidpage import VidPage
 
 class BaseConverter(ABC):
     """Base classes for all file type converters.
@@ -140,6 +140,10 @@ class BaseConverter(ABC):
         """Convert the input file to Expected Page format. To be implemented by subclasses."""
         raise NotImplementedError("This method should be overridden by subclasses.")
 
+    @abstractmethod
+    def _to_markdown(self, input_path: Path, output_path: Path) -> None:
+        """Convert the input file to Expected Markdown format. To be implemented by subclasses."""
+        raise NotImplementedError("This method should be overridden by subclasses.")
 
 class ConversionCache:
     """A classes to handle caching of conversion results."""

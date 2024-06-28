@@ -9,7 +9,21 @@ class MarkdownConverter(BaseConverter):
         super().__init__()
 
     # Override
+    def _to_markdown(self, input_path: Path, output_path: Path) -> Path:
+        """Perform reStructuredText to Markdown conversion.
 
+        Arguments:
+        input_path -- Path to the input rst file.
+        output_folder -- Path to the folder where the output md file will be saved.
+        """
+        # Ensure the output folder exists
+        # Determine the output path
+
+        output_path = output_path.with_suffix(".md")
+        with open(input_path, "r") as input_file, open(output_path, "w") as output_file:
+            content = input_file.read()
+            output_file.write(content)
+        return output_path
     def _to_page(self, input_path: Path, output_path: Path) -> Page:
         """Perform Markdown to Page conversion."""
         output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -25,5 +39,3 @@ class MarkdownConverter(BaseConverter):
         page = Page(pagename=stem, content={'text': text}, filetype=filetype, page_url=url)
         return page
 
-# converter = MarkdownConverter()
-# converter._to_page(Path("/home/bot/roarai/rag/scraper/Scraper_master/opencv/tutorial_py_table_of_contents_calib3d/tutorial_py_root/tutorial_py_root.md"), Path("/home/bot/roarai/rag/scraper/Scraper_master/"))

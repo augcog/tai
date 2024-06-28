@@ -9,6 +9,33 @@ from markdownify import markdownify as md
 from rag.scraper.Scraper_master.base_scraper import BaseScraper
 
 from utils import create_and_enter_dir, remove_consecutive_empty_lines, save_to_file,remove_slash_and_hash, cd_home,get_crawl_delay
+
+
+content_tags_dict = {
+    "https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html": [('div', {'class': 'contents'})],
+    "https://www.berkeley.edu/": [],
+    "https://wiki.ros.org/ROS/Tutorials/": [('div', {'id': 'page', 'lang': 'en', 'dir': 'ltr'})],
+    "https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/": [('div', {'class': 'archive', 'id': 'archive'})],
+    "https://platform.openai.com/docs/introduction": [('div', {'class': 'docs-body'})],
+    "https://cloud.google.com/docs/": [('main', {'role': 'main', 'class': 'devsite-main-content'})],
+    "https://docs.qualcomm.com/bundle/publicresource/topics/80-62010-1/Overview.html?product=Windows%20on%20Snapdragon": [('div', {'text': 'This section defines contents of documents', 'class': 'contentmodule ng-star-inserted'})],
+    "https://www.svlsimulator.com/docs/": [('div', {'role': 'main'})],
+    "https://cs61a.org/": [('section', {'id': 'calendar', 'class': 'table', 'cellpadding': '5px'}), ('div', {'class': 'col-md-9'})],
+    "https://ucb-ee106.github.io/106b-sp23site/": [('main', {'class': 'main-content'})],
+    "https://en.wikipedia.org/wiki/University_of_California,_Berkeley": [('main', {'id': 'content', 'class': 'mw-body'})]
+}
+
+def match_tags(url):
+    """
+    Matches the URL with suitable content tags for scraping
+    Parameters:
+    - url (str): The URL to match content tags with
+    Returns: Content tags for the given URL
+    """
+    if url in content_tags_dict:
+        return content_tags_dict[url]
+    return []
+
 class ScrapeHeader(BaseScraper):
     def __init__(self, url, root, root_regex, root_filename, content_tags):
         super().__init__(url)  # Assuming BaseScraper requires the URL, you might need to adjust based on actual BaseScraper's constructor.
@@ -170,7 +197,6 @@ class ScrapeHeader(BaseScraper):
         yaml_content = f"URL: {url}"
         save_to_file(f'{filename}_metadata.yaml', yaml_content)
 
-
     def scrape(self):
             self.extract_unique_links(self.url,self.root,self.root_regex,self.root_filename,self.content_tags, self.delay)
 
@@ -179,9 +205,8 @@ if __name__ == "__main__":
     root_regex = r"^https://docs.opencv.org/4.x\/\w+\/\w+\/tutorial_py"
     root = "https://docs.opencv.org/4.x/d6/d00/"
     root_filename = "opencv"
-    content_tags = [
-        ('div', {'class': 'contents'})
-    ]
+    content_tags = match_tags(url)
+    
     scrapper = ScrapeHeader(url, root, root_regex, root_filename, content_tags)
     scrapper.scrape()
 

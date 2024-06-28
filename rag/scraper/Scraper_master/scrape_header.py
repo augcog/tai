@@ -175,12 +175,28 @@ class ScrapeHeader(BaseScraper):
             self.extract_unique_links(self.url,self.root,self.root_regex,self.root_filename,self.content_tags, self.delay)
 
 if __name__ == "__main__":
-    url = "https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html"
-    root_regex = r"^https://docs.opencv.org/4.x\/\w+\/\w+\/tutorial_py"
-    root = "https://docs.opencv.org/4.x/d6/d00/"
-    root_filename = "opencv"
+    # url = "https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html"
+    # root_regex = r"^https://docs.opencv.org/4.x\/\w+\/\w+\/tutorial_py"
+    # root = "https://docs.opencv.org/4.x/d6/d00/"
+    # root_filename = "opencv"
+    # content_tags = [
+    #     ('div', {'class': 'contents'})
+    # ]
+    # ROS
+    # url = "https://wiki.ros.org/ROS/Tutorials/"
+    # root = "https://wiki.ros.org/ROS/Tutorials/"
+    # root_regex = r"^https://wiki.ros.org/ROS/Tutorials/"
+    # root_filename = "ROS"
+    # content_tags = [
+    #     ('div', {'id': 'page', 'lang': 'en', 'dir': 'ltr'}),
+    # ]
+    # turtlebot3
+    url = "https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/"
+    root = "https://emanual.robotis.com/docs/en/platform/turtlebot3/"
+    root_regex = r"^https://emanual.robotis.com/docs/en/platform/turtlebot3/"
+    root_filename = "turtlebot3"
     content_tags = [
-        ('div', {'class': 'contents'})
+        ('div', {'class': 'archive', 'id': 'archive'}),
     ]
     scrapper = ScrapeHeader(url, root, root_regex, root_filename, content_tags)
     scrapper.scrape()

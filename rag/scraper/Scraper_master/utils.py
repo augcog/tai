@@ -31,9 +31,10 @@ def create_and_enter_dir(directory_name):
     - directory_name (str): The name of the directory to be created and entered.
     """
     # print(directory_name)
-    if not os.path.exists(directory_name):
-        os.makedirs(directory_name, exist_ok=True)
-    os.chdir(directory_name)
+    if directory_name:
+        if not os.path.exists(directory_name):
+            os.makedirs(directory_name, exist_ok=True)
+        os.chdir(directory_name)
 
 def cd_home(url):
     """

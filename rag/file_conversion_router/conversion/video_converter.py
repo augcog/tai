@@ -186,5 +186,3 @@ class VideoConverter(BaseConverter):
 
         return page
 
-converter = VideoConverter()
-converter._to_page(Path("/home/bot/roarai/rag/scraper/Scraper_master/Denero_videos/Self-Reference/Self-Reference.mp4"), Path("/home/bot/roarai/rag/scraper/Scraper_master/test"))

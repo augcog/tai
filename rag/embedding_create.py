@@ -16,6 +16,7 @@ import torch
 import torch.nn.functional as F
 from torch import Tensor
 from angle_emb import AnglE, Prompts
+import json
 
 load_dotenv()
 
@@ -393,6 +394,29 @@ for n in [400]:
         'time_list': time_list
     }
 
+
+    def dict_to_json_array(data_to_store):
+        # Convert numpy arrays to lists
+        id_list = data_to_store['id_list'].tolist()
+        doc_list = data_to_store['doc_list'].tolist()
+        embedding_list = data_to_store['embedding_list'].tolist()
+        url_list = data_to_store['url_list'].tolist()
+        time_list = data_to_store['time_list'].tolist()
+
+        # Create a list of dictionaries
+        json_array = []
+        for i in range(len(id_list)):
+            json_array.append({
+                'embedding': embedding_list[i],
+                'id': id_list[i],
+                'doc': doc_list[i],
+                'URL': url_list[i],
+                'time': time_list[i]
+            })
+
+        # Convert list of dictionaries to JSON
+        json_data = json.dumps(json_array, indent=4)
+        return json_data
     # Define the folder name
     folder_name = "pickle"
 

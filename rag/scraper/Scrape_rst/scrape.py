@@ -37,6 +37,7 @@ def main():
     # starting='index'
     # url = "https://github.com/conda/conda/blob/main/docs/source/user-guide/index.rst?plain=1"
     home_url= url.rsplit('/', 1)[0]
+    print("home" + home_url)
     # Current directory
     home_dir=os.getcwd()
     tree_call(starting,url,home_url,home_dir)
@@ -135,7 +136,7 @@ def tree_call(cur_file, url, home_url, home_dir):
                 os.chdir(dir)
             sublink=sublink[:-4] if sublink.endswith('.rst') else sublink
             url+=sublink+".rst?plain=1"
-            print(url)
+            print("url:" + url)
             tree_call(cur_name, url, home_url, home_dir)
             url=cd_back_link(url, len(part))
             os.chdir(current_directory)

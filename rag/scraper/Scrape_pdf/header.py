@@ -181,6 +181,7 @@ class MarkdownParser:
                     dict_list.append({'Page_table': page_toc, 'Page_path': page_path, 'Segment_print': segment})
         self.save_content_to_pkl(dict_list, filename=f'{self.filename}.pkl')
 
+
 # TODO
 parser = MarkdownParser('textbook/MLS.mmd')
 

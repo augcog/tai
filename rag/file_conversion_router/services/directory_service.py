@@ -9,6 +9,8 @@ from typing import Dict, Type, Union
 from rag.file_conversion_router.conversion.base_converter import BaseConverter, ConversionCache
 from rag.file_conversion_router.conversion.md_converter import MarkdownConverter
 from rag.file_conversion_router.conversion.pdf_converter import PdfConverter
+from rag.file_conversion_router.conversion.rst_converter import RstConverter
+from rag.file_conversion_router.conversion.video_converter import VideoConverter
 from rag.file_conversion_router.services.task_manager import schedule_conversion
 
 ConverterMapping = Dict[str, Type[BaseConverter]]
@@ -17,6 +19,8 @@ ConverterMapping = Dict[str, Type[BaseConverter]]
 converter_mapping: ConverterMapping = {
     ".pdf": PdfConverter,
     ".md": MarkdownConverter,
+    ".rst": RstConverter,
+    ".mp4": VideoConverter,
     #     TODO: Add more file types and converters here
 }
 
@@ -76,3 +80,6 @@ def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path]) ->
 
     logging.info(f"Completed processing for directory: {input_dir}")
     logging.info(f"Saved conversion time [{ConversionCache.calc_total_savings()} seconds] by using cached results.")
+
+
+

@@ -7,6 +7,7 @@ import time
 import re
 from termcolor import colored
 from urllib.parse import urljoin
+import pypandoc
 from markdownify import markdownify as md
 
 def main():
@@ -17,22 +18,22 @@ def main():
     """
     # TODO
     # ROS
-    url = "https://wiki.ros.org/ROS/Tutorials/"
-    root = "https://wiki.ros.org/ROS/Tutorials/"
-    root_regex = r"^https://wiki.ros.org/ROS/Tutorials/"
-    root_filename = "ROS"
-    content_tags = [
-        ('div', {'id': 'page', 'lang': 'en', 'dir': 'ltr'}),
-    ]
+    # url = "https://wiki.ros.org/ROS/Tutorials/"
+    # root = "https://wiki.ros.org/ROS/Tutorials/"
+    # root_regex = r"^https://wiki.ros.org/ROS/Tutorials/"
+    # root_filename = "ROS"
+    # content_tags = [
+    #     ('div', {'id': 'page', 'lang': 'en', 'dir': 'ltr'}),
+    # ]
 
     # opencv
-    # url = "https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html"
-    # root_regex = r"^https://docs.opencv.org/4.x\/\w+\/\w+\/tutorial_py"
-    # root = "https://docs.opencv.org/4.x/d6/d00/"
-    # root_filename = "opencv"
-    # content_tags = [
-    #     ('div', {'class': 'contents'})
-    # ]
+    url = "https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html"
+    root_regex = r"^https://docs.opencv.org/4.x\/\w+\/\w+\/tutorial_py"
+    root = "https://docs.opencv.org/4.x/d6/d00/"
+    root_filename = "opencv"
+    content_tags = [
+        ('div', {'class': 'contents'})
+    ]
 
     # turtlebot3
     # url = "https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/"
@@ -116,7 +117,7 @@ def create_and_enter_dir(directory_name):
     # Create the directory if it doesn't exist
     if not os.path.exists(directory_name):
         os.mkdir(directory_name)
-    
+
     # Change the current working directory
     os.chdir(directory_name)
 
@@ -136,7 +137,7 @@ def get_crawl_delay(site_url, user_agent="*"):
     - Returns: Crawl delay as specified in robots.txt, or 0 if not specified.
     """
     robots_url = site_url.rstrip('/') + '/robots.txt'
-    
+
     rp = robotparser.RobotFileParser()
     rp.set_url(robots_url)
     try:
@@ -152,9 +153,9 @@ def get_crawl_delay(site_url, user_agent="*"):
 
 def process_links_and_save(links, dir_name, delay, content_tags):
     """
-    Processes a list of links by converting them to markdown, cleaning up the markdown content, and saving the results to files. 
+    Processes a list of links by converting them to markdown, cleaning up the markdown content, and saving the results to files.
     The files are saved within directories named after the last segment of each link.
-    
+
     Parameters:
     - links (list): A list of URLs to be processed.
     - dir_name (str): The name of the main directory where the results should be saved.
@@ -165,27 +166,29 @@ def process_links_and_save(links, dir_name, delay, content_tags):
     """
     create_and_enter_dir(dir_name)
     for link in links:
-        if link[-1] == '/': 
+        if link[-1] == '/':
             link = link[:-1]
         filename = link.split('/')[-1]
         filename = filename.split('.')[0]
-        
+
         markdown_result = html_to_markdown(link, content_tags)
+        # print(markdown_result)
         if markdown_result == 1:
             continue
-        
+
         cleaned_markdown = remove_consecutive_empty_lines(markdown_result)
-        
+
         cur_dir = os.getcwd()
         create_and_enter_dir(filename)
-        
-        save_to_file(f'{filename}.md', cleaned_markdown)
 
+        save_to_file(f'{filename}.md', cleaned_markdown)
+        print(f"Saved {filename}.md")
+        print(cleaned_markdown)
         parser = MarkdownParser(f'{filename}')
         parser.print_header_tree()
         parser.print_segment()
         parser.concat_print()
-        
+
         os.chdir(cur_dir)
         time.sleep(delay)
 
@@ -205,9 +208,10 @@ def extract_unique_links(url, root, root_regex, root_filename, content_tags, del
     reqs = requests.get(url)
     soup = BeautifulSoup(reqs.text, 'html.parser')
     print(url)
-    print(soup.prettify())
+    # print(soup.prettify())
     unique_links = set()  # Create an empty set to store unique links
     # print(soup)
+    print(soup.find_all('a'))
     for link in soup.find_all('a'):
         href = link.get('href')
         href = remove_slash_and_hash(href)
@@ -241,10 +245,10 @@ def extract_unique_links(url, root, root_regex, root_filename, content_tags, del
 
 def html_to_markdown(url, content_tags):
     """
-    Converts HTML content from a URL to markdown format.
+    Converts HTML content from a URL to markdown format using Pandoc with ATX-style headers.
     - url (str): URL to fetch HTML content from.
     - content_tags (list): Specific HTML tags to convert to markdown.
-    - Returns: Converted markdown content.
+    - Returns: Converted markdown content or an error code.
     """
     try:
         response = requests.get(url)
@@ -255,7 +259,6 @@ def html_to_markdown(url, content_tags):
 
     # Parse the HTML content
     soup = BeautifulSoup(response.text, 'html.parser')
-
     markdown_outputs = []
     if content_tags:
         for tag_type, tag_attr in content_tags:
@@ -263,7 +266,7 @@ def html_to_markdown(url, content_tags):
             content = soup.find_all(tag_type, tag_attr)
             for item in content:
                 # Convert each HTML item to Markdown
-                markdown = md(str(item), heading_style="ATX", default_title=True)
+                markdown = md(str(item), heading_style='ATX', default_title=True)
                 modified_content = re.sub(r'(?<!^)(```)', r'\n\1', markdown, flags=re.MULTILINE)
                 markdown_outputs.append(modified_content)
         # print(markdown_outputs)

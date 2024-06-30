@@ -9,6 +9,15 @@ import voyageai
 from voyageai import get_embedding
 from transformers import AutoModel
 from dotenv import load_dotenv
+from transformers import AutoModel, AutoTokenizer
+import string
+import tiktoken
+from dotenv import load_dotenv
+import torch
+import torch.nn.functional as F
+from torch import Tensor
+from angle_emb import AnglE, Prompts
+
 load_dotenv()
 print(os.getenv("OPENAI_API_KEY"))
 
@@ -29,11 +38,19 @@ method = 'none'
 # method='sum'
 # TODO MODEL
 # model='local'
-model = 'openai'
+# model='openai'
+model = 'openai_ada_002'
+# model = 'openai_3_small'
+# model = 'openai_3_large'
 # model='cohere'
-# model='voyage'
 # model='jina'
 # model='zephyr'
+# model='voyage'
+# model='SFR'
+# model='e5-mistral'
+# model='UAE-Large'
+# model='BGE'
+# model='GRITLM'
 
 def wizard_coder(history: list[dict]):
     DEFAULT_SYSTEM_PROMPT = history[0]['content']+'\n\n'
@@ -112,20 +129,64 @@ for n in [400]:
 
     human_embedding_prompt= 'document_hierarchy_path: {segment_path}\ndocument: {segment}\n'
 
-    if model=='local'or model=='zephyr':
+    if model == 'local' or model == 'zephyr':
         openai.api_key = "empty"
         openai.api_base = "http://localhost:8000/v1"
-    elif model=='openai':
-        print(os.getenv("OPENAI_API_KEY"))
+    elif model in ['openai_ada_002', 'openai_3_small', 'openai_3_large']:
         openai.api_key = os.getenv("OPENAI_API_KEY")
-        print(openai.api_key)
-    elif model=='cohere':
+    elif model == 'cohere':
         co = cohere.Client(os.getenv("COHERE_API_KEY"))
-    elif model=='voyage':
+    elif model == 'voyage':
         voyageai.api_key = os.getenv("VOYAGE_API_KEY")
-    elif model=='jina':
+    elif model == 'jina':
         jina = AutoModel.from_pretrained('jinaai/jina-embeddings-v2-base-en', trust_remote_code=True)
+    elif model == 'SFR':
+        def last_token_pool(last_hidden_states: Tensor,
+                            attention_mask: Tensor) -> Tensor:
+            left_padding = (attention_mask[:, -1].sum() == attention_mask.shape[0])
+            if left_padding:
+                return last_hidden_states[:, -1]
+            else:
+                sequence_lengths = attention_mask.sum(dim=1) - 1
+                batch_size = last_hidden_states.shape[0]
+                return last_hidden_states[torch.arange(batch_size, device=last_hidden_states.device), sequence_lengths]
 
+
+        tokenizer = AutoTokenizer.from_pretrained('Salesforce/SFR-Embedding-Mistral')
+        embedding_model = AutoModel.from_pretrained('Salesforce/SFR-Embedding-Mistral')
+        tokenizer.add_eos_token = True
+
+        # get the embeddings
+        max_length = 4096
+    elif model == 'e5-mistral':
+        def last_token_pool(last_hidden_states: Tensor,
+                            attention_mask: Tensor) -> Tensor:
+            left_padding = (attention_mask[:, -1].sum() == attention_mask.shape[0])
+            if left_padding:
+                return last_hidden_states[:, -1]
+            else:
+                sequence_lengths = attention_mask.sum(dim=1) - 1
+                batch_size = last_hidden_states.shape[0]
+                return last_hidden_states[torch.arange(batch_size, device=last_hidden_states.device), sequence_lengths]
+
+
+        tokenizer = AutoTokenizer.from_pretrained('intfloat/e5-mistral-7b-instruct')
+        embedding_model = AutoModel.from_pretrained('intfloat/e5-mistral-7b-instruct')
+        tokenizer.add_eos_token = True
+
+        # get the embeddings
+        max_length = 4096
+    elif model == 'UAE-Large':
+        angle = AnglE.from_pretrained('WhereIsAI/UAE-Large-V1', pooling_strategy='cls').cuda()
+        angle.set_prompt(prompt=Prompts.C)
+    elif model == 'BGE':
+        from FlagEmbedding import BGEM3FlagModel
+
+        embedding_model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True)
+    elif model == 'GRITLM':
+        from gritlm import GritLM
+
+        embedding_model = GritLM("GritLM/GritLM-7B", torch_dtype="auto")
     def chat_completion(system_message, human_message):
         system_message = system_message
         messages=[{"role": "system", "content": system_message}, {"role": "user", "content": human_message}]
@@ -219,7 +280,7 @@ for n in [400]:
     if technique=='recursive_seperate':
 
         "recursive_seperate_none_openai_embedding_1100.pkl"
-        with open(f'pickle/{technique}_{method}_{model}_embedding_{n}_textbook.pkl', 'rb') as f:
+        with open(f'pickle/{technique}_{method}_{model}_embedding_{n}_106_full.pkl', 'rb') as f:
             data_loaded = pickle.load(f)
     else:
         with open(f'pickle/{technique}_{method}_{model}_embedding.pkl', 'rb') as f:
@@ -251,19 +312,41 @@ for n in [400]:
         else:
             history = [{"role": "system", "content": system_query_prompt}, {"role": "user", "content": question}]
         # q = collection.query(query_texts=wizard_coder(history), n_results=10, include=["distances"])
-        if model=='local':
-            query_embed=np.array(openai.Embedding.create(model="text-embedding-ada-002", input=wizard_coder(history))['data'][0]['embedding'])
-        elif model=='openai' or model=='zephyr':
-            query_embed=np.array(openai.Embedding.create(model="text-embedding-ada-002", input=gpt(history))['data'][0]['embedding'])
-        elif model=='cohere':
-            query_embed=np.array(co.embed(texts=[question],
-                                          model="embed-english-v3.0",
-                                          input_type="search_query").embeddings[0])
-        elif model=='voyage':
-            query_embed=np.array(get_embedding(question, model="voyage-01"))
-        elif model=='jina':
-            query_embed=np.array(jina.encode([question])[0])
-        print(query_embed.shape)
+        if model == 'local':
+            # print(input)
+            query_embed = \
+            openai.Embedding.create(model="text-embedding-ada-002", input=wizard_coder(history))['data'][0]['embedding']
+        elif model == 'zephyr':
+            query_embed = openai.Embedding.create(model="text-embedding-ada-002", input=gpt(history))['data'][0][
+                'embedding']
+        elif model == 'openai_ada_002':
+            query_embed = openai.Embedding.create(model="text-embedding-ada-002", input=gpt(history))['data'][0][
+                'embedding']
+        elif model == 'openai_3_small':
+            query_embed = openai.Embedding.create(model="text-embedding-3-small", input=gpt(history))['data'][0][
+                'embedding']
+        elif model == 'openai_3_large':
+            query_embed = openai.Embedding.create(model="text-embedding-3-large", input=gpt(history))['data'][0][
+                'embedding']
+        elif model == 'cohere':
+            query_embed = co.embed(texts=[history], model="embed-english-v3.0", input_type="search_document").embeddings[0]
+        elif model == 'voyage':
+            time.sleep(1)
+            query_embed = get_embedding(history, model="voyage-01")
+        elif model == 'jina':
+            query_embed = jina.encode([history])[0]
+        elif model in ['SFR', 'e5-mistral']:
+            batch_dict = tokenizer([history], max_length=max_length - 1, padding=True, truncation=True, return_tensors="pt")
+            output = embedding_model(**batch_dict)
+            embed = last_token_pool(output.last_hidden_state, batch_dict['attention_mask'])
+            normalized_embedding = F.normalize(embed, p=2, dim=-1)
+            query_embed = normalized_embedding.tolist()[0]
+        elif model == 'UAE-Large':
+            query_embed = angle.encode({'text': history}, to_numpy=True)
+        elif model == 'BGE':
+            query_embed = embedding_model.encode(history, return_dense=True, return_sparse=True, return_colbert_vecs=True)
+
+        # print(query_embed.shape)
         print(embedding_list.shape)
         # need to devide
         cosine_similarities = np.dot(embedding_list, query_embed)  # Dot product since vectors are normalized

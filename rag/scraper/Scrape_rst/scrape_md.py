@@ -28,16 +28,16 @@ def main():
     # url=f"https://github.com/numpy/numpy/blob/main/doc/source/index.rst?plain=1"
 
     # Sawyer
-    # mkdir('Sawyer_md')
-    # os.chdir('Sawyer_md')
-    # starting = 'index'
-    # url = f"https://github.com/ros-planning/moveit_tutorials/blob/master/index.rst?plain=1"
+    mkdir('Sawyer_md')
+    os.chdir('Sawyer_md')
+    starting = 'index'
+    url = f"https://github.com/ros-planning/moveit_tutorials/blob/master/index.rst?plain=1"
 
     # conda getting started
-    mkdir('conda_getting_started_md')
-    os.chdir('conda_getting_started_md')
-    starting='index'
-    url = "https://github.com/conda/conda/blob/main/docs/source/user-guide/index.rst?plain=1"
+    # mkdir('conda_getting_started_md')
+    # os.chdir('conda_getting_started_md')
+    # starting='index'
+    # url = "https://github.com/conda/conda/blob/main/docs/source/user-guide/index.rst?plain=1"
 
     home_url = url.rsplit('/', 1)[0]
     # Current directory

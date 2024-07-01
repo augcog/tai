@@ -3,10 +3,9 @@ import os
 import re
 from urllib.parse import urljoin
 
-
-global parser
 from rag.scraper.Scraper_master.base_scraper import BaseScraper
 from utils import cd_back_link, create_and_enter_dir, save_to_file
+
 ignore = ["glossary", "*"]
 
 class ScrapeRst(BaseScraper):
@@ -14,36 +13,43 @@ class ScrapeRst(BaseScraper):
         super().__init__(github_url)
         self.filename = filename
         self.doc_url = doc_url
+
     def get_content(self, url):
         """
         Fetch data from a given URL, save it to a file, and print certain parts of the JSON.
 
         :param url: The URL to fetch data from.
-        :return: None
+        :return: str or None: The fetched content or None if the request fails.
         """
-        print(f"Fetching data from {url}")
+        # print(f"Fetching data from {url}")
         headers = {'Accept': 'application/json'}
-        response = requests.get(url+'?plain=1', headers=headers)
-        data = response.json()
+        try:
+            response = requests.get(url + '?plain=1', headers=headers)
+            response.raise_for_status()
+            data = response.json()
 
-        # Saving the entire fetched JSON to a file
-        data = data['payload']['blob']['rawLines']
-        data = '\n'.join(data)
-        return data
-
-
+            # Extract and return the relevant content
+            data = data['payload']['blob']['rawLines']
+            data = '\n'.join(data)
+            return data
+        except (requests.RequestException, KeyError) as e:
+            print(f"Failed to fetch data from {url}: {e}")
+            return None
 
     def extract_toctree_from_rst(self, url):
         """
         Extracts the table of contents tree (toctree) from a reStructuredText (.rst) file.
 
         Args:
-            filename (str): Path to the .rst file to parse.
+            url (str): The URL of the .rst file to parse.
 
         Returns:
             list: A list containing the extracted toctree links.
         """
         content = self.get_content(url)
+        if content is None:
+            return []
+
         toctree_content = []
         lines = content.split('\n')
         for i in range(len(lines)):
@@ -63,9 +69,6 @@ class ScrapeRst(BaseScraper):
                     cur += 1
             else:
                 i += 1
-        # print(f"toctree:")
-        # for link in toctree_content:
-        #     print(link)
         return toctree_content
 
     def tree_call(self, cur_file, url, home_url, home_dir):
@@ -76,6 +79,10 @@ class ScrapeRst(BaseScraper):
         - home_url (str): The base URL of the website.
         - home_dir (str): The base directory on the local filesystem.
         """
+        content = self.get_content(url)
+        if content is None:
+            return
+
         filename = f"{cur_file}"
         self.content_extract(filename, url)
         self.metadata_extract(filename, url)
@@ -95,11 +102,9 @@ class ScrapeRst(BaseScraper):
                 sublink = sublink[:-4] if sublink.endswith('.rst') else sublink
                 temp_url = url
                 url = home_url + sublink + ".rst"
-                # print(url)
                 self.tree_call(cur_name, url, home_url, home_dir)
                 url = temp_url
                 os.chdir(current_directory)
-
             else:
                 part = sublink.split("/")
                 cur_name, dir = part[-1], '/'.join(part[:-1])
@@ -115,9 +120,9 @@ class ScrapeRst(BaseScraper):
     def scrape(self):
         create_and_enter_dir(self.filename)
         home_url = self.url.rsplit('/', 1)[0]
-        # Current directory
         home_dir = os.getcwd()
         self.tree_call('index', self.url, home_url, home_dir)
+
     def content_extract(self, filename, url, **kwargs):
         """
         Extracts content from a given URL and saves it to a file.
@@ -125,7 +130,8 @@ class ScrapeRst(BaseScraper):
         - url (str): The URL to fetch the content from.
         """
         content = self.get_content(url)
-        save_to_file(f"{filename}.rst", content)
+        if content:
+            save_to_file(f"{filename}.rst", content)
 
     def metadata_extract(self, filename, url, **kwargs):
         branches = ["master", "stable", "main"]
@@ -134,9 +140,10 @@ class ScrapeRst(BaseScraper):
         save_to_file(f'{filename}_metadata.yaml', yaml_content)
 
 if __name__ == "__main__":
-    filename = "Moveit"
-    # doc_url = "https://moveit.picknik.ai/main/index.html"
-    # github_url = f"https://github.com/ros-planning/moveit_tutorials/blob/main/index.rst?plain=1"
-    doc_url = "https://moveit.github.io/moveit_tutorials/index.html"
-    github_url = "https://github.com/moveit/moveit_tutorials/blob/master/index.rst"
+    # filename = "Moveit"
+    # doc_url = "https://moveit.github.io/moveit_tutorials/index.html"
+    # github_url = "https://github.com/moveit/moveit_tutorials/blob/master/index.rst"
+    filename = "numpy"
+    doc_url = "https://numpy.org/doc/index.html"
+    github_url = f"https://github.com/numpy/numpy/blob/main/doc/source/index.rst"
     ScrapeRst(github_url, doc_url, filename).scrape()

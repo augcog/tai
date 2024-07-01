@@ -128,7 +128,9 @@ class ScrapeRst(BaseScraper):
         save_to_file(f"{filename}.rst", content)
 
     def metadata_extract(self, filename, url, **kwargs):
-        yaml_content = f"URL: {self.doc_url.replace('index.html', '')}{'/'.join(url.split('/')[url.split('/').index('master') + 1:]).replace('.rst', '.html')}"
+        branches = ["master", "stable", "main"]
+        branch = next((b for b in branches if b in url.split('/')), None)
+        yaml_content = f"URL: {self.doc_url.replace('index.html', '')}{'/'.join(url.split('/')[url.split('/').index(branch) + 1:]).replace('.rst', '.html')}" if branch else "Branch not found in URL"
         save_to_file(f'{filename}_metadata.yaml', yaml_content)
 
 if __name__ == "__main__":

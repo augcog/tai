@@ -11,8 +11,10 @@ from app.core.models.chat_completion import Message as ROARChatCompletionMessage
 from pydantic import BaseModel
 import threading
 import urllib.parse
+import sqlite3
 
-
+# Set the environment variable to use the SQL database
+SQLDB = False
 
 class Message(BaseModel):
     role: str
@@ -31,7 +33,7 @@ pipeline = transformers.pipeline(
     "text-generation",
     model=model_id,
     model_kwargs={"torch_dtype": torch.bfloat16},
-    device="cuda",
+    device="mps",
 )
 
 lock = threading.Lock()
@@ -109,19 +111,26 @@ def clean_path(url_path):
 def local_selector(messages:List[Message],stream=True,rag=True):
     insert_document = ""
     user_message = messages[-1].content
-    if rag:
+    if rag: 
         picklefile = "recursive_seperate_none_BGE_embedding_400_106_full.pkl"
         path_to_pickle = os.path.join("./app/embedding/", picklefile)
         with open(path_to_pickle, 'rb') as f:
             data_loaded = pickle.load(f)
         doc_list = data_loaded['doc_list']
-        embedding_list = data_loaded['embedding_list']
         id_list = data_loaded['id_list']
         url_list = data_loaded['url_list']
         time_list = data_loaded['time_list']
+        if sqlite3:
+            db = sqlite3.connect("embeddiongs.db")
+            cur = db.cursor()
+            # Load the data from the SQLite database
+            cur.execute("SELECT embedding FROM embeddings")
+            embedding_list = [pickle.loads(row[0]) for row in cur.fetchall()]
+        else:
+            embedding_list = data_loaded['embedding_list']
 
-        query_embed = embedding_model.encode(user_message, return_dense=True, return_sparse=True,
-                                                 return_colbert_vecs=True)
+        query_embed = embedding_model.encode(user_message, return_dense=True, return_sparse=True, 
+                                                return_colbert_vecs=True)
         # model
         # cosine_similarities = np.dot(embedding_list, query_embed)
         cosine_similarities = np.array(bge_compute_score(query_embed, embedding_list, [1, 1, 1], None, None)['colbert+sparse+dense'])

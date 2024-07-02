@@ -145,6 +145,7 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
         insert_document = ""
         reference = []
         n=0
+        none=0
         for i in range(len(top_docs)):
             if top_url[i]:
                 reference.append(f"{top_url[i]}")
@@ -153,14 +154,18 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
             if distances[i] > 0.45:
                 n+=1
                 if top_url[i]:
-                    insert_document += f"\"\"\"Reference Number: {n}\nReference: {top_id[i]}\nReference Url: {top_url[i]}\nDocument: {top_docs[i]}\"\"\"\n\n"
+                    insert_document += f"\"\"\"Reference Number: {n}\nReference Info Path: {top_id[i]}\nReference_Url: {top_url[i]}\nDocument: {top_docs[i]}\"\"\"\n\n"
                 else:
                     cleaned_path = clean_path(top_id[i])
-                    insert_document += f"\"\"\"Reference Number: {n}\nReference: {cleaned_path}\nDocument: {top_docs[i]}\"\"\"\n\n"
+                    insert_document += f"\"\"\"Reference Number: {n}\nReference Info Path: {cleaned_path}\nReference_Url: NONE\nDocument: {top_docs[i]}\"\"\"\n\n"
                     # print("CLEANED PATH",cleaned_path)
-                print(top_id[i])
+            else:
+                reference.append("")
+                none+=1
+                print(none)
         print(reference)
-    if not insert_document:
+    if (not insert_document) or none==3:
+        print("NO REFERENCES")
         user_message = f'Answer the instruction\n---\n{user_message}'
         # insert_document+="用中文回答我的指示\n"
         # system_message="用中文回答我的指示"
@@ -169,7 +174,9 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
         print("INSERT DOCUMENT",insert_document)
         insert_document += f'Instruction: {user_message}'
         # insert_document += "用中文回答我的指示\n"
-        user_message = f"Understand the {n} reference documents and use it to answer the instruction. If there is no reference url print Reference of the document used to answer instruction. If reference url exists in the documents add at end [reference summary](URL).\n---\n{insert_document}"
+        user_message = f"Understand the reference documents and use them to answer the instruction thoroughly, add suffiecient steps. List the references numbered, if URL does not exist then print reference info path as is do not print NONE, if url exists then print [reference Name](URL), then summarize the document in 2 sentences. Example Reference: Reference 1: Find information at (Reference Path Info). If Reference_URL is not NONE then print URL [Reference Name](URL). Then print 2 sentence summary of reference document. \n---\n{insert_document}"        # user_message = f"Understand the {n} reference documents and use it to answer the instruction. After answering the instruction, please list references. Print References numbered, if URL exists return [reference summary](URL), then return the reference and summarize the document in 2 sentences.\n---\n{insert_document}"
+
+        # user_message = f"Understand the {n} reference documents and use it to answer the instruction. If there is no reference url print Reference of the document used to answer instruction. If reference url exists in the documents add at end [reference summary](URL).\n---\n{insert_document}"
         # system_message="通过阅读以下材料,用中文回答我的指示"
         # print(chat_completion(system_message, insert_document))
     print("USER MESSAGE",user_message)

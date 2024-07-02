@@ -106,11 +106,16 @@ def clean_path(url_path):
     cleaned_path = cleaned_path.replace('(', ' (').replace(')', ') ')
     cleaned_path = ' '.join(cleaned_path.split())
     return cleaned_path
-def local_selector(messages:List[Message],stream=True,rag=True):
+def local_selector(messages:List[Message],stream=True,rag=True,course=None):
     insert_document = ""
     user_message = messages[-1].content
     if rag:
-        picklefile = "recursive_seperate_none_BGE_embedding_400_106_full.pkl"
+        if course == "EE 106B":
+            picklefile = "recursive_seperate_none_BGE_embedding_400_106_full.pkl"
+        elif course == "Public Domain Server":
+            picklefile = "Berkeley.pkl"
+        else:
+            picklefile = "Berkeley.pkl"
         path_to_pickle = os.path.join("./app/embedding/", picklefile)
         with open(path_to_pickle, 'rb') as f:
             data_loaded = pickle.load(f)
@@ -118,7 +123,7 @@ def local_selector(messages:List[Message],stream=True,rag=True):
         embedding_list = data_loaded['embedding_list']
         id_list = data_loaded['id_list']
         url_list = data_loaded['url_list']
-        time_list = data_loaded['time_list']
+        # time_list = data_loaded['time_list']
 
         query_embed = embedding_model.encode(user_message, return_dense=True, return_sparse=True,
                                                  return_colbert_vecs=True)
@@ -129,21 +134,19 @@ def local_selector(messages:List[Message],stream=True,rag=True):
         id = id_list[indices]
         docs = doc_list[indices]
         url = url_list[indices]
-        time = time_list[indices]
+        # time = time_list[indices]
         top_docs=docs[:3]
 
         distances = np.sort(cosine_similarities)[-3:][::-1]
         top_id = id[:3]
         top_url = url[:3]
         # top_url= [f"https://www.youtube.com/watch?v={i}" for i in range(1,4)]
-        top_time = time[:3]
+        # top_time = time[:3]
         insert_document = ""
         reference = []
         n=0
         for i in range(len(top_docs)):
-            if top_url[i] and top_time[i]:
-                reference.append(f"{top_url[i]}&t={top_time[i]}")
-            elif top_url[i] and not top_time[i]:
+            if top_url[i]:
                 reference.append(f"{top_url[i]}")
             else:
                 reference.append("")

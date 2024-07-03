@@ -30,6 +30,7 @@ The TAI project is a collaborative effort by researchers and students at UC Berk
 - Tianlun Zhang
 - Yikang Yu
 - Charles Xu
+- Arnav Jain
 
 ## Acknowledgements
 

@@ -1,7 +1,7 @@
 import os
 def pdf_to_md(pdf_file_path, folder_name):
     # Command to execute
-    command = f"nougat {pdf_file_path} -o {folder_name}"
+    command = f"nougat {pdf_file_path} -o {folder_name} -m 0.1.0-base --no-skipping"
     # Run the command
     os.system(command)
 

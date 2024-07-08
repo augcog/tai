@@ -21,7 +21,9 @@ router = APIRouter(prefix="/api/chat")
 async def create_completion(params: CompletionCreateParams):
     # select model based on params.model
     course_model_address = course_selection.get(params.course, "default")
-    
+    course=params.course
+    print("course")
+    print(course)
     # query model and get response
     formatter = local_formatter
     selector = local_selector
@@ -29,7 +31,7 @@ async def create_completion(params: CompletionCreateParams):
 
     # TODO: implement the model selection and response parsing
 
-    response = selector(formatter(params.messages), stream=params.stream)
+    response = selector(formatter(params.messages), stream=params.stream,course=course)
 
     if params.stream:
         return StreamingResponse(parser(response), media_type="text/plain")

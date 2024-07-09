@@ -54,7 +54,10 @@ def detect_scenes_and_save_images(video, scene_manager, images_output_dir):
         print(f"Scene {i}: Start Time: {start_time.get_seconds()}, End Time: {end_time.get_seconds()}")
         for image_path in images:
             print(f"  - {image_path}")
+<<<<<<< HEAD
 
+=======
+>>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
     return scene_times
 
 

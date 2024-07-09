@@ -13,8 +13,13 @@ interface LoginButtonProps extends ButtonProps {
 }
 
 export function LoginButton({
+<<<<<<< HEAD
   text = 'Login with Google',
   showGoogleIcon = true,
+=======
+  text = 'Berkeley Account Login',
+  showGoogleIcon = false,
+>>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
   className,
   ...props
 }: LoginButtonProps) {
@@ -25,7 +30,11 @@ export function LoginButton({
       onClick={() => {
         setIsLoading(true)
         // next-auth signIn() function doesn't work yet at Edge Runtime due to usage of BroadcastChannel
+<<<<<<< HEAD
         signIn('google', { callbackUrl: `/` })
+=======
+        signIn('google', { callbackUrl: `https://tai.berkeley.edu` })
+>>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
       }}
       disabled={isLoading}
       className={cn(className)}

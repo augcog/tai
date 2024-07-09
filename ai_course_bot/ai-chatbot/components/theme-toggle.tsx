@@ -16,7 +16,11 @@ export function ThemeToggle() {
       size="icon"
       onClick={() => {
         startTransition(() => {
+<<<<<<< HEAD
           setTheme(theme === 'light' ? 'dark' : 'light')
+=======
+          setTheme(theme === 'light' ? 'light' : 'light') // force theme to be light
+>>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
         })
       }}
     >

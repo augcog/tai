@@ -5,7 +5,11 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any, Callable, Union
 
+<<<<<<< HEAD
 executor = ThreadPoolExecutor(max_workers=10)
+=======
+executor = ThreadPoolExecutor(max_workers=1)
+>>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
 
 ConverterFunc = Callable[[str, str], Any]
 

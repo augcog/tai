@@ -29,9 +29,7 @@ method = 'none'
 # method='sum'
 # TODO MODEL
 # model='local'
-model = 'openai'
 # model='cohere'
-# model='voyage'
 # model='jina'
 # model='zephyr'
 
@@ -115,10 +113,7 @@ for n in [400]:
     if model=='local'or model=='zephyr':
         openai.api_key = "empty"
         openai.api_base = "http://localhost:8000/v1"
-    elif model=='openai':
-        print(os.getenv("OPENAI_API_KEY"))
         openai.api_key = os.getenv("OPENAI_API_KEY")
-        print(openai.api_key)
     elif model=='cohere':
         co = cohere.Client(os.getenv("COHERE_API_KEY"))
     elif model=='voyage':
@@ -219,7 +214,6 @@ for n in [400]:
     if technique=='recursive_seperate':
 
         "recursive_seperate_none_openai_embedding_1100.pkl"
-        with open(f'pickle/{technique}_{method}_{model}_embedding_{n}_textbook.pkl', 'rb') as f:
             data_loaded = pickle.load(f)
     else:
         with open(f'pickle/{technique}_{method}_{model}_embedding.pkl', 'rb') as f:
@@ -252,18 +246,9 @@ for n in [400]:
             history = [{"role": "system", "content": system_query_prompt}, {"role": "user", "content": question}]
         # q = collection.query(query_texts=wizard_coder(history), n_results=10, include=["distances"])
         if model=='local':
-            query_embed=np.array(openai.Embedding.create(model="text-embedding-ada-002", input=wizard_coder(history))['data'][0]['embedding'])
-        elif model=='openai' or model=='zephyr':
-            query_embed=np.array(openai.Embedding.create(model="text-embedding-ada-002", input=gpt(history))['data'][0]['embedding'])
         elif model=='cohere':
-            query_embed=np.array(co.embed(texts=[question],
-                                          model="embed-english-v3.0",
-                                          input_type="search_query").embeddings[0])
         elif model=='voyage':
-            query_embed=np.array(get_embedding(question, model="voyage-01"))
         elif model=='jina':
-            query_embed=np.array(jina.encode([question])[0])
-        print(query_embed.shape)
         print(embedding_list.shape)
         # need to devide
         cosine_similarities = np.dot(embedding_list, query_embed)  # Dot product since vectors are normalized

@@ -12,6 +12,7 @@ export function FooterText({ className, ...props }: React.ComponentProps<'p'>) {
       )}
       {...props}
     >
+<<<<<<< HEAD
       Made with ❤️ by{' '}
       <ExternalLink href="https://www.nimbus-nova.com/">
         Nimbus Nova LLC
@@ -19,6 +20,10 @@ export function FooterText({ className, ...props }: React.ComponentProps<'p'>) {
       and{' '}
       <ExternalLink href="https://vivecenter.berkeley.edu/">
         FHL Vive Center
+=======
+      <ExternalLink href="https://github.com/augcog/tai">
+        This project is fully open sourced on Github
+>>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
       </ExternalLink>
     </p>
   )

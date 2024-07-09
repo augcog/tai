@@ -5,10 +5,18 @@ import { Message } from 'ai'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 
+<<<<<<< HEAD
 import { cn } from '@/lib/utils'
 import { CodeBlock } from '@/components/ui/codeblock'
 import { MemoizedReactMarkdown } from '@/components/markdown'
 import { IconOpenAI, IconUser } from '@/components/ui/icons'
+=======
+import  Image from 'next/image'
+import { cn } from '@/lib/utils'
+import { CodeBlock } from '@/components/ui/codeblock'
+import { MemoizedReactMarkdown } from '@/components/markdown'
+import { IconUser } from '@/components/ui/icons'
+>>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
 import { ChatMessageActions } from '@/components/chat-message-actions'
 
 export interface ChatMessageProps {
@@ -29,7 +37,11 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
             : 'bg-primary text-primary-foreground'
         )}
       >
+<<<<<<< HEAD
         {message.role === 'user' ? <IconUser /> : <IconOpenAI />}
+=======
+        {message.role === 'user' ? <IconUser /> : <Image src="/TAI_prompt.png" alt="logo" width={100} height={100} />}
+>>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
       </div>
       <div className="flex-1 px-1 ml-4 space-y-2 overflow-hidden">
         <MemoizedReactMarkdown

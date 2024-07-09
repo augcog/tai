@@ -6,7 +6,10 @@ import { cn } from '@/lib/utils'
 import { SidebarList } from '@/components/sidebar-list'
 import { buttonVariants } from '@/components/ui/button'
 import { IconPlus } from '@/components/ui/icons'
+<<<<<<< HEAD
 
+=======
+>>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
 interface ChatHistoryProps {
   userId?: string
 }
@@ -15,6 +18,10 @@ export async function ChatHistory({ userId }: ChatHistoryProps) {
   return (
     <div className="flex flex-col h-full">
       <div className="px-2 my-4">
+<<<<<<< HEAD
+=======
+
+>>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
         <Link
           href="/"
           className={cn(
@@ -22,8 +29,13 @@ export async function ChatHistory({ userId }: ChatHistoryProps) {
             'h-10 w-full justify-start bg-zinc-50 px-4 shadow-none transition-colors hover:bg-zinc-200/40 dark:bg-zinc-900 dark:hover:bg-zinc-300/10'
           )}
         >
+<<<<<<< HEAD
           <IconPlus className="-translate-x-2 stroke-2" />
           New Chat
+=======
+            <IconPlus className="-translate-x-2 stroke-2" />
+            New Chat
+>>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
         </Link>
       </div>
       <React.Suspense

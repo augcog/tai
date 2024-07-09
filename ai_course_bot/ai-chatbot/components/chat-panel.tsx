@@ -93,7 +93,12 @@ export function ChatPanel({
                 id,
                 content: value,
                 role: 'user',
+<<<<<<< HEAD
                 tool_call_id: data
+=======
+                tool_call_id: data,
+                data: data
+>>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
               })
             }}
             input={input}

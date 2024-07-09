@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 """Base class for all file type converters.
+=======
+"""Base classes for all file type converters.
+>>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
 """
 
 from abc import ABC, abstractmethod
@@ -11,21 +15,39 @@ from typing import Dict, List, Union
 from rag.file_conversion_router.utils.logger import conversion_logger, logger
 from rag.file_conversion_router.utils.markdown_parser import MarkdownParser
 from rag.file_conversion_router.utils.utils import calculate_hash, ensure_path
+<<<<<<< HEAD
 
 
 class BaseConverter(ABC):
     """Base class for all file type converters.
 
     This base class defines the interface for all type converters, with a standardized workflow, which outputs 3 files:
+=======
+from rag.file_conversion_router.classes.page import Page
+from rag.file_conversion_router.classes.vidpage import VidPage
+
+class BaseConverter(ABC):
+    """Base classes for all file type converters.
+
+    This base classes defines the interface for all type converters, with a standardized workflow, which outputs 3 files:
+>>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
     - Markdown
     - Tree txt
     - Pickle
 
+<<<<<<< HEAD
     All child class need to implement the abstract methods:
     - _to_markdown
 
     As long as a child class can convert a file to Markdown,
     the base class will handle the rest of the conversion process.
+=======
+    All child classes need to implement the abstract methods:
+    - _to_markdown
+
+    As long as a child classes can convert a file to Markdown,
+    the base classes will handle the rest of the conversion process.
+>>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
     """
 
     def __init__(self):
@@ -92,12 +114,18 @@ class BaseConverter(ABC):
         self._to_markdown(input_path, output_path)
 
     @conversion_logger
+<<<<<<< HEAD
     def _convert_md_to_tree_txt_and_pkl(self, input_path: Path, output_folder: Path) -> None:
         """Convert the input Markdown file to a tree txt file and a pkl file.
 
         Files will be saved in the same folder as the Markdown filepath set up in the MarkdownParser initialization.
         """
         self._md_parser.concat_print()
+=======
+    def _convert_to_page(self, input_path: Path, output_path: Path) -> Page:
+        page = self._to_page(input_path, output_path)
+        return page
+>>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
 
     def _setup_output_paths(self, input_path: Union[str, Path], output_folder: Union[str, Path]) -> None:
         """Set up the output paths for the Markdown, tree txt, and pkl files."""
@@ -112,7 +140,11 @@ class BaseConverter(ABC):
 
     def _convert_and_cache(self, input_path: Path, output_folder: Path, file_hash: str) -> List[Path]:
         self._setup_output_paths(input_path, output_folder)
+<<<<<<< HEAD
         # This method embeds the abstract method `_to_markdown`, which needs to be implemented by the child class.
+=======
+        # This method embeds the abstract method `_to_markdown`, which needs to be implemented by the child classes.
+>>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
         _, conversion_time = self._perform_conversion(input_path, output_folder)
         paths = [self._md_path, self._tree_txt_path, self._pkl_path]
         ConversionCache.set_cached_paths_and_time(file_hash, paths, conversion_time)
@@ -132,18 +164,35 @@ class BaseConverter(ABC):
     @conversion_logger
     def _perform_conversion(self, input_path: Path, output_folder: Path) -> None:
         """Perform the file conversion process."""
+<<<<<<< HEAD
         self._convert_to_markdown(input_path, self._md_path)
         self._md_parser = MarkdownParser(self._md_path)
         self._convert_md_to_tree_txt_and_pkl(self._md_path, output_folder)
+=======
+        page = self._convert_to_page(input_path, output_folder)[0]
+        page.to_chunk()
+        pkl_file = output_folder.with_suffix(".pkl")
+        page.chunks_to_pkl(str(pkl_file))
+
+    @abstractmethod
+    def _to_page(self, input_path: Path, output_path: Path) -> Page:
+        """Convert the input file to Expected Page format. To be implemented by subclasses."""
+        raise NotImplementedError("This method should be overridden by subclasses.")
+>>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
 
     @abstractmethod
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:
         """Convert the input file to Expected Markdown format. To be implemented by subclasses."""
         raise NotImplementedError("This method should be overridden by subclasses.")
 
+<<<<<<< HEAD
 
 class ConversionCache:
     """A class to handle caching of conversion results."""
+=======
+class ConversionCache:
+    """A classes to handle caching of conversion results."""
+>>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
     _cache: Dict[str, List[Path]] = {}
     _futures_cache: Dict[str, Future] = {}
     # Store the time taken for each file conversion

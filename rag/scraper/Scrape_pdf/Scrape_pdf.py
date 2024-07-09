@@ -1,7 +1,7 @@
-from nougat import pdf_to_md
+from rag.scraper.Scrape_pdf.nougat import pdf_to_md
 import fitz
 from pathlib import Path
-from pdf_helper import missing_page_fill
+from rag.scraper.Scrape_pdf.pdf_helper import missing_page_fill
 import os
 
 

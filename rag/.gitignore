@@ -1,0 +1,15 @@
+/documents/*
+/pickle/*
+/log/*
+
+# Remove documents scraped
+/scraper/Scrape_header/*/
+/scraper/Scrape_rst/*/
+/scraper/Scrape_md/*/
+/scraper/Scrape_pdf/*/
+
+# Remove all videos and audio files
+*mp4
+*wav
+*mp3
+*pdf

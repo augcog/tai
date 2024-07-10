@@ -16,7 +16,7 @@ import json
 from app.embedding.table_create import execute_all, connect, insert
 
 # Set the environment variable to use the SQL database
-SQLDB = True
+SQLDB = False
 
 class Message(BaseModel):
     role: str
@@ -35,7 +35,7 @@ pipeline = transformers.pipeline(
     "text-generation",
     model=model_id,
     model_kwargs={"torch_dtype": torch.bfloat16},
-    device="mps",
+    device="cuda",
 )
 
 lock = threading.Lock()

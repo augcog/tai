@@ -7,12 +7,12 @@ from pathlib import Path
 from shutil import copy2
 from threading import Lock
 from typing import Dict, List, Union
+import yaml
 
 from rag.file_conversion_router.utils.logger import conversion_logger, logger
-from rag.file_conversion_router.utils.markdown_parser import MarkdownParser
 from rag.file_conversion_router.utils.utils import calculate_hash, ensure_path
 from rag.file_conversion_router.classes.page import Page
-from rag.file_conversion_router.classes.vidpage import VidPage
+
 
 class BaseConverter(ABC):
     """Base classes for all file type converters.
@@ -33,7 +33,6 @@ class BaseConverter(ABC):
         self._md_parser = None
 
         self._md_path = None
-        self._tree_txt_path = None
         self._pkl_path = None
 
         self._logger = logger
@@ -105,14 +104,13 @@ class BaseConverter(ABC):
         # TODO: current MarkdownParser does not support custom output paths,
         #  below paths are only used for caching purposes at the moment,
         #  since the markdown parser generates below file paths by default
-        self._tree_txt_path = ensure_path(output_folder / f"{input_path.stem}.md.tree.txt")
-        self._pkl_path = ensure_path(output_folder / f"{input_path.stem}.md.pkl")
+        self._pkl_path = ensure_path(output_folder / f"{input_path.stem}.pkl")
 
     def _convert_and_cache(self, input_path: Path, output_folder: Path, file_hash: str) -> List[Path]:
         self._setup_output_paths(input_path, output_folder)
         # This method embeds the abstract method `_to_markdown`, which needs to be implemented by the child classes.
         _, conversion_time = self._perform_conversion(input_path, output_folder)
-        paths = [self._md_path, self._tree_txt_path, self._pkl_path]
+        paths = [self._md_path, self._pkl_path]
         ConversionCache.set_cached_paths_and_time(file_hash, paths, conversion_time)
 
     def _use_cached_files(self, cached_paths: List[Path], output_folder: Path) -> None:
@@ -120,20 +118,45 @@ class BaseConverter(ABC):
         output_folder = ensure_path(output_folder)
         output_folder.mkdir(parents=True, exist_ok=True)
 
-        md_path, tree_txt_path, pkl_path = cached_paths
+        md_path, pkl_path = cached_paths
         correct_file_name = self._md_path.stem
-        for path, suffix in zip((md_path, tree_txt_path, pkl_path), (".md", ".md.tree.txt", ".md.pkl")):
+        for path, suffix in zip((md_path, pkl_path), (".md", ".pkl")):
             des_path = Path(copy2(path, output_folder))
             des_path.rename(output_folder / f"{correct_file_name}{suffix}")
             self._logger.info(f"Copied cached file from {path} to {des_path}.")
 
+    def _read_metadata(self, metadata_path: Path) -> dict:
+        """Read metadata from file or return mocked data if file doesn't exist."""
+        if metadata_path.exists():
+            try:
+                with open(metadata_path, "r") as metadata_file:
+                    return yaml.safe_load(metadata_file)
+            except Exception as e:
+                self._logger.error(f"Error reading metadata file: {str(e)}")
+                return self._get_mocked_metadata()
+        else:
+            self._logger.warning(f"Metadata file not found: {metadata_path}. Using mocked metadata.")
+            return self._get_mocked_metadata()
+
+    @staticmethod
+    def _get_mocked_metadata() -> dict:
+        """Return mocked metadata when the actual metadata file is missing."""
+        return {
+            "URL": "URL_NOT_AVAILABLE",
+            # Add other mocked metadata fields as needed
+        }
+
     @conversion_logger
     def _perform_conversion(self, input_path: Path, output_folder: Path) -> None:
         """Perform the file conversion process."""
-        page = self._convert_to_page(input_path, output_folder)[0]
+        if not output_folder.exists():
+            output_folder.mkdir(parents=True, exist_ok=True)
+            logger.warning(f"Output folder did not exist, it's now created: {output_folder}")
+        filename = output_folder.stem
+        pkl_output_path = output_folder / f"{filename}.pkl"
+        page = self._convert_to_page(input_path, pkl_output_path)[0]
         page.to_chunk()
-        pkl_file = output_folder.with_suffix(".pkl")
-        page.chunks_to_pkl(str(pkl_file))
+        page.chunks_to_pkl(str(pkl_output_path))
 
     @abstractmethod
     def _to_page(self, input_path: Path, output_path: Path) -> Page:

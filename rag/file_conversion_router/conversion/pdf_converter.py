@@ -33,25 +33,29 @@ class PdfConverter(BaseConverter):
     # Override
     def _to_markdown(self, input_path: Path, output_path: Path) -> Path:
         # """Perform PDF to Markdown conversion using Nougat with the detected hardware configuration."""
-        # command = [
-        #     "nougat",
-        #     str(input_path),
-        #     # nougat requires the argument output path to be a directory, not file, so we need to handle it here
-        #     "-o",
-        #     str(output_path.parent),
-        #     "--no-skipping",
-        #     "--model",
-        #     self.model_tag,
-        #     "--batchsize",
-        #     str(self.batch_size),
-        # ]
-        # try:
-        #     result = subprocess.run(command, check=False, capture_output=True, text=True)
-        #     self._logger.info(f"Output: {result.stdout}")
-        #     self._logger.info(f"Errors: {result.stderr}")
-        #     if result.returncode != 0:
-        #         self._logger.error(f"Command exited with a non-zero status: {result.returncode}")
-        #     # Now change the file name of generated mmd file to align with the expected md file path from base converter
+        command = [
+            "nougat",
+            str(input_path),
+            # nougat requires the argument output path to be a directory, not file, so we need to handle it here
+            "-o",
+            str(output_path.parent),
+            "--no-skipping",
+            "--model",
+            self.model_tag,
+            "--batchsize",
+            str(self.batch_size),
+        ]
+        try:
+            result = subprocess.run(command, check=False, capture_output=True, text=True)
+            self._logger.info(f"Output: {result.stdout}")
+            self._logger.info(f"Errors: {result.stderr}")
+            if result.returncode != 0:
+                self._logger.error(f"Command exited with a non-zero status: {result.returncode}")
+        except Exception as e:
+            self._logger.error(f"An error occurred: {str(e)}")
+            raise
+
+        # Now change the file name of generated mmd file to align with the expected md file path from base converter
         output_mmd_path = output_path.with_suffix(".mmd")
         # Rename it to `md` file
         target = output_path.with_suffix(".md")
@@ -65,18 +69,19 @@ class PdfConverter(BaseConverter):
 
     def _to_page(self, input_path: Path, output_path: Path) -> Page:
         """Perform Markdown to Page conversion."""
-        parent = input_path.parent
-        stem = input_path.stem
-        input_path = self._to_markdown(input_path, output_path)
-        print(input_path)
+        try:
+            input_path = self._to_markdown(input_path, output_path)
+        except Exception as e:
+            self._logger.error(f"An error occurred during markdown conversion: {str(e)}")
+            raise
+
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
-        filetype = input_path.suffix.split(".")[1]
+        filetype = input_path.suffix.lstrip('.')
         with open(input_path, "r") as input_file:
             text = input_file.read()
-        metadata = parent / (stem+"_metadata.yaml")
-        with open(metadata, "r") as metadata_file:
-            metadata_content = yaml.safe_load(metadata_file)
-        url = metadata_content.get("URL", None)
-        return Page(content={'text': text}, filetype=filetype, page_url=url)
 
+        metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
+        metadata_content = self._read_metadata(metadata_path)
+        url = metadata_content.get("URL")
+        return Page(pagename=input_path.stem, content={'text': text}, filetype=filetype, page_url=url)

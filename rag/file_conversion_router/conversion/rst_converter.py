@@ -5,6 +5,7 @@ from rag.file_conversion_router.classes.page import Page
 from rst_to_myst import rst_to_myst
 import yaml
 
+
 class RstConverter(BaseConverter):
     def __init__(self):
         super().__init__()

@@ -15,6 +15,3 @@ def convert_directory(input_dir: Union[str, Path], output_dir: Union[str, Path])
     2. Markdown (To clarify, this markdown includes additional tree structure of original markdown file)
     """
     process_folder(input_dir, output_dir)
-
-if __name__ == '__main__':
-    process_folder("rag\scraper\Scrape_pdf\Test_pdf", "rag\scraper\Scrape_pdf\Test_output")

@@ -24,3 +24,4 @@ torch==2.3.0
 tqdm==4.66.2
 transformers==4.38.2
 voyageai==0.2.2
+rst_to_myst==0.4.0

@@ -6,7 +6,7 @@
 /scraper/Scrape_header/*/
 /scraper/Scrape_rst/*/
 /scraper/Scrape_md/*/
-/scraper/Scrape_pdf/*/
+# /scraper/Scrape_pdf/*/
 
 # Remove all videos and audio files
 *mp4

@@ -107,7 +107,7 @@ def extract_and_convert_pdf_to_md(pdf_path, md_path, output_folder):
         md_file.write(markdown_content)
 
 class PdfConverter(BaseConverter):
-    def __init__(self, model_tag: str = "0.1.0-small", batch_size: int = 4):
+    def __init__(self, model_tag: str = "0.1.0-base", batch_size: int = 4):
         super().__init__()
         self.model_tag = model_tag
         self.batch_size = batch_size

@@ -140,7 +140,7 @@ def compare_folders(expected_dir: Path, output_dir: Path, similarity_threshold: 
         return {file.relative_to(dir) for file in dir.rglob("*") if file.is_file() and file.suffix.lower() != ".pdf"}
 
     expected_files = get_non_pdf_files(expected_dir)
-    output_files = {file.relative_to(output_dir) for file in output_dir.rglob("*") if file.is_file()}
+    output_files = get_non_pdf_files(output_dir)
 
     all_matched = True
     # Compare common files

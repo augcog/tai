@@ -153,8 +153,8 @@ class PdfConverter(BaseConverter):
             "--no-skipping",
             "--model",
             self.model_tag,
-            "--batchsize",
-            str(self.batch_size),
+            # "--batchsize",
+            # str(self.batch_size),
         ]
         try:
             result = subprocess.run(command, check=False, capture_output=True, text=True)

@@ -7,7 +7,6 @@ import logging
 from difflib import SequenceMatcher
 from pathlib import Path
 from typing import List, Union
-from typing import Set
 
 from colorama import Fore, Style, init
 
@@ -134,13 +133,8 @@ def compare_folders(expected_dir: Path, output_dir: Path, similarity_threshold: 
     Returns:
         bool: True if the folders match, False otherwise.
     """
-
-    #Because .pdf file are not necessary to be compared so we ignore they for now
-    def get_non_pdf_files(dir: Path) -> Set[Path]:
-        return {file.relative_to(dir) for file in dir.rglob("*") if file.is_file() and file.suffix.lower() != ".pdf"}
-
-    expected_files = get_non_pdf_files(expected_dir)
-    output_files = get_non_pdf_files(output_dir)
+    expected_files = {file.relative_to(expected_dir) for file in expected_dir.rglob("*") if file.is_file()}
+    output_files = {file.relative_to(output_dir) for file in output_dir.rglob("*") if file.is_file()}
 
     all_matched = True
     # Compare common files

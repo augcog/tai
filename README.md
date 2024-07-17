@@ -38,8 +38,7 @@ The TAI project is a collaborative effort by researchers and students at UC Berk
 We are deeply grateful for the support and contributions from the following organizations:
 
 - **[Qualcomm](https://www.qualcomm.com/)**: For their generous AI Hub sponsorship, which has been instrumental in our progress.
-- **[Hitch Interactive](https://hitchinteractive.com/)**: For their unwavering general support, which has been crucial to our success.
-- **[Gaia Network](https://www.gaianet.ai/)**: For innovations in building decentralized AI infrastructure.
 - **[Nimbus-Nova](https://www.nimbus-nova.com/)**: For their exceptional work in system design and architecture.
+- **[Hitch Interactive](https://hitchinteractive.com/)**: For their unwavering general support, which has been crucial to our success.
 
 

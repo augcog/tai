@@ -10,7 +10,7 @@ from rag.file_conversion_router.conversion.base_converter import BaseConverter, 
 from rag.file_conversion_router.conversion.md_converter import MarkdownConverter
 from rag.file_conversion_router.conversion.pdf_converter import PdfConverter
 from rag.file_conversion_router.conversion.rst_converter import RstConverter
-from rag.file_conversion_router.conversion.video_converter import VideoConverter
+# from rag.file_conversion_router.conversion.video_converter import VideoConverter
 from rag.file_conversion_router.services.task_manager import schedule_conversion
 
 ConverterMapping = Dict[str, Type[BaseConverter]]
@@ -20,7 +20,7 @@ converter_mapping: ConverterMapping = {
     ".pdf": PdfConverter,
     ".md": MarkdownConverter,
     ".rst": RstConverter,
-    ".mp4": VideoConverter,
+    # ".mp4": VideoConverter,
     #     TODO: Add more file types and converters here
 }
 

@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { saveData } from '@/lib/utils';
 
 export function SelectCourse() {
-    const [selectedCourse, setSelectedCourse] = useState('Public Domain Server'); // Default message
+    const [selectedCourse, setSelectedCourse] = useState('No Course Selected'); // Default message
 
     const handleSelect = (courseName: string) => {
         setSelectedCourse(courseName); // Update the selected course state
@@ -17,9 +17,9 @@ export function SelectCourse() {
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+            <DropdownMenuTrigger>
                 <Button>
-                    {selectedCourse} 
+                    {selectedCourse} {/* Use the selectedCourse state here */}
                     <IconCaretDown />
                 </Button>
             </DropdownMenuTrigger>
@@ -28,7 +28,7 @@ export function SelectCourse() {
                 <DropdownMenuItem onSelect={() => handleSelect('CS 61A')}>CS 61A</DropdownMenuItem>
                 <DropdownMenuItem onSelect={() => handleSelect('EE 106B')}>EE 106B</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onSelect={() => handleSelect('Public Domain Server')}>Public Domain Server</DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => handleSelect('General')}>General</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     );

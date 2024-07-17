@@ -6,8 +6,8 @@ import random
 
 
 # Paths to your vector and vss extensions
-EXT_VECTOR_PATH = "./dist/debug/vector0"
-EXT_VSS_PATH = "./dist/debug/vss0"
+EXT_VECTOR_PATH = "ai_course_bot/ai-chatbot-backend/app/embedding/dist/debug/vector0"
+EXT_VSS_PATH = "ai_course_bot/ai-chatbot-backend/app/embedding/dist/debug/vss0"
 BGE = True
 # Connect to the SQLite database and load extensions
 def connect(path=":memory:"):
@@ -34,7 +34,7 @@ def execute_all(cursor, sql, args=None):
     return list(map(lambda x: dict(x), results))
 
 # Load data from the pickle file
-with open('/home/bot/bot/tai/ai_course_bot/ai-chatbot-backend/app/embedding/recursive_seperate_none_BGE_embedding_400_106_full.pkl', 'rb') as f:
+with open('ai_course_bot/ai-chatbot-backend/app/embedding/recursive_seperate_none_BGE_embedding_400_106_full.pkl', 'rb') as f:
     data_to_store = pickle.load(f)
 
 

@@ -11,6 +11,7 @@ from rag.file_conversion_router.conversion.md_converter import MarkdownConverter
 from rag.file_conversion_router.conversion.pdf_converter import PdfConverter
 from rag.file_conversion_router.conversion.rst_converter import RstConverter
 from rag.file_conversion_router.conversion.video_converter import VideoConverter
+from rag.file_conversion_router.conversion.ed_converter import EdConverter
 from rag.file_conversion_router.services.task_manager import schedule_conversion
 
 ConverterMapping = Dict[str, Type[BaseConverter]]
@@ -21,6 +22,7 @@ converter_mapping: ConverterMapping = {
     ".md": MarkdownConverter,
     ".rst": RstConverter,
     ".mp4": VideoConverter,
+    ".json": EdConverter
     #     TODO: Add more file types and converters here
 }
 

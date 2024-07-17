@@ -2,8 +2,6 @@ import string
 from rag.file_conversion_router.classes.chunk import Chunk
 import tiktoken
 import pickle
-
-
 class Page:
     def __init__(self, pagename: str, content: dict, filetype: str, page_url: str = ""):
         """
@@ -33,7 +31,6 @@ class Page:
         Returns:
             list: List of separated text chunks.
         """
-
         def token_size(sentence: str) -> int:
             encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
             return len(encoding.encode(sentence))
@@ -115,13 +112,8 @@ class Page:
             headers_content.append((curheader, current_content))
 
         return headers_content
-
     def page_seperate_to_segments(self) -> None:
         self.segments = [i for i in self.extract_headers_and_content(self.content['text'])]
-        if not self.segments:
-            # LEVEL 0 for no header found
-            self.segments = [(("NO ANY HEADER DETECTED", 0),
-                              self.content['text'])]
 
     def print_header_tree(self):
         result = ""
@@ -223,14 +215,13 @@ class Page:
             hyperlink_header = lower_text.replace(' ', '-')
 
             return hyperlink_header
-
         # seperate with recursive seperate
         for i in self.tree_segments:
             content_chunks = self.recursive_separate(i['Segment_print'], 400)
             for count, content_chunk in enumerate(content_chunks):
                 headers = i['Page_path']
                 urls = [f"{self.page_url}#{generate_hyperlink_header(header)}" for header in headers]
-                page_path = ' > '.join(f"{item} (h{i + 1})" for i, item in enumerate(i['Page_path'])) + f" ({count})"
+                page_path = ' > '.join(f"{item} (h{i+1})" for i, item in enumerate(i['Page_path'])) + f" ({count})"
                 self.chunks.append(Chunk(page_path, content_chunk, urls))
         return self.chunks
 
@@ -264,3 +255,4 @@ class Page:
         """
         with open(output_path, "wb") as f:
             pickle.dump(self.chunks, f)
+

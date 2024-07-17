@@ -18,7 +18,6 @@ import {
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog'
 import { IconSpinner } from '@/components/ui/icons'
-import { error } from 'console'
 
 interface ClearHistoryProps {
   isEnabled: boolean
@@ -32,7 +31,7 @@ export function ClearHistory({
   const [open, setOpen] = React.useState(false)
   const [isPending, startTransition] = React.useTransition()
   const router = useRouter()
-  
+
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
@@ -63,9 +62,7 @@ export function ClearHistory({
                   }
 
                   setOpen(false)
-                  
-                  // router.push('/')
-                  window.location.href = "/";
+                  router.push('/')
                 })
               })
             }}

@@ -27,7 +27,7 @@ def test_pdf_converter_on_task_manager(input_path: str, expected_output_paths: L
         pytest.fail(f"Conversion failed with an exception: {e}")
 
     # Now that the task is complete, check the file against the expected output
-    for idx, suffix in enumerate([".md", ".pkl"]):
+    for idx, suffix in enumerate([".md", ".md.pkl", ".md.tree.txt"]):
         output_file_path = output_folder / f"{input_path.stem}{suffix}"
         assert output_file_path.exists(), f"File {output_file_path} does not exist."
         assert compare_files(

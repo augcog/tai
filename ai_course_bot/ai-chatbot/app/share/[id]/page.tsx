@@ -1,10 +1,10 @@
 import { type Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { formatDate } from '@/lib/utils'
+import { formatDate } from '@/app/lib/utils'
 import { getSharedChat } from '@/app/actions'
-import { ChatList } from '@/components/chat-list'
-import { FooterText } from '@/components/footer'
+import { ChatList } from '@/app/components/chat-list'
+import { FooterText } from '@/app/components/footer'
 
 interface SharePageProps {
   params: {

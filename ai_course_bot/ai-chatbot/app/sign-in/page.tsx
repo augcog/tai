@@ -1,8 +1,8 @@
-import { auth } from '@/auth'
-import { LoginButton } from '@/components/login-button'
+import { auth } from '@/app/utils/auth'
+import { LoginButton } from '@/app/components/login-button'
 import { redirect } from 'next/navigation'
-import { Chat } from '@/components/chat'
-import { nanoid } from '@/lib/utils'
+import { Chat } from '@/app/components/chat'
+import { nanoid } from '@/app/lib/utils'
 
 export default async function SignInPage() {
   const session = await auth()
@@ -17,6 +17,5 @@ export default async function SignInPage() {
     // <p>hi</p>
     <Chat id={id} />
     // <LoginButton />
-
   )
 }

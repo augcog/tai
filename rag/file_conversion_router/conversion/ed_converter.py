@@ -1,4 +1,53 @@
-### KB FILTER FUNCTIONS ###
+from pathlib import Path
+import yaml
+import json
+from rag.file_conversion_router.conversion.base_converter import BaseConverter
+from rag.file_conversion_router.classes.page import Page
+from rag.file_conversion_router.classes.chunk import Chunk
+
+class EdConverter(BaseConverter):
+    def __init__(self):
+        super().__init__()
+
+    # Override
+    def _to_markdown(self, input_path: Path, output_path: Path) -> Path:
+        """Perform Json to Markdown conversion.
+
+        Arguments:
+        input_path -- Path to the input json file.
+        output_folder -- Path to the folder where the output md file will be saved.
+        """
+        # call on scrape.py's modified json converter + load the json_data
+        output_path = output_path.with_suffix(".md")
+        with open(input_path, 'r') as file:
+            json_data = json.load(file)
+        
+        # filter the json so only good data remains -- comment out if filter not needed/wanted!
+        json_data = json_kb_filter(json_data)
+
+        # run the ed scraper
+        scrape_json(json_data, output_path)
+        return output_path
+    
+    def _to_page(self, input_path: Path, output_path: Path) -> Page:
+        """Perform Markdown to Page conversion."""
+        try:
+            input_path = self._to_markdown(input_path, output_path)
+        except Exception as e:
+            self._logger.error(f"An error occurred during markdown conversion: {str(e)}")
+            raise
+
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+
+        filetype = input_path.suffix.lstrip('.')
+        with open(input_path, "r") as input_file:
+            text = input_file.read()
+
+        metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
+        metadata_content = self._read_metadata(metadata_path)
+        url = metadata_content.get("URL")
+        return Page(pagename=input_path.stem, content={'text': text}, filetype=filetype, page_url=url)
+
 # recursive filter for json data
 def json_kb_filter(data):
     debug_lst = []
@@ -48,8 +97,6 @@ def json_kb_filter(data):
                 elem["url"] += " -- Commentless"
                 debug_lst.append(elem)
 
-    ## comment/uncomment to toggle debug (generate debug.md) mode
-    # print_all(debug_lst)
     return ret
 
 # filters all comments - takes and recieves a list of comments
@@ -129,15 +176,43 @@ def json_kb_answers_filter(data, debug_lst=None):
 
     return ret
 
-### DEBUG FUNCTION ###
-# formats data and all of its descendants to "debug.md"
-def print_all(data):
-    markdown_content = process_comments(data)
+def scrape_json(json_data, output_path: Path) -> Path:
+    # Convert JSON data to Markdown
+    markdown_content = convert_json_to_markdown(json_data)
+    # Save Markdown content to output.md
+    save_markdown(markdown_content, output_path) 
 
-    ## Save Markdown content to "debug.md"
-    # save_markdown(markdown_content, '/debug.md')
+def convert_json_to_markdown(data):
+    markdown = ""
+    for item in data:
+        markdown += f"# {item['title']}\n"
+        markdown += f"**User:** {item['user']['name']}\n"
+        markdown += f"**Role:** {item['user']['role']}\n"
+        markdown += f"**URL:** {item['url']}\n"
+        markdown += f" {item['text']}\n"
 
-### UTILITY FUNCTIONS (ported from scrape.py!) ###
+        if len(item.get("comments", [])) > 0:
+            for comment in item.get("comments", []):
+                markdown += "### Comment\n"
+                markdown += f"**User:** {comment['user']['name']}\n"
+                markdown += f"**Role:** {comment['user']['role']}\n"
+                markdown += f"**URL:** {comment['url']}\n"
+                markdown += f"{comment['text']}\n"
+                if "comments" in comment and len(comment.get("comments", [])) > 0:
+                    markdown += process_comments(comment["comments"])
+        if len(item.get("answers", [])) > 0:
+            for answer in item.get("answers", []):
+                markdown += "### Answer \n"
+                markdown += f"**Name:** {answer['user']['name']}\n"
+                markdown += f"**Role:** {answer['user']['role']}\n"
+                markdown += f"**URL:** {answer['url']}\n"
+                markdown += f"{answer['text']}\n"
+                if "comments" in answer and len(answer.get("comments", [])) > 0:
+                    markdown += process_comments(answer["comments"])
+
+    return markdown
+
+### UTILITY FUNCTIONS ###
 def save_markdown(markdown_content, file_path):
     with open(file_path, 'w') as file:
         file.write(markdown_content)

@@ -1,10 +1,22 @@
 import json
-from filter import json_kb_filter
-# from rag.file_conversion_router.api import convert_directory
+from pathlib import Path
+# from rag.scraper.Scrape_ed.filter import json_kb_filter
+
+def scrape_json(json_data, output_path: Path) -> Path:
+    if "qa" in str(output_path):
+        # Convert JSON data to Markdown
+        markdown_content_qa = convert_json_to_markdown_qa(json_data)
+        # Save Markdown content to output.md
+        save_markdown(markdown_content_qa, output_path)  
+    else:
+        # Convert JSON data to Markdown
+        markdown_content = convert_json_to_markdown(json_data)
+        # Save Markdown content to output.md
+        save_markdown(markdown_content, output_path) 
 
 def main():
     # Load JSON data from test.json
-    with open('106b_ed.json', 'r') as file:
+    with open('json_files/106b_ed.json', 'r') as file:
         json_data = json.load(file)
     # Convert JSON data to Markdown
     markdown_content_qa = convert_json_to_markdown_qa(json_data)
@@ -13,10 +25,6 @@ def main():
     # Save Markdown content to output.md
     save_markdown(markdown_content_qa, 'input_mds/outputqa.md')
     save_markdown(markdown_content, 'input_mds/outputkb.md')
-
-    # convert the markdowns to pdf/md/pkl formats
-    # convert_directory('./input_mds/outputqa.md', './output_mds/outputqa')
-    # convert_directory('./input_mds/outputkb.md', './outpud_mds/outputkb')
 
 def process_comments(comments):
     markdown = ""
@@ -68,9 +76,6 @@ def convert_json_to_markdown_qa(data):
     return markdown
 
 def convert_json_to_markdown(data):
-    # first filter the data!
-    data = json_kb_filter(data)
-
     markdown = ""
     for item in data:
         markdown += f"# {item['title']}\n"

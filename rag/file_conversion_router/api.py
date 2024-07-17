@@ -17,7 +17,7 @@ def convert_directory(input_dir: Union[str, Path], output_dir: Union[str, Path])
     process_folder(input_dir, output_dir)
 
 def main():
-    convert_directory("./rag/scraper/Scrape_ed/input_mds", "./rag/scraper/Scrape_ed/output_files")
+    convert_directory(f"./rag/scraper/Scrape_ed/json_files", "./rag/scraper/Scrape_ed/output_files")
 
 if __name__ == "__main__":
     main()

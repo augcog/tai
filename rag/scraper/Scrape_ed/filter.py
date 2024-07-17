@@ -48,9 +48,8 @@ def json_kb_filter(data):
                 elem["url"] += " -- Commentless"
                 debug_lst.append(elem)
 
-    ### comment/uncomment to toggle debug (generate debug.md) mode
-    print_all(debug_lst)
-    ###
+    ## comment/uncomment to toggle debug (generate debug.md) mode
+    # print_all(debug_lst)
     return ret
 
 # filters all comments - takes and recieves a list of comments
@@ -130,15 +129,13 @@ def json_kb_answers_filter(data, debug_lst=None):
 
     return ret
 
-### QA FILTER FUNCTIONS ###
-
 ### DEBUG FUNCTION ###
 # formats data and all of its descendants to "debug.md"
 def print_all(data):
     markdown_content = process_comments(data)
 
-    # Save Markdown content to "debug.md"
-    save_markdown(markdown_content, './input_mds/debug.md')
+    ## Save Markdown content to "debug.md"
+    # save_markdown(markdown_content, '/debug.md')
 
 ### UTILITY FUNCTIONS (ported from scrape.py!) ###
 def save_markdown(markdown_content, file_path):

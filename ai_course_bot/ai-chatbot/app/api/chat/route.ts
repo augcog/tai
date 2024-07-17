@@ -12,7 +12,7 @@ export async function POST(req: Request) {
   var courseId = messages[messages.length - 1].tool_call_id
 
   const userId: string = (await auth())?.user.email ?? "";
-  console.log("Here")
+
   if (courseId == null || userId == "") {
     courseId = "default"
   } 
@@ -57,8 +57,8 @@ export async function POST(req: Request) {
       return new Response('Error fetching data', { status: apiResponse.status });
     }
   } catch (error) {
-
-    return new Response('Internal Server Error', { status: 500 });
+    console.log("[Route.ts] Error: ", error);
+    return new Response('Internal Server Error; Server may be down, Please try again later', {headers: { 'Content-Type': 'application/json' }});
   }
 }
 

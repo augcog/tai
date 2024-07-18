@@ -201,10 +201,10 @@ class ScrapeHeader(BaseScraper):
             self.extract_unique_links(self.url,self.root,self.root_regex,self.root_filename,self.content_tags, self.delay)
 
 if __name__ == "__main__":
-    url = "https://cs61a.org/"
-    root_regex = r"https://cs61a.org/"
-    root = "https://cs61a.org/"
-    root_filename = "61A_Website"
+    url = "https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html"
+    root_regex = r"^https://docs.opencv.org/4.x\/\w+\/\w+\/tutorial_py"
+    root = "https://docs.opencv.org/4.x/d6/d00/"
+    root_filename = "opencv"
     content_tags = match_tags(url)
     
     scrapper = ScrapeHeader(url, root, root_regex, root_filename, content_tags)

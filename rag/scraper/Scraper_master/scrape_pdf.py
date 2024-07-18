@@ -25,6 +25,6 @@ class ScrapePdf(BaseScraper):
 
 # Example usage:
 if __name__ == "__main__":
-    pdf_url = "https://ucb-ee106.github.io/106b-sp23site/assets/hw/Homework_5__Grasping.pdf"  # Replace with the actual PDF URL
-    pdf_saver = ScrapePdf(pdf_url)  # Specify the filename to save as
-    pdf_saver.content_extract("HW5", pdf_url) # Start the download process
+    pdf_url = "pdflink"  # Replace with the actual PDF URL
+    pdf_saver = ScrapePdf(pdf_url)
+    pdf_saver.content_extract("filename", pdf_url) # Change filename to save as and start the download process

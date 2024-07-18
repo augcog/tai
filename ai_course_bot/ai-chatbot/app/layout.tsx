@@ -7,6 +7,7 @@ import { cn } from '@/tai/lib/utils'
 import { TailwindIndicator } from '@/tai/components/tailwind-indicator'
 import { Providers } from '@/tai/components/providers'
 import { Header } from '@/tai/components/header'
+import { SidebarDesktop } from '@/tai/components/sidebar-desktop'
 
 export const metadata = {
   metadataBase: new URL(`https://${process.env.VERCEL_URL}`),
@@ -54,7 +55,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
         >
           <div className="flex flex-col min-h-screen">
             <Header />
-            <main className="flex flex-col flex-1 bg-muted/50">{children}</main>
+            <main className="flex flex-col flex-1 bg-muted/50">
+              <div className="relative flex h-[calc(100vh_-_theme(spacing.16))] overflow-hidden">
+                <SidebarDesktop />
+                <div className="group w-full overflow-auto pl-0 animate-in duration-300 ease-in-out peer-[[data-state=open]]:lg:pl-[250px] peer-[[data-state=open]]:xl:pl-[300px]">
+                  {children}
+                </div>
+              </div>
+            </main>
           </div>
           <TailwindIndicator />
         </Providers>

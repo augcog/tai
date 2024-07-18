@@ -1,7 +1,8 @@
 from rag.scraper.Scraper_master.base_scraper import BaseScraper
-from pytube import Playlist, YouTube
+from pytubefix import Playlist, YouTube
 import os
 from utils import save_to_file
+
 class ScrapeVid(BaseScraper):
     def __init__(self, url, root_filename):
         super().__init__(url)

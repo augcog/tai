@@ -168,7 +168,7 @@ class ScrapeHeader(BaseScraper):
         - filename(str): Name of the PDF file
         Returns: 1 on failure, file path on success.
         """
-        file_path = os.path.join(os.getcwd(), filename)
+        file_path = os.path.join(os.getcwd(), filename + ".pdf")
         response = requests.get(url, headers=self.http_header)
         if response.status_code == 200:
             with open(file_path, 'wb') as f:
@@ -181,7 +181,7 @@ class ScrapeHeader(BaseScraper):
     
     # Override
     def content_extract(self, filename, url, **kwargs):
-        if url[-4] == ".pdf":
+        if ".pdf" in url:
             pdf_result = self.download_pdf(url, filename)
             return pdf_result
         else:
@@ -201,10 +201,10 @@ class ScrapeHeader(BaseScraper):
             self.extract_unique_links(self.url,self.root,self.root_regex,self.root_filename,self.content_tags, self.delay)
 
 if __name__ == "__main__":
-    url = "https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html"
-    root_regex = r"^https://docs.opencv.org/4.x\/\w+\/\w+\/tutorial_py"
-    root = "https://docs.opencv.org/4.x/d6/d00/"
-    root_filename = "opencv"
+    url = "https://cs61a.org/"
+    root_regex = r"https://cs61a.org/"
+    root = "https://cs61a.org/"
+    root_filename = "61A_Website"
     content_tags = match_tags(url)
     
     scrapper = ScrapeHeader(url, root, root_regex, root_filename, content_tags)

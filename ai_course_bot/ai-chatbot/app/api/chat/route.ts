@@ -1,6 +1,6 @@
-import { auth } from '@/app/utils/auth'
+import { auth } from '@/tai/utils/auth'
 import { kv } from '@vercel/kv'
-import { nanoid } from '@/app/lib/utils'
+import { nanoid } from '@/tai/lib/utils'
 
 export const runtime = 'edge'
 

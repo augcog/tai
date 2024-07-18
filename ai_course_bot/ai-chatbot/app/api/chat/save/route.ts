@@ -1,6 +1,6 @@
-import { nanoid } from '@/app/lib/utils'
+import { nanoid } from '@/tai/lib/utils'
 import { kv } from '@vercel/kv'
-import { auth } from '@/app/utils/auth'
+import { auth } from '@/tai/utils/auth'
 
 export async function POST(req: Request) {
   const json = await req.json()

@@ -1,9 +1,9 @@
 import { type Metadata } from 'next'
 import { notFound, redirect } from 'next/navigation'
 
-import { auth } from '@/app/utils/auth'
-import { getChat } from '@/app/actions'
-import { Chat } from '@/app/components/chat'
+import { auth } from '@/tai/utils/auth'
+import { getChat } from '@/tai/utils/actions'
+import { Chat } from '@/tai/components/chat'
 
 export interface ChatPageProps {
   params: {

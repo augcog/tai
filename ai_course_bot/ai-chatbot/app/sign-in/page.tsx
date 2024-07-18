@@ -1,8 +1,8 @@
-import { auth } from '@/app/utils/auth'
-import { LoginButton } from '@/app/components/login-button'
+import { auth } from '@/tai/utils/auth'
+import { LoginButton } from '@/tai/components/login-button'
 import { redirect } from 'next/navigation'
-import { Chat } from '@/app/components/chat'
-import { nanoid } from '@/app/lib/utils'
+import { Chat } from '@/tai/components/chat'
+import { nanoid } from '@/tai/lib/utils'
 
 export default async function SignInPage() {
   const session = await auth()

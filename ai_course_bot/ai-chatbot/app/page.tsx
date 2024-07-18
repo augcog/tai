@@ -1,5 +1,5 @@
-import { nanoid } from '@/app/lib/utils'
-import { Chat } from '@/app/components/chat'
+import { nanoid } from '@/tai/lib/utils'
+import { Chat } from '@/tai/components/chat'
 
 export default function IndexPage() {
   const id = nanoid()

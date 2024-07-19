@@ -59,8 +59,7 @@ def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path]) ->
             # Construct the output subdirectory and file path
             output_subdir = output_dir / input_file_path.relative_to(input_dir).parent
             output_subdir.mkdir(parents=True, exist_ok=True)
-            # output_file_path = output_subdir / input_file_path.stem
-            output_file_path = output_subdir
+            output_file_path = output_subdir / input_file_path.stem
 
             # Instantiate a new converter object for each file based on the file extension
             converter_class = converter_mapping.get(input_file_path.suffix)

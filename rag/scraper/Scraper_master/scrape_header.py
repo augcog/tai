@@ -4,7 +4,7 @@ import os
 import time
 import re
 from termcolor import colored
-from urllib.parse import urljoin
+from urllib.parse import urljoin, unquote
 from markdownify import markdownify as md
 from rag.scraper.Scraper_master.base_scraper import BaseScraper
 import yaml
@@ -70,6 +70,7 @@ class ScrapeHeader(BaseScraper):
                 link = link[:-1]
             filename = link.split('/')[-1]
             filename = filename.split('.')[0]
+            filename = unquote(filename).replace(' ', '_')
             cur_dir = os.getcwd()
             create_and_enter_dir(filename)
             # if not os.path.exists(filename):
@@ -227,13 +228,13 @@ def run_tasks(yaml_file):
             scrapper.scrape()
 
 if __name__ == "__main__":
-    # url =  "https://guide.berkeley.edu/courses/"
-    # root_regex = r"^https://classes.berkeley.edu/"
-    # root =  "https://classes.berkeley.edu/"
-    # root_filename = "courses"
-    # #
+    # url =  "https://wiki.ros.org/ROS/Tutorials/"
+    # root_regex = r"^https://wiki.ros.org/ROS/Tutorials/"
+    # root =  "https://wiki.ros.org/ROS/Tutorials/"
+    # root_filename = "ROS"
+    
     # content_tags = match_tags(url)
-    #
+    
     # scrapper = ScrapeHeader(url, root, root_regex, root_filename, content_tags)
     # scrapper.scrape()
     run_tasks('106b_task.yaml')

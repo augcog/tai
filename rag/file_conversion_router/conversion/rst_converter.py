@@ -32,7 +32,7 @@ class RstConverter(BaseConverter):
 
         output_path.parent.mkdir(parents=True, exist_ok=True)
         parent = input_path.parent
-        input_path = self._to_markdown(input_path, output_path)
+        self._to_markdown(input_path, output_path)
         stem = input_path.stem
         filetype = input_path.suffix.split(".")[1]
         with open(input_path, "r") as input_file:

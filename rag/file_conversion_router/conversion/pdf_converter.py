@@ -182,7 +182,7 @@ class PdfConverter(BaseConverter):
     def _to_page(self, input_path: Path, output_path: Path) -> Page:
         """Perform Markdown to Page conversion."""
         try:
-            input_path = self._to_markdown(input_path, output_path,)
+            self._to_markdown(input_path, output_path,)
         except Exception as e:
             self._logger.error(f"An error occurred during markdown conversion: {str(e)}")
             raise
@@ -197,5 +197,6 @@ class PdfConverter(BaseConverter):
         metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
         metadata_content = self._read_metadata(metadata_path)
         url = metadata_content.get("URL")
+        print("PDF",url)
         return Page(pagename=input_path.stem, content={'text': text}, filetype=filetype, page_url=url)
 

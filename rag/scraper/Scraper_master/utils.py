@@ -1,6 +1,7 @@
 import os
 import re
 import urllib.robotparser as robotparser
+import shutil
 
 # Scrape general
 
@@ -35,6 +36,14 @@ def create_and_enter_dir(directory_name):
         if not os.path.exists(directory_name):
             os.makedirs(directory_name, exist_ok=True)
         os.chdir(directory_name)
+
+def delete_and_exit_dir():
+    """
+    Deletes the current directory and files in it and exits it.
+    """
+    cur_dir = os.getcwd()
+    os.chdir('..')
+    shutil.rmtree(cur_dir)
 
 def cd_home(url):
     """

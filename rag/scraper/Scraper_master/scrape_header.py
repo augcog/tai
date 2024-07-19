@@ -9,7 +9,7 @@ from markdownify import markdownify as md
 from rag.scraper.Scraper_master.base_scraper import BaseScraper
 import yaml
 
-from utils import create_and_enter_dir, remove_consecutive_empty_lines, save_to_file,remove_slash_and_hash, cd_home,get_crawl_delay
+from utils import create_and_enter_dir, delete_and_exit_dir, remove_consecutive_empty_lines, save_to_file,remove_slash_and_hash, cd_home,get_crawl_delay
 
 
 content_tags_dict = {
@@ -72,12 +72,18 @@ class ScrapeHeader(BaseScraper):
             filename = filename.split('.')[0]
             cur_dir = os.getcwd()
             create_and_enter_dir(filename)
+            # if not os.path.exists(filename):
+            #     os.makedirs(filename, exist_ok=True)
             error = self.content_extract(filename, link, content_tags=content_tags)
-            self.metadata_extract(filename, link)
+            # print("error", error)
             if error == 1:
+                print("error",filename)
+                delete_and_exit_dir()
                 continue
+            self.metadata_extract(filename, link)
             os.chdir(cur_dir)
             time.sleep(delay)
+
 
 
     def extract_unique_links(self, url, root, root_regex, root_filename, content_tags, delay=0, found_links=[]):
@@ -208,6 +214,7 @@ def run_tasks(yaml_file):
     with open(yaml_file, 'r') as file:
         configuration=yaml.safe_load(file)
         root=configuration['root_folder']
+        root=os.path.abspath(root)
         for task in configuration['tasks']:
             url=task['url']
             base_url = url.split('/')
@@ -215,7 +222,6 @@ def run_tasks(yaml_file):
             base_regex = rf"^{base_url}"
             root_folder = root + '/' + task['name']
             content_tags = match_tags(url)
-            print(root_folder)
 
             scrapper = ScrapeHeader(url, base_url, base_regex, root_folder, content_tags)
             scrapper.scrape()

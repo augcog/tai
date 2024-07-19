@@ -27,7 +27,7 @@ class MarkdownConverter(BaseConverter):
     def _to_page(self, input_path: Path, output_path: Path) -> Page:
         """Perform Markdown to Page conversion."""
         try:
-            input_path = self._to_markdown(input_path, output_path)
+            self._to_markdown(input_path, output_path)
         except Exception as e:
             self._logger.error(f"An error occurred during markdown conversion: {str(e)}")
             raise

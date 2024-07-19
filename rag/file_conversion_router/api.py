@@ -16,5 +16,3 @@ def convert_directory(input_dir: Union[str, Path], output_dir: Union[str, Path])
     """
     process_folder(input_dir, output_dir)
 
-if __name__ == "__main__" :
-    convert_directory("tests\\test_rag\\data\\integrated_tests\\input_folder2_nested_folder_pdf+md", "tests\\test_rag\\data\\integrated_tests\\output_test")

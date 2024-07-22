@@ -184,7 +184,7 @@ class BaseConverter(ABC):
             return VidPage(pagename = stem, content = content, filetype = file_type, page_url = url)
         else:
             content = {"text": content_text}
-            return Page(pagename = stem, content = content, filetype = file_type, page_url=url)
+            return Page(pagename = stem, content = content, filetype = file_type, page_url = url)
         
     @abstractmethod
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:

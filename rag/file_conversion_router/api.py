@@ -15,3 +15,5 @@ def convert_directory(input_dir: Union[str, Path], output_dir: Union[str, Path])
     2. Markdown (To clarify, this markdown includes additional tree structure of original markdown file)
     """
     process_folder(input_dir, output_dir)
+if __name__ == '__main__' :
+    convert_directory("tests\\test_rag\\data\\integrated_tests\\input_folder4_example_folder_mp4", "tests\\test_rag\\data\\integrated_tests\\excepted_output_folder4_example_folder_mp4")

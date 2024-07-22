@@ -64,6 +64,7 @@ class VideoConverter(BaseConverter):
 
         print(f"Transcribing {audio_file_path}...")
         result = model.transcribe(audio_file_path)
+        print(result)
 
         segments = []
         if "segments" in result:
@@ -79,7 +80,7 @@ class VideoConverter(BaseConverter):
         return segments
 
     def convert_mp4_to_wav(self, mp4_file_path, output_path):
-        wav_file_path = mp4_file_path.with_suffix(".wav")
+        wav_file_path = output_path / (mp4_file_path.stem + ".wav")
         print(mp4_file_path)
         audio_clip = AudioFileClip(str(mp4_file_path))  # Load the audio track from the MP4 file
         audio_clip.write_audiofile(str(wav_file_path))  # Save the audio as a WAV file
@@ -87,13 +88,13 @@ class VideoConverter(BaseConverter):
         return wav_file_path
 
     def process_video_scenes(self, video_path, output_path):
-        def setup_scene_detection(video_path, custom_window_width=50, custom_weights=None):
+        def setup_scene_detection(video_path, custom_window_width = 50, custom_weights = None):
             video = open_video(video_path)
             scene_manager = SceneManager()
 
             video_folder = os.path.dirname(video_path)
             images_folder_name = os.path.splitext(os.path.basename(video_path))[0] + "_images"
-            images_output_dir = os.path.join(video_folder, images_folder_name)
+            images_output_dir = os.path.join(output_path, images_folder_name)
 
             os.makedirs(images_output_dir, exist_ok=True)
 
@@ -115,22 +116,22 @@ class VideoConverter(BaseConverter):
 
             scene_list = scene_manager.get_scene_list()
             csv_file_path = os.path.join(images_output_dir, "detected_scenes.csv")
-            with open(csv_file_path, 'w', newline='') as csv_file:
+            with open(csv_file_path, 'w', newline = '') as csv_file:
                 write_scene_list(csv_file, scene_list)
 
             print(f"Scene list saved to {csv_file_path}")
 
             image_filenames = save_images(
                 scene_list=scene_list,
-                video=video,
-                num_images=3,
-                output_dir=images_output_dir,
+                video = video,
+                num_images = 3,
+                output_dir = images_output_dir,
             )
 
             # Prepare the list of start and end times
             scene_times = [(start_time.get_seconds(), end_time.get_seconds()) for start_time, end_time in scene_list]
 
-            for i, ((start_time, end_time), images) in enumerate(zip(scene_list, image_filenames.values()), start=1):
+            for i, ((start_time, end_time), images) in enumerate(zip(scene_list, image_filenames.values()), start = 1):
                 print(f"Scene {i}: Start Time: {start_time.get_seconds()}, End Time: {end_time.get_seconds()}")
                 for image_path in images:
                     print(f"  - {image_path}")
@@ -154,7 +155,9 @@ class VideoConverter(BaseConverter):
         audio = self.convert_mp4_to_wav(input_path, output_path)
         seg_time = self.process_video_scenes(input_path, output_path)
         transcript = self.transcribe_audio_with_whisper(str(audio))
+        print(transcript)
         paragraphs = self.paragraph_generator(transcript, seg_time)
+        print(paragraphs)
         markdown_content = ""
         for i, (paragraph, time) in enumerate(paragraphs):
             paragraph_text = ''.join(paragraph)

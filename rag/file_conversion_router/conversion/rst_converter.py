@@ -26,26 +26,23 @@ class RstConverter(BaseConverter):
             output_file.write(content.text)
         return output_path
 
-    def _to_page(self, input_path: Path, output_path: Path) -> Page:
-        """Perform Markdown to Page conversion."""
-        try:
-            md_file = self._to_markdown(input_path, output_path,)
-        except Exception as e:
-            self._logger.error(f"An error occurred during markdown conversion: {str(e)}")
-            raise
+    # def _to_page(self, input_path: Path, output_path: Path) -> Page:
+    #     """Perform Markdown to Page conversion."""
 
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-
-        filetype = md_file.suffix.lstrip('.')
-        with open(md_file, "r") as input_file:
-            text = input_file.read()
-
-
-        metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
-        metadata_content = self._read_metadata(metadata_path)
-        url = metadata_content.get("URL")
-        return Page(pagename = input_path.stem, content={'text': text}, filetype=filetype, page_url=url)
-
-
-# converter = RstConverter()
-# converter._to_markdown(Path("/home/bot/roarai/rag/scraper/Scraper_master/Moveit/index.rst"), Path("/home/bot/roarai/rag/scraper/Scraper_master/"))
+    #     output_path.parent.mkdir(parents = True, exist_ok = True)
+        
+    #     parent = input_path.parent
+    #     self._to_markdown(input_path, output_path)
+    #     stem = input_path.stem
+    #     filetype = input_path.suffix.split(".")[1]
+        
+    #     with open(input_path, "r") as input_file:
+    #         text = input_file.read()
+    #     metadata = parent / (stem+"_metadata.yaml")
+        
+    #     with open(metadata, "r") as metadata_file:
+    #         metadata_content = yaml.safe_load(metadata_file)
+        
+    #     url = metadata_content["URL"]
+    #     page = Page(pagename=stem, content={'text': text}, filetype=filetype, page_url=url)
+    #     return page

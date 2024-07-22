@@ -12,6 +12,7 @@ import yaml
 from rag.file_conversion_router.utils.logger import conversion_logger, logger
 from rag.file_conversion_router.utils.utils import calculate_hash, ensure_path
 from rag.file_conversion_router.classes.page import Page
+from rag.file_conversion_router.classes.vidpage import VidPage
 
 
 class BaseConverter(ABC):
@@ -158,11 +159,33 @@ class BaseConverter(ABC):
         page.to_chunk()
         page.chunks_to_pkl(str(pkl_output_path))
 
-    @abstractmethod
-    def _to_page(self, input_path: Path, output_path: Path) -> Page:
-        """Convert the input file to Expected Page format. To be implemented by subclasses."""
-        raise NotImplementedError("This method should be overridden by subclasses.")
+    # @abstractmethod
+    # def _to_page(self, input_path: Path, output_path: Path) -> Page:
+    #     """Convert the input file to Expected Page format. To be implemented by subclasses."""
+    #     raise NotImplementedError("This method should be overridden by subclasses.")
 
+    
+    def _to_page(self, input_path: Path, output_path: Path, file_type: str = "markdown") -> Page:
+        output_path.parent.mkdir(parents = True, exist_ok = True)
+        stem = input_path.stem
+        file_type = input_path.suffix.lstrip('.')
+
+        md_path = self._to_markdown(input_path, output_path)
+        with open(md_path, "r") as input_file:
+            content_text = input_file.read()
+
+        metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
+        metadata_content = self._read_metadata(metadata_path)
+        url = metadata_content.get("URL")
+
+        if file_type == "mp4":
+            timestamp = [i[1] for i in self.paragraphs]
+            content = {"text": content_text, "timestamp": timestamp}
+            return VidPage(pagename = stem, content = content, filetype = file_type, page_url = url)
+        else:
+            content = {"text": content_text}
+            return Page(pagename = stem, content = content, filetype = file_type, page_url=url)
+        
     @abstractmethod
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:
         """Convert the input file to Expected Markdown format. To be implemented by subclasses."""

@@ -179,22 +179,21 @@ class PdfConverter(BaseConverter):
         #     self._logger.error(f"An error occurred {str(e)})")
         #     raise
 
-    def _to_page(self, input_path: Path, output_path: Path) -> Page:
-        """Perform Markdown to Page conversion."""
-        try:
-            md_file = self._to_markdown(input_path, output_path,)
-        except Exception as e:
-            self._logger.error(f"An error occurred during markdown conversion: {str(e)}")
-            raise
+    # def _to_page(self, input_path: Path, output_path: Path) -> Page:
+    #     """Perform Markdown to Page conversion."""
+    #     md_file = self._to_markdown(input_path, output_path,)
+    #     # except Exception as e:
+    #         # self._logger.error(f"An error occurred during markdown conversion: {str(e)}")
+    #         # raise
 
-        output_path.parent.mkdir(parents=True, exist_ok=True)
+    #     output_path.parent.mkdir(parents = True, exist_ok = True)
 
-        filetype = md_file.suffix.lstrip('.')
-        with open(md_file, "r") as input_file:
-            text = input_file.read()
+    #     filetype = md_file.suffix.lstrip('.')
+    #     with open(md_file, "r") as input_file:
+    #         text = input_file.read()
 
 
-        metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
-        metadata_content = self._read_metadata(metadata_path)
-        url = metadata_content.get("URL")
-        return Page(pagename=input_path.stem, content={'text': text}, filetype=filetype, page_url=url)
+    #     metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
+    #     metadata_content = self._read_metadata(metadata_path)
+    #     url = metadata_content.get("URL")
+    #     return Page(pagename = input_path.stem, content={'text': text}, filetype = filetype, page_url=url)

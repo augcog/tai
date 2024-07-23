@@ -13,7 +13,11 @@ from rag.file_conversion_router.conversion.pdf_converter import PdfConverter
 =======
 from rag.file_conversion_router.conversion.rst_converter import RstConverter
 from rag.file_conversion_router.conversion.video_converter import VideoConverter
+<<<<<<< HEAD
 >>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
+=======
+from rag.file_conversion_router.conversion.ed_converter import EdConverter
+>>>>>>> def647e43f040b8c085af99271a302bba05d9083
 from rag.file_conversion_router.services.task_manager import schedule_conversion
 
 ConverterMapping = Dict[str, Type[BaseConverter]]
@@ -26,7 +30,11 @@ converter_mapping: ConverterMapping = {
 =======
     ".rst": RstConverter,
     ".mp4": VideoConverter,
+<<<<<<< HEAD
 >>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
+=======
+    ".json": EdConverter
+>>>>>>> def647e43f040b8c085af99271a302bba05d9083
     #     TODO: Add more file types and converters here
 }
 
@@ -64,6 +72,7 @@ def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path]) ->
             output_subdir = output_dir / input_file_path.relative_to(input_dir).parent
             output_subdir.mkdir(parents=True, exist_ok=True)
             output_file_path = output_subdir / input_file_path.stem
+            # output_file_path = output_subdir
 
             # Instantiate a new converter object for each file based on the file extension
             converter_class = converter_mapping.get(input_file_path.suffix)

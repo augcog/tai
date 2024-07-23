@@ -11,9 +11,9 @@ from pathlib import Path
 from shutil import copy2
 from threading import Lock
 from typing import Dict, List, Union
+import yaml
 
 from rag.file_conversion_router.utils.logger import conversion_logger, logger
-from rag.file_conversion_router.utils.markdown_parser import MarkdownParser
 from rag.file_conversion_router.utils.utils import calculate_hash, ensure_path
 <<<<<<< HEAD
 
@@ -25,6 +25,7 @@ class BaseConverter(ABC):
 =======
 from rag.file_conversion_router.classes.page import Page
 from rag.file_conversion_router.classes.vidpage import VidPage
+
 
 class BaseConverter(ABC):
     """Base classes for all file type converters.
@@ -54,7 +55,6 @@ class BaseConverter(ABC):
         self._md_parser = None
 
         self._md_path = None
-        self._tree_txt_path = None
         self._pkl_path = None
 
         self._logger = logger
@@ -135,8 +135,7 @@ class BaseConverter(ABC):
         # TODO: current MarkdownParser does not support custom output paths,
         #  below paths are only used for caching purposes at the moment,
         #  since the markdown parser generates below file paths by default
-        self._tree_txt_path = ensure_path(output_folder / f"{input_path.stem}.md.tree.txt")
-        self._pkl_path = ensure_path(output_folder / f"{input_path.stem}.md.pkl")
+        self._pkl_path = ensure_path(output_folder / f"{input_path.stem}.pkl")
 
     def _convert_and_cache(self, input_path: Path, output_folder: Path, file_hash: str) -> List[Path]:
         self._setup_output_paths(input_path, output_folder)
@@ -146,7 +145,7 @@ class BaseConverter(ABC):
         # This method embeds the abstract method `_to_markdown`, which needs to be implemented by the child classes.
 >>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
         _, conversion_time = self._perform_conversion(input_path, output_folder)
-        paths = [self._md_path, self._tree_txt_path, self._pkl_path]
+        paths = [self._md_path, self._pkl_path]
         ConversionCache.set_cached_paths_and_time(file_hash, paths, conversion_time)
 
     def _use_cached_files(self, cached_paths: List[Path], output_folder: Path) -> None:
@@ -154,32 +153,90 @@ class BaseConverter(ABC):
         output_folder = ensure_path(output_folder)
         output_folder.mkdir(parents=True, exist_ok=True)
 
-        md_path, tree_txt_path, pkl_path = cached_paths
+        md_path, pkl_path = cached_paths
         correct_file_name = self._md_path.stem
-        for path, suffix in zip((md_path, tree_txt_path, pkl_path), (".md", ".md.tree.txt", ".md.pkl")):
+        for path, suffix in zip((md_path, pkl_path), (".md", ".pkl")):
             des_path = Path(copy2(path, output_folder))
             des_path.rename(output_folder / f"{correct_file_name}{suffix}")
             self._logger.info(f"Copied cached file from {path} to {des_path}.")
 
+    def _read_metadata(self, metadata_path: Path) -> dict:
+        """Read metadata from file or return mocked data if file doesn't exist."""
+        if metadata_path.exists():
+            try:
+                with open(metadata_path, "r") as metadata_file:
+                    return yaml.safe_load(metadata_file)
+            except Exception as e:
+                self._logger.error(f"Error reading metadata file: {str(e)}")
+                return self._get_mocked_metadata()
+        else:
+            self._logger.warning(f"Metadata file not found: {metadata_path}. Using mocked metadata.")
+            return self._get_mocked_metadata()
+
+    @staticmethod
+    def _get_mocked_metadata() -> dict:
+        """Return mocked metadata when the actual metadata file is missing."""
+        return {
+            "URL": "URL_NOT_AVAILABLE",
+            # Add other mocked metadata fields as needed
+        }
+
     @conversion_logger
     def _perform_conversion(self, input_path: Path, output_folder: Path) -> None:
         """Perform the file conversion process."""
+<<<<<<< HEAD
 <<<<<<< HEAD
         self._convert_to_markdown(input_path, self._md_path)
         self._md_parser = MarkdownParser(self._md_path)
         self._convert_md_to_tree_txt_and_pkl(self._md_path, output_folder)
 =======
         page = self._convert_to_page(input_path, output_folder)[0]
+=======
+        if not output_folder.exists():
+            output_folder.mkdir(parents=True, exist_ok=True)
+            logger.warning(f"Output folder did not exist, it's now created: {output_folder}")
+        filename = output_folder.stem
+        pkl_output_path = output_folder / f"{filename}.pkl"
+        page = self._convert_to_page(input_path, pkl_output_path)[0]
+>>>>>>> def647e43f040b8c085af99271a302bba05d9083
         page.to_chunk()
-        pkl_file = output_folder.with_suffix(".pkl")
-        page.chunks_to_pkl(str(pkl_file))
+        page.chunks_to_pkl(str(pkl_output_path))
 
+<<<<<<< HEAD
     @abstractmethod
     def _to_page(self, input_path: Path, output_path: Path) -> Page:
         """Convert the input file to Expected Page format. To be implemented by subclasses."""
         raise NotImplementedError("This method should be overridden by subclasses.")
 >>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
+=======
+    # @abstractmethod
+    # def _to_page(self, input_path: Path, output_path: Path) -> Page:
+    #     """Convert the input file to Expected Page format. To be implemented by subclasses."""
+    #     raise NotImplementedError("This method should be overridden by subclasses.")
+>>>>>>> def647e43f040b8c085af99271a302bba05d9083
 
+    
+    def _to_page(self, input_path: Path, output_path: Path, file_type: str = "markdown") -> Page:
+        output_path.parent.mkdir(parents = True, exist_ok = True)
+        stem = input_path.stem
+        file_type = input_path.suffix.lstrip('.')
+
+        md_path = self._to_markdown(input_path, output_path)
+        with open(md_path, "r") as input_file:
+            content_text = input_file.read()
+
+        metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
+        metadata_content = self._read_metadata(metadata_path)
+        url = metadata_content.get("URL")
+
+        if file_type == "mp4":
+            timestamp = [i[1] for i in self.paragraphs]
+            content = {"text": content_text, "timestamp": timestamp}
+            return VidPage(pagename = stem, content = content, filetype = file_type, page_url = url)
+        else:
+            content = {"text": content_text}
+            return Page(pagename = stem, content = content, filetype = file_type, page_url=url)
+        
     @abstractmethod
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:
         """Convert the input file to Expected Markdown format. To be implemented by subclasses."""

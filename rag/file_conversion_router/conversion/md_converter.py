@@ -40,19 +40,25 @@ class MarkdownConverter(BaseConverter):
             content = input_file.read()
             output_file.write(content)
         return output_path
-    def _to_page(self, input_path: Path, output_path: Path) -> Page:
-        """Perform Markdown to Page conversion."""
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        parent = input_path.parent
-        stem = input_path.stem
-        filetype = input_path.suffix.split(".")[1]
-        with open(input_path, "r") as input_file:
-            text = input_file.read()
-        metadata = parent / (stem+"_metadata.yaml")
-        with open(metadata, "r") as metadata_file:
-            metadata_content = yaml.safe_load(metadata_file)
-        url = metadata_content["URL"]
-        page = Page(pagename=stem, content={'text': text}, filetype=filetype, page_url=url)
-        return page
+    # def _to_page(self, input_path: Path, output_path: Path) -> Page:
+    #     """Perform Markdown to Page conversion."""
+    #     try:
+    #         self._to_markdown(input_path, output_path)
+    #     except Exception as e:
+    #         self._logger.error(f"An error occurred during markdown conversion: {str(e)}")
+    #         raise
 
+<<<<<<< HEAD
 >>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
+=======
+    #     output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    #     filetype = input_path.suffix.lstrip('.')
+    #     with open(input_path, "r") as input_file:
+    #         text = input_file.read()
+
+    #     metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
+    #     metadata_content = self._read_metadata(metadata_path)
+    #     url = metadata_content.get("URL")
+    #     return Page(pagename=input_path.stem, content={'text': text}, filetype=filetype, page_url=url)
+>>>>>>> def647e43f040b8c085af99271a302bba05d9083

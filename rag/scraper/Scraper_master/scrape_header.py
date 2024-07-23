@@ -4,11 +4,12 @@ import os
 import time
 import re
 from termcolor import colored
-from urllib.parse import urljoin
+from urllib.parse import urljoin, unquote
 from markdownify import markdownify as md
 from rag.scraper.Scraper_master.base_scraper import BaseScraper
+import yaml
 
-from utils import create_and_enter_dir, remove_consecutive_empty_lines, save_to_file,remove_slash_and_hash, cd_home,get_crawl_delay
+from utils import create_and_enter_dir, delete_and_exit_dir, remove_consecutive_empty_lines, save_to_file,remove_slash_and_hash, cd_home,get_crawl_delay
 
 
 content_tags_dict = {
@@ -22,7 +23,10 @@ content_tags_dict = {
     "https://www.svlsimulator.com/docs/": [('div', {'role': 'main'})],
     "https://cs61a.org/": [('section', {'id': 'calendar', 'class': 'table', 'cellpadding': '5px'}), ('div', {'class': 'col-md-9'})],
     "https://ucb-ee106.github.io/106b-sp23site/": [('main', {'class': 'main-content'})],
-    "https://en.wikipedia.org/wiki/University_of_California,_Berkeley": [('main', {'id': 'content', 'class': 'mw-body'})]
+    "https://en.wikipedia.org/wiki/University_of_California,_Berkeley": [('main', {'id': 'content', 'class': 'mw-body'})],
+    "https://freesociologybooks.com/Sociology_Of_The_Family/01_Changes_and_Definitions.php#google_vignette": [('div',{'id':'content','class':'clearfix'})],
+    "https://leginfo.legislature.ca.gov/faces/codes.xhtml": [('div', {'class':'tab_content'})],
+    "https://guide.berkeley.edu/courses/":[],
 }
 
 def match_tags(url):
@@ -66,14 +70,21 @@ class ScrapeHeader(BaseScraper):
                 link = link[:-1]
             filename = link.split('/')[-1]
             filename = filename.split('.')[0]
+            filename = unquote(filename).replace(' ', '_')
             cur_dir = os.getcwd()
             create_and_enter_dir(filename)
+            # if not os.path.exists(filename):
+            #     os.makedirs(filename, exist_ok=True)
             error = self.content_extract(filename, link, content_tags=content_tags)
-            self.metadata_extract(filename, link)
+            # print("error", error)
             if error == 1:
+                print("error",filename)
+                delete_and_exit_dir()
                 continue
+            self.metadata_extract(filename, link)
             os.chdir(cur_dir)
             time.sleep(delay)
+
 
 
     def extract_unique_links(self, url, root, root_regex, root_filename, content_tags, delay=0, found_links=[]):
@@ -168,7 +179,7 @@ class ScrapeHeader(BaseScraper):
         - filename(str): Name of the PDF file
         Returns: 1 on failure, file path on success.
         """
-        file_path = os.path.join(os.getcwd(), filename)
+        file_path = os.path.join(os.getcwd(), filename + ".pdf")
         response = requests.get(url, headers=self.http_header)
         if response.status_code == 200:
             with open(file_path, 'wb') as f:
@@ -181,7 +192,7 @@ class ScrapeHeader(BaseScraper):
     
     # Override
     def content_extract(self, filename, url, **kwargs):
-        if url[-4] == ".pdf":
+        if ".pdf" in url:
             pdf_result = self.download_pdf(url, filename)
             return pdf_result
         else:
@@ -200,13 +211,30 @@ class ScrapeHeader(BaseScraper):
     def scrape(self):
             self.extract_unique_links(self.url,self.root,self.root_regex,self.root_filename,self.content_tags, self.delay)
 
-if __name__ == "__main__":
-    url = "https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html"
-    root_regex = r"^https://docs.opencv.org/4.x\/\w+\/\w+\/tutorial_py"
-    root = "https://docs.opencv.org/4.x/d6/d00/"
-    root_filename = "opencv"
-    content_tags = match_tags(url)
-    
-    scrapper = ScrapeHeader(url, root, root_regex, root_filename, content_tags)
-    scrapper.scrape()
+def run_tasks(yaml_file):
+    with open(yaml_file, 'r') as file:
+        configuration=yaml.safe_load(file)
+        root=configuration['root_folder']
+        root=os.path.abspath(root)
+        for task in configuration['tasks']:
+            url=task['url']
+            base_url = url.split('/')
+            base_url = '/'.join(base_url[:3]) + '/'
+            base_regex = rf"^{base_url}"
+            root_folder = root + '/' + task['name']
+            content_tags = match_tags(url)
 
+            scrapper = ScrapeHeader(url, base_url, base_regex, root_folder, content_tags)
+            scrapper.scrape()
+
+if __name__ == "__main__":
+    # url =  "https://wiki.ros.org/ROS/Tutorials/"
+    # root_regex = r"^https://wiki.ros.org/ROS/Tutorials/"
+    # root =  "https://wiki.ros.org/ROS/Tutorials/"
+    # root_filename = "ROS"
+    
+    # content_tags = match_tags(url)
+    
+    # scrapper = ScrapeHeader(url, root, root_regex, root_filename, content_tags)
+    # scrapper.scrape()
+    run_tasks('106b_task.yaml')

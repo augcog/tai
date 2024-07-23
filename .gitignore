@@ -173,3 +173,6 @@ log
 
 #csv
 *.csv
+
+#vscode
+.vscode

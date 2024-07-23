@@ -182,23 +182,28 @@ class VideoConverter(BaseConverter):
             md_file.write(markdown_content)
         return md_path
 
-    def _to_page(self, input_path: Path, output_path: Path) -> Page:
-        """Perform mp4 to Page conversion."""
+    # def _to_page(self, input_path: Path, output_path: Path) -> Page:
+    #     """Perform mp4 to Page conversion."""
 
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        parent = input_path.parent
-        stem = input_path.stem
-        filetype = input_path.suffix.split(".")[1]
-        md_path = self._to_markdown(input_path, output_path)
-        with open(md_path, "r") as md_file:
-            md_content = md_file.read()
-        metadata = parent / (stem+"_metadata.yml")
-        with open(metadata, "r") as metadata_file:
-            metadata_content = yaml.safe_load(metadata_file)
-        url = metadata_content["URL"]
-        timestamp = [i[1] for i in self.paragraphs]
-        page = VidPage(pagename=stem,content={"text": md_content, "timestamp": timestamp}, filetype=filetype, page_url=url)
+    #     output_path.parent.mkdir(parents = True, exist_ok = True)
+        
+    #     parent = input_path.parent
+    #     stem = input_path.stem
+    #     filetype = input_path.suffix.split(".")[1]
+    #     md_path = self._to_markdown(input_path, output_path)
 
-        return page
-
+<<<<<<< HEAD
 >>>>>>> cdbc2f5496cabb88b8715e1213624541579ec1fc
+=======
+    #     with open(md_path, "r") as md_file:
+    #         md_content = md_file.read()
+    #     metadata = parent / (stem+"_metadata.yml")
+        
+    #     with open(metadata, "r") as metadata_file:
+    #         metadata_content = yaml.safe_load(metadata_file)
+    #     url = metadata_content["URL"]
+        
+    #     timestamp = [i[1] for i in self.paragraphs]
+    #     page = VidPage(pagename = stem,content={"text": md_content, "timestamp": timestamp}, filetype = filetype, page_url = url)
+    #     return page
+>>>>>>> def647e43f040b8c085af99271a302bba05d9083

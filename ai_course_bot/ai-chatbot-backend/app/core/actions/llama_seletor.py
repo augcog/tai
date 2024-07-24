@@ -12,7 +12,10 @@ from pydantic import BaseModel
 import threading
 import urllib.parse
 import json
-from app.embedding.table_create import connect, insert
+import sys
+parent_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../../'))
+sys.path.insert(0, parent_directory)
+from rag.file_conversion_router.embedding.table_create import create_table
 
 # Set the environment variable to use the SQL database
 SQLDB = False
@@ -57,6 +60,7 @@ def prompt_generator(messages,streamer_iterator):
             do_sample=True,
             streamer=streamer_iterator
         )
+
 # Write scores for
 def bge_compute_score(
     query_embedding,
@@ -120,7 +124,9 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
             picklefile = "Berkeley.pkl"
         else:
             picklefile = "Berkeley.pkl"
-        path_to_pickle = os.path.join("./app/embedding/", picklefile)
+        current_dir = os.path.dirname(__file__)
+        pickle_file_dir = os.path.join(current_dir, "../../../../../rag/file_conversion_router/embedding")
+        path_to_pickle = os.path.join(pickle_file_dir, picklefile)
         with open(path_to_pickle, 'rb') as f:
             data_loaded = pickle.load(f)
         doc_list = data_loaded['doc_list']
@@ -129,14 +135,7 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
         query_embed = embedding_model.encode(user_message, return_dense=True, return_sparse=True,
                                                 return_colbert_vecs=True)
         if SQLDB:
-            db = connect('embeddings.db')
-            cur = db.cursor()
-            cur.execute('Drop table IF EXISTS embeddings;')
-            cur.execute('create virtual table embeddings using vss0(embedding(1024) factory="Flat,IDMap2" metric_type=INNER_PRODUCT);')
-            embedding_list = data_loaded['embedding_list']
-            denses = [embedding['dense_vecs'].tolist() for embedding in embedding_list]
-            insert(cur, denses)
-            db.commit()
+            cur = create_table(picklefile, data_loaded)
             query_vector = query_embed['dense_vecs'].tolist()
             query_vector_json = json.dumps(query_vector)
             cur.execute("""
@@ -154,12 +153,9 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
             top_indices = [result[0] for result in results]
             top_ids = id_list[top_indices]
             distances = [result[1] for result in results]
-            print("top_ids:", top_ids)
-            print("distances:", distances)
             id_doc_url_dic = {id_: (doc, url) for id_, doc, url in zip(id_list, doc_list, url_list)}
             top_docs_urls = [id_doc_url_dic[top_id] for top_id in top_ids]
             top_docs, top_urls = zip(*top_docs_urls)
-            print("top_docs:", top_docs, "top_urls:", top_urls)
         else:
             embedding_list = data_loaded['embedding_list']
             cosine_similarities = np.array(bge_compute_score(query_embed, embedding_list, [1, 1, 1], None, None)['colbert+sparse+dense'])
@@ -171,7 +167,6 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
             distances = np.sort(cosine_similarities)[-3:][::-1]
             top_ids = id[:3]
             top_urls = url[:3]
-            print("top_ids:", top_ids)
 
         insert_document = ""
         reference = []

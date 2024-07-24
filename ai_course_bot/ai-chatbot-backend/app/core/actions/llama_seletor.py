@@ -204,7 +204,7 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
     else:
         print("INSERT DOCUMENT",insert_document)
         insert_document += f'Instruction: {user_message}'
-        user_message = f"Understand the reference documents and use them to answer the instruction thoroughly, add suffiecient steps. List the references numbered, if URL does not exist then print reference info path as is do not print NONE, if url exists then print [reference Name](URL), then summarize the document in 2 sentences. Example Reference: Reference 1: Find information at (Reference Path Info). If Reference_URL is not NONE then print URL [Reference Name](URL). Then print 2 sentence summary of reference document. \n---\n{insert_document}"        # user_message = f"Understand the {n} reference documents and use it to answer the instruction. After answering the instruction, please list references. Print References numbered, if URL exists return [reference summary](URL), then return the reference and summarize the document in 2 sentences.\n---\n{insert_document}"
+        user_message = f"Understand the reference documents and use them to answer the instruction thoroughly. List the references used to answer the question numbered. Ex: [reference Name](URL). \n---\n{insert_document}"      
 
     print("USER MESSAGE",user_message)
     messages[-1].content = user_message

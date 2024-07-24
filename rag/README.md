@@ -14,6 +14,18 @@ To enhance the efficiency of RAG applications, this folder breaks down unstructu
 ### Environments
 Run this to install the required packages
 ```python -m pip install -r requirements.txt```
+
+### Pipeline: From website to knowledge base
+Run [pipline_kb.py](Scraper_master/pipeline_kb.py) as the pipeline to scrape, chunk and embed websites into a knowledge base. The pipeline takes a task, which is a collection of content that will be saved into a single knowledge base, and will save all information at the root_folder designated in the task.  The pipeline first scrapes, and then converts the content into markdown. Finally, it embeds and saves the everything as a knowledge base. This is all saved according to the path defined by root_folder. The knowledge base is automatically saved in the scraped data folder in a sub-folder labeled "pickle". 
+    A .yaml file is used to specify the tasks to be performed. It should be should be structured as follows:
+    root_folder : "path/to/root/folder"
+    tasks :
+      - name : "Website Name"
+        url : "https://website.url"
+      - name : "Website Name"
+        url : "https://website.url"
+
+
 ### Pre-requisites
 - Begin by visiting the [scraper](scraper) folder and follow the instructions there to scrape your documents.
 

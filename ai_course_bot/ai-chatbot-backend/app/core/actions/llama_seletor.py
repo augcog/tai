@@ -11,12 +11,11 @@ from app.core.models.chat_completion import Message as ROARChatCompletionMessage
 from pydantic import BaseModel
 import threading
 import urllib.parse
-import sqlite3
 import json
-from app.embedding.table_create import execute_all, connect, insert
+from app.embedding.table_create import connect, insert
 
 # Set the environment variable to use the SQL database
-SQLDB = False
+SQLDB = True
 
 class Message(BaseModel):
     role: str
@@ -35,7 +34,7 @@ pipeline = transformers.pipeline(
     "text-generation",
     model=model_id,
     model_kwargs={"torch_dtype": torch.bfloat16},
-    device="cuda",
+    device="mps",
 )
 
 lock = threading.Lock()
@@ -110,6 +109,7 @@ def clean_path(url_path):
     cleaned_path = cleaned_path.replace('(', ' (').replace(')', ') ')
     cleaned_path = ' '.join(cleaned_path.split())
     return cleaned_path
+
 def local_selector(messages:List[Message],stream=True,rag=True,course=None):
     insert_document = ""
     user_message = messages[-1].content
@@ -167,15 +167,11 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
             id = id_list[indices]
             docs = doc_list[indices]
             url = url_list[indices]
-            print("indices:", indices)
-            print("id:", id)
-            print("docs:", docs)
             top_docs=docs[:3]
             distances = np.sort(cosine_similarities)[-3:][::-1]
             top_ids = id[:3]
             top_urls = url[:3]
             print("top_ids:", top_ids)
-            print("distances:", distances)
 
         insert_document = ""
         reference = []

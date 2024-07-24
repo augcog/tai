@@ -9,7 +9,7 @@ The following scrapers can be found under the [Scrape_master](Scraper_master/) f
 - [scrape_vid.py](Scraper_master/scrape_vid.py): For videos
 
 ## Scraper and Embedding Pipeline
-Use [pipline_kb.py](Scraper_master/pipeline_kb.py) with as a pipeline to scrape, chunk and embed websites into a knowledge base. The pipeline first scrapes, and then converts the content into markdown. Finally, it embeds and saves the everything as a knowledge base. This is all saved according to the path defined by root_folder. The knowledge base is automatically saved in the scraped data folder in a folder labeled "pickle". 
+Use [pipline_kb.py](Scraper_master/pipeline_kb.py) as a pipeline to scrape, chunk and embed websites into a knowledge base. The pipeline first scrapes, and then converts the content into markdown. Finally, it embeds and saves the everything as a knowledge base. This is all saved according to the path defined by root_folder. The knowledge base is automatically saved in the scraped data folder in a folder labeled "pickle". 
     A .yaml file is used to specify the tasks to be performed. It should be should be structured as follows:
     root_folder : "path/to/root/folder"
     tasks :

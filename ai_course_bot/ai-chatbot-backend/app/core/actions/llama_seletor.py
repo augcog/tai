@@ -200,11 +200,11 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
         print(reference)
     if (not insert_document) or none==3:
         print("NO REFERENCES")
-        user_message = f'Answer the instruction\n---\n{user_message}'
+        user_message = f'Answer the instruction. If unsure of the answer, explain that there is no data in the knowledge base for the response.\n---\n{user_message}'
     else:
         print("INSERT DOCUMENT",insert_document)
         insert_document += f'Instruction: {user_message}'
-        user_message = f"Understand the reference documents and use them to answer the instruction thoroughly. List the references used to answer the question numbered. Ex: [reference Name](URL). \n---\n{insert_document}"      
+        user_message = f"Understand the reference documents and use them to answer the instruction thoroughly. List the references used to answer the question numbered. Ex: [reference Name](URL). Keep your answer ground in the facts of the references.  \n---\n{insert_document}"
 
     print("USER MESSAGE",user_message)
     messages[-1].content = user_message

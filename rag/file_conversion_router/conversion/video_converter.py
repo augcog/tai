@@ -61,10 +61,17 @@ class VideoConverter(BaseConverter):
         print("Loading Whisper model...")
         start_time = time.time()
         model = whisper.load_model("base")
+        if not os.path.isfile(audio_file_path):
+            print(f"Error: The file {audio_file_path} does not exist.")
+            return
 
         print(f"Transcribing {audio_file_path}...")
-        result = model.transcribe(audio_file_path)
-        print(result)
+        try:
+            result = model.transcribe(audio_file_path)
+            print("Transcription result structure:", result)
+            print("Transcription text:", result.get("text", "No text found"))
+        except Exception as e:
+            print(f"Error during transcription: {e}")
 
         segments = []
         if "segments" in result:
@@ -80,8 +87,9 @@ class VideoConverter(BaseConverter):
         return segments
 
     def convert_mp4_to_wav(self, mp4_file_path, output_path):
-        wav_file_path = output_path / (mp4_file_path.stem + ".wav")
-        print(mp4_file_path)
+        # wav_file_path = output_path / (mp4_file_path.stem + ".wav")
+        wav_file_path = mp4_file_path.with_suffix(".wav")
+
         audio_clip = AudioFileClip(str(mp4_file_path))  # Load the audio track from the MP4 file
         audio_clip.write_audiofile(str(wav_file_path))  # Save the audio as a WAV file
         audio_clip.close()  # Close the clip to free resources

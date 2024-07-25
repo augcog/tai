@@ -10,6 +10,7 @@ from rag.scraper.Scraper_master.base_scraper import BaseScraper
 
 from utils import create_and_enter_dir, remove_consecutive_empty_lines, save_to_file,remove_slash_and_hash, cd_home,get_crawl_delay
 
+MAX_FILENAME_LENGTH = 255
 
 content_tags_dict = {
     "https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html": [('div', {'class': 'contents'})],
@@ -66,6 +67,9 @@ class ScrapeHeader(BaseScraper):
                 link = link[:-1]
             filename = link.split('/')[-1]
             filename = filename.split('.')[0]
+            if len(filename) >= MAX_FILENAME_LENGTH:
+                filename = filename[:MAX_FILENAME_LENGTH]
+
             cur_dir = os.getcwd()
             create_and_enter_dir(filename)
             error = self.content_extract(filename, link, content_tags=content_tags)
@@ -201,10 +205,16 @@ class ScrapeHeader(BaseScraper):
             self.extract_unique_links(self.url,self.root,self.root_regex,self.root_filename,self.content_tags, self.delay)
 
 if __name__ == "__main__":
-    url = "https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html"
-    root_regex = r"^https://docs.opencv.org/4.x\/\w+\/\w+\/tutorial_py"
-    root = "https://docs.opencv.org/4.x/d6/d00/"
-    root_filename = "opencv"
+    # url = "https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html"
+    # root_regex = r"^https://docs.opencv.org/4.x\/\w+\/\w+\/tutorial_py"
+    # root = "https://docs.opencv.org/4.x/d6/d00/"
+    # root_filename = "opencv"
+
+    url = "https://wiki.ros.org/ROS/Tutorials/"
+    root_regex = r"^https://wiki.ros.org/ROS/Tutorials/"
+    root = "https://wiki.ros.org/ROS/Tutorials/"
+    root_filename = "ROS"
+
     content_tags = match_tags(url)
     
     scrapper = ScrapeHeader(url, root, root_regex, root_filename, content_tags)

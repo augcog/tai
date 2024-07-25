@@ -12,7 +12,7 @@ openai_whisper==20231117
 packaging==24.0
 pytest==8.1.1
 python-dotenv==1.0.1
-pytube==15.0.0
+pytubefix==6.3.3
 PyYAML==6.0.1
 Requests==2.31.0
 rst_to_myst==0.4.0
@@ -23,4 +23,9 @@ tokenizers==0.15.2
 torch==2.3.0
 tqdm==4.66.2
 transformers==4.38.2
+pymupdf==1.24.5
+pymupdfb==1.24.3
 voyageai==0.2.2
+pix2text==1.1.1
+rst_to_myst==0.4.0
+

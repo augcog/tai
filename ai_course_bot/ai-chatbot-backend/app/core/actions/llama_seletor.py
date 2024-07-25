@@ -11,8 +11,12 @@ from app.core.models.chat_completion import Message as ROARChatCompletionMessage
 from pydantic import BaseModel
 import threading
 import urllib.parse
+import sqlite3
+import json
+from app.embedding.table_create import execute_all, connect, insert
 
-
+# Set the environment variable to use the SQL database
+SQLDB = False
 
 class Message(BaseModel):
     role: str
@@ -106,69 +110,102 @@ def clean_path(url_path):
     cleaned_path = cleaned_path.replace('(', ' (').replace(')', ') ')
     cleaned_path = ' '.join(cleaned_path.split())
     return cleaned_path
-def local_selector(messages:List[Message],stream=True,rag=True):
+def local_selector(messages:List[Message],stream=True,rag=True,course=None):
     insert_document = ""
     user_message = messages[-1].content
     if rag:
-        picklefile = "recursive_seperate_none_BGE_embedding_400_106_full.pkl"
+        if course == "EE 106B":
+            picklefile = "recursive_seperate_none_BGE_embedding_400_106_full.pkl"
+        elif course == "Public Domain Server":
+            picklefile = "Berkeley.pkl"
+        else:
+            picklefile = "Berkeley.pkl"
         path_to_pickle = os.path.join("./app/embedding/", picklefile)
         with open(path_to_pickle, 'rb') as f:
             data_loaded = pickle.load(f)
         doc_list = data_loaded['doc_list']
-        embedding_list = data_loaded['embedding_list']
         id_list = data_loaded['id_list']
         url_list = data_loaded['url_list']
-        time_list = data_loaded['time_list']
-
         query_embed = embedding_model.encode(user_message, return_dense=True, return_sparse=True,
-                                                 return_colbert_vecs=True)
-        # model
-        # cosine_similarities = np.dot(embedding_list, query_embed)
-        cosine_similarities = np.array(bge_compute_score(query_embed, embedding_list, [1, 1, 1], None, None)['colbert+sparse+dense'])
-        indices = np.argsort(cosine_similarities)[::-1]
-        id = id_list[indices]
-        docs = doc_list[indices]
-        url = url_list[indices]
-        time = time_list[indices]
-        top_docs=docs[:3]
+                                                return_colbert_vecs=True)
+        if SQLDB:
+            db = connect('embeddings.db')
+            cur = db.cursor()
+            cur.execute('Drop table IF EXISTS embeddings;')
+            cur.execute('create virtual table embeddings using vss0(embedding(1024) factory="Flat,IDMap2" metric_type=INNER_PRODUCT);')
+            embedding_list = data_loaded['embedding_list']
+            denses = [embedding['dense_vecs'].tolist() for embedding in embedding_list]
+            insert(cur, denses)
+            db.commit()
+            query_vector = query_embed['dense_vecs'].tolist()
+            query_vector_json = json.dumps(query_vector)
+            cur.execute("""
+                SELECT 
+                    rowid, 
+                    distance
+                FROM embeddings
+                WHERE vss_search(
+                    embedding,
+                    ?
+                )
+                LIMIT 3;
+            """, (query_vector_json,))
+            results = cur.fetchall()
+            top_indices = [result[0] for result in results]
+            top_ids = id_list[top_indices]
+            distances = [result[1] for result in results]
+            print("top_ids:", top_ids)
+            print("distances:", distances)
+            id_doc_url_dic = {id_: (doc, url) for id_, doc, url in zip(id_list, doc_list, url_list)}
+            top_docs_urls = [id_doc_url_dic[top_id] for top_id in top_ids]
+            top_docs, top_urls = zip(*top_docs_urls)
+            print("top_docs:", top_docs, "top_urls:", top_urls)
+        else:
+            embedding_list = data_loaded['embedding_list']
+            cosine_similarities = np.array(bge_compute_score(query_embed, embedding_list, [1, 1, 1], None, None)['colbert+sparse+dense'])
+            indices = np.argsort(cosine_similarities)[::-1]
+            id = id_list[indices]
+            docs = doc_list[indices]
+            url = url_list[indices]
+            print("indices:", indices)
+            print("id:", id)
+            print("docs:", docs)
+            top_docs=docs[:3]
+            distances = np.sort(cosine_similarities)[-3:][::-1]
+            top_ids = id[:3]
+            top_urls = url[:3]
+            print("top_ids:", top_ids)
+            print("distances:", distances)
 
-        distances = np.sort(cosine_similarities)[-3:][::-1]
-        top_id = id[:3]
-        top_url = url[:3]
-        # top_url= [f"https://www.youtube.com/watch?v={i}" for i in range(1,4)]
-        top_time = time[:3]
         insert_document = ""
         reference = []
         n=0
+        none=0
         for i in range(len(top_docs)):
-            if top_url[i] and top_time[i]:
-                reference.append(f"{top_url[i]}&t={top_time[i]}")
-            elif top_url[i] and not top_time[i]:
-                reference.append(f"{top_url[i]}")
+            if top_urls[i]:
+                reference.append(f"{top_urls[i]}")
             else:
                 reference.append("")
             if distances[i] > 0.45:
                 n+=1
-                if top_url[i]:
-                    insert_document += f"\"\"\"Reference Number: {n}\nReference: {top_id[i]}\nReference Url: {top_url[i]}\nDocument: {top_docs[i]}\"\"\"\n\n"
+                if top_urls[i]:
+                    insert_document += f"\"\"\"Reference Number: {n}\nReference Info Path: {top_ids[i]}\nReference_Url: {top_urls[i]}\nDocument: {top_docs[i]}\"\"\"\n\n"
                 else:
-                    cleaned_path = clean_path(top_id[i])
-                    insert_document += f"\"\"\"Reference Number: {n}\nReference: {cleaned_path}\nDocument: {top_docs[i]}\"\"\"\n\n"
-                    # print("CLEANED PATH",cleaned_path)
-                print(top_id[i])
+                    cleaned_path = clean_path(top_ids[i])
+                    insert_document += f"\"\"\"Reference Number: {n}\nReference Info Path: {cleaned_path}\nReference_Url: NONE\nDocument: {top_docs[i]}\"\"\"\n\n"
+            else:
+                reference.append("")
+                none+=1
+                print(none)
         print(reference)
-    if not insert_document:
-        user_message = f'Answer the instruction\n---\n{user_message}'
-        # insert_document+="用中文回答我的指示\n"
-        # system_message="用中文回答我的指示"
-        # print(chat_completion(system_message, insert_document))
+    if (not insert_document) or none==3:
+        print("NO REFERENCES")
+        user_message = f'Answer the instruction. If unsure of the answer, explain that there is no data in the knowledge base for the response.\n---\n{user_message}'
     else:
         print("INSERT DOCUMENT",insert_document)
         insert_document += f'Instruction: {user_message}'
-        # insert_document += "用中文回答我的指示\n"
-        user_message = f"Understand the {n} reference documents and use it to answer the instruction. If there is no reference url print Reference of the document used to answer instruction. If reference url exists in the documents add at end [reference summary](URL).\n---\n{insert_document}"
-        # system_message="通过阅读以下材料,用中文回答我的指示"
-        # print(chat_completion(system_message, insert_document))
+        user_message = f"Understand the reference documents and use them to answer the instruction thoroughly. List the references used to answer the question numbered. Ex: [reference Name](URL). Keep your answer ground in the facts of the references.  \n---\n{insert_document}"
+
     print("USER MESSAGE",user_message)
     messages[-1].content = user_message
 
@@ -176,8 +213,6 @@ def local_selector(messages:List[Message],stream=True,rag=True):
     streamer_iterator=transformers.TextIteratorStreamer(auto_tokenizer, skip_prompt=True)
     t = Thread(target=prompt_generator, args=(messages,streamer_iterator,))
     t.start()
-    # for i in streamer_iterator:
-    #     print(i, end="")
     response = streamer_iterator
     return response
 

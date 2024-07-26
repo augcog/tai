@@ -11,11 +11,17 @@ class MarkdownConverter(BaseConverter):
     def _to_markdown(self, input_path: Path, output_path: Path) -> Path:
         """Perform reStructuredText to Markdown conversion."""
         output_path = output_path.with_suffix(".md")
-        with open(input_path, "r", encoding="utf-8") as input_file, open(output_path, "w", encoding="utf-8") as output_file:
-            content = input_file.read()
-            print(content)
-            output_file.write(content)
+        try:
+            with open(input_path, "r", encoding="utf-8") as input_file:
+                content = input_file.read()
+                if not content:
+                    self._logger.warning(f"Input file {input_path} is empty.")
+                with open(output_path, "w", encoding="utf-8") as output_file:
+                    output_file.write(content)
+        except Exception as e:
+            self._logger.error(f"Error reading file {input_path}: {str(e)}")
         return output_path
+
 
     def _to_page(self, input_path: Path, output_path: Path) -> Page:
         """Perform Markdown to Page conversion."""

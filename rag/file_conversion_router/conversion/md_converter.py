@@ -8,37 +8,35 @@ class MarkdownConverter(BaseConverter):
     def __init__(self):
         super().__init__()
 
-    # Override
     def _to_markdown(self, input_path: Path, output_path: Path) -> Path:
-        """Perform reStructuredText to Markdown conversion.
-
-        Arguments:
-        input_path -- Path to the input rst file.
-        output_folder -- Path to the folder where the output md file will be saved.
-        """
-        # Ensure the output folder exists
-        # Determine the output path
-
+        """Perform reStructuredText to Markdown conversion."""
         output_path = output_path.with_suffix(".md")
-        with open(input_path, "r") as input_file, open(output_path, "w") as output_file:
+        with open(input_path, "r", encoding="utf-8") as input_file, open(output_path, "w", encoding="utf-8") as output_file:
             content = input_file.read()
+            print(content)
             output_file.write(content)
         return output_path
-    # def _to_page(self, input_path: Path, output_path: Path) -> Page:
-    #     """Perform Markdown to Page conversion."""
-    #     try:
-    #         self._to_markdown(input_path, output_path)
-    #     except Exception as e:
-    #         self._logger.error(f"An error occurred during markdown conversion: {str(e)}")
-    #         raise
 
-    #     output_path.parent.mkdir(parents=True, exist_ok=True)
+    def _to_page(self, input_path: Path, output_path: Path) -> Page:
+        """Perform Markdown to Page conversion."""
+        try:
+            self._to_markdown(input_path, output_path)
+        except Exception as e:
+            self._logger.error(f"An error occurred during markdown conversion: {str(e)}")
+            raise
 
-    #     filetype = input_path.suffix.lstrip('.')
-    #     with open(input_path, "r") as input_file:
-    #         text = input_file.read()
+        output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    #     metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
-    #     metadata_content = self._read_metadata(metadata_path)
-    #     url = metadata_content.get("URL")
-    #     return Page(pagename=input_path.stem, content={'text': text}, filetype=filetype, page_url=url)
+        filetype = input_path.suffix.lstrip('.')
+        with open(input_path, "r", encoding="utf-8") as input_file:
+            text = input_file.read()
+
+        metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
+        metadata_content = self._read_metadata(metadata_path)
+        url = metadata_content.get("URL")
+        return Page(pagename=input_path.stem, content={'text': text}, filetype=filetype, page_url=url)
+
+# if __name__ == "__main__":
+#     converter = MarkdownConverter()
+# # Run the conversion to Page
+# page = converter._to_page(Path("tests\\test_rag\data\integrated_tests\input_folder2_nested_folder_pdf+md\mds\section-3-API-based-scraping.md"), Path("tests\\test_rag\data\integrated_tests\expected_output_folder2_nested_folder_pdf+md\section-3-API-based-scraping\section-3-API-based-scraping.md"))

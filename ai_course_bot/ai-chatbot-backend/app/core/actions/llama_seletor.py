@@ -115,9 +115,11 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
     user_message = messages[-1].content
     if rag:
         if course == "EE 106B":
-            picklefile = "recursive_seperate_none_BGE_embedding_400_106_full.pkl"
+            picklefile = "eecs106b.pkl"
         elif course == "Public Domain Server":
             picklefile = "Berkeley.pkl"
+        elif course == "CS 61A":
+            picklefile = "cs61a.pkl"
         else:
             picklefile = "Berkeley.pkl"
         path_to_pickle = os.path.join("./app/embedding/", picklefile)

@@ -12,7 +12,7 @@ openai_whisper==20231117
 packaging==24.0
 pytest==8.1.1
 python-dotenv==1.0.1
-pytube==15.0.0
+pytubefix==6.3.3
 PyYAML==6.0.1
 Requests==2.31.0
 rst_to_myst==0.4.0

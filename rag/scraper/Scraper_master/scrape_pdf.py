@@ -18,13 +18,13 @@ class ScrapePdf(BaseScraper):
         if response.status_code == 200:
             with open(filename, 'wb') as f:
                 f.write(response.content)
-            print(f"Download completed successfully and saved as {self.root_filename}")
+            print(f"Download completed successfully and saved as {filename}")
         else:
             print(f"Failed to download the PDF. Status code: {response.status_code}")
 
 
 # Example usage:
 if __name__ == "__main__":
-    pdf_url = "http://example.com/path/to/your/pdf/file.pdf"  # Replace with the actual PDF URL
-    pdf_saver = ScrapePdf(pdf_url)  # Specify the filename to save as
-    pdf_saver.content_extract("name", pdf_url) # Start the download process
+    pdf_url = "pdflink"  # Replace with the actual PDF URL
+    pdf_saver = ScrapePdf(pdf_url)
+    pdf_saver.content_extract("filename", pdf_url) # Change filename to save as and start the download process

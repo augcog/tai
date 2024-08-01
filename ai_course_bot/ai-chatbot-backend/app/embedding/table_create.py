@@ -6,8 +6,8 @@ import random
 
 
 # Paths to your vector and vss extensions
-EXT_VECTOR_PATH = "ai_course_bot/ai-chatbot-backend/app/embedding/dist/debug/vector0.dylib"
-EXT_VSS_PATH = "ai_course_bot/ai-chatbot-backend/app/embedding/dist/debug/vss0.dylib"
+EXT_VECTOR_PATH = "ai_course_bot/ai-chatbot-backend/app/embedding/dist/debug/vector0"
+EXT_VSS_PATH = "ai_course_bot/ai-chatbot-backend/app/embedding/dist/debug/vss0"
 BGE = True
 # Connect to the SQLite database and load extensions
 def connect(path=":memory:"):

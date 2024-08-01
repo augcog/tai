@@ -1,2 +1,2 @@
-export { GET, POST } from '@/auth'
+export { GET, POST } from '@/tai/utils/auth'
 export const runtime = 'edge'

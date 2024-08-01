@@ -218,12 +218,11 @@ def run_tasks(yaml_file):
         root=os.path.abspath(root)
         for task in configuration['tasks']:
             url=task['url']
-            base_url = url.split('/')
-            base_url = '/'.join(base_url[:3]) + '/'
+            base_url=task['root']
             base_regex = rf"^{base_url}"
             root_folder = root + '/' + task['name']
-            content_tags = match_tags(url)
 
+            content_tags = match_tags(url)
             scrapper = ScrapeHeader(url, base_url, base_regex, root_folder, content_tags)
             scrapper.scrape()
 

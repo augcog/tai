@@ -11,6 +11,7 @@ import yaml
 
 from utils import create_and_enter_dir, delete_and_exit_dir, remove_consecutive_empty_lines, save_to_file,remove_slash_and_hash, cd_home,get_crawl_delay
 
+MAX_FILENAME_LENGTH = 255
 
 content_tags_dict = {
     "https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html": [('div', {'class': 'contents'})],
@@ -70,6 +71,8 @@ class ScrapeHeader(BaseScraper):
                 link = link[:-1]
             filename = link.split('/')[-1]
             filename = filename.split('.')[0]
+            if len(filename) >= MAX_FILENAME_LENGTH:
+                filename = filename[:MAX_FILENAME_LENGTH]
             filename = unquote(filename).replace(' ', '_')
             cur_dir = os.getcwd()
             create_and_enter_dir(filename)
@@ -218,12 +221,10 @@ def run_tasks(yaml_file):
         root=os.path.abspath(root)
         for task in configuration['tasks']:
             url=task['url']
-            base_url = url.split('/')
-            base_url = '/'.join(base_url[:3]) + '/'
+            base_url=task['root']
             base_regex = rf"^{base_url}"
             root_folder = root + '/' + task['name']
             content_tags = match_tags(url)
-
             scrapper = ScrapeHeader(url, base_url, base_regex, root_folder, content_tags)
             scrapper.scrape()
 

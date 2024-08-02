@@ -16,4 +16,3 @@ def convert_directory(input_dir: Union[str, Path], output_dir: Union[str, Path])
     """
     process_folder(input_dir, output_dir)
 
-

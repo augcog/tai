@@ -16,10 +16,11 @@ Ensure Python version 3.9 or higher is installed.
 
 ### Supported File Types
 The router currently handles the following file types:
-- `pdf`
+- `PDF`
 - `md`
 - `video`
   - Note: The logic for video conversion has been developed by Wayne, pending integration into the router through the `VideoConverter` class.
+- `EdX`
 
 ### Output Formats
 The following formats are generated in the destination folder for each supported input:

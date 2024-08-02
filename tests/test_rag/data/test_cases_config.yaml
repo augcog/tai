@@ -14,10 +14,10 @@ unit_tests:
         - unit_tests/example_format/expected_output/example_input/example_input.pkl
 
   pdf_converter:
-    - input_path: unit_tests/pdf/input/61a-sp24-mt2_sol_2_pages.pdf
+    - input_path: unit_tests/pdf/input/61a-sp24-mt1.pdf
       expected_output_paths:
-        - unit_tests/pdf/expected_output/61a-sp24-mt2_sol_2_pages/61a-sp24-mt2_sol_2_pages.md
-        - unit_tests/pdf/expected_output/61a-sp24-mt2_sol_2_pages/61a-sp24-mt2_sol_2_pages.pkl
+        - unit_tests/pdf/expected_output/61a-sp24-mt1/61a-sp24-mt1.md
+        - unit_tests/pdf/expected_output/61a-sp24-mt1/61a-sp24-mt1.pkl
 
   md_converter:
     - input_path: unit_tests/md/input/section-0-brief-python-refresher.md

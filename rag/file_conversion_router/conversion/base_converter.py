@@ -173,7 +173,7 @@ class BaseConverter(ABC):
         md_path = self._to_markdown(input_path, output_path)
         with open(md_path, "r") as input_file:
             content_text = input_file.read()
-
+        
         metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
         metadata_content = self._read_metadata(metadata_path)
         url = metadata_content.get("URL")
@@ -184,7 +184,7 @@ class BaseConverter(ABC):
             return VidPage(pagename = stem, content = content, filetype = file_type, page_url = url)
         else:
             content = {"text": content_text}
-            return Page(pagename = stem, content = content, filetype = file_type, page_url=url)
+            return Page(pagename = stem, content = content, filetype = file_type, page_url = url)
         
     @abstractmethod
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:

@@ -74,11 +74,11 @@ def embedding_create(markdown_path,name, embedding_name, folder_name, model):
     for i in tqdm(range(len(doc_list))):
         human_embedding_prompt= 'document_hierarchy_path: {segment_path}\ndocument: {segment}\n'
         hp = human_embedding_prompt.format(segment=doc_list[i], segment_path=id_list[i])
-        try:
-            history = [{"role": "user", "content": hp.strip()}]
-            if model == 'BGE':
-                # print(embedding_model.encode(hp, return_dense=True, return_sparse=True, return_colbert_vecs=True))
-                embedding_list.append(embedding_model.encode(hp, return_dense=True, return_sparse=True, return_colbert_vecs=True))
+
+        history = [{"role": "user", "content": hp.strip()}]
+        if model == 'BGE':
+            # print(embedding_model.encode(hp, return_dense=True, return_sparse=True, return_colbert_vecs=True))
+            embedding_list.append(embedding_model.encode(hp, return_dense=True, return_sparse=True, return_colbert_vecs=True))
 
 
 

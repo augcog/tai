@@ -8,6 +8,16 @@ The following scrapers can be found under the [Scrape_master](Scraper_master/) f
 - [scrape_pdf.py](Scraper_master/scrape_pdf.py): For pdfs
 - [scrape_vid.py](Scraper_master/scrape_vid.py): For videos
 
+## Scraper and Embedding Pipeline
+Use [pipline_kb.py](Scraper_master/pipeline_kb.py) as a pipeline to scrape, chunk and embed websites into a knowledge base. The pipeline first scrapes, and then converts the content into markdown. Finally, it embeds and saves the everything as a knowledge base. This is all saved according to the path defined by root_folder. The knowledge base is automatically saved in the scraped data folder in a folder labeled "pickle". 
+    A .yaml file is used to specify the tasks to be performed. It should be should be structured as follows:
+    root_folder : "path/to/root/folder"
+    tasks :
+      - name : "Website Name"
+        url : "https://website.url"
+      - name : "Website Name"
+        url : "https://website.url"
+
 ## Scraper Structure and Usage Instructions
 All scrapers follow the base structure outlined in [base_scraper.py](Scraper_master/base_scraper.py), and common utilities can be found in [utils.py](Scraper_master/utils.py). These are some common features about the scrapers:
 - All links are compared to a root or base URL to ensure the webpage remains in a relevant domain (ex. for a root URL of berkeley.edu, berkeley.edu/about will be scraped, but youtube.com will not).

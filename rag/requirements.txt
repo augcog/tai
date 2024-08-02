@@ -27,4 +27,4 @@ pymupdf==1.24.5
 pymupdfb==1.24.3
 voyageai==0.2.2
 pix2text==1.1.1
-
+nougat-ocr==0.1.17

@@ -5,8 +5,8 @@ import numpy as np
 import os
 
 # Paths to your vector and vss extensions
-EXT_VECTOR_PATH = "rag/file_conversion_router/embedding/dist/debug/vector0.dylib"
-EXT_VSS_PATH = "rag/file_conversion_router/embedding/dist/debug/vss0.dylib"
+EXT_VECTOR_PATH = "rag/file_conversion_router/embedding/dist/debug/vector0"
+EXT_VSS_PATH = "rag/file_conversion_router/embedding/dist/debug/vss0"
 BGE = True
 
 
@@ -77,7 +77,7 @@ def get_structure_debug(pickle_data):
 
 
 def create_embedding_table(pickle_data):
-    directory_path = '/Users/charlesxu/roarai/rag/file_conversion_router/embedding'
+    directory_path = '/home/roar-tai-1/charles/roarai/rag/file_conversion_router/embedding'
     os.makedirs(directory_path, exist_ok=True)
     db_path = os.path.join(directory_path, 'embeddings.db')
     db = connect(db_path)
@@ -136,7 +136,7 @@ def create_main_table(filename, pickle_data):
     else:
         raise ValueError("The provided file does not have a .pkl extension")
     
-    directory_path = '/Users/charlesxu/roarai/rag/file_conversion_router/embedding'
+    directory_path = '/home/roar-tai-1/charles/roarai/rag/file_conversion_router/embedding'
     os.makedirs(directory_path, exist_ok=True)
     db_path = os.path.join(directory_path, database_name)
     print(db_path)
@@ -181,7 +181,7 @@ def create_main_table(filename, pickle_data):
 
 
 def main():
-    ee106b = "rag/file_conversion_router/embedding/recursive_seperate_none_BGE_embedding_400_106_full.pkl"
+    ee106b = "rag/file_conversion_router/embedding/eecs106b.pkl"
     path_to_pickle = ee106b
     # path_to_pickle = "rag/file_conversion_router/embedding/cs61a_7_24.pkl"
 
@@ -193,111 +193,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-# rows_to_insert = []
-    # for i in range(len(pickle_data['id_list'])):
-    #     row = []
-    #     for col in column_names:
-    #         if 'embedding' not in col:
-    #             value = pickle_data[col].tolist() if isinstance(pickle_data[col], np.ndarray) else pickle_data[col]
-    #             if i < len(value):
-    #                 if isinstance(value[i], dict):
-    #                     row.append(json.dumps(value[i]))
-    #                 else:
-    #                     row.append(str(value[i]))
-    #             else:
-    #                 # If the list is empty or shorter than the max length, use None
-    #                 row.append(None)
-    #             rows_to_insert.append(tuple(row))
-    #         else:
-    #             row.append(None)
-    #             rows_to_insert.append(tuple(row))
-            
-    # insert_query = f"INSERT INTO {table_name} ({', '.join(column_names)}) VALUES ({', '.join(['?'] * len(column_names))})"
-    # cur.executemany(insert_query, rows_to_insert)
-    # # Insert the data into the table
-    # for i in range(len(pickle_data[keys[0]])):
-    #     row = []
-    #     for col in column_names:
-    #         key, sub_key = col.split("_") if "_" in col else (col, None)
-    #         if sub_key:
-    #             row.append(str(pickle_data[key][i][sub_key]))
-    #         else:
-    #             if key == 'embedding_list':
-    #                 row.append(str(pickle_data[key][i]))
-    #             else:
-    #                 row.append(str(pickle_data[key][i]))
-    #     cur.execute(f"INSERT INTO data VALUES ({', '.join(['?'] * len(row))})", row)
-
-# def flatten_dict(d, parent_key='', sep='_'):
-#     items = {}
-
-#     for k, v in d.items():
-#         new_key = f"{parent_key}" if parent_key else k
-#         if isinstance(v, dict):
-#             nested_items = flatten_dict(v, new_key, sep=sep)
-#             for nested_key, nested_value in nested_items.items():
-#                 if nested_key in items:
-#                     items[nested_key].append(nested_value)
-#                 else:
-#                     items[nested_key] = [nested_value]
-#         else:
-#             if isinstance(v, np.ndarray):
-#                 v = v.tolist()
-#             if new_key in items:
-#                 items[new_key].append(v)
-#             else:
-#                 items[new_key] = [v]
-
-#     return items
-
-
-# def flatten_data(pickle_data):
-#     flattened_data = {}
-#     print("flattening data")
-#     for key, value in pickle_data.items():
-#         if len(value) == 0:
-#             print(key, "is empty")
-#             flattened_data[key] = []
-#         elif isinstance(value, np.ndarray) and isinstance(value[0], dict):
-#             for i, item in enumerate(value):
-#                 if isinstance(item, dict):
-#                     flat_item = flatten_dict(item)
-#                     for sub_key, sub_value in flat_item.items():
-#                         new_key = f"{key}_{sub_key}"
-#                         flattened_data[new_key] = sub_value
-#                 else:
-#                     new_key = f"{key}"
-#                     if isinstance(item, np.ndarray):
-#                         item = item.tolist()
-#                     if new_key in flattened_data:
-#                         flattened_data[new_key].append(item)
-#                     else:
-#                         flattened_data[new_key] = [item]
-#         elif isinstance(value, np.ndarray):
-#             print(key, "an ndarray but not nested")
-#             flattened_data[key] = value.tolist()
-#         else:
-#             print(key, "not an array", value)
-#             flattened_data[key] = value
-
-#     for key in flattened_data.keys():
-#         if isinstance(flattened_data[key], list):
-#             print("key", key, "is a list")
-#             flattened_data[key] = [float(item) if isinstance(item, np.float16) else item for item in flattened_data[key]]
-#         elif isinstance(flattened_data[key], np.float16):
-#             print("key", key, "is a float")
-#             flattened_data[key] = float(flattened_data[key])
-
-#     return flattened_data
-
-
-# def np_to_list(obj):
-#     if isinstance(obj, np.ndarray):
-#         return obj.tolist()
-#     elif isinstance(obj, dict):
-#         return {k: np_to_list(v) for k, v in obj.items()}
-#     elif isinstance(obj, list):
-#         return [np_to_list(item) for item in obj]
-#     return obj

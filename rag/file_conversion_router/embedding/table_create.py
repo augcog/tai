@@ -1,0 +1,303 @@
+import sqlite3
+import pickle
+import json
+import numpy as np
+import os
+
+# Paths to your vector and vss extensions
+EXT_VECTOR_PATH = "rag/file_conversion_router/embedding/dist/debug/vector0.dylib"
+EXT_VSS_PATH = "rag/file_conversion_router/embedding/dist/debug/vss0.dylib"
+BGE = True
+
+
+# Connect to the SQLite database and load extensions
+def connect(path=":memory:"):
+    db = sqlite3.connect(path)
+    db.enable_load_extension(True)
+    db.execute("create temp table base_functions as select name from pragma_function_list")
+    db.execute("create temp table base_modules as select name from pragma_module_list")
+    db.load_extension(EXT_VECTOR_PATH)
+    db.execute("create temp table vector_loaded_functions as select name from pragma_function_list where name not in (select name from base_functions) order by name")
+    db.execute("create temp table vector_loaded_modules as select name from pragma_module_list where name not in (select name from base_modules) order by name")
+    db.execute("drop table base_functions")
+    db.execute("drop table base_modules")
+    db.execute("create temp table base_functions as select name from pragma_function_list")
+    db.execute("create temp table base_modules as select name from pragma_module_list")
+    db.load_extension(EXT_VSS_PATH)
+    db.execute("create temp table vss_loaded_functions as select name from pragma_function_list where name not in (select name from base_functions) order by name")
+    db.execute("create temp table vss_loaded_modules as select name from pragma_module_list where name not in (select name from base_modules) order by name")
+    db.row_factory = sqlite3.Row
+    return db
+
+
+def execute_all(cursor, sql, args=None):
+    if args is None: args = []
+    results = cursor.execute(sql, args).fetchall()
+    return list(map(lambda x: dict(x), results))
+
+
+def insert(cur, data_list):
+    execute_all(
+        cur,
+        """
+        insert into embeddings(rowid, embedding)
+            select
+                key, 
+                value
+            from json_each(?);
+        """, [json.dumps(data_list)])
+
+
+def get_columns(pickle_data):
+    columns = []
+    keys = list(pickle_data.keys())
+    
+    for key in keys: 
+        if len(pickle_data[key]) > 0 and isinstance(pickle_data[key][0], dict):
+            columns.extend([f"{key}_{sub_key}" for sub_key in pickle_data[key][0].keys()])
+        else:
+            columns.append(key)
+    print("Columns:", columns)
+
+    return columns, keys
+
+
+def get_structure_debug(pickle_data):
+    for key, value in pickle_data.items():
+        print(f"Key: {key}")
+        print(f"Type: {type(value)}")
+        if isinstance(value, np.ndarray):
+            print(f"Length: {len(value)}")
+            if len(value) > 0:
+                print(f"Sample Value Type: {type(value[0])}")
+                if isinstance(value[0], dict):
+                    print(f"Sample Value Keys: {list(value[0].keys())}")
+        elif isinstance(value, dict):
+            print(f"Keys: {list(value.keys())}") 
+
+
+def create_embedding_table(pickle_data):
+    directory_path = '/Users/charlesxu/roarai/rag/file_conversion_router/embedding'
+    os.makedirs(directory_path, exist_ok=True)
+    db_path = os.path.join(directory_path, 'embeddings.db')
+    db = connect(db_path)
+    print(db_path)
+    cur = db.cursor()
+    cur.execute('Drop table IF EXISTS embeddings;')
+    cur.execute('''
+                create virtual table embeddings using vss0(
+                embedding(1024)
+                factory="Flat,IDMap2" metric_type=INNER_PRODUCT);
+                ''')
+    
+    embedding_list = pickle_data['embedding_list']
+    denses = [embedding['dense_vecs'].tolist() for embedding in embedding_list]
+    insert(cur, denses)
+    db.commit()
+
+    # Verify the number of rows inserted
+    cur.execute("SELECT COUNT(*) AS row_count FROM embeddings")
+    row_count = cur.fetchone()
+    print(f"Number of rows inserted: {row_count['row_count']}")
+    rows = cur.fetchall()
+    for i in rows:
+        print(i)
+
+    # Perform a VSS search (example)
+    try:
+        cur.execute("""
+            SELECT 
+                rowid, 
+                distance
+            FROM embeddings
+            WHERE vss_search(
+                embedding,
+                (SELECT embedding FROM embeddings WHERE rowid = 1000)
+            )
+            LIMIT 5;
+        """)
+        results = cur.fetchall()
+        for result in results:
+            print(f"rowid: {result['rowid']}, distance: {result['distance']}")
+    except sqlite3.OperationalError as e:
+        print(f"Query operation failed: {e}")
+    db.commit()
+    cur.execute("VACUUM;")
+    db.close()
+
+    return cur
+
+
+def create_main_table(filename, pickle_data):
+    if filename.endswith('.pkl'):
+        table_name = os.path.splitext(os.path.basename(filename))[0]
+        print(table_name)
+        database_name = table_name + '.db'
+    else:
+        raise ValueError("The provided file does not have a .pkl extension")
+    
+    directory_path = '/Users/charlesxu/roarai/rag/file_conversion_router/embedding'
+    os.makedirs(directory_path, exist_ok=True)
+    db_path = os.path.join(directory_path, database_name)
+    print(db_path)
+    db = sqlite3.connect(db_path)
+    cur = db.cursor()
+
+    columns, keys = get_columns(pickle_data)
+
+    cur.execute(f'Drop table IF EXISTS {table_name};')
+    column_definitions = 'rowid INTEGER PRIMARY KEY AUTOINCREMENT, ' + ', '.join([f"{col} TEXT" for col in columns])
+    cur.execute(f"CREATE TABLE {table_name} ({column_definitions})")
+    
+    cur.execute(f'PRAGMA table_info({table_name})')
+    rows = cur.fetchall()
+    column_names = [row[1] for row in rows]
+
+
+    for i in range(len(pickle_data[columns[0]])):
+        row = []
+        for col in columns:
+            # Handle embedding_list specially
+            if col.startswith('embedding_list'):
+                embedding_key = col.replace('embedding_list_', '')
+                row.append(str(pickle_data['embedding_list'][i][embedding_key]))
+            else:
+                row.append(str(pickle_data[col][i]))
+        
+        placeholders = ', '.join(['?' for _ in columns])
+        cur.execute(f'''
+            INSERT INTO {table_name} ({', '.join(columns)}) 
+            VALUES ({placeholders})
+        ''', row)
+    db.commit()
+
+    cur.execute(f"SELECT * FROM {table_name} LIMIT 3")
+    rows = cur.fetchall()
+    for row in rows:
+        print(row)
+
+    # Commit and close the connection
+    db.close()
+
+
+def main():
+    ee106b = "rag/file_conversion_router/embedding/recursive_seperate_none_BGE_embedding_400_106_full.pkl"
+    path_to_pickle = ee106b
+    # path_to_pickle = "rag/file_conversion_router/embedding/cs61a_7_24.pkl"
+
+    with open(path_to_pickle, 'rb') as f:
+        data_loaded = pickle.load(f)
+
+    create_embedding_table(data_loaded)
+    create_main_table(path_to_pickle, data_loaded)
+
+if __name__ == "__main__":
+    main()
+
+
+# rows_to_insert = []
+    # for i in range(len(pickle_data['id_list'])):
+    #     row = []
+    #     for col in column_names:
+    #         if 'embedding' not in col:
+    #             value = pickle_data[col].tolist() if isinstance(pickle_data[col], np.ndarray) else pickle_data[col]
+    #             if i < len(value):
+    #                 if isinstance(value[i], dict):
+    #                     row.append(json.dumps(value[i]))
+    #                 else:
+    #                     row.append(str(value[i]))
+    #             else:
+    #                 # If the list is empty or shorter than the max length, use None
+    #                 row.append(None)
+    #             rows_to_insert.append(tuple(row))
+    #         else:
+    #             row.append(None)
+    #             rows_to_insert.append(tuple(row))
+            
+    # insert_query = f"INSERT INTO {table_name} ({', '.join(column_names)}) VALUES ({', '.join(['?'] * len(column_names))})"
+    # cur.executemany(insert_query, rows_to_insert)
+    # # Insert the data into the table
+    # for i in range(len(pickle_data[keys[0]])):
+    #     row = []
+    #     for col in column_names:
+    #         key, sub_key = col.split("_") if "_" in col else (col, None)
+    #         if sub_key:
+    #             row.append(str(pickle_data[key][i][sub_key]))
+    #         else:
+    #             if key == 'embedding_list':
+    #                 row.append(str(pickle_data[key][i]))
+    #             else:
+    #                 row.append(str(pickle_data[key][i]))
+    #     cur.execute(f"INSERT INTO data VALUES ({', '.join(['?'] * len(row))})", row)
+
+# def flatten_dict(d, parent_key='', sep='_'):
+#     items = {}
+
+#     for k, v in d.items():
+#         new_key = f"{parent_key}" if parent_key else k
+#         if isinstance(v, dict):
+#             nested_items = flatten_dict(v, new_key, sep=sep)
+#             for nested_key, nested_value in nested_items.items():
+#                 if nested_key in items:
+#                     items[nested_key].append(nested_value)
+#                 else:
+#                     items[nested_key] = [nested_value]
+#         else:
+#             if isinstance(v, np.ndarray):
+#                 v = v.tolist()
+#             if new_key in items:
+#                 items[new_key].append(v)
+#             else:
+#                 items[new_key] = [v]
+
+#     return items
+
+
+# def flatten_data(pickle_data):
+#     flattened_data = {}
+#     print("flattening data")
+#     for key, value in pickle_data.items():
+#         if len(value) == 0:
+#             print(key, "is empty")
+#             flattened_data[key] = []
+#         elif isinstance(value, np.ndarray) and isinstance(value[0], dict):
+#             for i, item in enumerate(value):
+#                 if isinstance(item, dict):
+#                     flat_item = flatten_dict(item)
+#                     for sub_key, sub_value in flat_item.items():
+#                         new_key = f"{key}_{sub_key}"
+#                         flattened_data[new_key] = sub_value
+#                 else:
+#                     new_key = f"{key}"
+#                     if isinstance(item, np.ndarray):
+#                         item = item.tolist()
+#                     if new_key in flattened_data:
+#                         flattened_data[new_key].append(item)
+#                     else:
+#                         flattened_data[new_key] = [item]
+#         elif isinstance(value, np.ndarray):
+#             print(key, "an ndarray but not nested")
+#             flattened_data[key] = value.tolist()
+#         else:
+#             print(key, "not an array", value)
+#             flattened_data[key] = value
+
+#     for key in flattened_data.keys():
+#         if isinstance(flattened_data[key], list):
+#             print("key", key, "is a list")
+#             flattened_data[key] = [float(item) if isinstance(item, np.float16) else item for item in flattened_data[key]]
+#         elif isinstance(flattened_data[key], np.float16):
+#             print("key", key, "is a float")
+#             flattened_data[key] = float(flattened_data[key])
+
+#     return flattened_data
+
+
+# def np_to_list(obj):
+#     if isinstance(obj, np.ndarray):
+#         return obj.tolist()
+#     elif isinstance(obj, dict):
+#         return {k: np_to_list(v) for k, v in obj.items()}
+#     elif isinstance(obj, list):
+#         return [np_to_list(item) for item in obj]
+#     return obj

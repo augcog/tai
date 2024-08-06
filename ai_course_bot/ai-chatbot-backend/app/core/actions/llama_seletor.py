@@ -17,8 +17,8 @@ import sqlite3
 
 # Set the environment variable to use the SQL database
 SQLDB = False
-EXT_VECTOR_PATH = "/Users/charlesxu/roarai/rag/file_conversion_router/embedding/dist/debug/vector0.dylib"
-EXT_VSS_PATH = "/Users/charlesxu/roarai/rag/file_conversion_router/embedding/dist/debug/vss0.dylib"
+EXT_VECTOR_PATH = "ai_course_bot/ai-chatbot-backend/app/core/actions/dist/debug/vector0"
+EXT_VSS_PATH = "ai_course_bot/ai-chatbot-backend/app/core/actions/dist/debug/vss0"
 
 class Message(BaseModel):
     role: str
@@ -30,17 +30,13 @@ embedding_model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True)
 load_dotenv()
 
 model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
-# model_id = "neuralmagic/Mistral-Nemo-Instruct-2407-FP8"
-# model_id = "google/gemma-7b"
-# model_id = "meta-llama/Meta-Llama-3.1-8B"
 auto_tokenizer = transformers.AutoTokenizer.from_pretrained(model_id)
-# streamer_iterator = transformers.TextIteratorStreamer(auto_tokenizer, skip_prompt=True)
 print("Loading model...")
 pipeline = transformers.pipeline(
     "text-generation",
     model=model_id,
     model_kwargs={"torch_dtype": torch.bfloat16},
-    device="mps", 
+    device="cuda",
 )
 
 lock = threading.Lock()
@@ -123,12 +119,12 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
     user_message = messages[-1].content
     if rag:
         if course == "EE 106B":
-            picklefile = "recursive_seperate_none_BGE_embedding_400_106_full.pkl"
+            picklefile = "eecs106b.pkl"
         elif course == "CS 61A":
-            picklefile = "cs61a_7_24.pkl"
+            picklefile = "cs61a.pkl"
         else:
             picklefile = "Berkeley.pkl"
-        current_dir = "/Users/charlesxu/roarai/rag/file_conversion_router/embedding"
+        current_dir = "/home/roar-tai-1/charles/roarai/rag/file_conversion_router/embedding"
         query_embed = embedding_model.encode(user_message, return_dense=True, return_sparse=True,
                                                 return_colbert_vecs=True)
         if SQLDB:   

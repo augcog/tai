@@ -11,12 +11,14 @@ from app.core.models.chat_completion import Message as ROARChatCompletionMessage
 from pydantic import BaseModel
 import threading
 import urllib.parse
-import sqlite3
 import json
-from app.embedding.table_create import execute_all, connect, insert
+import sys
+import sqlite3
 
 # Set the environment variable to use the SQL database
 SQLDB = False
+EXT_VECTOR_PATH = "/Users/charlesxu/roarai/rag/file_conversion_router/embedding/dist/debug/vector0.dylib"
+EXT_VSS_PATH = "/Users/charlesxu/roarai/rag/file_conversion_router/embedding/dist/debug/vss0.dylib"
 
 class Message(BaseModel):
     role: str
@@ -28,6 +30,9 @@ embedding_model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True)
 load_dotenv()
 
 model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
+# model_id = "neuralmagic/Mistral-Nemo-Instruct-2407-FP8"
+# model_id = "google/gemma-7b"
+# model_id = "meta-llama/Meta-Llama-3.1-8B"
 auto_tokenizer = transformers.AutoTokenizer.from_pretrained(model_id)
 # streamer_iterator = transformers.TextIteratorStreamer(auto_tokenizer, skip_prompt=True)
 print("Loading model...")
@@ -35,7 +40,7 @@ pipeline = transformers.pipeline(
     "text-generation",
     model=model_id,
     model_kwargs={"torch_dtype": torch.bfloat16},
-    device="cuda",
+    device="mps", 
 )
 
 lock = threading.Lock()
@@ -58,6 +63,7 @@ def prompt_generator(messages,streamer_iterator):
             do_sample=True,
             streamer=streamer_iterator
         )
+
 # Write scores for
 def bge_compute_score(
     query_embedding,
@@ -110,35 +116,32 @@ def clean_path(url_path):
     cleaned_path = cleaned_path.replace('(', ' (').replace(')', ') ')
     cleaned_path = ' '.join(cleaned_path.split())
     return cleaned_path
+
+
 def local_selector(messages:List[Message],stream=True,rag=True,course=None):
     insert_document = ""
     user_message = messages[-1].content
     if rag:
         if course == "EE 106B":
-            picklefile = "eecs106b.pkl"
-        elif course == "Public Domain Server":
-            picklefile = "Berkeley.pkl"
+            picklefile = "recursive_seperate_none_BGE_embedding_400_106_full.pkl"
         elif course == "CS 61A":
-            picklefile = "cs61a.pkl"
+            picklefile = "cs61a_7_24.pkl"
         else:
             picklefile = "Berkeley.pkl"
-        path_to_pickle = os.path.join("./app/embedding/", picklefile)
-        with open(path_to_pickle, 'rb') as f:
-            data_loaded = pickle.load(f)
-        doc_list = data_loaded['doc_list']
-        id_list = data_loaded['id_list']
-        url_list = data_loaded['url_list']
+        current_dir = "/Users/charlesxu/roarai/rag/file_conversion_router/embedding"
         query_embed = embedding_model.encode(user_message, return_dense=True, return_sparse=True,
                                                 return_colbert_vecs=True)
-        if SQLDB:
-            db = connect('embeddings.db')
+        if SQLDB:   
+            embedding_db_path = os.path.join(current_dir, "embeddings.db")
+
+            # Connect to the embeddings database using vss and vector extensions
+            db = sqlite3.connect(embedding_db_path)
+            db.enable_load_extension(True)
+            db.load_extension(EXT_VECTOR_PATH)
+            db.load_extension(EXT_VSS_PATH)
             cur = db.cursor()
-            cur.execute('Drop table IF EXISTS embeddings;')
-            cur.execute('create virtual table embeddings using vss0(embedding(1024) factory="Flat,IDMap2" metric_type=INNER_PRODUCT);')
-            embedding_list = data_loaded['embedding_list']
-            denses = [embedding['dense_vecs'].tolist() for embedding in embedding_list]
-            insert(cur, denses)
-            db.commit()
+
+            # Query the embeddings database using vss_search
             query_vector = query_embed['dense_vecs'].tolist()
             query_vector_json = json.dumps(query_vector)
             cur.execute("""
@@ -152,37 +155,64 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
                 )
                 LIMIT 3;
             """, (query_vector_json,))
+
             results = cur.fetchall()
-            top_indices = [result[0] for result in results]
-            top_ids = id_list[top_indices]
+
+            # Close the connection
+            db.commit()
+            db.close()
+
+            # Connect to the main database to extract the top docs and urls
+            table_name = picklefile.replace('.pkl', '')
+            db_name = f"{table_name}.db"
+            main_db_path = os.path.join(current_dir, db_name)
+            db = sqlite3.connect(main_db_path)
+            cur = db.cursor()
+
+            # Extract the top 3 docs and urls
+            indices = [result[0] for result in results]
             distances = [result[1] for result in results]
-            print("top_ids:", top_ids)
-            print("distances:", distances)
-            id_doc_url_dic = {id_: (doc, url) for id_, doc, url in zip(id_list, doc_list, url_list)}
-            top_docs_urls = [id_doc_url_dic[top_id] for top_id in top_ids]
-            top_docs, top_urls = zip(*top_docs_urls)
-            print("top_docs:", top_docs, "top_urls:", top_urls)
+
+            placeholders = ','.join('?' for _ in indices)
+            query = f"SELECT id_list, doc_list, url_list FROM {table_name} WHERE rowid IN ({placeholders})"
+            cur.execute(query, indices)
+            results = cur.fetchall()
+
+            top_ids, top_docs, top_urls = [], [], []
+            for id, doc, url in results:
+                top_ids.append(id)
+                top_docs.append(doc)
+                top_urls.append(url)
+
+            # Close the connection
+            db.close()
+            
         else:
+            # Picklefile implementation
+            path_to_pickle = os.path.join(current_dir, picklefile)
+            with open(path_to_pickle, 'rb') as f:
+                data_loaded = pickle.load(f)
+
+            doc_list = data_loaded['doc_list']
+            id_list = data_loaded['id_list']
+            url_list = data_loaded['url_list']
             embedding_list = data_loaded['embedding_list']
+
             cosine_similarities = np.array(bge_compute_score(query_embed, embedding_list, [1, 1, 1], None, None)['colbert+sparse+dense'])
             indices = np.argsort(cosine_similarities)[::-1]
-            id = id_list[indices]
-            docs = doc_list[indices]
-            url = url_list[indices]
-            print("indices:", indices)
-            print("id:", id)
-            print("docs:", docs)
-            top_docs=docs[:3]
             distances = np.sort(cosine_similarities)[-3:][::-1]
-            top_ids = id[:3]
-            top_urls = url[:3]
-            print("top_ids:", top_ids)
-            print("distances:", distances)
+            print("indices:", indices, "distances:", distances)
+            top_ids = id_list[indices][:3]
+            top_docs = doc_list[indices][:3]
+            top_urls = url_list[indices][:3]
+
+        print("top_ids:", top_ids, "top_docs:", top_docs, "top_urls:", top_urls)
 
         insert_document = ""
         reference = []
         n=0
         none=0
+
         for i in range(len(top_docs)):
             if top_urls[i]:
                 reference.append(f"{top_urls[i]}")
@@ -199,7 +229,9 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
                 reference.append("")
                 none+=1
                 print(none)
+
         print(reference)
+
     if (not insert_document) or none==3:
         print("NO REFERENCES")
         user_message = f'Answer the instruction. If unsure of the answer, explain that there is no data in the knowledge base for the response.\n---\n{user_message}'

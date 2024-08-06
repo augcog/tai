@@ -8,4 +8,4 @@
 
 2. Download the appropriate `vector0.dylib` and `vss0.dylib` for your machine's hardware from https://github.com/asg017/sqlite-vss/releases. 
 
-3. Place `vector0.dylib` and `vss0.dylib` files into the `ai_course_bot/ai-chatbot-backend/app/embedding/dist/debug` directory.
+3. Place `vector0.dylib` and `vss0.dylib` files into the `rag/file_conversion_router/embedding/dist/debug` directory.

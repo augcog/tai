@@ -15,8 +15,22 @@ AI course bot is our Open-Source RAG Framework, designed to facilitate the creat
 ## RAG
 To ready the vector database for the RAG system, a web scraper is employed to extract online documentation. The obtained data, which comes in various formats, is subsequently divided into segments. These segments are then embedded and stored within the vector database to ensure efficient retrieval by the TA Agent.
 
-## Tests
-The TAI project is equipped with a comprehensive test suite that ensures the reliability and accuracy of the system. The tests are designed to evaluate the functionality of the core algorithms, including the Llama3 model, BGE-M3 embedding model, and Sqlite-vss vector database. By running these tests, users can verify the performance of the TAI system and identify any potential issues that may arise during operation.
+## Evaluation
+The TAI project is equipped with a comprehensive test suite that ensures the reliability and accuracy of the system. The tests are designed to evaluate the functionality of the core algorithms, including the Llama3 model, BGE-M3 embedding model, and Sqlite-vss vector database. By running these evaluations, users can verify the performance of the TAI system and identify any potential issues that may arise during operation.
+
+## Tutorial
+The following is the video tutorial for each part:
+- ai_course_bot
+  - [Model Server](https://drive.google.com/file/d/17t8tKCktBrOaCwupAscUq5FWBeqlMMrQ/view?usp=drive_link) by Ines L Bouissou
+  - [SQlite database](https://drive.google.com/file/d/1XIDp5Z33FdugCFK4ohDFpg6lFP1r-m4N/view?usp=drive_link) by Charles Xu
+  - [Web Server](https://drive.google.com/file/d/1N5dl0RTCkp1x2RLpTZXQ7sUY806Yu_FO/view?usp=drive_link) by Steve Gao
+- rag
+  - [Scraper](https://drive.google.com/file/d/1xMsCCojY_Og05yZM1wxW82lI-PrbRN_G/view?usp=drive_link) by Terrianne Zhang
+  - [File Conversion](https://drive.google.com/file/d/1ecydUNq8mJ1UgZpqDWdKHHWrQUMPUlD-/view?usp=drive_link) by Jingchao Zhong
+  - [Video Conversion](https://drive.google.com/file/d/1D1klaMkL7ufTT98PBWZYgH7LmHJFJSt8/view?usp=drive_link) by Wei Quan Lai
+  - [PDF Conversion](https://drive.google.com/file/d/16YLTWMkWWF1RxvtXHEXsFhPxb9I7Rx42/view?usp=drive_link) by Yikang Yu
+  - [EdX Conversion](https://drive.google.com/file/d/1YhQyt638Hiz2HUkI2g7uHLn_s53RO3ok/view?usp=drive_link) by Ashton Lee
+  - [Embedding Creator](https://drive.google.com/file/d/1ZQCWvgVoCrTqOvAFKVx-tC5nkZoL4IQi/view?usp=drive_link) by Wei Quan Lai
 
 ## Credits
 The TAI project is a collaborative effort by researchers and students at UC Berkeley. The project is led by Director [Dr. Allen Y. Yang](https://people.eecs.berkeley.edu/~yang/) and includes contributions from the following individuals:
@@ -27,10 +41,12 @@ The TAI project is a collaborative effort by researchers and students at UC Berk
 - Jingchao Zhong
 - Terrianne Zhang
 - Michael Wu
+- Steve Gao
 - Tianlun Zhang
 - Divya Jindal
 - Yikang Yu
 - Charles Xu
+- Ashton Lee
 - Arnav Jain
 
 ## Acknowledgements

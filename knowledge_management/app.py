@@ -13,6 +13,7 @@ cors = CORS(app, resources={
 load_dotenv()
 
 SECRET_KEY = os.getenv("SECURE_JWT")
+
 BASE_DIR = '/Files'
 app.config['UPLOAD_FOLDER'] = BASE_DIR
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'zip'}

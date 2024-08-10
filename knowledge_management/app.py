@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 
 app = Flask(__name__)
 cors = CORS(app, resources={
-            r"/api/*": {"origins": "http://128.32.189.64:3000"}})
+            r"/api/*": {"origins": os.getenv("TAI_URL")}})
 load_dotenv()
 
 SECRET_KEY = os.getenv("SECURE_JWT")

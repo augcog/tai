@@ -7,7 +7,6 @@ export const runtime = 'edge'
 export async function POST(req: Request) {
   const json = await req.json()
 
-  // console.log("[Route.ts] Request Body: \n", json);
   const { messages, previewToken } = json
   var courseId = messages[messages.length - 1].tool_call_id
 
@@ -17,7 +16,6 @@ export async function POST(req: Request) {
     courseId = 'default'
   }
 
-  // Assuming your API URL and it might require an API key in headers
   var apiHost: string =
     process.env['ROAR_BACKEND_HOST'] || 'http://0.0.0.0:9000'
 
@@ -31,15 +29,12 @@ export async function POST(req: Request) {
 
   try {
     var body = JSON.stringify({
-      // Adjust payload according to your API requirements
-      course: courseId, // Update this as per your API's model naming conventions
+      course: courseId,
       messages,
       temperature: 0.7,
       stream: true,
       userId: userId
     })
-
-    // console.log("[Route.ts] Request Body: \n", body);
 
     const apiResponse = await fetch(apiUrl, {
       method: 'POST',

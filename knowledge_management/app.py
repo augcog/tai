@@ -5,11 +5,15 @@ import jwt
 from datetime import datetime, timedelta
 from functools import wraps
 from flask_cors import CORS
+from dotenv import load_dotenv
 
 app = Flask(__name__)
-CORS(app)
+cors = CORS(app, resources={
+            r"/api/*": {"origins": os.getenv("TAI_URL")}})
+load_dotenv()
 
-SECRET_KEY = 'your_secret_key'
+SECRET_KEY = os.getenv("SECURE_JWT")
+
 BASE_DIR = '/Files'
 app.config['UPLOAD_FOLDER'] = BASE_DIR
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'zip'}

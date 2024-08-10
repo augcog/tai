@@ -10,15 +10,16 @@ import {
 } from '@/tai/components/ui/dropdown-menu'
 import { IconCaretDown } from '@/tai/components/ui/icons'
 import { Button } from '@/tai/components/ui/button'
-import { saveData } from '@/tai/lib/utils'
+import { saveData, loadData } from '@/tai/lib/utils'
 
 export function SelectCourse() {
-  const [selectedCourse, setSelectedCourse] = useState('Public Domain Server') // Default message
+  const [selectedCourse, setSelectedCourse] = useState(
+    loadData('selectedCourse')
+  )
 
   const handleSelect = (courseName: string) => {
-    setSelectedCourse(courseName) // Update the selected course state
-    saveData('selectedCourse', courseName) // Save the selected course to localStorage
-    console.log('selectedCourse: ', courseName)
+    setSelectedCourse(courseName)
+    saveData('selectedCourse', courseName)
   }
 
   return (

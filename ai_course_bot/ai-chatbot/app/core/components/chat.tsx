@@ -43,7 +43,6 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
   const [previewTokenDialog, setPreviewTokenDialog] = useState(IS_PREVIEW)
   const [previewTokenInput, setPreviewTokenInput] = useState(previewToken ?? '')
 
-  // Function to save the chat
   const saveChat = async (
     prev_messages: Message[],
     input: string,
@@ -51,12 +50,6 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
     id: string | undefined
   ) => {
     try {
-      console.log('Saving chat')
-      // console.log("prev_messages: ", prev_messages)
-      // console.log("input: ", input)
-      // console.log("assistant: ", assistant)
-
-      // construct messages
       let messages = prev_messages.map(message => {
         return {
           role: message.role,
@@ -74,7 +67,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         content: assistant.content
       })
 
-      fetch('/api/chat/save', {
+      const response = await fetch('/api/chat/save', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -83,24 +76,16 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
           id,
           messages
         })
-      }).then(res => {
-        if (!res.ok) {
-          throw new Error('Failed to save chat')
-        }
-        console.log('Chat saved successfully')
-        // const data = await response.json()
-        // console.log('Chat saved successfully:', data)
-        // router.refresh()
-
-        if (!path.includes('chat')) {
-          console.log('Pushing to chat')
-          setTimeout(() => {
-            window.history.pushState({}, '', `/chat/${id}`)
-            window.location.href = `/chat/${id}`
-            router.replace(`/chat/${id}`)
-          }, 1500)
-        }
       })
+
+      if (!response.ok) {
+        throw new Error('Failed to save chat')
+      }
+
+      if (!path.includes('chat')) {
+        window.history.replaceState({}, '', `/chat/${id}`)
+        router.replace(`/chat/${id}`)
+      }
     } catch (error) {
       console.error('Error saving chat:', error)
     }
@@ -121,13 +106,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         }
       },
       onFinish(message: Message) {
-        // call /api/chat/save to save the chat
-        // console.log("Calling /api/chat/save")
         saveChat(messages, input, message, id)
-        // if (!path.includes('chat')) {
-        //   console.log('Pushing to chat')
-        //   window.history.pushState({}, '', `/chat/${id}`)
-        // }
       }
     })
   return (

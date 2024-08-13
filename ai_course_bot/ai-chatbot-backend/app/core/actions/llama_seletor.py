@@ -36,7 +36,7 @@ pipeline = transformers.pipeline(
     "text-generation",
     model=model_id,
     model_kwargs={"torch_dtype": torch.bfloat16},
-    device="cuda",
+    device="cuda", 
 )
 
 lock = threading.Lock()
@@ -124,7 +124,7 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
             picklefile = "cs61a.pkl"
         else:
             picklefile = "Berkeley.pkl"
-        current_dir = "/home/roar-tai-1/charles/roarai/rag/file_conversion_router/embedding"
+        current_dir = "roarai/rag/file_conversion_router/embedding"     # Modify this path to the directory containing the embedding pickle files
         query_embed = embedding_model.encode(user_message, return_dense=True, return_sparse=True,
                                                 return_colbert_vecs=True)
         if SQLDB:   

@@ -127,7 +127,7 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
             picklefile = "cs61a_7_24.pkl"
         else:
             picklefile = "Berkeley.pkl"
-        current_dir = "/home/roar-tai-1/charles/roarai/rag/file_conversion_router/embedding"
+        current_dir = "roarai/rag/file_conversion_router/embedding"     # Modify this path to the directory containing the embedding pickle files
         query_embed = embedding_model.encode(user_message, return_dense=True, return_sparse=True,
                                                 return_colbert_vecs=True)
         if SQLDB:   

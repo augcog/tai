@@ -9,6 +9,8 @@ EXT_VECTOR_PATH = "rag/file_conversion_router/embedding/dist/debug/vector0"
 EXT_VSS_PATH = "rag/file_conversion_router/embedding/dist/debug/vss0"
 BGE = True
 
+# Modify this path to the directory containing the embedding pickle files and the database
+DIRECTORY_PATH = 'roarai/rag/file_conversion_router/embedding'
 
 # Connect to the SQLite database and load extensions
 def connect(path=":memory:"):
@@ -77,9 +79,8 @@ def get_structure_debug(pickle_data):
 
 
 def create_embedding_table(pickle_data):
-    directory_path = '/home/roar-tai-1/charles/roarai/rag/file_conversion_router/embedding'
-    os.makedirs(directory_path, exist_ok=True)
-    db_path = os.path.join(directory_path, 'embeddings.db')
+    os.makedirs(DIRECTORY_PATH, exist_ok=True)
+    db_path = os.path.join(DIRECTORY_PATH, 'embeddings.db')
     db = connect(db_path)
     print(db_path)
     cur = db.cursor()
@@ -136,9 +137,8 @@ def create_main_table(filename, pickle_data):
     else:
         raise ValueError("The provided file does not have a .pkl extension")
     
-    directory_path = '/home/roar-tai-1/charles/roarai/rag/file_conversion_router/embedding'
-    os.makedirs(directory_path, exist_ok=True)
-    db_path = os.path.join(directory_path, database_name)
+    os.makedirs(DIRECTORY_PATH, exist_ok=True)
+    db_path = os.path.join(DIRECTORY_PATH, database_name)
     print(db_path)
     db = sqlite3.connect(db_path)
     cur = db.cursor()
@@ -183,7 +183,7 @@ def create_main_table(filename, pickle_data):
 def main():
     ee106b = "rag/file_conversion_router/embedding/eecs106b.pkl"
     path_to_pickle = ee106b
-    # path_to_pickle = "rag/file_conversion_router/embedding/cs61a_7_24.pkl"
+    # path_to_pickle = "rag/file_conversion_router/embedding/cs61a.pkl"
 
     with open(path_to_pickle, 'rb') as f:
         data_loaded = pickle.load(f)

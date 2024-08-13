@@ -21,16 +21,16 @@ The TAI project is equipped with a comprehensive test suite that ensures the rel
 ## Tutorial
 The following is the video tutorial for each part:
 - ai_course_bot
-  - [Model Server](https://drive.google.com/file/d/17t8tKCktBrOaCwupAscUq5FWBeqlMMrQ/view?usp=drive_link) by Ines L Bouissou
-  - [SQlite database](https://drive.google.com/file/d/1XIDp5Z33FdugCFK4ohDFpg6lFP1r-m4N/view?usp=drive_link) by Charles Xu
-  - [Web Server](https://drive.google.com/file/d/1N5dl0RTCkp1x2RLpTZXQ7sUY806Yu_FO/view?usp=drive_link) by Steve Gao
+  - [Model Server](https://www.youtube.com/watch?v=X5sMbI7oJlc&list=PLMMH6dvA_yfjGY2YXcr67g-FnORULR-rU&index=4) by Ines L Bouissou
+  - [SQlite database](https://www.youtube.com/watch?v=XBKL-eliAz8&list=PLMMH6dvA_yfjGY2YXcr67g-FnORULR-rU&index=7) by Charles Xu
+  - [Web Server](https://www.youtube.com/watch?v=jnNPt25yyG0&list=PLMMH6dvA_yfjGY2YXcr67g-FnORULR-rU&index=9) by Steve Gao
 - rag
-  - [Scraper](https://drive.google.com/file/d/1xMsCCojY_Og05yZM1wxW82lI-PrbRN_G/view?usp=drive_link) by Terrianne Zhang
-  - [File Conversion](https://drive.google.com/file/d/1ecydUNq8mJ1UgZpqDWdKHHWrQUMPUlD-/view?usp=drive_link) by Jingchao Zhong
-  - [Video Conversion](https://drive.google.com/file/d/1D1klaMkL7ufTT98PBWZYgH7LmHJFJSt8/view?usp=drive_link) by Wei Quan Lai
-  - [PDF Conversion](https://drive.google.com/file/d/16YLTWMkWWF1RxvtXHEXsFhPxb9I7Rx42/view?usp=drive_link) by Yikang Yu
-  - [EdX Conversion](https://drive.google.com/file/d/1YhQyt638Hiz2HUkI2g7uHLn_s53RO3ok/view?usp=drive_link) by Ashton Lee
-  - [Embedding Creator](https://drive.google.com/file/d/1ZQCWvgVoCrTqOvAFKVx-tC5nkZoL4IQi/view?usp=drive_link) by Wei Quan Lai
+  - [Scraper](https://www.youtube.com/watch?v=P3-K9QyQ5LM&list=PLMMH6dvA_yfjGY2YXcr67g-FnORULR-rU&index=6) by Terrianne Zhang
+  - [File Conversion](https://www.youtube.com/watch?v=5ZNoT080tpU&list=PLMMH6dvA_yfjGY2YXcr67g-FnORULR-rU&index=3) by Jingchao Zhong
+  - [Video Conversion](https://www.youtube.com/watch?v=ZxcK8VzxEUI&list=PLMMH6dvA_yfjGY2YXcr67g-FnORULR-rU&index=8) by Wei Quan Lai
+  - [PDF Conversion](https://www.youtube.com/watch?v=Zm1j4QtSY8M&list=PLMMH6dvA_yfjGY2YXcr67g-FnORULR-rU&index=5) by Yikang Yu
+  - [EdX Conversion](https://www.youtube.com/watch?v=s3lf1dCjWiA&list=PLMMH6dvA_yfjGY2YXcr67g-FnORULR-rU&index=2) by Ashton Lee
+  - [Embedding Creator](https://www.youtube.com/watch?v=r6a5vSZw3GE&list=PLMMH6dvA_yfjGY2YXcr67g-FnORULR-rU&index=1) by Wei Quan Lai
 
 ## Credits
 The TAI project is a collaborative effort by researchers and students at UC Berkeley. The project is led by Director [Dr. Allen Y. Yang](https://people.eecs.berkeley.edu/~yang/) and includes contributions from the following individuals:

@@ -28,4 +28,5 @@ pymupdfb==1.24.3
 voyageai==0.2.2
 pix2text==1.1.1
 rst_to_myst==0.4.0
+selenium==4.22.0
 

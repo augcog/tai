@@ -27,5 +27,6 @@ pymupdf==1.24.5
 pymupdfb==1.24.3
 voyageai==0.2.2
 pix2text==1.1.1
-rst_to_myst==0.4.0
-
+nougat-ocr==0.1.17
+albumentations==1.4.11
+pydantic==2.8.2

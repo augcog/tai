@@ -159,8 +159,7 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 
-#pkl
-*.pkl
+
 
 #log
 log
@@ -172,3 +171,5 @@ log
 
 #vscode
 .vscode
+
+knowledge_management/km/

@@ -48,9 +48,8 @@ class ScrapePdf(BaseScraper):
 # Example usage:
 if __name__ == "__main__":
     pdf_url = "https://ucb-ee106.github.io/106b-sp23site/assets/lec/lec2_quadrotor_dynamics.pdf"  # Replace with the actual PDF URL
-    base_url = "https://ucb-ee106.github.io/106b-sp23site/assets/lec/lec2_quadrotor_dynamics.pdf"  # Replace with the base URL you want to append with page numbers
     txt_filename = "links.txt"  # File to save the links
 
     pdf_saver = ScrapePdf(pdf_url)
     pdf_saver.content_extract("filename.pdf", pdf_url) # Change filename to save as and start the download process
-    pdf_saver.add_urls_to_pdf("filename", base_url, txt_filename)
+    pdf_saver.add_urls_to_pdf("filename", pdf_url, txt_filename)

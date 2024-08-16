@@ -173,6 +173,7 @@ class BaseConverter(ABC):
         md_path = self._to_markdown(input_path, output_path)
         with open(md_path, "r") as input_file:
             content_text = input_file.read()
+        
 
         metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
         metadata_content = self._read_metadata(metadata_path)

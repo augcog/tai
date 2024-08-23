@@ -1,6 +1,7 @@
 from rag.scraper.Scraper_master.base_scraper import BaseScraper
 import requests
 import fitz
+import yaml
 
 
 class ScrapePdf(BaseScraper):
@@ -13,16 +14,31 @@ class ScrapePdf(BaseScraper):
 
     def content_extract(self, filename, url, **kwargs):
         """
-        Downloads and saves a PDF from the initialized URL.
+        Downloads and saves a PDF from the initialized URL and stores the URL in a metadata file.
         """
-        response = requests.get(self.url, stream=True)
+        response = requests.get(url, stream=True)
         if response.status_code == 200:
+            # 保存 PDF 文件
             with open(filename, 'wb') as f:
                 f.write(response.content)
             print(f"Download completed successfully and saved as {filename}")
+            
+            # 创建元数据文件名
+            metadata_filename = filename.replace(".pdf", "_metadata.yaml")
+            
+            # 保存 URL 到元数据文件中
+            metadata_content = {
+                "URL": url
+            }
+            
+            with open(metadata_filename, 'w', encoding='utf-8') as metafile:
+                yaml.dump(metadata_content, metafile)
+            
+            print(f"Metadata saved successfully as {metadata_filename}")
         else:
             print(f"Failed to download the PDF. Status code: {response.status_code}")
-    def add_urls_to_pdf(self, pdf_file, base_url, txt_file):
+            
+    def add_urls_to_pdf(self, pdf_file, pdf_url, txt_file):
         """
         Adds a unique URL to each page of the PDF, modifies the file in place,
         and saves each URL to a .txt file.
@@ -31,7 +47,7 @@ class ScrapePdf(BaseScraper):
         with open(txt_file, 'w') as f:
             for i in range(len(doc)):
                 page = doc[i]
-                page_url = f"{base_url}#page={i + 1}"  # Creating a unique URL for each page
+                page_url = f"{pdf_url}#page={i + 1}"  # Creating a unique URL for each page
                 # Save the URL to the txt file
                 f.write(f"Page {i + 1}: {page_url}\n")
                 # Define where to place the link on the page (e.g., at the bottom of the page)

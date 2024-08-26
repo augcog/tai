@@ -7,45 +7,26 @@ from pix2text import Pix2Text
 
 from rag.file_conversion_router.conversion.base_converter import BaseConverter
 from rag.file_conversion_router.utils.hardware_detection import detect_gpu_setup
-from rag.file_conversion_router.classes.page import Page
-from rag.file_conversion_router.classes.chunk import Chunk
-import yaml
 from rag.file_conversion_router.services.tai_nougat_service.api import convert_pdf_to_mmd
 from rag.file_conversion_router.services.tai_nougat_service.nougat_config import NougatConfig
 
 
 class PdfConverter(BaseConverter):
-    def __init__(self, model_tag: str = "0.1.0-base", batch_size: int = 4):
+    def __init__(self):
         super().__init__()
-        self.model_tag = model_tag
-        self.batch_size = batch_size
         self.device_type, _ = detect_gpu_setup()  # Detect hardware configuration
-
-        self._validate_parameters()
 
         self._logger.info(f"Using {self.device_type} on Torch")
 
-    def _validate_parameters(self):
-        """Validate model tag and batch size."""
-        if not isinstance(self.batch_size, int) or self.batch_size < 0:
-            raise ValueError("Batch size must be a non-negative integer.")
-        # https://github.com/facebookresearch/nougat/issues/179#issuecomment-1831849650
-        if self.device_type == "cpu":
-            self.batch_size = 0
-            self._logger.info("Forcing batch size to 0 for running on CPU")
-        acceptable_models = ["0.1.0-small", "0.1.0-base"]
-        if self.model_tag not in acceptable_models:
-            raise ValueError(f"Model tag must be one of {acceptable_models}")
-
     def convert_pdf_to_markdown(self, pdf_file_path, output_file_path, page_numbers=None):
-        # """
-        # Convert a PDF file to Markdown format.
+        """
+        Convert a PDF file to Markdown format.
 
-        # Parameters:
-        # pdf_file_path (str): The file path of the input PDF.
-        # output_file_path (str): The file path where the output Markdown will be saved.
-        # page_numbers (list of int, optional): List of page numbers to process. Defaults to None (process all pages).
-        # """
+        Parameters:
+        pdf_file_path (str): The file path of the input PDF.
+        output_file_path (str): The file path where the output Markdown will be saved.
+        page_numbers (list of int, optional): List of page numbers to process. Defaults to None (process all pages).
+        """
         try:
             # Initialize Pix2Text with default configuration
             p2t = Pix2Text.from_config()
@@ -145,6 +126,7 @@ class PdfConverter(BaseConverter):
         # Remove images from the PDF and save to the output directory
         self.remove_images_from_pdf(input_path, pdf_without_images_path)
 
+        # Convert the PDF to Markdown using Nougat.
         # self._to_markdown_using_native_nougat_cli(pdf_without_images_path, output_path)
         self._to_markdown_using_tai_nougat(pdf_without_images_path, output_path)
 
@@ -156,32 +138,14 @@ class PdfConverter(BaseConverter):
         output_mmd_path.rename(target)
         print(output_mmd_path)
         return target
-        #
-        # except Exception as e:
-        #     self._logger.error(f"An error occurred {str(e)})")
-        #     raise
 
-    # def _to_page(self, input_path: Path, output_path: Path) -> Page:
-    #     """Perform Markdown to Page conversion."""
-    #     md_file = self._to_markdown(input_path, output_path,)
-    #     # except Exception as e:
-    #         # self._logger.error(f"An error occurred during markdown conversion: {str(e)}")
-    #         # raise
-
-    #     output_path.parent.mkdir(parents = True, exist_ok = True)
-
-    #     filetype = md_file.suffix.lstrip('.')
-    #     with open(md_file, "r") as input_file:
-    #         text = input_file.read()
-
-    #     metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
-    #     metadata_content = self._read_metadata(metadata_path)
-    #     url = metadata_content.get("URL")
-    #     return Page(pagename = input_path.stem, content={'text': text}, filetype = filetype, page_url=url)
 
     def _to_markdown_using_native_nougat_cli(self, input_pdf_path: Path, output_path: Path) -> None:
-        """Perform PDF to Markdown conversion using Native Nougat CLI.
+        """
+        Perform PDF to Markdown conversion using Native Nougat CLI.
+
         The native nougat cli is in the predict.py from meta nougat repo.
+        Parameters except input and output path are hard coded for now.
         """
         command = [
             "nougat",
@@ -191,9 +155,7 @@ class PdfConverter(BaseConverter):
             str(output_path.parent),
             "--no-skipping",
             "--model",
-            self.model_tag,
-            # "--batchsize",
-            # str(self.batch_size),
+            "0.1.0-base"
         ]
         try:
             result = subprocess.run(command, check=False, capture_output=True, text=True)
@@ -205,14 +167,15 @@ class PdfConverter(BaseConverter):
             self._logger.error(f"An error occurred: {str(e)}")
             raise
 
+
     def _to_markdown_using_tai_nougat(self, input_pdf_path: Path, output_path: Path) -> None:
-        """Perform PDF to Markdown conversion using TAI Nougat.
+        """
+        Perform PDF to Markdown conversion using TAI Nougat.
 
         TAI nougat is our custom implementation of the Nougat API, with better abstraction
         and especially optimization on avoiding loading nougat model repetitively.
         """
         config = NougatConfig(
-            model_tag=self.model_tag,
             pdf_paths=[input_pdf_path],
             output_dir=output_path.parent,
         )

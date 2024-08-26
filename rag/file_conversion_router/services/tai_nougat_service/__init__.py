@@ -3,6 +3,8 @@ import re
 from pathlib import Path
 from typing import List
 
+from dependency_injector import containers, providers
+from dependency_injector.wiring import Provide, inject
 from nougat import NougatModel
 from nougat.postprocessing import markdown_compatible
 from nougat.utils.checkpoint import get_checkpoint
@@ -23,7 +25,15 @@ def create_model(config: NougatConfig) -> NougatModel:
     model = NougatModel.from_pretrained(config.checkpoint)
     model = move_to_device(model, bf16=not config.full_precision, cuda=config.batch_size > 0)
     model.eval()
+    print("model loaded")
     return model
+
+
+class NougatContainer(containers.DeclarativeContainer):
+    model = providers.Singleton(
+        create_model,
+        config=NougatConfig(),
+    )
 
 
 def load_datasets(config: NougatConfig, model: NougatModel) -> List[LazyDataset]:
@@ -56,8 +66,8 @@ def process_output(output: str, page_num: int, config: NougatConfig) -> str:
     return output
 
 
-def main(config: NougatConfig):
-    model = create_model(config)
+@inject
+def main(config: NougatConfig, model: NougatModel = Provide[NougatContainer.model]):
     datasets = load_datasets(config, model)
 
     if not datasets:
@@ -85,18 +95,22 @@ def main(config: NougatConfig):
 
             processed_output = process_output(output, page_num, config)
             predictions.append(processed_output)
-
             if is_last_page[j]:
                 out = "".join(predictions).strip()
                 out = re.sub(r"\n{3,}", "\n\n", out).strip()
-
                 if config.output_dir:
                     out_path = config.output_dir / Path(is_last_page[j]).with_suffix(".mmd").name
                     out_path.parent.mkdir(parents=True, exist_ok=True)
                     out_path.write_text(out, encoding="utf-8")
                 else:
                     print(out, "\n\n")
-
                 predictions = []
                 page_num = 0
                 file_index += 1
+
+
+def run_nougat(config: NougatConfig):
+    if not hasattr(run_nougat, "container"):
+        run_nougat.container = NougatContainer()
+    run_nougat.container.wire(modules=[__name__])
+    main(config)

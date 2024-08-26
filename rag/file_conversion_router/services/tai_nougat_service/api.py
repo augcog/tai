@@ -1,6 +1,6 @@
 import logging
 
-from .__init__ import main
+from .__init__ import run_nougat
 from .nougat_config import NougatConfig
 
 logging.basicConfig(level=logging.INFO)
@@ -16,7 +16,7 @@ def convert_pdf_to_mmd(config: NougatConfig) -> None:
 
     try:
         logging.info("Executing conversion process.")
-        main(config)
+        run_nougat(config)
         logging.info(
             "Conversion completed successfully",
             extra={"input_pdf_paths": config.pdf_paths, "output_dir_path": str(config.output_dir)}

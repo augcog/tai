@@ -25,14 +25,14 @@ def create_model(config: NougatConfig) -> NougatModel:
     model = NougatModel.from_pretrained(config.checkpoint)
     model = move_to_device(model, bf16=not config.full_precision, cuda=config.batch_size > 0)
     model.eval()
-    print("model loaded")
+    print("model loaded")  # debug
     return model
 
 
 class NougatContainer(containers.DeclarativeContainer):
     model = providers.Singleton(
         create_model,
-        config=NougatConfig(),
+        config=NougatConfig()
     )
 
 
@@ -110,6 +110,9 @@ def main(config: NougatConfig, model: NougatModel = Provide[NougatContainer.mode
 
 
 def run_nougat(config: NougatConfig):
+    """Run Nougat with the provided configuration.
+    model is initialized using config only on the first time run_nougat is called .
+    """
     if not hasattr(run_nougat, "container"):
         run_nougat.container = NougatContainer()
     run_nougat.container.wire(modules=[__name__])

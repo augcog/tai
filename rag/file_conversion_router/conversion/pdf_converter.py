@@ -10,6 +10,8 @@ from rag.file_conversion_router.utils.hardware_detection import detect_gpu_setup
 from rag.file_conversion_router.classes.page import Page
 from rag.file_conversion_router.classes.chunk import Chunk
 import yaml
+from rag.file_conversion_router.services.tai_nougat_service.api import convert_pdf_to_mmd
+from rag.file_conversion_router.services.tai_nougat_service.nougat_config import NougatConfig
 
 
 class PdfConverter(BaseConverter):
@@ -143,7 +145,8 @@ class PdfConverter(BaseConverter):
         # Remove images from the PDF and save to the output directory
         self.remove_images_from_pdf(input_path, pdf_without_images_path)
 
-        self._to_markdown_using_native_nougat_cli(pdf_without_images_path, output_path)
+        # self._to_markdown_using_native_nougat_cli(pdf_without_images_path, output_path)
+        self._to_markdown_using_tai_nougat(pdf_without_images_path, output_path)
 
         # Now change the file name of generated mmd file to align with the expected md file path from base converter
         output_mmd_path = output_path.with_suffix(".mmd")
@@ -201,3 +204,16 @@ class PdfConverter(BaseConverter):
         except Exception as e:
             self._logger.error(f"An error occurred: {str(e)}")
             raise
+
+    def _to_markdown_using_tai_nougat(self, input_pdf_path: Path, output_path: Path) -> None:
+        """Perform PDF to Markdown conversion using TAI Nougat.
+
+        TAI nougat is our custom implementation of the Nougat API, with better abstraction
+        and especially optimization on avoiding loading nougat model repetitively.
+        """
+        config = NougatConfig(
+            model_tag=self.model_tag,
+            pdf_paths=[input_pdf_path],
+            output_dir=output_path.parent,
+        )
+        convert_pdf_to_mmd(config)

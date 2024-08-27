@@ -9,7 +9,7 @@ from nougat.utils.device import default_batch_size
 class NougatConfig:
     batch_size: int = default_batch_size()
     checkpoint: Optional[Path] = None
-    model_tag: str = "0.1.0-small"
+    model_tag: str = "0.1.0-base"
     output_dir: Optional[Path] = None
     recompute: bool = True
     full_precision: bool = False

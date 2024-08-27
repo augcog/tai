@@ -30,3 +30,4 @@ pix2text==1.1.1
 nougat-ocr==0.1.17
 albumentations==1.4.11
 pydantic==2.8.2
+dependency_injector==4.41.0

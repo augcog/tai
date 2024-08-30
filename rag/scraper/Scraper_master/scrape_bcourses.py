@@ -20,13 +20,6 @@ class ScrapebCourses(BaseScraper):
         self.passphrase = passphrase
     
     def scrape(self) -> None:
-        self.content_extract(root_folder, url)
-
-    def content_extract(self, filename, url):
-        # Define the root folder
-        root_folder = self.root_folder
-        create_and_enter_dir(root_folder)
-
         # Configure Selenium Driver
         options = webdriver.ChromeOptions()
         options.add_argument("--start-maximized")
@@ -34,7 +27,7 @@ class ScrapebCourses(BaseScraper):
         driver = webdriver.Chrome(options=options)
 
         # Navigate to bCourses "Media" page and log in with CalNet
-        driver.get(self.url)
+        driver.get(self.url[0])
         wait = WebDriverWait(driver, 10)
         calnet_id_field = wait.until(EC.presence_of_element_located((By.ID, 'username')))  
         passphrase_field = wait.until(EC.presence_of_element_located((By.ID, 'password')))
@@ -45,8 +38,24 @@ class ScrapebCourses(BaseScraper):
         sign_in_button = wait.until(EC.element_to_be_clickable((By.ID, 'submit')))
         sign_in_button.click()
 
-        wait.until(EC.url_to_be(self.url))
+        time.sleep(10)
+
+        wait.until(EC.url_to_be(self.url[0]))
         wait = WebDriverWait(driver, 30)
+
+        for i in range(len(self.url)):
+            curr_url = self.url[i]
+            curr_root_folder = self.root_folder[i]
+            create_and_enter_dir(curr_root_folder)
+            self.content_extract(curr_root_folder, curr_url, driver)
+
+        # Close the browser
+        driver.quit()
+
+    def content_extract(self, filename, url, driver):
+        driver.get(url)
+        wait = WebDriverWait(driver, 10)
+        wait.until(EC.url_to_be(url))
 
         # Click "Load More" buttons
         while True:
@@ -68,72 +77,108 @@ class ScrapebCourses(BaseScraper):
 
         time.sleep(2)
 
-        # Find all videos
-        ul_element = driver.find_element(By.ID, 'gallery')
-        li_elements = ul_element.find_elements(By.CLASS_NAME, 'galleryItem')
+        try:
+            # Find all videos
+            ul_element = driver.find_element(By.ID, 'gallery')
+            li_elements = ul_element.find_elements(By.CLASS_NAME, 'galleryItem')
 
-        # Open each video link in a new tab and process
-        for li in li_elements:
-            try:
-                # Collect video title
-                div_element = li.find_element(By.CSS_SELECTOR, 'div.photo-group.thumb_wrapper')
-                title = div_element.get_attribute('title')
+            # Open each video link in a new tab and process
+            for li in li_elements:
+                try:
+                    # Collect video title
+                    div_element = li.find_element(By.CSS_SELECTOR, 'div.photo-group.thumb_wrapper')
+                    title = div_element.get_attribute('title')
 
-                # Collect video upload date
-                thumb_time_added_element = li.find_element(By.CLASS_NAME, 'thumbTimeAdded')
-                date_span = thumb_time_added_element.find_element(By.CSS_SELECTOR, 'span[aria-label]')
-                date_text = date_span.get_attribute('aria-label')
+                    # Collect video upload date
+                    thumb_time_added_element = li.find_element(By.CLASS_NAME, 'thumbTimeAdded')
+                    date_span = thumb_time_added_element.find_element(By.CSS_SELECTOR, 'span[aria-label]')
+                    date_text = date_span.get_attribute('aria-label')
 
-                # Define subfolder name and navigate inside
-                folder_name = self.sanitize_title(title + " " + date_text)
-                original_directory = os.getcwd()
-                create_and_enter_dir(folder_name)
+                    # Define subfolder name and navigate inside
+                    folder_name = self.sanitize_title(title + " " + date_text)
+                    original_directory = os.getcwd()
+                    create_and_enter_dir(folder_name)
 
-                self.metadata_extract(self.sanitize_title(title), date_text)
+                    # Find the video link and open in new tab
+                    link_element = li.find_element(By.CLASS_NAME, 'item_link')
+                    link = link_element.get_attribute('href')
+                    driver.execute_script("window.open(arguments[0], '_blank');", link)
+                    
+                    # Switch to the new tab
+                    new_tab_handle = driver.window_handles[-1]
+                    driver.switch_to.window(new_tab_handle)
+                    
+                    # Wait for the page to load
+                    time.sleep(5)
 
-                # Find the video link and open in new tab
-                link_element = li.find_element(By.CLASS_NAME, 'item_link')
-                link = link_element.get_attribute('href')
-                driver.execute_script("window.open(arguments[0], '_blank');", link)
-                
-                # Switch to the new tab
-                new_tab_handle = driver.window_handles[-1]
-                driver.switch_to.window(new_tab_handle)
-                
-                # Wait for the page to load
-                time.sleep(5)
-                
-                # Switch to correct frame and get video URL
-                driver.switch_to.frame("kplayer_ifp")
-                video_element = driver.find_element(By.CLASS_NAME, "persistentNativePlayer")
-                video_url = video_element.get_attribute("src")
+                    current_url = driver.current_url
+                    self.metadata_extract(self.sanitize_title(title), date_text, current_url)
 
-                #Download video from video_url
-                filename_m3u8 = title + ".m3u8"
-                self.download_m3u8(filename_m3u8, video_url)
+                    # Locate and click the "Show Transcript" link
+                    show_transcript_link = WebDriverWait(driver, 10).until(
+                        EC.element_to_be_clickable((By.CSS_SELECTOR, 'a.transcript-body-open'))
+                    )
+                    show_transcript_link.click()
 
-                # Convert the downloaded .m3u8 file to .mp4
-                self.convert_m3u8_to_mp4(filename_m3u8)
+                    # Wait for the transcript body to be visible
+                    transcript_body_div = WebDriverWait(driver, 10).until(
+                        EC.presence_of_element_located((By.CSS_SELECTOR, 'div.transcript-body'))
+                    )
 
-                # Go back to root folder
-                os.chdir(original_directory)
+                    # Find all span elements with class 'transcription-time-part' inside the div
+                    time_parts = transcript_body_div.find_elements(By.CSS_SELECTOR, 'span.transcription-time-part')
 
-                # Close tab, switch back to original tab, and switch to correct frame
-                driver.close()
-                original_tab_handle = driver.window_handles[0]
-                driver.switch_to.window(original_tab_handle)
-                iframe = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "iframe.tool_launch")))
-                driver.switch_to.frame(iframe)
+                    # Open a markdown file for writing
+                    output_file_path = 'transcript.md'
+                    with open(output_file_path, 'w', encoding='utf-8') as file:
+                        # Iterate through each span and get the start time, end time, and text
+                        for time_part in time_parts:
+                            start_time = time_part.get_attribute('data-time-start')
+                            end_time = time_part.get_attribute('data-time-end')
+                            inner_span = time_part.find_element(By.CSS_SELECTOR, 'span')
+                            text = inner_span.text.strip()
+                            
+                            # Format the line in markdown format
+                            line = f"{start_time} - {end_time}: {text}\n"
+                            
+                            # Write the line to the file
+                            file.write(line)
 
-            except Exception as e:
-                delete_and_exit_dir()
-                print(f"{e}")
+                    # Switch to correct frame and get video URL
+                    driver.switch_to.frame("kplayer_ifp")
+                    video_element = driver.find_element(By.CLASS_NAME, "persistentNativePlayer")
+                    video_url = video_element.get_attribute("src")
 
-        # Close the browser
-        driver.quit()
+                    #Download video from video_url
+                    filename_m3u8 = title + ".m3u8"
+                    self.download_m3u8(filename_m3u8, video_url)
 
-    def metadata_extract(self, filename, date):
-        yaml_content = f"Video upload date: {date}"
+                    # Convert the downloaded .m3u8 file to .mp4
+                    self.convert_m3u8_to_mp4(filename_m3u8)
+
+                    # Go back to root folder
+                    os.chdir(original_directory)
+
+                    # Close tab, switch back to original tab, and switch to correct frame
+                    driver.close()
+                    original_tab_handle = driver.window_handles[0]
+                    driver.switch_to.window(original_tab_handle)
+                    iframe = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "iframe.tool_launch")))
+                    driver.switch_to.frame(iframe)
+
+                except Exception as e:
+                    print(f"{e}")
+                    os.chdir(original_directory)
+                    driver.close()
+                    original_tab_handle = driver.window_handles[0]
+                    driver.switch_to.window(original_tab_handle)
+                    iframe = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "iframe.tool_launch")))
+                    driver.switch_to.frame(iframe)
+        except Exception:
+            print("No videos available")
+
+    def metadata_extract(self, filename, date, url):
+        yaml_content = f"Video upload date: {date}\nLink: {url}"
         save_to_file(f'{filename}_metadata.yaml', yaml_content)
 
     def download_m3u8(self, filename_m3u8, video_url):
@@ -171,6 +216,7 @@ class ScrapebCourses(BaseScraper):
                     print(f"ffmpeg conversion error: {stderr.decode()}")
                 else:
                     print(f"Video converted and saved as {media_file}")
+                    os.remove(filename_m3u8)
 
             else:
                 print(f"No matching media URL found in {filename_m3u8}")
@@ -185,10 +231,10 @@ class ScrapebCourses(BaseScraper):
         return title
 
 if __name__ == "__main__":
-    root_folder = "eecs106b"
-    url = "https://bcourses.berkeley.edu/courses/1533392/external_tools/90481"
-    calnet_id = 'cal_net_id'
-    passphrase = 'password'
+    root_folder = ["eecs106b", "cs61b"]
+    url = ["https://bcourses.berkeley.edu/courses/1533392/external_tools/90481", "https://bcourses.berkeley.edu/courses/1532474/external_tools/90481"]
+    calnet_id = 'calnet_id'
+    passphrase = 'passphrase'
 
     scraper = ScrapebCourses(url, root_folder, calnet_id, passphrase)
     scraper.scrape()

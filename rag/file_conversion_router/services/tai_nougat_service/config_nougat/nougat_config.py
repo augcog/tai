@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Literal
 
 from nougat.utils.device import default_batch_size
 
@@ -9,7 +9,7 @@ from nougat.utils.device import default_batch_size
 class NougatConfig:
     batch_size: int = default_batch_size()
     checkpoint: Optional[Path] = None
-    model_tag: str = "0.1.0-base"
+    model_tag: Literal["0.1.0-base", "1.0.0-small"] = "0.1.0-base"
     output_dir: Optional[Path] = None
     recompute: bool = True
     full_precision: bool = False

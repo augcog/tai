@@ -1,18 +1,15 @@
 import logging
 
 from .__init__ import run_nougat
-from .nougat_config import NougatConfig
+from .config_nougat.tai_nougat_config import TAINougatConfig
 
 logging.basicConfig(level=logging.INFO)
 
 
-def convert_pdf_to_mmd(config: NougatConfig) -> None:
+def convert_pdf_to_mmd(config: TAINougatConfig) -> None:
     """Converts a PDF file to MMD format using TAI Nougat.
     """
-    logging.info(
-        "Initialized NougatConfig",
-        extra={"config": config}
-    )
+    logging.info(f"Initialized NougatConfig. Config: {config}")
 
     try:
         logging.info("Executing conversion process.")

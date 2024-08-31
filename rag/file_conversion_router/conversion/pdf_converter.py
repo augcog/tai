@@ -126,7 +126,6 @@ class PdfConverter(BaseConverter):
         # Convert the PDF to Markdown using Nougat.
         # self._to_markdown_using_native_nougat_cli(pdf_without_images_path, output_path)
         self._to_markdown_using_tai_nougat(pdf_without_images_path, output_path)
-        # self._to_markdown_using_mlx_nougat(pdf_without_images_path, output_path)
 
         # Now change the file name of generated mmd file to align with the expected md file path from base converter
         output_mmd_path = output_path.with_suffix(".mmd")
@@ -144,16 +143,19 @@ class PdfConverter(BaseConverter):
         The native nougat cli is in the predict.py from meta nougat repo.
         Parameters except input and output path are hard coded for now.
         """
+        default_nougat_config = TAINougatConfig()
         command = [
             "nougat",
             str(input_pdf_path),
             # nougat requires the argument output path to be a directory, not file, so we need to handle it here
             "-o",
             str(output_path.parent),
-            "--no-skipping",
+            "--no-skipping" if not default_nougat_config.skipping else "",
+            "--recompute" if default_nougat_config.recompute else "",
             "--model",
-            "0.1.0-base"
+            default_nougat_config.model_tag,
         ]
+        command = [str(arg) for arg in command]
         try:
             result = subprocess.run(command, check=False, capture_output=True, text=True)
             self._logger.info(f"Output: {result.stdout}")

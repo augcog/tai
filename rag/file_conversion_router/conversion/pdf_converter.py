@@ -1,22 +1,19 @@
+import os
+import re
 import subprocess
 from pathlib import Path
-import os
+
 import fitz
-import re
 from pix2text import Pix2Text
 
 from rag.file_conversion_router.conversion.base_converter import BaseConverter
-from rag.file_conversion_router.utils.hardware_detection import detect_gpu_setup
+from rag.file_conversion_router.services.tai_nougat_service import TAINougatConfig
 from rag.file_conversion_router.services.tai_nougat_service.api import convert_pdf_to_mmd
-from rag.file_conversion_router.services.tai_nougat_service.nougat_config import NougatConfig
 
 
 class PdfConverter(BaseConverter):
     def __init__(self, model_tag: str = "0.1.0-small", batch_size: int = 4):
         super().__init__()
-        self.device_type, _ = detect_gpu_setup()  # Detect hardware configuration
-
-        self._logger.info(f"Using {self.device_type} on Torch")
 
     def convert_pdf_to_markdown(self, pdf_file_path, output_file_path, page_numbers=None):
         """
@@ -139,7 +136,6 @@ class PdfConverter(BaseConverter):
         print(output_mmd_path)
         return target
 
-
     def _to_markdown_using_native_nougat_cli(self, input_pdf_path: Path, output_path: Path) -> None:
         """
         Perform PDF to Markdown conversion using Native Nougat CLI.
@@ -147,16 +143,19 @@ class PdfConverter(BaseConverter):
         The native nougat cli is in the predict.py from meta nougat repo.
         Parameters except input and output path are hard coded for now.
         """
+        default_nougat_config = TAINougatConfig()
         command = [
             "nougat",
             str(input_pdf_path),
             # nougat requires the argument output path to be a directory, not file, so we need to handle it here
             "-o",
             str(output_path.parent),
-            "--no-skipping",
+            "--no-skipping" if not default_nougat_config.skipping else "",
+            "--recompute" if default_nougat_config.recompute else "",
             "--model",
-            "0.1.0-base"
+            default_nougat_config.model_tag,
         ]
+        command = [str(arg) for arg in command]
         try:
             result = subprocess.run(command, check=False, capture_output=True, text=True)
             self._logger.info(f"Output: {result.stdout}")
@@ -167,15 +166,13 @@ class PdfConverter(BaseConverter):
             self._logger.error(f"An error occurred: {str(e)}")
             raise
 
+    @staticmethod
+    def _to_markdown_using_tai_nougat(input_pdf_path: Path, output_path: Path) -> None:
+        """Perform PDF to Markdown conversion using TAI Nougat.
 
-    def _to_markdown_using_tai_nougat(self, input_pdf_path: Path, output_path: Path) -> None:
+        TAI nougat is our custom implementation of the Nougat API, with better performance and abstraction.
         """
-        Perform PDF to Markdown conversion using TAI Nougat.
-
-        TAI nougat is our custom implementation of the Nougat API, with better abstraction
-        and especially optimization on avoiding loading nougat model repetitively.
-        """
-        config = NougatConfig(
+        config = TAINougatConfig(
             pdf_paths=[input_pdf_path],
             output_dir=output_path.parent,
         )

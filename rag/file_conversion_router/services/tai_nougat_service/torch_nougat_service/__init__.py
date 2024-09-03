@@ -1,6 +1,21 @@
-from .config_nougat.tai_nougat_config import TAINougatConfig
-from .mlx_nougat_service import api as mlx_nougat_api
-from .torch_nougat_service import api as torch_nougat_api
+import logging
+import re
+from pathlib import Path
+from typing import List
+
+from dependency_injector import containers, providers
+from dependency_injector.wiring import Provide, inject
+from nougat import NougatModel
+from nougat.postprocessing import markdown_compatible
+from nougat.utils.checkpoint import get_checkpoint
+from nougat.utils.dataset import LazyDataset
+from nougat.utils.device import move_to_device
+from torch.utils.data import ConcatDataset, DataLoader
+from tqdm import tqdm
+
+from ..config_nougat.nougat_config import NougatConfig
+
+logging.basicConfig(level=logging.INFO)
 
 
 def create_model(config: NougatConfig) -> NougatModel:
@@ -48,7 +63,6 @@ def process_output(output: str, page_num: int, config: NougatConfig) -> str:
         return f"\n\n[MISSING_PAGE_EMPTY:{page_num}]\n\n"
     if config.markdown_compatible:
         output = markdown_compatible(output)
-        output= f"Page {page_num}:\n{output.strip()}\n"
     return output
 
 
@@ -99,12 +113,7 @@ def run_nougat(config: NougatConfig):
     """Run Nougat with the provided configuration.
     model is initialized using config only on the first time run_nougat is called .
     """
-    input_path = config.pdf_paths[0]
-    output_dir = config.output_dir
-
-    using_torch = config.using_torch
-
-    if using_torch:
-        torch_nougat_api.convert_pdf_to_mmd(input_path, output_dir)
-    else:
-        mlx_nougat_api.convert_pdf_to_mmd(input_path, output_dir)
+    if not hasattr(run_nougat, "container"):
+        run_nougat.container = NougatContainer()
+    run_nougat.container.wire(modules=[__name__])
+    main(config)

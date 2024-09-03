@@ -5,7 +5,7 @@ import pickle
 
 
 class Page:
-    def __init__(self, pagename: str, content: dict, filetype: str, page_url: str = ""):
+    def __init__(self, pagename: str, content: dict, filetype: str, page_url: str = "", page_num: int = None):
         """
         Initialize a Page instance.
 
@@ -18,6 +18,7 @@ class Page:
         self.content = content
         self.filetype = filetype
         self.page_url = page_url
+        self.page_num = page_num
         self.segments = []
         self.tree_segments = []
         self.chunks = []
@@ -231,7 +232,7 @@ class Page:
                 headers = i['Page_path']
                 urls = [f"{self.page_url}#{generate_hyperlink_header(header)}" for header in headers]
                 page_path = ' > '.join(f"{item} (h{i + 1})" for i, item in enumerate(i['Page_path'])) + f" ({count})"
-                self.chunks.append(Chunk(page_path, content_chunk, urls))
+                self.chunks.append(Chunk(page_path, content_chunk, urls, self.page_num))
         return self.chunks
 
     def to_file(self, output_path: str) -> None:

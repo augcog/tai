@@ -164,28 +164,17 @@ class BaseConverter(ABC):
     # def _to_page(self, input_path: Path, output_path: Path) -> Page:
     #     """Convert the input file to Expected Page format. To be implemented by subclasses."""
     #     raise NotImplementedError("This method should be overridden by subclasses.")
-
-    def replace_pages_with_urls(self, content_text, url_template):
-        """
-        Replaces 'Page X' in the content_text with a corresponding URL.
-
-        Parameters:
-        - content_text (str): The original text content containing 'Page X'.
-        - url_template (str): A template URL string that includes a placeholder for the page number, e.g., "https://example.com/page={}".
-
-        Returns:
-        - str: The modified content with 'Page X' replaced by 'Page X: [URL]'.
-        """
-        page_pattern = re.compile(r'Page (\d+)')
+    def _find_and_remove_page_nums(self, content_text: str):
+        page_nums = []
+        matches = re.finditer(r'Page (\d+):\n', content_text)
         
-        def replace_match(match):
-            page_num = match.group(1)
-            return f'Page {page_num}: [{url_template.format(page_num)}]({url_template.format(page_num)})'
+        for match in matches:
+            page_num = int(match.group(1))
+            page_nums.append(page_num)
+            # Remove the matched page number text from the content
+            content_text = content_text[:match.start()] + content_text[match.end():]
         
-        updated_content = re.sub(page_pattern, replace_match, content_text)
-        
-        return updated_content
-
+        return page_nums, content_text
     
     def _to_page(self, input_path: Path, output_path: Path, file_type: str = "markdown") -> Page:
         output_path.parent.mkdir(parents = True, exist_ok = True)
@@ -196,20 +185,18 @@ class BaseConverter(ABC):
         with open(md_path, "r") as input_file:
             content_text = input_file.read()
         
-
         metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
         metadata_content = self._read_metadata(metadata_path)
         url = metadata_content.get("URL")
-        if url:
-            url_template = url + "#page={}"
-            content_text = self.replace_pages_with_urls(content_text, url_template)
+
         if file_type == "mp4":
             timestamp = [i[1] for i in self.paragraphs]
             content = {"text": content_text, "timestamp": timestamp}
-            return VidPage(pagename = stem, content = content, filetype = file_type, page_url = url)
+            return VidPage(pagename=stem, content=content, filetype=file_type, page_url=url)
         else:
+            page_num, content_text = self._find_and_remove_page_num(content_text)
             content = {"text": content_text}
-            return Page(pagename = stem, content = content, filetype = file_type, page_url = url)
+            return Page(pagename=stem, content=content, filetype=file_type, page_url=url, page_num= page_num)
         
     @abstractmethod
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:

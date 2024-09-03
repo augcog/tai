@@ -63,6 +63,7 @@ def process_output(output: str, page_num: int, config: NougatConfig) -> str:
         return f"\n\n[MISSING_PAGE_EMPTY:{page_num}]\n\n"
     if config.markdown_compatible:
         output = markdown_compatible(output)
+        output= f"Page {page_num}:\n{output.strip()}\n"
     return output
 
 

@@ -16,7 +16,7 @@ def load_pkl_file(file_path: Path):
     return data
 
 # Specify the path to the .pkl file
-file_path = Path("/home/bot/roarai/rag/scraper/Scraper_master/opencv_pkl/tutorial_py_table_of_contents_bindings/tutorial_py_bindings_basics/tutorial_py_bindings_basics.pkl")
+file_path = Path("output_tmp/expected_output/filename/filename.pkl")
 
 # Load the contents of the .pkl file
 pkl_contents = load_pkl_file(file_path)
@@ -25,4 +25,7 @@ pkl_contents = load_pkl_file(file_path)
 # Display the contents
 print(pkl_contents[0].titles)
 print(pkl_contents[0].content)
-print(pkl_contents[0].chunk_url)
+print(pkl_contents[10].chunk_url)
+print(pkl_contents[10].page_num)
+print(pkl_contents[3].page_url)
+

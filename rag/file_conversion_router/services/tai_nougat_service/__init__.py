@@ -79,20 +79,6 @@ def main(config: NougatConfig, model: NougatModel = Provide[NougatContainer.mode
                 logging.info(f"Processing file {datasets[file_index].name} with {datasets[file_index].size} pages")
             page_num += 1
 
-            processed_output = process_output(output, page_num, config)
-            predictions.append(processed_output)
-            if is_last_page[j]:
-                out = "".join(predictions).strip()
-                out = re.sub(r"\n{3,}", "\n\n", out).strip()
-                if config.output_dir:
-                    out_path = config.output_dir / Path(is_last_page[j]).with_suffix(".mmd").name
-                    out_path.parent.mkdir(parents=True, exist_ok=True)
-                    out_path.write_text(out, encoding="utf-8")
-                else:
-                    print(out, "\n\n")
-                predictions = []
-                page_num = 0
-                file_index += 1
 
 
 def run_nougat(config: NougatConfig):

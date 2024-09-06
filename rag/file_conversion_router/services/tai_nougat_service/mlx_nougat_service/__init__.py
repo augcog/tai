@@ -43,7 +43,7 @@ def process_page(page_idx: int, image: Any, model: Any, processor: Any) -> str:
     outputs = generate(model, pixel_values, max_new_tokens=4096, disable_tqdm=True)
     sequence = processor.batch_decode([outputs], skip_special_tokens=True)[0]
     sequence = processor.post_process_generation(sequence, fix_markdown=False)
-    return f"\n\n# Page {page_idx + 1}\n\n{sequence}"
+    return f"\n\nPage {page_idx + 1}\n\n{sequence}"
 
 
 def main(input_pdf_path: Path, output_dir: Path) -> None:

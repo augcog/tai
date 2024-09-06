@@ -8,7 +8,6 @@ from shutil import copy2
 from threading import Lock
 from typing import Dict, List, Union
 import yaml
-import re
 
 from rag.file_conversion_router.utils.logger import conversion_logger, logger
 from rag.file_conversion_router.utils.utils import calculate_hash, ensure_path
@@ -164,17 +163,7 @@ class BaseConverter(ABC):
     # def _to_page(self, input_path: Path, output_path: Path) -> Page:
     #     """Convert the input file to Expected Page format. To be implemented by subclasses."""
     #     raise NotImplementedError("This method should be overridden by subclasses.")
-    def _find_and_remove_page_nums(self, content_text: str):
-        page_nums = []
-        matches = re.finditer(r'Page (\d+):\n', content_text)
-        
-        for match in matches:
-            page_num = int(match.group(1))
-            page_nums.append(page_num)
-            # Remove the matched page number text from the content
-            content_text = content_text[:match.start()] + content_text[match.end():]
-        
-        return page_nums, content_text
+
     
     def _to_page(self, input_path: Path, output_path: Path, file_type: str = "markdown") -> Page:
         output_path.parent.mkdir(parents = True, exist_ok = True)
@@ -192,11 +181,10 @@ class BaseConverter(ABC):
         if file_type == "mp4":
             timestamp = [i[1] for i in self.paragraphs]
             content = {"text": content_text, "timestamp": timestamp}
-            return VidPage(pagename=stem, content=content, filetype=file_type, page_url=url)
+            return VidPage(pagename = stem, content = content, filetype = file_type, page_url = url)
         else:
-            page_num, content_text = self._find_and_remove_page_num(content_text)
             content = {"text": content_text}
-            return Page(pagename=stem, content=content, filetype=file_type, page_url=url, page_num= page_num)
+            return Page(pagename = stem, content = content, filetype = file_type, page_url = url)
         
     @abstractmethod
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:

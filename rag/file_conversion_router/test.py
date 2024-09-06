@@ -23,8 +23,8 @@ pkl_contents = load_pkl_file(file_path)
 
 
 # Display the contents
-print(pkl_contents[0].titles)
-print(pkl_contents[0].content)
+# print(pkl_contents[2].titles)
+print(pkl_contents[1].content)
 print(pkl_contents[10].chunk_url)
 print(pkl_contents[10].page_num)
 print(pkl_contents[3].page_url)

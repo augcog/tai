@@ -176,12 +176,11 @@ class Page:
     def print_header_tree(self):
         result = ""
         for (title, level), _ in self.segments:
-            if level is not None:  # 检查 level 是否为 None
+            if level is not None:  
                 indent = '--' * (level - 1)
                 header_tag = f"(h{level})"
-                result += f"{indent}{title} {header_tag}\n"
+                result += f"{indent}{title}"
             else:
-                # 如果 level 为 None，处理为默认情况（可选）
                 result += f"{title} (hUnknown)\n"
         return result
 
@@ -203,9 +202,6 @@ class Page:
                     top_header.append(("", "", i + 1, None))  # Adjust this line to add 4 values
                 top_header.append((header_title, content, level, page_num))
             else:
-                # Debug print to inspect top_header
-                print("Debug: top_header before unpacking:", top_header)
-
                 # Table of Contents
                 page_toc += "(Table of Contents)\n"
                 page_toc += f"{self.print_header_tree()}\n"
@@ -288,46 +284,29 @@ class Page:
 
             return hyperlink_header
 
-        # seperate with recursive seperate
+        # Separate with recursive separation
         for segment in self.tree_segments:
             content_chunks = self.recursive_separate(segment['Segment_print'], 400)
-            page_num = segment.get('page_num', None)
+            page_num = segment.get('page_num', None)  # Get the page number for this segment
 
             for count, content_chunk in enumerate(content_chunks):
                 headers = segment['Page_path']
-                urls = [f"{self.page_url}#{generate_hyperlink_header(header)}" for header in headers]
                 
+                # If page_num exists, format the URL accordingly
+                if page_num is not None:
+                    urls = [f"{self.page_url}#page={page_num}"]
+                else:
+                    urls = [f"{self.page_url}#{generate_hyperlink_header(header)}" for header in headers]
+                
+                # Format the page path, including the header levels and chunk number
                 page_path = ' > '.join(f"{item} (h{i + 1})" for i, item in enumerate(segment['Page_path'])) + f" ({count})"
+                
+                # Append the chunk with the generated page path, content chunk, URLs, and page number
                 self.chunks.append(Chunk(page_path, content_chunk, urls, page_num))
+        
         return self.chunks
+
     
-    def debug_page_num(self):
-        """
-        Debug method to check the page number assignment in segments and tree segments.
-        This method will print out relevant information about page numbers and headers.
-        """
-        print("=== Debugging Page Numbers in Segments ===")
-        if not self.segments:
-            print("No segments found.")
-        else:
-            for i, ((header, page_num), content) in enumerate(self.segments):  # 解包 2 个值
-                print(f"Segment {i + 1}:")
-                print(f"Header: {header[0]} (Level: {header[1]})")  # header 是 (title, level)
-                print(f"Page Number: {page_num}")
-                print(f"Content (truncated): {content[:100]}...")
-                print("-" * 40)
-
-        print("\n=== Debugging Page Numbers in Tree Segments ===")
-        if not self.tree_segments:
-            print("No tree segments found.")
-        else:
-            for i, segment in enumerate(self.tree_segments):
-                print(f"Tree Segment {i + 1}:")
-                print(f"Page Number: {segment.get('page_num')}")
-                print(f"Page Path: {' > '.join(segment['Page_path'])}")
-                print(f"Segment Content (truncated): {segment['Segment_print'][:100]}...")
-                print("=" * 40)
-
 
     def to_file(self, output_path: str) -> None:
         """
@@ -348,7 +327,6 @@ class Page:
         """
         self.page_seperate_to_segments()
         self.tree_print()
-        self.debug_page_num()
         self.chunks = self.tree_segments_to_chunks()
 
     def chunks_to_pkl(self, output_path: str) -> None:

@@ -128,8 +128,8 @@ class Page:
         in_code_block = False
         md_lines = md_content.split('\n')  # Indicates if inside a code block
         
-        current_page_num = None
-        page_num_index = 0
+        current_page_num = 1
+        page_num_index = 1
 
         for i, line in enumerate(md_lines):
             stripped_line = line.strip()
@@ -199,7 +199,7 @@ class Page:
             if len(top_header) < level:
                 for i in range(len(top_header), level - 1):
                     # Modify here: Ensure 4 values are appended (empty title, empty content, level, and page number)
-                    top_header.append(("", "", i + 1, None))  # Adjust this line to add 4 values
+                    top_header.append(("", "", i + 1, 1))  # Adjust this line to add 4 values
                 top_header.append((header_title, content, level, page_num))
             else:
                 # Table of Contents
@@ -294,9 +294,9 @@ class Page:
                 
                 # If page_num exists, format the URL accordingly
                 if page_num is not None:
-                    urls = [f"{self.page_url}#page={page_num}"]
+                    urls = f"{self.page_url}#page={page_num}"
                 else:
-                    urls = [f"{self.page_url}#{generate_hyperlink_header(header)}" for header in headers]
+                    urls = [f"{self.page_url}"]
                 
                 # Format the page path, including the header levels and chunk number
                 page_path = ' > '.join(f"{item} (h{i + 1})" for i, item in enumerate(segment['Page_path'])) + f" ({count})"

@@ -7,4 +7,5 @@ class Chunk(ABC):
         self.content = content
         # page url
         self.chunk_url = chunk_url
+        # page number
         self.page_num = page_num

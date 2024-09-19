@@ -2,7 +2,7 @@ import logging
 
 from .__init__ import run_nougat
 from .config_nougat.tai_nougat_config import TAINougatConfig
-
+from pathlib import Path
 logging.basicConfig(level=logging.INFO)
 
 
@@ -25,3 +25,10 @@ def convert_pdf_to_mmd(config: TAINougatConfig) -> None:
             extra={"input_pdf_paths": config.pdf_paths, "output_dir_path": str(config.output_dir), "error": str(e)}
         )
         raise
+
+config = TAINougatConfig(
+    pdf_paths=[Path("output_tmp/input/filename.pdf")],
+    output_dir=Path("output_tmp/expected_output/debug")
+)
+# Step 2: Call the convert function
+convert_pdf_to_mmd(config)

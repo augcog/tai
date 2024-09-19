@@ -47,7 +47,7 @@ class ScrapePdf(BaseScraper):
             # Define where to place the link on the page (e.g., at the bottom of the page)
             rect = fitz.Rect(0, page.rect.height - 20, page.rect.width, page.rect.height)
             # Add the hyperlink
-            page.insert_link({"kind": fitz.LINK_URI, "from": rect, "url": page_url})
+            page.insert_link({"kind": fitz.LINK_URI, "from": rect, "uri": page_url})
         
         doc.save(pdf_file, incremental=True, encryption = 0)  # Save changes incrementally to the original file
         doc.close() 
@@ -56,10 +56,10 @@ class ScrapePdf(BaseScraper):
 
 
 # Example usage:
-# if __name__ == "__main__":
-#     pdf_url = "https://ucb-ee106.github.io/106b-sp23site/assets/disc/Discussion_1_Dynamical_Systems_Solution.pdf"  # Replace with the actual PDF URL
-#     txt_filename = "links.txt"  # File to save the links
+if __name__ == "__main__":
+    pdf_url = "https://ucb-ee106.github.io/106b-sp23site/assets/disc/Discussion_1_Dynamical_Systems_Solution.pdf"  # Replace with the actual PDF URL
+    txt_filename = "links.txt"  # File to save the links
 
-#     pdf_saver = ScrapePdf(pdf_url)
-#     pdf_saver.content_extract("filename.pdf", pdf_url) # Change filename to save as and start the download process
-#     pdf_saver.add_urls_to_pdf("filename.pdf", pdf_url, txt_filename)
+    pdf_saver = ScrapePdf(pdf_url)
+    pdf_saver.content_extract("filename.pdf", pdf_url) # Change filename to save as and start the download process
+    pdf_saver.add_urls_to_pdf("filename.pdf", pdf_url)

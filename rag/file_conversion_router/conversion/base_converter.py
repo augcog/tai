@@ -166,7 +166,7 @@ class BaseConverter(ABC):
 
     
     def _to_page(self, input_path: Path, output_path: Path, file_type: str = "markdown") -> Page:
-        output_path.parent.mkdir(parents = True, exist_ok = True)
+        output_dir = output_path.parent.mkdir(parents = True, exist_ok = True)
         stem = input_path.stem
         file_type = input_path.suffix.lstrip('.')
 
@@ -176,6 +176,7 @@ class BaseConverter(ABC):
         
         metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
         metadata_content = self._read_metadata(metadata_path)
+        page_path = output_dir / input_path.with_name(f"{input_path.stem}_metadata.yaml")
         url = metadata_content.get("URL")
 
         if file_type == "mp4":
@@ -184,7 +185,7 @@ class BaseConverter(ABC):
             return VidPage(pagename = stem, content = content, filetype = file_type, page_url = url)
         else:
             content = {"text": content_text}
-            return Page(pagename = stem, content = content, filetype = file_type, page_url = url)
+            return Page(pagename = stem, content = content, filetype = file_type, page_url = url, metadata_path= page_path)
         
     @abstractmethod
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:

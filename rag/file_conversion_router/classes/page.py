@@ -1,12 +1,14 @@
 import string
 from rag.file_conversion_router.classes.chunk import Chunk
 import tiktoken
+import yaml
 import pickle
 import re
+from pathlib import Path
 
 
 class Page:
-    def __init__(self, pagename: str, content: dict, filetype: str, page_url: str = ""):
+    def __init__(self, pagename: str, content: dict, filetype: str, page_url: str = "", metadata_path: Path = None):
         """
         Initialize a Page instance.
 
@@ -22,7 +24,26 @@ class Page:
         self.segments = []
         self.tree_segments = []
         self.chunks = []
+        self.page_numbers = self.load_metadata_page_numbers(metadata_path) if metadata_path else None
 
+    def load_metadata_page_numbers(self, metadata_path: Path):
+        """
+        Load page numbers from a metadata YAML file.
+
+        Args:
+            metadata_path (Path): Path to the metadata YAML file.
+
+        Returns:
+            list: A list of page numbers extracted from the metadata file.
+        """
+        try:
+            with open(metadata_path, 'r', encoding='utf-8') as f:
+                metadata = yaml.safe_load(f)
+            return [page_info['page_num'] for page_info in metadata.get('pages', [])]
+        except Exception as e:
+            print(f"Error reading metadata: {e}")
+            return []
+    
     def recursive_separate(self, response: str, token_limit: int = 400) -> list:
         """
         Recursively separate a response into chunks based on token limit.
@@ -128,8 +149,8 @@ class Page:
         in_code_block = False
         md_lines = md_content.split('\n')  # Indicates if inside a code block
         
-        current_page_num = 1
-        page_num_index = 1
+        current_page_num = 1 if self.page_numbers else None
+        page_num_index = 0
 
         for i, line in enumerate(md_lines):
             stripped_line = line.strip()

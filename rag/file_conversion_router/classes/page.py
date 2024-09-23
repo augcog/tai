@@ -28,22 +28,23 @@ class Page:
 
     def load_metadata_page_numbers(self, metadata_path: Path):
         """
-        Load page numbers from a metadata YAML file.
+        Load page numbers and their start lines from a metadata YAML file.
 
         Args:
             metadata_path (Path): Path to the metadata YAML file.
 
         Returns:
-            list: A list of page numbers extracted from the metadata file.
+            list: A list of dictionaries with 'page_num' and 'start_line' keys.
         """
         try:
             with open(metadata_path, 'r', encoding='utf-8') as f:
                 metadata = yaml.safe_load(f)
-            return [page_info['page_num'] for page_info in metadata.get('pages', [])]
+            return [{'page_num': page_info['page_num'], 'start_line': page_info['start_line']} for page_info in
+                    metadata.get('pages', [])]
         except Exception as e:
             print(f"Error reading metadata: {e}")
             return []
-    
+
     def recursive_separate(self, response: str, token_limit: int = 400) -> list:
         """
         Recursively separate a response into chunks based on token limit.
@@ -95,43 +96,7 @@ class Page:
             msg_list.append(response)
 
         return msg_list
-    def extract_and_remove_page_numbers(self, md_content: str):
-        """
-        Extract page numbers and their line numbers from a Markdown content string,
-        and remove those page numbers from the content.
 
-        Args:
-            md_content (str): The original Markdown content.
-
-        Returns:
-            tuple: A tuple containing:
-                - list of tuples with page number and its line number.
-                - str of the updated Markdown content without page numbers.
-        """
-        # Updated regex pattern to handle lines with or without the # symbol for page numbers.
-        page_number_pattern = re.compile(r'[#]*\s*Page\s+(\d+)', re.IGNORECASE)
-        lines = md_content.split('\n')
-        page_numbers = []
-
-        # Iterate over each line to find and remove page numbers
-        for i, line in enumerate(lines):
-            match = page_number_pattern.search(line)
-            if match:
-                page_num = match.group(1)  # Extract the page number
-                page_numbers.append((int(page_num), i))  # Store the page number and its line number
-                lines[i] = ""  # Remove the line with the page number
-                print(f"Page number found and removed: Page {page_num} at line {i}")  # Debug: print removed page number
-
-        # Reconstruct the content without the page numbers
-        updated_content = '\n'.join(lines).strip()
-
-        # Debug: print if no page number was found
-        if not page_numbers:
-            print("No page numbers found.")
-
-        return page_numbers, updated_content
-
-    
     def extract_headers_and_content(self, md_content):
         def count_consecutive_hashes(s):
             count = 0
@@ -141,51 +106,48 @@ class Page:
                 else:
                     break
             return count
-        
-        page_numbers, md_content = self.extract_and_remove_page_numbers(md_content)
-        headers_content = []  # Stores tuples of ((header, page_num), content)
-        curheader = None  # Current header, initially None
-        current_content = ""  # Accumulates content for the current header
-        in_code_block = False
-        md_lines = md_content.split('\n')  # Indicates if inside a code block
-        
-        current_page_num = 1 if self.page_numbers else None
-        page_num_index = 0
 
-        for i, line in enumerate(md_lines):
+        headers_content = []
+        curheader = None
+        current_content = ""
+        in_code_block = False
+        md_lines = md_content.split('\n')
+
+        current_page_num = self.page_numbers[0]['page_num'] if self.page_numbers else None
+        page_num_index = 1  # Start from the second page since we've assigned the first
+        total_pages = len(self.page_numbers)
+
+        for line_num, line in enumerate(md_lines, start=1):
             stripped_line = line.strip()
 
+            # Update current_page_num based on start_line
+            while page_num_index < total_pages and line_num >= self.page_numbers[page_num_index]['start_line']:
+                current_page_num = self.page_numbers[page_num_index]['page_num']
+                page_num_index += 1
+
             if "```" in stripped_line:
-                in_code_block = not in_code_block  # Toggle state
+                in_code_block = not in_code_block
 
             if in_code_block:
                 if curheader:
-                    current_content += f"{line}\n"  # Add to content within code blocks
+                    current_content += f"{line}\n"
             else:
                 if line.startswith('#'):
                     if curheader:
-                        headers_content.append(((curheader, current_page_num), current_content))  # Store previous header and its content
-                    
+                        headers_content.append(((curheader, current_page_num), current_content))
                     header = line
                     header_level = count_consecutive_hashes(header)
                     header = header.strip('#').strip()
-                    curheader = (header, header_level)  # Start new header context
-                    current_content = ""  # Reset content for new header
-                    
-                    # Match the page number to this header (if the header comes after the page number)
-                    if page_num_index < len(page_numbers) and page_numbers[page_num_index][1] <= i:
-                        current_page_num = page_numbers[page_num_index][0]  # Assign the page number
-                        page_num_index += 1
+                    curheader = (header, header_level)
+                    current_content = ""
                 else:
-                    if curheader:  # Only accumulate content if within a header
+                    if curheader:
                         current_content += f"{line}\n"
 
-        # Append the last header and its content, if there was any header encountered
         if curheader:
             headers_content.append(((curheader, current_page_num), current_content))
 
         return headers_content
-
 
     def page_seperate_to_segments(self) -> None:
         self.segments = [i for i in self.extract_headers_and_content(self.content['text'])]
@@ -206,128 +168,103 @@ class Page:
         return result
 
     def tree_print(self):
-        new_filename = f"{self.pagename}_tree.txt"  # No need to use this
         top_header = []
         counter = 1
 
         for (header, page_num), content in self.segments:
-            page_toc = ""
-            page_path = ""
-            segment = ""
-            level = header[1]  # Extract level from header tuple
-            header_title = header[0]  # Extract title from header tuple
+            level = header[1]
+            header_title = header[0]
 
-            if len(top_header) < level:
-                for i in range(len(top_header), level - 1):
-                    # Modify here: Ensure 4 values are appended (empty title, empty content, level, and page number)
-                    top_header.append(("", "", i + 1, 1))  # Adjust this line to add 4 values
-                top_header.append((header_title, content, level, page_num))
-            else:
-                # Table of Contents
-                page_toc += "(Table of Contents)\n"
-                page_toc += f"{self.print_header_tree()}\n"
+            # Adjust 'top_header' to match current level
+            if len(top_header) >= level:
+                # Truncate 'top_header' to the current level - 1
+                top_header = top_header[:level - 1]
 
-                # Page Path
-                page_path += "(Page path)\n"
-                first = True
-                for h, c, l, p in top_header:  # Adjusted to unpack 4 values
-                    if first:
-                        page_path += f"(h{l}) {h} (Page {p})"
-                        first = not first
-                    else:
-                        page_path += " > "
-                        page_path += f"(h{l}) {h} (Page {p})"
-                # Segment Print
-                segment += f"(Segment {counter})\n"
-                header_list = [header[0] for header in top_header]
-                for h, c, l, p in top_header:
-                    hash_symbols = '#' * l
-                    segment += f"{hash_symbols}{h} (h{l}, Page {p})\n"
-                    segment += f"{c}\n"
-                # Store the information in tree_segments
-                self.tree_segments.append({'Page_table': page_toc, 'Page_path': header_list, 'Segment_print': segment, 'page_num': page_num})
-                top_header = top_header[:(level - 1)]
-                top_header.append((header_title, content, level, page_num))
-                counter += 1
+            # Append the current header with its page number
+            top_header.append((header_title, content, level, page_num))
+
+            # Build the segment
+            segment = f"(Segment {counter})\n"
+            for h, c, l, p in top_header:
+                hash_symbols = '#' * l
+                segment += f"{hash_symbols}{h} (h{l}, Page {p})\n"
+                segment += f"{c}\n"
+
+            # Build the Table of Contents
+            page_toc = "(Table of Contents)\n" + self.print_header_tree() + "\n"
+
+            # Build the Page Path
+            page_path = "(Page path)\n"
+            page_path += ' > '.join(f"(h{l}) {h} (Page {p})" for h, c, l, p in top_header)
+
+            # Build header list
+            header_list = [h for h, c, l, p in top_header]
+
+            # Use the page number of the current header for the segment
+            segment_page_num = page_num
+
+            # Store the information in tree_segments
+            self.tree_segments.append({
+                'Page_table': page_toc,
+                'Page_path': header_list,
+                'Segment_print': segment,
+                'page_num': segment_page_num
+            })
+
+            counter += 1
 
         # Handle the last segment
-        all_headers = [header[0] for header in self.segments]
-        if (header, page_num) == all_headers[-1]:
+        if top_header:
             page_toc = ""
             page_path = ""
             segment = ""
-            # Table of Contents
+
             page_toc += "(Table of Contents)\n"
             page_toc += f"{self.print_header_tree()}\n"
 
-            # Page Path
             page_path += "(Page path)\n"
             first = True
             for h, c, l, p in top_header:
                 if first:
-                    page_path += f"(h{l}, Page {p}) {h}"
+                    page_path += f"(h{l}) {h} (Page {p})"
                     first = not first
                 else:
                     page_path += " > "
-                    page_path += f"(h{l}, Page {p}) {h}"
-            # Segment Print
+                    page_path += f"(h{l}) {h} (Page {p})"
+
             segment += f"(Segment {counter})\n"
             header_list = [header[0] for header in top_header]
             for h, c, l, p in top_header:
                 hash_symbols = '#' * l
                 segment += f"{hash_symbols}{h} (h{l}, Page {p})\n"
                 segment += f"{c}\n"
-            # Store the information in tree_segments
-            self.tree_segments.append({'Page_table': page_toc, 'Page_path': header_list, 'Segment_print': segment, 'page_num': page_num })
-            top_header = top_header[:(level - 1)]
-            top_header.append((header_title, content, level, page_num))
 
-
-
+            self.tree_segments.append(
+                {'Page_table': page_toc, 'Page_path': header_list, 'Segment_print': segment, 'page_num': page_num})
 
     def tree_segments_to_chunks(self):
         def generate_hyperlink_header(header_text):
-            """
-            This function takes a header string, converts all characters to lowercase,
-            and replaces all spaces with dashes to create a hyperlink-friendly header.
-
-            Parameters:
-            header_text (str): The header string to be converted.
-
-            Returns:
-            str: The converted hyperlink-friendly header string.
-            """
-            # Convert the string to lowercase
             lower_text = header_text.lower()
-
-            # Replace spaces with dashes
             hyperlink_header = lower_text.replace(' ', '-')
-
             return hyperlink_header
 
-        # Separate with recursive separation
         for segment in self.tree_segments:
             content_chunks = self.recursive_separate(segment['Segment_print'], 400)
-            page_num = segment.get('page_num', None)  # Get the page number for this segment
+            page_num = segment.get('page_num', None)
 
             for count, content_chunk in enumerate(content_chunks):
                 headers = segment['Page_path']
-                
-                # If page_num exists, format the URL accordingly
+
                 if page_num is not None:
                     urls = f"{self.page_url}#page={page_num}"
                 else:
-                    urls = [f"{self.page_url}"]
-                
-                # Format the page path, including the header levels and chunk number
-                page_path = ' > '.join(f"{item} (h{i + 1})" for i, item in enumerate(segment['Page_path'])) + f" ({count})"
-                
-                # Append the chunk with the generated page path, content chunk, URLs, and page number
-                self.chunks.append(Chunk(page_path, content_chunk, urls, page_num))
-        
-        return self.chunks
+                    urls = self.page_url
 
-    
+                page_path = ' > '.join(
+                    f"{item} (h{i + 1})" for i, item in enumerate(segment['Page_path'])) + f" ({count})"
+                self.chunks.append(Chunk(page_path, content_chunk, urls, page_num))
+
+        return self.chunks
 
     def to_file(self, output_path: str) -> None:
         """
@@ -351,11 +288,35 @@ class Page:
         self.chunks = self.tree_segments_to_chunks()
 
     def chunks_to_pkl(self, output_path: str) -> None:
-        """
-        Write the page content chunks to a pkl file.
+        # Debug: Print chunk information
+        for idx, chunk in enumerate(self.chunks):
+            print(f"Chunk {idx + 1}:")
+            print(f"  Page Number: {chunk.page_num}")
 
-        Args:
-            output_path (str): The path where the pkl file will be written.
-        """
+        # Write the page content chunks to a pkl file
         with open(output_path, "wb") as f:
             pickle.dump(self.chunks, f)
+
+    def debug_page_num(self):
+        """
+        Debug function to print out the association between content segments and page numbers.
+        """
+        print("=== Debugging Page Number Assignments ===")
+
+        if self.page_numbers:
+            print("Loaded Page Numbers from Metadata:")
+            for page_info in self.page_numbers:
+                print(f"Page {page_info['page_num']} starts at line {page_info['start_line']}")
+        else:
+            print("No page numbers loaded from metadata.")
+
+        # Print headers and their assigned page numbers
+        if self.segments:
+            print("\nHeaders and Assigned Page Numbers:")
+            for idx, ((header, page_num), content) in enumerate(self.segments):
+                header_title, header_level = header
+                print(f"Segment {idx + 1}:")
+                print(f"  Header: {header_title} (Level {header_level})")
+                print(f"  Assigned Page Number: {page_num}")
+        else:
+            print("No segments available to debug.")

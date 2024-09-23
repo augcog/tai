@@ -164,20 +164,32 @@ class BaseConverter(ABC):
     #     """Convert the input file to Expected Page format. To be implemented by subclasses."""
     #     raise NotImplementedError("This method should be overridden by subclasses.")
 
-    
+
     def _to_page(self, input_path: Path, output_path: Path, file_type: str = "markdown") -> Page:
-        output_dir = output_path.parent.mkdir(parents = True, exist_ok = True)
+        # Ensure the output directory exists
+        output_path.parent.mkdir(parents=True, exist_ok=True)
         stem = input_path.stem
         file_type = input_path.suffix.lstrip('.')
 
+        # Convert the input file to Mark down and read its content
         md_path = self._to_markdown(input_path, output_path)
-        with open(md_path, "r") as input_file:
+        with open(md_path, "r", encoding="utf-8") as input_file:
             content_text = input_file.read()
-        
-        metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
+
+        # Set metadata_path to the YAML file in the input directory
+        metadata_filename = f"{stem}_metadata.yaml"
+        metadata_path = input_path.parent / metadata_filename
+        print(f"Metadata path: {metadata_path}")  # Debugging statement
+
+        # Read the metadata content
         metadata_content = self._read_metadata(metadata_path)
-        page_path = output_dir / input_path.with_name(f"{input_path.stem}_metadata.yaml")
+        print(f"Metadata content: {metadata_content}")  # Debugging statement
+
+        # Extract the URL from the metadata content
         url = metadata_content.get("URL")
+        print(f"URL: {url}")  # Debugging statement
+
+        page_path = output_path.parent / metadata_filename
 
         if file_type == "mp4":
             timestamp = [i[1] for i in self.paragraphs]
@@ -185,8 +197,8 @@ class BaseConverter(ABC):
             return VidPage(pagename = stem, content = content, filetype = file_type, page_url = url)
         else:
             content = {"text": content_text}
-            return Page(pagename = stem, content = content, filetype = file_type, page_url = url, metadata_path= page_path)
-        
+            return Page(pagename=stem, content=content, filetype=file_type, page_url=url, metadata_path=page_path)
+
     @abstractmethod
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:
         """Convert the input file to Expected Markdown format. To be implemented by subclasses."""

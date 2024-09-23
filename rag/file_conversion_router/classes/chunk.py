@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 class Chunk(ABC):
-    def __init__(self, titles, content, chunk_url, page_num: int):
+    def __init__(self, titles, content, chunk_url, page_num=None):
         # dictionary of attributes
         self.titles = titles
         # file type (md, pdf, etc.)

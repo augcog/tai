@@ -115,14 +115,3 @@ def helper_unit_test_on_converter(input_path: str, expected_output_paths: List[s
         assert compare_files(
             expected_paths[idx], output_file_path
         ), f"File conversion for {input_path} did not meet expectations."
-
-
-def helper_integrated_test_on_converter(input_folder: str, expected_output_folder: str, tmp_path, converter):
-    input_folder = Path(input_folder)
-
-    output_folder = tmp_path / input_folder.stem
-    output_folder.mkdir(parents=True, exist_ok=True)
-
-    for pdf_file in input_folder.glob('*.pdf'):
-
-        converter.convert(pdf_file, output_folder / pdf_file.stem)

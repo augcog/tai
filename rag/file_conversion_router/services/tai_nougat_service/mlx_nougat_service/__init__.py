@@ -45,7 +45,7 @@ def process_page(page_idx: int, image: Any, model: Any, processor: Any) -> tuple
     sequence = processor.post_process_generation(sequence, fix_markdown=False)
 
 
-    line_count = len(sequence.strip().split('\n'))
+    line_count = len(sequence.strip().split('\n')) + 1
 
     return sequence, line_count
 

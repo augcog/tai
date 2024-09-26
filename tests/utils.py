@@ -5,6 +5,7 @@ import binascii
 import difflib
 import logging
 import pickle
+from collections import namedtuple
 from difflib import SequenceMatcher
 from pathlib import Path
 from typing import List, Union, Dict, Any
@@ -76,44 +77,33 @@ def format_and_print_diff(differences: List[str], fromfile: str, tofile: str) ->
         for line in differences:
             formatted_line = format_diff_line(line)
             logging.info(formatted_line + Style.RESET_ALL)
+    logging.info("\n")
 
+def get_pkl_diffs(expected_chunks, output_chunks, fromfile, tofile):
+    chunk_diffs = {}  # key : (chunk index, content type) , value : diffs for the chunk
 
-def compare_pkl_files(expected_chunks, output_chunks, fromfile, tofile, similarity_threshold) -> bool:
-    file_name = f"Files {fromfile} and {tofile}"
+    Placeholder = namedtuple('Placeholder', ['titles', 'chunk_url', 'content'])
+    placeholder = Placeholder(titles="", chunk_url="", content="")
 
-    # Check if both lists have the same length
-    if len(expected_chunks) != len(output_chunks):
-        logging.info(f"{file_name} The number of chunks do not match.")
-        return False
+    for i, expected_chunk in enumerate(expected_chunks):
+        if i >= len(output_chunks):
+            output_chunk = placeholder
+        else:
+            output_chunk = output_chunks[i]
 
-    average_similarity = 0
-    for i, (expected_chunk, output_chunk) in enumerate(zip(expected_chunks, output_chunks)):
-        # Compare titles (exact match required)
         if expected_chunk.titles != output_chunk.titles:
-            logging.info(f"{file_name} Chunk {i} titles do not match.")
-            return False
+            chunk_diffs[(i, "titles")] = get_diffs(expected_chunk.titles, output_chunk.titles, fromfile, tofile)
 
-        # Compare chunk_url (exact match required)
         if expected_chunk.chunk_url != output_chunk.chunk_url:
-            logging.info(f"{file_name} Chunk {i} URLs do not match.")
-            return False
+            chunk_diffs[(i, "urls")] = get_diffs(', '.join(expected_chunk.chunk_url),
+                                                 ', '.join(output_chunk.chunk_url), fromfile, tofile)
 
-        # Compare content (requires similarity above the threshold)
         matcher = SequenceMatcher(None, expected_chunk.content, output_chunk.content)
-        similarity_percentage = matcher.ratio() * 100
-        average_similarity = (average_similarity * i + similarity_percentage) / (i + 1)
+        similarity = matcher.ratio() * 100
+        if similarity < SIMILARITY_THRESHOLD:
+            chunk_diffs[(i, "content")] = get_diffs(expected_chunk.content, output_chunk.content, fromfile, tofile)
 
-        if similarity_percentage < similarity_threshold:
-            logging.info(Fore.RED + f"{file_name} Chunk {i} content similarity "
-                                    f"({similarity_percentage:.2f}%) is below the threshold.")
-            diffs = get_diffs(expected_chunk.content, output_chunk.content, fromfile, tofile)
-            format_and_print_diff(diffs, fromfile, tofile)
-            return False
-
-    logging.info(Fore.GREEN + f"{file_name} are similar above the threshold "
-                              f"(average {average_similarity}% similar for {len(output_chunks)} chunks)."
-                 + Style.RESET_ALL)
-    return True
+    return chunk_diffs
 
 
 def compare_text_files(expected_contents, output_contents, fromfile, tofile, similarity_threshold):
@@ -153,8 +143,19 @@ def compare_files(expected_path: Path, output_path: Path, similarity_threshold: 
 
     fromfile = str(expected_path)
     tofile = str(output_path)
+
     if is_pkl:
-        return compare_pkl_files(expected_contents, output_contents, fromfile, tofile, similarity_threshold)
+        diffs = get_pkl_diffs(expected_contents, output_contents, fromfile, tofile)
+        if not diffs:
+            logging.info(
+                Fore.GREEN + f"Files {fromfile} and {tofile} are similar above the threshold." + Style.RESET_ALL)
+            return True
+        logging.info(Fore.RED + f"expected chunk length {len(expected_contents)} and "
+                                f"output chunk length {len(output_contents)} "
+                                f"in Files {fromfile} and {tofile}. \n" + Style.RESET_ALL)
+        for (index, content_type), diff in diffs.items():
+            format_and_print_diff(diff, f"chunk {index} {content_type} of " + fromfile, tofile)
+        return False
     else:
         # If it's a text file, directly compare the text contents
         return compare_text_files(expected_contents, output_contents, fromfile, tofile, similarity_threshold)

@@ -8,6 +8,6 @@ class Chunk(ABC):
         # page url
         self.chunk_url = chunk_url
 
-
-
+    def __eq__(self, other):
+        return self.titles == other.titles and self.content == other.content and self.chunk_url == other.chunk_url
 

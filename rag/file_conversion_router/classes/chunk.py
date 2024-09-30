@@ -10,5 +10,5 @@ class Chunk(ABC):
         # page number
         self.page_num = page_num
 
- def __eq__(self, other):
+    def __eq__(self, other):
         return self.titles == other.titles and self.content == other.content and self.chunk_url == other.chunk_url

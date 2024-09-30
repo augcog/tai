@@ -82,11 +82,6 @@ def main(input_pdf_path: Path, output_dir: Path) -> None:
     # Assuming the original metadata file is in the same directory as the PDF
     yaml_file_path = input_pdf_path.parent / f"{input_pdf_path.stem}_metadata.yaml"
 
-    # Debug: Print the paths being used
-    print(f"PDF path: {pdf_path}")
-    print(f"Markdown output path: {output_md_file_path}")
-    print(f"Metadata file path: {yaml_file_path}")
-
     # Read existing metadata content
     metadata_content = read_metadata(yaml_file_path)
     print(f"Original metadata content: {metadata_content}")

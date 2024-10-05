@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation'
 import * as React from 'react'
 import { toast } from 'react-hot-toast'
+import emitter from '@/tai/utils/eventEmitter'
 
 import { ServerActionResult, type Chat } from '@/tai/lib/types'
 import {
@@ -111,6 +112,8 @@ export function SidebarActions({
                   router.refresh()
                   router.push('/')
                   toast.success('Chat deleted')
+
+                  emitter.emit('historyUpdated')
                 })
               }}
             >

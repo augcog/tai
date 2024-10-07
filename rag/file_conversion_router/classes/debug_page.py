@@ -1,10 +1,9 @@
-
 from pathlib import Path
 from rag.file_conversion_router.classes.page import Page
 
 # Define paths
-md_path = "output_tmp/expected_output/filename/filename.md"
-metadata_path = Path("/Users/yyk956614/tai/output_tmp/expected_output/debug/filename/filename_metadata.yaml")  # Replace with your actual metadata path
+md_path = "/Users/yyk956614/tai/tests/test_rag/data/integrated_tests/expected_output_folder1_plain_folder_3_pdfs/hw05_3pages/hw05_3pages.md"
+metadata_path = Path("/Users/yyk956614/tai/output_tmp/expected_output/debug/filename/filename.yaml")  # Replace with your actual metadata path
 
 # Load markdown content
 with open(md_path, "r", encoding="utf-8") as input_file:
@@ -25,7 +24,7 @@ page = Page(
 
 # Process content into chunks
 page.to_chunk()
-page.chunks_to_pkl(Path("output_tmp/expected_output/debug/filename/filename.pkl"))
+page.chunks_to_pkl(Path("/Users/yyk956614/tai/tests/test_rag/data/integrated_tests/expected_output_folder1_plain_folder_3_pdfs/hw05_3pages/hw05_3pages.pkl"))
 
 # Print header tree
 header_tree = page.print_header_tree()

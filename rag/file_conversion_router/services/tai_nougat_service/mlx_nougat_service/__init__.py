@@ -78,14 +78,6 @@ def main(input_pdf_path: Path, output_dir: Path) -> None:
     pdf_path = str(input_pdf_path)
     output_md_file_path = output_dir / f"{input_pdf_path.stem}.mmd"
 
-    # Adjust the YAML file path to point to the correct location
-    # Assuming the original metadata file is in the same directory as the PDF
-    yaml_file_path = input_pdf_path.parent / f"{input_pdf_path.stem}_metadata.yaml"
-
-    # Read existing metadata content
-    metadata_content = read_metadata(yaml_file_path)
-    print(f"Original metadata content: {metadata_content}")
-
     if not pdf_path.endswith('.pdf'):
         raise ValueError(f"Expected a PDF file, but got {pdf_path}")
 
@@ -104,16 +96,16 @@ def main(input_pdf_path: Path, output_dir: Path) -> None:
         full_content += content.strip() + "\n\n"
         current_line += line_count
 
-        # Write the extracted content to the Markdown file
+    # Write the extracted content to the Markdown file
     with open(output_md_file_path, "w", encoding="utf-8") as f:
         f.write(full_content.strip())
 
-    # Update the metadata content with the page information
-    metadata_content['pages'] = page_info_list
-    print(f"Updated metadata content: {metadata_content}")
+    # Save the page information metadata to a new YAML file
+    metadata_content = {'pages': page_info_list}
+    new_yaml_file_path = output_md_file_path.with_suffix('.yaml')
+    print(f"Page metadata content: {metadata_content}")
 
-    # Write the updated metadata back to the YAML file at the correct path
-    with open(yaml_file_path, "w", encoding="utf-8") as f:
+    with open(new_yaml_file_path, "w", encoding="utf-8") as f:
         yaml.dump(metadata_content, f, allow_unicode=True)
-        print(f"Metadata updated and written to {yaml_file_path}")
+        print(f"Metadata saved to {new_yaml_file_path}")
 

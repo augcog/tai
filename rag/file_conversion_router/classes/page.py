@@ -24,7 +24,8 @@ class Page:
         self.segments = []
         self.tree_segments = []
         self.chunks = []
-        self.page_numbers = self.load_metadata_page_numbers(metadata_path) if metadata_path else None
+        self.page_numbers = self.load_metadata_page_numbers(
+            metadata_path) if metadata_path and metadata_path.exists() else None
 
     def load_metadata_page_numbers(self, metadata_path: Path):
         """
@@ -115,15 +116,16 @@ class Page:
 
         current_page_num = self.page_numbers[0]['page_num'] if self.page_numbers else None
         page_num_index = 1  # Start from the second page since we've assigned the first
-        total_pages = len(self.page_numbers)
+        total_pages = len(self.page_numbers) if self.page_numbers else 0
 
         for line_num, line in enumerate(md_lines, start=1):
             stripped_line = line.strip()
 
             # Update current_page_num based on start_line
-            while page_num_index < total_pages and line_num >= self.page_numbers[page_num_index]['start_line']:
-                current_page_num = self.page_numbers[page_num_index]['page_num']
-                page_num_index += 1
+            if self.page_numbers:
+                while page_num_index < total_pages and line_num >= self.page_numbers[page_num_index]['start_line']:
+                    current_page_num = self.page_numbers[page_num_index]['page_num']
+                    page_num_index += 1
 
             if "```" in stripped_line:
                 in_code_block = not in_code_block
@@ -153,16 +155,14 @@ class Page:
         self.segments = [i for i in self.extract_headers_and_content(self.content['text'])]
         if not self.segments:
             # LEVEL 0 for no header found
-            self.segments = [(("NO ANY HEADER DETECTED", 0),
-                              self.content['text'])]
+            self.segments = [("(NO ANY HEADER DETECTED)", 0), self.content['text']]
 
     def print_header_tree(self):
         result = ""
         for (title, level), _ in self.segments:
-            if level is not None:  
+            if level is not None:
                 indent = '--' * (level - 1)
-                header_tag = f"(h{level})"
-                result += f"{indent}{title}"
+                result += f"{indent}{title}\n"
             else:
                 result += f"{title} (hUnknown)\n"
         return result
@@ -180,14 +180,20 @@ class Page:
                 # Truncate 'top_header' to the current level - 1
                 top_header = top_header[:level - 1]
 
-            # Append the current header with its page number
-            top_header.append((header_title, content, level, page_num))
+            # Append the current header with its page number (only if page number exists)
+            if page_num is not None:
+                top_header.append((header_title, content, level, page_num))
+            else:
+                top_header.append((header_title, content, level, None))
 
             # Build the segment
             segment = f"(Segment {counter})\n"
             for h, c, l, p in top_header:
                 hash_symbols = '#' * l
-                segment += f"{hash_symbols}{h} (h{l}, Page {p})\n"
+                if p is not None:
+                    segment += f"{hash_symbols}{h} (h{l}, Page {p})\n"
+                else:
+                    segment += f"{hash_symbols}{h} (h{l})\n"
                 segment += f"{c}\n"
 
             # Build the Table of Contents
@@ -195,22 +201,25 @@ class Page:
 
             # Build the Page Path
             page_path = "(Page path)\n"
-            page_path += ' > '.join(f"(h{l}) {h} (Page {p})" for h, c, l, p in top_header)
+            page_path += ' > '.join(
+                f"(h{l}) {h} (Page {p})" if p is not None else f"(h{l}) {h}" for h, c, l, p in top_header)
 
             # Build header list
             header_list = [h for h, c, l, p in top_header]
 
             # Use the page number of the current header for the segment
-            segment_page_num = page_num
+            segment_page_num = page_num if page_num is not None else None
 
             # Store the information in tree_segments
-            self.tree_segments.append({
+            tree_segment = {
                 'Page_table': page_toc,
                 'Page_path': header_list,
-                'Segment_print': segment,
-                'page_num': segment_page_num
-            })
+                'Segment_print': segment
+            }
+            if segment_page_num is not None:
+                tree_segment['page_num'] = segment_page_num
 
+            self.tree_segments.append(tree_segment)
             counter += 1
 
         # Handle the last segment
@@ -226,21 +235,31 @@ class Page:
             first = True
             for h, c, l, p in top_header:
                 if first:
-                    page_path += f"(h{l}) {h} (Page {p})"
+                    page_path += f"(h{l}) {h} (Page {p})" if p is not None else f"(h{l}) {h}"
                     first = not first
                 else:
                     page_path += " > "
-                    page_path += f"(h{l}) {h} (Page {p})"
+                    page_path += f"(h{l}) {h} (Page {p})" if p is not None else f"(h{l}) {h}"
 
             segment += f"(Segment {counter})\n"
             header_list = [header[0] for header in top_header]
             for h, c, l, p in top_header:
                 hash_symbols = '#' * l
-                segment += f"{hash_symbols}{h} (h{l}, Page {p})\n"
+                if p is not None:
+                    segment += f"{hash_symbols}{h} (h{l}, Page {p})\n"
+                else:
+                    segment += f"{hash_symbols}{h} (h{l})\n"
                 segment += f"{c}\n"
 
-            self.tree_segments.append(
-                {'Page_table': page_toc, 'Page_path': header_list, 'Segment_print': segment, 'page_num': page_num})
+            tree_segment = {
+                'Page_table': page_toc,
+                'Page_path': header_list,
+                'Segment_print': segment
+            }
+            if top_header[-1][3] is not None:
+                tree_segment['page_num'] = top_header[-1][3]
+
+            self.tree_segments.append(tree_segment)
 
     def tree_segments_to_chunks(self):
         def generate_hyperlink_header(header_text):
@@ -251,19 +270,19 @@ class Page:
         for segment in self.tree_segments:
             content_chunks = self.recursive_separate(segment['Segment_print'], 400)
             page_num = segment.get('page_num', None)
-
             for count, content_chunk in enumerate(content_chunks):
                 headers = segment['Page_path']
 
-                if page_num is not None:
+                if self.page_url is not None and page_num is not None:
                     urls = f"{self.page_url}#page={page_num}"
-                else:
+                elif self.page_url is not None:
                     urls = self.page_url
+                else:
+                    urls = "url not available"
 
                 page_path = ' > '.join(
                     f"{item} (h{i + 1})" for i, item in enumerate(segment['Page_path'])) + f" ({count})"
                 self.chunks.append(Chunk(page_path, content_chunk, urls, page_num))
-
         return self.chunks
 
     def to_file(self, output_path: str) -> None:
@@ -289,9 +308,9 @@ class Page:
 
     def chunks_to_pkl(self, output_path: str) -> None:
         # Debug: Print chunk information
-        for idx, chunk in enumerate(self.chunks):
-            print(f"Chunk {idx + 1}:")
-            print(f"  Page Number: {chunk.page_num}")
+        # for idx, chunk in enumerate(self.chunks):
+            # print(f"Chunk {idx + 1}:")
+            # print(f"  Page Number: {chunk.page_num}")
 
         # Write the page content chunks to a pkl file
         with open(output_path, "wb") as f:
@@ -317,6 +336,9 @@ class Page:
                 header_title, header_level = header
                 print(f"Segment {idx + 1}:")
                 print(f"  Header: {header_title} (Level {header_level})")
-                print(f"  Assigned Page Number: {page_num}")
+                if page_num is not None:
+                    print(f"  Assigned Page Number: {page_num}")
+                else:
+                    print("  Assigned Page Number: None")
         else:
             print("No segments available to debug.")

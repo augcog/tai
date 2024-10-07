@@ -28,19 +28,19 @@ Data science is a collaborative activity. While you may talk with others about t
 
 * D. All students enrolled in Shiny's discussion section
 * E. All students who fill out Shiny's pre-contest survey
-* (1 point) In this sampling scheme, which of the following is the sampling frame?
-* A. UC Berkeley students
-* B. All students enrolled in Data 100 across all semesters (Spring 2024 and previous)
-* C. All students enrolled in Data 100 for this semester (Spring 2024)
-* D. All students enrolled in Shiny's discussion section
+* In this sampling scheme, which of the following is the sampling frame?
+* UC Berkeley students
+* All students enrolled in Data 100 across all semesters (Spring 2024 and previous)
+* All students enrolled in Data 100 for this semester (Spring 2024)
+* All students enrolled in Shiny's discussion section
 * E. All students who fill out Shiny's pre-contest survey
-* (1 point) Which of the following is the sample?
-* A. UC Berkeley students
-* B. All students enrolled in Data 100 across all semesters (Spring 2024 and previous)
-* C. All students enrolled in Data 100 for this semester (Spring 2024)
-* D. All students enrolled in Shiny's discussion section
-* E. All students who fill out Shiny's pre-contest survey
-* (1 point) Which of the following best characterizes the sample?
-* A. Simple Random Sample
-* B. Convenience Sample
-* C. Probability Sample
+* Which of the following is the sample?
+* UC Berkeley students
+* All students enrolled in Data 100 across all semesters (Spring 2024 and previous)
+* All students enrolled in Data 100 for this semester (Spring 2024)
+* All students enrolled in Shiny's discussion section
+* All students who fill out Shiny's pre-contest survey
+* Which of the following best characterizes the sample?
+* Simple Random Sample
+* Convenience Sample
+* Probability Sample

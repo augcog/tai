@@ -12,7 +12,7 @@ from rag.file_conversion_router.services.tai_nougat_service.api import convert_p
 
 
 class PdfConverter(BaseConverter):
-    def __init__(self):
+    def __init__(self, model_tag: str = "0.1.0-small", batch_size: int = 4):
         super().__init__()
 
     def convert_pdf_to_markdown(self, pdf_file_path, output_file_path, page_numbers=None):

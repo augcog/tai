@@ -40,16 +40,7 @@ class BaseConverter(ABC):
 
     @conversion_logger
     def convert(self, input_path: Union[str, Path], output_folder: Union[str, Path]) -> None:
-        """Convert an input file to 3 files: Markdown, tree txt, and pkl file, under the output folder.
-
-        Args:
-            input_path: The path for a single file to be converted. e.g. 'path/to/file.txt'
-            output_folder: The folder where the output files will be saved. e.g. 'path/to/output_folder'
-                other files will be saved in the output folder, e.g.:
-                - 'path/to/output_folder/file.md'
-                - 'path/to/output_folder/file.md.tree.txt'
-                - 'path/to/output_folder/file.md.pkl'
-        """
+        """Convert an input file to output files, ensuring unwanted files are deleted after processing."""
         input_path, output_folder = ensure_path(input_path), ensure_path(output_folder)
         if not input_path.exists():
             self._logger.error(f"The file {input_path} does not exist.")
@@ -63,29 +54,31 @@ class BaseConverter(ABC):
             self._logger.info(
                 f"Cached result found, using cached files for input path: {input_path} "
                 f"in output folder: {output_folder}."
-                f"\n Cached content are: {[str(path) for path in cached_paths]}."
+                f"\nCached content are: {[str(path) for path in cached_paths]}."
             )
             self._use_cached_files(cached_paths, output_folder)
-            return
+        else:
+            future = ConversionCache.get_future(file_hash)
+            if not future or not future.running():
+                self._logger.info("Starting new conversion task.")
+                with ThreadPoolExecutor() as executor:
+                    future = executor.submit(self._convert_and_cache, input_path, output_folder, file_hash)
+                    ConversionCache.store_future(file_hash, future)
+                    future.result()  # Wait for the conversion to complete
+            else:
+                self._logger.info("Conversion is already in progress, waiting for it to complete.")
+                future.result()  # Wait for the ongoing conversion to complete
+                self._logger.info("Conversion completed.")
 
-        future = ConversionCache.get_future(file_hash)
-        if not future or not future.running():
-            with ThreadPoolExecutor() as executor:
-                future = executor.submit(self._convert_and_cache, input_path, output_folder, file_hash)
-                ConversionCache.store_future(file_hash, future)
-                self._logger.info("New conversion task started or previous task completed.")
-                return
+            self._delete_yaml_and_pdf_files(output_folder)
+            # After conversion, copy the cached files to the output directory
+            cached_paths = ConversionCache.get_cached_paths(file_hash)
+            if cached_paths:
+                self._use_cached_files(cached_paths, output_folder)
 
-        self._logger.info("Conversion is already in progress, waiting for it to complete.")
-        # This will block until the future is completed
-        future.result()
-        cached_paths = ConversionCache.get_cached_paths(file_hash)
-        self._logger.info(
-            f"Future completed, using cached files for input path: {input_path} "
-            f"in output folder: {output_folder}."
-            f"\n Cached content are: {[str(path) for path in cached_paths]}."
-        )
-        self._use_cached_files(cached_paths, output_folder)
+        # Delete unwanted files after all operations
+
+
 
     @conversion_logger
     def _convert_to_markdown(self, input_path: Path, output_path: Path) -> None:
@@ -159,33 +152,49 @@ class BaseConverter(ABC):
         page.to_chunk()
         page.chunks_to_pkl(str(pkl_output_path))
 
+    def _delete_yaml_and_pdf_files(self, directory: Path) -> None:
+        """Delete all .yaml and .pdf files in the given directory."""
+        self._logger.info(f"Deleting .yaml and .pdf files in {directory}")
+        for file_path in directory.glob('*'):
+            self._logger.info(f"Checking file: {file_path.name}, Suffixes: {file_path.suffixes}")
+            if any(suffix.lower() in ['.yaml', '.pdf'] for suffix in file_path.suffixes):
+                try:
+                    file_path.unlink()
+                    self._logger.info(f"Deleted file: {file_path}")
+                except Exception as e:
+                    self._logger.error(f"Error deleting file {file_path}: {e}")
+
     # @abstractmethod
     # def _to_page(self, input_path: Path, output_path: Path) -> Page:
     #     """Convert the input file to Expected Page format. To be implemented by subclasses."""
     #     raise NotImplementedError("This method should be overridden by subclasses.")
 
-    
     def _to_page(self, input_path: Path, output_path: Path, file_type: str = "markdown") -> Page:
-        output_path.parent.mkdir(parents = True, exist_ok = True)
+        # Ensure the output directory exists
+        output_path.parent.mkdir(parents=True, exist_ok=True)
         stem = input_path.stem
         file_type = input_path.suffix.lstrip('.')
-
+        # Convert the input file to Markdown and read its content
         md_path = self._to_markdown(input_path, output_path)
-        with open(md_path, "r") as input_file:
+        with open(md_path, "r", encoding="utf-8") as input_file:
             content_text = input_file.read()
-        
-        metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
+        # Set metadata_path to the YAML file in the output directory
+        metadata_path = md_path.with_suffix('.yaml')
+        print(f"Metadata path: {metadata_path} (Exists: {metadata_path.exists()})")  # Debugging statement
+        # Read the metadata content
         metadata_content = self._read_metadata(metadata_path)
+        print(f"Metadata content: {metadata_content}")  # Debugging statement
+        # Since the new metadata file might not contain 'URL', handle it accordingly
         url = metadata_content.get("URL")
-
         if file_type == "mp4":
             timestamp = [i[1] for i in self.paragraphs]
             content = {"text": content_text, "timestamp": timestamp}
-            return VidPage(pagename = stem, content = content, filetype = file_type, page_url = url)
+            return VidPage(pagename=stem, content=content, filetype=file_type, page_url=url)
         else:
             content = {"text": content_text}
-            return Page(pagename = stem, content = content, filetype = file_type, page_url = url)
-        
+            return Page(pagename=stem, content=content, filetype=file_type, page_url=url, metadata_path=metadata_path)
+
+
     @abstractmethod
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:
         """Convert the input file to Expected Markdown format. To be implemented by subclasses."""

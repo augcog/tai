@@ -2,7 +2,7 @@ import logging
 
 from .__init__ import run_nougat
 from .config_nougat.tai_nougat_config import TAINougatConfig
-
+from pathlib import Path
 logging.basicConfig(level=logging.INFO)
 
 

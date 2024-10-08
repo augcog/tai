@@ -186,11 +186,14 @@ class BaseConverter(ABC):
         print(f"Metadata content: {metadata_content}")  # Debugging statement
         # Since the new metadata file might not contain 'URL', handle it accordingly
         url = metadata_content.get("URL")
-        if url is None:
-            url = ""  # Or set to a default value or handle as needed
-        print(f"URL: {url}")  # Debugging statement
-        content = {"text": content_text}
-        return Page(pagename=stem, content=content, filetype=file_type, page_url=url, metadata_path=metadata_path)
+        if file_type == "mp4":
+            timestamp = [i[1] for i in self.paragraphs]
+            content = {"text": content_text, "timestamp": timestamp}
+            return VidPage(pagename=stem, content=content, filetype=file_type, page_url=url)
+        else:
+            content = {"text": content_text}
+            return Page(pagename=stem, content=content, filetype=file_type, page_url=url, metadata_path=metadata_path)
+
 
     @abstractmethod
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:

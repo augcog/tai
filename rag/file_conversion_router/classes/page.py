@@ -278,7 +278,7 @@ class Page:
                 elif self.page_url is not None:
                     urls = self.page_url
                 else:
-                    urls = "URL NOT AVAILABLE"
+                    urls = "URL_NOT_AVAILABLE"
 
                 page_path = ' > '.join(
                     f"{item} (h{i + 1})" for i, item in enumerate(segment['Page_path'])) + f" ({count})"

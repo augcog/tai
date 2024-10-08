@@ -14,5 +14,13 @@ def convert_directory(input_dir: Union[str, Path], output_dir: Union[str, Path])
     1. PDF
     2. Markdown (To clarify, this markdown includes additional tree structure of original markdown file)
     """
-    process_folder(input_dir, output_dir)
+    print("API module is running")
 
+    process_folder(input_dir, output_dir)
+if __name__ == '__main__' :
+    convert_directory("/Users/yyk956614/tai/output_tmp/input", "/Users/yyk956614/tai/output_tmp/expected_output/debug")
+    # convert_directory("/Users/yyk956614/tai/tests/test_rag/data/integrated_tests/input_folder1_plain_folder_3_pdfs", "/Users/yyk956614/tai/tests/test_rag/data/integrated_tests/expected_output_folder1_plain_folder_3_pdfs")
+    # convert_directory("/Users/yyk956614/tai/tests/test_rag/data/integrated_tests/input_folder2_nested_folder_pdf+md", "/Users/yyk956614/tai/tests/test_rag/data/integrated_tests/expected_output_folder2_nested_folder_pdf+md")
+    # convert_directory("/Users/yyk956614/tai/tests/test_rag/data/unit_tests/pdf/input", "/Users/yyk956614/tai/tests/test_rag/data/unit_tests/pdf/expected_output")
+    # convert_directory("/Users/yyk956614/tai/tests/test_rag/data/unit_tests/md/input", "/Users/yyk956614/tai/tests/test_rag/data/unit_tests/md/expected_output")
+    # convert_directory("/Users/yyk956614/tai/tests/test_rag/data/integrated_tests/input_folder2_nested_folder_pdf+md", "/Users/yyk956614/tai/tests/test_rag/data/integrated_tests/expected_output_folder2_nested_folder_pdf+md")

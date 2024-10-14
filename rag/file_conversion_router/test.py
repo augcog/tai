@@ -16,7 +16,7 @@ def load_pkl_file(file_path: Path):
     return data
 
 # Specify the path to the .pkl file
-file_path = Path("output_tmp/expected_output/61a-sp24-mt2_sol_2_pages/61a-sp24-mt2_sol_2_pages.pkl")
+file_path = Path("output_tmp/expected_output/61a-sp24-mt1/61a-sp24-mt1.pkl")
 
 # Load the contents of the .pkl file
 pkl_contents = load_pkl_file(file_path)
@@ -32,3 +32,8 @@ for idx, chunk in enumerate(pkl_contents):
     print(f"Page number: {chunk.page_num}")
     print("-" * 40)  # Separator for better readability
 
+# Display the contents
+print(pkl_contents[0].titles)
+print(pkl_contents[0].content)
+print(pkl_contents[0].chunk_url)
+print(pkl_contents[0].page_num)

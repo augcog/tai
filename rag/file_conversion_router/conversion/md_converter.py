@@ -23,7 +23,6 @@ class MarkdownConverter(BaseConverter):
         return output_path
 
 
-
     def _to_page(self, input_path: Path, output_path: Path) -> Page:
         """Perform Markdown to Page conversion."""
         try:
@@ -32,8 +31,7 @@ class MarkdownConverter(BaseConverter):
             self._logger.error(f"An error occurred during markdown conversion: {str(e)}")
             raise
 
-    #     output_path.parent.mkdir(parents=True, exist_ok=True)
-
+        output_path.parent.mkdir(parents=True, exist_ok=True)
 
         filetype = input_path.suffix.lstrip('.')
         with open(input_path, "r", encoding="utf-8") as input_file:

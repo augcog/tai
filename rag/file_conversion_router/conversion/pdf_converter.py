@@ -70,6 +70,8 @@ class PdfConverter(BaseConverter):
 
         # Match all forms of MISSING_PAGE markers
         missing_pages = re.findall(r'\[MISSING_PAGE.*?:(\d+)\]', markdown_content)
+        if missing_pages:
+            self._content_logger.warning(f"Found {len(missing_pages)} Missing pages when converting {pdf_path}")
 
         # Extract missing pages as separate PDF files
         for page_number in missing_pages:
@@ -98,6 +100,9 @@ class PdfConverter(BaseConverter):
 
             # Escape backslashes in single_page_md_content
             single_page_md_content = single_page_md_content.replace('\\', '\\\\')
+
+            self._content_logger.info(f"missing page {page_number} replaced"
+                                      f"with content: {single_page_md_content[:100]}...")
 
             # Replace the missing page marker with the actual content
             markdown_content = re.sub(rf'\[MISSING_PAGE.*?:{page_number}\]', single_page_md_content, markdown_content)

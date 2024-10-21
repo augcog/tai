@@ -5,6 +5,9 @@ import pickle
 
 
 class Page:
+
+    PAGE_LENGTH_THRESHOLD = 80
+
     def __init__(self, pagename: str, content: dict, filetype: str, page_url: str = ""):
         """
         Initialize a Page instance.

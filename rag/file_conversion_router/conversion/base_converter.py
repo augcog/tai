@@ -9,8 +9,8 @@ from threading import Lock
 from typing import Dict, List, Union
 import yaml
 
-from rag.file_conversion_router.utils.logger import conversion_logger, logger
-from rag.file_conversion_router.utils.utils import calculate_hash, ensure_path
+from rag.file_conversion_router.utils.logger import conversion_logger, logger, content_logger
+from rag.file_conversion_router.utils.utils import calculate_hash, ensure_path, check_url
 from rag.file_conversion_router.classes.page import Page
 from rag.file_conversion_router.classes.vidpage import VidPage
 
@@ -37,6 +37,7 @@ class BaseConverter(ABC):
         self._pkl_path = None
 
         self._logger = logger
+        self._content_logger = content_logger
 
     @conversion_logger
     def convert(self, input_path: Union[str, Path], output_folder: Union[str, Path]) -> None:
@@ -65,6 +66,7 @@ class BaseConverter(ABC):
                 f"in output folder: {output_folder}."
                 f"\n Cached content are: {[str(path) for path in cached_paths]}."
             )
+            self._content_logger.warning(f"Cached result found, using cached files for input path: {input_path} ")
             self._use_cached_files(cached_paths, output_folder)
             return
 
@@ -157,14 +159,31 @@ class BaseConverter(ABC):
         pkl_output_path = output_folder / f"{filename}.pkl"
         page = self._convert_to_page(input_path, pkl_output_path)[0]
         page.to_chunk()
-        page.chunks_to_pkl(str(pkl_output_path))
+        if self._check_page_content(page, input_path):
+            page.chunks_to_pkl(str(pkl_output_path))
 
     # @abstractmethod
     # def _to_page(self, input_path: Path, output_path: Path) -> Page:
     #     """Convert the input file to Expected Page format. To be implemented by subclasses."""
     #     raise NotImplementedError("This method should be overridden by subclasses.")
+    def _check_page_content(self, page: Page, input_path: Path) -> bool:
+        content_length_threshold = Page.PAGE_LENGTH_THRESHOLD
+        content_length = len(page.content.get('text', ''))
+        page_url = page.page_url
+        url_state = check_url(page_url)
+        if content_length < content_length_threshold:
+            self._content_logger.warning(f"File: {input_path} removed. Page has content length: {content_length} "
+                                         f"less than threshold: {content_length_threshold}")
+            return False
 
-    
+        if url_state != 200:
+            self._content_logger.error(f"File: {input_path} has content length {content_length}, "
+                                       f"url state: {url_state}")
+        else:
+            self._content_logger.info(f"File: {input_path} has content length {content_length}, "
+                                      f"url state: {url_state}")
+        return True
+
     def _to_page(self, input_path: Path, output_path: Path, file_type: str = "markdown") -> Page:
         output_path.parent.mkdir(parents = True, exist_ok = True)
         stem = input_path.stem

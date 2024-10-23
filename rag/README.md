@@ -22,9 +22,13 @@ Run [pipline_kb.py](Scraper_master/pipeline_kb.py) as the pipeline to scrape, ch
     root_folder : "path/to/root/folder"
     tasks :
       - name : "Website Name"
-        url : "https://website.url"
-      - name : "Website Name"
-        url : "https://website.url"
+        local : False // True if is a Local file, False if it is a site that needs to be scraped
+        url : "https://website/site.url"
+        root : "https://website.url"
+      - name : "Folder Name"
+        local : True // Scraping Locally 
+        url : "path/to/folder"
+        root : "path/to/folder
 
 
 ### Pre-requisites

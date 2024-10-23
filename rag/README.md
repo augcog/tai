@@ -19,7 +19,7 @@ Run this to install the required packages
 ### Pipeline from website or local to knowledge base
 Run [pipline_kb.py](Scraper_master/pipeline_kb.py) as the pipeline to scrape, chunk and embed websites into a knowledge base. The pipeline takes a task, which is a collection of content that will be saved into a single knowledge base, and will save all information at the root_folder designated in the task.  The pipeline first scrapes, and then converts the content into markdown. Finally, it embeds and saves the everything as a knowledge base. This is all saved according to the path defined by root_folder. The knowledge base is automatically saved in the scraped data folder in a sub-folder labeled "pickle". 
     A .yaml file is used to specify the tasks to be performed. It should be should be structured as follows:
-    root_folder : "path/to/root/folder"
+    ```root_folder : "path/to/root/folder"
     tasks :
       - name : "Website Name"
         local : False // True if is a Local file, False if it is a site that needs to be scraped
@@ -28,7 +28,7 @@ Run [pipline_kb.py](Scraper_master/pipeline_kb.py) as the pipeline to scrape, ch
       - name : "Folder Name"
         local : True // Scraping Locally 
         url : "path/to/folder"
-        root : "path/to/folder
+        root : "path/to/folder```
 
 
 ### Pre-requisites
@@ -39,7 +39,7 @@ When scraping documents for embedding, it's crucial to preprocess them into segm
 Segmenting documents ensures each portion fits within the model's token capacity, allowing for successful embedding. The `embedding_create.py` script offers a variety of embedding models, prompting methods, 
 and chunking techniques. This script will create an embedding database for all the scraped documents, which can later be retrieved to assist users with their queries.  
 
-**Quick run**: `python3 embedding_create.py`. This will run the code with the default settings and default documents. 
+**Quick run**: Run pipeline to knowledge base with the corresponding Yaml file for your knowledge base. 
 
 If you want to change the settings:
 - **Embedding models**

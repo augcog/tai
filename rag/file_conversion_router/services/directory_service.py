@@ -27,12 +27,13 @@ converter_mapping: ConverterMapping = {
 }
 
 
-def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path]) -> None:
+def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path], content_logger) -> None:
     """Walk through the input directory and schedule conversion tasks for specified file types.
 
     Args:
         input_dir (Union[str, Path]): The directory from which to read files.
         output_dir (Union[str, Path]): The directory where converted files will be placed.
+        content_logger: The logger object to use for logging content-related messages.
 
     Raises:
         ValueError: If either input_dir or output_dir is not a directory.

@@ -177,8 +177,7 @@ class BaseConverter(ABC):
             return False
 
         if url_state != 200:
-            self._content_logger.error(f"File: {input_path} has content length {content_length}, "
-                                       f"url state: {url_state}")
+            self._content_logger.error(f"File: {input_path} has url state: {url_state}")
         else:
             self._content_logger.info(f"File: {input_path} has content length {content_length}, "
                                       f"url state: {url_state}")

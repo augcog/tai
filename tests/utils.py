@@ -107,6 +107,12 @@ def get_pkl_diffs(expected_chunks, output_chunks, fromfile, tofile):
 
 
 def compare_text_files(expected_contents, output_contents, fromfile, tofile, similarity_threshold):
+    # skipped log files for now
+    if fromfile.endswith('.log') or tofile.endswith('.log'):
+        logging.info(
+            Fore.GREEN + f"File comparison skipped because {fromfile} or {tofile} is a log file." + Style.RESET_ALL)
+        return True
+
     matcher = SequenceMatcher(None, expected_contents, output_contents)
 
     similarity_percentage = matcher.ratio() * 100

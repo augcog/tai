@@ -13,6 +13,7 @@ from rag.file_conversion_router.conversion.rst_converter import RstConverter
 from rag.file_conversion_router.conversion.video_converter import VideoConverter
 from rag.file_conversion_router.conversion.ed_converter import EdConverter
 from rag.file_conversion_router.services.task_manager import schedule_conversion
+from rag.file_conversion_router.utils.logger import content_logger, set_log_file_path
 
 ConverterMapping = Dict[str, Type[BaseConverter]]
 
@@ -27,7 +28,7 @@ converter_mapping: ConverterMapping = {
 }
 
 
-def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path], content_logger) -> None:
+def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path]) -> None:
     """Walk through the input directory and schedule conversion tasks for specified file types.
 
     Args:
@@ -38,6 +39,8 @@ def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path], co
     Raises:
         ValueError: If either input_dir or output_dir is not a directory.
     """
+    set_log_file_path(content_logger, output_dir)
+
     input_dir = Path(input_dir)
     output_dir = Path(output_dir)
 

@@ -7,7 +7,7 @@ import uuid
 import time
 from fastapi.responses import StreamingResponse
 from app.core.actions.model_selector import course_selection
-from app.core.actions.llama_seletor import local_selector, local_parser, local_formatter
+from app.core.actions.llama_seletor import local_selector, local_parser, local_formatter, top_k_selector
 
 def generate_data():
         for number in range(1, 51):  # Generating numbers from 1 to 100
@@ -37,3 +37,13 @@ async def create_completion(params: CompletionCreateParams):
         return StreamingResponse(parser(response), media_type="text/plain")
     else:
          return "This is a test response."
+
+@router.post("/top_k_docs")
+async def get_top_k_docs(messages: List[Message], k: int = 3, course: str = None):
+    # get top k chunks
+    top_docs = top_k_selector(messages, k=k, course=course)
+
+    if top_docs:
+        return {"top_docs": top_docs or []}
+    else:
+        return "This is a test response."

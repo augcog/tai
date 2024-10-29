@@ -261,3 +261,84 @@ def local_formatter(messages: List[ROARChatCompletionMessage]) -> List[Message]:
     for message in messages:
         response.append(Message(role=message.role, content=message.content))
     return response
+
+def top_k_selector(messages: List[Message], stream=True, rag=True, course=None, k=3):
+    user_message = messages[-1].content
+    top_docs = []
+
+    if rag:
+        if course == "EE 106B":
+            picklefile = "eecs106b.pkl"
+        elif course == "CS 61A":
+            picklefile = "cs61a.pkl"
+        else:
+            picklefile = "Berkeley.pkl"
+        current_dir = "roarai/rag/file_conversion_router/embedding"  # Modify this path to the directory containing the embedding pickle files
+        query_embed = embedding_model.encode(user_message, return_dense=True, return_sparse=True,
+                                             return_colbert_vecs=True)
+        if SQLDB:
+            embedding_db_path = os.path.join(current_dir, "embeddings.db")
+
+            # Connect to the embeddings database using vss and vector extensions
+            db = sqlite3.connect(embedding_db_path)
+            db.enable_load_extension(True)
+            db.load_extension(EXT_VECTOR_PATH)
+            db.load_extension(EXT_VSS_PATH)
+            cur = db.cursor()
+
+            # Query the embeddings database using vss_search
+            query_vector = query_embed['dense_vecs'].tolist()
+            query_vector_json = json.dumps(query_vector)
+            cur.execute("""
+                SELECT 
+                    rowid, 
+                    distance
+                FROM embeddings
+                WHERE vss_search(
+                    embedding,
+                    ?
+                )
+                LIMIT ?;
+            """, (query_vector_json, k))
+
+            results = cur.fetchall()
+
+            # Close the connection
+            db.commit()
+            db.close()
+
+            # Connect to the main database to extract the top docs
+            table_name = picklefile.replace('.pkl', '')
+            db_name = f"{table_name}.db"
+            main_db_path = os.path.join(current_dir, db_name)
+            db = sqlite3.connect(main_db_path)
+            cur = db.cursor()
+
+            # Extract the top k docs
+            indices = [result[0] for result in results]
+            placeholders = ','.join('?' for _ in indices)
+            query = f"SELECT doc_list FROM {table_name} WHERE rowid IN ({placeholders})"
+            cur.execute(query, indices)
+            results = cur.fetchall()
+
+            top_docs = [doc for (doc,) in results]  # Extract docs from results
+
+            # Close the connection
+            db.close()
+
+        else:
+            # Picklefile implementation
+            path_to_pickle = os.path.join(current_dir, picklefile)
+            with open(path_to_pickle, 'rb') as f:
+                data_loaded = pickle.load(f)
+
+            doc_list = data_loaded['doc_list']
+            embedding_list = data_loaded['embedding_list']
+
+            cosine_similarities = np.array(bge_compute_score(query_embed, embedding_list, [1, 1, 1], None, None)['colbert+sparse+dense'])
+            indices = np.argsort(cosine_similarities)[::-1]
+            top_indices = indices[:k]  # Get top k
+            top_docs = [doc_list[i] for i in top_indices]  # Extract top k docs
+
+    # Return the top k documents as a list of strings
+    return top_docs[:k]

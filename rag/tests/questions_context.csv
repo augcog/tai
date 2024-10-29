@@ -1,0 +1,72 @@
+question,context
+"How can I rapidly become proficient in using the MoveIt Motion Planning Framework, specifically for the Franka Emika Panda robot, through the provided tutorials, and are there alternative robots that are already compatible with MoveIt? Please list them and provide me with a resource for further exploration. Additionally, if my custom robot is not yet supported by MoveIt, how can I integrate it into the framework using the tutorial section ""Integration with a New Robot""? Provide me with a step-by-step guide and necessary resources.","(Segment 2)
+#Creating MoveIt Plugins (h1)
+`This Page <http://wiki.ros.org/pluginlib>`_ gives a detailed explanation of how to add plugins in ROS in general. The two necessary elements are base and plugin classes. The plugin class inherits from the base class and overrides its virtual functions. The main library used for this purpose is pluginlib. This tutorials contains three different types of plugins, namely, motion planner, controller manager and constraint sampler.
+
+
+
+##Motion Planner Plugin (h2)
+In this section, we will show how to add a new motion planner to MoveIt as a plugin. The base class in MoveIt is ``planning_interface`` from  which any new planner plugin should inherit. For demonstration purposes, a linear interpolation planner (lerp) which plans the motion between two states in joint space is created. This planner could be used as a start point for adding any new planner as it contains the necessary basics. The final source files designed in this tutorial are available :codedir:`here <creating_moveit_plugins/lerp_motion_planner/src>`. The following graph shows a brief overall view of the relation between classes for adding a new planner in MoveIt.
+
+.. image:: lerp_motion_planner/lerp_planner.png
+
+First we create the plugin class in the  ``moveit_tutorials`` package. To make the plugin class for ``lerp``, create a file named ``lerp_planner_manager.cpp`` in src folder. In this file, ``LERPPlanPlannerManager`` overrides the functions of ``PlannerManager`` class from ``planning_interface``. In the end of this file, we need to register ``LERPPlanPlannerManager`` class as a plugin, this is done by ``CLASS_LOADER_REGISTER_CLASS`` macro from ``class_loader``: ::
+
+CLASS_LOADER_REGISTER_CLASS(emptyplan_interface::EmptyPlanPlannerManager, planning_interface::PlannerManager);"
+"How can I utilize the MoveGroup interface, available in both C++ and Python, to efficiently interact with MoveIt and access its various features through scripting, as described in the ""MoveGroup - ROS Wrappers in C++ and Python"" section of this document? Please provide a step-by-step guide, including any necessary prerequisites and examples of how to use the interface to manipulate the robot's movements and configurations. Additionally, clarify any potential limitations or trade-offs of relying solely on the MoveGroup interface, and offer alternatives or complementary approaches for more advanced MoveIt applications.","(Segment 1)
+#Creating MoveIt Plugins (h1)
+`This Page <http://wiki.ros.org/pluginlib>`_ gives a detailed explanation of how to add plugins in ROS in general. The two necessary elements are base and plugin classes. The plugin class inherits from the base class and overrides its virtual functions. The main library used for this purpose is pluginlib. This tutorials contains three different types of plugins, namely, motion planner, controller manager and constraint sampler.
+
+
+
+##Motion Planner Plugin (h2)
+In this section, we will show how to add a new motion planner to MoveIt as a plugin. The base class in MoveIt is ``planning_interface`` from  which any new planner plugin should inherit. For demonstration purposes, a linear interpolation planner (lerp) which plans the motion between two states in joint space is created. This planner could be used as a start point for adding any new planner as it contains the necessary basics. The final source files designed in this tutorial are available :codedir:`here <creating_moveit_plugins/lerp_motion_planner/src>`. The following graph shows a brief overall view of the relation between classes for adding a new planner in MoveIt.
+
+.. image:: lerp_motion_planner/lerp_planner.png
+
+First we create the plugin class in the  ``moveit_tutorials`` package. To make the plugin class for ``lerp``, create a file named ``lerp_planner_manager.cpp`` in src folder. In this file, ``LERPPlanPlannerManager`` overrides the functions of ``PlannerManager`` class from ``planning_interface``. In the end of this file, we need to register ``LERPPlanPlannerManager`` class as a plugin, this is done by ``CLASS_LOADER_REGISTER_CLASS`` macro from ``class_loader``: ::
+
+CLASS_LOADER_REGISTER_CLASS(emptyplan_interface::EmptyPlanPlannerManager, planning_interface::PlannerManager);"
+"How can developers utilize MoveIt's C++ API to build more complex applications with significantly faster performance, and what are the potential benefits of bypassing the ROS Service/Action layers in this process? Please provide specific examples and use cases to illustrate the advantages of directly accessing MoveIt's C++ API.","Next we create the ``LERPPlanningContext`` class that overrides the functions of ``PlanningContext``. This class will override the solve function where the planner solves the problem and returns the solution. As the solve function implementation may need many classes from the planner code base, it is more readable to make another class called ``LERPInterface`` where the actual implementation of the planner solve method will take place. Basically, this class is the entry point to the new motion planner algorithm. The response in this solve function is prepared in the type of ``moveit_msgs::MotionPlanDetailedResponse`` which is converted to ``planning_interface::MotionPlanDetailedResponse`` in ``LERPPlanningContext`` class.
+
+Moreover, ``PlannerConfigurationSettings`` could be used to pass the planner-specific parameters. Another way to pass these parameters is using ROS param server which reads from a yaml file. In this tutorial, for our lerp planner, we use ``lerp_planning.yaml`` in ``panda_moveit_config`` package that contains only one parameter, ``num_steps`` which gets loaded in ``lerp_interface`` whenever its solve function is called.
+
+
+
+###Export the plugin (h3)
+
+First, we need to make the plugin available to the ROS Toolchain. To this end, a plugin description xml file (``emptyplan_interface_plugin_description.xml``) containing the ``library`` tag with the following options should be created: ::
+
+<library  path=""libmoveit_emptyplan_planner_plugin"">
+<class name=""emptyplan_interface/EmptyPlanPlanner"" type=""emptyplan_interface::EmptyPlanPlannerManager"" base_class_type=""planning_interface::PlannerManager"">
+<description>
+</description>
+</class>
+</library>
+
+Then, to export the plugin, we use the address of the above xml file and the ``export`` tag in package.xml file: ::"
+"How can I implement time parameterization for motion planning in MoveIt! using the Time Parameterization tutorial provided in the documentation, and what are the benefits of using this technique in my robot's motion planning process? Additionally, can you provide examples of how to apply this technique in specific motion planning scenarios, and how to integrate it with other MoveIt! features such as the motion planning pipeline and planning scene? Finally, what are the system requirements for using time parameterization in MoveIt!, and how can I ensure optimal performance when implementing this technique in my robot's motion planning system?","(Segment 1)
+#Time Parameterization (h1)
+
+MoveIt is currently primarily a *kinematic* motion planning framework - it plans for joint or end effector positions but not velocity or acceleration. However, MoveIt does utilize *post*-processing to time parameterize kinematic trajectories for velocity and acceleration values. Below we explain the settings and components involved in this part of MoveIt.
+
+
+##Speed Control (h2)
+
+
+###From File (h3)
+By default MoveIt sets the velocity and acceleration of a joint trajectory to the default allowed in the robot's URDF or ``joint_limits.yaml``. The ``joint_limits.yaml`` is generated from the Setup Assistant and is initially an exact copy of the values within the URDF. The user can then modify those values to be less than the original URDF values if special constraints are needed. Specific joint properties can be changed with the keys ``max_position, min_position, max_velocity, max_acceleration``. Joint limits can be turned on or off with the keys ``has_velocity_limits, has_acceleration_limits``."
+"How can I integrate a new robot with MoveIt, and what tutorials are available in the ""Integration with a New Robot"" section to help with this process? Provide a detailed explanation and list all the necessary steps involved in integrating a new robot with MoveIt, as well as any prerequisites or requirements that should be met before beginning the integration process. Additionally, describe how these tutorials can be accessed and navigated within the ""Integration with a New Robot"" section.","(Segment 2)
+#Creating MoveIt Plugins (h1)
+`This Page <http://wiki.ros.org/pluginlib>`_ gives a detailed explanation of how to add plugins in ROS in general. The two necessary elements are base and plugin classes. The plugin class inherits from the base class and overrides its virtual functions. The main library used for this purpose is pluginlib. This tutorials contains three different types of plugins, namely, motion planner, controller manager and constraint sampler.
+
+
+
+##Motion Planner Plugin (h2)
+In this section, we will show how to add a new motion planner to MoveIt as a plugin. The base class in MoveIt is ``planning_interface`` from  which any new planner plugin should inherit. For demonstration purposes, a linear interpolation planner (lerp) which plans the motion between two states in joint space is created. This planner could be used as a start point for adding any new planner as it contains the necessary basics. The final source files designed in this tutorial are available :codedir:`here <creating_moveit_plugins/lerp_motion_planner/src>`. The following graph shows a brief overall view of the relation between classes for adding a new planner in MoveIt.
+
+.. image:: lerp_motion_planner/lerp_planner.png
+
+First we create the plugin class in the  ``moveit_tutorials`` package. To make the plugin class for ``lerp``, create a file named ``lerp_planner_manager.cpp`` in src folder. In this file, ``LERPPlanPlannerManager`` overrides the functions of ``PlannerManager`` class from ``planning_interface``. In the end of this file, we need to register ``LERPPlanPlannerManager`` class as a plugin, this is done by ``CLASS_LOADER_REGISTER_CLASS`` macro from ``class_loader``: ::
+
+CLASS_LOADER_REGISTER_CLASS(emptyplan_interface::EmptyPlanPlannerManager, planning_interface::PlannerManager);"

@@ -31,6 +31,7 @@ load_dotenv()
 
 model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
 auto_tokenizer = transformers.AutoTokenizer.from_pretrained(model_id)
+
 print("Loading model...")
 pipeline = transformers.pipeline(
     "text-generation",
@@ -124,7 +125,7 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
             picklefile = "cs61a.pkl"
         else:
             picklefile = "Berkeley.pkl"
-        current_dir = "roarai/rag/file_conversion_router/embedding"     # Modify this path to the directory containing the embedding pickle files
+        current_dir = "/home/bot/localgpt/tai_evaluation/tai/rag/file_conversion_router/embedding"     # Modify this path to the directory containing the embedding pickle files
         query_embed = embedding_model.encode(user_message, return_dense=True, return_sparse=True,
                                                 return_colbert_vecs=True)
         if SQLDB:   
@@ -262,8 +263,8 @@ def local_formatter(messages: List[ROARChatCompletionMessage]) -> List[Message]:
         response.append(Message(role=message.role, content=message.content))
     return response
 
-def top_k_selector(messages: List[Message], stream=True, rag=True, course=None, k=3):
-    user_message = messages[-1].content
+def top_k_selector(message: str, stream=True, rag=True, course=None, k=3):
+    user_message = message
     top_docs = []
 
     if rag:
@@ -273,7 +274,7 @@ def top_k_selector(messages: List[Message], stream=True, rag=True, course=None, 
             picklefile = "cs61a.pkl"
         else:
             picklefile = "Berkeley.pkl"
-        current_dir = "roarai/rag/file_conversion_router/embedding"  # Modify this path to the directory containing the embedding pickle files
+        current_dir = "/home/bot/localgpt/tai_evaluation/tai/rag/file_conversion_router/embedding"  # Modify this path to the directory containing the embedding pickle files
         query_embed = embedding_model.encode(user_message, return_dense=True, return_sparse=True,
                                              return_colbert_vecs=True)
         if SQLDB:

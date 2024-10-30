@@ -1,6 +1,5 @@
 import csv
 import requests
-from typing import List
 import openai
 
 class CompletionCreateParams:
@@ -22,6 +21,7 @@ class CompletionCreateParams:
         }
 
 url = "http://128.32.43.233:8000/api/chat/completions"
+get_chunks_url = "http://0.0.0.0:8000/api/chat/top_k_docs"
 API_KEY = ""
 
 EVALUATION_PROMPT = """###Task Description:
@@ -86,15 +86,31 @@ def query_chat_llm(messages, model="gpt-4-turbo", temperature=0.7):
     except Exception as e:
         return f"Error occurred: {e}"
 
-file_path = '/Users/terriannezhang/Desktop/tai/tai/rag/tests/questions_context.csv'
+file_path = 'questions_context.csv'
 question_context_pairs = read_csv_to_tuples(file_path)
+
 
 # Iterate through pairs in question_context_pairs
 for qc_pair in question_context_pairs:
-    question, context = qc_pair
+    question = qc_pair[0]
+
+    data = {
+        "messages": [{"content": question}],  # Replace with actual list of messages
+        "k": 3,
+        "course": "EE 106B"
+    }
+
+    qc_pair[1] = None
+
+    response = requests.post(get_chunks_url, json=data)
+    if response.status_code == 200:
+        qc_pair[1] = response.json()
+
+    context = response.json()
+
     filled_prompt = QUERY_PROMPT.format(context=context, question=question)
 
-    params = CompletionCreateParams(course="ee106b")
+    params = CompletionCreateParams(course="EE 106B")
 
     params.add_message(role="user", content=filled_prompt)
 

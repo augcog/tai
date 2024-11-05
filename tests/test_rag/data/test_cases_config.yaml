@@ -39,4 +39,4 @@ integrated_tests:
 
 
 pkl_structure_tests:
-  - expected_output_path: pkl_structure_tests/expected_output/61a-sp24-mt1.pkl
+  - expected_output_path: unit_tests/pdf/expected_output/61a-sp24-mt1/61a-sp24-mt1.pkl

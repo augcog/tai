@@ -1,0 +1,72 @@
+models:
+  default: test_mock_model
+  options:
+    #   By default, use test_mock_model for all tasks since local model and server model are time-consuming
+    #   It provides a quick way to test the pipeline
+    - name: test_mock_model
+      type: test_mock # Types: local, server, test_mock
+
+    - name: server_model_tai
+      type: server
+      endpoint: "https://tai.berkeley.edu/api/chat"
+      api_key: "Fill out your API key here"
+
+    - name: Meta-Llama-3.2-3B
+      type: local
+      path: ./download_models/Meta-Llama-3.2-3B
+
+# Global variables available to all tasks
+variables:
+  max_length: 500
+  style: "professional"
+
+# Task definitions
+tasks:
+  # Simple prompt task
+  basic_summary:
+    type: prompt
+    prompt_template: |
+      Please summarize the following text concisely:
+      
+      $content
+      
+      Maximum length: $max_length words
+      Style: $style
+
+  enhance_writing:
+    type: prompt
+    prompt_template: |
+      Please improve the writing style of the following text:
+      
+      $content
+      
+      Make it more $style.
+
+  # Composed task combining multiple prompts
+  enhanced_summary:
+    type: composed
+    subtasks:
+      - basic_summary
+      - enhance_writing
+    final_prompt: |
+      Combine these results into a final enhanced summary:
+      
+      Original summary: $result_basic_summary
+      Enhanced writing: $result_enhance_writing
+      
+      Create a final version that preserves the conciseness of the summary
+      while maintaining the improved writing style.
+
+  # Sequential task executing steps in order
+  full_analysis:
+    type: sequential
+    sequence:
+      - basic_summary
+      - enhance_writing
+    depends_on: [ ]
+
+# Main pipeline configuration
+pipeline:
+  markdown_task: enhanced_summary
+  chunk_task: enhanced_summary
+  batch_size: 10  # Optional: for batch processing

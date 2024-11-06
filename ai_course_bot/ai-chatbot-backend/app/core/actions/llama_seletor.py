@@ -341,5 +341,10 @@ def top_k_selector(message: str, stream=True, rag=True, course=None, k=3):
             top_indices = indices[:k]  # Get top k
             top_docs = [doc_list[i] for i in top_indices]  # Extract top k docs
 
+    used_chunks = min(len(top_docs), k)
+
     # Return the top k documents as a list of strings
-    return top_docs[:k]
+    return {
+        "top_docs": top_docs,
+        "used_chunks": used_chunks
+    }

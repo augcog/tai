@@ -16,25 +16,41 @@ API_KEY = ""
 COURSE = "EE 106B"
 
 EVALUATION_PROMPT = """###Task Description:
-An instruction (might include an Input inside it), a response to evaluate, a reference answer that gets a score of 5, and a score rubric representing a evaluation criteria are given.
-1. Write a detailed feedback that assess the quality of the response strictly based on the given score rubric, not evaluating in general.
-2. After writing a feedback, write a score that is an integer between 1 and 5. You should refer to the score rubric.
-3. The output format should look as follows: \"Feedback: {{write a feedback for criteria}} [RESULT] {{an integer number between 1 and 5}}\"
-4. Please do not generate any other opening, closing, and explanations. Be sure to include [RESULT] in your output.
+You are evaluating the reference context, question related to the Berkeley course {course}, and a response. You are responsible for scoring 3 aspects of the response following different evaluation criteria:
+context accuracy and relevance, ability to answer based on the context, and the overall answer quality.
+1. Write detailed feedback that assesses these 3 qualities of the response strictly based on the given score rubric, not evaluating in general.
+2. After writing feedback for each criteria, write a score that is an integer between 1 and 5. You should refer to the score rubric.
+3. The output format should look as follows: \"Context accuracy feedback: {{write a feedback for criteria}} [RESULT] {{an integer number between 1 and 5}}.\nAbility to answer feedback: {{write a feedback for criteria}} [RESULT] {{an integer number between 1 and 5}}.\nOverall answer quality: {{write a feedback for criteria}} [RESULT] {{an integer number between 1 and 5}}.\"
+4. Please do not generate any other opening, closing, and explanations. Be sure to include all 3 [RESULT]s in your output.
 
-###The instruction to evaluate:
+###Reference context to evaluate:
+{reference_context}
+
+###Question:
 {instruction}
 
 ###Response to evaluate:
 {response}
 
-###Reference context:
-{reference_context}
-
 ###Feedback:
 
 ###Score Rubrics:
-[Is the response correct, accurate, and factual based on the reference answer?]
+
+[Is the reference context accurate and relevant to the question?] 
+Score 1: The reference context is completely inaccurate and irrelevant to the question.
+Score 2: The reference context is mostly inaccurate and irrelevant to the question.
+Score 3: The reference context is somewhat accurate and relevant to the question.
+Score 4: The reference context is mostly accurate and relevant to the question.
+Score 5: The reference context is completely accurate and relevant to the question.
+
+[Does the response answer the question based on the reference context?]
+Score 1: The response is completely irrelevant and does not answer the question based on the reference context.
+Score 2: The response is mostly irrelevant and does not answer the question based on the reference context.
+Score 3: The response is somewhat relevant and answers the question based on the reference context.
+Score 4: The response is mostly relevant and answers the question based on the reference context.
+Score 5: The response is completely relevant and accurately answers the question based on the reference context.
+
+[Is the response correct, relevant, accurate, and factual overall?]
 Score 1: The response is completely incorrect, inaccurate, and/or not factual.
 Score 2: The response is mostly incorrect, inaccurate, and/or not factual.
 Score 3: The response is somewhat correct, accurate, and/or factual.
@@ -43,9 +59,8 @@ Score 5: The response is completely correct, accurate, and factual.
 """
 
 QUERY_PROMPT = """
-Context: {context}
+Answer the following question as accurately as possible.
 Question: {question}
-Based on the context provided, answer the question as accurately as possible.
 """
 
 class CompletionCreateParams:
@@ -91,16 +106,19 @@ for question in questions:
     context_json = response.json()
     context = "\n".join(context_json['top_docs'])
 
-    filled_prompt = QUERY_PROMPT.format(context=context, question=question)
+    filled_prompt = QUERY_PROMPT.format(question=question)
 
     params = CompletionCreateParams(course=COURSE)
     params.add_message(role="user", content=filled_prompt)
     params_dict = params.to_dict()
 
     response = requests.post(url, json=params_dict)
-    answer = response.text
+    response_data = response.json()
+    answer = response_data['answer']
+    used_chunks = response_data['used_chunks']
 
     prompt = EVALUATION_PROMPT.format(
+        course=COURSE,
         instruction=question,
         response=answer,
         reference_context=context,
@@ -124,3 +142,11 @@ for question in questions:
     question_context_answer_feedback.append([question, context, answer, feedback])
 
 print(question_context_answer_feedback)
+
+
+
+
+
+
+
+

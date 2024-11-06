@@ -41,9 +41,11 @@ async def create_completion(params: CompletionCreateParams):
 @router.post("/top_k_docs")
 async def get_top_k_docs(message: str, k: int = 3, course: str = None):
     # get top k chunks
-    top_docs = top_k_selector(message, k=k, course=course)
+    result = top_k_selector(message, k=k, course=course)
+    top_docs = result['top_docs']
+    chunks_used = result['chunks_used']
 
     if top_docs:
-        return {"top_docs": top_docs or []}
+        return {"top_docs": top_docs or [], "chunks_used": chunks_used}
     else:
         return "This is a test response."

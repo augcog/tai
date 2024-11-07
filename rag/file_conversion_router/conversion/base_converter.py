@@ -160,7 +160,7 @@ class BaseConverter(ABC):
         self._logger.info(f"Deleting .yaml and .pdf files in {directory}")
         for file_path in directory.glob('*'):
             self._logger.info(f"Checking file: {file_path.name}, Suffixes: {file_path.suffixes}")
-            if any(suffix.lower() in ['.yaml', '.pdf'] for suffix in file_path.suffixes):
+            if any(suffix.lower() in ['.pdf'] for suffix in file_path.suffixes):
                 try:
                     file_path.unlink()
                     self._logger.info(f"Deleted file: {file_path}")

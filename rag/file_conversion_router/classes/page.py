@@ -361,3 +361,27 @@ class Page:
                     print("  Assigned Page Number: None")
         else:
             print("No segments available to debug.")
+
+    def find_empty_content_headers(self):
+        """
+        Identify headers in chunks that have no associated content.
+
+        Returns:
+            list: A list of headers with no associated content.
+        """
+        empty_content_headers = []
+
+        for chunk in self.chunks:
+            # Check if the content in the chunk is empty
+            if not chunk.content.strip():  # Using .strip() to ensure it catches empty or whitespace-only content
+                empty_content_headers.append(chunk.page_path)  # Store the header/page path as the identifier
+
+        # Print or return the headers with empty content
+        if empty_content_headers:
+            print("Headers with no associated content:")
+            for header in empty_content_headers:
+                print(header)
+        else:
+            print("No empty content headers found.")
+
+        return empty_content_headers

@@ -1,12 +1,29 @@
 import functools
 import logging
+import os
 from pathlib import Path
 
 from rag.file_conversion_router.utils.time_measure import Timer
 
+format_string = "%(asctime)s - %(levelname)s - %(message)s"
 # Configure logging at the module level
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(level=logging.INFO, format=format_string)
 logger = logging.getLogger(__name__)
+
+content_logger = logging.getLogger("content_logger")
+content_logger.setLevel(logging.INFO)
+content_logger.propagate = False
+
+
+def set_log_file_path(logger, output_path):
+    while logger.hasHandlers():
+        logger.removeHandler(logger.handlers[0])
+    log_dir = os.path.join(output_path, 'log')
+    os.makedirs(log_dir, exist_ok=True)
+    log_file_path = os.path.join(log_dir, f'{logger.name}.log')
+    file_handler = logging.FileHandler(log_file_path, mode='w')
+    file_handler.setFormatter(logging.Formatter(format_string))
+    logger.addHandler(file_handler)
 
 
 def conversion_logger(method):

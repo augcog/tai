@@ -13,6 +13,7 @@ from rag.file_conversion_router.conversion.rst_converter import RstConverter
 from rag.file_conversion_router.conversion.video_converter import VideoConverter
 from rag.file_conversion_router.conversion.ed_converter import EdConverter
 from rag.file_conversion_router.services.task_manager import schedule_conversion
+from rag.file_conversion_router.utils.logger import content_logger, set_log_file_path
 
 ConverterMapping = Dict[str, Type[BaseConverter]]
 
@@ -33,10 +34,13 @@ def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path]) ->
     Args:
         input_dir (Union[str, Path]): The directory from which to read files.
         output_dir (Union[str, Path]): The directory where converted files will be placed.
+        content_logger: The logger object to use for logging content-related messages.
 
     Raises:
         ValueError: If either input_dir or output_dir is not a directory.
     """
+    set_log_file_path(content_logger, output_dir)
+
     input_dir = Path(input_dir)
     output_dir = Path(output_dir)
 

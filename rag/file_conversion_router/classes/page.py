@@ -8,6 +8,9 @@ from pathlib import Path
 
 
 class Page:
+
+    PAGE_LENGTH_THRESHOLD = 500
+
     def __init__(self, pagename: str, content: dict, filetype: str, page_url: str = "", metadata_path: Path = None):
         """
         Initialize a Page instance.
@@ -146,6 +149,7 @@ class Page:
                     if curheader:
                         current_content += f"{line}\n"
 
+        # Append the last header and its content, if there was any header encountered
         if curheader:
             headers_content.append(((curheader, current_page_num), current_content))
 
@@ -231,6 +235,7 @@ class Page:
             page_toc += "(Table of Contents)\n"
             page_toc += f"{self.print_header_tree()}\n"
 
+            # Page Path
             page_path += "(Page path)\n"
             first = True
             for h, c, l, p in top_header:
@@ -263,8 +268,22 @@ class Page:
 
     def tree_segments_to_chunks(self):
         def generate_hyperlink_header(header_text):
+            """
+            This function takes a header string, converts all characters to lowercase,
+            and replaces all spaces with dashes to create a hyperlink-friendly header.
+
+            Parameters:
+            header_text (str): The header string to be converted.
+
+            Returns:
+            str: The converted hyperlink-friendly header string.
+            """
+            # Convert the string to lowercase
             lower_text = header_text.lower()
+
+            # Replace spaces with dashes
             hyperlink_header = lower_text.replace(' ', '-')
+
             return hyperlink_header
 
         for segment in self.tree_segments:
@@ -307,12 +326,12 @@ class Page:
         self.chunks = self.tree_segments_to_chunks()
 
     def chunks_to_pkl(self, output_path: str) -> None:
-        # Debug: Print chunk information
-        # for idx, chunk in enumerate(self.chunks):
-            # print(f"Chunk {idx + 1}:")
-            # print(f"  Page Number: {chunk.page_num}")
+        """
+        Write the page content chunks to a pkl file.
 
-        # Write the page content chunks to a pkl file
+        Args:
+            output_path (str): The path where the pkl file will be written.
+        """
         with open(output_path, "wb") as f:
             pickle.dump(self.chunks, f)
 

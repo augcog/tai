@@ -385,3 +385,24 @@ class Page:
             print("No empty content headers found.")
 
         return empty_content_headers
+
+    def merge_empty_headers_with_subheaders(self):
+        """
+        Find headers with empty content and merge them with their subheaders, if available.
+        """
+        for i in range(len(self.chunks) - 1):
+            current_chunk = self.chunks[i]
+            next_chunk = self.chunks[i + 1]
+
+            # Check if the current chunk's content is empty
+            if not current_chunk.content.strip():
+                # Check if the next chunk is a subheader (i.e., a higher level within the hierarchy)
+                current_header_level = int(re.search(r'h(\d+)', current_chunk.page_path).group(1))
+                next_header_level = int(re.search(r'h(\d+)', next_chunk.page_path).group(1))
+
+                if next_header_level > current_header_level:
+                    # Merge the content of the empty header with the subheader's content
+                    current_chunk.content = next_chunk.content
+                    print(f"Merged empty header '{current_chunk.page_path}' with subheader '{next_chunk.page_path}'.")
+
+        print("Completed merging empty headers with subheaders where applicable.")

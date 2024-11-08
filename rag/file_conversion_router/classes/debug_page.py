@@ -33,4 +33,5 @@ print(header_tree)
 # Call the debug function
 page.debug_page_num()
 page.find_empty_content_headers()
+page.merge_empty_headers_with_subheaders()
 

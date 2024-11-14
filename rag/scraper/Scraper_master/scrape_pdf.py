@@ -23,8 +23,8 @@ class ScrapePdf(BaseScraper):
             print(f"Failed to download the PDF. Status code: {response.status_code}")
 
 
-# Example usage:
-if __name__ == "__main__":
-    pdf_url = "pdflink"  # Replace with the actual PDF URL
-    pdf_saver = ScrapePdf(pdf_url)
-    pdf_saver.content_extract("filename", pdf_url) # Change filename to save as and start the download process
+# # Example usage:
+# if __name__ == "__main__":
+#     pdf_url = "pdflink"  # Replace with the actual PDF URL
+#     pdf_saver = ScrapePdf(pdf_url)
+#     pdf_saver.content_extract("filename", pdf_url) # Change filename to save as and start the download process

@@ -1,4 +1,4 @@
-2024-10-26 22:17:04,399 - ERROR - File:  {file absolute path}/tai/tests/test_rag/data/integrated_tests/input_folder2_nested_folder_pdf+md/mds/section-3-API-based-scraping.md has url state: None
-2024-10-26 22:17:06,744 - ERROR - File:  {file absolute path}/tai/tests/test_rag/data/integrated_tests/input_folder2_nested_folder_pdf+md/mds/mds_1/section-0-brief-python-refresher.md has url state: None
-2024-10-26 22:17:06,749 - WARNING - Cached result found, using cached files for input path:  {file absolute path}/tai/tests/test_rag/data/integrated_tests/input_folder2_nested_folder_pdf+md/pdfs/hw05_3pages.pdf
-2024-10-26 22:17:06,754 - WARNING - Cached result found, using cached files for input path:  {file absolute path}/tai/tests/test_rag/data/integrated_tests/input_folder2_nested_folder_pdf+md/pdfs/pdfs_1/61a-sp24-mt1.pdf
+2024-11-13 01:02:42,835 - ERROR - File: tests/test_rag/data/integrated_tests/input_folder2_nested_folder_pdf+md/pdfs/hw05_3pages.pdf has url state: None
+2024-11-13 01:02:44,532 - ERROR - File: tests/test_rag/data/integrated_tests/input_folder2_nested_folder_pdf+md/pdfs/pdfs_1/61a-sp24-mt1.pdf has url state: None
+2024-11-13 01:02:48,422 - ERROR - File: tests/test_rag/data/integrated_tests/input_folder2_nested_folder_pdf+md/mds/section-3-API-based-scraping.md has url state: None
+2024-11-13 01:02:51,782 - ERROR - File: tests/test_rag/data/integrated_tests/input_folder2_nested_folder_pdf+md/mds/mds_1/section-0-brief-python-refresher.md has url state: None

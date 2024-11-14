@@ -16,13 +16,24 @@ def load_pkl_file(file_path: Path):
     return data
 
 # Specify the path to the .pkl file
-file_path = Path("/home/bot/roarai/rag/scraper/Scraper_master/opencv_pkl/tutorial_py_table_of_contents_bindings/tutorial_py_bindings_basics/tutorial_py_bindings_basics.pkl")
+file_path = Path("output_tmp/expected_output/61a-sp24-mt1/61a-sp24-mt1.pkl")
 
 # Load the contents of the .pkl file
 pkl_contents = load_pkl_file(file_path)
 
+# # Find out how many content chunks there are
+num_chunks = len(pkl_contents)
+
+# # Display the number of content chunks
+print(f"Number of content chunks: {num_chunks}")
+for idx, chunk in enumerate(pkl_contents):
+    print(f"Chunk {idx + 1}:")
+    print(f"URL: {chunk.chunk_url}")
+    print(f"Page number: {chunk.page_num}")
+    print("-" * 40)  # Separator for better readability
 
 # Display the contents
 print(pkl_contents[0].titles)
 print(pkl_contents[0].content)
 print(pkl_contents[0].chunk_url)
+print(pkl_contents[0].page_num)

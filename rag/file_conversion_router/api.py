@@ -14,4 +14,10 @@ def convert_directory(input_dir: Union[str, Path], output_dir: Union[str, Path])
     1. PDF
     2. Markdown (To clarify, this markdown includes additional tree structure of original markdown file)
     """
+    print("API module is running")
+
     process_folder(input_dir, output_dir)
+
+# convert_directory("tests/test_rag/data/unit_tests/pdf/input","tests/test_rag/data/unit_tests/pdf/expected_output")
+convert_directory("tests/test_rag/data/integrated_tests/input_folder1_plain_folder_3_pdfs","tests/test_rag/data/integrated_tests/expected_output_folder1_plain_folder_3_pdfs")
+# convert_directory("tests/test_rag/data/integrated_tests/input_folder2_nested_folder_pdf+md","tests/test_rag/data/integrated_tests/expected_output_folder2_nested_folder_pdf+md")

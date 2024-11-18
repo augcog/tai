@@ -30,7 +30,7 @@ Run [pipline_kb.py](Scraper_master/pipeline_kb.py) as the pipeline to scrape, ch
         local : True // Scraping Locally 
         url : "path/to/folder"
         root : "path/to/folder
-        ```
+    ```
 
 
 ### Pre-requisites

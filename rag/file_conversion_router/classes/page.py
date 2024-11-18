@@ -137,13 +137,13 @@ class Page:
                 if curheader:
                     current_content += f"{line}\n"
             else:
-                if line.startswith('#'):
-                    if curheader:
-                        headers_content.append(((curheader, current_page_num), current_content))
+                if line.startswith('#'):  # Identify headers
+                    if curheader:  # Save the previous header and its content
+                        headers_content.append(((curheader, current_page_num), current_content.strip()))
                     header = line
-                    header_level = count_consecutive_hashes(header)
+                    header_level = count_consecutive_hashes(header)  # Count header level
                     header = header.strip('#').strip()
-                    curheader = (header, header_level)
+                    curheader = (header, header_level)  # Save the header and level
                     current_content = ""
                 else:
                     if curheader:
@@ -151,7 +151,7 @@ class Page:
 
         # Append the last header and its content, if there was any header encountered
         if curheader:
-            headers_content.append(((curheader, current_page_num), current_content))
+            headers_content.append(((curheader, current_page_num), current_content.strip()))
 
         return headers_content
 
@@ -267,38 +267,17 @@ class Page:
             self.tree_segments.append(tree_segment)
 
     def tree_segments_to_chunks(self):
-        def generate_hyperlink_header(header_text):
-            """
-            This function takes a header string, converts all characters to lowercase,
-            and replaces all spaces with dashes to create a hyperlink-friendly header.
-
-            Parameters:
-            header_text (str): The header string to be converted.
-
-            Returns:
-            str: The converted hyperlink-friendly header string.
-            """
-            # Convert the string to lowercase
-            lower_text = header_text.lower()
-
-            # Replace spaces with dashes
-            hyperlink_header = lower_text.replace(' ', '-')
-
-            return hyperlink_header
-
         for segment in self.tree_segments:
             content_chunks = self.recursive_separate(segment['Segment_print'], 400)
             page_num = segment.get('page_num', None)
             for count, content_chunk in enumerate(content_chunks):
                 headers = segment['Page_path']
-
-                if self.page_url is not None and page_num is not None:
+                if self.page_url and page_num:
                     urls = f"{self.page_url}#page={page_num}"
-                elif self.page_url is not None:
-                    urls = self.page_url
                 else:
                     urls = "URL_NOT_AVAILABLE"
 
+                # Include header levels in the page path for clarity
                 page_path = ' > '.join(
                     f"{item} (h{i + 1})" for i, item in enumerate(segment['Page_path'])) + f" ({count})"
                 self.chunks.append(Chunk(page_path, content_chunk, urls, page_num))
@@ -406,3 +385,21 @@ class Page:
                     print(f"Merged empty header '{current_chunk.page_path}' with subheader '{next_chunk.page_path}'.")
 
         print("Completed merging empty headers with subheaders where applicable.")
+
+    def debug_headers_and_levels(self, headers_content):
+        print("=== Debugging Headers and Levels ===")
+        for idx, ((header, page_num), content) in enumerate(headers_content):
+            header_title, header_level = header
+            print(f"Header {idx + 1}: '{header_title}' (Level {header_level})")
+            print(f"  Assigned Page Number: {page_num}")
+            print(f"  Content Length: {len(content)}")
+            print("-" * 50)
+
+    def debug_empty_headers(self):
+        empty_headers = self.find_empty_content_headers()
+        if empty_headers:
+            print("Empty headers detected:")
+            for header in empty_headers:
+                print(f"  {header}")
+        else:
+            print("No empty headers detected.")

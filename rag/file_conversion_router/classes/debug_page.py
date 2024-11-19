@@ -27,12 +27,18 @@ page.to_chunk()
 page.chunks_to_pkl(Path("output_tmp/expected_output/filename/filename.pkl"))
 
 # Print header tree
-# header_tree = page.print_header_tree()
-# print(header_tree)
+header_tree = page.print_header_tree()
+print(header_tree)
 
 # Call the debug function
-page.debug_page_num()
-page.find_empty_content_headers()
-page.merge_empty_headers_with_subheaders()
-page.debug_empty_headers()
+# page.to_chunk()
+# page.page_seperate_to_segments()
+# page.tree_print()
+# page.debug_page_num()
+# page.find_empty_content_headers()
+page.print_chunk_content()
+# page.debug_empty_headers()
 
+# page.tree_print()
+# page.print_header_tree()
+# page.debug_chunks()

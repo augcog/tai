@@ -41,6 +41,15 @@ class BaseConverter(ABC):
 
     @conversion_logger
     def convert(self, input_path: Union[str, Path], output_folder: Union[str, Path]) -> None:
+        """Convert an input file to 3 files: Markdown, tree txt, and pkl file, under the output folder.
+        Args:
+            input_path: The path for a single file to be converted. e.g. 'path/to/file.txt'
+            output_folder: The folder where the output files will be saved. e.g. 'path/to/output_folder'
+                other files will be saved in the output folder, e.g.:
+                - 'path/to/output_folder/file.md'
+                - 'path/to/output_folder/file.md.tree.txt'
+                - 'path/to/output_folder/file.md.pkl'
+        """
         """Convert an input file to output files, ensuring unwanted files are deleted after processing."""
         input_path, output_folder = ensure_path(input_path), ensure_path(output_folder)
         if not input_path.exists():
@@ -72,7 +81,7 @@ class BaseConverter(ABC):
                 future.result()  # Wait for the ongoing conversion to complete
                 self._logger.info("Conversion completed.")
 
-            self._delete_yaml_and_pdf_files(output_folder)
+            self._delete_pdf_and_yaml_files(output_folder)
             # After conversion, copy the cached files to the output directory
             cached_paths = ConversionCache.get_cached_paths(file_hash)
             if cached_paths:
@@ -155,12 +164,13 @@ class BaseConverter(ABC):
         if self._check_page_content(page, input_path):
             page.chunks_to_pkl(str(pkl_output_path))
 
-    def _delete_yaml_and_pdf_files(self, directory: Path) -> None:
+    def _delete_pdf_and_yaml_files(self, directory: Path) -> None:
         """Delete all .yaml and .pdf files in the given directory."""
-        self._logger.info(f"Deleting .yaml and .pdf files in {directory}")
+        self._logger.info(f"Deleting .pdf and .yaml files in {directory}")
         for file_path in directory.glob('*'):
             self._logger.info(f"Checking file: {file_path.name}, Suffixes: {file_path.suffixes}")
-            if any(suffix.lower() in ['.pdf'] for suffix in file_path.suffixes):
+            # Check if any suffix matches .pdf or .yaml
+            if any(suffix.lower() in ['.pdf', '.yaml'] for suffix in file_path.suffixes):
                 try:
                     file_path.unlink()
                     self._logger.info(f"Deleted file: {file_path}")

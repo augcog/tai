@@ -161,6 +161,7 @@ class Page:
             # LEVEL 0 for no header found
             self.segments = [("(NO ANY HEADER DETECTED)", 0), self.content['text']]
 
+
     def print_header_tree(self):
         result = ""
         for (title, level), _ in self.segments:
@@ -213,6 +214,17 @@ class Page:
 
             # Use the page number of the current header for the segment
             segment_page_num = page_num if page_num is not None else None
+            print(f"Tree Segment {counter}:")
+            print(f"  Current Header: {header_title} (Level {level})")
+            print(f"  Current Path: {[h[0] for h in top_header]}")
+
+            # Add to `tree_segments`
+            tree_segment = {
+                'Page_table': self.print_header_tree(),
+                'Page_path': [h[0] for h in top_header],
+                'Segment_print': content,
+                'page_num': page_num
+            }
 
             # Store the information in tree_segments
             tree_segment = {
@@ -255,7 +267,26 @@ class Page:
                 else:
                     segment += f"{hash_symbols}{h} (h{l})\n"
                 segment += f"{c}\n"
-
+            # print("=== Debugging Tree Segments ===")
+            #
+            # for (header, page_num), content in self.segments:
+            #     level = header[1]  # Header level determined by '##' count
+            #     header_title = header[0]
+            #
+            #     # Adjust 'top_header' to match current level
+            #     if len(top_header) >= level:
+            #         # Truncate 'top_header' to the current level - 1
+            #         top_header = top_header[:level - 1]
+            #
+            #     # Append the current header
+            #     top_header.append((header_title, content, level, page_num))
+            #
+            #     # Debugging: Print the current state of the tree
+            #     print(f"Tree Segment {counter}:")
+            #     print(f"  Header: {header_title} (Level {level})")
+            #     print(f"  Page Number: {page_num}")
+            #     print(f"  Content Length: {len(content)}")
+            #     print("-" * 50)
             tree_segment = {
                 'Page_table': page_toc,
                 'Page_path': header_list,
@@ -369,20 +400,31 @@ class Page:
         """
         Find headers with empty content and merge them with their subheaders, if available.
         """
-        for i in range(len(self.chunks) - 1):
+        i = 0
+        while i < len(self.chunks) - 1:
             current_chunk = self.chunks[i]
             next_chunk = self.chunks[i + 1]
 
             # Check if the current chunk's content is empty
             if not current_chunk.content.strip():
-                # Check if the next chunk is a subheader (i.e., a higher level within the hierarchy)
-                current_header_level = int(re.search(r'h(\d+)', current_chunk.page_path).group(1))
-                next_header_level = int(re.search(r'h(\d+)', next_chunk.page_path).group(1))
+                # Extract levels from current and next headers
+                current_header_level_match = re.search(r'h(\d+)', current_chunk.page_path)
+                next_header_level_match = re.search(r'h(\d+)', next_chunk.page_path)
 
-                if next_header_level > current_header_level:
-                    # Merge the content of the empty header with the subheader's content
-                    current_chunk.content = next_chunk.content
-                    print(f"Merged empty header '{current_chunk.page_path}' with subheader '{next_chunk.page_path}'.")
+                # If header levels exist, compare them
+                if current_header_level_match and next_header_level_match:
+                    current_header_level = int(current_header_level_match.group(1))
+                    next_header_level = int(next_header_level_match.group(1))
+
+                    # Check if next header is a subheader
+                    if next_header_level > current_header_level:
+                        # Merge the content of the empty header with the subheader's content
+                        current_chunk.content += f"\n{next_chunk.content}"
+                        print(
+                            f"Merged empty header '{current_chunk.page_path}' with subheader '{next_chunk.page_path}'.")
+
+            # Move to the next chunk
+            i += 1
 
         print("Completed merging empty headers with subheaders where applicable.")
 
@@ -403,3 +445,25 @@ class Page:
                 print(f"  {header}")
         else:
             print("No empty headers detected.")
+
+    def print_chunk_content(self):
+        """
+        Print the content of all chunks for debugging.
+        """
+        print("=== Printing Chunk Content ===")
+        for idx, chunk in enumerate(self.chunks):
+            print(f"Header {chunk.titles}:")
+            print(f"Chunk {idx + 1}:")
+            print(f"  Page Number: {chunk.page_num}")
+            print(f"  URL: {chunk.chunk_url}")
+            print(f"  Content:\n{chunk.content}\n")
+            print("-" * 50)
+
+    def debug_chunks(self):
+        print("=== Debugging Chunks ===")
+        for idx, chunk in enumerate(self.chunks):
+            print(f"Chunk {idx + 1}:")
+            print(f"  Page Path: {chunk.chunk_url}")
+            print(f"  Page Number: {chunk.page_num}")
+            print(f"  Content Length: {len(chunk.content)}")
+            print("-" * 50)

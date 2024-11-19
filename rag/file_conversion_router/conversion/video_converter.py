@@ -138,6 +138,7 @@ class VideoConverter(BaseConverter):
 
         video, scene_manager, images_output_dir = setup_scene_detection(str(video_path))
         scene_times = detect_scenes_and_save_images(video, scene_manager, images_output_dir)
+        video.close_video()
         return scene_times
 
     def paragraph_generator(self, transcript, seg_time):
@@ -169,6 +170,7 @@ class VideoConverter(BaseConverter):
     # USED TO BE COMMENTED OUT
     def _to_page(self, input_path: Path, output_path: Path) -> Page:
         """Perform mp4 to Page conversion."""
+
         output_path.parent.mkdir(parents=False, exist_ok=True)
         
         parent = input_path.parent

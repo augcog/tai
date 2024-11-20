@@ -74,16 +74,17 @@ def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path],
     # Iterate over all files with specified extensions
     for input_file_path in input_dir.rglob("*"):
         if input_file_path.suffix in valid_extensions and input_file_path.is_file():
-            file_hash = calculate_hash(input_file_path)
-            if is_empty_md(file_hash):
-                content_logger.error(f"conversion skipped: found empty markdown file {input_file_path}")
-                continue
-            cached_result = persistent_cache.get(file_hash, None)
-            if cached_result and cached_result == conversion_version:
-                content_logger.info(f"Using persistent cached result version {conversion_version} for {input_file_path}")
-                continue
-            else:
-                persistent_cache[file_hash] = conversion_version
+            if cache_dir:
+                file_hash = calculate_hash(input_file_path)
+                if is_empty_md(file_hash):
+                    content_logger.error(f"conversion skipped: found empty markdown file {input_file_path}")
+                    continue
+                cached_result = persistent_cache.get(file_hash, None)
+                if cached_result and cached_result == conversion_version:
+                    content_logger.info(f"Using persistent cached result version {conversion_version} for {input_file_path}")
+                    continue
+                else:
+                    persistent_cache[file_hash] = conversion_version
 
             # Construct the output subdirectory and file path
             output_subdir = output_dir / input_file_path.relative_to(input_dir).parent

@@ -38,6 +38,12 @@ export function SelectCourse() {
         <DropdownMenuItem onSelect={() => handleSelect('EE 106B')}>
           EE 106B
         </DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => handleSelect('Econ 140')}>
+          Econ 140
+        </DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => handleSelect('CS 294-137')}>
+          CS 294-137
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onSelect={() => handleSelect('Public Domain Server')}>
           Public Domain Server

@@ -17,6 +17,8 @@ from rag.file_conversion_router.embedding_create import embedding_create
 def load_yaml(file_path):
     with open(file_path, 'r') as file:
         return yaml.safe_load(file)
+
+
 def pipeline(yaml):
     """A pipeline to scrape, chunk and embedd websites into a knowledge base.
     A YAML file is used to specify the tasks to be performed. The YAML should be structured as follows:
@@ -39,6 +41,8 @@ def pipeline(yaml):
     _, n= os.path.split(root)
     embedding_name=os.path.basename(os.path.normpath(root))
     markdown_path = root + "_md"
+    log_path = root + "_log"
+    cache_path = root + "_cache"
     # print("MDPATH", markdown_path)
     for task in data['tasks']:
         name = task['name']
@@ -55,15 +59,14 @@ def pipeline(yaml):
                 os.makedirs(name)
             print("NAME:",name)
             print(f"The task '{name}' is not local.")
-            url=task['url']
-            base_url=task['root']
+            url = task['url']
+            base_url = task['root']
             base_regex = rf"^{base_url}"
             content_tags = match_tags(url)
             scrapper = ScrapeHeader(url, base_url, base_regex, name, content_tags)
             scrapper.scrape()
-
         
-    convert_directory(root, markdown_path)
+    convert_directory(root, markdown_path, log_dir=log_path, cache_dir=cache_path)
 
     folder_name = "embedding"
     model = "BGE"
@@ -83,7 +86,6 @@ def convert_only(yaml):
     folder_name = "embedding"
     model = "BGE"
     embedding_create(markdown_path, n, embedding_name, folder_name, model)
-
 
 
 if __name__ == "__main__":

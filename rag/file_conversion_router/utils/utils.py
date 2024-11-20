@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Union
 import requests
 
+
 def ensure_path(path: Union[str, Path]) -> Path:
     return Path(path) if not isinstance(path, Path) else path
 
@@ -15,6 +16,15 @@ def calculate_hash(input_path: Path) -> str:
         for byte_block in iter(lambda: file.read(4096), b""):
             sha256_hash.update(byte_block)
     return sha256_hash.hexdigest()
+
+
+def load_conversion_version(version_file_path):
+    with open(version_file_path, "r") as f:
+        return f.read().strip()
+
+
+def is_empty_md(file_hash):
+    return file_hash == "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 
 
 def check_url(url: str) -> int:

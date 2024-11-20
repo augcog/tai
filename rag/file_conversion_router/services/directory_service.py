@@ -14,6 +14,10 @@ from rag.file_conversion_router.conversion.video_converter import VideoConverter
 from rag.file_conversion_router.conversion.ed_converter import EdConverter
 from rag.file_conversion_router.services.task_manager import schedule_conversion
 from rag.file_conversion_router.utils.logger import content_logger, set_log_file_path
+from rag.file_conversion_router.utils.utils import calculate_hash
+from rag.file_conversion_router.utils.persistent_cache import *
+from rag.file_conversion_router.utils.utils import load_conversion_version, is_empty_md
+
 
 ConverterMapping = Dict[str, Type[BaseConverter]]
 
@@ -28,21 +32,31 @@ converter_mapping: ConverterMapping = {
 }
 
 
-def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path]) -> None:
+def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path],
+                   log_dir: Union[str, Path] = None, cache_dir: Union[str, Path] = None) -> None:
     """Walk through the input directory and schedule conversion tasks for specified file types.
 
     Args:
         input_dir (Union[str, Path]): The directory from which to read files.
         output_dir (Union[str, Path]): The directory where converted files will be placed.
-        content_logger: The logger object to use for logging content-related messages.
-
+        log_dir (Union[str, Path], optional): The directory where log files will be placed. Defaults to None.
+        cache_dir (Union[str, Path], optional): The directory where cache files will be placed. Defaults to None.
     Raises:
         ValueError: If either input_dir or output_dir is not a directory.
     """
-    set_log_file_path(content_logger, output_dir)
-
-    input_dir = Path(input_dir)
     output_dir = Path(output_dir)
+    input_dir = Path(input_dir)
+
+    cache_file_name = "persistent_cache.pkl"
+    persistent_cache = {}
+    if log_dir:
+        set_log_file_path(content_logger, log_dir)
+    if cache_dir:
+        cache_path = Path(cache_dir) / cache_file_name
+        persistent_cache = load_persistent_cache(cache_path)
+
+    version_file_path = Path(__file__).parent.parent / "conversion_version.txt"
+    conversion_version = load_conversion_version(version_file_path)
 
     if not input_dir.is_dir():
         raise ValueError(f"Provided input path {input_dir} is not a directory.")
@@ -60,6 +74,17 @@ def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path]) ->
     # Iterate over all files with specified extensions
     for input_file_path in input_dir.rglob("*"):
         if input_file_path.suffix in valid_extensions and input_file_path.is_file():
+            file_hash = calculate_hash(input_file_path)
+            if is_empty_md(file_hash):
+                content_logger.error(f"conversion skipped: found empty markdown file {input_file_path}")
+                continue
+            cached_result = persistent_cache.get(file_hash, None)
+            if cached_result and cached_result == conversion_version:
+                content_logger.info(f"Using persistent cached result version {conversion_version} for {input_file_path}")
+                continue
+            else:
+                persistent_cache[file_hash] = conversion_version
+
             # Construct the output subdirectory and file path
             output_subdir = output_dir / input_file_path.relative_to(input_dir).parent
             output_subdir.mkdir(parents=True, exist_ok=True)
@@ -85,8 +110,10 @@ def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path]) ->
         except Exception as e:
             logging.error(f"Conversion failed: {e}")
 
+    if cache_dir:
+        cache_dir = Path(cache_dir)
+        os.makedirs(cache_dir, exist_ok=True)
+        save_persistent_cache(persistent_cache, cache_dir / cache_file_name)
+    content_logger.info(f"Completed content checking for directory: {input_dir}")
     logging.info(f"Completed processing for directory: {input_dir}")
     logging.info(f"Saved conversion time [{ConversionCache.calc_total_savings()} seconds] by using cached results.")
-
-
-

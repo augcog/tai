@@ -2,6 +2,7 @@ import functools
 import logging
 import os
 from pathlib import Path
+import threading
 
 from rag.file_conversion_router.utils.time_measure import Timer
 
@@ -15,15 +16,23 @@ content_logger.setLevel(logging.INFO)
 content_logger.propagate = False
 
 
-def set_log_file_path(logger, output_path):
-    while logger.hasHandlers():
-        logger.removeHandler(logger.handlers[0])
-    log_dir = os.path.join(output_path, 'log')
-    os.makedirs(log_dir, exist_ok=True)
-    log_file_path = os.path.join(log_dir, f'{logger.name}.log')
-    file_handler = logging.FileHandler(log_file_path, mode='w')
-    file_handler.setFormatter(logging.Formatter(format_string))
-    logger.addHandler(file_handler)
+def set_log_file_path(logger, output_path, mode='w'):
+    for handler in logger.handlers[:]:
+        logger.removeHandler(handler)
+
+    os.makedirs(output_path, exist_ok=True)
+
+    # Configure the log file
+    log_file_path = os.path.join(output_path, f'{logger.name}.log')
+    try:
+        file_handler = logging.FileHandler(log_file_path, mode=mode)
+        file_handler.setFormatter(logging.Formatter(format_string))
+        logger.addHandler(file_handler)
+    except Exception as e:
+        logger.error(f"Failed to set content logger file path: {e}")
+        raise
+
+    return log_file_path
 
 
 def conversion_logger(method):

@@ -190,9 +190,8 @@ class BaseConverter(ABC):
             combined_chunks = self._optimize_chunks(page.chunks)
             page.chunks = combined_chunks
 
-        # TODO: current page check has bug. Uncomment below code after fixing the bug
-        # if self._check_page_content(page, input_path):
-        page.chunks_to_pkl(str(pkl_output_path))
+        if self._check_page_content(page, input_path):
+            page.chunks_to_pkl(str(pkl_output_path))
 
     def _optimize_markdown_content(self, page: Page, original_content: str) -> None:
         """Optimize the Markdown content and combine enhanced and original versions."""

@@ -15,6 +15,9 @@ import torch.nn.functional as F
 from torch import Tensor
 from angle_emb import AnglE, Prompts
 
+
+from rag.file_conversion_router.utils.logger import content_logger
+
 load_dotenv()
 
 
@@ -97,6 +100,9 @@ def embedding_create(markdown_path,name, embedding_name, folder_name, model):
         'url_list': url_list,
         'time_list': time_list
     }
+
+    validate_data(data_to_store)
+
     # Create the folder if it does not exist
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
@@ -109,5 +115,27 @@ def embedding_create(markdown_path,name, embedding_name, folder_name, model):
         print("Failed Embeddings: ", i)
 
 
+def validate_data(data):
+    """
+    Check if the content of the data is valid.
+    Args:
+        data (dict): The data dictionary to check.
+    """
+
+    content_logger.info("Validating embedding data...")
+    lengths = []
+    for key, value in data.items():
+        if len(value) == 0:
+            content_logger.error(f"{key} is empty.")
+        if not isinstance(value, np.ndarray):
+            content_logger.error(f"{key} is not a numpy array.")
+        lengths.append(len(value))
+
+    if len(set(lengths)) > 1:
+        content_logger.error("Lists are of inconsistent lengths.")
+
+    content_logger.info("Data validation complete.")
+
+
 if __name__ == "__main__":
-    embedding_create("./../../../cs61a_chunk", "about", "cs61a", "pickle", "BGE")
+    embedding_create("out", "about", "cs61a", "pickle", "BGE")

@@ -122,9 +122,13 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
             picklefile = "eecs106b.pkl"
         elif course == "CS 61A":
             picklefile = "cs61a.pkl"
+        elif course == "CS 294-137":
+            picklefile = "cs294.pkl"
+        elif course == "Econ 140":
+            picklefile = "Econ140.pkl"
         else:
             picklefile = "Berkeley.pkl"
-        current_dir = "roarai/rag/file_conversion_router/embedding"     # Modify this path to the directory containing the embedding pickle files
+        current_dir = "/home/bot/localgpt/tai/ai_course_bot/ai-chatbot-backend/app/embedding/"  # Modify this path to the directory containing the embedding pickle files
         query_embed = embedding_model.encode(user_message, return_dense=True, return_sparse=True,
                                                 return_colbert_vecs=True)
         if SQLDB:   

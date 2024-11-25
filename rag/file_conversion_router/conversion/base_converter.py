@@ -7,12 +7,16 @@ from pathlib import Path
 from shutil import copy2
 from threading import Lock
 from typing import Dict, List, Union
+
 import yaml
 
 from rag.file_conversion_router.utils.logger import conversion_logger, logger, content_logger
 from rag.file_conversion_router.utils.utils import calculate_hash, ensure_path, check_url
 from rag.file_conversion_router.classes.page import Page
 from rag.file_conversion_router.classes.vidpage import VidPage
+from rag.file_conversion_router.embedding_optimization.src.pipeline.optimizer import EmbeddingOptimizer
+from rag.file_conversion_router.utils.logger import conversion_logger, logger, content_logger
+from rag.file_conversion_router.utils.utils import calculate_hash, ensure_path, check_url
 
 
 class BaseConverter(ABC):
@@ -29,8 +33,10 @@ class BaseConverter(ABC):
     As long as a child classes can convert a file to Markdown,
     the base classes will handle the rest of the conversion process.
     """
+    DEFAULT_EMBEDDING_OPTIMIZATION_CONFIG_PATH = str(
+        (Path(__file__).parent / ".." / "embedding_optimization" / "src" / "configs" / "default_config.yaml").resolve())
 
-    def __init__(self):
+    def __init__(self, optimizer_config_path: Union[str, Path] = None):
         self._md_parser = None
 
         self._md_path = None
@@ -39,9 +45,34 @@ class BaseConverter(ABC):
         self._logger = logger
         self._content_logger = content_logger
 
+        if optimizer_config_path is None:
+            optimizer_config_path = self.DEFAULT_EMBEDDING_OPTIMIZATION_CONFIG_PATH
+        self.optimizer_config_path = optimizer_config_path
+
+        if optimizer_config_path:
+            config_path = Path(optimizer_config_path)
+            if not config_path.is_file():
+                self._logger.error(f"Optimizer config file does not exist at: {config_path}")
+                raise FileNotFoundError(f"Optimizer config file does not exist at: {config_path}")
+
+            self.optimizer = EmbeddingOptimizer(config_path=str(config_path))
+            self._logger.info(f"EmbeddingOptimizer initialized with config: {config_path}")
+        else:
+            self.optimizer = None
+            self._logger.info("Embedding optimization is disabled.")
+
     @conversion_logger
     def convert(self, input_path: Union[str, Path], output_folder: Union[str, Path]) -> None:
-        """Convert an input file to output files, ensuring unwanted files are deleted after processing."""
+        """Convert an input file to 3 files: Markdown, tree txt, and pkl file, under the output folder.
+
+        Args:
+            input_path: The path for a single file to be converted. e.g. 'path/to/file.txt'
+            output_folder: The folder where the output files will be saved. e.g. 'path/to/output_folder'
+                other files will be saved in the output folder, e.g.:
+                - 'path/to/output_folder/file.md'
+                - 'path/to/output_folder/file.md.tree.txt'
+                - 'path/to/output_folder/file.md.pkl'
+        """
         input_path, output_folder = ensure_path(input_path), ensure_path(output_folder)
         if not input_path.exists():
             self._logger.error(f"The file {input_path} does not exist.")
@@ -55,7 +86,7 @@ class BaseConverter(ABC):
             self._logger.info(
                 f"Cached result found, using cached files for input path: {input_path} "
                 f"in output folder: {output_folder}."
-                f"\nCached content are: {[str(path) for path in cached_paths]}."
+                f"\n Cached content are: {[str(path) for path in cached_paths]}."
             )
             self._content_logger.warning(f"Cached result found, using cached files for input path: {input_path} ")
             self._use_cached_files(cached_paths, output_folder)
@@ -78,16 +109,11 @@ class BaseConverter(ABC):
             if cached_paths:
                 self._use_cached_files(cached_paths, output_folder)
 
-        # Delete unwanted files after all operations
-
-
-
     @conversion_logger
     def _convert_to_markdown(self, input_path: Path, output_path: Path) -> None:
         """Convert the input file to Expected Markdown format."""
         self._to_markdown(input_path, output_path)
 
-    @conversion_logger
     def _convert_to_page(self, input_path: Path, output_path: Path) -> Page:
         page = self._to_page(input_path, output_path)
         return page
@@ -150,10 +176,74 @@ class BaseConverter(ABC):
             logger.warning(f"Output folder did not exist, it's now created: {output_folder}")
         filename = output_folder.stem
         pkl_output_path = output_folder / f"{filename}.pkl"
-        page = self._convert_to_page(input_path, pkl_output_path)[0]
+        page = self._convert_to_page(input_path, pkl_output_path)
         page.to_chunk()
+
+        # Add embedding optimization if enabled
+        if self.optimizer:
+            # Handle Markdown Optimization
+            original_content = page.content.get('text', '')
+            self._optimize_markdown_content(page, original_content)
+
+            # Handle Chunk Optimization
+            combined_chunks = self._optimize_chunks(page.chunks)
+            page.chunks = combined_chunks
+
         if self._check_page_content(page, input_path):
             page.chunks_to_pkl(str(pkl_output_path))
+
+    def _optimize_markdown_content(self, page: Page, original_content: str) -> None:
+        """Optimize the Markdown content and combine enhanced and original versions."""
+        result = self.optimizer.process_markdown(original_content)
+        if result.success:
+            enhanced_content = result.content
+            # Combine enhanced and original content with clear headers
+            combined_content = (
+                "# TAI Embedding Optimized Content\n\n"
+                f"{enhanced_content}\n\n"
+                "# Original Content\n\n"
+                f"{original_content}"
+            )
+            # Update the page content with combined content
+            page.content['text'] = combined_content
+
+            # Resave the combined Markdown content
+            with open(self._md_path, "w", encoding="utf-8") as md_file:
+                md_file.write(combined_content)
+            self._logger.info(f"Enhanced and original Markdown saved to {self._md_path}")
+        else:
+            self._logger.error(f"Failed to optimize Markdown: {result.error}")
+
+    def _optimize_chunks(self, original_chunks: List[Chunk]) -> List[Chunk]:
+        """Optimize each chunk and combine enhanced and original versions."""
+        optimized_chunks = self.optimizer.process_chunks(original_chunks)
+        combined_chunks = []
+
+        for original_chunk, optimized_chunk in zip(original_chunks, optimized_chunks):
+            # Combine enhanced and original chunk content with clear headers
+            combined_chunk_content = (
+                "## TAI Embedding Optimized Chunk\n\n"
+                f"{optimized_chunk.content}\n\n"
+                "## Original Chunk\n\n"
+                f"{original_chunk.content}"
+            )
+
+            # Create a new Chunk instance with combined content
+            combined_chunk = Chunk(
+                content=combined_chunk_content,
+                titles=original_chunk.titles,
+                chunk_url=original_chunk.chunk_url,
+                metadata={
+                    **(original_chunk.metadata or {}),
+                    'enhanced': True,
+                    'original_chunk_url': original_chunk.chunk_url  # Preserve original URL if needed
+                }
+            )
+
+            combined_chunks.append(combined_chunk)
+            self._logger.info(f"Combined enhanced and original chunk for URL: {original_chunk.chunk_url}")
+
+        return combined_chunks
 
     def _delete_yaml_and_pdf_files(self, directory: Path) -> None:
         """Delete all .yaml and .pdf files in the given directory."""
@@ -189,14 +279,17 @@ class BaseConverter(ABC):
         return True
 
     def _to_page(self, input_path: Path, output_path: Path, file_type: str = "markdown") -> Page:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
         # Ensure the output directory exists
         output_path.parent.mkdir(parents=True, exist_ok=True)
         stem = input_path.stem
         file_type = input_path.suffix.lstrip('.')
-        # Convert the input file to Markdown and read its content
+
         md_path = self._to_markdown(input_path, output_path)
         with open(md_path, "r", encoding="utf-8") as input_file:
             content_text = input_file.read()
+
+        metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
         # Set metadata_path to the YAML file in the output directory
         metadata_path = md_path.with_suffix('.yaml')
         print(f"Metadata path: {metadata_path} (Exists: {metadata_path.exists()})")  # Debugging statement
@@ -211,6 +304,8 @@ class BaseConverter(ABC):
             return VidPage(pagename=stem, content=content, filetype=file_type, page_url=url)
         else:
             content = {"text": content_text}
+            return Page(pagename=stem, content=content, filetype=file_type, page_url=url)
+
             return Page(pagename=stem, content=content, filetype=file_type, page_url=url, metadata_path=metadata_path)
 
 
@@ -218,6 +313,7 @@ class BaseConverter(ABC):
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:
         """Convert the input file to Expected Markdown format. To be implemented by subclasses."""
         raise NotImplementedError("This method should be overridden by subclasses.")
+
 
 class ConversionCache:
     """A classes to handle caching of conversion results."""

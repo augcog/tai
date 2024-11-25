@@ -1,4 +1,5 @@
 import string
+from typing import Optional
 from rag.file_conversion_router.classes.chunk import Chunk
 import tiktoken
 import yaml
@@ -11,7 +12,7 @@ class Page:
 
     PAGE_LENGTH_THRESHOLD = 500
 
-    def __init__(self, pagename: str, content: dict, filetype: str, page_url: str = "", metadata_path: Path = None):
+    def __init__(self, pagename: str, content: dict, filetype: str, page_url: str = "", page_path: Optional[Path] = None):
         """
         Initialize a Page instance.
 
@@ -28,23 +29,16 @@ class Page:
         self.tree_segments = []
         self.chunks = []
         self.page_numbers = self.load_metadata_page_numbers(
-            metadata_path) if metadata_path and metadata_path.exists() else None
+            page_path) if page_path.exists() else None
 
-    def load_metadata_page_numbers(self, metadata_path: Path):
-        """
-        Load page numbers and their start lines from a metadata YAML file.
-
-        Args:
-            metadata_path (Path): Path to the metadata YAML file.
-
-        Returns:
-            list: A list of dictionaries with 'page_num' and 'start_line' keys.
-        """
+    def load_metadata_page_numbers(self, page_path: Path):
         try:
-            with open(metadata_path, 'r', encoding='utf-8') as f:
-                metadata = yaml.safe_load(f)
-            return [{'page_num': page_info['page_num'], 'start_line': page_info['start_line']} for page_info in
-                    metadata.get('pages', [])]
+            with open(page_path, 'r', encoding='utf-8') as f:
+                page_data = yaml.safe_load(f)
+            loaded_page_numbers = [{'page_num': page_info['page_num'], 'start_line': page_info['start_line']} for
+                                   page_info in
+                                   page_data.get('pages', [])]
+            return loaded_page_numbers
         except Exception as e:
             print(f"Error reading metadata: {e}")
             return []
@@ -140,14 +134,12 @@ class Page:
                 if line.startswith('#'):  # Identify headers
                     if curheader:  # Save the previous header and its content
                         headers_content.append(((curheader, current_page_num), current_content.strip()))
-                    header = line
-                    header_level = count_consecutive_hashes(header)  # Count header level
-                    header = header.strip('#').strip()
+                    header_level = count_consecutive_hashes(line)  # Count header level
+                    header = line.strip('#').strip()
                     curheader = (header, header_level)  # Save the header and level
-                    current_content = ""
+                    current_content = ""  # Reset content
                 else:
-                    if curheader:
-                        current_content += f"{line}\n"
+                    current_content += f"{line}\n"
 
         # Append the last header and its content, if there was any header encountered
         if curheader:
@@ -162,7 +154,7 @@ class Page:
             self.segments = [("(NO ANY HEADER DETECTED)", 0), self.content['text']]
 
 
-    def print_header_tree(self):
+    def print_header_tree(self) -> object:
         result = ""
         for (title, level), _ in self.segments:
             if level is not None:
@@ -214,9 +206,6 @@ class Page:
 
             # Use the page number of the current header for the segment
             segment_page_num = page_num if page_num is not None else None
-            print(f"Tree Segment {counter}:")
-            print(f"  Current Header: {header_title} (Level {level})")
-            print(f"  Current Path: {[h[0] for h in top_header]}")
 
             # Add to `tree_segments`
             tree_segment = {
@@ -267,26 +256,6 @@ class Page:
                 else:
                     segment += f"{hash_symbols}{h} (h{l})\n"
                 segment += f"{c}\n"
-            # print("=== Debugging Tree Segments ===")
-            #
-            # for (header, page_num), content in self.segments:
-            #     level = header[1]  # Header level determined by '##' count
-            #     header_title = header[0]
-            #
-            #     # Adjust 'top_header' to match current level
-            #     if len(top_header) >= level:
-            #         # Truncate 'top_header' to the current level - 1
-            #         top_header = top_header[:level - 1]
-            #
-            #     # Append the current header
-            #     top_header.append((header_title, content, level, page_num))
-            #
-            #     # Debugging: Print the current state of the tree
-            #     print(f"Tree Segment {counter}:")
-            #     print(f"  Header: {header_title} (Level {level})")
-            #     print(f"  Page Number: {page_num}")
-            #     print(f"  Content Length: {len(content)}")
-            #     print("-" * 50)
             tree_segment = {
                 'Page_table': page_toc,
                 'Page_path': header_list,
@@ -308,10 +277,18 @@ class Page:
                 else:
                     urls = "URL_NOT_AVAILABLE"
 
-                # Include header levels in the page path for clarity
                 page_path = ' > '.join(
                     f"{item} (h{i + 1})" for i, item in enumerate(segment['Page_path'])) + f" ({count})"
-                self.chunks.append(Chunk(page_path, content_chunk, urls, page_num))
+                self.chunks.append(
+                    Chunk(
+                        content=content_chunk,
+                        titles=headers[-1],
+                        chunk_url=urls,
+                        metadata={"page_path": page_path},  # Include page_path in metadata
+                        page_num=page_num
+                    )
+                )
+
         return self.chunks
 
     def to_file(self, output_path: str) -> None:
@@ -345,125 +322,3 @@ class Page:
         with open(output_path, "wb") as f:
             pickle.dump(self.chunks, f)
 
-    def debug_page_num(self):
-        """
-        Debug function to print out the association between content segments and page numbers.
-        """
-        print("=== Debugging Page Number Assignments ===")
-
-        if self.page_numbers:
-            print("Loaded Page Numbers from Metadata:")
-            for page_info in self.page_numbers:
-                print(f"Page {page_info['page_num']} starts at line {page_info['start_line']}")
-        else:
-            print("No page numbers loaded from metadata.")
-
-        # Print headers and their assigned page numbers
-        if self.segments:
-            print("\nHeaders and Assigned Page Numbers:")
-            for idx, ((header, page_num), content) in enumerate(self.segments):
-                header_title, header_level = header
-                print(f"Segment {idx + 1}:")
-                print(f"  Header: {header_title} (Level {header_level})")
-                if page_num is not None:
-                    print(f"  Assigned Page Number: {page_num}")
-                else:
-                    print("  Assigned Page Number: None")
-        else:
-            print("No segments available to debug.")
-
-    def find_empty_content_headers(self):
-        """
-        Identify headers in chunks that have no associated content.
-
-        Returns:
-            list: A list of headers with no associated content.
-        """
-        empty_content_headers = []
-
-        for chunk in self.chunks:
-            # Check if the content in the chunk is empty
-            if not chunk.content.strip():  # Using .strip() to ensure it catches empty or whitespace-only content
-                empty_content_headers.append(chunk.page_path)  # Store the header/page path as the identifier
-
-        # Print or return the headers with empty content
-        if empty_content_headers:
-            print("Headers with no associated content:")
-            for header in empty_content_headers:
-                print(header)
-        else:
-            print("No empty content headers found.")
-
-        return empty_content_headers
-
-    def merge_empty_headers_with_subheaders(self):
-        """
-        Find headers with empty content and merge them with their subheaders, if available.
-        """
-        i = 0
-        while i < len(self.chunks) - 1:
-            current_chunk = self.chunks[i]
-            next_chunk = self.chunks[i + 1]
-
-            # Check if the current chunk's content is empty
-            if not current_chunk.content.strip():
-                # Extract levels from current and next headers
-                current_header_level_match = re.search(r'h(\d+)', current_chunk.page_path)
-                next_header_level_match = re.search(r'h(\d+)', next_chunk.page_path)
-
-                # If header levels exist, compare them
-                if current_header_level_match and next_header_level_match:
-                    current_header_level = int(current_header_level_match.group(1))
-                    next_header_level = int(next_header_level_match.group(1))
-
-                    # Check if next header is a subheader
-                    if next_header_level > current_header_level:
-                        # Merge the content of the empty header with the subheader's content
-                        current_chunk.content += f"\n{next_chunk.content}"
-                        print(
-                            f"Merged empty header '{current_chunk.page_path}' with subheader '{next_chunk.page_path}'.")
-
-            # Move to the next chunk
-            i += 1
-
-        print("Completed merging empty headers with subheaders where applicable.")
-
-    def debug_headers_and_levels(self, headers_content):
-        print("=== Debugging Headers and Levels ===")
-        for idx, ((header, page_num), content) in enumerate(headers_content):
-            header_title, header_level = header
-            print(f"Header {idx + 1}: '{header_title}' (Level {header_level})")
-            print(f"  Assigned Page Number: {page_num}")
-            print(f"  Content Length: {len(content)}")
-            print("-" * 50)
-
-    def debug_empty_headers(self):
-        empty_headers = self.find_empty_content_headers()
-        if empty_headers:
-            print("Empty headers detected:")
-            for header in empty_headers:
-                print(f"  {header}")
-        else:
-            print("No empty headers detected.")
-
-    def print_chunk_content(self):
-        """
-        Print the content of all chunks for debugging.
-        """
-        print("=== Printing Chunk Content ===")
-        for idx, chunk in enumerate(self.chunks):
-            print(f"Header {chunk.titles}:")
-            print(f"Chunk {idx + 1}:")
-            print(f"  Page Number: {chunk.page_num}")
-            print(f"  URL: {chunk.chunk_url}")
-            print(f"  Content:\n{chunk.content}\n")
-            print("-" * 50)
-
-    def debug_chunks(self):
-        print("=== Debugging Chunks ===")
-        for idx, chunk in enumerate(self.chunks):
-            print(f"Chunk {idx + 1}:")
-            print(f"  Page Path: {chunk.chunk_url}")
-            print(f"  Page Number: {chunk.page_num}")
-            print(f"  Content Length: {len(chunk.content)}")
-            print("-" * 50)

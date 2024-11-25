@@ -243,7 +243,7 @@ class BaseConverter(ABC):
             )
 
             combined_chunks.append(combined_chunk)
-            self._logger.info(f"Combined enhanced and original chunk for URL: {original_chunk.chunk_url}")
+            # self._logger.info(f"Combined enhanced and original chunk for URL: {original_chunk.chunk_url}")
 
         return combined_chunks
 
@@ -291,13 +291,12 @@ class BaseConverter(ABC):
             content_text = input_file.read()
 
         metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
-        # Set metadata_path to the YAML file in the output directory
-        metadata_path = md_path.with_suffix('.yaml')
-        print(f"Metadata path: {metadata_path} (Exists: {metadata_path.exists()})")  # Debugging statement
-        # Read the metadata content
+        page_path = md_path.with_suffix('.yaml')
+        if page_path.suffix == '.yaml':
+            print(f"Page path is correctly identified: {page_path}")
+        else:
+            raise ValueError(f"Page path identification failed: {page_path}")
         metadata_content = self._read_metadata(metadata_path)
-        print(f"Metadata content: {metadata_content}")  # Debugging statement
-        # Since the new metadata file might not contain 'URL', handle it accordingly
         url = metadata_content.get("URL")
 
         if file_type == "mp4":
@@ -306,10 +305,7 @@ class BaseConverter(ABC):
             return VidPage(pagename=stem, content=content, filetype=file_type, page_url=url)
         else:
             content = {"text": content_text}
-            return Page(pagename=stem, content=content, filetype=file_type, page_url=url)
-
-            return Page(pagename=stem, content=content, filetype=file_type, page_url=url, metadata_path=metadata_path)
-
+            return Page(pagename=stem, content=content, filetype=file_type, page_url=url, page_path=page_path)
 
     @abstractmethod
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:

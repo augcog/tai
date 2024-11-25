@@ -1,3 +1,9 @@
+# TAI Embedding Optimized Content
+
+Using test mock model for embedding optimization. Mock response for: Combine these results into a final enhanced summar...
+
+# Original Content
+
 C106B Discussion 1: Dynamical Systems & Linear Control
 
 ## 1 Introduction
@@ -46,7 +52,7 @@ _Hint: Find a set of phase variables for each differential equation and put them
 
 **Solution:** We choose the state vector: \(q=[q_{1},q_{2},q_{3},q_{4},q_{5},q_{6}]=[y,z,\theta,\dot{y},\dot{z},\dot{\theta}]\) and an input vector \(u=[u_{1},u_{2}]=[F,M]\) Using this state vector, we can rewrite the dynamics in state space as:
 
-\[\begin{bmatrix}\dot{q}_{1}\\ \dot{q}_{2}\\ \dot{q}_{3}\\ \dot{q}_{4}\\ \dot{q}_{5}\\ \dot{q}_{6}\\ \dot{q}_{7}\end{bmatrix}=\begin{bmatrix}\dot{q}_{4}\\ \dot{q}_{5}\\ \dot{q}_{6}\\ -u_{1}\sin q_{3}/m\\ u_{1}\cos q_{3}/m-g\\ u_{2}/I\end{bmatrix}\] (10)
+\[\begin{bmatrix}\dot{q}_{1}\\ \dot{q}_{2}\\ \dot{q}_{3}\\ \dot{q}_{4}\\ \dot{q}_{5}\\ \dot{q}_{6}\\ \dot{q}_{7}\end{bmatrix}=\begin{bmatrix}\dot{q}_{4}\\ \dot{q}_{5}\\ \dot{q}_{6}\\ -u_{1}\sin q_{13}/m\\ u_{1}\cos q_{3}/m-g\\ u_{2}/I\end{bmatrix}\] (10)
 
 ## 3 Linear Differential Equations
 

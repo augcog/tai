@@ -16,7 +16,7 @@ def load_pkl_file(file_path: Path):
     return data
 
 # Specify the path to the .pkl file
-file_path = Path("output_tmp/expected_output/filename/filename.pkl")
+file_path = Path("output_tmp/expected_output/debug/filename/filename.pkl")
 
 # Load the contents of the .pkl file
 pkl_contents = load_pkl_file(file_path)
@@ -28,8 +28,8 @@ num_chunks = len(pkl_contents)
 print(f"Number of content chunks: {num_chunks}")
 for idx, chunk in enumerate(pkl_contents):
     print(f"Chunk {idx + 1}:")
-    print(chunk.content)
     print(chunk.titles)
     print(f"URL: {chunk.chunk_url}")
     print(f"Page number: {chunk.page_num}")
+    print(chunk.content)
     print("-" * 40)  # Separator for better readability

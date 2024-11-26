@@ -239,11 +239,12 @@ class BaseConverter(ABC):
                     **(original_chunk.metadata or {}),
                     'enhanced': True,
                     'original_chunk_url': original_chunk.chunk_url  # Preserve original URL if needed
-                }
+                },
+                page_num = original_chunk.page_num
             )
-
             combined_chunks.append(combined_chunk)
-            # self._logger.info(f"Combined enhanced and original chunk for URL: {original_chunk.chunk_url}")
+
+            self._logger.info(f"Combined enhanced and original chunk for URL: {original_chunk.page_num}")
 
         return combined_chunks
 
@@ -260,10 +261,7 @@ class BaseConverter(ABC):
                 except Exception as e:
                     self._logger.error(f"Error deleting file {file_path}: {e}")
 
-    # @abstractmethod
-    # def _to_page(self, input_path: Path, output_path: Path) -> Page:
-    #     """Convert the input file to Expected Page format. To be implemented by subclasses."""
-    #     raise NotImplementedError("This method should be overridden by subclasses.")
+
     def _check_page_content(self, page: Page, input_path: Path) -> bool:
         content_length_threshold = Page.PAGE_LENGTH_THRESHOLD
         content_length = len(page.content.get('text', ''))
@@ -281,7 +279,7 @@ class BaseConverter(ABC):
                                       f"url state: {url_state}")
         return True
 
-    def _to_page(self, input_path: Path, output_path: Path, file_type: str = "markdown") -> Page:
+    def _to_page(self, input_path: Path, output_path: Path) -> Page:
         output_path.parent.mkdir(parents=True, exist_ok=True)
         stem = input_path.stem
         file_type = input_path.suffix.lstrip('.')
@@ -291,13 +289,13 @@ class BaseConverter(ABC):
             content_text = input_file.read()
 
         metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
-        page_path = md_path.with_suffix('.yaml')
-        if page_path.suffix == '.yaml':
-            print(f"Page path is correctly identified: {page_path}")
-        else:
-            raise ValueError(f"Page path identification failed: {page_path}")
+
+        page_path = output_path.with_name(f"{stem}_page_info.yaml")
+
         metadata_content = self._read_metadata(metadata_path)
         url = metadata_content.get("URL")
+        print(f"URL: {url}")
+        print(f"Does page path exist? {page_path.exists()}")
 
         if file_type == "mp4":
             timestamp = [i[1] for i in self.paragraphs]

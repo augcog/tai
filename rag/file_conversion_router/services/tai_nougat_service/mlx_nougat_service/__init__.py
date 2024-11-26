@@ -74,7 +74,7 @@ def main(input_pdf_path: Path, output_dir: Path) -> None:
 
     # Save the page information metadata to a new YAML file
     metadata_content = {'pages': page_info_list}
-    new_yaml_file_path = output_md_file_path.with_suffix('.yaml')
+    new_yaml_file_path = output_md_file_path.with_name(output_md_file_path.stem + '_page_info.yaml')
     print(f"Page metadata content: {metadata_content}")
 
     with open(new_yaml_file_path, "w", encoding="utf-8") as f:

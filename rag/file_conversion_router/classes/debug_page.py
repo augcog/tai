@@ -3,7 +3,7 @@ from rag.file_conversion_router.classes.page import Page
 
 # Define paths
 md_path = "output_tmp/expected_output/debug/filename/filename.md"
-metadata_path = Path("output_tmp/expected_output/debug/filename/filename.yaml")  # Replace with your actual metadata path
+metadata_path = Path("output_tmp/expected_output/debug/filename/filename_page_info.yaml")  # Replace with your actual metadata path
 
 # Load markdown content
 with open(md_path, "r", encoding="utf-8") as input_file:

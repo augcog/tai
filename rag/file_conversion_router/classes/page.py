@@ -35,9 +35,9 @@ class Page:
         try:
             with open(page_path, 'r', encoding='utf-8') as f:
                 page_data = yaml.safe_load(f)
-            loaded_page_numbers = [{'page_num': page_info['page_num'], 'start_line': page_info['start_line']} for
-                                   page_info in
-                                   page_data.get('pages', [])]
+            loaded_page_numbers = [{'page_num': page_info.get('page_num'), 'start_line': page_info.get('start_line')}
+                                   for page_info in page_data.get('pages', [])]
+            print(f"Loaded page numbers: {loaded_page_numbers}")
             return loaded_page_numbers
         except Exception as e:
             print(f"Error reading metadata: {e}")
@@ -123,7 +123,8 @@ class Page:
                 while page_num_index < total_pages and line_num >= self.page_numbers[page_num_index]['start_line']:
                     current_page_num = self.page_numbers[page_num_index]['page_num']
                     page_num_index += 1
-
+                    print(f"line_num: {line_num}, current_page_num: {current_page_num}, page_num_index: {page_num_index}")
+                    print(f"self.page_numbers: {self.page_numbers}")
             if "```" in stripped_line:
                 in_code_block = not in_code_block
 
@@ -134,6 +135,7 @@ class Page:
                 if line.startswith('#'):  # Identify headers
                     if curheader:  # Save the previous header and its content
                         headers_content.append(((curheader, current_page_num), current_content.strip()))
+                        print(f"Header: {curheader}, Page Number: {current_page_num}")
                     header_level = count_consecutive_hashes(line)  # Count header level
                     header = line.strip('#').strip()
                     curheader = (header, header_level)  # Save the header and level
@@ -180,6 +182,7 @@ class Page:
             # Append the current header with its page number (only if page number exists)
             if page_num is not None:
                 top_header.append((header_title, content, level, page_num))
+
             else:
                 top_header.append((header_title, content, level, None))
 
@@ -223,6 +226,7 @@ class Page:
             }
             if segment_page_num is not None:
                 tree_segment['page_num'] = segment_page_num
+                print(f"Tree segment page_num: {tree_segment.get('page_num', None)}")
 
             self.tree_segments.append(tree_segment)
             counter += 1
@@ -284,7 +288,7 @@ class Page:
                         content=content_chunk,
                         titles=headers[-1],
                         chunk_url=urls,
-                        metadata={"page_path": page_path},  # Include page_path in metadata
+                        # metadata={"page_path": page_path},  # Include page_path in metadata
                         page_num=page_num
                     )
                 )

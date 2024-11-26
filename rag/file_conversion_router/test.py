@@ -31,5 +31,4 @@ for idx, chunk in enumerate(pkl_contents):
     print(chunk.titles)
     print(f"URL: {chunk.chunk_url}")
     print(f"Page number: {chunk.page_num}")
-    print(chunk.content)
     print("-" * 40)  # Separator for better readability

@@ -201,6 +201,7 @@ class BaseConverter(ABC):
             enhanced_content = result.content
             # Combine enhanced and original content with clear headers
             combined_content = (
+                """Uncomment below line after have way to deactivate optimizer"""
                 # "# TAI Embedding Optimized Content\n\n"
                 # f"{enhanced_content}\n\n"
                 # "# Original Content\n\n"
@@ -224,6 +225,7 @@ class BaseConverter(ABC):
         for original_chunk, optimized_chunk in zip(original_chunks, optimized_chunks):
             # Combine enhanced and original chunk content with clear headers
             combined_chunk_content = (
+                """Uncomment below line after have way to deactivate optimizer"""
                 # "## TAI Embedding Optimized Chunk\n\n"
                 # f"{optimized_chunk.content}\n\n"
                 # "## Original Chunk\n\n"

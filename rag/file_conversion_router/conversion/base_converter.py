@@ -9,7 +9,6 @@ from threading import Lock
 from typing import Dict, List, Union
 
 import yaml
-
 from rag.file_conversion_router.classes.chunk import Chunk
 from rag.file_conversion_router.classes.page import Page
 from rag.file_conversion_router.classes.vidpage import VidPage
@@ -190,9 +189,8 @@ class BaseConverter(ABC):
             combined_chunks = self._optimize_chunks(page.chunks)
             page.chunks = combined_chunks
 
-        # TODO: current page check has bug. Uncomment below code after fixing the bug
-        # if self._check_page_content(page, input_path):
-        page.chunks_to_pkl(str(pkl_output_path))
+        if self._check_page_content(page, input_path):
+            page.chunks_to_pkl(str(pkl_output_path))
 
     def _optimize_markdown_content(self, page: Page, original_content: str) -> None:
         """Optimize the Markdown content and combine enhanced and original versions."""
@@ -281,7 +279,10 @@ class BaseConverter(ABC):
                                       f"url state: {url_state}")
         return True
 
-    def _to_page(self, input_path: Path, output_path: Path) -> Page:
+
+    def _to_page(self, input_path: Path, output_path: Path, file_type: str = "markdown") -> Page:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        # Ensure the output directory exists
         output_path.parent.mkdir(parents=True, exist_ok=True)
         stem = input_path.stem
         file_type = input_path.suffix.lstrip('.')
@@ -293,6 +294,7 @@ class BaseConverter(ABC):
         metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
 
         page_path = output_path.with_name(f"{stem}_page_info.yaml")
+
 
         metadata_content = self._read_metadata(metadata_path)
         url = metadata_content.get("URL")
@@ -306,6 +308,7 @@ class BaseConverter(ABC):
         else:
             content = {"text": content_text}
             return Page(pagename=stem, content=content, filetype=file_type, page_url=url, page_path=page_path)
+
 
     @abstractmethod
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:

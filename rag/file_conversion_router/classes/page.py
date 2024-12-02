@@ -10,7 +10,7 @@ from pathlib import Path
 
 class Page:
 
-    PAGE_LENGTH_THRESHOLD = 500
+    PAGE_LENGTH_THRESHOLD = 20
 
     def __init__(self, pagename: str, content: dict, filetype: str, page_url: str = "", page_path: Optional[Path] = None):
         """

@@ -123,8 +123,6 @@ class Page:
                 while page_num_index < total_pages and line_num >= self.page_numbers[page_num_index]['start_line']:
                     current_page_num = self.page_numbers[page_num_index]['page_num']
                     page_num_index += 1
-                    print(f"line_num: {line_num}, current_page_num: {current_page_num}, page_num_index: {page_num_index}")
-                    print(f"self.page_numbers: {self.page_numbers}")
             if "```" in stripped_line:
                 in_code_block = not in_code_block
 
@@ -135,7 +133,6 @@ class Page:
                 if line.startswith('#'):  # Identify headers
                     if curheader:  # Save the previous header and its content
                         headers_content.append(((curheader, current_page_num), current_content.strip()))
-                        print(f"Header: {curheader}, Page Number: {current_page_num}")
                     header_level = count_consecutive_hashes(line)  # Count header level
                     header = line.strip('#').strip()
                     curheader = (header, header_level)  # Save the header and level
@@ -191,7 +188,8 @@ class Page:
             for h, c, l, p in top_header:
                 hash_symbols = '#' * l
                 if p is not None:
-                    segment += f"{hash_symbols}{h} (h{l}, Page {p})\n"
+                    # segment += f"{hash_symbols}{h} (h{l}, Page {p})\n"
+                    segment += f"{hash_symbols}{h} (h{l})\n"
                 else:
                     segment += f"{hash_symbols}{h} (h{l})\n"
                 segment += f"{c}\n"

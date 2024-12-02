@@ -121,7 +121,7 @@ def main(config: NougatConfig, model: NougatModel = Provide[NougatContainer.mode
                     out_path.write_text(out, encoding="utf-8")
 
                     # Construct the metadata file path
-                    metadata_path = config.output_dir / (Path(original_name).stem + "_metadata.yaml")
+                    metadata_path = config.output_dir / (Path(original_name).stem + "_page_info.yaml")
                     with open(metadata_path, 'w', encoding='utf-8') as yaml_file:
                         yaml.dump({'pages': page_info_list}, yaml_file, allow_unicode=True)
                         logging.info(f"Metadata written to {metadata_path}")

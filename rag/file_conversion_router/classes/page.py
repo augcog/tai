@@ -10,7 +10,7 @@ from pathlib import Path
 
 class Page:
 
-    PAGE_LENGTH_THRESHOLD = 500
+    PAGE_LENGTH_THRESHOLD = 20
 
     def __init__(self, pagename: str, content: dict, filetype: str, page_url: str = "", page_path: Optional[Path] = None):
         """
@@ -29,7 +29,7 @@ class Page:
         self.tree_segments = []
         self.chunks = []
         self.page_numbers = self.load_metadata_page_numbers(
-            page_path) if page_path.exists() else None
+            page_path) if page_path else None
 
     def load_metadata_page_numbers(self, page_path: Path):
         try:
@@ -224,7 +224,6 @@ class Page:
             }
             if segment_page_num is not None:
                 tree_segment['page_num'] = segment_page_num
-                print(f"Tree segment page_num: {tree_segment.get('page_num', None)}")
 
             self.tree_segments.append(tree_segment)
             counter += 1

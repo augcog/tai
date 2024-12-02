@@ -16,7 +16,7 @@ def load_pkl_file(file_path: Path):
     return data
 
 # Specify the path to the .pkl file
-file_path = Path("output_tmp/expected_output/debug/filename/filename.pkl")
+file_path = Path("tests/test_rag/data/unit_tests/pdf/expected_output/61a-sp24-mt1/61a-sp24-mt1.pkl")
 
 # Load the contents of the .pkl file
 pkl_contents = load_pkl_file(file_path)
@@ -35,10 +35,10 @@ num_chunks = len(pkl_contents)
 #     print("-" * 40)  # Separator for better readability
 
 # Specify the chunk number (1-based indexing for clarity)
-chunk_number = 5  # Specify the chunk number you want
+chunk_number = 3  # Specify the chunk number you want
 
 # Convert to zero-based index
-chunk_index = chunk_number - 1
+chunk_index = chunk_number
 
 # Check if the index is valid
 if 0 <= chunk_index < len(pkl_contents):

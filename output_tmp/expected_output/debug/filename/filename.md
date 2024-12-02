@@ -1,9 +1,3 @@
-# TAI Embedding Optimized Content
-
-Using test mock model for embedding optimization. Mock response for: Combine these results into a final enhanced summar...
-
-# Original Content
-
 C106B Discussion 1: Dynamical Systems & Linear Control
 
 ## 1 Introduction

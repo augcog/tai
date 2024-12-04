@@ -20,9 +20,11 @@ SQLDB = False
 EXT_VECTOR_PATH = "ai_course_bot/ai-chatbot-backend/app/core/actions/dist/debug/vector0"
 EXT_VSS_PATH = "ai_course_bot/ai-chatbot-backend/app/core/actions/dist/debug/vss0"
 
+
 class Message(BaseModel):
     role: str
     content: str
+
 
 # lode embedding model
 embedding_model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True)
@@ -41,7 +43,9 @@ pipeline = transformers.pipeline(
 )
 
 lock = threading.Lock()
-def prompt_generator(messages,streamer_iterator):
+
+
+def prompt_generator(messages, streamer_iterator):
     with lock:
         terminators = [
             pipeline.tokenizer.eos_token_id,
@@ -61,13 +65,14 @@ def prompt_generator(messages,streamer_iterator):
             streamer=streamer_iterator
         )
 
+
 # Write scores for
 def bge_compute_score(
-    query_embedding,
-    document_embeddings,
-    weights_for_different_modes,
-    secondary_query_embedding,
-    secondary_document_embeddings,
+        query_embedding,
+        document_embeddings,
+        weights_for_different_modes,
+        secondary_query_embedding,
+        secondary_document_embeddings,
 ):
     all_scores = {
         'colbert': [],
@@ -88,8 +93,10 @@ def bge_compute_score(
     # Loop through each document embedding
     for i in range(len(document_embeddings)):
         dense_score = query_embedding['dense_vecs'] @ document_embeddings[i]['dense_vecs'].T
-        sparse_score = embedding_model.compute_lexical_matching_score(query_embedding['lexical_weights'], document_embeddings[i]['lexical_weights'])
-        colbert_score = embedding_model.colbert_score(query_embedding['colbert_vecs'], document_embeddings[i]['colbert_vecs'])
+        sparse_score = embedding_model.compute_lexical_matching_score(query_embedding['lexical_weights'],
+                                                                      document_embeddings[i]['lexical_weights'])
+        colbert_score = embedding_model.colbert_score(query_embedding['colbert_vecs'],
+                                                      document_embeddings[i]['colbert_vecs'])
         # Store the scores
         all_scores['colbert'].append(colbert_score)
         all_scores['sparse'].append(sparse_score)
@@ -115,7 +122,7 @@ def clean_path(url_path):
     return cleaned_path
 
 
-def local_selector(messages:List[Message],stream=True,rag=True,course=None):
+def local_selector(messages: List[Message], stream=True, rag=True, course=None):
     insert_document = ""
     user_message = messages[-1].content
     if rag:
@@ -123,12 +130,16 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
             picklefile = "eecs106b.pkl"
         elif course == "CS 61A":
             picklefile = "cs61a.pkl"
+        elif course == "CS 294-137":
+            picklefile = "cs294.pkl"
+        elif course == "Econ 140":
+            picklefile = "Econ140.pkl"
         else:
             picklefile = "Berkeley.pkl"
-        current_dir = "/home/bot/localgpt/tai_evaluation/tai/rag/file_conversion_router/embedding"     # Modify this path to the directory containing the embedding pickle files
+        current_dir = "/home/bot/localgpt/tai/ai_course_bot/ai-chatbot-backend/app/embedding/"  # Modify this path to the directory containing the embedding pickle files
         query_embed = embedding_model.encode(user_message, return_dense=True, return_sparse=True,
-                                                return_colbert_vecs=True)
-        if SQLDB:   
+                                             return_colbert_vecs=True)
+        if SQLDB:
             embedding_db_path = os.path.join(current_dir, "embeddings.db")
 
             # Connect to the embeddings database using vss and vector extensions
@@ -183,7 +194,7 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
 
             # Close the connection
             db.close()
-            
+
         else:
             # Picklefile implementation
             path_to_pickle = os.path.join(current_dir, picklefile)
@@ -195,7 +206,8 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
             url_list = data_loaded['url_list']
             embedding_list = data_loaded['embedding_list']
 
-            cosine_similarities = np.array(bge_compute_score(query_embed, embedding_list, [1, 1, 1], None, None)['colbert+sparse+dense'])
+            cosine_similarities = np.array(
+                bge_compute_score(query_embed, embedding_list, [1, 1, 1], None, None)['colbert+sparse+dense'])
             indices = np.argsort(cosine_similarities)[::-1]
             distances = np.sort(cosine_similarities)[-3:][::-1]
             print("indices:", indices, "distances:", distances)
@@ -207,8 +219,8 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
 
         insert_document = ""
         reference = []
-        n=0
-        none=0
+        n = 0
+        none = 0
 
         for i in range(len(top_docs)):
             if top_urls[i]:
@@ -216,7 +228,7 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
             else:
                 reference.append("")
             if distances[i] > 0.45:
-                n+=1
+                n += 1
                 if top_urls[i]:
                     insert_document += f"\"\"\"Reference Number: {n}\nReference Info Path: {top_ids[i]}\nReference_Url: {top_urls[i]}\nDocument: {top_docs[i]}\"\"\"\n\n"
                 else:
@@ -224,28 +236,29 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
                     insert_document += f"\"\"\"Reference Number: {n}\nReference Info Path: {cleaned_path}\nReference_Url: NONE\nDocument: {top_docs[i]}\"\"\"\n\n"
             else:
                 reference.append("")
-                none+=1
+                none += 1
                 print(none)
 
         print(reference)
 
-    if (not insert_document) or none==3:
+    if (not insert_document) or none == 3:
         print("NO REFERENCES")
         user_message = f'Answer the instruction. If unsure of the answer, explain that there is no data in the knowledge base for the response.\n---\n{user_message}'
     else:
-        print("INSERT DOCUMENT",insert_document)
+        print("INSERT DOCUMENT", insert_document)
         insert_document += f'Instruction: {user_message}'
         user_message = f"Understand the reference documents and use them to answer the instruction thoroughly. List the references used to answer the question numbered. Ex: [reference Name](URL). Keep your answer ground in the facts of the references.  \n---\n{insert_document}"
 
-    print("USER MESSAGE",user_message)
+    print("USER MESSAGE", user_message)
     messages[-1].content = user_message
 
     print(messages)
-    streamer_iterator=transformers.TextIteratorStreamer(auto_tokenizer, skip_prompt=True)
-    t = Thread(target=prompt_generator, args=(messages,streamer_iterator,))
+    streamer_iterator = transformers.TextIteratorStreamer(auto_tokenizer, skip_prompt=True)
+    t = Thread(target=prompt_generator, args=(messages, streamer_iterator,))
     t.start()
     response = streamer_iterator
     return response
+
 
 def local_parser(stream):
     for chunk in stream:
@@ -255,13 +268,15 @@ def local_parser(stream):
         else:
             yield chunk.replace("<|eot_id|>", "")
 
+
 def local_formatter(messages: List[ROARChatCompletionMessage]) -> List[Message]:
-    response: List[Message] = [] # type: ignore
+    response: List[Message] = []  # type: ignore
     system_message = "You are a Teaching Assistant. You are responsible for answering questions and providing guidance to students."
     response.append(Message(role="system", content=system_message))
     for message in messages:
         response.append(Message(role=message.role, content=message.content))
     return response
+
 
 def top_k_selector(message: str, stream=True, rag=True, course=None, k=3):
     user_message = message
@@ -328,7 +343,6 @@ def top_k_selector(message: str, stream=True, rag=True, course=None, k=3):
             db.close()
 
         else:
-            # Picklefile implementation
             path_to_pickle = os.path.join(current_dir, picklefile)
             with open(path_to_pickle, 'rb') as f:
                 data_loaded = pickle.load(f)
@@ -336,15 +350,23 @@ def top_k_selector(message: str, stream=True, rag=True, course=None, k=3):
             doc_list = data_loaded['doc_list']
             embedding_list = data_loaded['embedding_list']
 
-            cosine_similarities = np.array(bge_compute_score(query_embed, embedding_list, [1, 1, 1], None, None)['colbert+sparse+dense'])
+            cosine_similarities = np.array(
+                bge_compute_score(query_embed, embedding_list, [1, 1, 1], None, None)['colbert+sparse+dense'])
             indices = np.argsort(cosine_similarities)[::-1]
-            top_indices = indices[:k]  # Get top k
-            top_docs = [doc_list[i] for i in top_indices]  # Extract top k docs
+            distances = np.sort(cosine_similarities)[-k:][::-1]
+            top_docs = doc_list[indices][:k]
 
-    used_chunks = min(len(top_docs), k)
+            n = 0
+
+            for i in range(len(top_docs)):
+                if distances[i] > 0.45:
+                    n += 1
+
+    found_chunks = min(len(top_docs), k)
 
     # Return the top k documents as a list of strings
     return {
         "top_docs": top_docs,
-        "used_chunks": used_chunks
+        "found_chunks": found_chunks,
+        "used_chunks": n
     }

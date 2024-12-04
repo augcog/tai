@@ -4,10 +4,12 @@ from app.core.models.chat_completion import *
 from typing import Any
 import asyncio 
 import uuid
+import numpy as np
 import time
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse, JSONResponse
 from app.core.actions.model_selector import course_selection
 from app.core.actions.llama_seletor import local_selector, local_parser, local_formatter, top_k_selector
+
 
 def generate_data():
         for number in range(1, 51):  # Generating numbers from 1 to 100
@@ -43,9 +45,20 @@ async def get_top_k_docs(message: str, k: int = 3, course: str = None):
     # get top k chunks
     result = top_k_selector(message, k=k, course=course)
     top_docs = result['top_docs']
-    chunks_used = result['chunks_used']
+    found_chunks = result['found_chunks']
+    used_chunks = result['used_chunks']
 
-    if top_docs:
-        return {"top_docs": top_docs or [], "chunks_used": chunks_used}
-    else:
-        return "This is a test response."
+    top_docs = top_docs or []
+    found_chunks = int(found_chunks) if isinstance(found_chunks, (float, np.integer)) else found_chunks
+    used_chunks = int(used_chunks) if isinstance(used_chunks, (float, np.integer)) else used_chunks
+
+    if isinstance(top_docs, np.ndarray):
+        top_docs = top_docs.tolist()
+
+    response_data = {
+        "top_docs": top_docs,
+        "found_chunks": found_chunks,
+        "used_chunks": used_chunks
+    }
+
+    return JSONResponse(content=response_data)

@@ -1,5 +1,6 @@
 import requests
 import openai
+import csv
 
 # QUESTIONS:
 questions = ["How can I rapidly become proficient in using the MoveIt Motion Planning Framework, specifically for the Franka Emika Panda robot, through the provided tutorials, and are there alternative robots that are already compatible with MoveIt? Please list them and provide me with a resource for further exploration. Additionally, if my custom robot is not yet supported by MoveIt, how can I integrate it into the framework using the tutorial section ""Integration with a New Robot""? Provide me with a step-by-step guide and necessary resources.",
@@ -11,19 +12,70 @@ questions = ["How can I rapidly become proficient in using the MoveIt Motion Pla
 
 # CONFIGS
 get_chunks_url = "http://0.0.0.0:8000/api/chat/top_k_docs"
-url = "http://128.32.43.233:8000/api/chat/completions"
+url = "http://0.0.0.0:8000/api/chat/completions"
 API_KEY = ""
 COURSE = "EE 106B"
 
-EVALUATION_PROMPT = """###Task Description:
-You are evaluating the reference context, question related to the Berkeley course {course}, and a response. You are responsible for scoring 3 aspects of the response following different evaluation criteria:
-context accuracy and relevance, ability to answer based on the context, and the overall answer quality.
-1. Write detailed feedback that assesses these 3 qualities of the response strictly based on the given score rubric, not evaluating in general.
-2. After writing feedback for each criteria, write a score that is an integer between 1 and 5. You should refer to the score rubric.
-3. The output format should look as follows: \"Context accuracy feedback: {{write a feedback for criteria}} [RESULT] {{an integer number between 1 and 5}}.\nAbility to answer feedback: {{write a feedback for criteria}} [RESULT] {{an integer number between 1 and 5}}.\nOverall answer quality: {{write a feedback for criteria}} [RESULT] {{an integer number between 1 and 5}}.\"
+
+# evaluates all chunks found during retrieval
+EVALUATION_PROMPT_FOUND_CONTEXT = """###Task Description:
+You are evaluating the reference context provided to a RAG-based LLM to answer a question related to the Berkeley course {course}. You are responsible for scoring the response following a score rubric for the reference context. 
+1. Write detailed feedback that assesses this quality of the reference context strictly based on the given score rubric, not evaluating in general.
+2. After writing feedback, write a score that is an integer between 1 and 5. You should refer to the score rubric.
+3. The output format should look as follows: \"Context sufficiency feedback (found): {{write a feedback for criteria}} [RESULT] {{an integer number between 1 and 5}}."
 4. Please do not generate any other opening, closing, and explanations. Be sure to include all 3 [RESULT]s in your output.
 
 ###Reference context to evaluate:
+{reference_context}
+
+###Question:
+{instruction}
+
+###Feedback:
+
+###Score Rubric:
+[Is the reference context relevant to the question?] 
+Score 1: The reference context is completely insufficient to answer the question.
+Score 2: The reference context is mostly insufficient to answer the question.
+Score 3: The reference context is somewhat sufficient to answer the question.
+Score 4: The reference context is mostly sufficient to answer the question.
+Score 5: The reference context is completely sufficient to answer the question.
+"""
+
+# evaluates the chunks with higher similarity than 0.45 used for the response
+EVALUATION_PROMPT_USED_CONTEXT = """###Task Description:
+You are evaluating the reference context provided to a RAG-based LLM to answer a question related to the Berkeley course {course}. You are responsible for scoring the response following a score rubric for the reference context. 
+1. Write detailed feedback that assesses this quality of the reference context strictly based on the given score rubric, not evaluating in general.
+2. After writing feedback, write a score that is an integer between 1 and 5. You should refer to the score rubric.
+3. The output format should look as follows: \"Context sufficiency feedback (used): {{write a feedback for criteria}} [RESULT] {{an integer number between 1 and 5}}."
+4. Please do not generate any other opening, closing, and explanations. Be sure to include all 3 [RESULT]s in your output.
+
+###Reference context to evaluate:
+{reference_context}
+
+###Question:
+{instruction}
+
+###Feedback:
+
+###Score Rubric:
+[Is the reference context relevant to the question?] 
+Score 1: The reference context is completely insufficient to answer the question.
+Score 2: The reference context is mostly insufficient to answer the question.
+Score 3: The reference context is somewhat sufficient to answer the question.
+Score 4: The reference context is mostly sufficient to answer the question.
+Score 5: The reference context is completely sufficient to answer the question.
+"""
+
+# evaluates ability to find correct main ideas in context to create relevant response
+EVALUATION_PROMPT_RESPONSE = """###Task Description:
+You are evaluating the response of a RAG-based LLM based on a question related to the Berkeley course {course} and a reference context. You are responsible for scoring the response following a score rubric for the response. 
+1. Write detailed feedback that assesses this quality of the response strictly based on the given score rubric, not evaluating in general.
+2. After writing feedback, write a score that is an integer between 1 and 5. You should refer to the score rubric.
+3. The output format should look as follows: \"Response feedback: {{write a feedback for criteria}} [RESULT] {{an integer number between 1 and 5}}."
+4. Please do not generate any other opening, closing, and explanations. Be sure to include all 3 [RESULT]s in your output.
+
+###Reference context:
 {reference_context}
 
 ###Question:
@@ -34,22 +86,32 @@ context accuracy and relevance, ability to answer based on the context, and the 
 
 ###Feedback:
 
-###Score Rubrics:
+###Score Rubric:
+[Does the response use the main ideas the reference context to form a relevant response?]
+Score 1: The response does not at all use the main ideas of the reference context to form a relevant response.  
+Score 2: The response hardly uses the main ideas of the reference context to form a relevant response. 
+Score 3: The response somewhat uses the main ideas of the reference context to form a relevant response. 
+Score 4: The response mostly uses the main ideas of the reference context to form a relevant response. 
+Score 5: The response completely uses the main ideas of the reference context to form a relevant response. 
+"""
 
-[Is the reference context accurate and relevant to the question?] 
-Score 1: The reference context is completely inaccurate and irrelevant to the question.
-Score 2: The reference context is mostly inaccurate and irrelevant to the question.
-Score 3: The reference context is somewhat accurate and relevant to the question.
-Score 4: The reference context is mostly accurate and relevant to the question.
-Score 5: The reference context is completely accurate and relevant to the question.
+# evaluates overall factualness of response to a question
+EVALUATION_PROMPT_OVERALL = """###Task Description:
+You are evaluating the quality of the response of a RAG-based LLM based on a question related to the Berkeley course {course}. You are responsible for scoring the response following a score rubric for the response. 
+1. Write detailed feedback that assesses this quality of the response strictly based on the given score rubric, not evaluating in general.
+2. After writing feedback, write a score that is an integer between 1 and 5. You should refer to the score rubric.
+3. The output format should look as follows: \"Response feedback: {{write a feedback for criteria}} [RESULT] {{an integer number between 1 and 5}}."
+4. Please do not generate any other opening, closing, and explanations. Be sure to include all 3 [RESULT]s in your output.
 
-[Does the response answer the question based on the reference context?]
-Score 1: The response is completely irrelevant and does not answer the question based on the reference context.
-Score 2: The response is mostly irrelevant and does not answer the question based on the reference context.
-Score 3: The response is somewhat relevant and answers the question based on the reference context.
-Score 4: The response is mostly relevant and answers the question based on the reference context.
-Score 5: The response is completely relevant and accurately answers the question based on the reference context.
+###Question:
+{instruction}
 
+###Response to evaluate:
+{response}
+
+###Feedback:
+
+###Score Rubric:
 [Is the response correct, relevant, accurate, and factual overall?]
 Score 1: The response is completely incorrect, inaccurate, and/or not factual.
 Score 2: The response is mostly incorrect, inaccurate, and/or not factual.
@@ -103,8 +165,12 @@ for question in questions:
     }
 
     response = requests.post(get_chunks_url, params=params)
+    print(response.text)
     context_json = response.json()
     context = "\n".join(context_json['top_docs'])
+    found_chunks = context_json['found_chunks']
+    used_chunks = context_json['used_chunks']
+
 
     filled_prompt = QUERY_PROMPT.format(question=question)
 
@@ -113,40 +179,125 @@ for question in questions:
     params_dict = params.to_dict()
 
     response = requests.post(url, json=params_dict)
-    response_data = response.json()
-    answer = response_data['answer']
-    used_chunks = response_data['used_chunks']
 
-    prompt = EVALUATION_PROMPT.format(
+    answer = response.text
+
+    prompt1 = EVALUATION_PROMPT_FOUND_CONTEXT.format(
+        course=COURSE,
+        instruction=question,
+        reference_context=context,
+    )
+
+    headers1 = {
+        'Authorization': f'Bearer {API_KEY}',
+        'Content-Type': 'application/json'
+    }
+
+    data1 = {
+        'model': 'gpt-4',
+        'messages': [{'role': 'user', 'content': prompt1}],
+        'temperature': 0
+    }
+
+    response1 = requests.post('https://api.openai.com/v1/chat/completions', headers=headers1, json=data1)
+    result1 = response1.json()
+    feedback1 = result1['choices'][0]['message']['content']
+
+    prompt2 = EVALUATION_PROMPT_USED_CONTEXT.format(
+        course=COURSE,
+        instruction=question,
+        reference_context=context,
+    )
+
+    headers2 = {
+        'Authorization': f'Bearer {API_KEY}',
+        'Content-Type': 'application/json'
+    }
+
+    data2 = {
+        'model': 'gpt-4',
+        'messages': [{'role': 'user', 'content': prompt2}],
+        'temperature': 0
+    }
+
+    response2 = requests.post('https://api.openai.com/v1/chat/completions', headers=headers2, json=data2)
+    result2 = response2.json()
+    feedback2 = result2['choices'][0]['message']['content']
+
+    prompt3 = EVALUATION_PROMPT_RESPONSE.format(
         course=COURSE,
         instruction=question,
         response=answer,
         reference_context=context,
     )
 
-    headers = {
+    headers3 = {
         'Authorization': f'Bearer {API_KEY}',
         'Content-Type': 'application/json'
     }
 
-    data = {
+    data3 = {
         'model': 'gpt-4',
-        'messages': [{'role': 'user', 'content': prompt}],
+        'messages': [{'role': 'user', 'content': prompt3}],
         'temperature': 0
     }
 
-    response = requests.post('https://api.openai.com/v1/chat/completions', headers=headers, json=data)
-    result = response.json()
-    feedback = result['choices'][0]['message']['content']
+    response3 = requests.post('https://api.openai.com/v1/chat/completions', headers=headers3, json=data3)
+    result3 = response3.json()
+    feedback3 = result3['choices'][0]['message']['content']
 
-    question_context_answer_feedback.append([question, context, answer, feedback])
+    prompt4 = EVALUATION_PROMPT_OVERALL.format(
+        course=COURSE,
+        instruction=question,
+        response=answer,
+    )
 
-print(question_context_answer_feedback)
+    headers4 = {
+        'Authorization': f'Bearer {API_KEY}',
+        'Content-Type': 'application/json'
+    }
+
+    data4 = {
+        'model': 'gpt-4',
+        'messages': [{'role': 'user', 'content': prompt3}],
+        'temperature': 0
+    }
+
+    response4 = requests.post('https://api.openai.com/v1/chat/completions', headers=headers3, json=data3)
+    result4 = response3.json()
+    feedback4 = result3['choices'][0]['message']['content']
+
+    question_context_answer_feedback.append([question, context, answer, found_chunks, used_chunks, feedback1, feedback2, feedback3, feedback4])
+
+output_file = "question_context_feedback.csv"
+
+with open(output_file, mode='w', newline='', encoding='utf-8') as file:
+    writer = csv.writer(file)
+
+    # Write the header
+    writer.writerow(
+        ["Question", "Context", "Answer", "Found Chunks", "Used Chunks", "Feedback1", "Feedback2", "Feedback3",
+         "Feedback4"])
+
+    # Write the data
+    writer.writerows(question_context_answer_feedback)
+
+print(f"Data written to {output_file}")
 
 
+# analyzing results afterward for response 1-- 2 step retrival, 1. ranking, 2. threshold 
+# - if documents are irrelavent
+# - no documents over similarity threshold -- threshold is too high or no supported documents
+# need to classify into these two items 
 
+# response 2: 
+# - irrelevant documents in context (yes / no) based on score
 
+#+++++++++++++++++++++++++++++++++
 
+#another round of conversation
+# need to return ranked version of all documents from route (including ones below the threshold) to ask LLM to evaluate if they are relevant or not
 
-
-
+# is the prompt given to llama3 good or not -- see if gpt4 can evaluate 
+# -- too long prompt -- attention not good
+# -- too short prompt -- not enough information to describe situation

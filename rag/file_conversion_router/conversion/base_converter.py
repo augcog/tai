@@ -177,6 +177,8 @@ class BaseConverter(ABC):
         filename = output_folder.stem
         pkl_output_path = output_folder / f"{filename}.pkl"
         page = self._convert_to_page(input_path, pkl_output_path)
+        self._delete_pdf_and_yaml_files(output_folder)
+
         page.to_chunk()
 
         # Add embedding optimization if enabled
@@ -198,8 +200,8 @@ class BaseConverter(ABC):
         if result.success:
             enhanced_content = result.content
             # Combine enhanced and original content with clear headers
+            """Uncomment below line after have way to deactivate optimizer"""
             combined_content = (
-                """Uncomment below line after have way to deactivate optimizer"""
                 # "# TAI Embedding Optimized Content\n\n"
                 # f"{enhanced_content}\n\n"
                 # "# Original Content\n\n"
@@ -222,8 +224,8 @@ class BaseConverter(ABC):
 
         for original_chunk, optimized_chunk in zip(original_chunks, optimized_chunks):
             # Combine enhanced and original chunk content with clear headers
+            """Uncomment below line after have way to deactivate optimizer"""
             combined_chunk_content = (
-                """Uncomment below line after have way to deactivate optimizer"""
                 # "## TAI Embedding Optimized Chunk\n\n"
                 # f"{optimized_chunk.content}\n\n"
                 # "## Original Chunk\n\n"
@@ -240,11 +242,11 @@ class BaseConverter(ABC):
                     'enhanced': True,
                     'original_chunk_url': original_chunk.chunk_url  # Preserve original URL if needed
                 },
-                page_num = original_chunk.page_num
+                page_num = original_chunk.page_num if original_chunk.page_num else None
             )
             combined_chunks.append(combined_chunk)
 
-            self._logger.info(f"Combined enhanced and original chunk for URL: {original_chunk.page_num}")
+            # self._logger.info(f"Combined enhanced and original chunk for URL: {original_chunk.page_num}")
 
         return combined_chunks
 
@@ -280,7 +282,7 @@ class BaseConverter(ABC):
         return True
 
 
-    def _to_page(self, input_path: Path, output_path: Path, file_type: str = "markdown") -> Page:
+    def _to_page(self, input_path: Path, output_path: Path) -> Page:
         output_path.parent.mkdir(parents=True, exist_ok=True)
         # Ensure the output directory exists
         output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -298,8 +300,6 @@ class BaseConverter(ABC):
 
         metadata_content = self._read_metadata(metadata_path)
         url = metadata_content.get("URL")
-        print(f"URL: {url}")
-        print(f"Does page path exist? {page_path.exists()}")
 
         if file_type == "mp4":
             timestamp = [i[1] for i in self.paragraphs]

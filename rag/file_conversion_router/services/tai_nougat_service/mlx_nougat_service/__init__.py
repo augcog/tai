@@ -4,7 +4,8 @@
 import os
 from pathlib import Path
 from typing import Tuple, Any
-
+import yaml
+import yaml
 from tqdm import tqdm
 
 from .faster_nougat import generate
@@ -38,32 +39,44 @@ class ModelManager:
 model_manager = ModelManager()
 
 
-def process_page(page_idx: int, image: Any, model: Any, processor: Any) -> str:
+def process_page(page_idx: int, image: Any, model: Any, processor: Any) -> tuple:
     pixel_values = processor(image, return_tensors="pt").pixel_values
     outputs = generate(model, pixel_values, max_new_tokens=4096, disable_tqdm=True)
     sequence = processor.batch_decode([outputs], skip_special_tokens=True)[0]
     sequence = processor.post_process_generation(sequence, fix_markdown=False)
-    return f"\n\n# Page {page_idx + 1}\n\n{sequence}"
 
+
+    line_count = len(sequence.strip().split('\n')) + 1
+
+    return sequence, line_count
 
 def main(input_pdf_path: Path, output_dir: Path) -> None:
     pdf_path = str(input_pdf_path)
-    output_file_path = output_dir / f"{input_pdf_path.stem}.mmd"
-
-    if not pdf_path.endswith(".pdf"):
-        pdf_path += ".pdf"
-
+    output_md_file_path = output_dir / f"{input_pdf_path.stem}.mmd"
+    if not pdf_path.endswith('.pdf'):
+        raise ValueError(f"Expected a PDF file, but got {pdf_path}")
     images = extract_pdf_pages_as_images(pdf_path)
     pages = list(range(len(images)))
-
     model, processor = model_manager.get_model_and_processor()
-
     full_content = ""
+    page_info_list = []
+    current_line = 1
     for page_idx in tqdm(pages):
         image = images[page_idx]
-        full_content += process_page(page_idx, image, model, processor)
-
-    with open(output_file_path, "w") as f:
+        content, line_count = process_page(page_idx, image, model, processor)
+        start_line = current_line
+        page_info_list.append({'page_num': page_idx + 1, 'start_line': start_line})
+        full_content += content.strip() + "\n\n"
+        current_line += line_count
+    # Write the extracted content to the Markdown file
+    with open(output_md_file_path, "w", encoding="utf-8") as f:
         f.write(full_content.strip())
 
-    print(f"MMD content has been written to {output_file_path}")
+    # Save the page information metadata to a new YAML file
+    metadata_content = {'pages': page_info_list}
+    new_yaml_file_path = output_md_file_path.with_name(output_md_file_path.stem + '_page_info.yaml')
+    print(f"Page metadata content: {metadata_content}")
+
+    with open(new_yaml_file_path, "w", encoding="utf-8") as f:
+        yaml.dump(metadata_content, f, allow_unicode=True)
+        print(f"Metadata saved to {new_yaml_file_path}")

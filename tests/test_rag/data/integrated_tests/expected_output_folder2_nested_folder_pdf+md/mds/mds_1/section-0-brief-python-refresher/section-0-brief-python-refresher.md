@@ -1,9 +1,3 @@
-# TAI Embedding Optimized Content
-
-Using test mock model for embedding optimization. Mock response for: Combine these results into a final enhanced summar...
-
-# Original Content
-
 [![Open In Colab](../images/colab-badge.svg)](https://colab.research.google.com/github/MonashDataFluency/python-web-scraping/blob/master/notebooks/section-0-brief-python-refresher.ipynb)
 
 <center><img src="../images/xkcd_python.png"></center>

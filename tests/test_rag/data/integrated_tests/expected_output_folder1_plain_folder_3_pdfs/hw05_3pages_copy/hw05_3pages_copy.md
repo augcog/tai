@@ -1,13 +1,3 @@
-# TAI Embedding Optimized Content
-
-Using test mock model for embedding optimization. Mock response for: Combine these results into a final enhanced summar...
-
-# Original Content
-
-# Page 1
-
-
-
 **Data 100, Spring 2024**
 
 Homework #5
@@ -30,23 +20,15 @@ This assignment is entirely on paper. Your submission (a single PDF) can be gene
 
 **Your work will NOT be graded if you do not select pages on Gradescope**. We will not be granting regrade requests nor extensions to submissions that don't follow instructions.
 
-
-
-# Page 2
-
 If you encounter any difficulties with submission, please don't hesitate to reach out to staff prior to the deadline.
 
 ## Collaborators
 
 Data science is a collaborative activity. While you may talk with others about the homework, we ask that you write your solutions individually. If you do discuss the assignments with others, please include their names below.
 
-
-
-# Page 3
-
 * D. All students enrolled in Shiny's discussion section
 * E. All students who fill out Shiny's pre-contest survey
-* In this sampling scheme, which of the following is the sampling frame?
+* (1 point) In this sampling scheme, which of the following is the sampling frame?
 * A. UC Berkeley students
 * B. All students enrolled in Data 100 across all semesters (Spring 2024 and previous)
 * C. All students enrolled in Data 100 for this semester (Spring 2024)

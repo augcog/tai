@@ -9,7 +9,6 @@ from threading import Lock
 from typing import Dict, List, Union
 
 import yaml
-
 from rag.file_conversion_router.classes.chunk import Chunk
 from rag.file_conversion_router.classes.page import Page
 from rag.file_conversion_router.classes.vidpage import VidPage
@@ -178,6 +177,8 @@ class BaseConverter(ABC):
         filename = output_folder.stem
         pkl_output_path = output_folder / f"{filename}.pkl"
         page = self._convert_to_page(input_path, pkl_output_path)
+        self._delete_pdf_and_yaml_files(output_folder)
+
         page.to_chunk()
 
         # Add embedding optimization if enabled
@@ -199,10 +200,11 @@ class BaseConverter(ABC):
         if result.success:
             enhanced_content = result.content
             # Combine enhanced and original content with clear headers
+            """Uncomment below line after have way to deactivate optimizer"""
             combined_content = (
-                "# TAI Embedding Optimized Content\n\n"
-                f"{enhanced_content}\n\n"
-                "# Original Content\n\n"
+                # "# TAI Embedding Optimized Content\n\n"
+                # f"{enhanced_content}\n\n"
+                # "# Original Content\n\n"
                 f"{original_content}"
             )
             # Update the page content with combined content
@@ -222,10 +224,11 @@ class BaseConverter(ABC):
 
         for original_chunk, optimized_chunk in zip(original_chunks, optimized_chunks):
             # Combine enhanced and original chunk content with clear headers
+            """Uncomment below line after have way to deactivate optimizer"""
             combined_chunk_content = (
-                "## TAI Embedding Optimized Chunk\n\n"
-                f"{optimized_chunk.content}\n\n"
-                "## Original Chunk\n\n"
+                # "## TAI Embedding Optimized Chunk\n\n"
+                # f"{optimized_chunk.content}\n\n"
+                # "## Original Chunk\n\n"
                 f"{original_chunk.content}"
             )
 
@@ -238,18 +241,29 @@ class BaseConverter(ABC):
                     **(original_chunk.metadata or {}),
                     'enhanced': True,
                     'original_chunk_url': original_chunk.chunk_url  # Preserve original URL if needed
-                }
+                },
+                page_num = original_chunk.page_num if original_chunk.page_num else None
             )
-
             combined_chunks.append(combined_chunk)
-            self._logger.info(f"Combined enhanced and original chunk for URL: {original_chunk.chunk_url}")
+
+            # self._logger.info(f"Combined enhanced and original chunk for URL: {original_chunk.page_num}")
 
         return combined_chunks
 
-    # @abstractmethod
-    # def _to_page(self, input_path: Path, output_path: Path) -> Page:
-    #     """Convert the input file to Expected Page format. To be implemented by subclasses."""
-    #     raise NotImplementedError("This method should be overridden by subclasses.")
+    def _delete_pdf_and_yaml_files(self, directory: Path) -> None:
+        """Delete all .yaml and .pdf files in the given directory."""
+        self._logger.info(f"Deleting .pdf and .yaml files in {directory}")
+        for file_path in directory.glob('*'):
+            self._logger.info(f"Checking file: {file_path.name}, Suffixes: {file_path.suffixes}")
+            # Check if any suffix matches .pdf or .yaml
+            if any(suffix.lower() in ['.pdf', '.yaml'] for suffix in file_path.suffixes):
+                try:
+                    file_path.unlink()
+                    self._logger.info(f"Deleted file: {file_path}")
+                except Exception as e:
+                    self._logger.error(f"Error deleting file {file_path}: {e}")
+
+
     def _check_page_content(self, page: Page, input_path: Path) -> bool:
         content_length_threshold = Page.PAGE_LENGTH_THRESHOLD
         content_length = len(page.content.get('text', ''))
@@ -267,7 +281,10 @@ class BaseConverter(ABC):
                                       f"url state: {url_state}")
         return True
 
-    def _to_page(self, input_path: Path, output_path: Path, file_type: str = "markdown") -> Page:
+
+    def _to_page(self, input_path: Path, output_path: Path) -> Page:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        # Ensure the output directory exists
         output_path.parent.mkdir(parents=True, exist_ok=True)
         stem = input_path.stem
         file_type = input_path.suffix.lstrip('.')
@@ -277,6 +294,10 @@ class BaseConverter(ABC):
             content_text = input_file.read()
 
         metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
+
+        page_path = output_path.with_name(f"{stem}_page_info.yaml")
+
+
         metadata_content = self._read_metadata(metadata_path)
         url = metadata_content.get("URL")
 
@@ -286,7 +307,8 @@ class BaseConverter(ABC):
             return VidPage(pagename=stem, content=content, filetype=file_type, page_url=url)
         else:
             content = {"text": content_text}
-            return Page(pagename=stem, content=content, filetype=file_type, page_url=url)
+            return Page(pagename=stem, content=content, filetype=file_type, page_url=url, page_path=page_path)
+
 
     @abstractmethod
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:

@@ -1,5 +1,6 @@
 import logging
 import re
+import yaml
 from pathlib import Path
 from typing import List
 
@@ -63,6 +64,7 @@ def process_output(output: str, page_num: int, config: NougatConfig) -> str:
         return f"\n\n[MISSING_PAGE_EMPTY:{page_num}]\n\n"
     if config.markdown_compatible:
         output = markdown_compatible(output)
+        output = f"{output.strip()}\n\n"
     return output
 
 
@@ -84,6 +86,8 @@ def main(config: NougatConfig, model: NougatModel = Provide[NougatContainer.mode
     predictions = []
     file_index = 0
     page_num = 0
+    current_line = 1  # Line counter for the markdown file
+    page_info_list = []  # List to store metadata for each page
 
     for sample, is_last_page in tqdm(dataloader):
         model_output = model.inference(image_tensors=sample, early_stopping=config.skipping)
@@ -93,19 +97,44 @@ def main(config: NougatConfig, model: NougatModel = Provide[NougatContainer.mode
                 logging.info(f"Processing file {datasets[file_index].name} with {datasets[file_index].size} pages")
             page_num += 1
 
+            # Process output and include page number
             processed_output = process_output(output, page_num, config)
+
+            # Calculate the number of lines in the current page
+            line_count = processed_output.count('\n')
+
+            # Add page metadata
+            page_info_list.append({'page_num': page_num, 'start_line': current_line})
             predictions.append(processed_output)
+            current_line += line_count  # Update line counter
+
             if is_last_page[j]:
                 out = "".join(predictions).strip()
                 out = re.sub(r"\n{3,}", "\n\n", out).strip()
                 if config.output_dir:
-                    out_path = config.output_dir / Path(is_last_page[j]).with_suffix(".mmd").name
+                    # Get the original filename
+                    original_name = datasets[file_index].name
+
+                    # Construct the output markdown file path
+                    out_path = config.output_dir / (Path(original_name).stem + ".mmd")
                     out_path.parent.mkdir(parents=True, exist_ok=True)
                     out_path.write_text(out, encoding="utf-8")
+
+                    # Construct the metadata file path
+                    metadata_path = config.output_dir / (Path(original_name).stem + "_page_info.yaml")
+                    with open(metadata_path, 'w', encoding='utf-8') as yaml_file:
+                        yaml.dump({'pages': page_info_list}, yaml_file, allow_unicode=True)
+                        logging.info(f"Metadata written to {metadata_path}")
                 else:
                     print(out, "\n\n")
+                    # If not writing to a file, print the metadata as well
+                    print(yaml.dump({'pages': page_info_list}, allow_unicode=True))
+
+                # Reset variables for the next file
                 predictions = []
                 page_num = 0
+                current_line = 1
+                page_info_list = []
                 file_index += 1
 
 

@@ -14,6 +14,38 @@ from rag.file_conversion_router.services.tai_nougat_service.api import convert_p
 class PdfConverter(BaseConverter):
     def __init__(self):
         super().__init__()
+        self.available_tools = ["nougat", "MinerU"]
+
+    def is_tool_supported(self, tool_name):
+        """
+        Check if a tool is supported.
+        """
+        return tool_name in self.available_tools
+
+    def validate_tool(self, tool_name):
+        """
+        Validate if the tool is supported, raise an error if not.
+        """
+        if not self.is_tool_supported(tool_name):
+            raise ValueError(f"Tool '{tool_name}' is not supported. Available tools: {', '.join(self.available_tools)}")
+
+    def _to_markdown_use_MinerU(self, pdf_file_path, output_file_path):
+        output_dir = os.path.dirname(output_file_path)
+        os.makedirs(output_dir, exist_ok=True)
+
+        # Construct the magic-pdf command
+        command = ["magic-pdf",
+                   "-p", str(pdf_file_path),
+                   "-o", str(output_file_path),
+                   "-m", "auto"]
+
+        try:
+            result = subprocess.run(command, check=True, capture_output=True, text=True)
+            print(f"Processed: {pdf_file_path}")
+            print(f"stdout: {result.stdout}")
+        except subprocess.CalledProcessError as e:
+            print(f"Error while processing {pdf_file_path}: {e}")
+            print(f"stderr: {e.stderr}")
 
     def convert_pdf_to_markdown(self, pdf_file_path, output_file_path, page_numbers=None):
         """
@@ -114,31 +146,56 @@ class PdfConverter(BaseConverter):
             md_file.write(markdown_content)
 
     # Override
-    def _to_markdown(self, input_path: Path, output_path: Path) -> Path:
+    def _to_markdown(self, input_path: Path, output_path: Path, conversion_method: str = "MinerU") -> Path:
         # """Perform PDF to Markdown conversion using Nougat with the detected hardware configuration."""
+        self.validate_tool(conversion_method)
         temp_dir_path = output_path.parent
 
         # Create the directory if it doesn't exist
         if not temp_dir_path.exists():
             os.makedirs(temp_dir_path)
 
-        # Define the path for the PDF without images in the output directory
-        pdf_without_images_path = temp_dir_path / input_path.name
-
-        # Remove images from the PDF and save to the output directory
-        self.remove_images_from_pdf(input_path, pdf_without_images_path)
-
         # Convert the PDF to Markdown using Nougat.
-        # self._to_markdown_using_native_nougat_cli(pdf_without_images_path, output_path)
-        self._to_markdown_using_tai_nougat(pdf_without_images_path, output_path)
+        if conversion_method == "nougat":
+            # Define the path for the PDF without images in the output directory
+            pdf_without_images_path = temp_dir_path / input_path.name
+            # Remove images from the PDF and save to the output directory
+            self.remove_images_from_pdf(input_path, pdf_without_images_path)
+            self._to_markdown_using_tai_nougat(pdf_without_images_path, output_path)
+            # Now change the file name of generated mmd file to align with the expected md file path from base converter
+            output_mmd_path = output_path.with_suffix(".mmd")
+            self.extract_and_convert_pdf_to_md(str(pdf_without_images_path), str(output_mmd_path), str(temp_dir_path))
+            target = output_path.with_suffix(".md")
+            output_mmd_path.rename(target)
+            print(output_mmd_path)
+            # Rename it to md file
+            target = output_path.with_suffix(".md")
 
-        # Now change the file name of generated mmd file to align with the expected md file path from base converter
-        output_mmd_path = output_path.with_suffix(".mmd")
-        self.extract_and_convert_pdf_to_md(str(pdf_without_images_path), str(output_mmd_path), str(temp_dir_path))
-        # Rename it to `md` file
-        target = output_path.with_suffix(".md")
-        output_mmd_path.rename(target)
-        print(output_mmd_path)
+
+        elif conversion_method == "MinerU":
+
+            print("Using MinerU")
+
+            self._to_markdown_use_MinerU(input_path, temp_dir_path)
+
+            # Construct the correct path based on the nested folder structure
+
+            base_name = input_path.stem  # e.g., "61a-sp24-mt1"
+
+            md_file_path = temp_dir_path / base_name / "auto" / f"{base_name}.md"
+
+            if md_file_path.exists():
+
+                print(f"Markdown file found: {md_file_path}")
+
+            else:
+
+                raise FileNotFoundError(f"Markdown file not found: {md_file_path}")
+
+            # Set the target to this markdown path
+
+            target = md_file_path
+
         return target
 
     def _to_markdown_using_native_nougat_cli(self, input_pdf_path: Path, output_path: Path) -> None:

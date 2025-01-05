@@ -1,0 +1,3187 @@
+{
+    "pdf_info": [
+        {
+            "preproc_blocks": [
+                {
+                    "type": "title",
+                    "bbox": [
+                        71,
+                        184,
+                        170,
+                        199
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                71,
+                                185,
+                                168,
+                                199
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        71,
+                                        185,
+                                        168,
+                                        199
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Total Points: 40",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 0
+                        }
+                    ],
+                    "index": 0
+                },
+                {
+                    "type": "title",
+                    "bbox": [
+                        71,
+                        236,
+                        267,
+                        254
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                71,
+                                236,
+                                266,
+                                253
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        71,
+                                        236,
+                                        266,
+                                        253
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Submission Instructions",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 1
+                        }
+                    ],
+                    "index": 1
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        71,
+                        278,
+                        542,
+                        379
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                70,
+                                278,
+                                540,
+                                293
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        70,
+                                        278,
+                                        540,
+                                        293
+                                    ],
+                                    "score": 1.0,
+                                    "content": "You must submit this assignment to Gradescope by the on-time deadline, Thursday, Febru-",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 2
+                        },
+                        {
+                            "bbox": [
+                                70,
+                                293,
+                                540,
+                                307
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        70,
+                                        293,
+                                        540,
+                                        307
+                                    ],
+                                    "score": 1.0,
+                                    "content": "ary 29th at 11:59 PM Pacific. Please read the syllabus for the grace period policy.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 3
+                        },
+                        {
+                            "bbox": [
+                                69,
+                                306,
+                                541,
+                                324
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        69,
+                                        306,
+                                        541,
+                                        324
+                                    ],
+                                    "score": 1.0,
+                                    "content": "No late submissions beyond the grace period will be accepted. While course staff is happy",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 4
+                        },
+                        {
+                            "bbox": [
+                                70,
+                                322,
+                                541,
+                                337
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        70,
+                                        322,
+                                        541,
+                                        337
+                                    ],
+                                    "score": 1.0,
+                                    "content": "to help you if you encounter difficulties with submission, we may not be able to respond to",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 5
+                        },
+                        {
+                            "bbox": [
+                                69,
+                                336,
+                                541,
+                                352
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        69,
+                                        336,
+                                        541,
+                                        352
+                                    ],
+                                    "score": 1.0,
+                                    "content": "last-minute requests for assistance (TAs need to sleep, after all!). We strongly encourage",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 6
+                        },
+                        {
+                            "bbox": [
+                                70,
+                                351,
+                                541,
+                                366
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        70,
+                                        351,
+                                        541,
+                                        366
+                                    ],
+                                    "score": 1.0,
+                                    "content": "you to plan to submit your work to Gradescope several hours before the stated",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 7
+                        },
+                        {
+                            "bbox": [
+                                70,
+                                365,
+                                541,
+                                380
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        70,
+                                        365,
+                                        541,
+                                        380
+                                    ],
+                                    "score": 1.0,
+                                    "content": "deadline. This way, you will have ample time to reach out to staff for submission support.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 8
+                        }
+                    ],
+                    "index": 5
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        71,
+                        391,
+                        541,
+                        418
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                69,
+                                390,
+                                542,
+                                408
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        69,
+                                        390,
+                                        542,
+                                        408
+                                    ],
+                                    "score": 1.0,
+                                    "content": "This assignment is entirely on paper. Your submission (a single PDF) can be generated as",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 9
+                        },
+                        {
+                            "bbox": [
+                                70,
+                                406,
+                                111,
+                                420
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        70,
+                                        406,
+                                        111,
+                                        420
+                                    ],
+                                    "score": 1.0,
+                                    "content": "follows:",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 10
+                        }
+                    ],
+                    "index": 9.5
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        85,
+                        431,
+                        543,
+                        554
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                84,
+                                432,
+                                541,
+                                448
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        84,
+                                        432,
+                                        541,
+                                        448
+                                    ],
+                                    "score": 1.0,
+                                    "content": "1. Type your answers. We recommend LaTeX, the math typesetting language. Overleaf",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 11
+                        },
+                        {
+                            "bbox": [
+                                99,
+                                447,
+                                267,
+                                461
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        99,
+                                        447,
+                                        267,
+                                        461
+                                    ],
+                                    "score": 1.0,
+                                    "content": "is a great tool to type in LaTeX.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 12
+                        },
+                        {
+                            "bbox": [
+                                83,
+                                470,
+                                542,
+                                486
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        83,
+                                        470,
+                                        542,
+                                        486
+                                    ],
+                                    "score": 1.0,
+                                    "content": "2. Download this PDF, print it out, and write directly on these pages. If you have a",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 13
+                        },
+                        {
+                            "bbox": [
+                                100,
+                                486,
+                                385,
+                                500
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        100,
+                                        486,
+                                        385,
+                                        500
+                                    ],
+                                    "score": 1.0,
+                                    "content": "tablet, you may save this PDF and write directly on it.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 14
+                        },
+                        {
+                            "bbox": [
+                                83,
+                                509,
+                                541,
+                                525
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        83,
+                                        509,
+                                        541,
+                                        525
+                                    ],
+                                    "score": 1.0,
+                                    "content": "3. Write your answers on a blank sheet of physical or digital paper. Note: If you write",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 15
+                        },
+                        {
+                            "bbox": [
+                                99,
+                                525,
+                                540,
+                                540
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        99,
+                                        525,
+                                        540,
+                                        540
+                                    ],
+                                    "score": 1.0,
+                                    "content": "your answers on physical paper, use a scanning application (e.g., CamScanner, Apple",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 16
+                        },
+                        {
+                            "bbox": [
+                                100,
+                                538,
+                                238,
+                                554
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        100,
+                                        538,
+                                        238,
+                                        554
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Notes) to generate a PDF.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 17
+                        }
+                    ],
+                    "index": 14
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        86,
+                        585,
+                        526,
+                        628
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                86,
+                                585,
+                                524,
+                                600
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        86,
+                                        585,
+                                        524,
+                                        600
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Important: When submitting on Gradescope, you must tag pages to each ques-",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 18
+                        },
+                        {
+                            "bbox": [
+                                86,
+                                599,
+                                524,
+                                615
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        86,
+                                        599,
+                                        524,
+                                        615
+                                    ],
+                                    "score": 1.0,
+                                    "content": "tion correctly (it prompts you to do this after submitting your work). This signif-",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 19
+                        },
+                        {
+                            "bbox": [
+                                86,
+                                615,
+                                525,
+                                628
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        86,
+                                        615,
+                                        525,
+                                        628
+                                    ],
+                                    "score": 1.0,
+                                    "content": "icantly streamlines the grading process and allows us to release grades more quickly.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 20
+                        }
+                    ],
+                    "index": 19
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        86,
+                        646,
+                        526,
+                        688
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                86,
+                                645,
+                                524,
+                                661
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        86,
+                                        645,
+                                        524,
+                                        661
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Your work will NOT be graded if you do not select pages on Gradescope.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 21
+                        },
+                        {
+                            "bbox": [
+                                86,
+                                659,
+                                527,
+                                676
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        86,
+                                        659,
+                                        527,
+                                        676
+                                    ],
+                                    "score": 1.0,
+                                    "content": "We will not be granting regrade requests nor extensions to submissions that don’t",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 22
+                        },
+                        {
+                            "bbox": [
+                                86,
+                                675,
+                                185,
+                                688
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        86,
+                                        675,
+                                        185,
+                                        688
+                                    ],
+                                    "score": 1.0,
+                                    "content": "follow instructions.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 23
+                        }
+                    ],
+                    "index": 22
+                }
+            ],
+            "layout_bboxes": [],
+            "page_idx": 0,
+            "page_size": [
+                612.0,
+                792.0
+            ],
+            "_layout_tree": [],
+            "images": [],
+            "tables": [],
+            "interline_equations": [],
+            "discarded_blocks": [
+                {
+                    "type": "discarded",
+                    "bbox": [
+                        72,
+                        70,
+                        541,
+                        164
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                82,
+                                79,
+                                216,
+                                94
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        82,
+                                        79,
+                                        216,
+                                        94
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Data 100, Spring 2024",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        {
+                            "bbox": [
+                                250,
+                                106,
+                                356,
+                                125
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        250,
+                                        106,
+                                        356,
+                                        125
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Homework #5",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        {
+                            "bbox": [
+                                236,
+                                142,
+                                529,
+                                157
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        236,
+                                        142,
+                                        529,
+                                        157
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Due Date: Thursday, February 29th at 11:59 PM Pacific",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "discarded",
+                    "bbox": [
+                        302,
+                        725,
+                        309,
+                        735
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                301,
+                                725,
+                                308,
+                                736
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        301,
+                                        725,
+                                        308,
+                                        736
+                                    ],
+                                    "score": 1.0,
+                                    "content": "1",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "need_drop": false,
+            "drop_reason": [],
+            "para_blocks": [
+                {
+                    "type": "title",
+                    "bbox": [
+                        71,
+                        184,
+                        170,
+                        199
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                71,
+                                185,
+                                168,
+                                199
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        71,
+                                        185,
+                                        168,
+                                        199
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Total Points: 40",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 0
+                        }
+                    ],
+                    "index": 0,
+                    "page_num": "page_0",
+                    "page_size": [
+                        612.0,
+                        792.0
+                    ]
+                },
+                {
+                    "type": "title",
+                    "bbox": [
+                        71,
+                        236,
+                        267,
+                        254
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                71,
+                                236,
+                                266,
+                                253
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        71,
+                                        236,
+                                        266,
+                                        253
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Submission Instructions",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 1
+                        }
+                    ],
+                    "index": 1,
+                    "page_num": "page_0",
+                    "page_size": [
+                        612.0,
+                        792.0
+                    ]
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        71,
+                        278,
+                        542,
+                        379
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                70,
+                                278,
+                                540,
+                                293
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        70,
+                                        278,
+                                        540,
+                                        293
+                                    ],
+                                    "score": 1.0,
+                                    "content": "You must submit this assignment to Gradescope by the on-time deadline, Thursday, Febru-",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 2
+                        },
+                        {
+                            "bbox": [
+                                70,
+                                293,
+                                540,
+                                307
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        70,
+                                        293,
+                                        540,
+                                        307
+                                    ],
+                                    "score": 1.0,
+                                    "content": "ary 29th at 11:59 PM Pacific. Please read the syllabus for the grace period policy.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 3
+                        },
+                        {
+                            "bbox": [
+                                69,
+                                306,
+                                541,
+                                324
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        69,
+                                        306,
+                                        541,
+                                        324
+                                    ],
+                                    "score": 1.0,
+                                    "content": "No late submissions beyond the grace period will be accepted. While course staff is happy",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 4
+                        },
+                        {
+                            "bbox": [
+                                70,
+                                322,
+                                541,
+                                337
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        70,
+                                        322,
+                                        541,
+                                        337
+                                    ],
+                                    "score": 1.0,
+                                    "content": "to help you if you encounter difficulties with submission, we may not be able to respond to",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 5
+                        },
+                        {
+                            "bbox": [
+                                69,
+                                336,
+                                541,
+                                352
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        69,
+                                        336,
+                                        541,
+                                        352
+                                    ],
+                                    "score": 1.0,
+                                    "content": "last-minute requests for assistance (TAs need to sleep, after all!). We strongly encourage",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 6
+                        },
+                        {
+                            "bbox": [
+                                70,
+                                351,
+                                541,
+                                366
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        70,
+                                        351,
+                                        541,
+                                        366
+                                    ],
+                                    "score": 1.0,
+                                    "content": "you to plan to submit your work to Gradescope several hours before the stated",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 7
+                        },
+                        {
+                            "bbox": [
+                                70,
+                                365,
+                                541,
+                                380
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        70,
+                                        365,
+                                        541,
+                                        380
+                                    ],
+                                    "score": 1.0,
+                                    "content": "deadline. This way, you will have ample time to reach out to staff for submission support.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 8
+                        }
+                    ],
+                    "index": 5,
+                    "page_num": "page_0",
+                    "page_size": [
+                        612.0,
+                        792.0
+                    ],
+                    "bbox_fs": [
+                        69,
+                        278,
+                        541,
+                        380
+                    ]
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        71,
+                        391,
+                        541,
+                        418
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                69,
+                                390,
+                                542,
+                                408
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        69,
+                                        390,
+                                        542,
+                                        408
+                                    ],
+                                    "score": 1.0,
+                                    "content": "This assignment is entirely on paper. Your submission (a single PDF) can be generated as",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 9
+                        },
+                        {
+                            "bbox": [
+                                70,
+                                406,
+                                111,
+                                420
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        70,
+                                        406,
+                                        111,
+                                        420
+                                    ],
+                                    "score": 1.0,
+                                    "content": "follows:",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 10
+                        }
+                    ],
+                    "index": 9.5,
+                    "page_num": "page_0",
+                    "page_size": [
+                        612.0,
+                        792.0
+                    ],
+                    "bbox_fs": [
+                        69,
+                        390,
+                        542,
+                        420
+                    ]
+                },
+                {
+                    "type": "list",
+                    "bbox": [
+                        85,
+                        431,
+                        543,
+                        554
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                84,
+                                432,
+                                541,
+                                448
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        84,
+                                        432,
+                                        541,
+                                        448
+                                    ],
+                                    "score": 1.0,
+                                    "content": "1. Type your answers. We recommend LaTeX, the math typesetting language. Overleaf",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 11,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                99,
+                                447,
+                                267,
+                                461
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        99,
+                                        447,
+                                        267,
+                                        461
+                                    ],
+                                    "score": 1.0,
+                                    "content": "is a great tool to type in LaTeX.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 12,
+                            "is_list_end_line": true
+                        },
+                        {
+                            "bbox": [
+                                83,
+                                470,
+                                542,
+                                486
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        83,
+                                        470,
+                                        542,
+                                        486
+                                    ],
+                                    "score": 1.0,
+                                    "content": "2. Download this PDF, print it out, and write directly on these pages. If you have a",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 13,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                100,
+                                486,
+                                385,
+                                500
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        100,
+                                        486,
+                                        385,
+                                        500
+                                    ],
+                                    "score": 1.0,
+                                    "content": "tablet, you may save this PDF and write directly on it.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 14,
+                            "is_list_end_line": true
+                        },
+                        {
+                            "bbox": [
+                                83,
+                                509,
+                                541,
+                                525
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        83,
+                                        509,
+                                        541,
+                                        525
+                                    ],
+                                    "score": 1.0,
+                                    "content": "3. Write your answers on a blank sheet of physical or digital paper. Note: If you write",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 15,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                99,
+                                525,
+                                540,
+                                540
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        99,
+                                        525,
+                                        540,
+                                        540
+                                    ],
+                                    "score": 1.0,
+                                    "content": "your answers on physical paper, use a scanning application (e.g., CamScanner, Apple",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 16
+                        },
+                        {
+                            "bbox": [
+                                100,
+                                538,
+                                238,
+                                554
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        100,
+                                        538,
+                                        238,
+                                        554
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Notes) to generate a PDF.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 17,
+                            "is_list_end_line": true
+                        }
+                    ],
+                    "index": 14,
+                    "page_num": "page_0",
+                    "page_size": [
+                        612.0,
+                        792.0
+                    ],
+                    "bbox_fs": [
+                        83,
+                        432,
+                        542,
+                        554
+                    ]
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        86,
+                        585,
+                        526,
+                        628
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                86,
+                                585,
+                                524,
+                                600
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        86,
+                                        585,
+                                        524,
+                                        600
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Important: When submitting on Gradescope, you must tag pages to each ques-",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 18
+                        },
+                        {
+                            "bbox": [
+                                86,
+                                599,
+                                524,
+                                615
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        86,
+                                        599,
+                                        524,
+                                        615
+                                    ],
+                                    "score": 1.0,
+                                    "content": "tion correctly (it prompts you to do this after submitting your work). This signif-",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 19
+                        },
+                        {
+                            "bbox": [
+                                86,
+                                615,
+                                525,
+                                628
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        86,
+                                        615,
+                                        525,
+                                        628
+                                    ],
+                                    "score": 1.0,
+                                    "content": "icantly streamlines the grading process and allows us to release grades more quickly.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 20
+                        }
+                    ],
+                    "index": 19,
+                    "page_num": "page_0",
+                    "page_size": [
+                        612.0,
+                        792.0
+                    ],
+                    "bbox_fs": [
+                        86,
+                        585,
+                        525,
+                        628
+                    ]
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        86,
+                        646,
+                        526,
+                        688
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                86,
+                                645,
+                                524,
+                                661
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        86,
+                                        645,
+                                        524,
+                                        661
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Your work will NOT be graded if you do not select pages on Gradescope.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 21
+                        },
+                        {
+                            "bbox": [
+                                86,
+                                659,
+                                527,
+                                676
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        86,
+                                        659,
+                                        527,
+                                        676
+                                    ],
+                                    "score": 1.0,
+                                    "content": "We will not be granting regrade requests nor extensions to submissions that don’t",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 22
+                        },
+                        {
+                            "bbox": [
+                                86,
+                                675,
+                                185,
+                                688
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        86,
+                                        675,
+                                        185,
+                                        688
+                                    ],
+                                    "score": 1.0,
+                                    "content": "follow instructions.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 23
+                        }
+                    ],
+                    "index": 22,
+                    "page_num": "page_0",
+                    "page_size": [
+                        612.0,
+                        792.0
+                    ],
+                    "bbox_fs": [
+                        86,
+                        645,
+                        527,
+                        688
+                    ]
+                }
+            ]
+        },
+        {
+            "preproc_blocks": [
+                {
+                    "type": "text",
+                    "bbox": [
+                        71,
+                        73,
+                        541,
+                        101
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                70,
+                                74,
+                                542,
+                                88
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        70,
+                                        74,
+                                        542,
+                                        88
+                                    ],
+                                    "score": 1.0,
+                                    "content": "If you encounter any difficulties with submission, please don’t hesitate to reach out to staff",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 0
+                        },
+                        {
+                            "bbox": [
+                                70,
+                                89,
+                                180,
+                                101
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        70,
+                                        89,
+                                        180,
+                                        101
+                                    ],
+                                    "score": 1.0,
+                                    "content": "prior to the deadline.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 1
+                        }
+                    ],
+                    "index": 0.5
+                },
+                {
+                    "type": "title",
+                    "bbox": [
+                        72,
+                        140,
+                        183,
+                        158
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                73,
+                                141,
+                                182,
+                                158
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        73,
+                                        141,
+                                        182,
+                                        158
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Collaborators",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 2
+                        }
+                    ],
+                    "index": 2
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        71,
+                        183,
+                        540,
+                        224
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                70,
+                                183,
+                                540,
+                                198
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        70,
+                                        183,
+                                        540,
+                                        198
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Data science is a collaborative activity. While you may talk with others about the homework,",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 3
+                        },
+                        {
+                            "bbox": [
+                                70,
+                                197,
+                                541,
+                                212
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        70,
+                                        197,
+                                        541,
+                                        212
+                                    ],
+                                    "score": 1.0,
+                                    "content": "we ask that you write your solutions individually. If you do discuss the assignments with",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 4
+                        },
+                        {
+                            "bbox": [
+                                70,
+                                212,
+                                281,
+                                225
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        70,
+                                        212,
+                                        281,
+                                        225
+                                    ],
+                                    "score": 1.0,
+                                    "content": "others, please include their names below.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 5
+                        }
+                    ],
+                    "index": 4
+                }
+            ],
+            "layout_bboxes": [],
+            "page_idx": 1,
+            "page_size": [
+                612.0,
+                792.0
+            ],
+            "_layout_tree": [],
+            "images": [],
+            "tables": [],
+            "interline_equations": [],
+            "discarded_blocks": [
+                {
+                    "type": "discarded",
+                    "bbox": [
+                        72,
+                        47,
+                        146,
+                        58
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                72,
+                                46,
+                                146,
+                                59
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        72,
+                                        46,
+                                        146,
+                                        59
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Homework #5",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "discarded",
+                    "bbox": [
+                        534,
+                        48,
+                        540,
+                        57
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                532,
+                                47,
+                                541,
+                                60
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        532,
+                                        47,
+                                        541,
+                                        60
+                                    ],
+                                    "score": 1.0,
+                                    "content": "",
+                                    "type": "text",
+                                    "height": 13,
+                                    "width": 9
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "need_drop": false,
+            "drop_reason": [],
+            "para_blocks": [
+                {
+                    "type": "text",
+                    "bbox": [
+                        71,
+                        73,
+                        541,
+                        101
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                70,
+                                74,
+                                542,
+                                88
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        70,
+                                        74,
+                                        542,
+                                        88
+                                    ],
+                                    "score": 1.0,
+                                    "content": "If you encounter any difficulties with submission, please don’t hesitate to reach out to staff",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 0
+                        },
+                        {
+                            "bbox": [
+                                70,
+                                89,
+                                180,
+                                101
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        70,
+                                        89,
+                                        180,
+                                        101
+                                    ],
+                                    "score": 1.0,
+                                    "content": "prior to the deadline.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 1
+                        }
+                    ],
+                    "index": 0.5,
+                    "page_num": "page_1",
+                    "page_size": [
+                        612.0,
+                        792.0
+                    ],
+                    "bbox_fs": [
+                        70,
+                        74,
+                        542,
+                        101
+                    ]
+                },
+                {
+                    "type": "title",
+                    "bbox": [
+                        72,
+                        140,
+                        183,
+                        158
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                73,
+                                141,
+                                182,
+                                158
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        73,
+                                        141,
+                                        182,
+                                        158
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Collaborators",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 2
+                        }
+                    ],
+                    "index": 2,
+                    "page_num": "page_1",
+                    "page_size": [
+                        612.0,
+                        792.0
+                    ]
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        71,
+                        183,
+                        540,
+                        224
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                70,
+                                183,
+                                540,
+                                198
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        70,
+                                        183,
+                                        540,
+                                        198
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Data science is a collaborative activity. While you may talk with others about the homework,",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 3
+                        },
+                        {
+                            "bbox": [
+                                70,
+                                197,
+                                541,
+                                212
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        70,
+                                        197,
+                                        541,
+                                        212
+                                    ],
+                                    "score": 1.0,
+                                    "content": "we ask that you write your solutions individually. If you do discuss the assignments with",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 4
+                        },
+                        {
+                            "bbox": [
+                                70,
+                                212,
+                                281,
+                                225
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        70,
+                                        212,
+                                        281,
+                                        225
+                                    ],
+                                    "score": 1.0,
+                                    "content": "others, please include their names below.",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 5
+                        }
+                    ],
+                    "index": 4,
+                    "page_num": "page_1",
+                    "page_size": [
+                        612.0,
+                        792.0
+                    ],
+                    "bbox_fs": [
+                        70,
+                        183,
+                        541,
+                        225
+                    ]
+                }
+            ]
+        },
+        {
+            "preproc_blocks": [
+                {
+                    "type": "text",
+                    "bbox": [
+                        155,
+                        73,
+                        452,
+                        104
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                156,
+                                74,
+                                444,
+                                87
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        156,
+                                        74,
+                                        444,
+                                        87
+                                    ],
+                                    "score": 1.0,
+                                    "content": "D. All students enrolled in Shiny’s discussion section",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 0
+                        },
+                        {
+                            "bbox": [
+                                156,
+                                91,
+                                450,
+                                105
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        156,
+                                        91,
+                                        450,
+                                        105
+                                    ],
+                                    "score": 1.0,
+                                    "content": "⃝E. All students who fill out Shiny’s pre-contest survey",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 1
+                        }
+                    ],
+                    "index": 0.5
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        121,
+                        115,
+                        541,
+                        143
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                121,
+                                115,
+                                541,
+                                133
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        121,
+                                        115,
+                                        541,
+                                        133
+                                    ],
+                                    "score": 1.0,
+                                    "content": "ii. (1 point) In this sampling scheme, which of the following is the sampling",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 2
+                        },
+                        {
+                            "bbox": [
+                                137,
+                                129,
+                                175,
+                                145
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        137,
+                                        129,
+                                        175,
+                                        145
+                                    ],
+                                    "score": 1.0,
+                                    "content": "frame?",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 3
+                        }
+                    ],
+                    "index": 2.5
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        153,
+                        144,
+                        541,
+                        242
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                155,
+                                145,
+                                302,
+                                159
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        155,
+                                        145,
+                                        302,
+                                        159
+                                    ],
+                                    "score": 1.0,
+                                    "content": "⃝A. UC Berkeley students",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 4
+                        },
+                        {
+                            "bbox": [
+                                155,
+                                160,
+                                541,
+                                176
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        155,
+                                        160,
+                                        541,
+                                        176
+                                    ],
+                                    "score": 1.0,
+                                    "content": "⃝B. All students enrolled in Data 100 across all semesters (Spring 2024",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 5
+                        },
+                        {
+                            "bbox": [
+                                189,
+                                178,
+                                259,
+                                190
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        189,
+                                        178,
+                                        259,
+                                        190
+                                    ],
+                                    "score": 1.0,
+                                    "content": "and previous)",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 6
+                        },
+                        {
+                            "bbox": [
+                                155,
+                                192,
+                                521,
+                                208
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        155,
+                                        192,
+                                        521,
+                                        208
+                                    ],
+                                    "score": 1.0,
+                                    "content": "⃝C. All students enrolled in Data 100 for this semester (Spring 2024)",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 7
+                        },
+                        {
+                            "bbox": [
+                                154,
+                                208,
+                                445,
+                                226
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        154,
+                                        208,
+                                        445,
+                                        226
+                                    ],
+                                    "score": 1.0,
+                                    "content": "⃝D. All students enrolled in Shiny’s discussion section",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 8
+                        },
+                        {
+                            "bbox": [
+                                155,
+                                227,
+                                451,
+                                242
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        155,
+                                        227,
+                                        451,
+                                        242
+                                    ],
+                                    "score": 1.0,
+                                    "content": "⃝E. All students who fill out Shiny’s pre-contest survey",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 9
+                        }
+                    ],
+                    "index": 6.5
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        119,
+                        251,
+                        383,
+                        266
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                119,
+                                252,
+                                383,
+                                267
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        119,
+                                        252,
+                                        383,
+                                        267
+                                    ],
+                                    "score": 1.0,
+                                    "content": "iii. (1 point) Which of the following is the sample?",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 10
+                        }
+                    ],
+                    "index": 10
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        154,
+                        268,
+                        542,
+                        364
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                155,
+                                267,
+                                301,
+                                281
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        155,
+                                        267,
+                                        301,
+                                        281
+                                    ],
+                                    "score": 1.0,
+                                    "content": "⃝A. UC Berkeley students",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 11
+                        },
+                        {
+                            "bbox": [
+                                155,
+                                283,
+                                541,
+                                298
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        155,
+                                        283,
+                                        541,
+                                        298
+                                    ],
+                                    "score": 1.0,
+                                    "content": "⃝B. All students enrolled in Data 100 across all semesters (Spring 2024",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 12
+                        },
+                        {
+                            "bbox": [
+                                189,
+                                299,
+                                259,
+                                312
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        189,
+                                        299,
+                                        259,
+                                        312
+                                    ],
+                                    "score": 1.0,
+                                    "content": "and previous)",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 13
+                        },
+                        {
+                            "bbox": [
+                                155,
+                                316,
+                                521,
+                                330
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        155,
+                                        316,
+                                        521,
+                                        330
+                                    ],
+                                    "score": 1.0,
+                                    "content": "⃝C. All students enrolled in Data 100 for this semester (Spring 2024)",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 14
+                        },
+                        {
+                            "bbox": [
+                                154,
+                                332,
+                                445,
+                                347
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        154,
+                                        332,
+                                        445,
+                                        347
+                                    ],
+                                    "score": 1.0,
+                                    "content": "⃝D. All students enrolled in Shiny’s discussion section",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 15
+                        },
+                        {
+                            "bbox": [
+                                155,
+                                349,
+                                451,
+                                365
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        155,
+                                        349,
+                                        168,
+                                        362
+                                    ],
+                                    "score": 0.54,
+                                    "content": "\\triangleleft",
+                                    "type": "inline_equation",
+                                    "height": 13,
+                                    "width": 13
+                                },
+                                {
+                                    "bbox": [
+                                        169,
+                                        349,
+                                        451,
+                                        365
+                                    ],
+                                    "score": 1.0,
+                                    "content": "E. All students who fill out Shiny’s pre-contest survey",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 16
+                        }
+                    ],
+                    "index": 13.5
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        119,
+                        372,
+                        466,
+                        389
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                119,
+                                374,
+                                466,
+                                389
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        119,
+                                        374,
+                                        466,
+                                        389
+                                    ],
+                                    "score": 1.0,
+                                    "content": "iv. (1 point) Which of the following best characterizes the sample?",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 17
+                        }
+                    ],
+                    "index": 17
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        156,
+                        389,
+                        313,
+                        437
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                164,
+                                389,
+                                311,
+                                403
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        164,
+                                        389,
+                                        311,
+                                        403
+                                    ],
+                                    "score": 1.0,
+                                    "content": "A. Simple Random Sample",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 18
+                        },
+                        {
+                            "bbox": [
+                                156,
+                                405,
+                                294,
+                                420
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        156,
+                                        406,
+                                        183,
+                                        417
+                                    ],
+                                    "score": 1.0,
+                                    "content": "B.",
+                                    "type": "text"
+                                },
+                                {
+                                    "bbox": [
+                                        186,
+                                        405,
+                                        294,
+                                        420
+                                    ],
+                                    "score": 1.0,
+                                    "content": " Convenience Sample",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 19
+                        },
+                        {
+                            "bbox": [
+                                155,
+                                423,
+                                288,
+                                436
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        155,
+                                        423,
+                                        288,
+                                        436
+                                    ],
+                                    "score": 1.0,
+                                    "content": "C. Probability Sample",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 20
+                        }
+                    ],
+                    "index": 19
+                }
+            ],
+            "layout_bboxes": [],
+            "page_idx": 2,
+            "page_size": [
+                612.0,
+                792.0
+            ],
+            "_layout_tree": [],
+            "images": [],
+            "tables": [],
+            "interline_equations": [],
+            "discarded_blocks": [
+                {
+                    "type": "discarded",
+                    "bbox": [
+                        72,
+                        47,
+                        147,
+                        58
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                71,
+                                47,
+                                147,
+                                59
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        71,
+                                        47,
+                                        147,
+                                        59
+                                    ],
+                                    "score": 1.0,
+                                    "content": "Homework #5",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "discarded",
+                    "bbox": [
+                        533,
+                        48,
+                        540,
+                        58
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                533,
+                                47,
+                                540,
+                                59
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        533,
+                                        47,
+                                        540,
+                                        59
+                                    ],
+                                    "score": 1.0,
+                                    "content": "5",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "need_drop": false,
+            "drop_reason": [],
+            "para_blocks": [
+                {
+                    "type": "text",
+                    "bbox": [
+                        155,
+                        73,
+                        452,
+                        104
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                156,
+                                74,
+                                444,
+                                87
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        156,
+                                        74,
+                                        444,
+                                        87
+                                    ],
+                                    "score": 1.0,
+                                    "content": "D. All students enrolled in Shiny’s discussion section",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 0
+                        },
+                        {
+                            "bbox": [
+                                156,
+                                91,
+                                450,
+                                105
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        156,
+                                        91,
+                                        450,
+                                        105
+                                    ],
+                                    "score": 1.0,
+                                    "content": "⃝E. All students who fill out Shiny’s pre-contest survey",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 1
+                        },
+                        {
+                            "bbox": [
+                                121,
+                                115,
+                                541,
+                                133
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        121,
+                                        115,
+                                        541,
+                                        133
+                                    ],
+                                    "score": 1.0,
+                                    "content": "ii. (1 point) In this sampling scheme, which of the following is the sampling",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 2
+                        },
+                        {
+                            "bbox": [
+                                137,
+                                129,
+                                175,
+                                145
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        137,
+                                        129,
+                                        175,
+                                        145
+                                    ],
+                                    "score": 1.0,
+                                    "content": "frame?",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 3
+                        }
+                    ],
+                    "index": 0.5,
+                    "page_num": "page_2",
+                    "page_size": [
+                        612.0,
+                        792.0
+                    ],
+                    "bbox_fs": [
+                        156,
+                        74,
+                        450,
+                        105
+                    ]
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        121,
+                        115,
+                        541,
+                        143
+                    ],
+                    "lines": [],
+                    "index": 2.5,
+                    "page_num": "page_2",
+                    "page_size": [
+                        612.0,
+                        792.0
+                    ],
+                    "bbox_fs": [
+                        121,
+                        115,
+                        541,
+                        145
+                    ],
+                    "lines_deleted": true
+                },
+                {
+                    "type": "list",
+                    "bbox": [
+                        153,
+                        144,
+                        541,
+                        242
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                155,
+                                145,
+                                302,
+                                159
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        155,
+                                        145,
+                                        302,
+                                        159
+                                    ],
+                                    "score": 1.0,
+                                    "content": "⃝A. UC Berkeley students",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 4,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                155,
+                                160,
+                                541,
+                                176
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        155,
+                                        160,
+                                        541,
+                                        176
+                                    ],
+                                    "score": 1.0,
+                                    "content": "⃝B. All students enrolled in Data 100 across all semesters (Spring 2024",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 5,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                189,
+                                178,
+                                259,
+                                190
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        189,
+                                        178,
+                                        259,
+                                        190
+                                    ],
+                                    "score": 1.0,
+                                    "content": "and previous)",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 6
+                        },
+                        {
+                            "bbox": [
+                                155,
+                                192,
+                                521,
+                                208
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        155,
+                                        192,
+                                        521,
+                                        208
+                                    ],
+                                    "score": 1.0,
+                                    "content": "⃝C. All students enrolled in Data 100 for this semester (Spring 2024)",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 7,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                154,
+                                208,
+                                445,
+                                226
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        154,
+                                        208,
+                                        445,
+                                        226
+                                    ],
+                                    "score": 1.0,
+                                    "content": "⃝D. All students enrolled in Shiny’s discussion section",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 8,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                155,
+                                227,
+                                451,
+                                242
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        155,
+                                        227,
+                                        451,
+                                        242
+                                    ],
+                                    "score": 1.0,
+                                    "content": "⃝E. All students who fill out Shiny’s pre-contest survey",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 9,
+                            "is_list_start_line": true
+                        }
+                    ],
+                    "index": 6.5,
+                    "page_num": "page_2",
+                    "page_size": [
+                        612.0,
+                        792.0
+                    ],
+                    "bbox_fs": [
+                        154,
+                        145,
+                        541,
+                        242
+                    ]
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        119,
+                        251,
+                        383,
+                        266
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                119,
+                                252,
+                                383,
+                                267
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        119,
+                                        252,
+                                        383,
+                                        267
+                                    ],
+                                    "score": 1.0,
+                                    "content": "iii. (1 point) Which of the following is the sample?",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 10
+                        }
+                    ],
+                    "index": 10,
+                    "page_num": "page_2",
+                    "page_size": [
+                        612.0,
+                        792.0
+                    ],
+                    "bbox_fs": [
+                        119,
+                        252,
+                        383,
+                        267
+                    ]
+                },
+                {
+                    "type": "list",
+                    "bbox": [
+                        154,
+                        268,
+                        542,
+                        364
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                155,
+                                267,
+                                301,
+                                281
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        155,
+                                        267,
+                                        301,
+                                        281
+                                    ],
+                                    "score": 1.0,
+                                    "content": "⃝A. UC Berkeley students",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 11,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                155,
+                                283,
+                                541,
+                                298
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        155,
+                                        283,
+                                        541,
+                                        298
+                                    ],
+                                    "score": 1.0,
+                                    "content": "⃝B. All students enrolled in Data 100 across all semesters (Spring 2024",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 12,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                189,
+                                299,
+                                259,
+                                312
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        189,
+                                        299,
+                                        259,
+                                        312
+                                    ],
+                                    "score": 1.0,
+                                    "content": "and previous)",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 13
+                        },
+                        {
+                            "bbox": [
+                                155,
+                                316,
+                                521,
+                                330
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        155,
+                                        316,
+                                        521,
+                                        330
+                                    ],
+                                    "score": 1.0,
+                                    "content": "⃝C. All students enrolled in Data 100 for this semester (Spring 2024)",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 14,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                154,
+                                332,
+                                445,
+                                347
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        154,
+                                        332,
+                                        445,
+                                        347
+                                    ],
+                                    "score": 1.0,
+                                    "content": "⃝D. All students enrolled in Shiny’s discussion section",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 15,
+                            "is_list_start_line": true
+                        },
+                        {
+                            "bbox": [
+                                155,
+                                349,
+                                451,
+                                365
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        155,
+                                        349,
+                                        168,
+                                        362
+                                    ],
+                                    "score": 0.54,
+                                    "content": "\\triangleleft",
+                                    "type": "inline_equation",
+                                    "height": 13,
+                                    "width": 13
+                                },
+                                {
+                                    "bbox": [
+                                        169,
+                                        349,
+                                        451,
+                                        365
+                                    ],
+                                    "score": 1.0,
+                                    "content": "E. All students who fill out Shiny’s pre-contest survey",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 16,
+                            "is_list_start_line": true
+                        }
+                    ],
+                    "index": 13.5,
+                    "page_num": "page_2",
+                    "page_size": [
+                        612.0,
+                        792.0
+                    ],
+                    "bbox_fs": [
+                        154,
+                        267,
+                        541,
+                        365
+                    ]
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        119,
+                        372,
+                        466,
+                        389
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                119,
+                                374,
+                                466,
+                                389
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        119,
+                                        374,
+                                        466,
+                                        389
+                                    ],
+                                    "score": 1.0,
+                                    "content": "iv. (1 point) Which of the following best characterizes the sample?",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 17
+                        }
+                    ],
+                    "index": 17,
+                    "page_num": "page_2",
+                    "page_size": [
+                        612.0,
+                        792.0
+                    ],
+                    "bbox_fs": [
+                        119,
+                        374,
+                        466,
+                        389
+                    ]
+                },
+                {
+                    "type": "text",
+                    "bbox": [
+                        156,
+                        389,
+                        313,
+                        437
+                    ],
+                    "lines": [
+                        {
+                            "bbox": [
+                                164,
+                                389,
+                                311,
+                                403
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        164,
+                                        389,
+                                        311,
+                                        403
+                                    ],
+                                    "score": 1.0,
+                                    "content": "A. Simple Random Sample",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 18
+                        },
+                        {
+                            "bbox": [
+                                156,
+                                405,
+                                294,
+                                420
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        156,
+                                        406,
+                                        183,
+                                        417
+                                    ],
+                                    "score": 1.0,
+                                    "content": "B.",
+                                    "type": "text"
+                                },
+                                {
+                                    "bbox": [
+                                        186,
+                                        405,
+                                        294,
+                                        420
+                                    ],
+                                    "score": 1.0,
+                                    "content": " Convenience Sample",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 19
+                        },
+                        {
+                            "bbox": [
+                                155,
+                                423,
+                                288,
+                                436
+                            ],
+                            "spans": [
+                                {
+                                    "bbox": [
+                                        155,
+                                        423,
+                                        288,
+                                        436
+                                    ],
+                                    "score": 1.0,
+                                    "content": "C. Probability Sample",
+                                    "type": "text"
+                                }
+                            ],
+                            "index": 20
+                        }
+                    ],
+                    "index": 19,
+                    "page_num": "page_2",
+                    "page_size": [
+                        612.0,
+                        792.0
+                    ],
+                    "bbox_fs": [
+                        155,
+                        389,
+                        311,
+                        436
+                    ]
+                }
+            ]
+        }
+    ],
+    "_parse_type": "txt",
+    "_version_name": "0.10.6"
+}

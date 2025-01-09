@@ -17,7 +17,9 @@ export async function POST(req: Request) {
   }
 
   var apiHost: string =
-    process.env['ROAR_BACKEND_HOST'] || 'http://0.0.0.0:9000'
+    courseId === 'CS 294-137'
+      ? process.env['CS_294_137_BACKEND_HOST'] || 'http://0.0.0.0:9000'
+      : process.env['ROAR_BACKEND_HOST'] || 'http://0.0.0.0:9000'
 
   const apiUrl: string = apiHost + '/api/chat/completions'
 

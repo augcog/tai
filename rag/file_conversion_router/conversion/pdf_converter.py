@@ -146,7 +146,7 @@ class PdfConverter(BaseConverter):
             md_file.write(markdown_content)
 
     # Override
-    def _to_markdown(self, input_path: Path, output_path: Path, conversion_method: str = "MinerU") -> Path:
+    def _to_markdown(self, input_path: Path, output_path: Path, conversion_method: str = "nougat") -> Path:
         # """Perform PDF to Markdown conversion using Nougat with the detected hardware configuration."""
         self.validate_tool(conversion_method)
         temp_dir_path = output_path.parent
@@ -157,6 +157,7 @@ class PdfConverter(BaseConverter):
 
         # Convert the PDF to Markdown using Nougat.
         if conversion_method == "nougat":
+            print('Using Nougat')
             # Define the path for the PDF without images in the output directory
             pdf_without_images_path = temp_dir_path / input_path.name
             # Remove images from the PDF and save to the output directory
@@ -173,29 +174,17 @@ class PdfConverter(BaseConverter):
 
 
         elif conversion_method == "MinerU":
-
             print("Using MinerU")
-
             self._to_markdown_use_MinerU(input_path, temp_dir_path)
-
             # Construct the correct path based on the nested folder structure
-
             base_name = input_path.stem  # e.g., "61a-sp24-mt1"
-
             md_file_path = temp_dir_path / base_name / "auto" / f"{base_name}.md"
-
             if md_file_path.exists():
-
                 print(f"Markdown file found: {md_file_path}")
-
             else:
-
                 raise FileNotFoundError(f"Markdown file not found: {md_file_path}")
-
             # Set the target to this markdown path
-
             target = md_file_path
-
         return target
 
     def _to_markdown_using_native_nougat_cli(self, input_pdf_path: Path, output_path: Path) -> None:

@@ -1,6 +1,8 @@
+import { ObjectId } from 'mongodb'
 import { type Message } from 'ai'
 
-export interface Chat extends Record<string, any> {
+export interface Chat {
+  _id?: ObjectId
   id: string
   title: string
   createdAt: Date

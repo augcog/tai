@@ -356,17 +356,14 @@ def top_k_selector(message: str, stream=True, rag=True, course=None, k=3):
             distances = np.sort(cosine_similarities)[-k:][::-1]
             top_docs = doc_list[indices][:k]
 
-            n = 0
-
-            for i in range(len(top_docs)):
+            used_chunks = []
+            for i, doc in enumerate(top_docs):
                 if distances[i] > 0.45:
-                    n += 1
-
-    found_chunks = min(len(top_docs), k)
+                    used_chunks.append(doc)
 
     # Return the top k documents as a list of strings
     return {
         "top_docs": top_docs,
-        "found_chunks": found_chunks,
-        "used_chunks": n
+        "used_chunks": used_chunks,
+        "distances": distances
     }

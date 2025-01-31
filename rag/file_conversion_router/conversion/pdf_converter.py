@@ -9,7 +9,7 @@ from pix2text import Pix2Text
 from rag.file_conversion_router.conversion.base_converter import BaseConverter
 from rag.file_conversion_router.services.tai_nougat_service import TAINougatConfig
 from rag.file_conversion_router.services.tai_nougat_service.api import convert_pdf_to_mmd
-
+from rag.file_conversion_router.services.tai_MinerU_service.api import convert_pdf_to_md_by_MinerU
 
 class PdfConverter(BaseConverter):
     def __init__(self):
@@ -146,7 +146,7 @@ class PdfConverter(BaseConverter):
             md_file.write(markdown_content)
 
     # Override
-    def _to_markdown(self, input_path: Path, output_path: Path, conversion_method: str = "nougat") -> Path:
+    def _to_markdown(self, input_path: Path, output_path: Path, conversion_method: str = "MinerU") -> Path:
         # """Perform PDF to Markdown conversion using Nougat with the detected hardware configuration."""
         self.validate_tool(conversion_method)
         temp_dir_path = output_path.parent
@@ -174,11 +174,10 @@ class PdfConverter(BaseConverter):
 
 
         elif conversion_method == "MinerU":
-            print("Using MinerU")
-            self._to_markdown_use_MinerU(input_path, temp_dir_path)
+            convert_pdf_to_md_by_MinerU(input_path, output_path)
             # Construct the correct path based on the nested folder structure
             base_name = input_path.stem  # e.g., "61a-sp24-mt1"
-            md_file_path = temp_dir_path / base_name / "auto" / f"{base_name}.md"
+            md_file_path = output_path.parent / f"{base_name}.md"
             if md_file_path.exists():
                 print(f"Markdown file found: {md_file_path}")
             else:

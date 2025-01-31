@@ -1,47 +1,67 @@
-import os
+from pathlib import Path
 from magic_pdf.data.data_reader_writer import FileBasedDataWriter, FileBasedDataReader
 from magic_pdf.data.dataset import PymuDocDataset
 from magic_pdf.model.doc_analyze_by_custom_model import doc_analyze
-from pathlib import Path
+from magic_pdf.config.enums import SupportedPdfParseMethod
 
-def process_pdf_to_markdown(input_pdf_path: Path, output_dir: Path) -> None:
+def process_pdf(pdf_path: Path, output_dir: Path):
     """
-    Processes a PDF file and outputs markdown and images to the specified output directory.
+    Process a PDF file, automatically determine whether to use OCR or text mode,
+    and generate Markdown, JSON, and visualized PDF results.
 
-    Args:
-        pdf_file_name (str): The path to the PDF file.
-        output_dir (str): The directory where markdown and images will be saved.
+    :param pdf_path: The path to the PDF file to be processed (Path object).
+    :param output_dir: The parent directory where output files will be stored (Path object).
     """
-    # Get file name without extension
-    name_without_suff = os.path.splitext(os.path.basename(str(input_pdf_path)))[0]
+    # Ensure pdf_path and output_dir are Path objects
+    pdf_path = pdf_path.resolve()
+    output_dir = output_dir.resolve().parent  # Ensure output_dir is the parent directory
 
-    # Prepare output directories
-    local_image_dir = os.path.join(output_dir, "images")
-    local_md_file_path = os.path.join(output_dir, f"{name_without_suff}.md")
+    # Extract the PDF file name (without extension)
+    output_name = pdf_path.stem
+    # Define subdirectories
+    images_dir = output_dir / "images"  # Directory for storing OCR-generated images
+    markdown_dir = output_dir  # Directory for storing Markdown & JSON files
+    pdf_dir = output_dir / "PDFS"
+    json_dir = output_dir / "JSONS"
+    # Create required directories if they do not exist
+    for directory in [output_dir, images_dir, markdown_dir]:
+        directory.mkdir(parents=True, exist_ok=True)
 
-    # Create directories if they don’t exist
-    os.makedirs(local_image_dir, exist_ok=True)
-    os.makedirs(output_dir, exist_ok=True)
 
-    # Initialize data writers
-    image_writer = FileBasedDataWriter(local_image_dir)
-    md_writer = FileBasedDataWriter(output_dir)
-
-    # Read PDF bytes
+    # Create file writers
+    image_writer = FileBasedDataWriter(str(images_dir))
+    md_writer = FileBasedDataWriter(str(markdown_dir))  # Store Markdown separately
     reader = FileBasedDataReader("")
-    pdf_bytes = reader.read(str(input_pdf_path))
 
-    # Process the PDF
-    print("Starting PDF processing...")
+    # Read the PDF file
+    pdf_bytes = reader.read(str(pdf_path))
+
+    # Create a dataset instance
     ds = PymuDocDataset(pdf_bytes)
 
-    # Run the analysis, OCR, and markdown dump
-    ds.apply(doc_analyze, ocr=True).pipe_ocr_mode(image_writer).dump_md(md_writer, local_md_file_path, "images")
+    # Process the PDF (OCR or text mode)
+    if ds.classify() == SupportedPdfParseMethod.OCR:
+        infer_result = ds.apply(doc_analyze, ocr=True)
+        pipe_result = infer_result.pipe_ocr_mode(image_writer)
+    else:
+        infer_result = ds.apply(doc_analyze, ocr=False)
+        pipe_result = infer_result.pipe_txt_mode(image_writer)
 
-    print(f"Markdown saved in: {local_md_file_path}")
-    print(f"Images saved in: {local_image_dir}")
+    # Generate a model inference visualization PDF
+    infer_result.draw_model(str(pdf_dir / f"{output_name}_model.pdf"))
 
-# Example usage
-if __name__ == "__main__":
-    pdf_file = "/tests/test_rag/data/unit_tests/pdf/input/61a-sp24-mt1.pdf"
-    process_pdf_to_markdown(pdf_file, output_dir="output")
+    # Generate layout and text span visualization PDFs
+    pipe_result.draw_layout(str(pdf_dir / f"{output_name}_layout.pdf"))
+    pipe_result.draw_span(str(pdf_dir / f"{output_name}_spans.pdf"))
+
+    # Export Markdown (stored in a separate subdirectory)
+    md_content = pipe_result.get_markdown("images")
+    pipe_result.dump_md(md_writer, f"{output_name}.md", "images")
+
+    # Export structured JSON data
+    content_list = pipe_result.get_content_list("images")
+    pipe_result.dump_content_list(md_writer, json_dir / f"{output_name}_content_list.json", "images")
+
+    # Export intermediate JSON data
+    middle_json = pipe_result.get_middle_json()
+    pipe_result.dump_middle_json(md_writer, json_dir / f"{output_name}_middle.json")

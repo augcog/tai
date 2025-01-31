@@ -1,15 +1,8 @@
-import requests
-from bs4 import BeautifulSoup
 import os
-import time
-import re
 import yaml
-from pathlib import Path
-from typing import Union
-import ffmpeg
 
-
-from rag.scraper.Scraper_master.scrape_header import run_tasks, ScrapeHeader, match_tags
+from rag.scraper.Scraper_master.factory import ScraperFactory
+from rag.scraper.Scraper_master.configs import ScraperConfig
 from rag.file_conversion_router.api import convert_directory
 from rag.file_conversion_router.embedding_create import embedding_create
 
@@ -41,31 +34,18 @@ def pipeline(yaml):
     _, n= os.path.split(root)
     embedding_name=os.path.basename(os.path.normpath(root))
     markdown_path = root + "_md"
-    log_path = root + "_log"
     cache_path = root + "_cache"
+    log_path = os.path.abspath(data.get('log_path', f'{root}_log"'))
+
     # print("MDPATH", markdown_path)
-    for task in data['tasks']:
-        name = task['name']
-        is_local = task['local']
-        url = task['url']
-        if is_local:
-            print("NAME:",name)
-            name = os.path.abspath(name)
-            print("NAME:",name)
-        else:
-            print("NAME:",name)
-            name = root + '/' + name
-            if not os.path.exists(name):
-                os.makedirs(name)
-            print("NAME:",name)
-            print(f"The task '{name}' is not local.")
-            url = task['url']
-            base_url = task['root']
-            base_regex = rf"^{base_url}"
-            content_tags = match_tags(url)
-            scrapper = ScrapeHeader(url, base_url, base_regex, name, content_tags)
-            scrapper.scrape()
-        
+    config = ScraperConfig(yaml)
+    for task in config.tasks:
+        if task.is_local:
+            continue
+        scraper = ScraperFactory.create_scraper(task)
+        scraper.scrape()
+
+
     convert_directory(root, markdown_path, log_dir=log_path, cache_dir=cache_path)
 
     folder_name = "embedding"

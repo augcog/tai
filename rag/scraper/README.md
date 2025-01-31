@@ -2,11 +2,10 @@
 
 ## Supported Formats
 The following scrapers can be found under the [Scrape_master](Scraper_master/) folder:
-- [scrape_header.py](Scraper_master/scrape_header.py): For general websites
-- [scrape_md.py](Scraper_master/scrape_md.py): For websites that use markdown
-- [scrape_rst.py](Scraper_master/scrape_rst.py): For websites that use rst
-- [scrape_pdf.py](Scraper_master/scrape_pdf.py): For pdfs
-- [scrape_vid.py](Scraper_master/scrape_vid.py): For videos
+- [scrape_header.py](Scraper_master/scrapers/general_scraper.py): For general websites
+- [scrape_md.py](Scraper_master/scrapers/scrape_md.py): For websites that use markdown
+- [scrape_rst.py](Scraper_master/scrapers/scrape_rst.py): For websites that use rst
+- [scrape_vid.py](Scraper_master/scrapers/scrape_vid.py): For videos
 
 ## Scraper and Embedding Pipeline
 Use [pipline_kb.py](Scraper_master/pipeline_kb.py) as a pipeline to scrape, chunk and embed websites into a knowledge base. The pipeline first scrapes, and then converts the content into markdown. Finally, it embeds and saves the everything as a knowledge base. This is all saved according to the path defined by root_folder. The knowledge base is automatically saved in the scraped data folder in a folder labeled "pickle". 

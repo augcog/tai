@@ -3,14 +3,15 @@ import os
 import re
 from urllib.parse import urljoin
 
-from rag.scraper.Scraper_master.base_scraper import BaseScraper
-from utils import cd_back_link, create_and_enter_dir, save_to_file
+from rag.scraper.Scraper_master.scrapers.base_scraper import BaseScraper
+from rag.scraper.Scraper_master.utils.file_utils import save_to_file, create_and_enter_dir, cd_back_link
 
 ignore = ["glossary", "*"]
 
+
 class ScrapeRst(BaseScraper):
     def __init__(self, github_url, doc_url, filename):
-        super().__init__(github_url)
+        self.url = github_url
         self.filename = filename
         self.doc_url = doc_url
 

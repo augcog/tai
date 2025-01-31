@@ -12,6 +12,7 @@ from rag.file_conversion_router.conversion.pdf_converter import PdfConverter
 from rag.file_conversion_router.conversion.rst_converter import RstConverter
 from rag.file_conversion_router.conversion.video_converter import VideoConverter
 from rag.file_conversion_router.conversion.ed_converter import EdConverter
+from rag.file_conversion_router.conversion.html_converter import HtmlConverter
 from rag.file_conversion_router.services.task_manager import schedule_conversion
 from rag.file_conversion_router.utils.logger import content_logger, set_log_file_path
 from rag.file_conversion_router.utils.utils import calculate_hash
@@ -27,7 +28,8 @@ converter_mapping: ConverterMapping = {
     ".md": MarkdownConverter,
     ".rst": RstConverter,
     ".mp4": VideoConverter,
-    ".json": EdConverter
+    ".json": EdConverter,
+    ".html": HtmlConverter
     #     TODO: Add more file types and converters here
 }
 

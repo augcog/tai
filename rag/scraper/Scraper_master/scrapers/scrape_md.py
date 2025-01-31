@@ -3,13 +3,13 @@ import base64
 import yaml
 import os
 import json
-from rag.scraper.Scraper_master.base_scraper import BaseScraper
-from utils import create_and_enter_dir, cd_back_link, replace_backslash_with_slash, save_to_file
+from rag.scraper.Scraper_master.scrapers.base_scraper import BaseScraper
+from rag.scraper.Scraper_master.utils.file_utils import create_and_enter_dir, cd_back_link, replace_backslash_with_slash, save_to_file
 
 
 class ScrapeMd(BaseScraper):
     def __init__(self, scrape_url, site_url, root_filename):
-        super().__init__(scrape_url)
+        self.url = scrape_url
         self.site_url = site_url
         self.root_filename = root_filename
 

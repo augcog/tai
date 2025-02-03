@@ -12,7 +12,7 @@ questions = ["How can I rapidly become proficient in using the MoveIt Motion Pla
              "How can developers utilize MoveIt's C++ API to build more complex applications with significantly faster performance, and what are the potential benefits of bypassing the ROS Service/Action layers in this process? Please provide specific examples and use cases to illustrate the advantages of directly accessing MoveIt's C++ API.",
              "How can I implement time parameterization for motion planning in MoveIt! using the Time Parameterization tutorial provided in the documentation, and what are the benefits of using this technique in my robot's motion planning process? Additionally, can you provide examples of how to apply this technique in specific motion planning scenarios, and how to integrate it with other MoveIt! features such as the motion planning pipeline and planning scene? Finally, what are the system requirements for using time parameterization in MoveIt!, and how can I ensure optimal performance when implementing this technique in my robot's motion planning system?",
              "How can I integrate a new robot with MoveIt, and what tutorials are available in the 'Integration with a New Robot' section to help with this process? Provide a detailed explanation and list all the necessary steps involved in integrating a new robot with MoveIt, as well as any prerequisites or requirements that should be met before beginning the integration process. Additionally, describe how these tutorials can be accessed and navigated within the 'Integration with a New Robot' section."
-             ]
+            ]
 
 # CONFIGS
 get_chunks_url = "http://0.0.0.0:8000/api/chat/top_k_docs"
@@ -23,10 +23,10 @@ API_KEY = os.getenv("API_KEY")
 
 # evaluates relevance of all chunks found during retrieval
 EVALUATE_CHUNK_RELEVANCE = """###Task Description:
-You are evaluating the reference context provided to a Retrieval-Augmented Generation-based LLM to answer a question related to the Berkeley course {course} asked by a student. You are given 5 chunks (pieces of context) that will be used by the LLM to generate a response to the student, as well as their corresponding cosine similarities (decimal between 0 and 1, representing how semantically similar the chunk is to the question). You are responsible for scoring each chunk following a score rubric for the reference context, and answering several questions.
-1. Write detailed feedback that assesses the quality of each of the 5 chunks, strictly based on the given score rubric, not evaluating in general. Then, answer the following question: Given these 5 chunks, only those with a cosine similarity score of over 0.45 were used as context. Would including the chunks below this threshold help create a more informative context for the LLM to generate an answer to the question? (Answer YES or NO, and explain)
+You are evaluating the reference context provided to a Retrieval-Augmented Generation-based LLM to answer a question related to the Berkeley course {course} asked by a student. You are given 5 chunks (pieces of context) that will be used by the LLM to generate a response to the student, as well as their corresponding cosine similarities (decimal between 0 and 1, representing how semantically similar the chunk is to the question calculated by a retrieval algorithm). You are responsible for scoring each chunk following a score rubric for the reference context, and answering several questions.
+1. Write detailed feedback that assesses the quality of each of the 5 chunks, strictly based on the given score rubric, not evaluating in general. 
 2. After writing feedback, write a score that is an integer between 1 and 5 per chunk. You should refer to the score rubric. 
-3. The output format should look as follows: \”Individual chunk evaluation: [Chunk 1] {{write a feedback for criteria for chunk 1}} [Chunk 1 RESULT] {{an integer number between 1 and 5}}. [Chunk 2] {{write a feedback for criteria for chunk 2}} [Chunk 2 RESULT] {{an integer number between 1 and 5}}. [Chunk 3] {{write a feedback for criteria for chunk 3}} [Chunk 3 RESULT] {{an integer number between 1 and 5}}. [Chunk 4] {{write a feedback for criteria for chunk 4}} [Chunk 4 RESULT] {{an integer number between 1 and 5}}. [Chunk 5] {{write a feedback for criteria for chunk 5}} [Chunk 5 RESULT] {{an integer number between 1 and 5}}. Question: {{YES / NO}}, {{explanation}}.”
+3. The output format should look as follows: \”Individual chunk evaluation: [Chunk 1] {{write a feedback for criteria for chunk 1}} [Chunk 1 RESULT] {{an integer number between 1 and 5}}. [Chunk 2] {{write a feedback for criteria for chunk 2}} [Chunk 2 RESULT] {{an integer number between 1 and 5}}. [Chunk 3] {{write a feedback for criteria for chunk 3}} [Chunk 3 RESULT] {{an integer number between 1 and 5}}. [Chunk 4] {{write a feedback for criteria for chunk 4}} [Chunk 4 RESULT] {{an integer number between 1 and 5}}. [Chunk 5] {{write a feedback for criteria for chunk 5}} [Chunk 5 RESULT] {{an integer number between 1 and 5}}.”
 4. Please do not generate any other opening, closing, and explanations.
 
 ###Chunks for reference:
@@ -56,10 +56,10 @@ You are evaluating the reference context provided to a Retrieval-Augmented Gener
 3. The output format should look as follows: \”Individual chunk evaluation: [Chunk 1] {{write a feedback for criteria for chunk 1}} [Chunk 1 RESULT] {{an integer number between 1 and 5}}. [Chunk 2] {{write a feedback for criteria for chunk 2}} [Chunk 2 RESULT] {{an integer number between 1 and 5}}. [Chunk 3] {{write a feedback for criteria for chunk 3}} [Chunk 3 RESULT] {{an integer number between 1 and 5}}. [Chunk 4] {{write a feedback for criteria for chunk 4}} [Chunk 4 RESULT] {{an integer number between 1 and 5}}. [Chunk 5] {{write a feedback for criteria for chunk 5}} [Chunk 5 RESULT] {{an integer number between 1 and 5}}.”
 4. Please do not generate any other opening, closing, and explanations.
 
-###All 5 chunks:
+###Chunks for reference:
 {reference_context}
 
-###Cosine similarities of 5 chunks:
+###Cosine similarities of chunks (in order of chunks in previous reference):
 {cosine_sims}
 
 ###Question:
@@ -102,12 +102,16 @@ Score 5: The response completely uses the main ideas of the reference context to
 """
 
 # evaluates overall factualness of response to a question and helpfulness to student
+# see if it is giving good answer to the question -- still provide chunks for reference. want to show as review of TAI, score based on helpfulness 
 EVALUATE_RESPONSE = """###Task Description:
 You are evaluating the reference context provided to a Retrieval-Augmented Generation-based LLM to answer a question related to the Berkeley course {course} asked by a student. You are responsible for scoring the response following a score rubric for the response.
 1. Write detailed feedback that assesses this quality of the response strictly based on the given score rubric, not evaluating in general.
 2. After writing feedback, write a score that is an integer between 1 and 5. You should refer to the score rubric.
 3. The output format should look as follows: \"Response feedback: {{write a feedback for criteria}} [RESULT] {{an integer number between 1 and 5}}."
 4. Please do not generate any other opening, closing, and explanations. Be sure to include [RESULT] in your output.
+
+###Chunks for reference:
+{reference_context}
 
 ###Question:
 {instruction}
@@ -116,12 +120,12 @@ You are evaluating the reference context provided to a Retrieval-Augmented Gener
 {response}
 
 ###Score Rubric:
-[Is the response correct, relevant, factual, and helpful to the student overall?]
-Score 1: The response is completely incorrect, not factual, and/or not helpful to the student.
-Score 2: The response is mostly incorrect, inaccurate, not factual, and/or not helpful to the student.
-Score 3: The response is somewhat correct, accurate, factual, and/or helpful to the student.
-Score 4: The response is mostly correct, accurate, factual, and helpful to the student.
-Score 5: The response is completely correct, accurate, factual, and helpful to the student.
+[Based on the chunks for reference and the question, is the response helpful for the student overall?]
+Score 1: The response is not helpful to the student.
+Score 2: The response is mostly not helpful to the student.
+Score 3: The response is somewhat helpful to the student.
+Score 4: The response is mostly helpful to the student.
+Score 5: The response is completely helpful to the student.
 """
 
 QUERY_PROMPT = """
@@ -254,6 +258,7 @@ for question in questions:
         course=COURSE,
         instruction=question,
         response=answer,
+        reference_context=context,
     )
 
     headers4 = {
@@ -332,3 +337,13 @@ print(f"Data written to {output_file}")
 # structured api call for gpt to choose from list of advice 
 
 # milestone: auto-pipeline, take in ed forum file. 
+
+
+#1. retrieval accuracy used to get the best retrieval method (embedding model, reranking model, retrieval algorithms)
+#2. about picking the best LLM for TAI (ex. llama3, deepseek, changing the prompt / giving more exmaples for q and a)
+#3 not used to make adjustments on the method and overall score we want to show to peope who care about performance
+
+# fix prompts, share results, read papers
+
+# how to prepare a good dataset for pipeline for any classes --> ed pipeline, automated question generation pipeline, real test cases 
+# read code for question_generator.py

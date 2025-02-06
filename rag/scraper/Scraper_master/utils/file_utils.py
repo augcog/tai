@@ -1,28 +1,6 @@
 import os
 import re
-import urllib.robotparser as robotparser
 import shutil
-
-# Scrape general
-
-def remove_slash_and_hash(link):
-    """
-    Removes trailing slash (if present) and hash fragment from a given URL.
-
-    Parameters:
-    - link (str): The URL from which the last segment should be modified.
-
-    Returns:
-    - str: The modified URL without the trailing slash and hash fragment.
-    """
-    if not link:
-        return link
-    link = link.split('#')[0]
-    if not link:
-        return link
-    if link[-1] == '/':
-        link = link[:-1]
-    return link
 
 def create_and_enter_dir(directory_name):
     """
@@ -57,27 +35,7 @@ def cd_home(url):
     """
     return '/'.join(url.split('/')[0:3])
 
-def get_crawl_delay(site_url, user_agent="*"):
-    """
-    Fetches the crawl delay from the robots.txt file of the given website.
 
-    Parameters:
-    - site_url (str): The base URL of the website.
-    - user_agent (str, optional): The user agent for which the crawl delay is requested. Defaults to '*'.
-
-    Returns:
-    - int: Crawl delay as specified in robots.txt, or 0 if not specified.
-    """
-    robots_url = site_url.rstrip('/') + '/robots.txt'
-    rp = robotparser.RobotFileParser()
-    rp.set_url(robots_url)
-    try:
-        rp.read()
-        delay = rp.crawl_delay(user_agent)
-        return delay if delay else 0
-    except Exception as e:
-        print(f"Error accessing or parsing robots.txt: {e}")
-        return 0
 
 def remove_consecutive_empty_lines(text):
     """
@@ -124,4 +82,3 @@ def cd_back_link(url, num_parts_to_remove=1):
     for _ in range(num_parts_to_remove):
         url = url.rsplit('/', 1)[0]
     return url
-

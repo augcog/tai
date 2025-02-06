@@ -1,11 +1,12 @@
-from rag.scraper.Scraper_master.base_scraper import BaseScraper
+from rag.scraper.Scraper_master.scrapers.base_scraper import BaseScraper
 from pytubefix import Playlist, YouTube
 import os
-from utils import save_to_file
+
+from rag.scraper.Scraper_master.utils.file_utils import save_to_file
 
 class ScrapeVid(BaseScraper):
     def __init__(self, url, root_filename):
-        super().__init__(url)
+        self.url = url
         self.root_filename = root_filename
 
     def get_playlist_urls(self, playlist_url):

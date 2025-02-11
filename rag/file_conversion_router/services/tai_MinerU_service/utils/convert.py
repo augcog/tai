@@ -51,7 +51,6 @@ def process_pdf(pdf_path: Path, output_dir: Path):
         pipe_result = infer_result.pipe_txt_mode(image_writer)
 
     # Generate layout and text span visualization PDFs
-    pipe_result.draw_layout(str(pdf_dir / f"{output_name}_layout.pdf"))
     pipe_result.draw_span(str(pdf_dir / f"{output_name}_spans.pdf"))
 
     # Export Markdown (stored in a separate subdirectory)

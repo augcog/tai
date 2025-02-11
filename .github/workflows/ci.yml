@@ -40,7 +40,15 @@ jobs:
     - name: Install remaining dependencies
       run: pip install -r rag/requirements-extend.txt
 
+    - name: Download minerU script
+      run: wget https://github.com/opendatalab/MinerU/raw/master/scripts/download_models_hf.py -O download_models_hf.py
+
+    - name: Run minerU script
+      run: python download_models_hf.py
+
+
     - name: Cache pytest artifacts
+
       uses: actions/cache@v3.2.4
       with:
         path: .pytest_cache

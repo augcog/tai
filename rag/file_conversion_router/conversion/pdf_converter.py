@@ -4,8 +4,6 @@ import subprocess
 from pathlib import Path
 
 import fitz
-from pix2text import Pix2Text
-
 from rag.file_conversion_router.conversion.base_converter import BaseConverter
 # from rag.file_conversion_router.services.tai_nougat_service import TAINougatConfig
 # from rag.file_conversion_router.services.tai_nougat_service.api import convert_pdf_to_mmd
@@ -28,64 +26,6 @@ class PdfConverter(BaseConverter):
         """
         if not self.is_tool_supported(tool_name):
             raise ValueError(f"Tool '{tool_name}' is not supported. Available tools: {', '.join(self.available_tools)}")
-
-    def _to_markdown_use_MinerU(self, pdf_file_path, output_file_path):
-        output_dir = os.path.dirname(output_file_path)
-        os.makedirs(output_dir, exist_ok=True)
-
-        # Construct the magic-pdf command
-        command = ["magic-pdf",
-                   "-p", str(pdf_file_path),
-                   "-o", str(output_file_path),
-                   "-m", "auto"]
-
-        try:
-            result = subprocess.run(command, check=True, capture_output=True, text=True)
-            print(f"Processed: {pdf_file_path}")
-            print(f"stdout: {result.stdout}")
-        except subprocess.CalledProcessError as e:
-            print(f"Error while processing {pdf_file_path}: {e}")
-            print(f"stderr: {e.stderr}")
-
-    def convert_pdf_to_markdown(self, pdf_file_path, output_file_path, page_numbers=None):
-        """
-        Convert a PDF file to Markdown format.
-
-        Parameters:
-        pdf_file_path (str): The file path of the input PDF.
-        output_file_path (str): The file path where the output Markdown will be saved.
-        page_numbers (list of int, optional): List of page numbers to process. Defaults to None (process all pages).
-        """
-        try:
-            # Initialize Pix2Text with default configuration
-            p2t = Pix2Text.from_config()
-
-            # Recognize text in the PDF
-            doc = p2t.recognize_pdf(pdf_file_path, page_numbers=page_numbers)
-
-            # Save the recognized text to a Markdown file
-            doc.to_markdown(output_file_path)
-
-            print(f"Markdown saved to {output_file_path}")
-        except Exception as e:
-            print(f"An error occurred: {e}")
-
-    def remove_images_from_pdf(self, input_path: Path, output_path: Path):
-        pdf_document = fitz.open(input_path)
-
-        for page_num in range(len(pdf_document)):
-            page = pdf_document.load_page(page_num)
-            images = page.get_images(full=True)
-
-            # Remove each image
-            for img_index in range(len(images) - 1, -1, -1):
-                xref = images[img_index][0]
-                page.delete_image(xref)
-
-            # Optionally clean up empty spaces
-            page.clean_contents()
-        pdf_document.save(output_path)
-        pdf_document.close()
 
     def extract_and_convert_pdf_to_md(self, pdf_path, md_path, output_folder):
         # Open the PDF document
@@ -161,7 +101,6 @@ class PdfConverter(BaseConverter):
             # Define the path for the PDF without images in the output directory
             pdf_without_images_path = temp_dir_path / input_path.name
             # Remove images from the PDF and save to the output directory
-            self.remove_images_from_pdf(input_path, pdf_without_images_path)
             self._to_markdown_using_tai_nougat(pdf_without_images_path, output_path)
             # Now change the file name of generated mmd file to align with the expected md file path from base converter
             output_mmd_path = output_path.with_suffix(".mmd")
@@ -186,44 +125,44 @@ class PdfConverter(BaseConverter):
             target = md_file_path
         return target
 
-    def _to_markdown_using_native_nougat_cli(self, input_pdf_path: Path, output_path: Path) -> None:
-        """
-        Perform PDF to Markdown conversion using Native Nougat CLI.
-
-        The native nougat cli is in the predict.py from meta nougat repo.
-        Parameters except input and output path are hard coded for now.
-        """
-        default_nougat_config = TAINougatConfig()
-        command = [
-            "nougat",
-            str(input_pdf_path),
-            # nougat requires the argument output path to be a directory, not file, so we need to handle it here
-            "-o",
-            str(output_path.parent),
-            "--no-skipping" if not default_nougat_config.skipping else "",
-            "--recompute" if default_nougat_config.recompute else "",
-            "--model",
-            default_nougat_config.model_tag,
-        ]
-        command = [str(arg) for arg in command]
-        try:
-            result = subprocess.run(command, check=False, capture_output=True, text=True)
-            self._logger.info(f"Output: {result.stdout}")
-            self._logger.info(f"Errors: {result.stderr}")
-            if result.returncode != 0:
-                self._logger.error(f"Command exited with a non-zero status: {result.returncode}")
-        except Exception as e:
-            self._logger.error(f"An error occurred: {str(e)}")
-            raise
-
-    @staticmethod
-    def _to_markdown_using_tai_nougat(input_pdf_path: Path, output_path: Path) -> None:
-        """Perform PDF to Markdown conversion using TAI Nougat.
-
-        TAI nougat is our custom implementation of the Nougat API, with better performance and abstraction.
-        """
-        config = TAINougatConfig(
-            pdf_paths=[input_pdf_path],
-            output_dir=output_path.parent,
-        )
-        convert_pdf_to_mmd(config)
+    # def _to_markdown_using_native_nougat_cli(self, input_pdf_path: Path, output_path: Path) -> None:
+    #     """
+    #     Perform PDF to Markdown conversion using Native Nougat CLI.
+    #
+    #     The native nougat cli is in the predict.py from meta nougat repo.
+    #     Parameters except input and output path are hard coded for now.
+    #     """
+    #     default_nougat_config = TAINougatConfig()
+    #     command = [
+    #         "nougat",
+    #         str(input_pdf_path),
+    #         # nougat requires the argument output path to be a directory, not file, so we need to handle it here
+    #         "-o",
+    #         str(output_path.parent),
+    #         "--no-skipping" if not default_nougat_config.skipping else "",
+    #         "--recompute" if default_nougat_config.recompute else "",
+    #         "--model",
+    #         default_nougat_config.model_tag,
+    #     ]
+    #     command = [str(arg) for arg in command]
+    #     try:
+    #         result = subprocess.run(command, check=False, capture_output=True, text=True)
+    #         self._logger.info(f"Output: {result.stdout}")
+    #         self._logger.info(f"Errors: {result.stderr}")
+    #         if result.returncode != 0:
+    #             self._logger.error(f"Command exited with a non-zero status: {result.returncode}")
+    #     except Exception as e:
+    #         self._logger.error(f"An error occurred: {str(e)}")
+    #         raise
+    #
+    # @staticmethod
+    # def _to_markdown_using_tai_nougat(input_pdf_path: Path, output_path: Path) -> None:
+    #     """Perform PDF to Markdown conversion using TAI Nougat.
+    #
+    #     TAI nougat is our custom implementation of the Nougat API, with better performance and abstraction.
+    #     """
+    #     config = TAINougatConfig(
+    #         pdf_paths=[input_pdf_path],
+    #         output_dir=output_path.parent,
+    #     )
+    #     convert_pdf_to_mmd(config)

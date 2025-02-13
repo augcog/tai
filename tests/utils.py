@@ -187,11 +187,14 @@ def compare_folders(expected_dir: Path, output_dir: Path, similarity_threshold: 
     """
 
     # Because .pdf file are not necessary to be compared so we ignore they for now
-    def get_non_pdf_files(dir: Path) -> Set[Path]:
-        return {file.relative_to(dir) for file in dir.rglob("*") if file.is_file() and file.suffix.lower() != ".pdf"}
+    def get_md_and_pkl_files(dir: Path) -> Set[Path]:
+          return {
+              file.relative_to(dir)
+              for file in dir.rglob("*")
+              if file.is_file() and file.suffix.lower() in [".md", ".pkl"]}
 
-    expected_files = get_non_pdf_files(expected_dir)
-    output_files = get_non_pdf_files(output_dir)
+    expected_files = get_md_and_pkl_files(expected_dir)
+    output_files = get_md_and_pkl_files(output_dir)
 
     all_matched = True
     # Compare common files

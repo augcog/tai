@@ -1,6 +1,6 @@
 """Base classes for all file type converters.
 """
-
+import logging
 from abc import ABC, abstractmethod
 from concurrent.futures import Future, ThreadPoolExecutor
 from pathlib import Path
@@ -171,15 +171,24 @@ class BaseConverter(ABC):
     @conversion_logger
     def _perform_conversion(self, input_path: Path, output_folder: Path) -> None:
         """Perform the file conversion process."""
+        logging.getLogger().setLevel(logging.INFO)
+
+        logger.info(f"🚀 Starting conversion for {input_path}")
         if not output_folder.exists():
             output_folder.mkdir(parents=True, exist_ok=True)
             logger.warning(f"Output folder did not exist, it's now created: {output_folder}")
         filename = output_folder.stem
         pkl_output_path = output_folder / f"{filename}.pkl"
-        page = self._convert_to_page(input_path, pkl_output_path)
-        self._delete_pdf_and_yaml_files(output_folder)
+        logger.info(f"📄 Expected Markdown Path: {self._md_path}")
+        logger.info(f"🛠️ Expected Pickle Path: {pkl_output_path}")
+        try:
+            page = self._convert_to_page(input_path, pkl_output_path)
+            logger.info("✅ Page conversion successful.")
+            page.to_chunk()
+            logger.info("✅ Successfully converted page content to chunks.")
+        except Exception as e:
+            logger.error(f"❌ ERROR during processing: {e}", exc_info=True)
 
-        page.to_chunk()
 
         # Add embedding optimization if enabled
         if self.optimizer:
@@ -192,6 +201,7 @@ class BaseConverter(ABC):
             page.chunks = combined_chunks
 
         if self._check_page_content(page, input_path):
+            logger.info(f"📝 Saving Pickle to {pkl_output_path}")
             page.chunks_to_pkl(str(pkl_output_path))
 
     def _optimize_markdown_content(self, page: Page, original_content: str) -> None:
@@ -250,18 +260,6 @@ class BaseConverter(ABC):
 
         return combined_chunks
 
-    def _delete_pdf_and_yaml_files(self, directory: Path) -> None:
-        """Delete all .yaml and .pdf files in the given directory."""
-        self._logger.info(f"Deleting .pdf and .yaml files in {directory}")
-        for file_path in directory.glob('*'):
-            self._logger.info(f"Checking file: {file_path.name}, Suffixes: {file_path.suffixes}")
-            # Check if any suffix matches .pdf or .yaml
-            if any(suffix.lower() in ['.pdf', '.yaml'] for suffix in file_path.suffixes):
-                try:
-                    file_path.unlink()
-                    self._logger.info(f"Deleted file: {file_path}")
-                except Exception as e:
-                    self._logger.error(f"Error deleting file {file_path}: {e}")
 
 
     def _check_page_content(self, page: Page, input_path: Path) -> bool:
@@ -283,7 +281,6 @@ class BaseConverter(ABC):
 
 
     def _to_page(self, input_path: Path, output_path: Path) -> Page:
-        output_path.parent.mkdir(parents=True, exist_ok=True)
         # Ensure the output directory exists
         output_path.parent.mkdir(parents=True, exist_ok=True)
         stem = input_path.stem

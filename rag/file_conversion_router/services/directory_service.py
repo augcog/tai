@@ -46,6 +46,7 @@ def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path],
     Raises:
         ValueError: If either input_dir or output_dir is not a directory.
     """
+    logging.getLogger().setLevel(logging.INFO)
     output_dir = Path(output_dir)
     input_dir = Path(input_dir)
 

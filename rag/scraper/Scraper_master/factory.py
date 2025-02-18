@@ -1,7 +1,8 @@
 from rag.scraper.Scraper_master.scrapers.general_scraper import GeneralScraper
+from rag.scraper.Scraper_master.scrapers.new_scrape_vid import NewVideoScraper
 from rag.scraper.Scraper_master.drivers.requests_driver import RequestsDriver
 from rag.scraper.Scraper_master.drivers.playwright_driver import PlaywrightDriver
-from rag.scraper.Scraper_master.configs import GeneralTaskConfig, RstTaskConfig
+from rag.scraper.Scraper_master.configs import GeneralTaskConfig, RstTaskConfig, VideoTaskConfig
 
 
 class ScraperFactory:
@@ -25,5 +26,7 @@ class ScraperFactory:
         elif isinstance(task_config, RstTaskConfig):
             # TODO: return RstScraper
             pass
+        elif isinstance(task_config, VideoTaskConfig):
+            return NewVideoScraper(task_config)
         else:
             raise ValueError(f"Unsupported task config type: {type(task_config)}")

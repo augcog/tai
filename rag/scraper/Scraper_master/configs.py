@@ -25,9 +25,9 @@ class RstTaskConfig(BaseTaskConfig):
     pass
 
 
+@dataclass
 class VideoTaskConfig(BaseTaskConfig):
-    # TODO: to be implemented
-    pass
+    start_url: str
 
 
 class ScraperConfig:
@@ -59,14 +59,22 @@ class ScraperConfig:
                     base_url=t.get("root", ""),
                     root_folder=self.root_folder,
                     driver_type=t.get("driver_type", "requests"),
-                    log_folder=self.log_folder,
+                    log_folder=self.log_folder
                 )
                 tasks.append(obj)
 
             elif task_type == "rst":
                 # TODO implement RstTaskConfig
                 pass
-
+            elif task_type == "video":
+                obj = VideoTaskConfig(
+                    name=name,
+                    is_local=t.get("local", False),
+                    root_folder=self.root_folder,
+                    log_folder=self.log_folder,
+                    start_url=t.get("url", "")
+                )
+                tasks.append(obj)
             else:
                 # Potentially throw an error or have a default
                 raise ValueError(f"Unrecognized task type: {task_type}")

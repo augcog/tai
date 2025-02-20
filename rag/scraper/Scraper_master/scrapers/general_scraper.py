@@ -53,5 +53,6 @@ class GeneralScraper(BaseScraper):
                 self._dfs_scrape(link, depth + 1)
 
     def _save_metadata(self, filename, url):
+        base_filename, _ = os.path.splitext(filename)
         yaml_content = f"URL: {url}"
-        save_to_file(f'{filename}_metadata.yaml', yaml_content)
+        save_to_file(f'{base_filename}_metadata.yaml', yaml_content)

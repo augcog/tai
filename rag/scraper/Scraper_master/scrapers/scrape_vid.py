@@ -1,50 +1,165 @@
-from rag.scraper.Scraper_master.scrapers.base_scraper import BaseScraper
-from pytubefix import Playlist, YouTube
 import os
+import requests
+import yaml
+from bs4 import BeautifulSoup
+from urllib.parse import urlparse, parse_qs
+import yt_dlp
 
-from rag.scraper.Scraper_master.utils.file_utils import save_to_file
+from rag.scraper.Scraper_master.scrapers.base_scraper import BaseScraper
+from rag.scraper.Scraper_master.utils.file_utils import *
 
-class ScrapeVid(BaseScraper):
-    def __init__(self, url, root_filename):
-        self.url = url
-        self.root_filename = root_filename
 
-    def get_playlist_urls(self, playlist_url):
-        playlist = Playlist(playlist_url)
-        # Retrieve videos and their titles
-        videos_with_titles = [(video, video.title) for video in playlist.videos]
+def create_and_enter_dir(directory_name):
+    """
+    Creates a directory with the given name and enters it.
 
-        # Sanitize titles and sort videos by these titles
-        videos_with_titles.sort(key=lambda x: "".join(char for char in x[1] if char.isalnum() or char in " -_").strip())
+    Parameters:
+    - directory_name (str): The name of the directory to be created and entered.
+    """
+    if directory_name:
+        if not os.path.exists(directory_name):
+            os.makedirs(directory_name, exist_ok=True)
+        os.chdir(directory_name)
 
-        # Return only the URLs, now sorted by the sanitized title
-        return [video.watch_url for video, _ in videos_with_titles]
-    def content_extract(self, filename, url, **kwargs):
-        pass
 
-    def metadata_extract(self, filename, url, **kwargs):
-        yaml_content = f"URL: {url}"
-        save_to_file(f'{filename}', yaml_content)
+class VideoScraper(BaseScraper):
+    def __init__(self, config):
+        self.start_url = config.start_url
+        self.root_folder = config.root_folder
+        self.base_folder = os.path.abspath(os.path.join(self.root_folder, config.name))
+        self.name = config.name
+        self.playlist_urls = []
 
     def scrape(self):
-        video_urls = self.get_playlist_urls(self.url)
-        for url in video_urls:
-            video = YouTube(url)
-            stream = video.streams.get_highest_resolution()
+        response = requests.get(self.start_url)
+        if response.status_code != 200:
+            raise ValueError(f"Failed to fetch data from {self.start_url}")
 
-            # Create a unique folder for each video based on its title
-            safe_title = "".join(x for x in video.title if x.isalnum() or x in " -_").replace(" ", "_").strip()
-            video_path = os.path.join(self.root_filename, safe_title)
-            os.makedirs(video_path, exist_ok=True)
+        soup = BeautifulSoup(response.text, 'html.parser')
 
-            download_filename = stream.download(output_path=video_path)
-            os.rename(download_filename, os.path.join(video_path, safe_title + ".mp4"))
-            metadata_filename = os.path.join(video_path, safe_title + "_metadata.yml")
-            self.metadata_extract(metadata_filename, url)
+        # Extract all YouTube links
+        video_links = self._extract_youtube_links(soup)
+        # Set base folder for all downloads
+        base_folder = os.path.join(self.root_folder, self.name)
+        os.makedirs(base_folder, exist_ok=True)
 
-base_path = 'Denero_videos'
-os.makedirs(base_path, exist_ok=True)
-playlist_url = 'https://www.youtube.com/watch?v=31EDjrN1x5k&list=PL6BsET-8jgYUA8ryM_zeRA3H_RAMNBrN3&ab_channel=JohnDeNero'
-scraper = ScrapeVid(playlist_url, base_path)
-scraper.scrape()
-# download_videos(video_urls, base_path)
+        for url in video_links:
+            try:
+                if self._is_playlist(url):
+                    self._download_playlist(url, base_folder)
+                else:
+                    self._download_video(url, base_folder)
+            except Exception as e:
+                print(f"Error processing {url}: {e}")
+
+    def _extract_youtube_links(self, soup):
+        """Extracts YouTube video and playlist links from anchor tags in HTML."""
+        links = []
+        for a_tag in soup.find_all("a", href=True):
+            url = a_tag["href"]
+            if self._is_youtube_url(url):
+                links.append(url)
+        return links
+
+    def _is_youtube_url(self, url):
+        """Checks if a URL belongs to YouTube."""
+        parsed_url = urlparse(url)
+        return parsed_url.netloc in ["www.youtube.com", "youtube.com", "m.youtube.com", "youtu.be"]
+
+    def _is_playlist(self, url):
+        """Returns True if the given URL is a playlist."""
+        ydl_opts = {"quiet": True, "no_warnings": True}
+
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(url, download=False)  # Get metadata without downloading
+
+        return info.get("_type") == "playlist"
+
+    def _download_video(self, url, folder, index=None):
+        """Downloads a single video and saves metadata."""
+        video_info = self._get_video_info(url)
+        if not video_info:
+            print(f"Skipping {url}, unable to retrieve info.")
+            return
+
+        title = video_info.get("title", "Untitled").replace("/", "_").replace("\\", "_") + f"_{index}"
+        video_folder = os.path.join(folder, title)
+
+        # Download video
+        self._download_yt_video(url, video_folder )
+
+        # Save metadata
+        self._save_metadata(video_folder + '/' + f'{title}_metadata.yaml', url)
+        print(f"Downloaded Video: {title} --- {url}")
+
+    def _download_playlist(self, url, base_folder):
+        """Downloads all videos in a playlist and organizes them properly."""
+        ydl_opts = {
+            "quiet": True,
+            "extract_flat": False,  # Force extraction of full video details
+            "noplaylist": False,  # Explicitly allow playlist downloads
+        }
+
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            try:
+                playlist_info = ydl.extract_info(url, download=False)
+            except Exception:
+                print(f"Skipping {url}, unable to retrieve playlist info.")
+                return
+
+        # Extract playlist title
+        playlist_title = playlist_info.get("title", "Untitled Playlist").replace("/", "_").replace("\\", "_")
+        playlist_folder = os.path.join(base_folder, playlist_title)
+        os.makedirs(playlist_folder, exist_ok=True)
+        # print(playlist_info)
+        # Extract individual video URLs from the playlist
+        if "entries" in playlist_info:
+            for i, video in enumerate(playlist_info["entries"]):
+                if video and "url" in video:
+                    self._download_video(video["url"], playlist_folder, index=i)
+
+        print(f"Downloaded playlist: {playlist_title} --- {url}")
+
+    def _get_video_info(self, url):
+        """Fetches video or playlist metadata using yt-dlp."""
+        ydl_opts = {"quiet": True, "no_warnings": True, "noplaylist": True}
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            try:
+                return ydl.extract_info(url, download=False)
+            except Exception:
+                return None
+
+    def _download_yt_video(self, url, folder):
+        """Downloads a YouTube video using yt-dlp."""
+        ydl_opts = {
+            "outtmpl": os.path.join(folder, "%(title)s.%(ext)s"),
+            "format": "best",
+            "quiet": True,
+            "noplaylist": True,
+        }
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([url])
+
+    def _save_metadata(self, path, url):
+        yaml_content = f"URL: {url}"
+        save_to_file(path, yaml_content)
+
+
+if __name__ == "__main__":
+    url = "https://www.youtube.com/watch?v=1P2UgdAWwYg&list=PL6BsET-8jgYXTuSlJNYQS740YMCRHT79g&ab_channel=JohnDeNero"
+    # import yt_dlp
+    #
+    # # video_url = "https://www.youtube.com/watch?v=VIDEO_ID"
+    #
+    # ydl_opts = {
+    #     "outtmpl": "downloads/%(title)s.%(ext)s",
+    # }
+    #
+    # with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+    #     ydl.download([url])
+    #     import yt_dlp
+    parsed_url = urlparse(url)
+    query_params = parse_qs(parsed_url.query)
+    print("list" in query_params and "playlist" in parsed_url.path)
+
+

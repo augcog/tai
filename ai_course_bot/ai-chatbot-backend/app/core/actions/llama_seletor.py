@@ -36,12 +36,14 @@ pipeline = transformers.pipeline(
     "text-generation",
     model=model_id,
     model_kwargs={"torch_dtype": torch.bfloat16},
-    device="cuda",
+    # TODO: comment this back
+    # device="cuda",
+    device=-1  # -1 forces CPU usage
 )
 
 lock = threading.Lock()
-def prompt_generator(messages,streamer_iterator):
-    with lock:
+def prompt_generator(messages, pipeline, streamer_iterator):
+    with threading.Lock():
         terminators = [
             pipeline.tokenizer.eos_token_id,
             pipeline.tokenizer.convert_tokens_to_ids("<|eot_id|>")
@@ -51,8 +53,8 @@ def prompt_generator(messages,streamer_iterator):
             tokenize=False,
             add_generation_prompt=True
         )
-
-        outputs = pipeline(
+        # Call the injected pipeline
+        pipeline(
             prompt,
             max_new_tokens=1000,
             eos_token_id=terminators,
@@ -114,7 +116,7 @@ def clean_path(url_path):
     return cleaned_path
 
 
-def local_selector(messages:List[Message],stream=True,rag=True,course=None):
+def local_selector(messages: list, pipeline, stream=True, rag=True, course=None):
     insert_document = ""
     user_message = messages[-1].content
     if rag:
@@ -131,7 +133,7 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
         current_dir = "/home/bot/localgpt/tai/ai_course_bot/ai-chatbot-backend/app/embedding/"  # Modify this path to the directory containing the embedding pickle files
         query_embed = embedding_model.encode(user_message, return_dense=True, return_sparse=True,
                                                 return_colbert_vecs=True)
-        if SQLDB:   
+        if SQLDB:
             embedding_db_path = os.path.join(current_dir, "embeddings.db")
 
             # Connect to the embeddings database using vss and vector extensions
@@ -186,7 +188,7 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
 
             # Close the connection
             db.close()
-            
+
         else:
             # Picklefile implementation
             path_to_pickle = os.path.join(current_dir, picklefile)
@@ -244,8 +246,8 @@ def local_selector(messages:List[Message],stream=True,rag=True,course=None):
     messages[-1].content = user_message
 
     print(messages)
-    streamer_iterator=transformers.TextIteratorStreamer(auto_tokenizer, skip_prompt=True)
-    t = Thread(target=prompt_generator, args=(messages,streamer_iterator,))
+    streamer_iterator = transformers.TextIteratorStreamer(pipeline.tokenizer, skip_prompt=True)
+    t = threading.Thread(target=prompt_generator, args=(messages, pipeline, streamer_iterator))
     t.start()
     response = streamer_iterator
     return response

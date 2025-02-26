@@ -72,3 +72,5 @@ class HtmlConverter(BaseConverter):
             final_markdown = re.sub(r'(?<!^)(```)', r'\n\1', final_markdown, flags=re.MULTILINE)
         with open(output_path, "w") as output_file:
             output_file.write(final_markdown)
+
+        return output_path

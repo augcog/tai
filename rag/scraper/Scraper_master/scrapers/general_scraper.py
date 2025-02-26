@@ -55,4 +55,5 @@ class GeneralScraper(BaseScraper):
     def _save_metadata(self, filename, url):
         base_filename, _ = os.path.splitext(filename)
         yaml_content = f"URL: {url}"
+        # Save file without .pdf in the filename
         save_to_file(f'{base_filename}_metadata.yaml', yaml_content)

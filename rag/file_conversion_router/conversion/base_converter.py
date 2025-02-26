@@ -164,7 +164,7 @@ class BaseConverter(ABC):
     def _get_mocked_metadata() -> dict:
         """Return mocked metadata when the actual metadata file is missing."""
         return {
-            "URL": "URL_NOT_AVAILABLE",
+            "URL": "",
             # Add other mocked metadata fields as needed
         }
 

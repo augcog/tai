@@ -273,11 +273,17 @@ class Page:
             page_num = segment.get('page_num', None)
             for count, content_chunk in enumerate(content_chunks):
                 headers = segment['Page_path']
-                if self.page_url and page_num:
-                    urls = f"{self.page_url}#page={page_num}"
+                if self.page_url != "":
+                    if page_num is not None:
+                        urls = f"{self.page_url}#page={page_num}"
+                    else:
+                        urls = self.page_url
                 else:
-                    urls = "URL_NOT_AVAILABLE"
-
+                    urls = ""
+                # if self.page_url and page_num:
+                #     urls = f"{self.page_url}#page={page_num}"
+                # else:
+                #     urls = "URL_NOT_AVAILABLE"
                 page_path = ' > '.join(
                     f"{item} (h{i + 1})" for i, item in enumerate(segment['Page_path'])) + f" ({count})"
                 self.chunks.append(

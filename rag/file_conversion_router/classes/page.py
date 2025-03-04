@@ -28,8 +28,10 @@ class Page:
         self.segments = []
         self.tree_segments = []
         self.chunks = []
-        self.page_numbers = self.load_metadata_page_numbers(
-            page_path) if page_path else None
+        if filetype.lower() == "pdf" and page_path:
+            self.page_numbers = self.load_metadata_page_numbers(page_path)
+        else:
+            self.page_numbers = None
 
     def load_metadata_page_numbers(self, page_path: Path):
         try:

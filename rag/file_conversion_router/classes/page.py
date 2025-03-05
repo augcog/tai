@@ -166,111 +166,32 @@ class Page:
         return result
 
     def tree_print(self):
-        top_header = []
+        header_stack = []
         counter = 1
-
+        self.tree_segments = []
         for (header, page_num), content in self.segments:
             level = header[1]
             header_title = header[0]
-
-            # Adjust 'top_header' to match current level
-            if len(top_header) >= level:
-                # Truncate 'top_header' to the current level - 1
-                top_header = top_header[:level - 1]
-
-            # Append the current header with its page number (only if page number exists)
-            if page_num is not None:
-                top_header.append((header_title, content, level, page_num))
-
-            else:
-                top_header.append((header_title, content, level, None))
-
-            # Build the segment
-            segment = f"(Segment {counter})\n"
-            for h, c, l, p in top_header:
-                hash_symbols = '#' * l
-                if p is not None:
-                    # segment += f"{hash_symbols}{h} (h{l}, Page {p})\n"
-                    segment += f"{hash_symbols}{h} (h{l})\n"
-                else:
-                    segment += f"{hash_symbols}{h} (h{l})\n"
-                segment += f"{c}\n"
-
-            # Build the Table of Contents
+            while len(header_stack) >= level:
+                header_stack.pop()
+            header_stack.append(header_title)
+            if not content.strip():
+                continue
+            segment_display = f"(Segment {counter})\n{'#' * level} {header_title} (h{level})\n{content.strip()}\n"
             page_toc = "(Table of Contents)\n" + self.print_header_tree() + "\n"
-
-            # Build the Page Path
-            page_path = "(Page path)\n"
-            page_path += ' > '.join(
-                f"(h{l}) {h} (Page {p})" if p is not None else f"(h{l}) {h}" for h, c, l, p in top_header)
-
-            # Build header list
-            header_list = [h for h, c, l, p in top_header]
-
-            # Use the page number of the current header for the segment
-            segment_page_num = page_num if page_num is not None else None
-
-            # Add to `tree_segments`
-            tree_segment = {
-                'Page_table': self.print_header_tree(),
-                'Page_path': [h[0] for h in top_header],
-                'Segment_print': content,
-                'page_num': page_num
-            }
-
-            # Store the information in tree_segments
             tree_segment = {
                 'Page_table': page_toc,
-                'Page_path': header_list,
-                'Segment_print': segment
+                'Page_path': header_stack.copy(),
+                'Segment_print': segment_display,
             }
-            if segment_page_num is not None:
-                tree_segment['page_num'] = segment_page_num
-
+            if page_num is not None:
+                tree_segment['page_num'] = page_num
             self.tree_segments.append(tree_segment)
             counter += 1
 
-        # Handle the last segment
-        if top_header:
-            page_toc = ""
-            page_path = ""
-            segment = ""
-
-            page_toc += "(Table of Contents)\n"
-            page_toc += f"{self.print_header_tree()}\n"
-
-            # Page Path
-            page_path += "(Page path)\n"
-            first = True
-            for h, c, l, p in top_header:
-                if first:
-                    page_path += f"(h{l}) {h} (Page {p})" if p is not None else f"(h{l}) {h}"
-                    first = not first
-                else:
-                    page_path += " > "
-                    page_path += f"(h{l}) {h} (Page {p})" if p is not None else f"(h{l}) {h}"
-
-            segment += f"(Segment {counter})\n"
-            header_list = [header[0] for header in top_header]
-            for h, c, l, p in top_header:
-                hash_symbols = '#' * l
-                if p is not None:
-                    segment += f"{hash_symbols}{h} (h{l}, Page {p})\n"
-                else:
-                    segment += f"{hash_symbols}{h} (h{l})\n"
-                segment += f"{c}\n"
-            tree_segment = {
-                'Page_table': page_toc,
-                'Page_path': header_list,
-                'Segment_print': segment
-            }
-            if top_header[-1][3] is not None:
-                tree_segment['page_num'] = top_header[-1][3]
-
-            self.tree_segments.append(tree_segment)
-
     def tree_segments_to_chunks(self):
         for segment in self.tree_segments:
+            segment_title = segment['Page_path'][-1] if segment['Page_path'] else "(NO TITLE)"
             content_chunks = self.recursive_separate(segment['Segment_print'], 400)
             page_num = segment.get('page_num', None)
             for count, content_chunk in enumerate(content_chunks):
@@ -291,7 +212,7 @@ class Page:
                 self.chunks.append(
                     Chunk(
                         content=content_chunk,
-                        titles=headers[-1],
+                        titles=segment_title,
                         chunk_url=urls,
                         # metadata={"page_path": page_path},  # Include page_path in metadata
                         page_num=page_num

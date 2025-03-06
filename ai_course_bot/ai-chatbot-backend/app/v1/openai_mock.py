@@ -55,4 +55,3 @@ async def get_top_k_docs(message: str, k: int = 3, course: str = None):
 
     return JSONResponse(content=response_data)
 
-

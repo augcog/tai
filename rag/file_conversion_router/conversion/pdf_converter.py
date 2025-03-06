@@ -20,6 +20,23 @@ class PdfConverter(BaseConverter):
         """
         return tool_name in self.available_tools
 
+    def remove_image_links(self, text):
+        """
+        Remove image links from the text.
+        """
+        # Regular expression to match image links
+        image_link_pattern = r'!\[.*?\]\(.*?\)'
+        # Remove all image links
+        return re.sub(image_link_pattern, '', text)
+
+
+    def clean_markdown_content(self, markdown_content):
+        with open(markdown_content, 'r', encoding='utf-8') as file:
+            content = file.read()
+        cleaned_content = self.remove_image_links(content)
+        with open(markdown_content, 'w', encoding='utf-8') as file:
+            file.write(cleaned_content)
+
     def validate_tool(self, tool_name):
         """
         Validate if the tool is supported, raise an error if not.
@@ -123,6 +140,7 @@ class PdfConverter(BaseConverter):
                 raise FileNotFoundError(f"Markdown file not found: {md_file_path}")
             # Set the target to this markdown path
             target = md_file_path
+            self.clean_markdown_content(target)
         return target
 
     # def _to_markdown_using_native_nougat_cli(self, input_pdf_path: Path, output_path: Path) -> None:

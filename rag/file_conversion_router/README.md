@@ -5,8 +5,12 @@ The File Conversion Router seamlessly converts various supported file types with
 ### Usage Instructions
 
 #### Installation
-Ensure Python version 3.9 or higher is installed.
-1. Install the required packages as specified in `requirements.txt`.
+Ensure Python version 3.10 is installed.
+1. Install the required packages as specified in `requirements-base.txt` and `requirements-extend.txt` if you are using Linux or windows.
+2. if you are using macOS, you need to install the mac_requirements.txt file.
+3. if you have any problem relate to magic-pdf please refer to the following link: [magic-pdf](https://github.com/opendatalab/MinerU)
+4. if you have GPU on your machine, you can also refer to https://github.com/opendatalab/MinerU to install the GPU version of the magic-pdf.
+   ```bash
    - **Note**: Ensure the Transformer library version is below `4.39.0` as per compatibility requirements. The current version in `rag/requirements.txt` is set to `4.38.2`.
    - **Reference**: [Issue #1653 on GPT Academic](https://github.com/binary-husky/gpt_academic/issues/1653#issuecomment-2016794493)
 

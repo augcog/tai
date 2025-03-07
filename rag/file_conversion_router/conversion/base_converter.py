@@ -290,7 +290,7 @@ class BaseConverter(ABC):
         with open(md_path, "r") as input_file:
             content_text = input_file.read()
 
-        metadata_path = input_path.with_name(f"{input_path.stem}.yaml")
+        metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
 
         page_path = output_path.with_name(f"{stem}_content_list.json")
 

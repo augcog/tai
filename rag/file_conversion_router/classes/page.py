@@ -31,15 +31,12 @@ class Page:
         self.segments = []
         self.tree_segments = []
         self.chunks = []
-        self.title_page_mapping = None  # 存储 JSON 映射数据
-        self.mapping_pointer = 0  # 用于确保每次查找只往后搜索
-
+        self.title_page_mapping = None
+        self.mapping_pointer = 0
         if filetype.lower() == "pdf":
-            # 仅支持 PDF 时使用 JSON 映射文件
             if mapping_json_path:
                 self.title_page_mapping = self.load_title_page_mapping(mapping_json_path)
                 self.mapping_pointer = 0
-        # 非 PDF 文件不需要页码，此时相关页码为 None
 
     def load_title_page_mapping(self, mapping_json_path: Path) -> list:
         """
@@ -84,10 +81,10 @@ class Page:
 
         for i in range(self.mapping_pointer, len(self.title_page_mapping)):
             entry = self.title_page_mapping[i]
-            # 比较时对两边字符串去空格处理
             if entry.get("text", "").strip() == header.strip():
-                self.mapping_pointer = i + 1  # 更新指针，确保下次只向后搜索
-                return entry.get("page_idx")
+                self.mapping_pointer = i + 1
+                page_num = entry.get("page_idx") + 1
+                return page_num
         return None
 
     def recursive_separate(self, response: str, token_limit: int = 400) -> list:
@@ -189,10 +186,9 @@ class Page:
                     else:
                         current_content += f"{line}\n"
             if curheader:
-                page_num_for_header = self._get_page_num_for_title(curheader[0]) + 1
+                page_num_for_header = self._get_page_num_for_title(curheader[0])
                 headers_content.append(((curheader, page_num_for_header), current_content.strip()))
         else:
-            # 非 PDF 文件或无 JSON 映射时，每个标题对应的页码均为 None
             for line in md_lines:
                 stripped_line = line.strip()
                 if "```" in stripped_line:

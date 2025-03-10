@@ -5,7 +5,7 @@ from rag.scraper.Scraper_master.factory import ScraperFactory
 from rag.scraper.Scraper_master.configs import ScraperConfig
 from rag.file_conversion_router.api import convert_directory
 from rag.file_conversion_router.embedding_create import embedding_create
-
+from rag.scraper.Scraper_master.scrapers.web_scraper import WebScraper
 
 def load_yaml(file_path):
     with open(file_path, 'r') as file:
@@ -38,13 +38,8 @@ def pipeline(yaml):
     log_path = os.path.abspath(data.get('log_path', f'{root}_log"'))
 
     # print("MDPATH", markdown_path)
-    config = ScraperConfig(yaml)
-    for task in config.tasks:
-        if task.is_local:
-            continue
-        scraper = ScraperFactory.create_scraper(task)
-        scraper.scrape()
-
+    scraper = WebScraper(yaml)
+    scraper.run()
 
     convert_directory(root, markdown_path, log_dir=log_path, cache_dir=cache_path)
 

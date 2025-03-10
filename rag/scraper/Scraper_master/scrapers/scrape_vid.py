@@ -9,48 +9,16 @@ from rag.scraper.Scraper_master.scrapers.base_scraper import BaseScraper
 from rag.scraper.Scraper_master.utils.file_utils import *
 
 
-def create_and_enter_dir(directory_name):
-    """
-    Creates a directory with the given name and enters it.
-
-    Parameters:
-    - directory_name (str): The name of the directory to be created and entered.
-    """
-    if directory_name:
-        if not os.path.exists(directory_name):
-            os.makedirs(directory_name, exist_ok=True)
-        os.chdir(directory_name)
-
-
 class VideoScraper(BaseScraper):
-    def __init__(self, config):
-        self.start_url = config.start_url
-        self.root_folder = config.root_folder
-        self.base_folder = os.path.abspath(os.path.join(self.root_folder, config.name))
-        self.name = config.name
-        self.playlist_urls = []
 
-    def scrape(self):
-        response = requests.get(self.start_url)
-        if response.status_code != 200:
-            raise ValueError(f"Failed to fetch data from {self.start_url}")
-
-        soup = BeautifulSoup(response.text, 'html.parser')
-
-        # Extract all YouTube links
-        video_links = self._extract_youtube_links(soup)
+    def scrape(self, url, driver, task_folder_path):
         # Set base folder for all downloads
-        base_folder = os.path.join(self.root_folder, self.name)
-        os.makedirs(base_folder, exist_ok=True)
-
-        for url in video_links:
-            try:
-                if self._is_playlist(url):
-                    self._download_playlist(url, base_folder)
-                else:
-                    self._download_video(url, base_folder)
-            except Exception as e:
-                print(f"Error processing {url}: {e}")
+        os.makedirs(task_folder_path, exist_ok=True)
+        if self._is_playlist(url):
+            self._download_playlist(url, task_folder_path)
+        else:
+            self._download_video(url, task_folder_path)
+        return []
 
     def _extract_youtube_links(self, soup):
         """Extracts YouTube video and playlist links from anchor tags in HTML."""

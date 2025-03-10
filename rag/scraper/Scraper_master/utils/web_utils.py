@@ -112,12 +112,13 @@ def extract_unique_links(true_url, html):
     for link in soup.find_all('a'):
         href = link.get('href')
         link = join_url(true_url, href)
-        link = normalize_url(link)
+        if "www.youtube.com" not in link:
+            link = normalize_url(link)
         unique_links.add(link)
     return unique_links
 
 def get_file_name(url):
-    MAX_FILENAME_LENGTH = 255
+    MAX_FILENAME_LENGTH = 220  # Maximum length for a filename adjusted
     url = normalize_url(url)
     parsed_url = urlparse(url)
     filename = os.path.basename(os.path.normpath(parsed_url.path))
@@ -129,3 +130,7 @@ def get_file_name(url):
         truncated_name = name[:MAX_FILENAME_LENGTH - len(ext)]  # Adjust for extension length
         filename = f"{truncated_name}{ext}"
     return filename
+
+
+if __name__ == "__main__":
+    print(normalize_url("https://www.youtube.com/watch?v=IPec2A7j2bY&amp;list=PL6BsET-8jgYVCz97Y75GRXSWbb4sTpDIR"))

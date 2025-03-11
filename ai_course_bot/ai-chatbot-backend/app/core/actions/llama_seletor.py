@@ -135,7 +135,7 @@ def clean_path(url_path):
 def _get_reference_documents(query_embed, current_dir, picklefile):
     """
     Retrieve top reference documents based on the query embedding.
-    Returns top_ids, top_docs, top_urls, and distances.
+    Returns top_ids, top_docs, top_urls, and similarity_scores.
     """
     if SQLDB:
         # SQL branch: Connect to the embeddings DB, query top results,
@@ -167,7 +167,7 @@ def _get_reference_documents(query_embed, current_dir, picklefile):
         db = sqlite3.connect(main_db_path)
         cur = db.cursor()
         indices = [result[0] for result in results]
-        distances = [result[1] for result in results]
+        similarity_scores = [result[1] for result in results]
         placeholders = ','.join('?' for _ in indices)
         query = f"SELECT id_list, doc_list, url_list FROM {table_name} WHERE rowid IN ({placeholders})"
         cur.execute(query, indices)
@@ -193,13 +193,13 @@ def _get_reference_documents(query_embed, current_dir, picklefile):
         score_array = np.array(combined_scores['colbert+sparse+dense'])
 
         indices = np.argsort(score_array)[::-1]
-        distances = np.sort(score_array)[-3:][::-1]
+        similarity_scores = np.sort(score_array)[-3:][::-1]
 
         top_ids = id_list[indices][:3]
         top_docs = doc_list[indices][:3]
         top_urls = url_list[indices][:3].tolist()
 
-    return top_ids, top_docs, top_urls, distances
+    return top_ids, top_docs, top_urls, similarity_scores
 
 
 def build_augmented_message(user_message: str, course: str, embedding_dir: str, threshold: float, rag: bool):
@@ -240,7 +240,7 @@ def build_augmented_message(user_message: str, course: str, embedding_dir: str, 
         return_colbert_vecs=True
     )
 
-    top_ids, top_docs, top_urls, distances = _get_reference_documents(query_embed, current_dir, picklefile)
+    top_ids, top_docs, top_urls, similarity_scores = _get_reference_documents(query_embed, current_dir, picklefile)
 
     insert_document = ""
     reference_list = []
@@ -252,7 +252,7 @@ def build_augmented_message(user_message: str, course: str, embedding_dir: str, 
         reference_list.append(top_urls[i] if top_urls[i] else "")
 
         # Only append relevant docs if distance above threshold
-        if distances[i] > threshold:
+        if similarity_scores[i] > threshold:
             n += 1
             cleaned = clean_path(top_ids[i])
             if top_urls[i]:

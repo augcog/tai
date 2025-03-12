@@ -2,12 +2,13 @@
 from fastapi import APIRouter, HTTPException
 from app.core.models.chat_completion import *
 from typing import Any
-import asyncio 
+import asyncio
 import uuid
 import time
 from fastapi.responses import StreamingResponse, PlainTextResponse
 from app.core.actions.model_selector import course_selection
-from app.core.actions.llama_seletor import local_selector, local_parser, local_formatter, top_k_selector
+from app.api.v1.services.rag_selector import generate_chat_response, local_parser, format_chat_msg
+from app.api.v1.services.rag_retriever import top_k_selector
 import httpx
 import requests
 
@@ -30,8 +31,8 @@ async def create_completion(params: CompletionCreateParams):
     stream = params.stream
     print("course")
     print(course)
-    formatter = local_formatter
-    selector = local_selector
+    formatter = format_chat_msg
+    selector = generate_chat_response
     parser = local_parser
 
     response,reference_string = selector(formatter(params.messages), stream=params.stream,course=course)
@@ -54,4 +55,3 @@ async def get_top_k_docs(message: str, k: int = 3, course: str = None):
     }
 
     return JSONResponse(content=response_data)
-

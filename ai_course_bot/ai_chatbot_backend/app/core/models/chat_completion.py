@@ -1,5 +1,6 @@
+from typing import List, Optional, Dict
+
 from pydantic import BaseModel
-from typing import List, Optional, Dict, Union
 
 
 class CompletionChoiceLogprobs(BaseModel):
@@ -8,16 +9,19 @@ class CompletionChoiceLogprobs(BaseModel):
     tokens: Optional[List[str]] = None
     top_logprobs: Optional[List[Dict[str, float]]] = None
 
+
 class CompletionChoice(BaseModel):
     finish_reason: str
     index: int
     logprobs: Optional[CompletionChoiceLogprobs] = None
     text: str
-    
+
+
 class CompletionUsage(BaseModel):
     completion_tokens: int = 100
     prompt_tokens: int = 100
     total_tokens: int = 200
+
 
 class Completion(BaseModel):
     id: str
@@ -28,14 +32,16 @@ class Completion(BaseModel):
     usage: Optional[CompletionUsage] = None
 
 
-
 class Message(BaseModel):
     role: str
     content: str
     tool_call_id: Optional[str] = None
+
 
 class CompletionCreateParams(BaseModel):
     course: str
     messages: Optional[List[Message]]
     temperature: float
     stream: bool
+    # TODO: implement the following field and refactor the current relevant endpoint design
+    # rag: Optional[bool] = False

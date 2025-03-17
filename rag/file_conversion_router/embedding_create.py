@@ -24,7 +24,8 @@ load_dotenv()
 def string_subtraction(main_string, sub_string):
     return main_string.replace(sub_string, '', 1)  # The '1' ensures only the first occurrence is removed
 
-def traverse_files(path, start_folder_name, url_list, id_list, doc_list):
+
+def traverse_files(path, start_folder_name, url_list, id_list, doc_list, file_paths_list):
     results = []
     # Check if the provided path exists
     if not os.path.exists(path):
@@ -43,6 +44,28 @@ def traverse_files(path, start_folder_name, url_list, id_list, doc_list):
                 # file path
                 file_path = os.path.join(root, file)
                 path_list = [start_folder_name] + string_subtraction(root, path).split('/')[1:]
+
+                # Find associated file (pdf, video, or md) in the same directory
+                base_name = os.path.splitext(file)[0]
+                pdf_path = os.path.join(root, f"{base_name}.pdf")
+                video_extensions = ['.mp4', '.avi', '.mov', '.mkv', '.webm']
+                video_path = None
+                for ext in video_extensions:
+                    potential_video = os.path.join(root, f"{base_name}{ext}")
+                    if os.path.exists(potential_video):
+                        video_path = potential_video
+                        break
+                md_path = os.path.join(root, f"{base_name}.md")
+
+                # Determine which file path to use based on priority
+                associated_file_path = None
+                if os.path.exists(pdf_path):
+                    associated_file_path = pdf_path
+                elif video_path and os.path.exists(video_path):
+                    associated_file_path = video_path
+                elif os.path.exists(md_path):
+                    associated_file_path = md_path
+
                 with open(file_path, 'rb') as pkl_file:
                     print(file_path)
                     chunks = pickle.load(pkl_file)
@@ -55,8 +78,9 @@ def traverse_files(path, start_folder_name, url_list, id_list, doc_list):
                     print(chunk.chunk_url)
                     url = "URLs:\n" + "\n".join(chunk.chunk_url)
                     url_list.append(url)
+                    file_paths_list.append(associated_file_path)  # Add the associated file path
 
-    return url_list, id_list, doc_list
+    return url_list, id_list, doc_list, file_paths_list
 
 def embedding_create(markdown_path,name, embedding_name, folder_name, model):
     '''
@@ -68,9 +92,10 @@ def embedding_create(markdown_path,name, embedding_name, folder_name, model):
     url_list = []
     time_list = []
     fail = []
+    file_paths_list = []
     start = time.time()
     # Process each page
-    url_list, id_list, doc_list = traverse_files(markdown_path, name, url_list, id_list, doc_list)
+    url_list, id_list, doc_list, file_paths_list = traverse_files(markdown_path, name, url_list, id_list, doc_list, file_paths_list)
     if model=='BGE':
         from FlagEmbedding import BGEM3FlagModel
         embedding_model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True)
@@ -90,6 +115,7 @@ def embedding_create(markdown_path,name, embedding_name, folder_name, model):
     embedding_list=np.array(embedding_list)
     url_list=np.array(url_list)
     time_list=np.array(time_list)
+    file_paths_list=np.array(file_paths_list)
     print('create time:',time.time()-start)
 
     # Store the variables in a dictionary
@@ -98,6 +124,7 @@ def embedding_create(markdown_path,name, embedding_name, folder_name, model):
         'doc_list': doc_list,
         'embedding_list': embedding_list,
         'url_list': url_list,
+        'file_paths_list': file_paths_list,
         'time_list': time_list
     }
 

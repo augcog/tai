@@ -1,0 +1,723 @@
+[
+    {
+        "type": "text",
+        "text": "Autonomous Driving ",
+        "text_level": 1,
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Intro to Autonomous Driving ",
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(See slides for History of the Transportation Industry $^+$ Milestones in Vehicle Autonomy) ",
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Brief History of the Transportation Industry ",
+        "page_idx": 0
+    },
+    {
+        "type": "image",
+        "img_path": "images/6a21f89f8d2148ec6513fbc0a16dd39c47ed0007fe0af946b018bf81d8181b7a.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Milestones in Vehicle Autonomy ",
+        "text_level": 1,
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Milestones in Vehicle Autonomy ",
+        "page_idx": 0
+    },
+    {
+        "type": "image",
+        "img_path": "images/81874ccc05ed19e339d42892bc24173d42b4b838e74f64c23e0d9317cecaa7ee.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 0
+    },
+    {
+        "type": "image",
+        "img_path": "images/c042782b686edcf98ef8daa8c209546b58bd7ded0ec55c6fc2944f57af40ea58.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Lvl 0: no automation The human driver is fully in control ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Lvl 1: driver assistance ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Alerts the driver to dangers, or intervenes briefly by performing simple maneuver   \nE.g. cruise control   \nE.g. automatic reverse braking ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Lvl 2: supervised occasional self-driving The human still has to sit in the car Most of the time the human driver is in control In some cases the car can take control and drive autonomously E.g. it parks the car while you are in the driver’s seat ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Lvl 3: limited self-driving $\\rightarrow$ The vehicle is in full control in some situations Most of the time the car can drive autonomously BUT the driver will have to take control of the car at some point E.g. the car can go park ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Lvl 4: full self-driving under certain conditions ",
+        "text_level": 1,
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Conditions $\\rightarrow$ usually $=$ approved driving within certain areas   \nThere is no wheel, since there does not have to be a driver   \nBUT it is geofenced $\\rightarrow$ the car can only do autonomous driving in an approved   \narea   \nE.g. waymo ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Lvl 5: full self-driving ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "The car can use autonomous driving to travel anywhere with no human intervention ",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "System Architecture for Autonomous Driving ",
+        "text_level": 1,
+        "page_idx": 2
+    },
+    {
+        "type": "image",
+        "img_path": "images/492bfc37d671d8bfa24e3087b3851223c65eb7baf04f8335cdf713192801717f.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "For ROAR competition NO environment perception $^+$ NO human user command input ",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Sensor Input ",
+        "text_level": 1,
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Spatial Sensing: ",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Short distance: ultrasound   \nMidrange distance: 3D depth camera $^+$ LIDAR   \nLong Distance: RGB Camera ",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Global Position: GPS System ",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Vehicle State Sensing: ",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Motor speed sensor Wheel speed sensor Steering servo sensor Inertial measurement unit (IMU) ",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Environment Mapping and Perception ",
+        "text_level": 1,
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Environment Mapping: 3D localization ",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Road condition mapping: road, scenes, lanes ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Environment Perception: ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Object detection & recognition Object tracking ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Motion Planner ",
+        "text_level": 1,
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Mission Planner ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Calculating the best route to travel long distance from point A to point B E.g. Turn to get to destination ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Behavior Planner ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Vehicle safety monitoring   \nDetermines real-time vehicle behaviors: overtake, stop, following, on/off ramp, etc.   \nE.g. How the vehicle will turn (slow down, steer, etc.) ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Local Planner ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Based on the mission planner and behavior planner –. Sets targets for immediate waypoints, speed, acceleration, and steering E.g. Step by step how to turn from the vehicle’s current position ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Controller ",
+        "text_level": 1,
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Longitudinal (Speed) Control Control vehicle motor’s speed and acceleration Equivalent to driver adjusting acceleration and braking   \nLateral (Steering) Control Control vehicle steering and orientation Equivalent to driver adjusting the steering wheel ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Popular control algorithms ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Pure Pursuit Control PID (Proportional-Integral-Derivative) Control MPC (Model-Predictive Control ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "PID Control ",
+        "text_level": 1,
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "A PID (Proportional-Integral-Derivative) controller is a control system that uses feedback to regulate process variables by continuously adjusting the output to match a desired setpoint. ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Drive $\\rightarrow$ just means to change the state of some system ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Modeling Robot Kinematics in DoF ",
+        "text_level": 1,
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "A rigid-body motion has 6 degrees of freedom in 3D space $(\\mathrm{x},\\mathrm{y},\\mathrm{z},\\alpha,\\beta,\\gamma)$ ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Note: going back $\\&$ forth $\\rightarrow$ only 1 degree of freedom (bc its moving along one axis) ",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "$\\alpha,\\beta,\\gamma\\rightarrow$ represent turning along each x, y, z axis Represents: pan, tilt, roll ",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "Note: turning right $\\&$ left is similarly only 1 degree of freedom (bc its turning along one axis) ",
+        "page_idx": 4
+    },
+    {
+        "type": "image",
+        "img_path": "images/658b95da92d6d0a233245c5683d68aaa1d375aac9179753adbd6108458131c04.jpg",
+        "img_caption": [
+            "Six axes of translation and rotation "
+        ],
+        "img_footnote": [],
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "Robots that are modeled as rigid body and have 6 DoF: ",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "Quad-rotor helicopters Fixed-wing airplanes Underwater vehicles ",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "Q: How many DoF does BB-8 or R2D2 have? $\\rightarrow5$ (everything except flying/jumping up) A rolling ball on the surface has five DoF ",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "Planar Movement: $(\\mathsf{x},\\mathsf{y})$   \nPlanar Rotation: $\\gamma$   \nBody Pitch: $\\beta$   \nBody Roll: $\\alpha$ ",
+        "page_idx": 4
+    },
+    {
+        "type": "image",
+        "img_path": "images/acf87e36698cfd66ac746882d520de5e69e5d21271b255e7f80393d10beaf5cb.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "Q: How many DoF of the human arm? ",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "3 DoF at the Shoulder 2 DoF at the Elbow 2 DoF at the Wrist $\\Rightarrow$ Total 7 DoF ",
+        "page_idx": 5
+    },
+    {
+        "type": "image",
+        "img_path": "images/f5e46fad3b3f2f7e8fa8439dce77b4e257d22c9b3f299058d180c30b4ed1bd88.jpg",
+        "img_caption": [
+            "Figure 1. The DOF configuration of the humanoid arm TABLEI THE RANGE OF MOTION OF EACH DOF "
+        ],
+        "img_footnote": [],
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "Four-Wheel Ground Vehicle Model ",
+        "text_level": 1,
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "Basic Four-Wheel Vehicle Model ",
+        "text_level": 1,
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "Driving wheels at the rear   \nSteering wheels at the front   \n3 DoF constrained on the ground surface: (x, y, θ) Can only pan right $\\&$ left ",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "-​ Having full control of all these DoF $\\rightarrow$ means we have achieved autonomous driving (Even tho the vehicle can tilt, like when going up a hill $\\rightarrow$ the vehicle itself isn’t exactly controlling the tilt ) ",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "Simplified Bicycle Model (simple way to think of vehicles’ DoF) Four wheels simplified to two bicycle ",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "Vehicle center of mass at the center of the rear wheel: (x, y)   \nWheel-to-wheel length: L   \nOrientation along the length-L body: θ   \nSteering angle: $\\alpha$ ",
+        "page_idx": 6
+    },
+    {
+        "type": "image",
+        "img_path": "images/2df8e54ec0fbae5389634d246b709c537c11ab6935db8d0b932b2f9e099916a9.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "Note: ",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "Center of mass $\\rightarrow$ at the rear wheel $\\rightarrow\\infty$ that's where we measure θ from -​ $\\alpha$ just represents where we steer from (unlike θ, it's not a state/DoF) Rear-wheel drive, front-wheel steering -​ $\\rightarrow\\mathtt{B c}$ the acc path of the turn is followed by the rear wheels, while the front wheels are free to turn (bc of steering angle $\\alpha$ ) ",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "Kinematic Equations for Simplified Bicycle Model Moving forward: ",
+        "text_level": 1,
+        "page_idx": 6
+    },
+    {
+        "type": "image",
+        "img_path": "images/34f0c56c2f87c0cc21ad40485d77e8553fafd066713a99d5717e1f35c3405bc5.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "d is total distance $({\\mathsf{d}}={\\mathsf{v t}})$ ",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "When $\\alpha$ is zero or very small: ",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "$\\begin{array}{l}{\\mathbf{x}^{\\prime}=\\mathbf{x}+\\mathrm{dcos}\\theta}\\ {\\mathbf{y}^{\\prime}=\\mathbf{y}+\\mathrm{dsin}\\theta}\\ {\\mathbf{\\theta}^{\\prime}=\\mathbf{\\theta}\\mathbf{\\%}2\\pi}\\end{array}$ ",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "The red front wheels $\\rightarrow$ shows new position x’, y’, θ’ ",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "Turning: ",
+        "text_level": 1,
+        "page_idx": 7
+    },
+    {
+        "type": "image",
+        "img_path": "images/e06d825ebd5045e8a4e3a2b241ad96a476277d9d2be95c756ba5f1e2000db1a2.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "When a is significant ",
+        "text_level": 1,
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "Turning radius: $R={\\frac{L}{\\tan\\alpha}}$ Angular velocity: ${\\dot{\\theta}}={\\frac{\\nu}{R}}$ .Turn (radian): $\\beta=\\frac{\\nu t}{R}=\\frac{d}{R}$ ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "Bc of the turning radius equation $\\rightarrow$ longer vehicles $\\rightarrow$ have to move their wheels further   \naway to make a big turn If $\\alpha$ is big (you turn ur wheel a lot) $\\rightarrow$ you can make a small turn   \n$\\alpha\\rightarrow$ static   \n$\\beta\\rightarrow$ represents how much you turn (not static, increases as you keep traveling through   \nthe turn) ​ $\\beta$ is the total travel distance/R ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "·Rotation center $(x_{c},y_{c})$ $\\begin{array}{r}{x_{c}=x-R\\sin\\theta}\\ {y_{c}=y+R\\cos\\theta}\\end{array}$ ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "Just use trig ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "New coordinates $(x^{\\prime},y^{\\prime},\\theta)$ $\\begin{array}{l}{x^{\\prime}=x_{c}+R\\sin(\\theta+\\beta)}\\ {y^{\\prime}=y_{c}-R\\cos(\\theta+\\beta)}\\ {\\theta^{\\prime}=(\\theta+\\beta)\\%2\\pi}\\end{array}$ ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "Add $\\beta$ to $\\uptheta\\rightarrow\\up b\\upalpha$ we are turning $\\beta$ (radians) ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "PID Controller: Tracking Preset Trajectories $\\mathsf{K}_{\\mathsf{p}}\\to$ coefficient you choose ",
+        "text_level": 1,
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "Controller for Steering P ",
+        "text_level": 1,
+        "page_idx": 9
+    },
+    {
+        "type": "image",
+        "img_path": "images/bd74fa5cf23bdd67a003a4afe908381ee39586ddad915f23126be35cb48d3d1d.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "Multiply the error (the difference from where u want to be) $\\rightarrow$ by a coefficient you choose $(\\mathsf{K}_{\\mathsf{p}})$ to reduce the error ",
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "BUT problem: ",
+        "page_idx": 9
+    },
+    {
+        "type": "image",
+        "img_path": "images/18ea90a49e8aaad7ea1aa11bb68130c97a22dea88a9001567887613ed2a36cfe.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "Controller for Steering PD ",
+        "text_level": 1,
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "Controller for Steering:PD ",
+        "text_level": 1,
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "Proportional-Derivative (PD) ",
+        "page_idx": 10
+    },
+    {
+        "type": "equation",
+        "text": "$$\n\\begin{array}{l}{{\\alpha=-K_{p}e-K_{d}\\Delta e,}}\\ {{\\Delta e=e(t)-e(t-1)}}\\end{array}\n$$",
+        "text_format": "latex",
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "P term:Directly compensate CTE D term: Compensate the rate of change in the CTE, smoothing out the trajectory when the value is close to the target ",
+        "page_idx": 10
+    },
+    {
+        "type": "image",
+        "img_path": "images/e38d17b45360f9dca0bc12fdfe9d66d9e0ce9f8b42d02dc82aceb4876658df72.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "D for derivative   \n$\\alpha\\rightarrow$ takes into account the change in the $\\mathsf{K}_{\\mathsf{p}}\\mathsf{e}$   \nP term: Directly compensates CTE (cross track error)   \nD term: Compensates the rate of change in the CTE, smoothing out the trajectory when the   \nvalue is close to the target I.e. If the error is decreasing rapidly, D control will reduce the corrective action, preventing overshoot. ",
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "Controller for Steering PID ",
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "Problem: ",
+        "page_idx": 10
+    },
+    {
+        "type": "image",
+        "img_path": "images/7972b754146c0b7685ad279b3ab99b96e91e74170102df6237ae1a3fb82a1db8.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "Systematic errors (like car misalignment) arise $\\rightarrow$ shown by the bias If the car is slightly misaligned $\\rightarrow$ the error will accumulate over time ",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "Controller for Steering: PID ",
+        "text_level": 1,
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "Proportional-Integral-Derivative (PID) ",
+        "page_idx": 11
+    },
+    {
+        "type": "equation",
+        "text": "$$\n\\alpha=-K_{p}e-K_{d}\\Delta e-K_{i}\\sum e\n$$",
+        "text_format": "latex",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "I term: If system bias exists, the I term will compensate based on the sum of all past errors ",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "PID Controller Summary: ·Input: error signal e Control coefficients: K,Ka,K; ",
+        "page_idx": 11
+    },
+    {
+        "type": "image",
+        "img_path": "images/afc9c622ffe6dde2fed0ca9221cb26b6cc2cf683d7f7c47f10562149461640ec.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "I for integral   \nMechanism: The integral term accumulates the error over time, meaning that even a small, persistent error will add up.   \nAs the integral of the error grows (i.e. if we’ve been going to the wrong dir for a long time), it produces an increasing corrective action until the error is driven to zero. ",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "Speed Control of DC Motor ",
+        "text_level": 1,
+        "page_idx": 12
+    },
+    {
+        "type": "image",
+        "img_path": "images/11ba9d1158ae5b9986e9a80d19e97a00af3c45330cd6abeaf99d5b24c9c9873e.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "Cruise Control using PID Algorithm ",
+        "text_level": 1,
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "Cruise Control using PID Algorithm ",
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "Assume therc cxists systematic error in EsC calibration or cnvironmcntal crror caused by slippery ground conditions: ",
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "Given a reference specd $\\nu_{0}$ and mcasured spcedv $e=\\nu_{0}-\\nu^{\\prime}$ ",
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "A PID controller for maintaining spccd vo: u=Ke+Ke+K;e ",
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "P:Reduce thc rcsponsc ime for crror magnitude in spced I:Reduce the stcady state crror,making motor specd close to the refcrcnce speed D:Rcducc settling timc and overshoot ",
+        "page_idx": 12
+    },
+    {
+        "type": "image",
+        "img_path": "images/756d5ff5ab35cc3f4e706d33c85efc478c7baafab83a199475df19f89d599979.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "PID can applied to controlling anything Very simple calculations ",
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "PID_Control.py ",
+        "text_level": 1,
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "## This is course material for Introduction to Modern Artificial Intelligence   \n## Example code: PID_control.py   \n## Author: Allen Y. Yang   \n##   \n## (c) Copyright 2020. Intelligent Racing Inc. Not permitted for commercial use   \nimport random   \nimport numpy as np   \nimport matplotlib.pyplot as plt   \nclass Vehicle2D(object): def __init__(self, length=10.0): \"\"\" Creates 2D vehicle model and initializes location (0,0) & orientation 0. \"\"\" self.x = 0.0 self.y = 0.0 self.orientation = 0.0 self.length = length self.steering_noise = 0.0 self.distance_noise = 0.0 self.steering_drift = 0.0 def set(self, x, y, orientation): \"\"\" Sets the vehicle coordinates and orientation. \"\"\" self.x = x self.y = y self.orientation = orientation % (2.0 \\* np.pi) def set_noise(self, steering_noise, distance_noise): \"\"\" Sets the noise parameters. \"\"\" # makes it possible to change the noise parameters self.steering_noise = steering_noise self.distance_noise = distance_noise def set_steering_drift(self, drift): \"\"\" ",
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 13
+    },
+    {
+        "type": "table",
+        "img_path": "images/aef6ceddf7b0df59a7153113bd9fa1ea7c9f1471b711557e1d555a13e45edd33.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "\n\n<html><body><table><tr><td>II!I self.steering_drift = drift</td></tr><tr><td>def move(self, steering, distance, tolerance=0.001, max_steering_angle=np.pi , 4.0): I steering = front wheel steering angle, limited by max_steering_angle(max 90 degree) distance = total distance driven, most be non-negative</td></tr><tr><td>I if max_steering_angle >np.pi/2: raise ValueError(\"Max steering angle cannot be greater than 90-degree.\") if steering > max_steering_angle: steering = max_steering_angle if steering -max_steering_angle:</td></tr><tr><td>steering = -max_steering_angle if distance < 0.0: distance = 0.0 # apply noise steering2 = random.gauss(steering, self.steering_noise) distance2 = random.gauss(distance, self.distance_noise)</td></tr><tr><td># apply steering drift steering2 += self.steering_drift # Execute motion turn = np.tan(steering2) * distance2 / self.length if abs(turn) < tolerance: # approximate by straight line motion</td></tr><tr><td>Self.x += distance2 * np.cos(self.orientation) self.y += distance2 * np.sin(self.orientation) self.orientation = (self.orientation + turn) % (2.0 * np.pi) else: # approximate bicycle model for motion radius = distance2 / turn Cx = self.x - (np.sin(self.orientation) * radius) cy = self.y + (np.cos(self.orientation) * radius) self.orientation = (self.orientation + turn) % (2.0 * np.pi)</td></tr></table></body></html>\n\n",
+        "page_idx": 14
+    },
+    {
+        "type": "image",
+        "img_path": "images/eb93d998d9772175e3c94d67208e7797e76738095dc8e56098e65c90ef930789.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "targets.append([i, 0]); track_x.append(i); track_y.append(0) for i in range(300,600): targets.append([i, 2]); track_x.append(i); track_y.append(2) for i in range(600,track_length): targets.append([i, 0]); track_x.append(i); track_y.append(0) # Set the parameters for K_p, K_d, and K_i K_p = 0.2; K_d = 3; K_i = 0.0005 x_trajectory, y_trajectory = vehicle.run_PID(targets, K_p, K_d, K_i, track_length) n = len(x_trajectory) controller_legend = 'PID controller' if K_p!=0 and K_d!=0 and K_i!=0 else 'PD controller'\\ if K_p!=0 and K_d!=0 else 'P controller' if K_p!=0 else 'unknown controller' fig, ax1 = plt.subplots(1, 1, figsize=(8, 4)) ax1.plot(x_trajectory, y_trajectory, 'g', linewidth=4, label= controller_legend) ax1.plot(track_x, track_y, 'r', label='target') plt.legend() plt.show() ",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "Example Cartpole Exercise ",
+        "text_level": 1,
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "## This is course material for Introduction to Modern Artificial Intelligence   \n## Example code: cartpole_dqn.py   \n## Author: Allen Y. Yang   \n##   \n## (c) Copyright 2020-2024. Intelligent Racing Inc. Not permitted for commercial use   \nPlease make sure to install openAI gym module   \npip install gym==0.17.3   \npip install install pyglet==1.5.29 ",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "import gym import time ",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "PID control parameters Kp = 1.0 # Proportional gain Ki = 0.0 # Integral gain Kd = 0.5 # Derivative gain ",
+        "page_idx": 16
+    },
+    {
+        "type": "image",
+        "img_path": "images/f6b0396764e8f65864da6cef4e3ebcb27257f22088173e3513d24f790564e26a.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 17
+    }
+]

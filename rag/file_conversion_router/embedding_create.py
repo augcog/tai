@@ -15,7 +15,6 @@ import torch.nn.functional as F
 from torch import Tensor
 from angle_emb import AnglE, Prompts
 
-
 from rag.file_conversion_router.utils.logger import content_logger
 
 load_dotenv()
@@ -31,6 +30,9 @@ def traverse_files(path, start_folder_name, url_list, id_list, doc_list, file_pa
     if not os.path.exists(path):
         raise ValueError(f"The provided path '{path}' does not exist.")
     folder_tree = f"{start_folder_name} (h1)\n"
+
+    path = os.path.abspath(path)
+
     for root, dir, files in os.walk(path):
         for file in files:
             if file.endswith('.pkl'):
@@ -66,6 +68,14 @@ def traverse_files(path, start_folder_name, url_list, id_list, doc_list, file_pa
                 elif os.path.exists(md_path):
                     associated_file_path = md_path
 
+                # Convert absolute path to relative path including the root folder name
+                if associated_file_path:
+                    # Get path relative to the parent directory of the root folder
+                    parent_dir = os.path.dirname(path)
+                    relative_file_path = os.path.relpath(associated_file_path, parent_dir)
+                else:
+                    relative_file_path = None
+
                 with open(file_path, 'rb') as pkl_file:
                     print(file_path)
                     chunks = pickle.load(pkl_file)
@@ -78,11 +88,12 @@ def traverse_files(path, start_folder_name, url_list, id_list, doc_list, file_pa
                     print(chunk.chunk_url)
                     url = "URLs:\n" + "\n".join(chunk.chunk_url)
                     url_list.append(url)
-                    file_paths_list.append(associated_file_path)  # Add the associated file path
+                    file_paths_list.append(relative_file_path)  # Add the relative file path with root folder
 
     return url_list, id_list, doc_list, file_paths_list
 
-def embedding_create(markdown_path,name, embedding_name, folder_name, model):
+
+def embedding_create(markdown_path, name, embedding_name, folder_name, model):
     '''
     Traverse through files
     '''
@@ -95,28 +106,28 @@ def embedding_create(markdown_path,name, embedding_name, folder_name, model):
     file_paths_list = []
     start = time.time()
     # Process each page
-    url_list, id_list, doc_list, file_paths_list = traverse_files(markdown_path, name, url_list, id_list, doc_list, file_paths_list)
-    if model=='BGE':
+    url_list, id_list, doc_list, file_paths_list = traverse_files(markdown_path, name, url_list, id_list, doc_list,
+                                                                  file_paths_list)
+    if model == 'BGE':
         from FlagEmbedding import BGEM3FlagModel
         embedding_model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True)
     for i in tqdm(range(len(doc_list))):
-        human_embedding_prompt= 'document_hierarchy_path: {segment_path}\ndocument: {segment}\n'
+        human_embedding_prompt = 'document_hierarchy_path: {segment_path}\ndocument: {segment}\n'
         hp = human_embedding_prompt.format(segment=doc_list[i], segment_path=id_list[i])
 
         history = [{"role": "user", "content": hp.strip()}]
         if model == 'BGE':
             # print(embedding_model.encode(hp, return_dense=True, return_sparse=True, return_colbert_vecs=True))
-            embedding_list.append(embedding_model.encode(hp, return_dense=True, return_sparse=True, return_colbert_vecs=True))
+            embedding_list.append(
+                embedding_model.encode(hp, return_dense=True, return_sparse=True, return_colbert_vecs=True))
 
-
-
-    id_list=np.array(id_list)
-    doc_list=np.array(doc_list)
-    embedding_list=np.array(embedding_list)
-    url_list=np.array(url_list)
-    time_list=np.array(time_list)
-    file_paths_list=np.array(file_paths_list)
-    print('create time:',time.time()-start)
+    id_list = np.array(id_list)
+    doc_list = np.array(doc_list)
+    embedding_list = np.array(embedding_list)
+    url_list = np.array(url_list)
+    time_list = np.array(time_list)
+    file_paths_list = np.array(file_paths_list)
+    print('create time:', time.time() - start)
 
     # Store the variables in a dictionary
     data_to_store = {
@@ -165,4 +176,4 @@ def validate_data(data):
 
 
 if __name__ == "__main__":
-    embedding_create("out", "about", "cs61a", "pickle", "BGE")
+    embedding_create("/Users/lihaichao/Documents/TAI/tai/rag/file_conversion_router/services/output_files", "about", "cs61a", "pickle", "BGE")

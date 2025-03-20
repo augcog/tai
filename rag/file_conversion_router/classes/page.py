@@ -87,78 +87,21 @@ class Page:
                 return page_num
         return None
 
-    # def recursive_separate(self, response: str, token_limit: int = 400) -> list:
-    #     """
-    #     Recursively split the response into multiple paragraphs based on the token limit.
-    #
-    #     Args:
-    #         response (str): The text to be split.
-    #         token_limit (int): Maximum number of tokens per paragraph.
-    #
-    #     Returns:
-    #         list: A list of split text segments.
-    #     """
-    #
-    #     def token_size(sentence: str) -> int:
-    #         encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
-    #         return len(encoding.encode(sentence))
-    #
-    #     def rfind_punctuation(s: str, start: int, end: int) -> int:
-    #         for i in range(end - 1, start - 1, -1):
-    #             if s[i] in string.punctuation:
-    #                 return i
-    #         return -1
-    #
-    #     msg_list = []
-    #     tokens = token_size(response)
-    #     if tokens > token_limit:
-    #         start = 0
-    #         while start < len(response):
-    #             end = start
-    #             while end < len(response) and token_size(response[start:end]) < token_limit:
-    #                 end += 1
-    #
-    #             if end < len(response):
-    #                 split_pos = response.rfind('\n\n', start, end)
-    #                 if split_pos == -1:
-    #                     split_pos = response.rfind('\n', start, end)
-    #                 if split_pos == -1:
-    #                     split_pos = rfind_punctuation(response, start, end)
-    #                 if split_pos == -1:
-    #                     split_pos = response.rfind(' ', start, end)
-    #                 if split_pos == -1 or split_pos <= start:
-    #                     split_pos = end - 1
-    #
-    #                 msg_list.append(response[start:split_pos].strip())
-    #                 start = split_pos + 1
-    #             else:
-    #                 msg_list.append(response[start:end].strip())
-    #                 break
-    #     else:
-    #         msg_list.append(response)
-    #
-    #     return msg_list
-
     def recursive_separate(self, response: str, token_limit: int = 400) -> list:
         """
-        Recursively splits the text into multiple paragraphs and attempts to merge adjacent paragraphs,
-        as long as the merged text remains within the token limit.
-
-        If a paragraph's token count is below the token_limit, it will try to merge with the following paragraph
-        (as long as the merged result remains within the token_limit). It also records and prints which original
-        paragraphs were merged together.
+        Recursively split the response into multiple paragraphs based on the token limit.
 
         Args:
             response (str): The text to be split.
-            token_limit (int): The maximum number of tokens allowed per paragraph.
+            token_limit (int): Maximum number of tokens per paragraph.
 
         Returns:
-            list: A list of text segments after splitting and merging.
+            list: A list of split text segments.
         """
 
-        def token_size(text: str) -> int:
+        def token_size(sentence: str) -> int:
             encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
-            return len(encoding.encode(text))
+            return len(encoding.encode(sentence))
 
         def rfind_punctuation(s: str, start: int, end: int) -> int:
             for i in range(end - 1, start - 1, -1):
@@ -166,75 +109,35 @@ class Page:
                     return i
             return -1
 
-        def split_long_text(text: str, token_limit: int) -> list:
-            """
-            Splits a single text block if its token count exceeds token_limit using the original logic.
-            """
-            segments = []
-            if token_size(text) <= token_limit:
-                return [text.strip()]
-
+        msg_list = []
+        tokens = token_size(response)
+        if tokens > token_limit:
             start = 0
-            while start < len(text):
+            while start < len(response):
                 end = start
-                while end < len(text) and token_size(text[start:end]) < token_limit:
+                while end < len(response) and token_size(response[start:end]) < token_limit:
                     end += 1
-                if end < len(text):
-                    split_pos = text.rfind('\n\n', start, end)
+
+                if end < len(response):
+                    split_pos = response.rfind('\n\n', start, end)
                     if split_pos == -1:
-                        split_pos = text.rfind('\n', start, end)
+                        split_pos = response.rfind('\n', start, end)
                     if split_pos == -1:
-                        split_pos = rfind_punctuation(text, start, end)
+                        split_pos = rfind_punctuation(response, start, end)
                     if split_pos == -1:
-                        split_pos = text.rfind(' ', start, end)
+                        split_pos = response.rfind(' ', start, end)
                     if split_pos == -1 or split_pos <= start:
                         split_pos = end - 1
-                    segments.append(text[start:split_pos].strip())
+
+                    msg_list.append(response[start:split_pos].strip())
                     start = split_pos + 1
                 else:
-                    segments.append(text[start:end].strip())
+                    msg_list.append(response[start:end].strip())
                     break
-            return segments
+        else:
+            msg_list.append(response)
 
-        # First, split the original text by double newlines (assuming paragraphs are separated by two newlines)
-        raw_paragraphs = [para.strip() for para in response.split("\n\n") if para.strip()]
-        paragraphs = []
-        # For each original paragraph, if its token count exceeds the limit, split it further
-        for para in raw_paragraphs:
-            if token_size(para) > token_limit:
-                paragraphs.extend(split_long_text(para, token_limit))
-            else:
-                paragraphs.append(para)
-
-        # Merge adjacent paragraphs and record the original paragraph indices
-        merged = []
-        merge_info = []  # Each element is a tuple (merged text, list of original paragraph indices)
-        current = ""
-        current_indices = []
-        for idx, para in enumerate(paragraphs):
-            if not current:
-                current = para
-                current_indices = [idx]
-            else:
-                candidate = current + "\n\n" + para
-                if token_size(candidate) <= token_limit:
-                    current = candidate
-                    current_indices.append(idx)
-                else:
-                    merged.append(current)
-                    merge_info.append((current, current_indices.copy()))
-                    current = para
-                    current_indices = [idx]
-        if current:
-            merged.append(current)
-            merge_info.append((current, current_indices.copy()))
-
-        # Print merge info
-        print("Merge Info (each tuple: merged text, list of original paragraph indices):")
-        for info in merge_info:
-            print(info)
-
-        return merged
+        return msg_list
 
     def extract_headers_and_content(self, md_content: str):
         """
@@ -350,11 +253,16 @@ class Page:
 
     def tree_segments_to_chunks(self):
         for segment in self.tree_segments:
-            segment_title = segment['Page_path'][-1] if segment['Page_path'] else "(NO TITLE)"
-            content_chunks = self.recursive_separate(segment['Segment_print'], 400)
-            page_num = segment.get('page_num', None)
-            for count, content_chunk in enumerate(content_chunks):
-                if self.page_url != "":
+            default_title = segment["Page_path"][-1] if segment["Page_path"] else "(NO TITLE)"
+            splitted_contents = self.recursive_separate(segment["Segment_print"], 400)
+            page_num = segment.get("page_num", None)
+            is_split_flag = (len(splitted_contents) > 1)
+            if is_split_flag:
+                merged_title = f"{default_title} (Split from: {' - '.join(segment['Page_path'])})"
+            else:
+                merged_title = default_title
+            for content_chunk in splitted_contents:
+                if self.page_url:
                     if page_num is not None:
                         urls = f"{self.page_url}#page={page_num}"
                     else:
@@ -364,11 +272,13 @@ class Page:
                 self.chunks.append(
                     Chunk(
                         content=content_chunk,
-                        titles=segment_title,
+                        titles=merged_title,
                         chunk_url=urls,
-                        page_num=page_num
+                        page_num=page_num,
+                        is_split=is_split_flag
                     )
                 )
+                self.post_process_merge_short_chunks(400)
         return self.chunks
 
     def to_file(self, output_path: str) -> None:
@@ -379,7 +289,41 @@ class Page:
         self.page_seperate_to_segments()
         self.tree_print()
         self.chunks = self.tree_segments_to_chunks()
+        self.post_process_merge_short_chunks(short_chunk_token_threshold=400)
 
     def chunks_to_pkl(self, output_path: str) -> None:
         with open(output_path, "wb") as f:
             pickle.dump(self.chunks, f)
+
+    def post_process_merge_short_chunks(self, short_chunk_token_threshold: int = 50) -> None:
+        def token_size(text: str) -> int:
+            encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
+            return len(encoding.encode(text))
+
+        new_chunks = []
+        i = 0
+        while i < len(self.chunks):
+            current_chunk = self.chunks[i]
+            current_size = token_size(current_chunk.content)
+            if (
+                    current_size < short_chunk_token_threshold
+                    and not current_chunk.is_split
+                    and (i + 1 < len(self.chunks))
+            ):
+                next_chunk = self.chunks[i + 1]
+                if not next_chunk.is_split:
+                    merged_content = current_chunk.content + "\n\n" + next_chunk.content
+                    merged_title = f"{current_chunk.titles} / {next_chunk.titles}"
+                    new_chunk = Chunk(
+                        content=merged_content,
+                        titles=merged_title,
+                        chunk_url=current_chunk.chunk_url,
+                        page_num=current_chunk.page_num,
+                        is_split=current_chunk.is_split
+                    )
+                    new_chunks.append(new_chunk)
+                    i += 2
+                    continue
+            new_chunks.append(current_chunk)
+            i += 1
+        self.chunks = new_chunks

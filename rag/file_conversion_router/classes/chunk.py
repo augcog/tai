@@ -19,6 +19,7 @@ class Chunk:
     titles: str = "default_title"
     chunk_url: str = "default_no_url",
     metadata: Dict[str, Any] = field(default_factory=dict)
+    is_split: bool = False
     page_num: Any = None
 
     def __post_init__(self):
@@ -27,7 +28,8 @@ class Chunk:
         self.metadata.update({
             'titles': self.titles,
             'chunk_url': self.chunk_url,
-            'page_num': self.page_num
+            'page_num': self.page_num,
+            self.is_split: self.is_split
         })
 
     def __eq__(self, other):
@@ -47,7 +49,9 @@ class Chunk:
                 self.titles == other.titles and
                 self.content == other.content and
                 self.chunk_url == other.chunk_url and
-                self.page_num == other.page_num
+                self.page_num == other.page_num and
+                self.metadata == other.metadata and
+                self.is_split == other.is_split
         )
 
     def update_metadata(self, new_metadata: Dict[str, Any]) -> None:
@@ -87,5 +91,6 @@ class Chunk:
         return {
             'titles': self.titles,
             'chunk_url': self.chunk_url,
-            'page_num': self.page_num
+            'page_num': self.page_num,
+            'is_split': self.is_split
         }

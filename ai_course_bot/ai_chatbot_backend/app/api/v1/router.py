@@ -1,4 +1,4 @@
-from app.api.v1.endpoints import file_completions, completions, files, courses, summarization
+from app.api.v1.endpoints import file_completions, completions, files, courses, course_admin
 from fastapi import APIRouter
 
 router = APIRouter()
@@ -27,7 +27,12 @@ router.include_router(
     tags=["files"]
 )
 
-# TODO: Implement summarization
+router.include_router(
+    course_admin.router,
+    prefix="/course-admin",
+    tags=["course-admin"]
+)
+
 # router.include_router(
 #     summarization.router,
 #     prefix="/summarization",

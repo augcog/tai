@@ -63,7 +63,7 @@ def client_unit(db_session):
 
 
 def embedding_folder_for_test():
-    return os.path.join(os.path.dirname(__file__), "..", "..", "data", "embeddings")
+    return os.path.join(os.path.dirname(__file__), "..", "data", "embeddings")
 
 
 @pytest.fixture

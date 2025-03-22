@@ -43,5 +43,4 @@ class CompletionCreateParams(BaseModel):
     messages: Optional[List[Message]]
     temperature: float
     stream: bool
-    # TODO: implement the following field and refactor the current relevant endpoint design
-    # rag: Optional[bool] = False
+    rag: Optional[bool] = True

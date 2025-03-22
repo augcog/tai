@@ -35,7 +35,7 @@ async def create_completion(params: CompletionCreateParams):
     selector = generate_chat_response
     parser = local_parser
 
-    response,reference_string = selector(formatter(params.messages), stream=params.stream,course=course)
+    response,reference_string = selector(formatter(params.messages), stream=stream, course=course)
 
     if params.stream:
         return StreamingResponse(parser(response,reference_string), media_type="text/plain")

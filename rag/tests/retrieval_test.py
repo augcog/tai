@@ -10,6 +10,7 @@ from voyageai import get_embedding
 from transformers import AutoModel
 from dotenv import load_dotenv
 from FlagEmbedding import BGEM3FlagModel
+import csv
 
 
 load_dotenv()
@@ -117,7 +118,7 @@ def generate_log(success_retrieve, fail_retrieve,filename=None):
     """
 
     # Calculate average
-    avg = sum(int(x[1]) for x in success_retrieve) / len(success_retrieve)
+    # avg = sum(int(x[1]) for x in success_retrieve) / len(success_retrieve)
     count_top_1 = sum(int(x[1]) == 0 for x in success_retrieve)
     count_top_2 = sum(int(x[1]) <=1 for x in success_retrieve)
     count_top_3 = sum(int(x[1]) <=2 for x in success_retrieve)
@@ -143,7 +144,7 @@ def generate_log(success_retrieve, fail_retrieve,filename=None):
         file.write("number of top 2: " + str(count_top_2) + "\n")
         file.write("number of top 3: " + str(count_top_3) + "\n")
         file.write("number of top 5: " + str(count_top_5) + "\n")
-        file.write(f"Average index: {avg}\n")
+        # file.write(f"Average index: {avg}\n")
         for i in fail_retrieve:
             file.write(f"id:{i[0]}\n"
                        f"question:{i[1]}\n")
@@ -293,7 +294,7 @@ for n in [400]:
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
 
-    
+    question_context_pairs = []
     
     # Change the current working directory to the new folder
     os.chdir(folder_name)
@@ -428,6 +429,9 @@ for n in [400]:
         else:
             print("Failed in multi step")
             fail_multi_retrieve.append((id, question))
+        
+        question_context_pairs.append((question, documents[0]))
+
     os.chdir('..')
 
     if technique=='recursive_seperate':
@@ -440,4 +444,22 @@ for n in [400]:
         log_path = generate_log(success_multi_retrieve, fail_multi_retrieve, filename=f"{technique}_{method}_{model}_multi")
     print(f"Log saved to: {log_path}")
     print('query time:',time.time()-start)
+
+    output_csv_file = 'questions_context.csv'
+
+    # Write to CSV file with proper handling of commas and special characters
+    with open(output_csv_file, mode='w', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file, quoting=csv.QUOTE_MINIMAL)  # Use QUOTE_MINIMAL for less aggressive quoting
+        
+        # Write the header row
+        writer.writerow(["question", "context"])
+        
+        # Write the question-context pairs
+        for question, context in question_context_pairs:
+            print(question)
+            print(context)
+            # Ensure each item is written in separate columns
+            writer.writerow([str(question).strip(), str(context).strip()])
+
+    print(f'CSV file written successfully to {output_csv_file}')
     

@@ -1,0 +1,363 @@
+import requests
+import openai
+from dotenv import load_dotenv
+import csv
+import os
+import pickle
+import time
+import json
+import argparse
+import pandas as pd
+import re
+from scipy.stats import pearsonr
+
+EVALUATE_CHUNK_RELEVANCE = """###Task Description:
+You are evaluating the reference context provided to a Retrieval-Augmented Generation-based LLM to answer a question related to the Berkeley course {course} asked by a student. You are given 5 chunks (pieces of context) that will be used by the LLM to generate a response to the student, as well as their corresponding cosine similarities (decimal between 0 and 1, representing how semantically similar the chunk is to the question calculated by a retrieval algorithm). You are responsible for scoring each chunk following a score rubric for the reference context, and answering several questions.
+1. Write detailed feedback that assesses the quality of each of the 5 chunks, strictly based on the given score rubric, not evaluating in general. 
+2. After writing feedback, write a score that is an integer between 1 and 5 per chunk. You should refer to the score rubric. 
+3. The output format should look as follows: \”Individual chunk evaluation: [Chunk 1] {{write a feedback for criteria for chunk 1}} [Chunk 1 RESULT] {{an integer number between 1 and 5}}. [Chunk 2] {{write a feedback for criteria for chunk 2}} [Chunk 2 RESULT] {{an integer number between 1 and 5}}. [Chunk 3] {{write a feedback for criteria for chunk 3}} [Chunk 3 RESULT] {{an integer number between 1 and 5}}. [Chunk 4] {{write a feedback for criteria for chunk 4}} [Chunk 4 RESULT] {{an integer number between 1 and 5}}. [Chunk 5] {{write a feedback for criteria for chunk 5}} [Chunk 5 RESULT] {{an integer number between 1 and 5}}.”
+4. Please do not generate any other opening, closing, and explanations.
+
+###Chunks for reference:
+{reference_context}
+
+###Cosine similarities of chunks (in order of chunks in previous reference):
+{cosine_sims}
+
+###Question:
+{instruction}
+
+###Score Rubric:
+[Is the chunk context relevant to the question?]
+Score 1: The chunk is completely insufficient in answering the question.
+Score 2: The chunk is mostly insufficient in answering the question.
+Score 3: The chunk is somewhat sufficient in answering the question.
+Score 4: The chunk is mostly sufficient in answering the question.
+Score 5: The chunk is completely sufficient in answering the question.
+"""
+
+EVALUATE_CHUNK_QUALITY = """###Task Description:
+You are evaluating the reference context provided to a Retrieval-Augmented Generation-based LLM to answer a question related to the Berkeley course {course} asked by a student. You are given 5 chunks (pieces of context) that will be used by the LLM to generate a response to the student, as well as their corresponding cosine similarities (decimal between 0 and 1, representing how semantically similar the chunk is to the question). You are responsible for scoring each chunk following a score rubric for the reference context, and answering several questions.
+1. Write detailed feedback that assesses the quality of each of the 5 chunks, strictly based on the given score rubric, not evaluating in general. 
+2. After writing feedback, write a score that is an integer between 1 and 5 per chunk. You should refer to the score rubric. 
+3. The output format should look as follows: \”Individual chunk evaluation: [Chunk 1] {{write a feedback for criteria for chunk 1}} [Chunk 1 RESULT] {{an integer number between 1 and 5}}. [Chunk 2] {{write a feedback for criteria for chunk 2}} [Chunk 2 RESULT] {{an integer number between 1 and 5}}. [Chunk 3] {{write a feedback for criteria for chunk 3}} [Chunk 3 RESULT] {{an integer number between 1 and 5}}. [Chunk 4] {{write a feedback for criteria for chunk 4}} [Chunk 4 RESULT] {{an integer number between 1 and 5}}. [Chunk 5] {{write a feedback for criteria for chunk 5}} [Chunk 5 RESULT] {{an integer number between 1 and 5}}.”
+4. Please do not generate any other opening, closing, and explanations.
+
+###Chunks for reference:
+{reference_context}
+
+###Cosine similarities of chunks (in order of chunks in previous reference):
+{cosine_sims}
+
+###Question:
+{instruction}
+
+###Score Rubric:
+[Does the chunk provide clear information and how well does it read?]
+Score 1: The chunk is completely unclear and does not read well.
+Score 2: The chunk is mostly unclear and does not read well.
+Score 3: The chunk is somewhat sufficient in clarity and reads alright.
+Score 4: The chunk is mostly sufficient in clarity and reads well.
+Score 5: The chunk is completely sufficient in clarity and reads well.
+"""
+
+EVALUATE_MODEL = """###Task Description:
+You are evaluating the reference context provided to a Retrieval-Augmented Generation-based LLM to answer a question related to the Berkeley course {course} asked by a student. You are given 5 chunks (pieces of context) that will be used by the LLM to generate a response to the student, and the response generated by an LLM. You are responsible for scoring the response following a score rubric for the response.
+1. Write detailed feedback that assesses this quality of the response strictly based on the given score rubric, not evaluating in general. Then, answer the following question: Given these chunks used as context for the LLM-generated response, does the LLM have enough general background to connect the dots between the chunks? (Answer YES or NO, and explain)
+2. After writing feedback, write a score that is an integer between 1 and 5. You should refer to the score rubric.
+3. The output format should look as follows: \"Response feedback: {{write a feedback for criteria}} [RESULT] {{an integer number between 1 and 5}}. Question: {{YES / NO}}, {{explanation}}."
+4. Please do not generate any other opening, closing, and explanations. Be sure to include [RESULT] in your output.
+
+###Chunks for reference:
+{reference_context}
+
+###Question:
+{instruction}
+
+###Response to evaluate:
+{response}
+
+###Score Rubric:
+[Does the response use the main ideas of the reference context to form a relevant response?]
+Score 1: The response does not at all use the main ideas of the reference context to form a relevant response. 
+Score 2: The response hardly uses the main ideas of the reference context to form a relevant response.
+Score 3: The response somewhat uses the main ideas of the reference context to form a relevant response.
+Score 4: The response mostly uses the main ideas of the reference context to form a relevant response.
+Score 5: The response completely uses the main ideas of the reference context to form a relevant response.
+"""
+
+EVALUATE_RESPONSE = """###Task Description:
+You are evaluating the reference context provided to a Retrieval-Augmented Generation-based LLM to answer a question related to the Berkeley course {course} asked by a student. You are responsible for scoring the response following a score rubric for the response.
+1. Write detailed feedback that assesses this quality of the response strictly based on the given score rubric, not evaluating in general.
+2. After writing feedback, write a score that is an integer between 1 and 5. You should refer to the score rubric.
+3. The output format should look as follows: \"Response feedback: {{write a feedback for criteria}} [RESULT] {{an integer number between 1 and 5}}."
+4. Please do not generate any other opening, closing, and explanations. Be sure to include [RESULT] in your output.
+
+###Chunks for reference:
+{reference_context}
+
+###Question:
+{instruction}
+
+###Response to evaluate:
+{response}
+
+###Score Rubric:
+[Based on the chunks for reference and the question, is the response helpful for the student overall?]
+Score 1: The response is not helpful to the student.
+Score 2: The response is mostly not helpful to the student.
+Score 3: The response is somewhat helpful to the student.
+Score 4: The response is mostly helpful to the student.
+Score 5: The response is completely helpful to the student.
+"""
+
+QUERY_PROMPT = """
+Answer the following question as accurately as possible.
+Question: {question}
+"""
+
+load_dotenv()
+
+class CompletionCreateParams:
+    def __init__(self, course, messages=None, stream=True, temperature=0.5):
+        self.course = course
+        self.messages = messages if messages is not None else []
+        self.stream = stream
+        self.temperature = temperature
+
+    def add_message(self, role, content):
+        self.messages.append({"role": role, "content": content})
+
+    def to_dict(self):
+        return {
+            "course": self.course,
+            "messages": self.messages,
+            "stream": self.stream,
+            "temperature": self.temperature
+        }
+
+def query_tai_llm(messages, model="gpt-4-turbo", temperature=0.7):
+    try:
+        response = openai.ChatCompletion.create(
+            model=model,
+            messages=messages,
+            temperature=temperature
+        )
+        # Extract and return the generated message
+        return response['choices'][0]['message']['content'].strip()
+    except Exception as e:
+        return f"Error occurred: {e}"
+    
+def make_openai_request(prompt, API_KEY, OPENAI_URL, retries=3):
+    headers = {
+        'Authorization': f'Bearer {API_KEY}',
+        'Content-Type': 'application/json'
+    }
+
+    data = {
+        'model': 'gpt-4',
+        'messages': [{'role': 'user', 'content': prompt}],
+        'temperature': 0
+    }
+
+    for _ in range(retries):
+        try:
+            response = requests.post(OPENAI_URL, headers=headers, json=data)
+            result = response.json()
+            return result['choices'][0]['message']['content'] if result else "No response"
+        except requests.exceptions.ConnectionError as e:
+            print("Connection error, retrying in 5 seconds")
+            time.sleep(5)
+    return "No response"
+
+# Function to extract the number after [RESULT]
+def extract_result(text):
+    match = re.search(r'\[RESULT\]\s*(\d+)', str(text))
+    if match:
+        return int(match.group(1))
+    return None
+
+# Function to extract all [Chunk i RESULT] numbers and average them
+def extract_and_average_results(text):
+    matches = re.findall(r'\[Chunk [1-5] RESULT\]\s*(\d+)', str(text))
+    if matches:
+        numbers = [int(num) for num in matches]
+        return sum(numbers) / len(numbers)
+    return None
+
+
+def main():
+    parser = argparse.ArgumentParser()
+
+    # Argument for number of questions to evaluate
+    parser.add_argument(
+        '-n', '--num-questions',
+        type=int,
+        help="Number of questions to evaluate",
+        required=True
+    )
+
+    # Add flags for running entire pipeline, just retrieval, or just main idea evaluation
+    parser.add_argument(
+        '--run-pipeline',
+        action='store_true',
+        help="Run entire pipeline"
+    )
+    parser.add_argument(
+        '--run-retrieval',
+        action='store_true',
+        help="Run retrieval portion of pipeline"
+    )
+    parser.add_argument(
+        '--run-model-eval',
+        action='store_true',
+        help="Run the model evaluation portion of pipeline"
+    )
+
+    # Add flag for calculating statistics
+    parser.add_argument(
+        '--stats',
+        action='store_true',
+        help="Calculate statistics for evaluation results"
+    )
+
+    args = parser.parse_args()
+    print(f"Number of questions to evaluate: {args.num_questions}")
+    if not (args.run_pipeline or args.run_retrieval or args.run_model_eval):
+        args.run_pipeline = True
+
+    # Load configurations
+    with open("config.json", "r") as config_file:
+        config = json.load(config_file)
+    RETRIEVAL_URL = config["retrieval_api"]
+    TAI_URL = config["tai_api"]
+    COURSE = config["course"]
+    API_KEY = os.getenv("API_KEY")
+    OPENAI_URL = config["openai_api"]
+    QUESTION_FILE = config["question_file"]
+    print("Loaded configurations")
+    
+    # Load questions
+    with open(QUESTION_FILE, 'rb') as file:
+        data = pickle.load(file)
+    questions_all = [data[i][1] for i in range(len(data))]
+    questions = questions_all[:args.num_questions]
+    print("Loaded questions")
+
+    question_context_answer_feedback = []
+
+    for i, question in enumerate(questions):
+        # Retrieval
+        params = {
+            "message": question,
+            "k": 5,
+            "course": COURSE
+        }
+        response = requests.post(RETRIEVAL_URL, params=params)
+        context_json = response.json()
+        context = "\n".join(context_json['top_docs'])
+        used_chunks = context_json['used_chunks']
+        distances = context_json['distances']
+        print(f"Retrieval completed for question {i+1}")
+
+        answer = ""
+        if args.run_pipeline or args.run_model_eval:
+            # Query TAI
+            filled_prompt = QUERY_PROMPT.format(question=question)
+            params = CompletionCreateParams(course=COURSE)
+            params.add_message(role="user", content=filled_prompt)
+            params_dict = params.to_dict()
+            response = requests.post(TAI_URL, json=params_dict)
+            answer = response.text
+            print(f"TAI query completed for question {i+1}")
+
+        # Prompt OpenAI for evaluations
+        feedback_prompts = [
+            EVALUATE_CHUNK_RELEVANCE.format(course=COURSE, instruction=question, reference_context=context, cosine_sims=distances),
+            EVALUATE_CHUNK_QUALITY.format(course=COURSE, instruction=question, reference_context=context, cosine_sims=distances),
+            EVALUATE_MODEL.format(course=COURSE, instruction=question, response=answer, reference_context=context),
+            EVALUATE_RESPONSE.format(course=COURSE, instruction=question, response=answer, reference_context=context)
+        ]
+
+        feedback = []
+        if args.run_retrieval:
+            for prompt in feedback_prompts[:2]:
+                res = make_openai_request(prompt, API_KEY, OPENAI_URL)
+                feedback.append(res)
+            question_context_answer_feedback.append([question, context, used_chunks, distances] + feedback)
+        elif args.run_model_eval:
+            res = make_openai_request(feedback_prompts[2], API_KEY, OPENAI_URL)
+            feedback.append(res)
+            question_context_answer_feedback.append([question, context, answer, used_chunks, distances] + feedback)
+        elif args.run_pipeline:
+            for prompt in feedback_prompts:
+                res = make_openai_request(prompt, API_KEY, OPENAI_URL)
+                feedback.append(res)
+            question_context_answer_feedback.append([question, context, answer, used_chunks, distances] + feedback)
+        print(f"Evaluation completed for question {i+1}")
+
+    # Write results to CSV
+    output_file = "results.csv"
+    with open(output_file, mode='w', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        if args.run_retrieval:
+            writer.writerow(["Question", "Context", "Used Chunks", "Cosine Distances", "EVALUATE_CHUNK_RELEVANCE", "EVALUATE_CHUNK_QUALITY"])
+        elif args.run_model_eval:
+            writer.writerow(["Question", "Context", "Answer", "Used Chunks", "Cosine Distances", "EVALUATE_MODEL"])
+        elif args.run_pipeline:
+            writer.writerow(["Question", "Context", "Answer", "Used Chunks", "Cosine Distances", "EVALUATE_CHUNK_RELEVANCE", "EVALUATE_CHUNK_QUALITY", "EVALUATE_MODEL", "EVALUATE_RESPONSE"])
+        writer.writerows(question_context_answer_feedback)
+
+    print(f"Data written to {output_file}")
+
+    # Print statistics of evaluation
+    if args.stats:
+        df = pd.read_csv('results.csv')
+
+        # Mean for chunk quality and relevance
+        if args.run_retrieval or args.run_pipeline:
+            df['Feedback1_Average'] = df['EVALUATE_CHUNK_RELEVANCE'].apply(extract_and_average_results)
+            df['Feedback2_Average'] = df['EVALUATE_CHUNK_QUALITY'].apply(extract_and_average_results)
+            df = df.dropna(subset=['Feedback1_Average', 'Feedback2_Average'], how='all')
+            average_feedback1 = df['Feedback1_Average'].mean()
+            average_feedback2 = df['Feedback2_Average'].mean()
+            print(f"The average chunk relevance rating is: {average_feedback1:.3f}")
+            print(f"The average chunk quality rating is: {average_feedback2:.3f}")
+
+        # Mean of model main idea ability 
+        if args.run_model_eval or args.run_pipeline:
+            df["MainIdeaResult"] = df['EVALUATE_MODEL'].apply(extract_result)
+            df = df.dropna(subset=["MainIdeaResult"])
+            average_result = df['MainIdeaResult'].mean()
+            print(f"The average main idea result is: {average_result}")
+        
+        # Mean helpfulness of result and correlation statistics
+        if args.run_pipeline:
+            df['HelpfulnessResult'] = df['EVALUATE_RESPONSE'].apply(extract_result)
+            df = df.dropna(subset=['HelpfulnessResult'])
+            average_result = df['HelpfulnessResult'].mean()
+            print(f"The average helpfulnesss is: {average_result}")
+
+            # Calculate correlation between chunk relevance and helpfulness
+            chunk_relevance_vs_quality_corr, _ = pearsonr(df['Feedback1_Average'], df['HelpfulnessResult'])
+            print(f"Correlation between chunk relevance and helpfulnesss: {chunk_relevance_vs_quality_corr:.3f}")
+
+            # Calculate correlation between chunk relevance and main idea result
+            chunk_relevance_vs_mainidea_corr, _ = pearsonr(df['Feedback1_Average'], df['MainIdeaResult'])
+            print(f"Correlation between chunk relevance and main idea result: {chunk_relevance_vs_mainidea_corr:.3f}")
+
+            # Calculate correlation between chunk quality and chunk quality
+            chunk_quality_vs_quality_corr, _ = pearsonr(df['Feedback2_Average'], df['HelpfulnessResult'])
+            print(f"Correlation between chunk quality and helpfulnesss: {chunk_quality_vs_quality_corr:.3f}")
+
+            # Calculate correlation between chunk quality and main idea result
+            chunk_quality_vs_mainidea_corr, _ = pearsonr(df['Feedback2_Average'], df['MainIdeaResult'])
+            print(f"Correlation between chunk quality and main idea result: {chunk_quality_vs_mainidea_corr:.3f}")
+
+            # Calculate correlation between main idea result and helpfulness
+            chunk_quality_vs_mainidea_corr, _ = pearsonr(df['HelpfulnessResult'], df['MainIdeaResult'])
+            print(f"Correlation between helpfulness and main idea result: {chunk_quality_vs_mainidea_corr:.3f}")
+
+
+if __name__ == "__main__":
+    main()

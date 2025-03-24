@@ -8,22 +8,11 @@ import { ChatPanel } from '@/tai/components/chat-panel'
 import { EmptyScreen } from '@/tai/components/empty-screen'
 import { ChatScrollAnchor } from '@/tai/components/chat-scroll-anchor'
 import { useLocalStorage } from '@/tai/lib/hooks/use-local-storage'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle
-} from '@/tai/components/ui/dialog'
-import { useState } from 'react'
-import { Button } from './ui/button'
-import { Input } from './ui/input'
 import { toast } from 'react-hot-toast'
 import { usePathname, useRouter } from 'next/navigation'
 import { SelectCourse } from '@/tai/components/select-course'
 import { useSession } from 'next-auth/react'
-import { m } from 'framer-motion'
+import emitter from '@/tai/utils/eventEmitter'
 
 const IS_PREVIEW = process.env.VERCEL_ENV === 'preview'
 export interface ChatProps extends React.ComponentProps<'div'> {
@@ -40,8 +29,6 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
     'ai-token',
     null
   )
-  const [previewTokenDialog, setPreviewTokenDialog] = useState(IS_PREVIEW)
-  const [previewTokenInput, setPreviewTokenInput] = useState(previewToken ?? '')
 
   const saveChat = async (
     prev_messages: Message[],
@@ -85,6 +72,9 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
       if (!path.includes('chat')) {
         window.history.replaceState({}, '', `/chat/${id}`)
         router.replace(`/chat/${id}`)
+        setTimeout(() => {
+          emitter.emit('historyUpdated')
+        }, 2000)
       }
     } catch (error) {
       console.error('Error saving chat:', error)
@@ -137,42 +127,6 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         input={input}
         setInput={setInput}
       />
-
-      <Dialog open={previewTokenDialog} onOpenChange={setPreviewTokenDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Enter your OpenAI Key</DialogTitle>
-            <DialogDescription>
-              If you have not obtained your OpenAI API key, you can do so by{' '}
-              <a
-                href="https://platform.openai.com/signup/"
-                className="underline"
-              >
-                signing up
-              </a>{' '}
-              on the OpenAI website. This is only necessary for preview
-              environments so that the open source community can test the app.
-              The token will be saved to your browser&apos;s local storage under
-              the name <code className="font-mono">ai-token</code>.
-            </DialogDescription>
-          </DialogHeader>
-          <Input
-            value={previewTokenInput}
-            placeholder="OpenAI API key"
-            onChange={e => setPreviewTokenInput(e.target.value)}
-          />
-          <DialogFooter className="items-center">
-            <Button
-              onClick={() => {
-                setPreviewToken(previewTokenInput)
-                setPreviewTokenDialog(false)
-              }}
-            >
-              Save Token
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </>
   )
 }

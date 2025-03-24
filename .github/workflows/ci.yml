@@ -10,11 +10,11 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu 24.04
 
     strategy:
       matrix:
-        python-version: [3.9]  # Adjust this as necessary for other versions
+        python-version: ["3.10"]  # Adjust this as necessary for other versions
 
     steps:
     - uses: actions/checkout@v3
@@ -30,14 +30,24 @@ jobs:
       id: env-cache
       with:
         path: ${{ env.pythonLocation }}
-        key: ${{ runner.os }}-pythonenv-${{ matrix.python-version }}-${{ hashFiles('rag/requirements.txt') }}
-
+        key: ${{ runner.os }}-pythonenv-${{ matrix.python-version }}-${{ hashFiles('rag/requirements-base.txt') }}
     - name: Install pip dependencies
       if: steps.env-cache.outputs.cache-hit != 'true'
       run: |
-        pip install -r rag/requirements.txt
+        pip install -r rag/requirements-base.txt
+
+    - name: Install remaining dependencies
+      run: pip install -r rag/requirements-extend.txt
+
+    - name: Download minerU script
+      run: wget https://github.com/opendatalab/MinerU/raw/master/scripts/download_models_hf.py -O download_models_hf.py
+
+    - name: Run minerU script
+      run: python download_models_hf.py
+
 
     - name: Cache pytest artifacts
+
       uses: actions/cache@v3.2.4
       with:
         path: .pytest_cache

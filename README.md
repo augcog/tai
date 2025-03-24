@@ -1,6 +1,8 @@
 # TAI: Teaching Assistant Intelligence
 ![TAI_logo.png](TAI_logo.png)
 
+## Link to Website
+https://tai.berkeley.edu
 ## What is TAI?
 TAI is an open source project developed by researchers and students at UC Berkeley (see Credits below), with the goal to offer the power of edge GPT models and services for education purposes. The GPT models selected in TAI are carefully curated to allow students to easily spin up their own local GPT services and websites. The project further develops robust embedding and RAG toolkits to allow users to convert their knowledge base and multimedia documents into searchable vector databases. 
 
@@ -55,7 +57,7 @@ We are deeply grateful for the support and contributions from the following orga
 
 - **[Qualcomm](https://www.qualcomm.com/)**: For their generous AI Hub sponsorship, which has been instrumental in our progress.
 - **[Hitch Interactive](https://hitchinteractive.com/)**: For their unwavering general support, which has been crucial to our success.
-- **[Gaia Network](https://www.gaianet.ai/)**: For innovations in building decentralized AI infrastructure.
 - **[Nimbus-Nova](https://www.nimbus-nova.com/)**: For their exceptional work in system design and architecture.
+
 
 

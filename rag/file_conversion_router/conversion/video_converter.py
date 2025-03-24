@@ -166,25 +166,29 @@ class VideoConverter(BaseConverter):
         with open(md_path, 'w') as md_file:
             md_file.write(markdown_content)
         return md_path
+    # USED TO BE COMMENTED OUT
+    def _to_page(self, input_path: Path, output_path: Path) -> Page:
+        """Perform mp4 to Page conversion."""
 
-    # def _to_page(self, input_path: Path, output_path: Path) -> Page:
-    #     """Perform mp4 to Page conversion."""
+        output_path.parent.mkdir(parents=False, exist_ok=True)
+        
+        parent = input_path.parent
+        stem = input_path.stem
+        filetype = input_path.suffix.split(".")[1]
+        md_path = self._to_markdown(input_path, output_path)
 
-    #     output_path.parent.mkdir(parents = True, exist_ok = True)
-        
-    #     parent = input_path.parent
-    #     stem = input_path.stem
-    #     filetype = input_path.suffix.split(".")[1]
-    #     md_path = self._to_markdown(input_path, output_path)
+        with open(md_path, "r") as md_file:
+            md_content = md_file.read()
 
-    #     with open(md_path, "r") as md_file:
-    #         md_content = md_file.read()
-    #     metadata = parent / (stem+"_metadata.yml")
-        
-    #     with open(metadata, "r") as metadata_file:
-    #         metadata_content = yaml.safe_load(metadata_file)
-    #     url = metadata_content["URL"]
-        
-    #     timestamp = [i[1] for i in self.paragraphs]
-    #     page = VidPage(pagename = stem,content={"text": md_content, "timestamp": timestamp}, filetype = filetype, page_url = url)
-    #     return page
+        metadata = parent / (stem+"_metadata.yml")
+
+        try:
+            with open(metadata, "r") as metadata_file:
+                metadata_content = yaml.safe_load(metadata_file)
+                url = metadata_content["URL"]
+
+        except FileNotFoundError:
+            url=""
+        timestamp = [i[1] for i in self.paragraphs]
+        page = VidPage(pagename = stem,content={"text": md_content, "timestamp": timestamp}, filetype = filetype, page_url = url)
+        return page

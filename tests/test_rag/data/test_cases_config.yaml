@@ -36,3 +36,7 @@ integrated_tests:
   nested_folder_pdf+md:
       - input_folder: integrated_tests/input_folder2_nested_folder_pdf+md
         expected_output_folder: integrated_tests/expected_output_folder2_nested_folder_pdf+md
+
+
+pkl_structure_tests:
+  - expected_output_path: unit_tests/pdf/expected_output/61a-sp24-mt1/61a-sp24-mt1.pkl

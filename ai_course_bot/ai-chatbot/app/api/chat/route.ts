@@ -17,13 +17,9 @@ export async function POST(req: Request) {
   }
 
   var apiHost: string =
-    process.env['ROAR_BACKEND_HOST'] || 'http://0.0.0.0:9000'
-
-  if (courseId == 'CS 61A') {
-    apiHost = process.env['CS_61A_BACKEND_HOST'] || apiHost
-  } else if (courseId == 'EE 106b') {
-    apiHost = process.env['EE106B_BACKEND_HOST'] || apiHost
-  }
+    courseId === 'CS 294-137'
+      ? process.env['CS_294_137_BACKEND_HOST'] || 'http://0.0.0.0:9000'
+      : process.env['ROAR_BACKEND_HOST'] || 'http://0.0.0.0:9000'
 
   const apiUrl: string = apiHost + '/api/chat/completions'
 

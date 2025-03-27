@@ -78,6 +78,11 @@ def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path],
     valid_extensions = tuple(converter_mapping.keys())
     futures = []
 
+    if cache_path:
+        ConversionCache.set_cache_path(cache_path)
+    else:
+        ConversionCache.set_cache_path(None)
+
     # Iterate over all files with specified extensions
     for input_file_path in input_dir.rglob("*"):
         if input_file_path.suffix in valid_extensions and input_file_path.is_file():

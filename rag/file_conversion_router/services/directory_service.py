@@ -6,7 +6,7 @@ from concurrent.futures import as_completed
 from pathlib import Path
 from typing import Dict, Type, Union
 
-from rag.file_conversion_router.conversion.base_converter import BaseConverter, ConversionCache
+from rag.file_conversion_router.conversion.base_converter import BaseConverter
 from rag.file_conversion_router.conversion.md_converter import MarkdownConverter
 from rag.file_conversion_router.conversion.pdf_converter import PdfConverter
 from rag.file_conversion_router.conversion.rst_converter import RstConverter
@@ -17,9 +17,8 @@ from rag.file_conversion_router.conversion.notebook_converter import NotebookCon
 from rag.file_conversion_router.conversion.python_converter import PythonConverter
 from rag.file_conversion_router.services.task_manager import schedule_conversion
 from rag.file_conversion_router.utils.logger import content_logger, set_log_file_path
-from rag.file_conversion_router.utils.utils import calculate_hash
-from rag.file_conversion_router.utils.persistent_cache import *
-from rag.file_conversion_router.utils.utils import load_conversion_version, is_empty_md
+from rag.file_conversion_router.utils.conversion_cache import ConversionCache
+from rag.file_conversion_router.utils.utils import load_conversion_version
 
 
 ConverterMapping = Dict[str, Type[BaseConverter]]
@@ -39,7 +38,7 @@ converter_mapping: ConverterMapping = {
 
 
 def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path],
-                   log_dir: Union[str, Path] = None, cache_dir: Union[str, Path] = None) -> None:
+                   log_dir: Union[str, Path] = None, cache_path: Union[str, Path] = None) -> None:
     """Walk through the input directory and schedule conversion tasks for specified file types.
 
     Args:

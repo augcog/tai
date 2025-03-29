@@ -1,9 +1,9 @@
 import os
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from fastapi.responses import StreamingResponse
 
-from api.v1.utils.stream_processing import extract_text_and_references
+from app.api.v1.utils.stream_processing import extract_text_and_references
 from app.api.v1.schemas.completion import CompletionCreateParams
 from app.api.v1.services.rag_selector import rag_json_stream_generator, format_chat_msg
 from app.core.actions.model_selector import course_selection
@@ -12,8 +12,9 @@ from app.dependencies.model import get_model_pipeline
 router = APIRouter()
 
 
-async def process_completion(params: CompletionCreateParams, pipeline, rag: bool):
+async def process_completion(params: CompletionCreateParams, pipeline):
     course = params.course
+    rag = params.rag
     print(f"Processing completion for course: {course} (RAG={'enabled' if rag else 'disabled'})")
 
     # Select model based on params.course if needed.
@@ -41,18 +42,9 @@ async def process_completion(params: CompletionCreateParams, pipeline, rag: bool
             "references": references,  # This could be an empty list if no references are available.
         }
 
-
 @router.post("")
 async def create_completion(
         params: CompletionCreateParams,
-        pipeline=Depends(get_model_pipeline)
+        pipeline = Depends(get_model_pipeline),
 ):
-    return await process_completion(params, pipeline, rag=True)
-
-
-@router.post("/no-rag")
-async def create_completion_no_rag(
-        params: CompletionCreateParams,
-        pipeline=Depends(get_model_pipeline)
-):
-    return await process_completion(params, pipeline, rag=False)
+    return await process_completion(params, pipeline)

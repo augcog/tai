@@ -3,7 +3,7 @@ import os
 from fastapi import APIRouter, Depends
 from fastapi.responses import StreamingResponse
 
-from api.v1.utils.stream_processing import extract_text_and_references
+from app.api.v1.utils.stream_processing import extract_text_and_references
 from app.api.v1.schemas.completion import CompletionCreateParams
 from app.api.v1.services.rag_selector import rag_json_stream_generator, format_chat_msg
 from app.core.actions.model_selector import course_selection

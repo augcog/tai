@@ -15,6 +15,7 @@ from rag.file_conversion_router.classes.vidpage import VidPage
 from rag.file_conversion_router.embedding_optimization.src.pipeline.optimizer import EmbeddingOptimizer
 from rag.file_conversion_router.utils.logger import conversion_logger, logger, content_logger
 from rag.file_conversion_router.utils.utils import calculate_hash, ensure_path, check_url
+from rag.file_conversion_router.utils.conversion_cache import ConversionCache
 
 
 class BaseConverter(ABC):
@@ -42,6 +43,8 @@ class BaseConverter(ABC):
 
         self._logger = logger
         self._content_logger = content_logger
+
+        self.cache = ConversionCache
 
         if optimizer_config_path is None:
             optimizer_config_path = self.DEFAULT_EMBEDDING_OPTIMIZATION_CONFIG_PATH
@@ -79,8 +82,9 @@ class BaseConverter(ABC):
         self._setup_output_paths(input_path, output_folder)
 
         file_hash = calculate_hash(input_path)
-        cached_paths = ConversionCache.get_cached_paths(file_hash)
-        if cached_paths:
+        cached_paths = self.cache.get_cached_paths(file_hash)
+        same_version = self.cache.version == ConversionCache.get_file_conversion_version(file_hash)
+        if cached_paths and all(Path(path).exists() for path in cached_paths) and same_version:
             self._logger.info(
                 f"Cached result found, using cached files for input path: {input_path} "
                 f"in output folder: {output_folder}."
@@ -90,18 +94,17 @@ class BaseConverter(ABC):
             self._use_cached_files(cached_paths, output_folder)
             return
 
-        future = ConversionCache.get_future(file_hash)
+        future = self.cache.get_future(file_hash)
         if not future or not future.running():
             with ThreadPoolExecutor() as executor:
                 future = executor.submit(self._convert_and_cache, input_path, output_folder, file_hash)
-                ConversionCache.store_future(file_hash, future)
+                self.cache.store_future(file_hash, future)
                 self._logger.info("New conversion task started or previous task completed.")
                 return
 
         self._logger.info("Conversion is already in progress, waiting for it to complete.")
         # This will block until the future is completed
         future.result()
-        cached_paths = ConversionCache.get_cached_paths(file_hash)
         self._logger.info(
             f"Future completed, using cached files for input path: {input_path} "
             f"in output folder: {output_folder}."
@@ -133,16 +136,26 @@ class BaseConverter(ABC):
         # This method embeds the abstract method `_to_markdown`, which needs to be implemented by the child classes.
         _, conversion_time = self._perform_conversion(input_path, output_folder)
         paths = [self._md_path, self._pkl_path]
-        ConversionCache.set_cached_paths_and_time(file_hash, paths, conversion_time)
+        assert all(path.exists() for path in paths), "Not all output files were generated."
+        self.cache.set_cache_and_time(file_hash, str(input_path), paths, conversion_time)
+        logger.info(f"cached into {self.cache._cache_file_path}")
 
     def _use_cached_files(self, cached_paths: List[Path], output_folder: Path) -> None:
-        """Use cached files and copy them to the specified output folder."""
+        """Use cached files and copy them to the specified output folder, avoiding self-copying."""
         output_folder = ensure_path(output_folder)
         output_folder.mkdir(parents=True, exist_ok=True)
 
         md_path, pkl_path = cached_paths
         correct_file_name = self._md_path.stem
+
         for path, suffix in zip((md_path, pkl_path), (".md", ".pkl")):
+            des_path = output_folder / f"{correct_file_name}{suffix}"
+            path = Path(path)
+            # Prevent self-copying if source and destination are identical
+            if path.resolve() == des_path.resolve():
+                self._logger.info(f"Skipping self-copy: {path} is already in {output_folder}.")
+                continue
+
             des_path = Path(copy2(path, output_folder))
             des_path.rename(output_folder / f"{correct_file_name}{suffix}")
             self._logger.info(f"Copied cached file from {path} to {des_path}.")
@@ -306,67 +319,7 @@ class BaseConverter(ABC):
             content = {"text": content_text}
             return Page(pagename=stem, content=content, filetype=file_type, page_url=url, page_path=page_path)
 
-
     @abstractmethod
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:
         """Convert the input file to Expected Markdown format. To be implemented by subclasses."""
         raise NotImplementedError("This method should be overridden by subclasses.")
-
-
-class ConversionCache:
-    """A classes to handle caching of conversion results."""
-    _cache: Dict[str, List[Path]] = {}
-    _futures_cache: Dict[str, Future] = {}
-    # Store the time taken for each file conversion
-    _times_cache: Dict[str, float] = {}
-    # Store the frequency of access to each cache item
-    _access_count: Dict[str, int] = {}
-    _lock = Lock()
-
-    @classmethod
-    def get_cached_paths(cls, file_hash: str) -> Union[List[Path], None]:
-        with cls._lock:
-            if file_hash in cls._cache:
-                cls._access_count[file_hash] = cls._access_count.get(file_hash, 0) + 1
-            return cls._cache.get(file_hash)
-
-    @classmethod
-    def set_cached_paths_and_time(cls, file_hash: str, paths: List[Path], time_taken: float):
-        with cls._lock:
-            cls._cache[file_hash] = paths
-            cls._times_cache[file_hash] = time_taken
-            cls._access_count[file_hash] = 0
-
-    @classmethod
-    def get_cached_time(cls, file_hash: str) -> float:
-        with cls._lock:
-            return cls._times_cache.get(file_hash, None)
-
-    @classmethod
-    def get_access_count(cls, file_hash: str) -> int:
-        with cls._lock:
-            return cls._access_count.get(file_hash, 0)
-
-    @classmethod
-    def get_future(cls, file_hash: str) -> Future:
-        with cls._lock:
-            return cls._futures_cache.get(file_hash)
-
-    @classmethod
-    def store_future(cls, file_hash: str, future: Future) -> None:
-        with cls._lock:
-            cls._futures_cache[file_hash] = future
-
-    @classmethod
-    def clear_future(cls, file_hash: str) -> None:
-        with cls._lock:
-            del cls._futures_cache[file_hash]
-
-    @classmethod
-    def calc_total_savings(cls) -> float:
-        """Calculate total time saved by using cached results based on access frequency and initial conversion time."""
-        with cls._lock:
-            return sum(
-                time * (accesses - 1) for file_hash, time in cls._times_cache.items()
-                if (accesses := cls._access_count.get(file_hash, 0)) > 1
-            )

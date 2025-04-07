@@ -25,3 +25,5 @@ python-dotenv>=0.21.0
 sqladmin==0.20.1
 sqlalchemy==2.0.39
 uvicorn==0.32.1
+pytest
+huggingface_hub==0.29.3

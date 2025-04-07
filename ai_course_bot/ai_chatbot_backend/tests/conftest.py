@@ -1,76 +1,193 @@
 import os
-os.environ["ENVIRONMENT"] = "test"
-# Supported LLM_MODE: local, mock, remote
-os.environ["LLM_MODE"] = "mock"
-
 import pytest
-from app.api.deps import get_current_user
-# from app.core.actions.llama_seletor import embedding_model
 from fastapi.testclient import TestClient
+from fastapi import HTTPException, status
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import StaticPool
+
+from app.core.models.courses import Base as CourseBase
+from app.api.v1.schemas.course_admin import CourseCreate, AccessType
+from app.api.deps import get_current_user, get_admin_user
+from app.core.database import get_db
+from app.api.v1.services import course_admin_service
 from main import app
 
+# Create a test database engine
+SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL,
+    connect_args={"check_same_thread": False},
+    poolclass=StaticPool,
+)
+TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-def dummy_get_current_user():
-    return {"user_id": "test_user", "email": "test@example.com", "name": "Test User"}
+
+# ===== User Fixtures =====
+
+def dummy_admin_user():
+    """Dummy admin user for testing."""
+    return {
+        "user_id": "admin_user",
+        "email": "admin@example.com",
+        "name": "Admin User",
+        "is_admin": True
+    }
 
 
-@pytest.fixture(scope="session")
-def client_unit():
-    # Override dependencies for all tests.
-    app.dependency_overrides[get_current_user] = dummy_get_current_user
-    # app.dependency_overrides[get_model_pipeline] = dummy_pipeline
-    os.environ["EMBEDDING_DIR"] = embedding_folder_for_test()
+def dummy_regular_user():
+    """Dummy regular user for testing."""
+    return {
+        "user_id": "regular_user",
+        "email": "user@example.com",
+        "name": "Regular User",
+        "is_admin": False
+    }
 
-    client = TestClient(app)
-    yield client
-    # Clean up overrides after tests.
+
+# ===== Database Fixtures =====
+
+@pytest.fixture
+def course_db_session():
+    """Create a fresh database session for testing courses."""
+    CourseBase.metadata.create_all(bind=engine)
+    session = TestingSessionLocal()
+    try:
+        yield session
+    finally:
+        session.close()
+        CourseBase.metadata.drop_all(bind=engine)
+
+
+# ===== Client Fixtures =====
+
+@pytest.fixture
+def admin_client(course_db_session):
+    """Test client with admin user permissions."""
+    def override_get_db():
+        try:
+            yield course_db_session
+        finally:
+            pass
+
+    app.dependency_overrides[get_db] = override_get_db
+    app.dependency_overrides[get_current_user] = dummy_admin_user
+    app.dependency_overrides[get_admin_user] = dummy_admin_user
+    
+    with TestClient(app) as client:
+        yield client
+    
+    # Clear overrides after test
     app.dependency_overrides.clear()
 
 
-# TODO: Implement integration test architecture in the future
-# @pytest.fixture(scope="session")
-# def client_integration():
-#     os.environ["LLM_MODE"] = "remote"
-#     app.dependency_overrides[get_current_user] = dummy_get_current_user
-#     client = TestClient(app)
-#     yield client
-#     app.dependency_overrides.clear()
-
-
-def embedding_folder_for_test():
-    return os.path.join(os.path.dirname(__file__), "data", "embeddings")
+def reject_non_admin_user():
+    """Reject non-admin users with a 403 Forbidden error."""
+    raise HTTPException(
+        status_code=status.HTTP_403_FORBIDDEN,
+        detail="Admin access required for this endpoint"
+    )
 
 
 @pytest.fixture
-def cs61a_question():
-    return """Here's a concise CS61A-style benchmark question:
+def regular_client(course_db_session):
+    """Test client with regular user permissions."""
+    def override_get_db():
+        try:
+            yield course_db_session
+        finally:
+            pass
 
-def foo(n):
-    def bar(m):
-        nonlocal n
-        n += 1
-        return n + m
-    return bar
+    app.dependency_overrides[get_db] = override_get_db
+    app.dependency_overrides[get_current_user] = dummy_regular_user
+    app.dependency_overrides[get_admin_user] = reject_non_admin_user
+    
+    with TestClient(app) as client:
+        yield client
+    
+    # Clear overrides after test
+    app.dependency_overrides.clear()
 
-f = foo(10)
-print(f(3), f(4), f(5))
 
-Question:
-1. What is printed when the final print statement executes?
-2. Briefly explain why that output occurs (i.e., how the environment/`nonlocal` assignment affects `n` in each call).
-"""
+# ===== Course Admin Fixtures =====
+
+@pytest.fixture
+def sample_course_data():
+    """Provide sample course data for tests."""
+    return CourseCreate(
+        course_name="Test Course",
+        course_code="TEST101",
+        ip_address="127.0.0.1",
+        access_type=AccessType.PUBLIC,
+        school=None
+    )
 
 
 @pytest.fixture
-def cs61a_quick_question():
-    return """What is recursion about in CS 61A?"""
+def sample_login_required_course_data():
+    """Provide sample course data with login_required for tests."""
+    return CourseCreate(
+        course_name="School Course",
+        course_code="SCHOOL101",
+        ip_address="127.0.0.1",
+        access_type=AccessType.LOGIN_REQUIRED,
+        school="Test University"
+    )
 
 
 @pytest.fixture
-def tai_trivia_question():
-    return """What is UC Berkeley TAI (Teaching Assistant Intelligence) project about?"""
+def sample_private_course_data():
+    """Provide sample private course data for tests."""
+    return CourseCreate(
+        course_name="Private Course",
+        course_code="PRIV101",
+        ip_address="127.0.0.1",
+        access_type=AccessType.PRIVATE,
+        school=None
+    )
 
 
 @pytest.fixture
-def trivia_question():
-    return "Hello"
+def multiple_course_data():
+    """Provide multiple course data entries for pagination tests."""
+    return [
+        CourseCreate(
+            course_name=f"Test Course {i}",
+            course_code=f"TEST{i:03d}",
+            ip_address="127.0.0.1",
+            access_type=AccessType.PUBLIC,
+            school=None
+        )
+        for i in range(1, 21)  # Creates 20 test courses
+    ]
+
+
+@pytest.fixture
+def course_fixture(course_db_session, sample_course_data):
+    """Create a course in the database for testing."""
+    course = course_admin_service.create_course(course_db_session, sample_course_data)
+    return course
+
+
+@pytest.fixture
+def login_required_course_fixture(course_db_session, sample_login_required_course_data):
+    """Create a login_required course in the database for testing."""
+    course = course_admin_service.create_course(course_db_session, sample_login_required_course_data)
+    return course
+
+
+@pytest.fixture
+def private_course_fixture(course_db_session, sample_private_course_data):
+    """Create a private course in the database for testing."""
+    course = course_admin_service.create_course(course_db_session, sample_private_course_data)
+    return course
+
+
+@pytest.fixture
+def multiple_courses_fixture(course_db_session, multiple_course_data):
+    """Create multiple courses in the database for testing pagination."""
+    courses = []
+    for course_data in multiple_course_data:
+        course = course_admin_service.create_course(course_db_session, course_data)
+        courses.append(course)
+    return courses 

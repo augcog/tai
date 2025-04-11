@@ -41,7 +41,7 @@ def pipeline(yaml):
     scraper = WebScraper(yaml)
     scraper.run()
 
-    convert_directory(root, markdown_path, log_dir=log_path, cache_dir=cache_path)
+    convert_directory(root, markdown_path, log_dir=log_path, cache_path=cache_path)
 
     folder_name = "embedding"
     model = "BGE"

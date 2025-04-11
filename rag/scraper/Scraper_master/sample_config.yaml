@@ -1,0 +1,31 @@
+""" This is a sample config file for the scraper.
+ Scraper types:
+ - general_scraper: for general web pages
+ - video_scraper: for video pages
+ Driver types:
+ - request: fast and simple to handle most websites
+ - playwright: to handle websites with client side redirections
+"""
+
+root_folder: "cs61atest"
+log_folder: "cs61atest_log"
+tasks:
+  - name: "course_website"
+    local: True
+    url: "https://cs61a.org/"
+    driver_type: "request" # or "playwright"
+    roots:
+      - url: https://cs61a.org/
+        depth: 5
+        scraper_type: general_scraper  # or "video_scraper"
+      - url: https://www.youtube.com
+        depth: 1
+        scraper_type: video_scraper
+  - name: "textbook"
+    local: True
+    url: "https://cs61a.org/"
+    driver_type: "request" # or "playwright"
+    roots:
+      - url: https://www.composingprograms.com/
+        depth: 5
+        scraper_type: general_scraper  # or "video_scraper"

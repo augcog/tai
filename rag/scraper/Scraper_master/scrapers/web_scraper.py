@@ -95,7 +95,7 @@ class WebScraper:
         indent = '         ' * self.current_depths[current_root]
 
         # Handle starting URL or URLs matching a root
-        if matching_root:
+        if matching_root and current_root != -61:
             root_config = root_configs[matching_root]
             max_depth = root_config['depth']
             scraper_type = root_config['scraper_type']
@@ -147,3 +147,8 @@ class WebScraper:
                     self.current_depths[link_root] += 1
                     self.dfs_crawl(link, link_root, visited, root_configs, driver)
                     self.current_depths[link_root] -= 1
+
+
+if __name__ == "__main__":
+    scraper = WebScraper('../task.yaml')
+    scraper.run()

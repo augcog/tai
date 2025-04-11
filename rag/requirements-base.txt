@@ -307,3 +307,4 @@ yapf==0.43.0
 yarl==1.18.3
 nbformat==5.10.4
 yt-dlp==2025.3.31
+nbconvert==7.16.6

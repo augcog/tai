@@ -21,6 +21,13 @@ router.include_router(
     tags=["courses"]
 )
 
+# This router doesn't exist, so we need to comment it out
+# router.include_router(
+#     files.router,
+#     prefix="/files",
+#     tags=["files"]
+# )
+
 router.include_router(
     course_admin.router,
     prefix="/course-admin",

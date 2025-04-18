@@ -1,8 +1,8 @@
-from typing import Optional
-from fastapi import APIRouter, Depends, Query, Path
-from fastapi.responses import FileResponse
+from typing import List, Optional, Dict, Any
+from fastapi import APIRouter, Depends, Query, Path, HTTPException, status
+from fastapi.responses import FileResponse, JSONResponse
 
-from ..schemas.local_file import LocalFileListResponse, LocalFile
+from ..schemas.local_file import LocalFileListResponse, LocalFile, FileCategory, FileDirectory
 from ..services.file_storage import local_storage
 from ...deps import get_current_user
 
@@ -10,14 +10,33 @@ router = APIRouter()
 
 
 @router.get("", response_model=LocalFileListResponse)
-def list_files(
+async def list_files(
     directory: Optional[str] = Query(None, description="Directory to list files from"),
+    category: Optional[str] = Query(None, description="Filter files by category (Document, Assignment, Video, Others)"),
+    folder: Optional[str] = Query(None, description="Filter files by folder (Lab Material, Code Script, Exams, Past Projects)"),
+    course_code: Optional[str] = Query(None, description="Filter files by course code"),
+    include_directories: bool = Query(False, description="Include directory information in response"),
+    include_categories: bool = Query(False, description="Include category information in response"),
     user: dict = Depends(get_current_user)
 ):
     """
-    List all files in the specified directory or in all directories if not specified
+    List all files in the specified directory or in all directories if not specified.
+    
+    Can filter by category, folder, or course code.
+    Optionally includes directory structure and category information.
     """
+    # Get files from the storage service
     files = local_storage.list_files(directory=directory)
+    
+    # Apply filters if specified
+    if category:
+        files = [f for f in files if getattr(f, "category", None) == category]
+    
+    if folder:
+        files = [f for f in files if getattr(f, "folder", None) == folder]
+    
+    if course_code:
+        files = [f for f in files if getattr(f, "course_code", None) == course_code]
     
     # Convert service models to Pydantic models
     pydantic_files = [
@@ -27,23 +46,159 @@ def list_files(
             mime_type=file.mime_type,
             size_bytes=file.size_bytes,
             modified_time=file.modified_time,
-            directory=file.directory
+            directory=file.directory,
+            # Include additional fields if available
+            thumbnail_url=getattr(file, "thumbnail_url", None),
+            description=getattr(file, "description", None),
+            author=getattr(file, "author", None),
+            created_time=getattr(file, "created_time", None),
+            last_accessed_time=getattr(file, "last_accessed_time", None),
+            course_code=getattr(file, "course_code", None),
+            assignment_number=getattr(file, "assignment_number", None),
+            lecture_number=getattr(file, "lecture_number", None),
+            category=getattr(file, "category", None),
+            folder=getattr(file, "folder", None)
         ) for file in files
     ]
     
-    return {
+    # Prepare response
+    response = {
         "files": pydantic_files,
         "total_count": len(pydantic_files)
     }
+    
+    # Include directories if requested
+    if include_directories:
+        directories = local_storage.list_directories(directory=directory)
+        response["directories"] = directories
+    
+    # Include categories if requested
+    if include_categories:
+        # Define standard categories
+        categories = [
+            FileCategory(
+                id="document",
+                name="Document",
+                icon="file-text",
+                description="Course documents and materials"
+            ),
+            FileCategory(
+                id="assignment",
+                name="Assignment",
+                icon="clipboard",
+                description="Homework and assignment files"
+            ),
+            FileCategory(
+                id="video",
+                name="Video",
+                icon="video",
+                description="Lecture videos and recordings"
+            ),
+            FileCategory(
+                id="others",
+                name="Others",
+                icon="file",
+                description="Other course-related files"
+            )
+        ]
+        response["categories"] = categories
+    
+    return response
 
 
 @router.get("/{file_path:path}", response_class=FileResponse)
-def get_file(
+async def get_file(
     file_path: str = Path(..., description="Path to the file"),
     user: dict = Depends(get_current_user)
 ):
     """
     Retrieve a file by its path
+    
+    Returns the file with appropriate content-type headers for browser rendering
     """
-    # Pass the file_path parameter to the service
-    return local_storage.get_file(file_path)
+    try:
+        # Pass the file_path parameter to the service
+        return local_storage.get_file(file_path)
+    except HTTPException as e:
+        # Re-raise HTTP exceptions
+        raise e
+    except Exception as e:
+        # Handle unexpected errors
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error retrieving file: {str(e)}"
+        )
+
+
+@router.get("/categories", response_model=List[FileCategory])
+async def list_categories(
+    user: dict = Depends(get_current_user)
+):
+    """
+    List all available file categories
+    """
+    # Define standard categories
+    categories = [
+        FileCategory(
+            id="document",
+            name="Document",
+            icon="file-text",
+            description="Course documents and materials"
+        ),
+        FileCategory(
+            id="assignment",
+            name="Assignment",
+            icon="clipboard",
+            description="Homework and assignment files"
+        ),
+        FileCategory(
+            id="video",
+            name="Video",
+            icon="video",
+            description="Lecture videos and recordings"
+        ),
+        FileCategory(
+            id="others",
+            name="Others",
+            icon="file",
+            description="Other course-related files"
+        )
+    ]
+    return categories
+
+
+@router.get("/folders", response_model=List[FileDirectory])
+async def list_folders(
+    user: dict = Depends(get_current_user)
+):
+    """
+    List all available file folders/directories
+    """
+    # Define standard folders
+    folders = [
+        FileDirectory(
+            name="Lab Material",
+            path="documents/lab_material",
+            is_category=True,
+            icon="folder-laboratory"
+        ),
+        FileDirectory(
+            name="Code Script",
+            path="documents/code_script",
+            is_category=True,
+            icon="folder-code"
+        ),
+        FileDirectory(
+            name="Exams",
+            path="documents/exams",
+            is_category=True,
+            icon="folder-check"
+        ),
+        FileDirectory(
+            name="Past Projects",
+            path="documents/past_projects",
+            is_category=True,
+            icon="folder-archive"
+        )
+    ]
+    return folders 

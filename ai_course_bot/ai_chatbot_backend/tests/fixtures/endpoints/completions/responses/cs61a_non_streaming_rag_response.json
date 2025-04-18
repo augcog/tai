@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "name": "CS61A Non-Streaming RAG Response",
+    "description": "A course-specific non-streaming response with references",
+    "tags": [
+      "non-streaming",
+      "response",
+      "rag",
+      "references",
+      "tool-calls",
+      "course-specific"
+    ]
+  },
+  "data": {
+    "id": "chatcmpl-123",
+    "created": 1677652288,
+    "model": "custom-model",
+    "object": "chat.completion",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "CS61A at UC Berkeley covers the fundamentals of computer programming, including abstraction, recursion, higher-order functions, and programming paradigms. The course primarily uses Python, and also introduces students to Scheme and SQL.",
+          "tool_calls": [
+            {
+              "id": "call_abc123",
+              "type": "function",
+              "function": {
+                "name": "reference",
+                "arguments": "{\"title\":\"UC Berkeley TAI Homepage\",\"url\":\"https://berkeley-tai.org\"}"
+              }
+            },
+            {
+              "id": "call_def456",
+              "type": "function",
+              "function": {
+                "name": "reference",
+                "arguments": "{\"title\":\"AI Safety Research at Berkeley\",\"url\":\"https://berkeley-tai.org/research\"}"
+              }
+            }
+          ]
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 20,
+      "completion_tokens": 100,
+      "total_tokens": 120
+    },
+    "system_fingerprint": "fp_44709d6fcb"
+  },
+  "validation": {
+    "expected_status_code": 200,
+    "expected_content": "CS61A at UC Berkeley covers the fundamentals of computer programming, including abstraction, recursion, higher-order functions, and programming paradigms. The course primarily uses Python, and also introduces students to Scheme and SQL.",
+    "expected_tool_call_count": 2
+  }
+}

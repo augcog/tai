@@ -1,11 +1,12 @@
 import os
+import json
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends
 from fastapi.responses import StreamingResponse
 
-from app.api.v1.utils.stream_processing import extract_text_and_references
-from app.api.v1.schemas.completion import CompletionCreateParams
+from app.api.v1.schemas.completion import CompletionCreateParams, ChatCompletionChunk, ToolCall
 from app.api.v1.services.rag_selector import rag_json_stream_generator, format_chat_msg
+from app.api.v1.utils.stream_processing import openai_format_stream, extract_text_and_references_from_openai_format
 from app.core.actions.model_selector import course_selection
 from app.dependencies.model import get_model_pipeline
 
@@ -32,19 +33,42 @@ async def process_completion(params: CompletionCreateParams, pipeline):
                         embedding_dir=embedding_dir)
 
     if params.stream:
-        # Return the JSON stream directly with the appropriate media type.
-        return StreamingResponse(response, media_type="application/json")
+        # Convert to OpenAI format
+        openai_stream = openai_format_stream(response)
+        return StreamingResponse(openai_stream, media_type="application/json")
     else:
-        # In non-streaming mode, aggregate all tokens and extract references.
-        full_text, references = extract_text_and_references(response)
-        return {
-            "content": full_text,
-            "references": references,  # This could be an empty list if no references are available.
-        }
+        # Use OpenAI format and convert to single response
+        openai_stream = openai_format_stream(response)
+        full_text, references = extract_text_and_references_from_openai_format(openai_stream)
+
+        # Create tool calls for references
+        tool_calls = None
+        if references:
+            tool_calls = [
+                ChatCompletionChunk.create_reference_tool_call(
+                    f"Reference {i+1}", 
+                    url
+                ) for i, url in enumerate(references) if url
+            ]
+        
+        # Create a single chunk response with all content
+        chunk = ChatCompletionChunk.create_chunk(
+            role="assistant",
+            content=full_text,
+            finish_reason="stop",
+            tool_calls=tool_calls
+        )
+        return chunk.model_dump()
+
 
 @router.post("")
 async def create_completion(
         params: CompletionCreateParams,
-        pipeline = Depends(get_model_pipeline),
+        pipeline=Depends(get_model_pipeline),
 ):
+    """OpenAI-compatible chat completions endpoint
+
+    OpenAI's Relevant Doc:
+        https://platform.openai.com/docs/api-reference/chat-streaming/streaming
+    """
     return await process_completion(params, pipeline)

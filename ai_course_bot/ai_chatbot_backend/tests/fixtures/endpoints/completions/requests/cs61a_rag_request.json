@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "name": "CS61A RAG Request",
+    "description": "A course-specific non-streaming request with RAG enabled",
+    "tags": [
+      "request",
+      "non-streaming",
+      "rag",
+      "course-specific",
+      "openai-format"
+    ]
+  },
+  "data": {
+    "model": "custom-model",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a helpful assistant for the CS61A course at UC Berkeley."
+      },
+      {
+        "role": "user",
+        "content": "What topics are covered in CS61A?"
+      }
+    ],
+    "temperature": 0.7,
+    "max_tokens": 150,
+    "stream": false,
+    "rag": true,
+    "course": "CS61A"
+  },
+  "validation": {
+    "expected_status_code": 200,
+    "content_type": "application/json"
+  }
+}

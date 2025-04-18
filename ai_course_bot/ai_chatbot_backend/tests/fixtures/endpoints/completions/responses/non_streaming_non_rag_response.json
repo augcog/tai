@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "name": "Non-Streaming Non-RAG Response",
+    "description": "A standard non-streaming response without references",
+    "tags": [
+      "non-streaming",
+      "response",
+      "no-rag"
+    ]
+  },
+  "data": {
+    "id": "chatcmpl-123",
+    "created": 1677652288,
+    "model": "custom-model",
+    "object": "chat.completion",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "The UC Berkeley Trustworthy AI (TAI) project is a research initiative focused on ensuring that AI systems are safe, reliable, and aligned with human values. The project brings together researchers from computer science, statistics, and other fields to address challenges in AI safety and alignment."
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 20,
+      "completion_tokens": 100,
+      "total_tokens": 120
+    }
+  },
+  "validation": {
+    "expected_status_code": 200,
+    "expected_content": "The UC Berkeley Trustworthy AI (TAI) project is a research initiative focused on ensuring that AI systems are safe, reliable, and aligned with human values. The project brings together researchers from computer science, statistics, and other fields to address challenges in AI safety and alignment.",
+    "expected_tool_call_count": 0
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "name": "Streaming RAG Request",
+    "description": "A streaming completion request with RAG enabled using OpenAI format",
+    "tags": [
+      "request",
+      "streaming",
+      "rag",
+      "openai-format"
+    ]
+  },
+  "data": {
+    "model": "custom-model",
+    "messages": [
+      {
+        "role": "user",
+        "content": "What is the UC Berkeley TAI project about?"
+      }
+    ],
+    "temperature": 0.7,
+    "max_tokens": 150,
+    "stream": true,
+    "rag": true
+  },
+  "validation": {
+    "expected_status_code": 200,
+    "content_type": "text/event-stream"
+  }
+}

@@ -1,4 +1,4 @@
-from app.api.v1.endpoints import file_completions, completions, files, courses, course_admin
+from app.api.v1.endpoints import file_completions, completions, files, courses, course_admin, local_files
 from fastapi import APIRouter
 
 router = APIRouter()
@@ -31,6 +31,12 @@ router.include_router(
     course_admin.router,
     prefix="/course-admin",
     tags=["course-admin"]
+)
+
+router.include_router(
+    local_files.router,
+    prefix="/local-files",
+    tags=["local-files"]
 )
 
 # router.include_router(

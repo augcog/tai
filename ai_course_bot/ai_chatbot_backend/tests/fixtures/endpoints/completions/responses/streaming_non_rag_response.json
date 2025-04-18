@@ -1,0 +1,182 @@
+{
+  "meta": {
+    "name": "Streaming Non-RAG Response",
+    "description": "A streaming completion response without references",
+    "tags": [
+      "streaming",
+      "response",
+      "no-rag"
+    ]
+  },
+  "data": [
+    {
+      "id": "chatcmpl-123",
+      "object": "chat.completion.chunk",
+      "created": 1677652288,
+      "model": "custom-model",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant"
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-123",
+      "object": "chat.completion.chunk",
+      "created": 1677652288,
+      "model": "custom-model",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "The UC Berkeley Trustworthy AI "
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-123",
+      "object": "chat.completion.chunk",
+      "created": 1677652288,
+      "model": "custom-model",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "(TAI) project is a research "
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-123",
+      "object": "chat.completion.chunk",
+      "created": 1677652288,
+      "model": "custom-model",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "initiative focused on ensuring that "
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-123",
+      "object": "chat.completion.chunk",
+      "created": 1677652288,
+      "model": "custom-model",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "AI systems are safe, reliable, "
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-123",
+      "object": "chat.completion.chunk",
+      "created": 1677652288,
+      "model": "custom-model",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "and aligned with human values. "
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-123",
+      "object": "chat.completion.chunk",
+      "created": 1677652288,
+      "model": "custom-model",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "The project brings together researchers "
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-123",
+      "object": "chat.completion.chunk",
+      "created": 1677652288,
+      "model": "custom-model",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "from computer science, statistics, and "
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-123",
+      "object": "chat.completion.chunk",
+      "created": 1677652288,
+      "model": "custom-model",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "other fields to address challenges "
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-123",
+      "object": "chat.completion.chunk",
+      "created": 1677652288,
+      "model": "custom-model",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "in AI safety and alignment. "
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "chatcmpl-123",
+      "object": "chat.completion.chunk",
+      "created": 1677652288,
+      "model": "custom-model",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {},
+          "finish_reason": "stop"
+        }
+      ]
+    }
+  ],
+  "validation": {
+    "expected_status_code": 200,
+    "expected_content_chunks": 10,
+    "expected_tool_call_chunks": 0,
+    "expected_content": "The UC Berkeley Trustworthy AI (TAI) project is a research initiative focused on ensuring that AI systems are safe, reliable, and aligned with human values. The project brings together researchers from computer science, statistics, and other fields to address challenges in AI safety and alignment."
+  }
+}

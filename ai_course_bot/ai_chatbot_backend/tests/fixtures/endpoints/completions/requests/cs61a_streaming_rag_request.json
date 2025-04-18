@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "name": "CS61A Streaming RAG Request",
+    "description": "A course-specific streaming request with RAG enabled",
+    "tags": [
+      "request",
+      "streaming",
+      "rag",
+      "course-specific",
+      "openai-format"
+    ]
+  },
+  "data": {
+    "model": "custom-model",
+    "messages": [
+      {
+        "role": "user",
+        "content": "What topics are covered in CS61A?"
+      }
+    ],
+    "temperature": 0.7,
+    "max_tokens": 150,
+    "stream": true,
+    "rag": true,
+    "course": "CS61A"
+  },
+  "validation": {
+    "expected_status_code": 200,
+    "content_type": "text/event-stream"
+  }
+}

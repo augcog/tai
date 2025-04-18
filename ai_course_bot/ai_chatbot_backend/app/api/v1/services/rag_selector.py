@@ -3,6 +3,7 @@ from threading import Thread, Lock
 from typing import Any, Generator, List, Optional, Tuple
 
 import transformers
+
 from app.api.v1.services.rag_retriever import (
     clean_path,
     _get_reference_documents,
@@ -10,7 +11,6 @@ from app.api.v1.services.rag_retriever import (
     embedding_model
 )
 from app.core.models.chat_completion import Message
-from pydantic import BaseModel
 
 pipeline_generation_lock = Lock()
 
@@ -226,7 +226,7 @@ def rag_json_stream_generator(
 
         return stream_json_response()
     else:
-        remote_stream = pipeline(messages[-1].content, stream=stream, course=course)
+        remote_stream = pipeline(messages[-1].content, stream=stream, course=course, rag=rag)
 
         def stream_json_response() -> Generator[str, None, None]:
             for item in remote_stream:

@@ -5,6 +5,9 @@ from fastapi import HTTPException, status
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
+import json
+from pathlib import Path
+from typing import Dict, List, Any
 
 from app.core.models.courses import Base as CourseBase
 from app.api.v1.schemas.course_admin import CourseCreate, AccessType
@@ -190,4 +193,42 @@ def multiple_courses_fixture(course_db_session, multiple_course_data):
     for course_data in multiple_course_data:
         course = course_admin_service.create_course(course_db_session, course_data)
         courses.append(course)
-    return courses 
+    return courses
+
+
+# ===== Fixtures Testing Utilities =====
+
+FIXTURES_DIR = Path(__file__).parent / "fixtures"
+
+def load_fixtures(directory: Path = FIXTURES_DIR) -> Dict[str, List[Dict]]:
+    """Load all fixture files for testing."""
+    fixtures = {
+        "requests": [],
+        "responses": []
+    }
+    
+    request_dir = directory / "endpoints" / "completions" / "requests"
+    response_dir = directory / "endpoints" / "completions" / "responses"
+    
+    if request_dir.exists():
+        for file in request_dir.glob("*.json"):
+            with open(file, "r") as f:
+                fixture = json.load(f)
+                fixture["_filename"] = file.name
+                fixture["_path"] = str(file)
+                fixtures["requests"].append(fixture)
+    
+    if response_dir.exists():
+        for file in response_dir.glob("*.json"):
+            with open(file, "r") as f:
+                fixture = json.load(f)
+                fixture["_filename"] = file.name
+                fixture["_path"] = str(file)
+                fixtures["responses"].append(fixture)
+    
+    return fixtures
+
+@pytest.fixture
+def fixtures():
+    """Load fixtures for testing."""
+    return load_fixtures() 

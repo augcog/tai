@@ -31,6 +31,14 @@ class Settings(BaseSettings):
     )
     # TODO: Revise here, current deployed server seems to have a router path naming bug
     remote_model_url: str = "https://tai.berkeley.edu/api/chat"
+    
+    # Authentication settings
+    auth_required: bool = True
+    google_client_id: str = "your-google-client-id"
+    dev_mode: bool = False
+    
+    # Data directory settings
+    DATA_DIR: Optional[str] = None
 
     @property
     def effective_llm_mode(self) -> LLMModeEnum:
@@ -54,6 +62,7 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
+        extra = "allow"  # Allow extra fields from .env file for Pydantic v2 compatibility
 
 
 settings = Settings()

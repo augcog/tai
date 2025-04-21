@@ -14,7 +14,26 @@ from app.config import settings
 mimetypes.init()
 
 # Define base directory for file storage
-FILE_BASE_DIR = Path(settings.DATA_DIR if hasattr(settings, "DATA_DIR") else "data")
+if hasattr(settings, "DATA_DIR") and settings.DATA_DIR is not None:
+    # Use absolute path if DATA_DIR is absolute, otherwise make it relative to the app root
+    if os.path.isabs(settings.DATA_DIR):
+        FILE_BASE_DIR = Path(settings.DATA_DIR)
+    else:
+        # Get the app root directory (3 levels up from this file)
+        app_root = Path(__file__).parent.parent.parent.parent.parent.parent
+        FILE_BASE_DIR = app_root / settings.DATA_DIR
+else:
+    # Fallback to test_files directory if it exists
+    app_root = Path(__file__).parent.parent.parent.parent.parent.parent
+    test_files_dir = app_root / "app" / "core" / "data" / "test_files"
+    
+    if test_files_dir.exists():
+        FILE_BASE_DIR = test_files_dir
+    else:
+        # Fallback to data directory in app root
+        FILE_BASE_DIR = app_root / "data"
+
+print(f"Using file base directory: {FILE_BASE_DIR}")
 
 # Define standard course directory structure
 COURSE_DIRECTORY_STRUCTURE = {
@@ -255,7 +274,7 @@ def list_files(directory: Optional[str] = None) -> List[LocalFile]:
         target_dir = FILE_BASE_DIR / directory
         if not target_dir.exists() or not target_dir.is_dir():
             raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
+                status_code=status.HTTP_404_NOT_FOUND, 
                 detail=f"Directory '{directory}' not found"
             )
 
@@ -265,70 +284,92 @@ def list_files(directory: Optional[str] = None) -> List[LocalFile]:
     else:
         dirs_to_scan = []
         # First level: course directories
-        for course_dir in FILE_BASE_DIR.iterdir():
-            if course_dir.is_dir():
-                dirs_to_scan.append(course_dir)
+        try:
+            for course_dir in FILE_BASE_DIR.iterdir():
+                if course_dir.is_dir():
+                    dirs_to_scan.append(course_dir)
+            
+            # If no directories found at the base level, add the base directory itself
+            if not dirs_to_scan:
+                dirs_to_scan = [FILE_BASE_DIR]
+                
+        except Exception as e:
+            # Handle file access errors
+            print(f"Error accessing directory {FILE_BASE_DIR}: {str(e)}")
+            dirs_to_scan = []
 
     # Collect file information from each directory
     for dir_path in dirs_to_scan:
-        for file_path in dir_path.glob("**/*"):  # Use ** to scan recursively
-            if file_path.is_file():
-                # Skip stub files used for demonstration
-                if file_path.name.endswith('.stub'):
-                    continue
+        try:
+            # Use Path.rglob to scan recursively (equivalent to **/* glob pattern)
+            for file_path in dir_path.rglob("*"):
+                if file_path.is_file():
+                    # Skip stub files used for demonstration
+                    if file_path.name.endswith('.stub'):
+                        continue
+                        
+                    # Get file stats
+                    stat = file_path.stat()
+                    mime_type, _ = mimetypes.guess_type(file_path)
                     
-                # Get file stats
-                stat = file_path.stat()
-                mime_type, _ = mimetypes.guess_type(file_path)
-                rel_path = str(file_path.relative_to(FILE_BASE_DIR))
-                
-                # Extract additional metadata
-                course_code = detect_course_code(rel_path)
-                category = detect_file_category(rel_path)
-                folder = detect_folder_type(rel_path)
-                
-                # Determine directory part
-                dir_parts = Path(rel_path).parts
-                parent_dir = str(Path(*dir_parts[:-1])) if len(dir_parts) > 1 else ""
-                
-                # Detect assignment or lecture numbers if present
-                assignment_number = None
-                lecture_number = None
-                filename = file_path.stem.lower()
-                
-                # Look for assignment numbers (e.g., "assignment2" or "hw3")
-                if "assignment" in filename or "hw" in filename:
-                    numbers = re.findall(r'\d+', filename)
-                    if numbers:
-                        assignment_number = int(numbers[0])
-                
-                # Look for lecture numbers (e.g., "lecture1" or "lec2")
-                if "lecture" in filename or "lec" in filename:
-                    numbers = re.findall(r'\d+', filename)
-                    if numbers:
-                        lecture_number = int(numbers[0])
-                
-                # For filenames starting with numbers (e.g., "01_Getting_Started")
-                if re.match(r'^\d+_', filename):
-                    numbers = re.findall(r'^\d+', filename)
-                    if numbers and not lecture_number:
-                        lecture_number = int(numbers[0])
+                    # Create relative path from base directory
+                    try:
+                        rel_path = str(file_path.relative_to(FILE_BASE_DIR))
+                    except ValueError:
+                        # If file is not under the base directory, skip it
+                        continue
+                    
+                    # Extract additional metadata
+                    course_code = detect_course_code(rel_path)
+                    category = detect_file_category(rel_path)
+                    folder = detect_folder_type(rel_path)
+                    
+                    # Determine directory part
+                    dir_parts = Path(rel_path).parts
+                    parent_dir = str(Path(*dir_parts[:-1])) if len(dir_parts) > 1 else ""
+                    
+                    # Detect assignment or lecture numbers if present
+                    assignment_number = None
+                    lecture_number = None
+                    filename = file_path.stem.lower()
+                    
+                    # Look for assignment numbers (e.g., "assignment2" or "hw3")
+                    if "assignment" in filename or "hw" in filename:
+                        numbers = re.findall(r'\d+', filename)
+                        if numbers:
+                            assignment_number = int(numbers[0])
+                    
+                    # Look for lecture numbers (e.g., "lecture1" or "lec2")
+                    if "lecture" in filename or "lec" in filename:
+                        numbers = re.findall(r'\d+', filename)
+                        if numbers:
+                            lecture_number = int(numbers[0])
+                    
+                    # For filenames starting with numbers (e.g., "01_Getting_Started")
+                    if re.match(r'^\d+_', filename):
+                        numbers = re.findall(r'^\d+', filename)
+                        if numbers and not lecture_number:
+                            lecture_number = int(numbers[0])
 
-                files.append(LocalFile(
-                    file_name=file_path.name,
-                    file_path=rel_path,
-                    mime_type=mime_type or "application/octet-stream",
-                    size_bytes=stat.st_size,
-                    modified_time=datetime.fromtimestamp(stat.st_mtime).isoformat(),
-                    directory=parent_dir,
-                    created_time=datetime.fromtimestamp(stat.st_ctime).isoformat(),
-                    last_accessed_time=datetime.fromtimestamp(stat.st_atime).isoformat(),
-                    course_code=course_code,
-                    assignment_number=assignment_number,
-                    lecture_number=lecture_number,
-                    category=category,
-                    folder=folder
-                ))
+                    files.append(LocalFile(
+                        file_name=file_path.name,
+                        file_path=rel_path,
+                        mime_type=mime_type or "application/octet-stream",
+                        size_bytes=stat.st_size,
+                        modified_time=datetime.fromtimestamp(stat.st_mtime).isoformat(),
+                        directory=parent_dir,
+                        created_time=datetime.fromtimestamp(stat.st_ctime).isoformat(),
+                        last_accessed_time=datetime.fromtimestamp(stat.st_atime).isoformat(),
+                        course_code=course_code,
+                        assignment_number=assignment_number,
+                        lecture_number=lecture_number,
+                        category=category,
+                        folder=folder
+                    ))
+        except Exception as e:
+            # Handle file access errors for individual directories
+            print(f"Error scanning directory {dir_path}: {str(e)}")
+            continue
 
     return files
 

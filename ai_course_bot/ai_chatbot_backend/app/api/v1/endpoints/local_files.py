@@ -1,10 +1,10 @@
 from typing import List, Optional, Dict, Any
-from fastapi import APIRouter, Depends, Query, Path, HTTPException, status
+from fastapi import APIRouter, Depends, Query, Path, HTTPException, status, Request
 from fastapi.responses import FileResponse, JSONResponse
 
 from ..schemas.local_file import LocalFileListResponse, LocalFile, FileCategory, FileDirectory
 from ..services.file_storage import local_storage
-from ...deps import get_current_user
+from ...deps import get_current_user, auth_with_query_param
 
 router = APIRouter()
 
@@ -106,30 +106,6 @@ async def list_files(
     return response
 
 
-@router.get("/{file_path:path}", response_class=FileResponse)
-async def get_file(
-    file_path: str = Path(..., description="Path to the file"),
-    user: dict = Depends(get_current_user)
-):
-    """
-    Retrieve a file by its path
-    
-    Returns the file with appropriate content-type headers for browser rendering
-    """
-    try:
-        # Pass the file_path parameter to the service
-        return local_storage.get_file(file_path)
-    except HTTPException as e:
-        # Re-raise HTTP exceptions
-        raise e
-    except Exception as e:
-        # Handle unexpected errors
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Error retrieving file: {str(e)}"
-        )
-
-
 @router.get("/categories", response_model=List[FileCategory])
 async def list_categories(
     user: dict = Depends(get_current_user)
@@ -201,4 +177,47 @@ async def list_folders(
             icon="folder-archive"
         )
     ]
-    return folders 
+    return folders
+
+
+@router.options("/{file_path:path}")
+async def options_file(
+    file_path: str = Path(..., description="Path to the file")
+):
+    """
+    Handle OPTIONS requests for file paths
+    This is needed for CORS preflight requests from the browser
+    """
+    return JSONResponse(
+        content={"methods": ["GET", "OPTIONS"]},
+        headers={
+            "Allow": "GET, OPTIONS",
+            "Access-Control-Allow-Methods": "GET, OPTIONS",
+            "Access-Control-Allow-Headers": "Authorization, Content-Type"
+        }
+    )
+
+
+@router.get("/{file_path:path}", response_class=FileResponse)
+async def get_file(
+    request: Request,
+    file_path: str = Path(..., description="Path to the file"),
+    user: dict = Depends(auth_with_query_param)
+):
+    """
+    Retrieve a file by its path
+    
+    Returns the file with appropriate content-type headers for browser rendering
+    """
+    try:
+        # Pass the file_path parameter to the service
+        return local_storage.get_file(file_path)
+    except HTTPException as e:
+        # Re-raise HTTP exceptions
+        raise e
+    except Exception as e:
+        # Handle unexpected errors
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error retrieving file: {str(e)}"
+        ) 

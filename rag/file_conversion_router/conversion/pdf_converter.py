@@ -3,7 +3,7 @@ import re
 import subprocess
 from pathlib import Path
 
-import fitz
+# import fitz
 from rag.file_conversion_router.conversion.base_converter import BaseConverter
 # from rag.file_conversion_router.services.tai_nougat_service import TAINougatConfig
 # from rag.file_conversion_router.services.tai_nougat_service.api import convert_pdf_to_mmd
@@ -129,20 +129,33 @@ class PdfConverter(BaseConverter):
             target = output_path.with_suffix(".md")
 
 
+
         elif conversion_method == "MinerU":
-            convert_pdf_to_md_by_MinerU(input_path, output_path)
-            # Construct the correct path based on the nested folder structure
-            base_name = input_path.stem  # e.g., "61a-sp24-mt1"
-            md_file_path = output_path.parent / f"{base_name}.md"
+
+            # Remove the .pdf extension from the output path so that the folder path is correct.
+
+            new_output_path = output_path.with_suffix('')
+
+            convert_pdf_to_md_by_MinerU(input_path, new_output_path)
+
+            # Use the input_path stem to construct the markdown file path.
+
+            base_name = input_path.stem  # e.g., "07-Function_Examples_1pp"
+
+            md_file_path = new_output_path.parent / f"{base_name}.md"
+
             if md_file_path.exists():
+
                 print(f"Markdown file found: {md_file_path}")
+
             else:
+
                 raise FileNotFoundError(f"Markdown file not found: {md_file_path}")
-            # Set the target to this markdown path
+
             target = md_file_path
+
             self.clean_markdown_content(target)
         return target
-
     # def _to_markdown_using_native_nougat_cli(self, input_pdf_path: Path, output_path: Path) -> None:
     #     """
     #     Perform PDF to Markdown conversion using Native Nougat CLI.

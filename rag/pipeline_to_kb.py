@@ -1,8 +1,8 @@
 import os
 import yaml
 
-from rag.scraper.Scraper_master.factory import ScraperFactory
-from rag.scraper.Scraper_master.configs import ScraperConfig
+# from rag.scraper.Scraper_master.factory import ScraperFactory
+# from rag.scraper.Scraper_master.configs import ScraperConfig
 from rag.file_conversion_router.api import convert_directory
 from rag.file_conversion_router.embedding_create import embedding_create
 from rag.scraper.Scraper_master.scrapers.web_scraper import WebScraper
@@ -64,4 +64,4 @@ def convert_only(yaml):
 
 
 if __name__ == "__main__":
-    pipeline('task.yaml')
+    pipeline('/home/bot/bot/tai/rag/scraper/Scraper_master/CS61A.yaml')

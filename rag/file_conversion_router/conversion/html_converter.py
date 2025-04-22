@@ -45,7 +45,7 @@ class HtmlConverter(BaseConverter):
             return None  # Return None if no match is found
 
         output_path = output_path.with_suffix(".md")
-        with open(input_path, "r") as input_file:
+        with open(input_path, "r", encoding="utf-8") as input_file:
             html_content = input_file.read()
         stem = input_path.stem
         metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
@@ -70,7 +70,7 @@ class HtmlConverter(BaseConverter):
         else:
             final_markdown = md(str(soup), heading_style="ATX", default_title=True)
             final_markdown = re.sub(r'(?<!^)(```)', r'\n\1', final_markdown, flags=re.MULTILINE)
-        with open(output_path, "w") as output_file:
+        with open(output_path, "w",encoding="utf-8") as output_file:
             output_file.write(final_markdown)
 
         return output_path

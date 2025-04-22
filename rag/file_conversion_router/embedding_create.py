@@ -14,7 +14,7 @@ import torch
 import torch.nn.functional as F
 from torch import Tensor
 from angle_emb import AnglE, Prompts
-
+import re
 from rag.file_conversion_router.utils.logger import content_logger
 
 load_dotenv()
@@ -24,7 +24,7 @@ def string_subtraction(main_string, sub_string):
     return main_string.replace(sub_string, '', 1)  # The '1' ensures only the first occurrence is removed
 
 
-def traverse_files(path, start_folder_name, url_list, id_list, doc_list, file_paths_list):
+def traverse_files(path, start_folder_name, url_list, id_list, doc_list, file_paths_list, topic_path_list):
     results = []
     # Check if the provided path exists
     if not os.path.exists(path):
@@ -60,19 +60,19 @@ def traverse_files(path, start_folder_name, url_list, id_list, doc_list, file_pa
                 md_path = os.path.join(root, f"{base_name}.md")
 
                 # Determine which file path to use based on priority
-                associated_file_path = None
+                File_path = None
                 if os.path.exists(pdf_path):
-                    associated_file_path = pdf_path
+                    File_path = pdf_path
                 elif video_path and os.path.exists(video_path):
-                    associated_file_path = video_path
+                    File_path = video_path
                 elif os.path.exists(md_path):
-                    associated_file_path = md_path
+                    File_path = md_path
 
                 # Convert absolute path to relative path including the root folder name
-                if associated_file_path:
+                if File_path:
                     # Get path relative to the parent directory of the root folder
                     parent_dir = os.path.dirname(path)
-                    relative_file_path = os.path.relpath(associated_file_path, parent_dir)
+                    relative_file_path = os.path.relpath(File_path, parent_dir)
                 else:
                     relative_file_path = None
 
@@ -80,17 +80,22 @@ def traverse_files(path, start_folder_name, url_list, id_list, doc_list, file_pa
                     print(file_path)
                     chunks = pickle.load(pkl_file)
                 for chunk in chunks:
-                    folder_path = ' > '.join(f"{item} (Level{i + 1})" for i, item in enumerate(path_list))
-                    page_path = chunk.titles
-                    id = folder_path + ' > ' + page_path
+                    # folder_path = ''.join(f"{item}" for i, item in enumerate(path_list))
+                    match = re.search(r'\((.*?)\)', chunk.titles)
+                    if match:
+                        topic_path = match.group(1)
+                        topic_path_list.append(topic_path)
+                    else:
+                        topic_path = chunk.titles  # Fallback if the pattern isn't found
+                        topic_path_list.append(topic_path)
+                    print( f"topic_path: {topic_path} in {file_path}")
+                    id = base_name + ' > ' + topic_path
                     id_list.append(id)
                     doc_list.append(chunk.content)
-                    print(chunk.chunk_url)
-                    url = "URLs:\n" + "\n".join(chunk.chunk_url)
+                    url = "".join(chunk.chunk_url)
                     url_list.append(url)
                     file_paths_list.append(relative_file_path)  # Add the relative file path with root folder
-
-    return url_list, id_list, doc_list, file_paths_list
+    return url_list, id_list, doc_list, file_paths_list, topic_path_list
 
 
 def embedding_create(markdown_path, name, embedding_name, folder_name, model):
@@ -101,13 +106,12 @@ def embedding_create(markdown_path, name, embedding_name, folder_name, model):
     doc_list = []
     embedding_list = []
     url_list = []
-    time_list = []
     fail = []
     file_paths_list = []
+    topic_path_list = []
     start = time.time()
     # Process each page
-    url_list, id_list, doc_list, file_paths_list = traverse_files(markdown_path, name, url_list, id_list, doc_list,
-                                                                  file_paths_list)
+    url_list, id_list, doc_list, file_paths_list, topic_path_list = traverse_files(markdown_path, name, url_list, id_list, doc_list, file_paths_list, topic_path_list)
     if model == 'BGE':
         from FlagEmbedding import BGEM3FlagModel
         embedding_model = BGEM3FlagModel('BAAI/bge-m3', use_fp16=True)
@@ -125,10 +129,9 @@ def embedding_create(markdown_path, name, embedding_name, folder_name, model):
     doc_list = np.array(doc_list)
     embedding_list = np.array(embedding_list)
     url_list = np.array(url_list)
-    time_list = np.array(time_list)
     file_paths_list = np.array(file_paths_list)
+    topic_path_list = np.array(topic_path_list)
     print('create time:', time.time() - start)
-
     # Store the variables in a dictionary
     data_to_store = {
         'id_list': id_list,
@@ -136,7 +139,7 @@ def embedding_create(markdown_path, name, embedding_name, folder_name, model):
         'embedding_list': embedding_list,
         'url_list': url_list,
         'file_paths_list': file_paths_list,
-        'time_list': time_list
+        'topic_path_list': topic_path_list,
     }
 
     validate_data(data_to_store)
@@ -145,7 +148,6 @@ def embedding_create(markdown_path, name, embedding_name, folder_name, model):
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
 
-    # Open a file in binary write mode and store the data using pickle
     with open(f'{folder_name}/{embedding_name}.pkl', 'wb') as f:
         pickle.dump(data_to_store, f)
 
@@ -162,11 +164,28 @@ def validate_data(data):
 
     content_logger.info("Validating embedding data...")
     lengths = []
+    # Assume 'data' is your dictionary and 'content_logger' is your logger
+    expected_length = None
+    lengths = []
+
     for key, value in data.items():
+        # Check if value is empty
         if len(value) == 0:
             content_logger.error(f"{key} is empty.")
+            continue  # Skip further checks if empty
+
+        # Check if the value is a numpy array
         if not isinstance(value, np.ndarray):
             content_logger.error(f"{key} is not a numpy array.")
+
+        # Establish the expected length from the first non-empty value
+        if expected_length is None:
+            expected_length = len(value)
+
+        # Check if the current value's length matches the expected length
+        if len(value) != expected_length:
+            content_logger.error(f"{key} length {len(value)} is not equal to expected length {expected_length}.")
+
         lengths.append(len(value))
 
     if len(set(lengths)) > 1:
@@ -176,4 +195,4 @@ def validate_data(data):
 
 
 if __name__ == "__main__":
-    embedding_create("/Users/lihaichao/Documents/TAI/tai/rag/file_conversion_router/services/output_files", "about", "cs61a", "pickle", "BGE")
+    embedding_create("/home/bot/bot/yk/CS61A_md", "/home/bot/bot/yk/CS61A_md", "cs61a", "500_md", "BGE")

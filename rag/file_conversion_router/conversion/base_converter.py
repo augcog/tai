@@ -298,19 +298,13 @@ class BaseConverter(ABC):
         output_path.parent.mkdir(parents=True, exist_ok=True)
         stem = input_path.stem
         file_type = input_path.suffix.lstrip('.')
-
         md_path = self._to_markdown(input_path, output_path)
-        with open(md_path, "r") as input_file:
+        with open(md_path, "r", encoding= 'UTF-8') as input_file:
             content_text = input_file.read()
-
         metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
-
         page_path = output_path.with_name(f"{stem}_content_list.json")
-
-
         metadata_content = self._read_metadata(metadata_path)
         url = metadata_content.get("URL")
-
         if file_type == "mp4":
             timestamp = [i[1] for i in self.paragraphs]
             content = {"text": content_text, "timestamp": timestamp}

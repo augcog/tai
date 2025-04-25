@@ -12,8 +12,8 @@ import json
 import re
 
 class VideoConverter(BaseConverter):
-    # model_id = "meta-llama/Llama-3.1-8B-Instruct"
-    model_id = "THUDM/GLM-4-9B-0414"
+    model_id = "meta-llama/Llama-3.1-8B-Instruct"
+    # model_id = "THUDM/GLM-4-9B-0414"
     auto_tokenizer = None
     pipeline = None
 
@@ -93,6 +93,10 @@ class VideoConverter(BaseConverter):
                 }
                 segments.append(segment_dict)
         print(segments)
+        import gc
+        gc.collect()
+        torch.cuda.empty_cache()
+        del model
         return segments
 
     def paragraph_generator(self, transcript, seg_time):
@@ -197,35 +201,50 @@ class VideoConverter(BaseConverter):
         self.paragraphs = paragraphs
         return paragraphs
 
-    def generate_summary_of_titles(self, titles, input_video_name):
+    def generate_summaries_of_titles(self, titles, input_video_name, chunk_size=2):
         VideoConverter.initialize_static_resources()
+        summaries = []
 
-        titles_list = "\n".join(f"- {t}" for t in titles)
-        messages = [
-            {"role": "system", "content": "You are a helpful assistant that creates concise summaries."},
-            {"role": "user", "content": (
-                f"Generate a brief summary as a title that captures the main topics covered in this lecture video named "
-                f"{input_video_name} based on these section titles:\n{titles_list}\n\n"
-                "Provide your answer only in the following format (including the quotes):\n"
-                "Title: \"<summary>\""
-            )}
-        ]
+        chunks = [titles[i:i + chunk_size] for i in range(0, len(titles), chunk_size)]
 
-        prompt = VideoConverter.pipeline.tokenizer.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True
-        )
+        for idx, chunk in enumerate(chunks):
+            # If the last chunk has only one title, skip generating a summary for it
+            if len(chunk) == 1 and idx == len(chunks) - 1:
+                break
+            titles_list = "\n".join(f"- {t}" for t in chunk)
+            messages = [
+                {"role": "system", "content": "You are a helpful assistant that creates concise summaries."},
+                {"role": "user", "content": (
+                    f"Generate a brief summary as a title that captures the main topics covered in this lecture video named "
+                    f"{input_video_name} based on these section titles:\n{titles_list}\n\n"
+                    "Provide your answer only in the following format (including the quotes):\n"
+                    "Title: \"<summary>\""
+                )}
+            ]
 
-        # run the model
-        outputs = VideoConverter.pipeline(
-            prompt,
-            max_new_tokens=100,
-            do_sample=False,
-            temperature=0.3,
-        )
+            prompt = VideoConverter.pipeline.tokenizer.apply_chat_template(
+                messages, tokenize=False, add_generation_prompt=True
+            )
 
-        first_output = outputs[0].get('generated_text', '')
-        part = first_output.split('Title: ')[-1].strip()
-        return part.strip('"')
+            outputs = VideoConverter.pipeline(
+                prompt,
+                max_new_tokens=100,
+                do_sample=False,
+                temperature=0.3,
+            )
+
+            first_output = outputs[0].get('generated_text', '')
+            part = first_output.split('Title: ')[-1].strip()
+            summary = part.strip('"')
+            summaries.append(summary)
+
+        # Clean up GPU cache
+        import gc
+        gc.collect()
+        import torch
+        torch.cuda.empty_cache()
+
+        return summaries
 
     def _to_markdown(self, input_path, output_path):
         input_video_name = os.path.basename(input_path)
@@ -243,24 +262,32 @@ class VideoConverter(BaseConverter):
                 title = self.title_with_chat_completion(paragraph_text, input_video_name)
                 titles.append(title)
                 paragraph_texts.append((title, paragraph_text))
-            if titles:
-                summary = self.generate_summary_of_titles(titles, input_video_name)
-            else:
-                summary = "No content available for summary."
-            markdown_content = f"# {summary}\n\n"
+            section_summaries = self.generate_summaries_of_titles(
+                titles, input_video_name, 2
+            )
 
-            for title, paragraph_text in paragraph_texts:
-                markdown_content += f'## {title}\n\n'
-                markdown_content += f'{paragraph_text}\n\n'
+            # 3. Build markdown content
+            lines = []
+            for idx, section_title in enumerate(section_summaries):
+                lines.append(f"# {section_title}\n")
+                start = idx * 2
+                end = start + 2
+                for title, text in paragraph_texts[start:end]:
+                    lines.append(f"## {title}\n")
+                    lines.append(f"{text}\n")
+
+            markdown_content = "\n".join(lines)
+
         md_path = output_path.with_suffix(".md")
+
         with open(md_path, 'w') as md_file:
             md_file.write(markdown_content)
-        json_path = output_path.with_suffix(".json")
-        self.get_speaker_json(input_path, transcript, json_path)
+        # json_path = output_path.with_suffix(".json")
+        # self.get_speaker_json(input_path, transcript, json_path)
         return md_path
 
 if __name__ == "__main__":
     video_converter = VideoConverter()
-    input_path = Path("/home/bot/bot/tai/rag/file_conversion_router/test/print_and_none.mp4")
-    output_path = Path("/home/bot/bot/tai/rag/file_conversion_router/oput/print_and_none_test.md")
-    video_converter._to_page(input_path, output_path)
+    input_path = Path("/home/bot/bot/yk/language/video/A Polyglot's Daily Linguistic Workout.mp4")
+    output_path = Path("/home/bot/bot/tai/rag/file_conversion_router/oput/A Polyglot's Daily Linguistic Workout.md")
+    video_converter._to_markdown(input_path, output_path)

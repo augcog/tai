@@ -4,7 +4,7 @@ import os
 import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
@@ -62,6 +62,11 @@ app.include_router(v1_router, prefix="/v1", tags=["v1"])
 
 @app.get("/", response_class=HTMLResponse)
 async def root():
+    return RedirectResponse(url="/home")
+
+
+@app.get("/home", response_class=HTMLResponse)
+async def home():
     return """
     <html>
         <head>

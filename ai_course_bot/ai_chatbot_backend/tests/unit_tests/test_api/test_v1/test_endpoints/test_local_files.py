@@ -8,25 +8,23 @@ from fastapi.testclient import TestClient
 from fastapi import HTTPException
 from pathlib import Path
 from fastapi.responses import FileResponse
+import importlib
 
-from app.api.deps import get_current_user
+from app.api.deps import get_current_user, auth_with_query_param
 from main import app
 from app.api.v1.services.file_storage import local_storage
+from app.api.v1.endpoints import local_files
+from app.config import settings
 
 
-client = TestClient(app)
+# Create a test client
+test_client = TestClient(app)
 
 
 @pytest.fixture
-def test_client():
-    return TestClient(app)
-
-
-@pytest.fixture
-def temp_dir():
-    temp_dir = tempfile.mkdtemp()
-    yield temp_dir
-    shutil.rmtree(temp_dir)
+def client():
+    """Return the TestClient instance"""
+    return test_client
 
 
 @pytest.fixture
@@ -38,17 +36,67 @@ def mock_authorization_header():
 @pytest.fixture
 def mock_current_user():
     """Override authentication during testing"""
-    def _mock_get_current_user():
-        return {"sub": "test-user"}
+    # Store original auth_required setting
+    original_auth_required = settings.auth_required
     
-    app.dependency_overrides[get_current_user] = _mock_get_current_user
-    yield
+    # Force auth_required to False during tests
+    settings.auth_required = False
+    
+    # Create a mock user
+    mock_user = {
+        "user_id": "test-user",
+        "email": "test@example.com",
+        "name": "Test User",
+        "picture": None
+    }
+    
+    # Override both authentication dependencies directly in the local_files router
+    for route in local_files.router.routes:
+        if hasattr(route, "dependencies"):
+            for i, dependency in enumerate(route.dependencies):
+                if dependency.dependency == get_current_user or dependency.dependency == auth_with_query_param:
+                    route.dependencies[i].dependency = lambda: mock_user
+    
+    # Also override the app dependencies
+    app.dependency_overrides[get_current_user] = lambda: mock_user
+    app.dependency_overrides[auth_with_query_param] = lambda: mock_user
+    
+    yield mock_user
+    
+    # Restore original settings and clear overrides
+    settings.auth_required = original_auth_required
     app.dependency_overrides.clear()
+    
+    # Reload the module to restore original dependencies
+    importlib.reload(local_files)
+
+
+@pytest.fixture
+def temp_dir():
+    temp_dir = tempfile.mkdtemp()
+    yield temp_dir
+    shutil.rmtree(temp_dir)
+
+
+@pytest.fixture
+def mock_file():
+    """Create a mock LocalFile instance"""
+    return local_storage.LocalFile(
+        file_name="test.txt",
+        file_path="documents/test.txt",
+        mime_type="text/plain",
+        size_bytes=100,
+        modified_time="2023-01-01T00:00:00",
+        directory="documents"
+    )
 
 
 # Base test class for file operations
 class TestFileBase:
-    """Base class for file operation tests containing common assertions"""
+    """Base class for file operation tests"""
+    
+    def setup_method(self):
+        self.client = test_client
     
     def assert_file_response(self, response, test_content, expected_mime_type, filename):
         """Common assertions for file responses"""
@@ -61,27 +109,15 @@ class TestFileBase:
 
 
 # Test class for file listing operations
-class TestFileListOperations:
+class TestFileListOperations(TestFileBase):
     """Tests for file listing endpoints"""
     
-    @pytest.fixture
-    def mock_file(self):
-        """Create a mock LocalFile instance"""
-        return local_storage.LocalFile(
-            file_name="test.txt",
-            file_path="documents/test.txt",
-            mime_type="text/plain",
-            size_bytes=100,
-            modified_time="2023-01-01T00:00:00",
-            directory="documents"
-        )
-
     def test_list_files(self, mock_authorization_header, mock_file, mock_current_user):
         """Test the file listing endpoint"""
         with patch.object(local_storage, 'list_files') as mock_list_files:
             mock_list_files.return_value = [mock_file]
             
-            response = client.get("/v1/local-files", headers=mock_authorization_header)
+            response = self.client.get("/v1/local-files", headers=mock_authorization_header)
             
             assert response.status_code == 200
             data = response.json()
@@ -100,7 +136,7 @@ class TestFileListOperations:
         with patch.object(local_storage, 'list_files') as mock_list_files:
             mock_list_files.return_value = [mock_file]
             
-            response = client.get(
+            response = self.client.get(
                 "/v1/local-files?directory=documents",
                 headers=mock_authorization_header
             )
@@ -113,7 +149,7 @@ class TestFileListOperations:
         with patch.object(local_storage, 'list_files') as mock_list_files:
             mock_list_files.return_value = []
             
-            response = client.get("/v1/local-files", headers=mock_authorization_header)
+            response = self.client.get("/v1/local-files", headers=mock_authorization_header)
             
             assert response.status_code == 200
             data = response.json()
@@ -128,7 +164,7 @@ class TestFileListOperations:
                 detail="Directory 'invalid_dir' not found"
             )
             
-            response = client.get(
+            response = self.client.get(
                 "/v1/local-files?directory=invalid_dir",
                 headers=mock_authorization_header
             )
@@ -161,7 +197,7 @@ class TestTextFileOperations(TestFileBase):
                 mock_get_file.return_value = mock_file_response
                 
                 # Test the endpoint
-                response = client.get(
+                response = self.client.get(
                     "/v1/local-files/documents/test.txt",
                     headers=mock_authorization_header
                 )
@@ -203,7 +239,7 @@ class TestPDFFileOperations(TestFileBase):
                 mock_get_file.return_value = mock_file_response
                 
                 # Test the endpoint
-                response = client.get(
+                response = self.client.get(
                     "/v1/local-files/documents/test.pdf",
                     headers=mock_authorization_header
                 )
@@ -245,7 +281,7 @@ class TestVideoFileOperations(TestFileBase):
                 mock_get_file.return_value = mock_file_response
                 
                 # Test the endpoint
-                response = client.get(
+                response = self.client.get(
                     "/v1/local-files/videos/test.mp4",
                     headers=mock_authorization_header
                 )
@@ -263,7 +299,7 @@ class TestVideoFileOperations(TestFileBase):
 
 
 # Test class for error handling
-class TestFileErrorHandling:
+class TestFileErrorHandling(TestFileBase):
     """Tests for file error handling"""
     
     def test_get_file_not_found(self, mock_authorization_header, mock_current_user):
@@ -273,7 +309,7 @@ class TestFileErrorHandling:
         with patch.object(local_storage, 'get_file') as mock_get_file:
             mock_get_file.side_effect = HTTPException(status_code=404, detail="File not found")
             
-            response = client.get(
+            response = self.client.get(
                 f"/v1/local-files/{test_file_path}",
                 headers=mock_authorization_header
             )
@@ -295,7 +331,7 @@ class TestFileErrorHandling:
             )
             
             # Use the path directly without modifying it
-            response = client.get(
+            response = self.client.get(
                 f"/v1/local-files/{test_file_path}",
                 headers=mock_authorization_header
             )
@@ -309,9 +345,9 @@ class TestFileErrorHandling:
 
 
 # Direct test functions for backward compatibility
-def test_local_files_not_found(test_client, mock_current_user):
+def test_local_files_not_found(client, mock_current_user):
     """Test accessing a non-existent file returns 404."""
-    response = test_client.get("/v1/local-files/non-existent-file.txt")
+    response = client.get("/v1/local-files/non-existent-file.txt")
     assert response.status_code == 404
     
     data = response.json()

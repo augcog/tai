@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import Optional
 
-from pydantic import Field
+from pydantic import Field, validator
 from pydantic_settings import BaseSettings
 
 
@@ -39,6 +39,17 @@ class Settings(BaseSettings):
     
     # Data directory settings
     DATA_DIR: Optional[str] = None
+
+    @validator('auth_required', pre=True)
+    def parse_auth_required(cls, value):
+        if isinstance(value, str):
+            # Strip comments (anything after #) and whitespace
+            clean_value = value.split('#')[0].strip().lower()
+            if clean_value == 'true':
+                return True
+            elif clean_value == 'false':
+                return False
+        return value
 
     @property
     def effective_llm_mode(self) -> LLMModeEnum:

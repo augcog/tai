@@ -5,7 +5,7 @@ def test_root_redirect_no_follow(client_unit):
     """
     response = client_unit.get("/", allow_redirects=False)
     assert response.status_code in (302, 307)
-    assert response.headers["Location"] == "/docs"
+    assert response.headers["Location"] == "/home"
 
 
 def test_root_redirect_with_follow(client_unit):
@@ -14,4 +14,4 @@ def test_root_redirect_with_follow(client_unit):
     """
     response = client_unit.get("/")  # allow_redirects=True by default
     assert response.status_code == 200
-    assert str(response.url).endswith("/docs")
+    assert str(response.url).endswith("/home")

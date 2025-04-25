@@ -11,9 +11,10 @@ from typing import Dict, List, Any
 
 from app.core.models.courses import Base as CourseBase
 from app.api.v1.schemas.course_admin import CourseCreate, AccessType
-from app.api.deps import get_current_user, get_admin_user
+from app.api.deps import get_current_user, get_admin_user, auth_with_query_param
 from app.core.database import get_db
 from app.api.v1.services import course_admin_service
+from app.config import settings
 from main import app
 
 # Create a test database engine
@@ -24,6 +25,47 @@ engine = create_engine(
     poolclass=StaticPool,
 )
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+
+# ===== Global Test Setup =====
+
+@pytest.fixture(scope="session", autouse=True)
+def disable_auth_for_testing():
+    """
+    Globally disable authentication for all tests.
+    This fixture runs automatically for all tests due to autouse=True.
+    """
+    original_auth_required = settings.auth_required
+    settings.auth_required = False
+    
+    # Create mock user functions
+    def mock_user():
+        return {
+            "user_id": "test-user",
+            "email": "test@example.com",
+            "name": "Test User",
+            "picture": None,
+            "is_admin": False
+        }
+    
+    def mock_admin():
+        return {
+            "user_id": "admin-user",
+            "email": "admin@example.com",
+            "name": "Admin User",
+            "picture": None,
+            "is_admin": True
+        }
+    
+    # Override global auth dependencies
+    app.dependency_overrides[get_current_user] = mock_user
+    app.dependency_overrides[auth_with_query_param] = mock_user
+    
+    yield
+    
+    # Restore original settings and clear overrides
+    settings.auth_required = original_auth_required
+    app.dependency_overrides.clear()
 
 
 # ===== User Fixtures =====

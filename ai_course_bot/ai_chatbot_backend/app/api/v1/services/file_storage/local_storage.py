@@ -3,7 +3,7 @@ import os
 import re
 from datetime import datetime
 from pathlib import Path
-from typing import List, Optional, Dict, Union
+from typing import List, Optional, Dict
 
 from fastapi import HTTPException, status
 from fastapi.responses import FileResponse
@@ -16,17 +16,22 @@ mimetypes.init()
 # Define base directory for file storage
 if hasattr(settings, "DATA_DIR") and settings.DATA_DIR is not None:
     # Use absolute path if DATA_DIR is absolute, otherwise make it relative to the app root
-    if os.path.isabs(settings.DATA_DIR):
-        FILE_BASE_DIR = Path(settings.DATA_DIR)
+    data_dir = settings.DATA_DIR
+    # Remove quotes and comments if present
+    if isinstance(data_dir, str):
+        data_dir = data_dir.split('#')[0].strip().strip('"\'')
+
+    if os.path.isabs(data_dir):
+        FILE_BASE_DIR = Path(data_dir)
     else:
         # Get the app root directory (3 levels up from this file)
         app_root = Path(__file__).parent.parent.parent.parent.parent.parent
-        FILE_BASE_DIR = app_root / settings.DATA_DIR
+        FILE_BASE_DIR = app_root / data_dir
 else:
     # Fallback to test_files directory if it exists
     app_root = Path(__file__).parent.parent.parent.parent.parent.parent
     test_files_dir = app_root / "app" / "core" / "data" / "test_files"
-    
+
     if test_files_dir.exists():
         FILE_BASE_DIR = test_files_dir
     else:
@@ -69,7 +74,7 @@ FILE_CATEGORY_MAPPING = {
     "txt": "Document",
     "md": "Document",
     "tex": "Document",
-    
+
     # Assignments
     "ipynb": "Assignment",
     "py": "Assignment",
@@ -77,14 +82,14 @@ FILE_CATEGORY_MAPPING = {
     "c": "Assignment",
     "cpp": "Assignment",
     "js": "Assignment",
-    
+
     # Videos
     "mp4": "Video",
     "avi": "Video",
     "mov": "Video",
     "mkv": "Video",
     "webm": "Video",
-    
+
     # Default
     "default": "Others"
 }
@@ -209,12 +214,12 @@ def detect_course_code(file_path: str) -> Optional[str]:
         first_dir = path_parts[0]
         if COURSE_CODE_PATTERN.match(first_dir):
             return first_dir
-    
+
     # If not found in first dir, try regex pattern on the full path
     match = COURSE_CODE_PATTERN.search(file_path)
     if match:
         return match.group(1)
-    
+
     return None
 
 
@@ -232,18 +237,18 @@ def detect_folder_type(file_path: str) -> Optional[str]:
     For course-centric structure, look for folder types in subdirectories
     """
     path_parts = Path(file_path).parts
-    
+
     # Skip the first part which is the course code
     if len(path_parts) >= 3 and path_parts[1] == "documents":
         # Check if the third part (documents subdirectory) is a known folder type
         for folder_name, subdir in FOLDER_MAPPING.items():
             if path_parts[2] == subdir:
                 return folder_name
-    
+
     # Try to determine from parent directory name
     if len(path_parts) >= 3:
         parent_dir = path_parts[2].lower()
-        
+
         if "lab" in parent_dir:
             return "Lab Material"
         elif "code" in parent_dir or "script" in parent_dir:
@@ -252,17 +257,17 @@ def detect_folder_type(file_path: str) -> Optional[str]:
             return "Exams"
         elif "project" in parent_dir:
             return "Past Projects"
-    
+
     return None
 
 
 def list_files(directory: Optional[str] = None) -> List[LocalFile]:
     """
     List all files in the specified directory or in all directories if not specified
-    
+
     Args:
         directory: Optional subdirectory to list files from
-        
+
     Returns:
         List of LocalFile objects containing file metadata
     """
@@ -274,7 +279,7 @@ def list_files(directory: Optional[str] = None) -> List[LocalFile]:
         target_dir = FILE_BASE_DIR / directory
         if not target_dir.exists() or not target_dir.is_dir():
             raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND, 
+                status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"Directory '{directory}' not found"
             )
 
@@ -288,11 +293,11 @@ def list_files(directory: Optional[str] = None) -> List[LocalFile]:
             for course_dir in FILE_BASE_DIR.iterdir():
                 if course_dir.is_dir():
                     dirs_to_scan.append(course_dir)
-            
+
             # If no directories found at the base level, add the base directory itself
             if not dirs_to_scan:
                 dirs_to_scan = [FILE_BASE_DIR]
-                
+
         except Exception as e:
             # Handle file access errors
             print(f"Error accessing directory {FILE_BASE_DIR}: {str(e)}")
@@ -307,44 +312,44 @@ def list_files(directory: Optional[str] = None) -> List[LocalFile]:
                     # Skip stub files used for demonstration
                     if file_path.name.endswith('.stub'):
                         continue
-                        
+
                     # Get file stats
                     stat = file_path.stat()
                     mime_type, _ = mimetypes.guess_type(file_path)
-                    
+
                     # Create relative path from base directory
                     try:
                         rel_path = str(file_path.relative_to(FILE_BASE_DIR))
                     except ValueError:
                         # If file is not under the base directory, skip it
                         continue
-                    
+
                     # Extract additional metadata
                     course_code = detect_course_code(rel_path)
                     category = detect_file_category(rel_path)
                     folder = detect_folder_type(rel_path)
-                    
+
                     # Determine directory part
                     dir_parts = Path(rel_path).parts
                     parent_dir = str(Path(*dir_parts[:-1])) if len(dir_parts) > 1 else ""
-                    
+
                     # Detect assignment or lecture numbers if present
                     assignment_number = None
                     lecture_number = None
                     filename = file_path.stem.lower()
-                    
+
                     # Look for assignment numbers (e.g., "assignment2" or "hw3")
                     if "assignment" in filename or "hw" in filename:
                         numbers = re.findall(r'\d+', filename)
                         if numbers:
                             assignment_number = int(numbers[0])
-                    
+
                     # Look for lecture numbers (e.g., "lecture1" or "lec2")
                     if "lecture" in filename or "lec" in filename:
                         numbers = re.findall(r'\d+', filename)
                         if numbers:
                             lecture_number = int(numbers[0])
-                    
+
                     # For filenames starting with numbers (e.g., "01_Getting_Started")
                     if re.match(r'^\d+_', filename):
                         numbers = re.findall(r'^\d+', filename)
@@ -377,10 +382,10 @@ def list_files(directory: Optional[str] = None) -> List[LocalFile]:
 def list_directories(directory: Optional[str] = None) -> List[FileDirectory]:
     """
     List all directories in the specified directory or in all directories if not specified
-    
+
     Args:
         directory: Optional subdirectory to list directories from
-        
+
     Returns:
         List of FileDirectory objects containing directory metadata
     """
@@ -401,19 +406,19 @@ def list_directories(directory: Optional[str] = None) -> List[FileDirectory]:
         if dir_path.is_dir():
             # Determine if this is a course directory (top level) or a subdirectory
             is_course_dir = dir_path.parent == FILE_BASE_DIR
-            
+
             # Determine parent path
             parent_path = None
             if directory:
                 parent_path = directory
-            
+
             # Get relative path
             rel_path = str(dir_path.relative_to(FILE_BASE_DIR))
-            
+
             # Determine name and icon based on path and structure
             name = dir_path.name
             icon = "folder"
-            
+
             # If it's a course directory
             if is_course_dir:
                 icon = "folder-course"
@@ -432,7 +437,7 @@ def list_directories(directory: Optional[str] = None) -> List[FileDirectory]:
                     if dir_path.name == subdir:
                         name = folder_name
                         icon = f"folder-{subdir.replace('_', '-')}"
-            
+
             directories.append(FileDirectory(
                 name=name,
                 path=rel_path,
@@ -447,10 +452,10 @@ def list_directories(directory: Optional[str] = None) -> List[FileDirectory]:
 def get_file(file_path: str) -> FileResponse:
     """
     Retrieve a file by its path
-    
+
     Args:
         file_path: Path to the file, relative to the base data directory
-        
+
     Returns:
         FileResponse: File content with appropriate Content-Type header
     """
@@ -484,6 +489,109 @@ def get_file(file_path: str) -> FileResponse:
     )
 
 
+def get_file_hierarchy(directory: Optional[str] = None, max_depth: int = -1) -> Dict:
+    """
+    Build a hierarchical tree structure of files and directories
+
+    Args:
+        directory: Optional subdirectory to start from
+        max_depth: Maximum depth to traverse (-1 for unlimited)
+
+    Returns:
+        Dict: Hierarchical tree structure of files and directories
+    """
+    # Target directory for scanning
+    target_dir = FILE_BASE_DIR
+    if directory:
+        target_dir = FILE_BASE_DIR / directory
+        if not target_dir.exists() or not target_dir.is_dir():
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Directory '{directory}' not found"
+            )
+
+    # Initialize counters
+    total_files = 0
+    total_directories = 0
+    current_max_depth = 0
+
+    # Create root node
+    root_path = directory or ""
+
+    # Build the tree recursively
+    def build_tree(path: Path, rel_path: str, current_depth: int) -> Dict:
+        nonlocal total_files, total_directories, current_max_depth
+
+        # Update max depth
+        current_max_depth = max(current_max_depth, current_depth)
+
+        # Create node for current path
+        is_dir = path.is_dir()
+        node = {
+            "name": path.name,
+            "path": rel_path,
+            "type": "directory" if is_dir else "file"
+        }
+
+        # If it's a file, add file-specific attributes
+        if not is_dir:
+            total_files += 1
+            try:
+                stat = path.stat()
+                mime_type, _ = mimetypes.guess_type(path)
+                node.update({
+                    "mime_type": mime_type or "application/octet-stream",
+                    "size_bytes": stat.st_size,
+                    "modified_time": datetime.fromtimestamp(stat.st_mtime).isoformat()
+                })
+            except Exception as e:
+                print(f"Error getting file stats for {path}: {str(e)}")
+
+        # If it's a directory, process children
+        elif is_dir:
+            total_directories += 1
+
+            # Check if we've reached max depth
+            if max_depth != -1 and current_depth >= max_depth:
+                return node
+
+            # Process children
+            children = []
+            try:
+                # Sort entries: directories first, then files, both alphabetically
+                entries = sorted(path.iterdir(), key=lambda p: (not p.is_dir(), p.name.lower()))
+
+                for entry in entries:
+                    # Skip hidden files and directories
+                    if entry.name.startswith('.'):
+                        continue
+
+                    # Build relative path
+                    entry_rel_path = f"{rel_path}/{entry.name}" if rel_path else entry.name
+
+                    # Recursively process child
+                    child_node = build_tree(entry, entry_rel_path, current_depth + 1)
+                    children.append(child_node)
+
+                if children:
+                    node["children"] = children
+            except Exception as e:
+                print(f"Error processing directory {path}: {str(e)}")
+
+        return node
+
+    # Build the tree starting from the target directory
+    root = build_tree(target_dir, root_path, 0)
+
+    # Return the complete hierarchy with metadata
+    return {
+        "root": root,
+        "total_files": total_files,
+        "total_directories": total_directories,
+        "max_depth": current_max_depth
+    }
+
+
 # Make functions available as a module
 class LocalStorageModule:
     def list_files(self, directory: Optional[str] = None) -> List[LocalFile]:
@@ -495,10 +603,13 @@ class LocalStorageModule:
     def get_file(self, file_path: str) -> FileResponse:
         return get_file(file_path)
 
+    def get_file_hierarchy(self, directory: Optional[str] = None, max_depth: int = -1) -> Dict:
+        return get_file_hierarchy(directory, max_depth)
+
     # Make models available
     LocalFile = LocalFile
     FileDirectory = FileDirectory
 
 
 # Module instance
-local_storage = LocalStorageModule() 
+local_storage = LocalStorageModule()

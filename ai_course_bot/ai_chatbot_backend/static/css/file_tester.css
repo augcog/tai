@@ -160,6 +160,28 @@ input:focus {
     margin-right: 0.5rem;
 }
 
+.btn-small {
+    background-color: var(--muted-text);
+    color: white;
+    border: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+    margin-left: 0.5rem;
+}
+
+.btn-small:hover {
+    background-color: var(--border-color);
+}
+
+
+
 hr {
     margin: 1.5rem 0;
     border: none;
@@ -335,7 +357,7 @@ code {
     object-fit: contain;
 }
 
-.preview-video, 
+.preview-video,
 .preview-audio {
     height: 100%;
     display: flex;
@@ -462,6 +484,98 @@ footer {
     margin-top: auto;
 }
 
+/* Hierarchy Tree Styles */
+.hierarchy-tree {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    padding: 1rem;
+    height: 100%;
+    overflow: auto;
+    background-color: #ffffff;
+}
+
+.tree-node {
+    margin-bottom: 0.25rem;
+}
+
+.node-content {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.node-content:hover {
+    background-color: rgba(74, 111, 165, 0.1);
+}
+
+.node-content i {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+    width: 1.5rem;
+    text-align: center;
+}
+
+.directory .node-content i {
+    color: #ffc107;
+}
+
+.file .node-content i {
+    color: var(--primary-color);
+}
+
+.node-name {
+    flex: 1;
+    font-weight: 500;
+}
+
+.node-meta {
+    font-size: 0.75rem;
+    color: var(--muted-text);
+    margin-left: 0.5rem;
+}
+
+.node-children {
+    margin-left: 1.5rem;
+    padding-left: 0.5rem;
+    border-left: 1px dashed var(--border-color);
+    display: none;
+}
+
+.expandable {
+    position: relative;
+}
+
+.expandable::before {
+    content: '▶';
+    position: absolute;
+    left: -0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.75rem;
+    color: var(--muted-text);
+    transition: transform 0.2s;
+}
+
+.expanded > .expandable::before {
+    transform: translateY(-50%) rotate(90deg);
+}
+
+.expanded > .node-children {
+    display: block;
+}
+
+.hierarchy-info {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background-color: rgba(74, 111, 165, 0.05);
+    border-radius: 4px;
+    font-size: 0.875rem;
+    color: var(--muted-text);
+    text-align: center;
+}
+
 /* Responsive Styles */
 @media (max-width: 992px) {
     .content-container {
@@ -469,9 +583,9 @@ footer {
         grid-template-rows: auto;
     }
 
-    .controls-panel, 
-    .files-panel, 
-    .response-panel, 
+    .controls-panel,
+    .files-panel,
+    .response-panel,
     .preview-panel {
         grid-column: 1;
     }
@@ -491,4 +605,4 @@ footer {
     .preview-panel {
         grid-row: 4;
     }
-} 
+}

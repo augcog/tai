@@ -2,7 +2,7 @@ from typing import List, Optional, Dict, Any
 from fastapi import APIRouter, Depends, Query, Path, HTTPException, status, Request
 from fastapi.responses import FileResponse, JSONResponse
 
-from ..schemas.local_file import LocalFileListResponse, LocalFile, FileCategory, FileDirectory
+from ..schemas.local_file import LocalFileListResponse, LocalFile, FileCategory, FileDirectory, FileHierarchyResponse
 from ..services.file_storage import local_storage
 from ...deps import get_current_user, auth_with_query_param
 
@@ -21,23 +21,23 @@ async def list_files(
 ):
     """
     List all files in the specified directory or in all directories if not specified.
-    
+
     Can filter by category, folder, or course code.
     Optionally includes directory structure and category information.
     """
     # Get files from the storage service
     files = local_storage.list_files(directory=directory)
-    
+
     # Apply filters if specified
     if category:
         files = [f for f in files if getattr(f, "category", None) == category]
-    
+
     if folder:
         files = [f for f in files if getattr(f, "folder", None) == folder]
-    
+
     if course_code:
         files = [f for f in files if getattr(f, "course_code", None) == course_code]
-    
+
     # Convert service models to Pydantic models
     pydantic_files = [
         LocalFile(
@@ -60,18 +60,18 @@ async def list_files(
             folder=getattr(file, "folder", None)
         ) for file in files
     ]
-    
+
     # Prepare response
     response = {
         "files": pydantic_files,
         "total_count": len(pydantic_files)
     }
-    
+
     # Include directories if requested
     if include_directories:
         directories = local_storage.list_directories(directory=directory)
         response["directories"] = directories
-    
+
     # Include categories if requested
     if include_categories:
         # Define standard categories
@@ -102,7 +102,7 @@ async def list_files(
             )
         ]
         response["categories"] = categories
-    
+
     return response
 
 
@@ -180,6 +180,51 @@ async def list_folders(
     return folders
 
 
+@router.get("/hierarchy", response_model=FileHierarchyResponse)
+async def get_file_hierarchy(
+    directory: Optional[str] = Query(None, description="Directory to start from"),
+    max_depth: int = Query(-1, description="Maximum depth to traverse (-1 for unlimited)"),
+    user: dict = Depends(get_current_user)
+):
+    """
+    Get a hierarchical tree structure of files and directories
+
+    This endpoint provides a tree view of the file system, which is useful for:
+    - Visualizing the directory structure
+    - Building file browsers or tree views in the UI
+    - Understanding the organization of files
+
+    The response includes metadata about the hierarchy, such as total files,
+    total directories, and maximum depth.
+    """
+    try:
+        # Log the request
+        print(f"Hierarchy request - directory: {directory}, max_depth: {max_depth}")
+
+        # Get the file hierarchy from the storage service
+        hierarchy = local_storage.get_file_hierarchy(directory=directory, max_depth=max_depth)
+
+        # Log the response
+        print(f"Hierarchy response - total files: {hierarchy.get('total_files', 0)}, total directories: {hierarchy.get('total_directories', 0)}")
+
+        # Create the response
+        response = FileHierarchyResponse(**hierarchy)
+
+        # Return the hierarchy
+        return response
+    except HTTPException as e:
+        # Re-raise HTTP exceptions
+        print(f"HTTP exception in hierarchy endpoint: {e.detail}")
+        raise e
+    except Exception as e:
+        # Handle unexpected errors
+        print(f"Unexpected error in hierarchy endpoint: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error retrieving file hierarchy: {str(e)}"
+        )
+
+
 @router.options("/{file_path:path}")
 async def options_file(
     file_path: str = Path(..., description="Path to the file")
@@ -206,7 +251,7 @@ async def get_file(
 ):
     """
     Retrieve a file by its path
-    
+
     Returns the file with appropriate content-type headers for browser rendering
     """
     try:
@@ -220,4 +265,4 @@ async def get_file(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error retrieving file: {str(e)}"
-        ) 
+        )

@@ -14,12 +14,12 @@
             <p>A simple testing interface for the Local File Retrieval API endpoints</p>
         </div>
     </header>
-    
+
     <main>
         <div class="content-container">
             <section class="controls-panel panel">
                 <h2>API Controls</h2>
-                
+
                 <div class="form-container">
                     <form id="listFilesForm" class="form-group">
                         <h3>List Files</h3>
@@ -31,9 +31,9 @@
                             <i class="fas fa-list"></i> List Files
                         </button>
                     </form>
-                    
+
                     <hr>
-                    
+
                     <form id="getFileForm" class="form-group">
                         <h3>Get File</h3>
                         <div class="input-group">
@@ -44,8 +44,25 @@
                             <i class="fas fa-file-download"></i> Get File
                         </button>
                     </form>
+
+                    <hr>
+
+                    <form id="getHierarchyForm" class="form-group">
+                        <h3>File Hierarchy</h3>
+                        <div class="input-group">
+                            <label for="hierarchyDirectoryInput">Directory Path:</label>
+                            <input type="text" id="hierarchyDirectoryInput" placeholder="Leave empty for root directory">
+                        </div>
+                        <div class="input-group">
+                            <label for="maxDepthInput">Max Depth:</label>
+                            <input type="number" id="maxDepthInput" placeholder="-1 for unlimited" value="-1" min="-1">
+                        </div>
+                        <button type="submit" class="btn">
+                            <i class="fas fa-sitemap"></i> Get Hierarchy
+                        </button>
+                    </form>
                 </div>
-                
+
                 <div class="api-docs">
                     <h3>API Documentation</h3>
                     <div class="api-endpoint">
@@ -55,12 +72,17 @@
                     </div>
                     <div class="api-endpoint">
                         <span class="method">GET</span>
+                        <span class="endpoint">/v1/local-files/hierarchy</span>
+                        <p>Gets a hierarchical tree structure of files and directories. Use <code>directory</code> and <code>max_depth</code> query parameters to customize.</p>
+                    </div>
+                    <div class="api-endpoint">
+                        <span class="method">GET</span>
                         <span class="endpoint">/v1/local-files/{file_path}</span>
                         <p>Retrieves a file. The <code>file_path</code> should be URL-encoded.</p>
                     </div>
                 </div>
             </section>
-            
+
             <section class="files-panel panel">
                 <h2>Files</h2>
                 <div id="fileList" class="file-list-container">
@@ -70,17 +92,12 @@
                     </div>
                 </div>
             </section>
-            
+
             <section class="response-panel panel">
-                <h2>API Response</h2>
-                <pre id="jsonResponse" class="json-response">
-                    <div class="initial-message">
-                        <i class="fas fa-code"></i>
-                        <p>API response will appear here</p>
-                    </div>
-                </pre>
+                <h2>API Response <button id="clearResponseBtn" class="btn-small">Clear</button></h2>
+                <pre id="jsonResponse" class="json-response"></pre>
             </section>
-            
+
             <section class="preview-panel panel">
                 <h2>Preview</h2>
                 <div id="previewContent" class="preview-content">
@@ -92,15 +109,15 @@
             </section>
         </div>
     </main>
-    
+
     <div id="loadingIndicator" class="loading-indicator">
         <div class="spinner"></div>
     </div>
-    
+
     <footer>
         <p>&copy; 2023 Local File Retrieval API Tester</p>
     </footer>
-    
+
     <script src="/static/js/file_tester.js"></script>
 </body>
-</html> 
+</html>

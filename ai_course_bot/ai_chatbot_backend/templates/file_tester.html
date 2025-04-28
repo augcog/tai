@@ -21,11 +21,11 @@
                 <h2>API Controls</h2>
 
                 <div class="form-container">
-                    <form id="listFilesForm" class="form-group">
+                    <form id="directory-form" class="form-group">
                         <h3>List Files</h3>
                         <div class="input-group">
-                            <label for="directoryInput">Directory Path:</label>
-                            <input type="text" id="directoryInput" placeholder="Leave empty for root directory">
+                            <label for="directory-input">Directory Path:</label>
+                            <input type="text" id="directory-input" placeholder="Leave empty for root directory">
                         </div>
                         <button type="submit" class="btn">
                             <i class="fas fa-list"></i> List Files
@@ -34,11 +34,11 @@
 
                     <hr>
 
-                    <form id="getFileForm" class="form-group">
+                    <form id="file-form" class="form-group">
                         <h3>Get File</h3>
                         <div class="input-group">
-                            <label for="filePathInput">File Path:</label>
-                            <input type="text" id="filePathInput" placeholder="Path to file">
+                            <label for="file-input">File Path:</label>
+                            <input type="text" id="file-input" placeholder="Path to file">
                         </div>
                         <button type="submit" class="btn">
                             <i class="fas fa-file-download"></i> Get File
@@ -47,15 +47,33 @@
 
                     <hr>
 
-                    <form id="getHierarchyForm" class="form-group">
+                    <form id="categories-form" class="form-group">
+                        <h3>Get Categories</h3>
+                        <button type="submit" class="btn">
+                            <i class="fas fa-tags"></i> Get Categories
+                        </button>
+                    </form>
+
+                    <hr>
+
+                    <form id="folders-form" class="form-group">
+                        <h3>Get Folders</h3>
+                        <button type="submit" class="btn">
+                            <i class="fas fa-folder"></i> Get Folders
+                        </button>
+                    </form>
+
+                    <hr>
+
+                    <form id="hierarchy-form" class="form-group">
                         <h3>File Hierarchy</h3>
                         <div class="input-group">
-                            <label for="hierarchyDirectoryInput">Directory Path:</label>
-                            <input type="text" id="hierarchyDirectoryInput" placeholder="Leave empty for root directory">
+                            <label for="hierarchy-directory-input">Directory Path:</label>
+                            <input type="text" id="hierarchy-directory-input" placeholder="Leave empty for root directory">
                         </div>
                         <div class="input-group">
-                            <label for="maxDepthInput">Max Depth:</label>
-                            <input type="number" id="maxDepthInput" placeholder="-1 for unlimited" value="-1" min="-1">
+                            <label for="max-depth-input">Max Depth:</label>
+                            <input type="number" id="max-depth-input" placeholder="-1 for unlimited" value="-1" min="-1">
                         </div>
                         <button type="submit" class="btn">
                             <i class="fas fa-sitemap"></i> Get Hierarchy
@@ -80,12 +98,22 @@
                         <span class="endpoint">/v1/local-files/{file_path}</span>
                         <p>Retrieves a file. The <code>file_path</code> should be URL-encoded.</p>
                     </div>
+                    <div class="api-endpoint">
+                        <span class="method">GET</span>
+                        <span class="endpoint">/v1/local-files/categories</span>
+                        <p>Lists available file categories.</p>
+                    </div>
+                    <div class="api-endpoint">
+                        <span class="method">GET</span>
+                        <span class="endpoint">/v1/local-files/folders</span>
+                        <p>Lists available file folders.</p>
+                    </div>
                 </div>
             </section>
 
             <section class="files-panel panel">
                 <h2>Files</h2>
-                <div id="fileList" class="file-list-container">
+                <div id="file-list" class="file-list-container">
                     <div class="initial-message">
                         <i class="fas fa-folder-open"></i>
                         <p>Click "List Files" to view files</p>
@@ -94,13 +122,13 @@
             </section>
 
             <section class="response-panel panel">
-                <h2>API Response <button id="clearResponseBtn" class="btn-small">Clear</button></h2>
-                <pre id="jsonResponse" class="json-response"></pre>
+                <h2>API Response <button id="clear-response-btn" class="btn-small">Clear</button></h2>
+                <pre id="json-response" class="json-response"></pre>
             </section>
 
             <section class="preview-panel panel">
                 <h2>Preview</h2>
-                <div id="previewContent" class="preview-content">
+                <div id="preview-content" class="preview-content">
                     <div class="initial-message">
                         <i class="fas fa-eye"></i>
                         <p>File preview will appear here</p>
@@ -110,7 +138,7 @@
         </div>
     </main>
 
-    <div id="loadingIndicator" class="loading-indicator">
+    <div id="loading-indicator" class="loading-indicator">
         <div class="spinner"></div>
     </div>
 

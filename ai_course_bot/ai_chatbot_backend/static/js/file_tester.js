@@ -1,697 +1,772 @@
-// Constants
-const API_BASE_URL = '/v1/local-files';
-const MOCK_AUTH_TOKEN = 'Bearer mock_test_token';
+// Constants for API URLs and common values
+const BASE_URL = "/v1/local-files";
+const AUTH_TOKEN = "Bearer your_access_token_here";
 
-// DOM Elements
-document.addEventListener('DOMContentLoaded', () => {
-    // Form elements
-    const listFilesForm = document.getElementById('listFilesForm');
-    const directoryInput = document.getElementById('directoryInput');
-    const getFileForm = document.getElementById('getFileForm');
-    const filePathInput = document.getElementById('filePathInput');
-    const getHierarchyForm = document.getElementById('getHierarchyForm');
-    const hierarchyDirectoryInput = document.getElementById('hierarchyDirectoryInput');
-    const maxDepthInput = document.getElementById('maxDepthInput');
+// Cache for folder hierarchy to avoid redundant API calls
+let hierarchyCache = null;
+let currentFiles = []; // Store current file list for reference
 
-    // Display elements
-    const fileList = document.getElementById('fileList');
-    const jsonResponse = document.getElementById('jsonResponse');
-    const previewContent = document.getElementById('previewContent');
-    const loadingIndicator = document.getElementById('loadingIndicator');
+// After DOM content is loaded, initialize the application
+document.addEventListener("DOMContentLoaded", () => {
+    // Add event listeners to various forms and inputs
+    document.getElementById("directory-form").addEventListener("submit", handleDirectorySubmit);
+    document.getElementById("file-form").addEventListener("submit", handleFileSubmit);
+    document.getElementById("categories-form").addEventListener("submit", handleCategoriesSubmit);
+    document.getElementById("folders-form").addEventListener("submit", handleFoldersSubmit);
+    document.getElementById("hierarchy-form").addEventListener("submit", handleHierarchySubmit);
+    document.getElementById("clear-response-btn").addEventListener("click", clearResponse);
+    
+    // Initialize by listing root directory files
+    listFiles("");
+});
 
-    // Event listeners
-    listFilesForm.addEventListener('submit', handleListFiles);
-    getFileForm.addEventListener('submit', handleGetFile);
-    getHierarchyForm.addEventListener('submit', handleGetHierarchy);
+// Handler for listing files in a directory
+async function handleDirectorySubmit(event) {
+    event.preventDefault();
+    const directoryPath = document.getElementById("directory-input").value.trim();
+    await listFiles(directoryPath);
+}
 
-    // Clear response button
-    const clearResponseBtn = document.getElementById('clearResponseBtn');
-    if (clearResponseBtn) {
-        clearResponseBtn.addEventListener('click', function() {
-            // Reset API response
-            showApiResponse({
-                message: 'Response cleared',
-                note: 'Use the forms above to make API requests'
-            });
+// Handler for retrieving a specific file
+async function handleFileSubmit(event) {
+    event.preventDefault();
+    const filePath = document.getElementById("file-input").value.trim();
+    
+    if (!filePath) {
+        showError("Please enter a file path");
+        return;
+    }
+    
+    await getFile(filePath);
+}
 
-            // Also reset the preview
-            resetPreview();
-            showEmptyPreview();
+// Handler for retrieving categories
+async function handleCategoriesSubmit(event) {
+    event.preventDefault();
+    await getCategories();
+}
+
+// Handler for retrieving folders
+async function handleFoldersSubmit(event) {
+    event.preventDefault();
+    await getFolders();
+}
+
+// Handler for retrieving folder hierarchy
+async function handleHierarchySubmit(event) {
+    event.preventDefault();
+    const directory = document.getElementById("hierarchy-directory-input").value.trim();
+    const maxDepth = document.getElementById("max-depth-input").value.trim();
+    await getHierarchy(directory, maxDepth);
+}
+
+// Function to list files in a directory
+async function listFiles(directoryPath = "") {
+    showLoading();
+    
+    try {
+        const queryParams = directoryPath ? `?directory=${encodeURIComponent(directoryPath)}` : "";
+        const response = await fetch(`${BASE_URL}${queryParams}`, {
+            method: "GET",
+            headers: {
+                "Authorization": AUTH_TOKEN,
+                "Accept": "application/json"
+            }
         });
-    }
-
-    // Initial state - show welcome message
-    showApiResponse({
-        message: 'Welcome to the Local File Retrieval API Tester',
-        note: 'API authentication is handled automatically in development mode'
-    });
-
-    // Show empty preview initially
-    showEmptyPreview();
-
-    /**
-     * Handle listing files from the API
-     * @param {Event} event - Form submit event
-     */
-    async function handleListFiles(event) {
-        event.preventDefault();
-
-        const directory = directoryInput.value.trim();
-
-        // Show loading state
-        toggleLoading(true);
-        resetFileList();
-
-        try {
-            // Build query parameters
-            const params = new URLSearchParams();
-            if (directory) {
-                params.append('directory', directory);
-            }
-
-            // Fetch files from API with auth header
-            const url = `${API_BASE_URL}?${params.toString()}`;
-            const response = await fetchWithAuth(url);
-
-            if (!response.ok) {
-                const errorData = await response.json().catch(() => ({ detail: 'Unknown error' }));
-                throw new Error(errorData.detail || `HTTP error ${response.status}`);
-            }
-
-            const data = await response.json();
-
-            // Display API response
-            showApiResponse(data);
-
-            // Display files in the list
-            if (data.files && data.files.length > 0) {
-                renderFileList(data.files);
-            } else {
-                showEmptyFileList();
-            }
-        } catch (error) {
-            console.error('Error fetching files:', error);
-            showApiResponse({ error: error.message });
-            showEmptyFileList('Error fetching files');
-        } finally {
-            toggleLoading(false);
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.detail || "Failed to list files");
         }
+        
+        // Log the data to console for debugging
+        console.log("Files API Response:", data);
+        
+        // Update UI with the file list
+        renderFileList(data, directoryPath);
+        displayJsonResponse(data);
+        
+    } catch (error) {
+        showError(`Error listing files: ${error.message}`);
+    } finally {
+        hideLoading();
     }
+}
 
-    /**
-     * Handle getting a specific file from the API
-     * @param {Event} event - Form submit event
-     */
-    async function handleGetFile(event) {
-        event.preventDefault();
-
-        const filePath = filePathInput.value.trim();
-        if (!filePath) {
-            showApiResponse({ error: 'File path is required' });
-            return;
+// Function to get file content by path
+async function getFile(filePath) {
+    showLoading();
+    
+    try {
+        // Handle potential empty or invalid paths
+        if (!filePath || filePath.trim() === '') {
+            throw new Error("No file path provided");
         }
-
-        // Show loading state
-        toggleLoading(true);
-
-        try {
-            // Encode the file path properly
-            const encodedPath = encodeURIComponent(filePath);
-            const fileUrl = `${API_BASE_URL}/${encodedPath}`;
-
-            // Skip HEAD request and go directly to displaying the file
-            // Determine content type based on file extension
-            const contentType = guessContentType(filePath);
-
-            // Display preview based on content type
-            previewFile(fileUrl, contentType, filePath);
-
-            // Show success response
-            showApiResponse({
-                message: 'File retrieval initiated',
-                file_path: filePath,
-                content_type: contentType,
-                url: fileUrl
-            });
-        } catch (error) {
-            console.error('Error fetching file:', error);
-            showApiResponse({ error: error.message });
-            showEmptyPreview('Error fetching file');
-        } finally {
-            toggleLoading(false);
+        
+        console.log("Fetching file:", filePath);
+        
+        // Properly encode the file path - remove any leading slashes to match backend expectations
+        let cleanPath = filePath;
+        while (cleanPath.startsWith('/')) {
+            cleanPath = cleanPath.substring(1);
         }
-    }
-
-    /**
-     * Handle getting file hierarchy from the API
-     * @param {Event} event - Form submit event
-     */
-    async function handleGetHierarchy(event) {
-        event.preventDefault();
-
-        const directory = hierarchyDirectoryInput.value.trim();
-        const maxDepth = maxDepthInput.value.trim();
-
-        // Show loading state
-        toggleLoading(true);
-        resetPreview();
-
-        try {
-            // Build query parameters
-            const params = new URLSearchParams();
-            if (directory) {
-                params.append('directory', directory);
+        
+        const encodedPath = encodeURIComponent(cleanPath);
+        const url = `${BASE_URL}/${encodedPath}`;
+        
+        console.log("Request URL:", url);
+        
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Authorization": AUTH_TOKEN
+                // No Accept header to allow any content type
             }
-            if (maxDepth !== '' && maxDepth !== '-1') {
-                params.append('max_depth', maxDepth);
+        });
+        
+        console.log("Response status:", response.status);
+        
+        if (!response.ok) {
+            let errorMessage = "Failed to retrieve file";
+            
+            try {
+                // Try to get error details as JSON
+                const errorData = await response.json();
+                errorMessage = errorData.detail || errorMessage;
+            } catch (e) {
+                // If not JSON, try to get as text
+                try {
+                    const errorText = await response.text();
+                    if (errorText) errorMessage = errorText;
+                } catch (textError) {
+                    // If that fails too, use status text
+                    errorMessage = `Error ${response.status}: ${response.statusText}`;
+                }
             }
-
-            const url = `${API_BASE_URL}/hierarchy?${params.toString()}`;
-
-            // Fetch hierarchy from API with auth header
-            const response = await fetchWithAuth(url);
-
-            if (!response.ok) {
-                const errorData = await response.json().catch(() => ({ detail: 'Unknown error' }));
-                throw new Error(errorData.detail || `HTTP error ${response.status}`);
-            }
-
-            const data = await response.json();
-
-            // Display API response
-            showApiResponse(data);
-
-            // Display hierarchy visualization
-            if (data.root) {
-                renderHierarchy(data.root);
-            } else {
-                showEmptyPreview('Invalid hierarchy data: no root node');
-            }
-        } catch (error) {
-            console.error('Error fetching hierarchy:', error);
-            showApiResponse({ error: error.message });
-            showEmptyPreview('Error fetching hierarchy');
-        } finally {
-            toggleLoading(false);
+            
+            throw new Error(errorMessage);
         }
-    }
-
-    /**
-     * Guess content type based on file extension
-     * @param {string} filePath - Path to the file
-     * @returns {string} - MIME type
-     */
-    function guessContentType(filePath) {
-        const extension = filePath.split('.').pop().toLowerCase();
-        const mimeTypes = {
-            'pdf': 'application/pdf',
-            'txt': 'text/plain',
-            'html': 'text/html',
-            'htm': 'text/html',
-            'css': 'text/css',
-            'js': 'text/javascript',
-            'json': 'application/json',
-            'xml': 'application/xml',
-            'png': 'image/png',
-            'jpg': 'image/jpeg',
-            'jpeg': 'image/jpeg',
-            'gif': 'image/gif',
-            'svg': 'image/svg+xml',
-            'mp4': 'video/mp4',
-            'webm': 'video/webm',
-            'mp3': 'audio/mpeg',
-            'wav': 'audio/wav',
-            'py': 'text/x-python',
-            'md': 'text/markdown',
-            'java': 'text/x-java',
-            'c': 'text/x-c',
-            'cpp': 'text/x-c++',
-            'h': 'text/x-c',
-            'cs': 'text/x-csharp'
+        
+        // Get content type and other headers
+        const contentType = response.headers.get("Content-Type") || "";
+        console.log("File response content type:", contentType);
+        
+        // Create a file data object to render
+        let fileData = {
+            name: filePath.split('/').pop(),
+            path: filePath,
+            type: contentType,
+            size: parseInt(response.headers.get("Content-Length") || "0")
         };
-
-        return mimeTypes[extension] || 'application/octet-stream';
-    }
-
-    /**
-     * Fetch with authentication headers
-     * @param {string} url - URL to fetch
-     * @param {object} options - Fetch options
-     * @returns {Promise<Response>} - Fetch response
-     */
-    async function fetchWithAuth(url, options = {}) {
-        // Add headers if not present
-        options.headers = options.headers || {};
-
-        // Add authorization header
-        options.headers['Authorization'] = MOCK_AUTH_TOKEN;
-
-        // Perform fetch with auth
-        return fetch(url, options);
-    }
-
-    /**
-     * Render the list of files
-     * @param {Array} files - Array of file objects from the API
-     */
-    function renderFileList(files) {
-        resetFileList();
-
-        files.forEach(file => {
-            const fileItem = document.createElement('div');
-            fileItem.className = 'file-item';
-
-            // Determine file icon based on MIME type
-            const iconClass = getFileIconClass(file.mime_type);
-
-            fileItem.innerHTML = `
-                <div class="file-icon">
-                    <i class="${iconClass}"></i>
-                </div>
-                <div class="file-details">
-                    <div class="file-name">
-                        ${file.file_name}
-                        <span class="file-type ${getFileTypeClass(file.mime_type)}">
-                            ${getFileTypeLabel(file.mime_type)}
-                        </span>
-                    </div>
-                    <div class="file-meta">
-                        ${formatFileSize(file.size_bytes)} | ${new Date(file.modified_time).toLocaleString()}
-                    </div>
-                </div>
-            `;
-
-            // Add click handler to fetch the file
-            fileItem.addEventListener('click', () => {
-                // Update the file path input with this file's path
-                filePathInput.value = file.file_path;
-
-                // Remove selected class from all items
-                document.querySelectorAll('.file-item').forEach(item => {
-                    item.classList.remove('selected');
-                });
-
-                // Add selected class to this item
-                fileItem.classList.add('selected');
-
-                // Automatically fetch and preview the file
-                getFileForm.dispatchEvent(new Event('submit'));
+        
+        if (contentType.includes("application/json")) {
+            // Handle JSON response
+            const jsonData = await response.json();
+            console.log("JSON file data:", jsonData);
+            displayJsonResponse(jsonData);
+            
+            // If the JSON contains file content, use that for preview
+            if (jsonData.content) {
+                fileData = { ...fileData, ...jsonData };
+            } else if (jsonData.data && jsonData.data.content) {
+                fileData = { ...fileData, ...jsonData.data };
+            }
+        } else if (contentType.includes("text/")) {
+            // Handle text response
+            const textContent = await response.text();
+            console.log("Text file length:", textContent.length);
+            displayJsonResponse({ 
+                message: "Text file loaded successfully", 
+                size: textContent.length,
+                type: contentType
             });
-
-            fileList.appendChild(fileItem);
-        });
-    }
-
-    /**
-     * Show API response in the JSON display area
-     * @param {Object} data - Response data to display
-     */
-    function showApiResponse(data) {
-        console.log('Showing API response:', data);
-        jsonResponse.innerHTML = JSON.stringify(data, null, 2);
-    }
-
-    /**
-     * Preview a file based on its content type
-     * @param {string} fileUrl - URL to the file
-     * @param {string} contentType - MIME type of the file
-     * @param {string} fileName - Name of the file
-     */
-    function previewFile(fileUrl, contentType, fileName) {
-        resetPreview();
-
-        if (!contentType) {
-            showEmptyPreview('Unknown file type');
-            return;
+            
+            // Store text content for preview
+            fileData.content = btoa(unescape(encodeURIComponent(textContent))); // Handle UTF-8 characters properly
+        } else {
+            // Handle binary response (images, PDFs, etc.)
+            const blob = await response.blob();
+            console.log("Binary file size:", blob.size);
+            
+            // Convert blob to base64 for preview
+            try {
+                fileData.content = await blobToBase64(blob);
+                fileData.size = blob.size;
+                
+                displayJsonResponse({ 
+                    message: "Binary file loaded successfully", 
+                    size: blob.size,
+                    type: contentType
+                });
+            } catch (error) {
+                console.error("Error converting blob to base64:", error);
+                throw new Error("Failed to process binary file: " + error.message);
+            }
         }
+        
+        console.log("File data prepared for preview:", fileData);
+        
+        // Update UI with file data
+        renderFilePreview(fileData);
+        
+    } catch (error) {
+        console.error("File retrieval error:", error);
+        showError(`Error retrieving file: ${error.message}`);
+        
+        // Show error in preview panel too
+        const previewElement = document.getElementById("preview-content");
+        previewElement.innerHTML = `
+            <div class="error-message">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Error retrieving file: ${error.message}</p>
+            </div>
+        `;
+    } finally {
+        hideLoading();
+    }
+}
 
-        // Add auth token to file URLs for preview elements that make separate requests
-        const fileUrlWithToken = fileUrl + (fileUrl.includes('?') ? '&' : '?') + 'auth_token=' + encodeURIComponent(MOCK_AUTH_TOKEN.replace('Bearer ', ''));
+// Helper function to convert Blob to base64
+function blobToBase64(blob) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+            const base64Result = reader.result;
+            // Get just the base64 part without the data URL prefix
+            if (base64Result.includes(',')) {
+                resolve(base64Result.split(',')[1]);
+            } else {
+                resolve(base64Result);
+            }
+        };
+        reader.onerror = (error) => reject(error);
+        reader.readAsDataURL(blob);
+    });
+}
 
-        if (contentType.startsWith('image/')) {
-            // Image preview
-            previewContent.innerHTML = `
-                <div class="preview-image">
-                    <img src="${fileUrlWithToken}" alt="${fileName}" onerror="this.onerror=null; this.src=''; this.alt='Error loading image'; this.style.padding='20px'; this.style.color='red';">
-                </div>
-            `;
-        } else if (contentType.startsWith('video/')) {
-            // Video preview
-            previewContent.innerHTML = `
-                <div class="preview-video">
-                    <video controls>
-                        <source src="${fileUrlWithToken}" type="${contentType}">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-            `;
-        } else if (contentType.startsWith('audio/')) {
-            // Audio preview
-            previewContent.innerHTML = `
-                <div class="preview-audio">
-                    <audio controls>
-                        <source src="${fileUrlWithToken}" type="${contentType}">
-                        Your browser does not support the audio tag.
-                    </audio>
-                </div>
-            `;
-        } else if (contentType === 'application/pdf') {
-            // PDF preview
-            previewContent.innerHTML = `
-                <div class="preview-pdf">
-                    <iframe src="${fileUrlWithToken}" title="${fileName}"></iframe>
-                </div>
-            `;
-        } else if (
-            contentType.includes('text/') ||
-            contentType.includes('application/json') ||
-            contentType.includes('application/xml') ||
-            /\.(js|py|java|c|cpp|h|html|css|md|txt|json|xml)$/.test(fileName)
-        ) {
-            // Text preview - fetch and display with auth header
-            fetchWithAuth(fileUrl)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error ${response.status}`);
-                    }
-                    return response.text();
-                })
-                .then(text => {
-                    previewContent.innerHTML = `
-                        <div class="preview-text">
-                            <pre>${escapeHtml(text)}</pre>
+// Function to get categories
+async function getCategories() {
+    showLoading();
+    
+    try {
+        const response = await fetch(`${BASE_URL}/categories`, {
+            method: "GET",
+            headers: {
+                "Authorization": AUTH_TOKEN,
+                "Accept": "application/json"
+            }
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.detail || "Failed to retrieve categories");
+        }
+        
+        // Update UI with categories data
+        displayJsonResponse(data);
+        
+        // Optional: Display categories in a structured way
+        renderCategories(data.categories);
+        
+    } catch (error) {
+        showError(`Error retrieving categories: ${error.message}`);
+    } finally {
+        hideLoading();
+    }
+}
+
+// Function to get folders
+async function getFolders() {
+    showLoading();
+    
+    try {
+        const response = await fetch(`${BASE_URL}/folders`, {
+            method: "GET",
+            headers: {
+                "Authorization": AUTH_TOKEN,
+                "Accept": "application/json"
+            }
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.detail || "Failed to retrieve folders");
+        }
+        
+        // Update UI with folders data
+        displayJsonResponse(data);
+        
+        // Optional: Display folders in a structured way
+        renderFolders(data.folders);
+        
+    } catch (error) {
+        showError(`Error retrieving folders: ${error.message}`);
+    } finally {
+        hideLoading();
+    }
+}
+
+// Function to get folder hierarchy
+async function getHierarchy(directory = '', maxDepth = -1) {
+    showLoading();
+    
+    try {
+        const url = `${BASE_URL}/hierarchy?directory=${encodeURIComponent(directory)}&max_depth=${maxDepth}`;
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Authorization": AUTH_TOKEN,
+                "Accept": "application/json"
+            }
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.detail || "Failed to retrieve hierarchy");
+        }
+        
+        // Cache the result for future use
+        hierarchyCache = data;
+        displayJsonResponse(data);
+
+        return data;
+        
+    } catch (error) {
+        console.error(`Error retrieving hierarchy: ${error.message}`);
+        showError(`Error retrieving hierarchy: ${error.message}`);
+        return null;
+    } finally {
+        hideLoading();
+    }
+}
+
+// Function to render file list in UI
+function renderFileList(data, directory) {
+    const fileListElement = document.getElementById("file-list");
+    fileListElement.innerHTML = "";
+    
+    // Extract files array from data based on response structure
+    let files = [];
+    
+    if (data.files && Array.isArray(data.files)) {
+        files = data.files;
+    } else if (data.data && Array.isArray(data.data)) {
+        files = data.data;
+    } else if (Array.isArray(data)) {
+        files = data;
+    }
+    
+    // Store current files for reference
+    currentFiles = files;
+    
+    if (!files || files.length === 0) {
+        fileListElement.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-folder-open"></i>
+                <p>No files found in ${directory || 'root directory'}</p>
+            </div>
+        `;
+        return;
+    }
+    
+    // Create list header
+    const listHeader = document.createElement('div');
+    listHeader.className = 'list-header';
+    listHeader.innerHTML = `
+        <span class="directory-path">Directory: ${directory || 'root'}</span>
+        <span class="file-count">${files.length} files</span>
+    `;
+    fileListElement.appendChild(listHeader);
+    
+    // Create file items
+    const listContainer = document.createElement('div');
+    listContainer.className = 'file-items';
+    
+    files.forEach(file => {
+        // Log each file object to see its structure
+        console.log("File item:", file);
+        
+        // Get file properties, adapting to potential different API formats
+        const fileName = file.name || file.filename || file.file_name || "Unknown";
+        const isDirectory = file.is_dir || file.is_directory || file.isDirectory || false;
+        const fileSize = file.size || file.size_bytes || file.file_size || file.filesize || 0;
+        
+        // Get file path, preferring a provided path, falling back to constructing one
+        let filePath = file.path || file.file_path || file.filepath;
+        if (!filePath) {
+            // Construct path from directory and filename
+            filePath = directory ? `${directory}/${fileName}` : fileName;
+        }
+        
+        const fileItem = document.createElement('div');
+        fileItem.className = `file-item ${isDirectory ? 'directory' : 'file'}`;
+        
+        // Safely get the icon
+        let iconClass = isDirectory ? 'fa-folder' : 'fa-file';
+        if (!isDirectory && fileName) {
+            iconClass = getFileIcon(fileName);
+        }
+        
+        fileItem.innerHTML = `
+            <i class="fas ${iconClass}"></i>
+            <div class="file-details">
+                <span class="file-name">${fileName}</span>
+                <span class="file-info">${isDirectory ? 'Directory' : formatFileSize(fileSize)}</span>
+            </div>
+        `;
+        
+        // Add click event for files and directories
+        fileItem.addEventListener('click', () => {
+            if (isDirectory) {
+                // Navigate to directory
+                const newPath = directory ? `${directory}/${fileName}` : fileName;
+                document.getElementById("directory-input").value = newPath;
+                listFiles(newPath);
+            } else {
+                try {
+                    console.log("Selected file for preview:", filePath);
+                    
+                    // Set the path in the input field
+                    document.getElementById("file-input").value = filePath;
+                    
+                    // Show immediate feedback in the preview panel
+                    const previewElement = document.getElementById("preview-content");
+                    previewElement.innerHTML = `
+                        <div class="loading-state">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading file preview...</p>
                         </div>
                     `;
-                })
-                .catch(error => {
-                    showEmptyPreview(`Error loading text: ${error.message}`);
-                });
-        } else {
-            // Default preview - download link
-            previewContent.innerHTML = `
-                <div class="preview-unavailable">
-                    <i class="fas fa-file-download"></i>
-                    <p>Preview not available for this file type</p>
-                    <a href="${fileUrlWithToken}" target="_blank" class="preview-download-btn">
-                        <i class="fas fa-download"></i> Download File
-                    </a>
+                    
+                    // Fetch and preview the file with the full path
+                    getFile(filePath);
+                } catch (error) {
+                    console.error("Error in file click handler:", error);
+                    showError(`Error handling file: ${error.message}`);
+                }
+            }
+        });
+        
+        listContainer.appendChild(fileItem);
+    });
+    
+    fileListElement.appendChild(listContainer);
+}
+
+// Function to render categories
+function renderCategories(categories) {
+    const fileListElement = document.getElementById("file-list");
+    fileListElement.innerHTML = "";
+    
+    if (!categories || categories.length === 0) {
+        fileListElement.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-tags"></i>
+                <p>No categories found</p>
+            </div>
+        `;
+        return;
+    }
+    
+    // Create list header
+    const listHeader = document.createElement('div');
+    listHeader.className = 'list-header';
+    listHeader.innerHTML = `
+        <span class="category-title">Categories</span>
+        <span class="category-count">${categories.length} categories</span>
+    `;
+    fileListElement.appendChild(listHeader);
+    
+    // Create category items
+    const listContainer = document.createElement('div');
+    listContainer.className = 'file-items';
+    
+    categories.forEach(category => {
+        const categoryItem = document.createElement('div');
+        categoryItem.className = 'file-item category';
+        
+        categoryItem.innerHTML = `
+            <i class="fas fa-tag"></i>
+            <div class="file-details">
+                <span class="file-name">${category.name || 'Unknown'}</span>
+                <span class="file-info">${category.file_count || 0} files</span>
+            </div>
+        `;
+        
+        listContainer.appendChild(categoryItem);
+    });
+    
+    fileListElement.appendChild(listContainer);
+}
+
+// Function to render folders
+function renderFolders(folders) {
+    const fileListElement = document.getElementById("file-list");
+    fileListElement.innerHTML = "";
+    
+    if (!folders || folders.length === 0) {
+        fileListElement.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-folder"></i>
+                <p>No folders found</p>
+            </div>
+        `;
+        return;
+    }
+    
+    // Create list header
+    const listHeader = document.createElement('div');
+    listHeader.className = 'list-header';
+    listHeader.innerHTML = `
+        <span class="folder-title">Folders</span>
+        <span class="folder-count">${folders.length} folders</span>
+    `;
+    fileListElement.appendChild(listHeader);
+    
+    // Create folder items
+    const listContainer = document.createElement('div');
+    listContainer.className = 'file-items';
+    
+    folders.forEach(folder => {
+        const folderItem = document.createElement('div');
+        folderItem.className = 'file-item folder';
+        
+        folderItem.innerHTML = `
+            <i class="fas fa-folder"></i>
+            <div class="file-details">
+                <span class="file-name">${folder.name || 'Unknown'}</span>
+                <span class="file-info">${folder.file_count || 0} files</span>
+            </div>
+        `;
+        
+        // Add click event for folders
+        folderItem.addEventListener('click', () => {
+            document.getElementById("directory-input").value = folder.path;
+            listFiles(folder.path);
+        });
+        
+        listContainer.appendChild(folderItem);
+    });
+    
+    fileListElement.appendChild(listContainer);
+}
+
+// Function to render file preview
+function renderFilePreview(fileData) {
+    const previewElement = document.getElementById("preview-content");
+    
+    // Reset preview area
+    previewElement.innerHTML = "";
+    
+    if (!fileData) {
+        previewElement.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-file"></i>
+                <p>No preview available</p>
+            </div>
+        `;
+        return;
+    }
+    
+    console.log("Rendering preview for:", fileData);
+    
+    // File information header
+    const fileInfoElement = document.createElement("div");
+    fileInfoElement.className = "file-info-header";
+    fileInfoElement.innerHTML = `
+        <div><strong>Name:</strong> ${fileData.name || "Unknown"}</div>
+        <div><strong>Type:</strong> ${fileData.type || "Unknown"}</div>
+        <div><strong>Size:</strong> ${formatFileSize(fileData.size || 0)}</div>
+    `;
+    
+    previewElement.appendChild(fileInfoElement);
+    
+    // Preview content based on file type
+    const contentElement = document.createElement("div");
+    contentElement.className = "preview-content-area";
+    
+    // Handle missing content
+    if (!fileData.content) {
+        contentElement.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-file-alt"></i>
+                <p>Content not available for preview</p>
+                <p class="details">The file appears to be empty or its content cannot be displayed.</p>
+            </div>
+        `;
+    } 
+    // Handle image files
+    else if (fileData.type && fileData.type.includes("image/")) {
+        try {
+            contentElement.innerHTML = `
+                <div class="image-preview">
+                    <img src="data:${fileData.type};base64,${fileData.content}" alt="${fileData.name || 'Image'}" />
+                </div>
+            `;
+        } catch (e) {
+            contentElement.innerHTML = `
+                <div class="error-message">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Error loading image: ${e.message}</p>
+                </div>
+            `;
+        }
+    } 
+    // Handle PDF files
+    else if (fileData.type && fileData.type.includes("application/pdf")) {
+        const pdfContainer = document.createElement("div");
+        pdfContainer.className = "pdf-preview";
+        pdfContainer.innerHTML = `
+            <i class="fas fa-file-pdf"></i>
+            <p>PDF preview available</p>
+            <a href="data:application/pdf;base64,${fileData.content}" download="${fileData.name || 'document.pdf'}" class="btn btn-primary">Download PDF</a>
+        `;
+        contentElement.appendChild(pdfContainer);
+    } 
+    // Handle text and other files
+    else {
+        try {
+            // Attempt to decode base64 content
+            let decodedContent = '';
+            
+            try {
+                decodedContent = atob(fileData.content);
+            } catch (e) {
+                console.warn("Failed to decode as base64, using content directly:", e);
+                // If not base64, try using the content directly
+                decodedContent = fileData.content;
+            }
+            
+            // Create formatted text area
+            const codeElement = document.createElement("pre");
+            codeElement.className = "code-preview";
+            codeElement.textContent = decodedContent;
+            contentElement.appendChild(codeElement);
+        } catch (error) {
+            console.error("Preview rendering error:", error);
+            contentElement.innerHTML = `
+                <div class="error-message">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Unable to preview this file type: ${error.message}</p>
                 </div>
             `;
         }
     }
+    
+    previewElement.appendChild(contentElement);
+}
 
-    // Helper Functions
+// Function to display JSON response
+function displayJsonResponse(data) {
+    const responseElement = document.getElementById("json-response");
+    // Pretty print the JSON with syntax highlighting
+    responseElement.innerHTML = syntaxHighlight(JSON.stringify(data, null, 2));
+}
 
-    /**
-     * Toggle the loading indicator
-     * @param {boolean} isLoading - Whether to show or hide the loading indicator
-     */
-    function toggleLoading(isLoading) {
-        loadingIndicator.style.display = isLoading ? 'flex' : 'none';
-    }
+// Function to clear the JSON response
+function clearResponse() {
+    const responseElement = document.getElementById("json-response");
+    responseElement.innerHTML = '';
+}
 
-    /**
-     * Reset the file list to empty state
-     */
-    function resetFileList() {
-        fileList.innerHTML = '';
-    }
-
-    /**
-     * Show empty state for file list
-     * @param {string} message - Optional message to display
-     */
-    function showEmptyFileList(message = 'No files found') {
-        fileList.innerHTML = `
-            <div class="initial-message">
-                <i class="fas fa-folder-open"></i>
-                <p>${message}</p>
-            </div>
-        `;
-    }
-
-    /**
-     * Reset the preview content
-     */
-    function resetPreview() {
-        previewContent.innerHTML = '';
-    }
-
-    /**
-     * Show empty state for preview
-     * @param {string} message - Optional message to display
-     */
-    function showEmptyPreview(message = 'Select a file to preview') {
-        previewContent.innerHTML = `
-            <div class="initial-message">
-                <i class="fas fa-eye"></i>
-                <p>${message}</p>
-            </div>
-        `;
-    }
-
-    /**
-     * Format file size in human-readable format
-     * @param {number} bytes - File size in bytes
-     * @returns {string} Formatted file size
-     */
-    function formatFileSize(bytes) {
-        return window.formatFileSize(bytes);
-    }
-
-    // Make formatFileSize globally accessible
-    window.formatFileSize = function(bytes) {
-        if (bytes === 0) return '0 Bytes';
-
-        const k = 1024;
-        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-    };
-
-    /**
-     * Get Font Awesome icon class based on file MIME type
-     * @param {string} mimeType - MIME type of the file
-     * @returns {string} Font Awesome icon class
-     */
-    function getFileIconClass(mimeType) {
-        return window.getFileIconClass(mimeType);
-    }
-
-    // Make getFileIconClass globally accessible
-    window.getFileIconClass = function(mimeType) {
-        if (!mimeType) return 'fas fa-file';
-
-        if (mimeType.startsWith('image/')) return 'fas fa-file-image';
-        if (mimeType.startsWith('video/')) return 'fas fa-file-video';
-        if (mimeType.startsWith('audio/')) return 'fas fa-file-audio';
-        if (mimeType === 'application/pdf') return 'fas fa-file-pdf';
-        if (mimeType.includes('text/html')) return 'fas fa-file-code';
-        if (mimeType.includes('text/css')) return 'fas fa-file-code';
-        if (mimeType.includes('text/javascript')) return 'fas fa-file-code';
-        if (mimeType.includes('application/json')) return 'fas fa-file-code';
-        if (mimeType.includes('text/')) return 'fas fa-file-alt';
-        if (mimeType.includes('application/zip')) return 'fas fa-file-archive';
-        if (mimeType.includes('application/x-compressed')) return 'fas fa-file-archive';
-        if (mimeType.includes('application/msword')) return 'fas fa-file-word';
-        if (mimeType.includes('application/vnd.ms-excel')) return 'fas fa-file-excel';
-        if (mimeType.includes('application/vnd.ms-powerpoint')) return 'fas fa-file-powerpoint';
-
-        return 'fas fa-file';
-    };
-
-    /**
-     * Get file type label based on MIME type
-     * @param {string} mimeType - MIME type of the file
-     * @returns {string} Human-readable file type
-     */
-    function getFileTypeLabel(mimeType) {
-        if (!mimeType) return 'Unknown';
-
-        if (mimeType.startsWith('image/')) return 'Image';
-        if (mimeType.startsWith('video/')) return 'Video';
-        if (mimeType.startsWith('audio/')) return 'Audio';
-        if (mimeType === 'application/pdf') return 'PDF';
-        if (mimeType.includes('text/html')) return 'HTML';
-        if (mimeType.includes('text/css')) return 'CSS';
-        if (mimeType.includes('text/javascript')) return 'JavaScript';
-        if (mimeType.includes('application/json')) return 'JSON';
-        if (mimeType.includes('text/')) return 'Text';
-        if (mimeType.includes('application/zip')) return 'Archive';
-        if (mimeType.includes('application/x-compressed')) return 'Archive';
-        if (mimeType.includes('application/msword')) return 'Word';
-        if (mimeType.includes('application/vnd.ms-excel')) return 'Excel';
-        if (mimeType.includes('application/vnd.ms-powerpoint')) return 'PowerPoint';
-
-        return 'Document';
-    }
-
-    /**
-     * Get CSS class for file type badge
-     * @param {string} mimeType - MIME type of the file
-     * @returns {string} CSS class for the file type
-     */
-    function getFileTypeClass(mimeType) {
-        if (!mimeType) return 'file-type-other';
-
-        if (mimeType.startsWith('image/')) return 'file-type-image';
-        if (mimeType.startsWith('video/')) return 'file-type-video';
-        if (mimeType.startsWith('audio/')) return 'file-type-audio';
-        if (mimeType.includes('text/') ||
-            mimeType === 'application/pdf' ||
-            mimeType.includes('application/msword')) return 'file-type-document';
-
-        return 'file-type-other';
-    }
-
-    /**
-     * Render file hierarchy as a tree view
-     * @param {Object} root - Root node of the hierarchy
-     */
-    function renderHierarchy(root) {
-        console.log('renderHierarchy called with root:', root);
-
-        // Clear the preview area first
-        resetPreview();
-
-        if (!root) {
-            console.error('No root node provided to renderHierarchy');
-            showEmptyPreview('No hierarchy data available');
-            return;
+// Function for JSON syntax highlighting
+function syntaxHighlight(json) {
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, match => {
+        let cls = 'json-number';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'json-key';
+            } else {
+                cls = 'json-string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'json-boolean';
+        } else if (/null/.test(match)) {
+            cls = 'json-null';
         }
+        return `<span class="${cls}">${match}</span>`;
+    });
+}
 
-        // Create tree view container
-        const treeContainer = document.createElement('div');
-        treeContainer.className = 'hierarchy-tree';
-        console.log('Created tree container');
-
-        try {
-            // Build tree recursively using the global function
-            console.log('Building tree node for root:', root.name);
-            const rootNode = window.buildTreeNode(root);
-            treeContainer.appendChild(rootNode);
-
-            // Display in preview
-            previewContent.appendChild(treeContainer);
-            console.log('Tree rendered successfully');
-
-            // Add a message at the bottom
-            const infoMessage = document.createElement('div');
-            infoMessage.className = 'hierarchy-info';
-            infoMessage.innerHTML = `
-                <p>Click on directories to expand/collapse them. Click on files to preview them.</p>
-            `;
-            previewContent.appendChild(infoMessage);
-        } catch (error) {
-            console.error('Error rendering hierarchy tree:', error);
-            showEmptyPreview(`Error rendering hierarchy: ${error.message}`);
-        }
+// Function to determine file icon based on file extension
+function getFileIcon(fileName) {
+    if (!fileName) return 'fa-file';
+    
+    try {
+        const extension = fileName.split('.').pop().toLowerCase();
+        
+        const iconMap = {
+            // Documents
+            'pdf': 'fa-file-pdf',
+            'doc': 'fa-file-word', 'docx': 'fa-file-word',
+            'xls': 'fa-file-excel', 'xlsx': 'fa-file-excel',
+            'ppt': 'fa-file-powerpoint', 'pptx': 'fa-file-powerpoint',
+            
+            // Images
+            'jpg': 'fa-file-image', 'jpeg': 'fa-file-image',
+            'png': 'fa-file-image', 'gif': 'fa-file-image',
+            'svg': 'fa-file-image', 'bmp': 'fa-file-image',
+            
+            // Code
+            'html': 'fa-file-code', 'css': 'fa-file-code',
+            'js': 'fa-file-code', 'json': 'fa-file-code',
+            'py': 'fa-file-code', 'java': 'fa-file-code',
+            'c': 'fa-file-code', 'cpp': 'fa-file-code',
+            'php': 'fa-file-code',
+            
+            // Archives
+            'zip': 'fa-file-archive', 'rar': 'fa-file-archive',
+            '7z': 'fa-file-archive', 'tar': 'fa-file-archive',
+            'gz': 'fa-file-archive',
+            
+            // Text
+            'txt': 'fa-file-alt', 'md': 'fa-file-alt',
+            'rtf': 'fa-file-alt',
+            
+            // Audio/Video
+            'mp3': 'fa-file-audio', 'wav': 'fa-file-audio',
+            'ogg': 'fa-file-audio',
+            'mp4': 'fa-file-video', 'avi': 'fa-file-video',
+            'mov': 'fa-file-video', 'wmv': 'fa-file-video'
+        };
+        
+        return iconMap[extension] || 'fa-file';
+    } catch (error) {
+        // If any error occurs while getting the icon, return default file icon
+        console.error("Error determining file icon:", error);
+        return 'fa-file';
     }
+}
 
-    /**
-     * Build a tree node for the hierarchy visualization
-     * @param {Object} node - Node data
-     * @returns {HTMLElement} - Tree node element
-     */
-    function buildTreeNode(node) {
-        return window.buildTreeNode(node);
-    }
+// Function to format file size into human-readable format
+function formatFileSize(bytes) {
+    if (!bytes && bytes !== 0) return 'Unknown';
+    if (bytes === 0) return '0 Bytes';
+    
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
 
-    // Make buildTreeNode globally accessible
-    window.buildTreeNode = function(node) {
-        console.log('Building tree node for:', node.name, 'type:', node.type);
+// Show error message
+function showError(message) {
+    const responseElement = document.getElementById("json-response");
+    responseElement.innerHTML = `<div class="error-message">${message}</div>`;
+}
 
-        const nodeElement = document.createElement('div');
-        nodeElement.className = `tree-node ${node.type}`;
+// Show loading indicator
+function showLoading() {
+    document.getElementById("loading-indicator").style.display = "flex";
+}
 
-        // Create node content
-        const nodeContent = document.createElement('div');
-        nodeContent.className = 'node-content';
-
-        // Add icon based on type
-        const iconClass = node.type === 'directory' ? 'fas fa-folder' : getFileIconClass(node.mime_type);
-        const icon = document.createElement('i');
-        icon.className = iconClass;
-        nodeContent.appendChild(icon);
-
-        // Add name
-        const nameSpan = document.createElement('span');
-        nameSpan.className = 'node-name';
-        nameSpan.textContent = node.name;
-        nodeContent.appendChild(nameSpan);
-
-        // Add metadata for files
-        if (node.type === 'file' && node.size_bytes) {
-            const metaSpan = document.createElement('span');
-            metaSpan.className = 'node-meta';
-            metaSpan.textContent = formatFileSize(node.size_bytes);
-            nodeContent.appendChild(metaSpan);
-        }
-
-        nodeElement.appendChild(nodeContent);
-
-        // Add click handler for files
-        if (node.type === 'file') {
-            nodeContent.addEventListener('click', function() {
-                // Update the file path input with this file's path
-                if (window.filePathInput) {
-                    window.filePathInput.value = node.path;
-
-                    // Automatically fetch and preview the file
-                    if (window.getFileForm) {
-                        window.getFileForm.dispatchEvent(new Event('submit'));
-                    }
-                }
-            });
-        }
-
-        // Process children for directories
-        if (node.type === 'directory' && node.children && node.children.length > 0) {
-            console.log(`Processing ${node.children.length} children for directory:`, node.name);
-
-            // Add toggle functionality
-            nodeContent.classList.add('expandable');
-            nodeContent.addEventListener('click', function() {
-                nodeElement.classList.toggle('expanded');
-            });
-
-            // Create children container
-            const childrenContainer = document.createElement('div');
-            childrenContainer.className = 'node-children';
-
-            // Add children
-            node.children.forEach(function(childNode) {
-                try {
-                    const childElement = window.buildTreeNode(childNode);
-                    childrenContainer.appendChild(childElement);
-                } catch (error) {
-                    console.error(`Error building child node for ${childNode.name}:`, error);
-                }
-            });
-
-            nodeElement.appendChild(childrenContainer);
-
-            // Expand by default
-            nodeElement.classList.add('expanded');
-        } else if (node.type === 'directory') {
-            console.log('Directory has no children:', node.name);
-        }
-
-        return nodeElement;
-    };
-
-    /**
-     * Escape HTML to prevent XSS
-     * @param {string} html - HTML string to escape
-     * @returns {string} Escaped HTML string
-     */
-    function escapeHtml(html) {
-        return html
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#039;');
-    }
-});
+// Hide loading indicator
+function hideLoading() {
+    document.getElementById("loading-indicator").style.display = "none";
+}

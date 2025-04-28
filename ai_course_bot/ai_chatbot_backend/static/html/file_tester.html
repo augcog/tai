@@ -41,12 +41,30 @@
                 </form>
             </div>
             
+            <!-- Categories Controls -->
+            <div class="control-group">
+                <h3>Get Categories</h3>
+                <form id="categories-form" class="form-group">
+                    <button type="submit" class="btn btn-primary">Get Categories</button>
+                </form>
+            </div>
+            
+            <!-- Folders Controls -->
+            <div class="control-group">
+                <h3>Get Folders</h3>
+                <form id="folders-form" class="form-group">
+                    <button type="submit" class="btn btn-primary">Get Folders</button>
+                </form>
+            </div>
+            
             <!-- API documentation -->
             <div class="api-docs">
                 <h3>API Endpoints</h3>
                 <ul>
                     <li><code>GET /v1/local-files</code> - List files in a directory</li>
                     <li><code>GET /v1/local-files/{file_path}</code> - Get file by path</li>
+                    <li><code>GET /v1/local-files/categories</code> - List available file categories</li>
+                    <li><code>GET /v1/local-files/folders</code> - List available file folders</li>
                 </ul>
             </div>
         </div>

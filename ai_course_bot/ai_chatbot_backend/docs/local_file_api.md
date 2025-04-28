@@ -1,15 +1,17 @@
-# Local File Retrieval API Documentation
+# Local File API Documentation
 
 ## Overview
 
-The Local File Retrieval API provides endpoints to access, list, and manage files stored on the server's file system. This API is designed to be robust, extensible, and follows modern best practices for file organization and retrieval.
+The Local File API provides endpoints to access, list, and visualize files stored on the server's file system. This API is designed to be robust, extensible, and follows modern best practices for file organization and retrieval.
+
+> **Important**: For authentication requirements and implementation details, please refer to the [Authentication Guide](authentication.md).
 
 ## Features
 
 - List files with filtering by directory, category, and folder
 - Retrieve files with proper mime-type detection for browser rendering
 - Automatic file categorization based on file extension and path
-- Support for hierarchical directory structure
+- Hierarchical file system visualization with customizable depth
 - Course material organization with standard folders (Lab Material, Code Script, Exams, Past Projects)
 
 ## Directory Structure
@@ -81,6 +83,7 @@ Lists all files in the system or in the specified directory.
 
 ```
 GET /v1/local-files?directory=CS61A/documents&category=Document
+Authorization: Bearer YOUR_AUTH_TOKEN
 ```
 
 **Example Response:**
@@ -120,11 +123,80 @@ Retrieves a file by its path.
 
 ```
 GET /v1/local-files/CS61A/documents/lab_material/01_Getting_Started_Guide.pdf
+Authorization: Bearer YOUR_AUTH_TOKEN
+```
+
+**Alternative Request with Query Parameter Authentication:**
+
+```
+GET /v1/local-files/CS61A/documents/lab_material/01_Getting_Started_Guide.pdf?auth_token=YOUR_AUTH_TOKEN
 ```
 
 **Response:**
 
 Returns the file content with appropriate Content-Type header.
+
+### Get File Hierarchy
+
+```
+GET /v1/local-files/hierarchy
+```
+
+Gets a hierarchical tree structure of files and directories.
+
+**Query Parameters:**
+
+- `directory` (optional): Directory to start from (e.g., "CS61A/documents")
+- `max_depth` (optional): Maximum depth to traverse (-1 for unlimited)
+
+**Example Request:**
+
+```
+GET /v1/local-files/hierarchy?directory=CS61A&max_depth=2
+Authorization: Bearer YOUR_AUTH_TOKEN
+```
+
+**Example Response:**
+
+```json
+{
+  "root": {
+    "name": "CS61A",
+    "path": "CS61A",
+    "type": "directory",
+    "children": [
+      {
+        "name": "documents",
+        "path": "CS61A/documents",
+        "type": "directory",
+        "children": [
+          {
+            "name": "lab_material",
+            "path": "CS61A/documents/lab_material",
+            "type": "directory",
+            "children": []
+          },
+          {
+            "name": "code_script",
+            "path": "CS61A/documents/code_script",
+            "type": "directory",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "videos",
+        "path": "CS61A/videos",
+        "type": "directory",
+        "children": []
+      }
+    ]
+  },
+  "total_files": 0,
+  "total_directories": 4,
+  "max_depth": 2
+}
+```
 
 ### List Categories
 
@@ -133,6 +205,13 @@ GET /v1/local-files/categories
 ```
 
 Lists all available file categories.
+
+**Example Request:**
+
+```
+GET /v1/local-files/categories
+Authorization: Bearer YOUR_AUTH_TOKEN
+```
 
 **Example Response:**
 
@@ -172,6 +251,13 @@ GET /v1/local-files/folders
 ```
 
 Lists all available file folders/directories.
+
+**Example Request:**
+
+```
+GET /v1/local-files/folders
+Authorization: Bearer YOUR_AUTH_TOKEN
+```
 
 **Example Response:**
 
@@ -248,4 +334,13 @@ data/
    - Documents: PDF for best compatibility
    - Code: Use plain text formats (PY, JS, etc.)
    - Videos: MP4 for best browser compatibility
-5. **File Size**: Keep individual files under reasonable sizes (< 100MB) for smooth web delivery 
+5. **File Size**: Keep individual files under reasonable sizes (< 100MB) for smooth web delivery
+6. **Hierarchy Requests**:
+   - Use the `max_depth` parameter to limit the depth of the hierarchy for better performance
+   - For large directories, consider starting from a subdirectory rather than the root
+   - Cache hierarchy responses on the client side when appropriate
+7. **Authentication**:
+   - Always include authentication with API requests
+   - Use header-based authentication (`Authorization: Bearer TOKEN`) for programmatic access
+   - Use query parameter authentication (`?auth_token=TOKEN`) for embedded resources like images
+   - See the [Authentication Guide](authentication.md) for detailed implementation instructions

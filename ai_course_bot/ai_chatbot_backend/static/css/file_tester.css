@@ -180,8 +180,6 @@ input:focus {
     background-color: var(--border-color);
 }
 
-
-
 hr {
     margin: 1.5rem 0;
     border: none;
@@ -605,4 +603,104 @@ footer {
     .preview-panel {
         grid-row: 4;
     }
+}
+
+/* Loading State */
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    color: var(--muted-text);
+    height: 100%;
+    min-height: 150px;
+}
+
+.loading-state i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.loading-state p {
+    font-size: 1rem;
+}
+
+/* Error Message */
+.error-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    color: var(--danger-color);
+    background-color: rgba(220, 53, 69, 0.1);
+    border-radius: 6px;
+    height: 100%;
+    min-height: 150px;
+}
+
+.error-message i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.error-message p {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.error-message .details {
+    font-size: 0.875rem;
+    color: var(--muted-text);
+}
+
+/* File Info Header */
+.file-info-header {
+    background-color: rgba(74, 111, 165, 0.1);
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+.file-info-header div {
+    margin-bottom: 0.5rem;
+}
+
+.file-info-header div:last-child {
+    margin-bottom: 0;
+}
+
+/* Code Preview */
+.code-preview {
+    background-color: #f5f7fa;
+    padding: 1rem;
+    border-radius: 6px;
+    overflow: auto;
+    max-height: 400px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+    border: 1px solid var(--border-color);
+}
+
+/* Image Preview */
+.image-preview {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+    max-height: 400px;
+    overflow: hidden;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 4px;
 }

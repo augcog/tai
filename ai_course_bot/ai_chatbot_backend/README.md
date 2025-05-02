@@ -10,4 +10,30 @@
 
 3. Make sure `current_dir` under `func llama_selector` is set to the correct file path
 
-4. Running python ai_course_bot/ai-chatbot-backend/main.py and launch http://0.0.0.0:8000 in prefered browser
+4. Running python ai_course_bot/ai-chatbot-backend/main.py and launch http://localhost:8000 in preferred browser
+
+## API Documentation
+
+Detailed API documentation is available in the `docs` directory:
+
+- [Local File API](docs/local_file_api.md) - Documentation for the Local File API endpoints
+- [Authentication Guide](docs/authentication.md) - Information about API authentication
+
+## Postman Collections
+
+Postman collections are available in the `postman` directory for testing the API endpoints:
+
+- `local_file_postman_collection.json` - Collection for testing the Local File API endpoints
+
+To generate or update the Postman collections:
+
+```bash
+# Generate Local File API Postman collection
+python scripts/generate_local_file_postman_collection.py --output postman/local_file_postman_collection.json
+```
+
+To use the Postman collections:
+
+1. Import the collection into Postman
+2. Set the `apiBaseUrl` variable to your server URL (default: http://localhost:8000)
+3. Set the `authToken` variable to your authentication token

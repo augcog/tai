@@ -1,0 +1,10 @@
+{
+  "meta": {
+    "name": "Get File Request",
+    "description": "Request to retrieve a file by its path",
+    "tags": ["local_files", "file"]
+  },
+  "data": {
+    "file_path": "documents/example.pdf"
+  }
+}

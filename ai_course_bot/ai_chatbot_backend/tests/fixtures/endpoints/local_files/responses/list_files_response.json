@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "name": "List Files Response",
+    "description": "Response containing a list of files with optional directory and category information",
+    "tags": ["local_files", "list"]
+  },
+  "data": {
+    "files": [
+      {
+        "file_name": "lecture1.pdf",
+        "file_path": "documents/CS61A/lecture1.pdf",
+        "mime_type": "application/pdf",
+        "size_bytes": 1048576,
+        "modified_time": "2023-01-01T12:00:00",
+        "directory": "documents",
+        "category": "Document",
+        "folder": "Lab Material"
+      }
+    ],
+    "total_count": 1,
+    "directories": [
+      {
+        "name": "Lab Material",
+        "path": "documents/CS61A/lab",
+        "parent_path": "documents/CS61A",
+        "is_category": false,
+        "icon": "folder"
+      }
+    ],
+    "categories": [
+      {
+        "id": "document",
+        "name": "Document",
+        "icon": "file-text",
+        "description": "Course documents and materials"
+      }
+    ]
+  }
+}

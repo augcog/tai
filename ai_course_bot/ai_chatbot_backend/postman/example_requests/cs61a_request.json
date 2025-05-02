@@ -1,0 +1,16 @@
+{
+  "course": "CS61A",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a helpful assistant for the CS61A course at UC Berkeley."
+    },
+    {
+      "role": "user",
+      "content": "What topics are covered in CS61A?"
+    }
+  ],
+  "temperature": 0.7,
+  "stream": false,
+  "rag": true
+}

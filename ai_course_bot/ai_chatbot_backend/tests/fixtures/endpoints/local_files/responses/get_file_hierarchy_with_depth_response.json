@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "name": "Get File Hierarchy with Depth Response",
+    "description": "Response containing a hierarchical tree structure of files and directories with a specific depth",
+    "tags": ["local_files", "hierarchy", "depth"]
+  },
+  "data": {
+    "root": {
+      "name": "documents",
+      "path": "documents",
+      "type": "directory",
+      "children": [
+        {
+          "name": "lab_material",
+          "path": "documents/lab_material",
+          "type": "directory",
+          "children": []
+        },
+        {
+          "name": "code_script",
+          "path": "documents/code_script",
+          "type": "directory",
+          "children": []
+        }
+      ]
+    },
+    "total_files": 0,
+    "total_directories": 3,
+    "max_depth": 2
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "meta": {
+    "name": "Get File Hierarchy Response",
+    "description": "Response containing a hierarchical tree structure of files and directories",
+    "tags": ["local_files", "hierarchy"]
+  },
+  "data": {
+    "root": {
+      "name": "root",
+      "path": "",
+      "type": "directory",
+      "children": [
+        {
+          "name": "documents",
+          "path": "documents",
+          "type": "directory",
+          "children": [
+            {
+              "name": "lecture1.pdf",
+              "path": "documents/lecture1.pdf",
+              "type": "file",
+              "mime_type": "application/pdf",
+              "size_bytes": 1048576,
+              "modified_time": "2023-01-01T12:00:00"
+            }
+          ]
+        }
+      ]
+    },
+    "total_files": 1,
+    "total_directories": 2,
+    "max_depth": 2
+  }
+}

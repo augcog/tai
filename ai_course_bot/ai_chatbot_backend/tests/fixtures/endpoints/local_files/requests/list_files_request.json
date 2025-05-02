@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "name": "List Files Request",
+    "description": "Request to list files in a directory with optional filtering",
+    "tags": ["local_files", "list"]
+  },
+  "data": {
+    "directory": "",
+    "category": "",
+    "folder": "",
+    "course_code": "",
+    "include_directories": true,
+    "include_categories": true
+  }
+}

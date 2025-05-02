@@ -1,33 +1,16 @@
 {
-  "meta": {
-    "name": "RAG Request",
-    "description": "A non-streaming completion request with RAG enabled using OpenAI format",
-    "tags": [
-      "request",
-      "non-streaming",
-      "rag",
-      "openai-format"
-    ]
-  },
-  "data": {
-    "model": "custom-model",
-    "messages": [
-      {
-        "role": "system",
-        "content": "You are a helpful assistant that provides information about the UC Berkeley TAI project."
-      },
-      {
-        "role": "user",
-        "content": "Tell me about the UC Berkeley TAI project."
-      }
-    ],
-    "temperature": 0.7,
-    "max_tokens": 150,
-    "stream": false,
-    "rag": true
-  },
-  "validation": {
-    "expected_status_code": 200,
-    "content_type": "application/json"
-  }
+  "course": "default",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a helpful assistant that provides information about the UC Berkeley TAI project."
+    },
+    {
+      "role": "user",
+      "content": "Tell me about the UC Berkeley TAI project."
+    }
+  ],
+  "temperature": 0.7,
+  "stream": false,
+  "rag": true
 }

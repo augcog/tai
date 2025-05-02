@@ -37,7 +37,7 @@ def disable_auth_for_testing():
     """
     original_auth_required = settings.auth_required
     settings.auth_required = False
-    
+
     # Create mock user functions
     def mock_user():
         return {
@@ -47,7 +47,7 @@ def disable_auth_for_testing():
             "picture": None,
             "is_admin": False
         }
-    
+
     def mock_admin():
         return {
             "user_id": "admin-user",
@@ -56,13 +56,13 @@ def disable_auth_for_testing():
             "picture": None,
             "is_admin": True
         }
-    
+
     # Override global auth dependencies
     app.dependency_overrides[get_current_user] = mock_user
     app.dependency_overrides[auth_with_query_param] = mock_user
-    
+
     yield
-    
+
     # Restore original settings and clear overrides
     settings.auth_required = original_auth_required
     app.dependency_overrides.clear()
@@ -118,10 +118,10 @@ def admin_client(course_db_session):
     app.dependency_overrides[get_db] = override_get_db
     app.dependency_overrides[get_current_user] = dummy_admin_user
     app.dependency_overrides[get_admin_user] = dummy_admin_user
-    
+
     with TestClient(app) as client:
         yield client
-    
+
     # Clear overrides after test
     app.dependency_overrides.clear()
 
@@ -146,10 +146,10 @@ def regular_client(course_db_session):
     app.dependency_overrides[get_db] = override_get_db
     app.dependency_overrides[get_current_user] = dummy_regular_user
     app.dependency_overrides[get_admin_user] = reject_non_admin_user
-    
+
     with TestClient(app) as client:
         yield client
-    
+
     # Clear overrides after test
     app.dependency_overrides.clear()
 
@@ -248,29 +248,36 @@ def load_fixtures(directory: Path = FIXTURES_DIR) -> Dict[str, List[Dict]]:
         "requests": [],
         "responses": []
     }
-    
+
     request_dir = directory / "endpoints" / "completions" / "requests"
     response_dir = directory / "endpoints" / "completions" / "responses"
-    
+
     if request_dir.exists():
         for file in request_dir.glob("*.json"):
             with open(file, "r") as f:
-                fixture = json.load(f)
-                fixture["_filename"] = file.name
-                fixture["_path"] = str(file)
-                fixtures["requests"].append(fixture)
-    
+                try:
+                    fixture = json.load(f)
+                    # Add metadata to the fixture for testing purposes
+                    fixture["_filename"] = file.name
+                    fixture["_path"] = str(file)
+                    fixtures["requests"].append(fixture)
+                except json.JSONDecodeError:
+                    print(f"Error loading fixture file: {file}")
+
     if response_dir.exists():
         for file in response_dir.glob("*.json"):
             with open(file, "r") as f:
-                fixture = json.load(f)
-                fixture["_filename"] = file.name
-                fixture["_path"] = str(file)
-                fixtures["responses"].append(fixture)
-    
+                try:
+                    fixture = json.load(f)
+                    fixture["_filename"] = file.name
+                    fixture["_path"] = str(file)
+                    fixtures["responses"].append(fixture)
+                except json.JSONDecodeError:
+                    print(f"Error loading fixture file: {file}")
+
     return fixtures
 
 @pytest.fixture
 def fixtures():
     """Load fixtures for testing."""
-    return load_fixtures() 
+    return load_fixtures()

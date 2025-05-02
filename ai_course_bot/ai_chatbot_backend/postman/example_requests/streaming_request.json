@@ -1,0 +1,12 @@
+{
+  "course": "default",
+  "messages": [
+    {
+      "role": "user",
+      "content": "What is the UC Berkeley TAI project about?"
+    }
+  ],
+  "temperature": 0.7,
+  "stream": true,
+  "rag": true
+}

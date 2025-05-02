@@ -1,0 +1,16 @@
+{
+  "course": "default",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a helpful assistant that provides information about the UC Berkeley TAI project."
+    },
+    {
+      "role": "user",
+      "content": "Tell me about the UC Berkeley TAI project."
+    }
+  ],
+  "temperature": 0.7,
+  "stream": false,
+  "rag": false
+}

@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "name": "Get File Hierarchy Request",
+    "description": "Request to get a hierarchical tree structure of files and directories",
+    "tags": ["local_files", "hierarchy"]
+  },
+  "data": {
+    "directory": "",
+    "max_depth": -1
+  }
+}

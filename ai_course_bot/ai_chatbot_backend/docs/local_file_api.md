@@ -5,6 +5,8 @@
 The Local File API provides endpoints to access, list, and visualize files stored on the server's file system. This API is designed to be robust, extensible, and follows modern best practices for file organization and retrieval.
 
 > **Important**: For authentication requirements and implementation details, please refer to the [Authentication Guide](authentication.md).
+>
+> **For Frontend Developers**: Comprehensive examples are available in the `postman/examples/local_files` directory, and an enhanced Postman collection can be generated using `scripts/enhanced_generate_local_file_postman_collection.py`.
 
 ## Features
 
@@ -325,6 +327,114 @@ data/
         └── 02_Lab_Instructions.mp4
 ```
 
+## Comprehensive Examples
+
+To help frontend developers understand how the API behaves with different parameter combinations, we provide a set of comprehensive examples in the `postman/examples/local_files` directory.
+
+### Example Structure
+
+```
+postman/examples/local_files/
+├── README.md                                # Overview of examples
+├── list_files/                              # Examples for the List Files endpoint
+│   ├── basic_list.json                      # Basic listing without filters
+│   ├── filtered_by_directory.json           # Filtering by directory
+│   ├── filtered_by_category.json            # Filtering by category
+│   ├── filtered_by_folder.json              # Filtering by folder
+│   ├── filtered_by_course_code.json         # Filtering by course code
+│   ├── with_directories_and_categories.json # Including directory and category info
+│   ├── empty_directory.json                 # Listing an empty directory
+│   └── multiple_filters.json                # Using multiple filters together
+├── file_hierarchy/                          # Examples for the File Hierarchy endpoint
+│   ├── root_hierarchy.json                  # Full hierarchy from root
+│   ├── specific_directory.json              # Hierarchy from a specific directory
+│   ├── limited_depth.json                   # Hierarchy with limited depth
+│   └── empty_directory.json                 # Hierarchy for an empty directory
+└── categories_folders/                      # Examples for Categories and Folders endpoints
+    ├── categories.json                      # List of file categories
+    └── folders.json                         # List of file folders
+```
+
+Each example JSON file follows this format:
+
+```json
+{
+  "meta": {
+    "name": "Example Name",
+    "description": "Description of the example",
+    "tags": ["local_files", "tag1", "tag2"]
+  },
+  "request": {
+    "endpoint": "GET /v1/local-files",
+    "parameters": {
+      "param1": "value1",
+      "param2": "value2"
+    }
+  },
+  "response": {
+    // Example response JSON
+  }
+}
+```
+
+### Important Parameter Combinations
+
+#### List Files Endpoint
+
+- **Basic listing**: No parameters
+- **Directory filtering**: `directory=documents/CS61A`
+- **Category filtering**: `category=Document`
+- **Folder filtering**: `folder=Lab Material`
+- **Course filtering**: `course_code=CS61A`
+- **Including metadata**: `include_directories=true&include_categories=true`
+- **Multiple filters**: Combining directory, category, folder, and course filters
+
+#### File Hierarchy Endpoint
+
+- **Full hierarchy**: No parameters
+- **Specific directory**: `directory=documents/CS61A`
+- **Limited depth**: `max_depth=1` or `max_depth=2`
+- **Empty directory**: Directory with no files or subdirectories
+
+### Edge Cases
+
+The examples also cover important edge cases:
+
+- Empty directories
+- Deep nested directories
+- Various file types (PDF, Python, MP4, etc.)
+- Files with different metadata attributes
+
+## Postman Collections
+
+Two Postman collections are available for testing the Local File API:
+
+1. **Basic Collection** (`postman/local_file_postman_collection.json`):
+   - Simple collection with basic examples
+   - Provides essential requests for each endpoint
+
+2. **Enhanced Collection** (`postman/enhanced_local_file_postman_collection.json`):
+   - Comprehensive collection with multiple examples for each endpoint
+   - Demonstrates various parameter combinations and edge cases
+   - Includes better organization with requests grouped by functionality
+   - Recommended for frontend development
+
+### Generating the Postman Collections
+
+To generate the basic Postman collection:
+
+```bash
+python scripts/generate_local_file_postman_collection.py --output postman/local_file_postman_collection.json
+```
+
+To generate the enhanced Postman collection:
+
+```bash
+python scripts/enhanced_generate_local_file_postman_collection.py
+```
+
+This will create the collections in the `postman/` directory that you can import into Postman.
+
 ## Best Practices
 
 1. **Course Organization**: Keep all files for a course within its directory
@@ -344,3 +454,8 @@ data/
    - Use header-based authentication (`Authorization: Bearer TOKEN`) for programmatic access
    - Use query parameter authentication (`?auth_token=TOKEN`) for embedded resources like images
    - See the [Authentication Guide](authentication.md) for detailed implementation instructions
+8. **Frontend Integration**:
+   - Use the comprehensive examples to understand API behavior
+   - Test with the enhanced Postman collection before implementing
+   - Handle all parameter combinations and edge cases
+   - Implement proper error handling for missing files or directories

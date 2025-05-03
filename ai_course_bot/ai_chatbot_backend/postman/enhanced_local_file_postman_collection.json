@@ -1,0 +1,373 @@
+{
+  "info": {
+    "name": "AI Chatbot Local File API (Enhanced)",
+    "description": "Comprehensive collection for testing the AI Chatbot Local File API endpoints with multiple examples",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "ai-chatbot-local-file-enhanced-20250502170422",
+    "version": "1.0.0"
+  },
+  "variable": [
+    {
+      "key": "apiBaseUrl",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "authToken",
+      "value": "YOUR_AUTH_TOKEN",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Local Files",
+      "description": "Endpoints for accessing and managing local files",
+      "item": [
+        {
+          "name": "File Operations",
+          "description": "Basic file operations like listing and retrieving files",
+          "item": [
+            {
+              "name": "List Files",
+              "description": "Endpoints for listing files with various filters",
+              "item": [
+                {
+                  "name": "List Files (Basic)",
+                  "description": "List all files without any filters",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{authToken}}"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{apiBaseUrl}}/v1/local-files",
+                      "host": [
+                        "{{apiBaseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "local-files"
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Basic List Files Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Authorization",
+                            "value": "Bearer {{authToken}}"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{apiBaseUrl}}/v1/local-files",
+                          "host": [
+                            "{{apiBaseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "local-files"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "body": "{\n  \"files\": [\n    {\n      \"file_name\": \"01_Getting_Started_Guide.txt\",\n      \"file_path\": \"CS61A/documents/lab_material/01_Getting_Started_Guide.txt\",\n      \"mime_type\": \"text/plain\",\n      \"size_bytes\": 1024,\n      \"modified_time\": \"2023-01-01T12:00:00\",\n      \"directory\": \"CS61A/documents/lab_material\",\n      \"category\": \"Document\",\n      \"folder\": \"Lab Material\"\n    },\n    {\n      \"file_name\": \"example_code.py\",\n      \"file_path\": \"CS61A/documents/code_script/example_code.py\",\n      \"mime_type\": \"text/x-python\",\n      \"size_bytes\": 2048,\n      \"modified_time\": \"2023-01-02T14:30:00\",\n      \"directory\": \"CS61A/documents/code_script\",\n      \"category\": \"Assignment\",\n      \"folder\": \"Code Script\"\n    },\n    {\n      \"file_name\": \"midterm_sample.pdf\",\n      \"file_path\": \"CS61A/documents/exams/midterm_sample.pdf\",\n      \"mime_type\": \"application/pdf\",\n      \"size_bytes\": 104857600,\n      \"modified_time\": \"2023-01-03T10:15:00\",\n      \"directory\": \"CS61A/documents/exams\",\n      \"category\": \"Document\",\n      \"folder\": \"Exams\"\n    }\n  ],\n  \"total_count\": 3\n}",
+                      "_postman_previewlanguage": "json"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Get File",
+              "description": "Endpoints for retrieving individual files",
+              "item": [
+                {
+                  "name": "Get File",
+                  "description": "Retrieve a file by its path",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{authToken}}"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{apiBaseUrl}}/v1/local-files/CS61A/documents/lab_material/01_Getting_Started_Guide.txt",
+                      "host": [
+                        "{{apiBaseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "local-files",
+                        "CS61A",
+                        "documents",
+                        "lab_material",
+                        "01_Getting_Started_Guide.txt"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Get File (Query Auth)",
+                  "description": "Retrieve a file by its path using query parameter authentication",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{apiBaseUrl}}/v1/local-files/CS61A/documents/lab_material/01_Getting_Started_Guide.txt?auth_token={authToken}",
+                      "host": [
+                        "{{apiBaseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "local-files",
+                        "CS61A",
+                        "documents",
+                        "lab_material",
+                        "01_Getting_Started_Guide.txt"
+                      ],
+                      "query": [
+                        {
+                          "key": "auth_token",
+                          "value": "{{authToken}}",
+                          "description": "Authentication token"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Get PDF File",
+                  "description": "Retrieve a PDF file by its path",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{authToken}}"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{apiBaseUrl}}/v1/local-files/CS61A/documents/exams/midterm_sample.pdf",
+                      "host": [
+                        "{{apiBaseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "local-files",
+                        "CS61A",
+                        "documents",
+                        "exams",
+                        "midterm_sample.pdf"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Get Python File",
+                  "description": "Retrieve a Python file by its path",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{authToken}}"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{apiBaseUrl}}/v1/local-files/CS61A/documents/code_script/example_code.py",
+                      "host": [
+                        "{{apiBaseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "local-files",
+                        "CS61A",
+                        "documents",
+                        "code_script",
+                        "example_code.py"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "File Hierarchy",
+          "description": "File hierarchy visualization endpoints",
+          "item": [
+            {
+              "name": "Get File Hierarchy (Root)",
+              "description": "Get a hierarchical tree structure of files and directories from the root",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{authToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{apiBaseUrl}}/v1/local-files/hierarchy",
+                  "host": [
+                    "{{apiBaseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "local-files",
+                    "hierarchy"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Root File Hierarchy",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{authToken}}"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{apiBaseUrl}}/v1/local-files/hierarchy",
+                      "host": [
+                        "{{apiBaseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "local-files",
+                        "hierarchy"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"root\": {\n    \"name\": \"root\",\n    \"path\": \"\",\n    \"type\": \"directory\",\n    \"children\": [\n      {\n        \"name\": \"CS61A\",\n        \"path\": \"CS61A\",\n        \"type\": \"directory\",\n        \"children\": [\n          {\n            \"name\": \"documents\",\n            \"path\": \"CS61A/documents\",\n            \"type\": \"directory\",\n            \"children\": [\n              {\n                \"name\": \"lab_material\",\n                \"path\": \"CS61A/documents/lab_material\",\n                \"type\": \"directory\",\n                \"children\": [\n                  {\n                    \"name\": \"01_Getting_Started_Guide.txt\",\n                    \"path\": \"CS61A/documents/lab_material/01_Getting_Started_Guide.txt\",\n                    \"type\": \"file\",\n                    \"mime_type\": \"text/plain\",\n                    \"size_bytes\": 1024,\n                    \"modified_time\": \"2023-01-01T12:00:00\"\n                  }\n                ]\n              },\n              {\n                \"name\": \"code_script\",\n                \"path\": \"CS61A/documents/code_script\",\n                \"type\": \"directory\",\n                \"children\": [\n                  {\n                    \"name\": \"example_code.py\",\n                    \"path\": \"CS61A/documents/code_script/example_code.py\",\n                    \"type\": \"file\",\n                    \"mime_type\": \"text/x-python\",\n                    \"size_bytes\": 2048,\n                    \"modified_time\": \"2023-01-02T14:30:00\"\n                  }\n                ]\n              },\n              {\n                \"name\": \"exams\",\n                \"path\": \"CS61A/documents/exams\",\n                \"type\": \"directory\",\n                \"children\": [\n                  {\n                    \"name\": \"midterm_sample.pdf\",\n                    \"path\": \"CS61A/documents/exams/midterm_sample.pdf\",\n                    \"type\": \"file\",\n                    \"mime_type\": \"application/pdf\",\n                    \"size_bytes\": 104857600,\n                    \"modified_time\": \"2023-01-03T10:15:00\"\n                  }\n                ]\n              }\n            ]\n          },\n          {\n            \"name\": \"videos\",\n            \"path\": \"CS61A/videos\",\n            \"type\": \"directory\",\n            \"children\": [\n              {\n                \"name\": \"02_Lab_Instructions.mp4.stub\",\n                \"path\": \"CS61A/videos/02_Lab_Instructions.mp4.stub\",\n                \"type\": \"file\",\n                \"mime_type\": \"video/mp4\",\n                \"size_bytes\": 0,\n                \"modified_time\": \"2023-01-03T10:15:00\"\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"name\": \"CS61B\",\n        \"path\": \"CS61B\",\n        \"type\": \"directory\",\n        \"children\": [\n          {\n            \"name\": \"documents\",\n            \"path\": \"CS61B/documents\",\n            \"type\": \"directory\",\n            \"children\": [\n              {\n                \"name\": \"code_script\",\n                \"path\": \"CS61B/documents/code_script\",\n                \"type\": \"directory\",\n                \"children\": [\n                  {\n                    \"name\": \"test_61_code_script.py\",\n                    \"path\": \"CS61B/documents/code_script/test_61_code_script.py\",\n                    \"type\": \"file\",\n                    \"mime_type\": \"text/x-python\",\n                    \"size_bytes\": 2048,\n                    \"modified_time\": \"2023-01-02T14:30:00\"\n                  }\n                ]\n              }\n            ]\n          }\n        ]\n      }\n    ]\n  },\n  \"total_files\": 5,\n  \"total_directories\": 9,\n  \"max_depth\": 4\n}",
+                  "_postman_previewlanguage": "json"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Metadata",
+          "description": "Endpoints for file metadata like categories and folders",
+          "item": [
+            {
+              "name": "List Categories",
+              "description": "Lists all available file categories",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{authToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{apiBaseUrl}}/v1/local-files/categories",
+                  "host": [
+                    "{{apiBaseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "local-files",
+                    "categories"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "File Categories",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{authToken}}"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{apiBaseUrl}}/v1/local-files/categories",
+                      "host": [
+                        "{{apiBaseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "local-files",
+                        "categories"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "[\n  {\n    \"id\": \"document\",\n    \"name\": \"Document\",\n    \"icon\": \"file-text\",\n    \"description\": \"Course documents and materials\"\n  },\n  {\n    \"id\": \"assignment\",\n    \"name\": \"Assignment\",\n    \"icon\": \"clipboard\",\n    \"description\": \"Homework and assignment files\"\n  },\n  {\n    \"id\": \"video\",\n    \"name\": \"Video\",\n    \"icon\": \"video\",\n    \"description\": \"Lecture videos and recordings\"\n  },\n  {\n    \"id\": \"others\",\n    \"name\": \"Others\",\n    \"icon\": \"file\",\n    \"description\": \"Other course-related files\"\n  }\n]",
+                  "_postman_previewlanguage": "json"
+                }
+              ]
+            },
+            {
+              "name": "List Folders",
+              "description": "Lists all available file folders/directories",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{authToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{apiBaseUrl}}/v1/local-files/folders",
+                  "host": [
+                    "{{apiBaseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "local-files",
+                    "folders"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

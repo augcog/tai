@@ -21,15 +21,26 @@ Detailed API documentation is available in the `docs` directory:
 
 ## Postman Collections
 
-Postman collections are available in the `postman` directory for testing the API endpoints:
+Two Postman collections are available in the `postman` directory for testing the Local File API:
 
-- `local_file_postman_collection.json` - Collection for testing the Local File API endpoints
+1. **Basic Collection** (`postman/local_file_postman_collection.json`):
+   - Simple collection with basic examples
+   - Provides essential requests for each endpoint
+
+2. **Enhanced Collection** (`postman/enhanced_local_file_postman_collection.json`):
+   - Comprehensive collection with multiple examples for each endpoint
+   - Demonstrates various parameter combinations and edge cases
+   - Includes better organization with requests grouped by functionality
+   - Recommended for frontend development
 
 To generate or update the Postman collections:
 
 ```bash
-# Generate Local File API Postman collection
+# Generate Basic Local File API Postman collection
 python scripts/generate_local_file_postman_collection.py --output postman/local_file_postman_collection.json
+
+# Generate Enhanced Local File API Postman collection
+python scripts/enhanced_generate_local_file_postman_collection.py
 ```
 
 To use the Postman collections:

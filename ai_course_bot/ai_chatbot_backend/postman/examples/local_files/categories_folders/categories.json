@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "name": "File Categories",
+    "description": "Response when requesting the list of file categories",
+    "tags": ["local_files", "categories"]
+  },
+  "request": {
+    "endpoint": "GET /v1/local-files/categories",
+    "parameters": {}
+  },
+  "response": [
+    {
+      "id": "document",
+      "name": "Document",
+      "icon": "file-text",
+      "description": "Course documents and materials"
+    },
+    {
+      "id": "assignment",
+      "name": "Assignment",
+      "icon": "clipboard",
+      "description": "Homework and assignment files"
+    },
+    {
+      "id": "video",
+      "name": "Video",
+      "icon": "video",
+      "description": "Lecture videos and recordings"
+    },
+    {
+      "id": "others",
+      "name": "Others",
+      "icon": "file",
+      "description": "Other course-related files"
+    }
+  ]
+}

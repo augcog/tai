@@ -1,0 +1,126 @@
+{
+  "meta": {
+    "name": "Root File Hierarchy",
+    "description": "Response when requesting the file hierarchy from the root directory",
+    "tags": ["local_files", "hierarchy", "root"]
+  },
+  "request": {
+    "endpoint": "GET /v1/local-files/hierarchy",
+    "parameters": {}
+  },
+  "response": {
+    "root": {
+      "name": "root",
+      "path": "",
+      "type": "directory",
+      "children": [
+        {
+          "name": "CS61A",
+          "path": "CS61A",
+          "type": "directory",
+          "children": [
+            {
+              "name": "documents",
+              "path": "CS61A/documents",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "lab_material",
+                  "path": "CS61A/documents/lab_material",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "01_Getting_Started_Guide.txt",
+                      "path": "CS61A/documents/lab_material/01_Getting_Started_Guide.txt",
+                      "type": "file",
+                      "mime_type": "text/plain",
+                      "size_bytes": 1024,
+                      "modified_time": "2023-01-01T12:00:00"
+                    }
+                  ]
+                },
+                {
+                  "name": "code_script",
+                  "path": "CS61A/documents/code_script",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "example_code.py",
+                      "path": "CS61A/documents/code_script/example_code.py",
+                      "type": "file",
+                      "mime_type": "text/x-python",
+                      "size_bytes": 2048,
+                      "modified_time": "2023-01-02T14:30:00"
+                    }
+                  ]
+                },
+                {
+                  "name": "exams",
+                  "path": "CS61A/documents/exams",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "midterm_sample.pdf",
+                      "path": "CS61A/documents/exams/midterm_sample.pdf",
+                      "type": "file",
+                      "mime_type": "application/pdf",
+                      "size_bytes": 104857600,
+                      "modified_time": "2023-01-03T10:15:00"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "videos",
+              "path": "CS61A/videos",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "02_Lab_Instructions.mp4.stub",
+                  "path": "CS61A/videos/02_Lab_Instructions.mp4.stub",
+                  "type": "file",
+                  "mime_type": "video/mp4",
+                  "size_bytes": 0,
+                  "modified_time": "2023-01-03T10:15:00"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "CS61B",
+          "path": "CS61B",
+          "type": "directory",
+          "children": [
+            {
+              "name": "documents",
+              "path": "CS61B/documents",
+              "type": "directory",
+              "children": [
+                {
+                  "name": "code_script",
+                  "path": "CS61B/documents/code_script",
+                  "type": "directory",
+                  "children": [
+                    {
+                      "name": "test_61_code_script.py",
+                      "path": "CS61B/documents/code_script/test_61_code_script.py",
+                      "type": "file",
+                      "mime_type": "text/x-python",
+                      "size_bytes": 2048,
+                      "modified_time": "2023-01-02T14:30:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "total_files": 5,
+    "total_directories": 9,
+    "max_depth": 4
+  }
+}

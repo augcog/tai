@@ -1,4 +1,5 @@
 from app.api.v1.endpoints import file_completions, completions, courses, course_admin, local_files, file_tester
+#TODO add summarization to import
 from fastapi import APIRouter
 
 router = APIRouter()
@@ -20,13 +21,6 @@ router.include_router(
     prefix="/courses",
     tags=["courses"]
 )
-
-# This router doesn't exist, so we need to comment it out
-# router.include_router(
-#     files.router,
-#     prefix="/files",
-#     tags=["files"]
-# )
 
 router.include_router(
     course_admin.router,

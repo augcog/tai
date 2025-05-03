@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "name": "Basic List Files Response",
+    "description": "Response when listing files without any filters or parameters",
+    "tags": ["local_files", "list", "basic"]
+  },
+  "request": {
+    "endpoint": "GET /v1/local-files",
+    "parameters": {}
+  },
+  "response": {
+    "files": [
+      {
+        "file_name": "01_Getting_Started_Guide.txt",
+        "file_path": "CS61A/documents/lab_material/01_Getting_Started_Guide.txt",
+        "mime_type": "text/plain",
+        "size_bytes": 1024,
+        "modified_time": "2023-01-01T12:00:00",
+        "directory": "CS61A/documents/lab_material",
+        "category": "Document",
+        "folder": "Lab Material"
+      },
+      {
+        "file_name": "example_code.py",
+        "file_path": "CS61A/documents/code_script/example_code.py",
+        "mime_type": "text/x-python",
+        "size_bytes": 2048,
+        "modified_time": "2023-01-02T14:30:00",
+        "directory": "CS61A/documents/code_script",
+        "category": "Assignment",
+        "folder": "Code Script"
+      },
+      {
+        "file_name": "midterm_sample.pdf",
+        "file_path": "CS61A/documents/exams/midterm_sample.pdf",
+        "mime_type": "application/pdf",
+        "size_bytes": 104857600,
+        "modified_time": "2023-01-03T10:15:00",
+        "directory": "CS61A/documents/exams",
+        "category": "Document",
+        "folder": "Exams"
+      }
+    ],
+    "total_count": 3
+  }
+}

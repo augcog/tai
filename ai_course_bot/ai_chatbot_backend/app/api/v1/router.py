@@ -28,10 +28,11 @@ router.include_router(
     tags=["course-admin"]
 )
 
+# Clean, unified file API (UUID-based with auto-discovery)
 router.include_router(
     local_files.router,
-    prefix="/local-files",
-    tags=["local-files"]
+    prefix="/files",
+    tags=["files"]
 )
 
 router.include_router(

@@ -1,6 +1,7 @@
 from typing import Optional
 
 from ..core.security import verify_google_token
+from ..core.database import get_db
 from app.config import settings
 from fastapi import Header, HTTPException, status, Request
 

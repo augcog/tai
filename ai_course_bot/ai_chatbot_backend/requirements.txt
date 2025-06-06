@@ -31,3 +31,6 @@ uvicorn==0.32.1
 pytest
 huggingface_hub==0.29.3
 jsonschema==4.23.0
+
+# File management dependencies
+watchdog==4.0.0  # For real-time file watching (optional but recommended)

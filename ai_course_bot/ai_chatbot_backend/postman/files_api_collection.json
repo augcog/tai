@@ -1,0 +1,507 @@
+{
+  "info": {
+    "name": "Files API - Modern Collection",
+    "description": "Comprehensive collection for the modern Files API with UUID-based access, auto-discovery, and clean filtering. Perfect for frontend team collaboration.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "files-api-modern-v1",
+    "version": "2.0.0"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000",
+      "type": "string",
+      "description": "API base URL"
+    },
+    {
+      "key": "authToken",
+      "value": "YOUR_AUTH_TOKEN",
+      "type": "string",
+      "description": "Authentication token (if required)"
+    },
+    {
+      "key": "sampleFileUuid",
+      "value": "550e8400-e29b-41d4-a716-446655440000",
+      "type": "string",
+      "description": "Sample file UUID for testing"
+    }
+  ],
+  "item": [
+    {
+      "name": "📁 File Listing & Discovery",
+      "description": "Auto-discovery file listing with various filtering options",
+      "item": [
+        {
+          "name": "List All Files (Basic)",
+          "description": "Get all files with auto-discovery. New files are automatically found without manual rescans.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "description": "Optional: Include if authentication is enabled"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/files",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "files"]
+            }
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{baseUrl}}/v1/files",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "files"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"files\": [\n    {\n      \"uuid\": \"550e8400-e29b-41d4-a716-446655440000\",\n      \"filename\": \"01_Getting_Started_Guide.txt\",\n      \"title\": \"Getting Started Guide\",\n      \"course\": \"CS61A\",\n      \"category\": \"document\",\n      \"size_bytes\": 1024,\n      \"mime_type\": \"text/plain\",\n      \"created_at\": \"2023-01-01T12:00:00Z\",\n      \"modified_at\": \"2023-01-01T12:00:00Z\"\n    },\n    {\n      \"uuid\": \"550e8400-e29b-41d4-a716-446655440001\",\n      \"filename\": \"example_code.py\",\n      \"title\": \"Example Code\",\n      \"course\": \"CS61A\",\n      \"category\": \"document\",\n      \"size_bytes\": 2048,\n      \"mime_type\": \"text/x-python\",\n      \"created_at\": \"2023-01-02T14:30:00Z\",\n      \"modified_at\": \"2023-01-02T14:30:00Z\"\n    }\n  ],\n  \"total_count\": 2,\n  \"page\": 1,\n  \"limit\": 100,\n  \"has_next\": false,\n  \"has_prev\": false,\n  \"filters_applied\": {\n    \"course_code\": null,\n    \"category\": null,\n    \"search\": null\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Filter by Course (CS61A)",
+          "description": "Get files for a specific course. Great for course-specific file browsers.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/files?course_code=CS61A",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "files"],
+              "query": [
+                {
+                  "key": "course_code",
+                  "value": "CS61A",
+                  "description": "Filter by course code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "CS61A Files",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{baseUrl}}/v1/files?course_code=CS61A",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "files"],
+                  "query": [{"key": "course_code", "value": "CS61A"}]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"files\": [\n    {\n      \"uuid\": \"550e8400-e29b-41d4-a716-446655440000\",\n      \"filename\": \"01_Getting_Started_Guide.txt\",\n      \"title\": \"Getting Started Guide\",\n      \"course\": \"CS61A\",\n      \"category\": \"document\",\n      \"size_bytes\": 1024,\n      \"mime_type\": \"text/plain\",\n      \"created_at\": \"2023-01-01T12:00:00Z\",\n      \"modified_at\": \"2023-01-01T12:00:00Z\"\n    }\n  ],\n  \"total_count\": 1,\n  \"page\": 1,\n  \"limit\": 100,\n  \"has_next\": false,\n  \"has_prev\": false,\n  \"filters_applied\": {\n    \"course_code\": \"CS61A\",\n    \"category\": null,\n    \"search\": null\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Filter by Category (Documents)",
+          "description": "Get files by category. Useful for organizing files by type.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/files?category=document",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "files"],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "document",
+                  "description": "Filter by category: document, video, audio, other"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Filter by Category (Videos)",
+          "description": "Get video files only. Perfect for media galleries.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/files?category=video",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "files"],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "video",
+                  "description": "Get video files"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🔍 Search & Advanced Filtering",
+      "description": "Search functionality and combined filters for powerful file discovery",
+      "item": [
+        {
+          "name": "Search Files (by name)",
+          "description": "Search files by filename or title. Great for finding specific files quickly.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/files?search=lab",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "files"],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "lab",
+                  "description": "Search in filename and title"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Combined Filters (Course + Category)",
+          "description": "Combine multiple filters for precise results. Perfect for filtered views.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/files?course_code=CS61A&category=document",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "files"],
+              "query": [
+                {
+                  "key": "course_code",
+                  "value": "CS61A",
+                  "description": "Filter by course"
+                },
+                {
+                  "key": "category",
+                  "value": "document",
+                  "description": "Filter by category"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "📄 File Operations",
+      "description": "Individual file operations: metadata, download, and access",
+      "item": [
+        {
+          "name": "Get File Metadata",
+          "description": "Get detailed metadata for a specific file using its UUID. Secure and clean.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/files/{{sampleFileUuid}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "files", "{{sampleFileUuid}}"]
+            }
+          },
+          "response": [
+            {
+              "name": "File Metadata",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{baseUrl}}/v1/files/550e8400-e29b-41d4-a716-446655440000",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "files", "550e8400-e29b-41d4-a716-446655440000"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"uuid\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"filename\": \"01_Getting_Started_Guide.txt\",\n  \"title\": \"Getting Started Guide\",\n  \"course\": \"CS61A\",\n  \"category\": \"document\",\n  \"size_bytes\": 1024,\n  \"mime_type\": \"text/plain\",\n  \"created_at\": \"2023-01-01T12:00:00Z\",\n  \"modified_at\": \"2023-01-01T12:00:00Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Download File",
+          "description": "Download a file securely using its UUID. Returns the actual file content.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/files/{{sampleFileUuid}}/download",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "files", "{{sampleFileUuid}}", "download"]
+            }
+          },
+          "response": [
+            {
+              "name": "File Download",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{baseUrl}}/v1/files/550e8400-e29b-41d4-a716-446655440000/download",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "files", "550e8400-e29b-41d4-a716-446655440000", "download"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                },
+                {
+                  "key": "Content-Disposition",
+                  "value": "attachment; filename=\"01_Getting_Started_Guide.txt\""
+                }
+              ],
+              "body": "# Getting Started Guide\n\nWelcome to CS61A! This guide will help you get started with the course materials..."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "📊 Pagination & Limits",
+      "description": "Pagination examples for handling large file collections efficiently",
+      "item": [
+        {
+          "name": "Paginated Results (Page 1)",
+          "description": "Get first page of results with custom page size. Perfect for infinite scroll or pagination UI.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/files?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "files"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (1-based)"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Items per page (1-1000)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Paginated Results (Page 2)",
+          "description": "Get second page of results. Shows pagination in action.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/files?page=2&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "files"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "2",
+                  "description": "Page number"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Items per page"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "📈 Statistics & System Info",
+      "description": "System statistics and health monitoring endpoints",
+      "item": [
+        {
+          "name": "Get File Statistics",
+          "description": "Get comprehensive file system statistics including counts by course and system info.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/files/stats/summary",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "files", "stats", "summary"]
+            }
+          },
+          "response": [
+            {
+              "name": "System Statistics",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{baseUrl}}/v1/files/stats/summary",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "files", "stats", "summary"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"total_files\": 42,\n  \"base_directory\": \"/path/to/data\",\n  \"auto_discovery\": \"enabled\",\n  \"courses\": {\n    \"CS61A\": 25,\n    \"CS61B\": 17\n  },\n  \"last_updated\": \"2023-01-01T12:00:00Z\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "🎯 Real Examples with Actual Files",
+      "description": "Examples using actual files from the data directory for realistic testing",
+      "item": [
+        {
+          "name": "CS61A Lab Material",
+          "description": "Search for CS61A lab materials specifically",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/files?course_code=CS61A&search=Getting_Started",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "files"],
+              "query": [
+                {
+                  "key": "course_code",
+                  "value": "CS61A",
+                  "description": "CS61A course"
+                },
+                {
+                  "key": "search",
+                  "value": "Getting_Started",
+                  "description": "Search for getting started guide"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Python Code Files",
+          "description": "Find Python code files across all courses",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/files?search=.py",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "files"],
+              "query": [
+                {
+                  "key": "search",
+                  "value": ".py",
+                  "description": "Search for Python files"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "PDF Documents",
+          "description": "Find PDF documents for study materials",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/files?search=.pdf",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "files"],
+              "query": [
+                {
+                  "key": "search",
+                  "value": ".pdf",
+                  "description": "Search for PDF files"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

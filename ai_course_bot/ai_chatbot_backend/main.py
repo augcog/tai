@@ -12,6 +12,8 @@ from app.admin import setup_admin
 from app.api.v1.router import router as v1_router
 from app.core.database import engine
 from app.core.models.courses import Base
+from app.api.v1.models.files import FileRegistry  # Import to ensure table creation
+
 from app.v1.openai_mock import router as openapi_mock_router
 
 # from app.core.actions.model_selector import get_model
@@ -24,6 +26,8 @@ logging.basicConfig(
 
 # Create the database tables
 Base.metadata.create_all(bind=engine)
+
+# File categories are now simplified and handled automatically
 
 app = FastAPI(
     title="Course AI Assistant API",

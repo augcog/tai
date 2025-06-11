@@ -301,6 +301,8 @@ class BaseConverter(ABC):
         md_path = self._to_markdown(input_path, output_path)
         with open(md_path, "r", encoding= 'UTF-8') as input_file:
             content_text = input_file.read()
+            if not content_text.strip():
+                logger.error(f"Markdown file '{md_path}' is empty!")
         metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
         page_path = output_path.with_name(f"{stem}_content_list.json")
         metadata_content = self._read_metadata(metadata_path)

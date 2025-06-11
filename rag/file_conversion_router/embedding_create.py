@@ -81,13 +81,14 @@ def traverse_files(path, start_folder_name, url_list, id_list, doc_list, file_pa
                     chunks = pickle.load(pkl_file)
                 for chunk in chunks:
                     # folder_path = ''.join(f"{item}" for i, item in enumerate(path_list))
-                    match = re.search(r'\((.*?)\)', chunk.titles)
-                    if match:
-                        topic_path = match.group(1)
-                        topic_path_list.append(topic_path)
-                    else:
-                        topic_path = chunk.titles  # Fallback if the pattern isn't found
-                        topic_path_list.append(topic_path)
+                    # match = re.search(r'\((.*?)\)', chunk.titles)
+                    # if match:
+                    #     topic_path = match.group(1)
+                    #     topic_path_list.append(topic_path)
+                    # else:
+                    #     topic_path = chunk.titles  # Fallback if the pattern isn't found
+                    #     topic_path_list.append(topic_path)
+                    topic_path = chunk.titles
                     print( f"topic_path: {topic_path} in {file_path}")
                     id = base_name + ' > ' + topic_path
                     id_list.append(id)
@@ -195,4 +196,4 @@ def validate_data(data):
 
 
 if __name__ == "__main__":
-    embedding_create("/home/bot/bot/yk/CS61A_md", "/home/bot/bot/yk/CS61A_md", "cs61a", "500_md", "BGE")
+    embedding_create("/Users/yyk956614/tai/rag/file_conversion_router/test_output/fl", "/Users/yyk956614/tai/rag/file_conversion_router/test_output/fl", "cs61a", "500_md", "BGE")

@@ -6,7 +6,7 @@ import pickle
 import re
 from pathlib import Path
 import json
-
+import logging
 
 class Page:
     PAGE_LENGTH_THRESHOLD = 20
@@ -59,7 +59,7 @@ class Page:
         try:
             with open(mapping_json_path, 'r', encoding='utf-8') as f:
                 mapping_data = json.load(f)
-            print(f"Loaded title-page mapping: {mapping_data}")
+            # print(f"Loaded title-page mapping: {mapping_data}")
             return mapping_data
         except Exception as e:
             print(f"Error loading title page mapping: {e}")
@@ -170,10 +170,8 @@ class Page:
                 stripped_line = line.strip()
                 if "```" in stripped_line:
                     in_code_block = not in_code_block
-
                 if in_code_block:
-                    if curheader:
-                        current_content += f"{line}\n"
+                    current_content += f"{line}\n"
                 else:
                     if line.startswith('#'):
                         if curheader:
@@ -222,7 +220,7 @@ class Page:
         for (title, level), _ in self.segments:
             if level is not None:
                 indent = '--' * (level - 1)
-                result += f"{indent}{title}\n"
+                result += f"{indent}/{title}\n"
             else:
                 result += f"{title} (hUnknown)\n"
         return result
@@ -235,11 +233,15 @@ class Page:
             level = header[1]
             header_title = header[0]
             while len(header_stack) >= level:
-                header_stack.pop()
+                if header_stack:
+                    header_stack.pop()
+                else:
+                    logging.warning("Header stack is empty, cannot pop. In file: %s", self.pagename)
+                    break
             header_stack.append(header_title)
             if not content.strip():
                 continue
-            segment_display = f"(Segment {counter})\n{'#' * level} {header_title} (h{level})\n{content.strip()}\n"
+            segment_display = f"\n{content.strip()}\n"
             page_toc = "(Table of Contents)\n" + self.print_header_tree() + "\n"
             tree_segment = {
                 'Page_table': page_toc,
@@ -253,14 +255,19 @@ class Page:
 
     def tree_segments_to_chunks(self):
         for segment in self.tree_segments:
-            default_title = segment["Page_path"][-1] if segment["Page_path"] else "(NO TITLE)"
+            header_list = segment["Page_path"]
+            print(f"header_list: {header_list}")
+            if len(header_list) > 1:
+                final_title = f"{header_list[-1]} < {' '.join(header_list[:-1])}"
+                print(f"final_title: {final_title}")
+            elif len(header_list) == 1:
+                final_title = header_list[0]
+                print(f"final_title: {final_title}")
+            else:
+                final_title = "(NO TITLE)"
             splitted_contents = self.recursive_separate(segment["Segment_print"], 400)
             page_num = segment.get("page_num", None)
-            is_split_flag = (len(splitted_contents) > 1)
-            if is_split_flag:
-                merged_title = f"{default_title} (Split from: {' - '.join(segment['Page_path'])})"
-            else:
-                merged_title = default_title
+
             for content_chunk in splitted_contents:
                 if self.page_url:
                     if page_num is not None:
@@ -269,16 +276,18 @@ class Page:
                         urls = self.page_url
                 else:
                     urls = ""
+
                 self.chunks.append(
                     Chunk(
                         content=content_chunk,
-                        titles=merged_title,
+                        titles=final_title,
                         chunk_url=urls,
                         page_num=page_num,
-                        is_split=is_split_flag
+                        is_split=(len(splitted_contents) > 1)
                     )
                 )
-                self.post_process_merge_short_chunks(400)
+        # self.post_process_merge_short_chunks(400)
+
         return self.chunks
 
     def to_file(self, output_path: str) -> None:
@@ -289,7 +298,7 @@ class Page:
         self.page_seperate_to_segments()
         self.tree_print()
         self.chunks = self.tree_segments_to_chunks()
-        self.post_process_merge_short_chunks(short_chunk_token_threshold=400)
+        # self.post_process_merge_short_chunks(short_chunk_token_threshold=400)
 
     def chunks_to_pkl(self, output_path: str) -> None:
         with open(output_path, "wb") as f:
@@ -321,6 +330,7 @@ class Page:
                         page_num=current_chunk.page_num,
                         is_split=current_chunk.is_split
                     )
+                    print(f'merged_title: {merged_title}')
                     new_chunks.append(new_chunk)
                     i += 2
                     continue

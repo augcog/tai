@@ -16,7 +16,7 @@ tasks:
     driver_type: "request" # or "playwright"
     roots:
       - url: https://cs61a.org/
-        depth: 5
+        depth: 8
         scraper_type: general_scraper  # or "video_scraper"
       - url: https://www.youtube.com
         depth: 1

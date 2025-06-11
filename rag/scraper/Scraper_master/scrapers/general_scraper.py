@@ -24,3 +24,12 @@ class GeneralScraper(BaseScraper):
         yaml_content = f"URL: {url}"
         # Save file without .pdf in the filename
         save_to_file(f'{base_filename}_metadata.yaml', yaml_content)
+
+if __name__ == "__main__":
+    # Example usage
+    url = "https://cs61a.org/lab/lab00/"
+    driver = PlaywrightDriver()
+    task_folder_path = "/Users/yyk956614/tai/rag/file_conversion_router/test"
+    scraper = GeneralScraper()
+    links = scraper.scrape(url, driver, task_folder_path)
+    print(links)

@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Union
 
 
 @dataclass
@@ -17,7 +17,7 @@ class Chunk:
     #  Can they be combined into a single metadata field?
     content: str
     titles: str = "default_title"
-    chunk_url: str = "default_no_url",
+    chunk_url: Union[str, List[str]] = "default_no_url",
     metadata: Dict[str, Any] = field(default_factory=dict)
     is_split: bool = False
     page_num: Any = None
@@ -29,7 +29,7 @@ class Chunk:
             'titles': self.titles,
             'chunk_url': self.chunk_url,
             'page_num': self.page_num,
-            self.is_split: self.is_split
+            'is_split': self.is_split
         })
 
     def __eq__(self, other):

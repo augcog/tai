@@ -79,7 +79,7 @@ def clean_path(url_path: str) -> str:
     return ' '.join(cleaned.split())
 
 
-def _get_references_from_sql(query_embed: Dict[str, Any], current_dir: str, picklefile: str
+def _get_references_from_sql(query_embed: Dict[str, Any], current_dir: str, picklefile: str, top_k: int
                              ) -> Tuple[List[str], List[str], List[str], List[float]]:
     """
     Retrieve top reference documents from a SQL database.
@@ -96,7 +96,7 @@ def _get_references_from_sql(query_embed: Dict[str, Any], current_dir: str, pick
             SELECT rowid, distance
             FROM embeddings
             WHERE vss_search(embedding, ?)
-            LIMIT 3;
+            LIMIT top_k;
         """, (query_vector_json,))
     results = cur.fetchall()
     db.commit()
@@ -122,7 +122,7 @@ def _get_references_from_sql(query_embed: Dict[str, Any], current_dir: str, pick
     return top_ids, top_docs, top_urls, similarity_scores
 
 
-def _get_references_from_pickle(query_embed: Dict[str, Any], current_dir: str, picklefile: str
+def _get_references_from_pickle(query_embed: Dict[str, Any], current_dir: str, picklefile: str, top_k: int
                                 ) -> Tuple[List[str], List[str], List[str], List[float]]:
     """
     Retrieve top reference documents from a pickle file.
@@ -131,6 +131,8 @@ def _get_references_from_pickle(query_embed: Dict[str, Any], current_dir: str, p
     with open(path_to_pickle, 'rb') as f:
         data_loaded = pickle.load(f)
     doc_list = data_loaded['doc_list']
+    file_path_list= data_loaded['file_paths_list']
+    topic_path_list = data_loaded['topic_path_list']
     id_list = data_loaded['id_list']
     url_list = data_loaded['url_list']
     embedding_list = data_loaded['embedding_list']
@@ -138,22 +140,24 @@ def _get_references_from_pickle(query_embed: Dict[str, Any], current_dir: str, p
     combined_scores = bge_compute_score(query_embed, embedding_list, [1, 1, 1], None, None)
     score_array = np.array(combined_scores['colbert+sparse+dense'])
     indices = np.argsort(score_array)[::-1]
-    similarity_scores = np.sort(score_array)[-3:][::-1]
-    top_ids = id_list[indices][:3]
-    top_docs = doc_list[indices][:3]
-    top_urls = url_list[indices][:3].tolist()
-    return top_ids, top_docs, top_urls, similarity_scores
+    similarity_scores = np.sort(score_array)[-top_k:][::-1]
+    top_ids = id_list[indices][:top_k]
+    top_docs = doc_list[indices][:top_k]
+    top_files = file_path_list[indices][:top_k]
+    top_topic_paths = topic_path_list[indices][:top_k]
+    top_urls = url_list[indices][:top_k].tolist()
+    return top_ids, top_docs, top_urls, similarity_scores,top_files,top_topic_paths
 
 
-def _get_reference_documents(query_embed: Dict[str, Any], current_dir: str, picklefile: str
+def _get_reference_documents(query_embed: Dict[str, Any], current_dir: str, picklefile: str,top_k: int
                              ) -> Tuple[List[str], List[str], List[str], List[float]]:
     """
     Retrieve top reference documents based on the query embedding.
     """
     if SQLDB:
-        return _get_references_from_sql(query_embed, current_dir, picklefile)
+        return _get_references_from_sql(query_embed, current_dir, picklefile, top_k=top_k)
     else:
-        return _get_references_from_pickle(query_embed, current_dir, picklefile)
+        return _get_references_from_pickle(query_embed, current_dir, picklefile, top_k=top_k)
 
 
 def _get_pickle_and_class(course: str) -> Tuple[str, str]:
@@ -167,11 +171,13 @@ def _get_pickle_and_class(course: str) -> Tuple[str, str]:
     elif course == "CS 294-137":
         return "cs294.pkl", "Immersive Computing and Virtual Reality"
     elif course == "Econ 140":
-        return "Econ140.pkl", "Econometrics"
+        return "econ140.pkl", "Econometrics"
+    elif course == "INTD 315":
+        return "language.pkl", "Multilingual Engagement"
+    elif course == "ROAR Academy":
+        return "roar_academy.pkl", "learning python and autonomous driving"
     else:
         return "Berkeley.pkl", "Berkeley"
-
-
 def top_k_selector(message: str, stream: bool = True, rag: bool = True, course: Optional[str] = None, k: int = 3
                    ) -> Dict[str, Any]:
     """
@@ -180,7 +186,7 @@ def top_k_selector(message: str, stream: bool = True, rag: bool = True, course: 
     top_docs: List[str] = []
     if rag:
         picklefile, _ = _get_pickle_and_class(course if course else "")
-        current_dir = "/home/bot/localgpt/tai_evaluation/tai/rag/file_conversion_router/embedding"
+        current_dir = "/home/bot/localgpt/tai/ai_course_bot/ai_chatbot_backend/app/embedding/"
         query_embed = embedding_model.encode(
             message, return_dense=True, return_sparse=True, return_colbert_vecs=True
         )

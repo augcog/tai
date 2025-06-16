@@ -1,5 +1,5 @@
 # Import necessary components from FastAPI
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends
 from app.core.models.chat_completion import *
 from typing import Any
 import asyncio
@@ -11,7 +11,9 @@ from app.api.v1.services.rag_selector import generate_chat_response, local_parse
 from app.api.v1.services.rag_retriever import top_k_selector
 import httpx
 import requests
+from app.dependencies.model import get_model_pipeline
 
+pipeline = get_model_pipeline()
 
 def generate_data():
         for number in range(1, 51):  # Generating numbers from 1 to 100
@@ -35,7 +37,7 @@ async def create_completion(params: CompletionCreateParams):
     selector = generate_chat_response
     parser = local_parser
 
-    response,reference_string = selector(formatter(params.messages), stream=stream, course=course)
+    response,reference_string = selector(formatter(params.messages), stream=params.stream,course=course, pipeline=pipeline)
 
     if params.stream:
         return StreamingResponse(parser(response,reference_string), media_type="text/plain")

@@ -172,24 +172,24 @@ str, List[str]):
     insert_document = ""
     reference = []
     n = 0
-    none = 0
-
+    reference_string = ""
     for i in range(len(top_docs)):
         if top_urls[i]:
             reference.append(f"{top_urls[i]}")
         else:
             reference.append("")
-        if distances[i] > 0.45:
+        if distances[i] > 0.38:
             n += 1
             if top_urls[i]:
-                insert_document += f"\"\"\"Reference Number: {n}\nReference Info Path: {top_ids[i]}\nReference_Url: {top_urls[i]}\nDocument: {top_docs[i]}\"\"\"\n\n"
+                insert_document += f"\"\"\"Reference Number: {n}\nReference Info Path(not URL): {top_ids[i]}\nDocument: {top_docs[i]}\"\"\"\n\n"
+                cleaned_path = clean_path(top_ids[i])
+                reference_string += f"Reference {n}: <|begin_of_reference_name|>{cleaned_path}<|end_of_reference_name|><|begin_of_reference_link|>{top_urls[i]}<|end_of_reference_link|>\n\n"
             else:
                 cleaned_path = clean_path(top_ids[i])
-                insert_document += f"\"\"\"Reference Number: {n}\nReference Info Path: {cleaned_path}\nReference_Url: NONE\nDocument: {top_docs[i]}\"\"\"\n\n"
+                insert_document += f"\"\"\"Reference Number: {n}\nReference Info Path(not URL): {cleaned_path}\nDocument: {top_docs[i]}\"\"\"\n\n"
+                reference_string += f"Reference {n}: <|begin_of_reference_name|>{cleaned_path}<|end_of_reference_name|><|begin_of_reference_link|><|end_of_reference_link|>\n\n"
         else:
             reference.append("")
-            none += 1
-            print(f"Reference {i + 1} has low distance: {distances[i]}")
 
     return insert_document, reference
 
@@ -210,14 +210,17 @@ def perform_rag(messages: List[Message], course: str) -> Any:
 
     # Map courses to their respective pickle files
     course_pickle_map = {
-        "EE 106B": "eecs106b.pkl",
-        "CS 61A": "cs61a.pkl",
-        "CS 294-137": "cs294.pkl",
-        "Econ 140": "Econ140.pkl"
+        "EE 106B": ["eecs106b.pkl", "Robotic Manipulation and Interaction"],
+        "CS 61A": ["cs61a.pkl", "Structure and Interpretation of Computer Programs"],
+        "CS 294-137": ["cs294.pkl", "Immersive Computing and Virtual Reality using Unity"],
+        "Econ 140": ["Econ140.pkl", "Econometrics"],
+        "ROAR Academy": ["roar_academy.pkl", "ROAR Academy"],
+        "Multilingual Engagement": ["language.pkl", "Multilingual_Engagement"],
+        "Default": ["Berkeley.pkl", "Berkeley"]
     }
-    picklefile = course_pickle_map.get(course, "Berkeley.pkl")
-    current_dir = "/home/bot/localgpt/tai/ai_course_bot/ai-chatbot-backend/app/embedding/"  # Modify as needed
-
+    picklefile,class_name = course_pickle_map.get(course, ["Berkeley.pkl", "Berkeley"])
+    current_dir = "/home/bot/localgpt/tai/ai_course_bot/ai_chatbot_backend/app/embedding/"  # Modify as needed
+    num_docs = 7
     if SQLDB:
         # SQLDB logic
         embedding_db_path = os.path.join(current_dir, "embeddings.db")
@@ -299,11 +302,11 @@ def perform_rag(messages: List[Message], course: str) -> Any:
         )
         cosine_similarities = np.array(scores['colbert+sparse+dense'])
         indices = np.argsort(cosine_similarities)[::-1]
-        distances = cosine_similarities[indices][:3]
+        distances = cosine_similarities[indices][:num_docs]
 
-        top_ids = [id_list[i] for i in indices[:3]]
-        top_docs = [doc_list[i] for i in indices[:3]]
-        top_urls = [url_list[i] for i in indices[:3]]
+        top_ids = [id_list[i] for i in indices[:num_docs]]
+        top_docs = [doc_list[i] for i in indices[:num_docs]]
+        top_urls = [url_list[i] for i in indices[:num_docs]]
 
     print("Top IDs:", top_ids)
     print("Top Docs:", top_docs)
@@ -312,18 +315,14 @@ def perform_rag(messages: List[Message], course: str) -> Any:
     # Process top documents and references
     insert_document, reference = process_references(top_docs, top_ids, top_urls, distances)
 
-    if not insert_document or len([d for d in distances if d > 0.45]) == 0:
+    if not insert_document:
         print("NO REFERENCES")
-        user_message = f'Answer the instruction. If unsure of the answer, explain that there is no data in the knowledge base for the response.\n---\n{user_message}'
+        user_message = f'Answer the instruction. If unsure of the answer, explain that there is no data in the knowledge base for the response and refuse to answer. If the instruction is not related to class topic {class_name}, explain and refuse to answer.\n---\nInstruction: {user_message}'
     else:
         print("INSERT DOCUMENT:", insert_document)
         insert_document += f'Instruction: {user_message}'
-        user_message = (
-                "Understand the reference documents and use them to answer the instruction thoroughly. "
-                "List the references used to answer the question numbered. Ex: [reference Name](URL). "
-                "Keep your answer grounded in the facts of the references.\n---\n" +
-                insert_document
-        )
+        user_message = f"Understand the reference documents and use related ones to answer the instruction thoroughly. Keep your answer ground in the facts of the references that are relevant and refer to spacific reference number inline. Do not provide any reference at the end. If the instruction is not related to class topic {class_name}, explain and refuse to answer.\n---\n{insert_document}"
+
 
     print("USER MESSAGE:", user_message)
     messages[-1].content = user_message
@@ -332,7 +331,7 @@ def perform_rag(messages: List[Message], course: str) -> Any:
     t = Thread(target=prompt_generator, args=(messages, streamer_iterator,))
     t.start()
     response = streamer_iterator
-    return response
+    return response,reference
 
 
 def perform_direct_query(messages: List[Message], stream: bool = False) -> Union[
@@ -383,10 +382,10 @@ def local_selector(
     """
     if rag:
         return perform_rag(messages, course)
-    return perform_direct_query(messages, stream)
+    return perform_direct_query(messages, stream),None
 
 
-def local_parser(stream: transformers.TextIteratorStreamer):
+def local_parser(stream: transformers.TextIteratorStreamer,reference_string:str):
     """
     Parses the streamed response by removing specific tokens.
 
@@ -398,10 +397,11 @@ def local_parser(stream: transformers.TextIteratorStreamer):
     """
     for chunk in stream:
         result = chunk.replace("<|eot_id|>", "")
-        if result is None:
+        if result == None:
             yield ""
         else:
-            yield result
+            yield chunk.replace("<|eot_id|>", "")
+    yield '\n\n<|begin_of_reference|>\n\n' + reference_string + '<|end_of_reference|>'
 
 
 def local_formatter(messages: List[ROARChatCompletionMessage]) -> List[Message]:
@@ -415,7 +415,7 @@ def local_formatter(messages: List[ROARChatCompletionMessage]) -> List[Message]:
         List[Message]: Formatted messages with system prompt.
     """
     response: List[Message] = []
-    system_message = "You are a Teaching Assistant. You are responsible for answering questions and providing guidance to students."
+    system_message = "You are a Teaching Assistant. You are responsible for answering questions and providing guidance to students. Do not provide direct answers to homework questions. If the question is related to a class topic, provide guidance and resources to help the student answer the question. If the question is not related to a class topic, explain that you cannot provide an answer."
     response.append(Message(role="system", content=system_message))
     for message in messages:
         response.append(Message(role=message.role, content=message.content))

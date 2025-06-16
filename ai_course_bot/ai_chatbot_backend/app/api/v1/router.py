@@ -1,8 +1,15 @@
-from app.api.v1.endpoints import file_completions, completions, courses, course_admin, local_files, file_tester
+from app.api.v1.endpoints import file_completions, completions, courses, course_admin, local_files, file_tester, auth
 #TODO add summarization to import
 from fastapi import APIRouter
 
 router = APIRouter()
+
+# Authentication endpoints
+router.include_router(
+    auth.router,
+    prefix="/auth",
+    tags=["authentication"]
+)
 
 router.include_router(
     file_completions.router,

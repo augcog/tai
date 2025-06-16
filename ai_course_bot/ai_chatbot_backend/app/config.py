@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Optional
+from typing import Optional, List
 
 from pydantic import Field, validator
 from pydantic_settings import BaseSettings
@@ -33,8 +33,10 @@ class Settings(BaseSettings):
     remote_model_url: str = "https://tai.berkeley.edu/api/chat"
     
     # Authentication settings
-    auth_required: bool = True
-    google_client_id: str = "your-google-client-id"
+    auth_required: bool = False
+    nextauth_secret: str = "your-nextauth-secret"
+    nextauth_url: str = "http://localhost:3000"
+    allowed_domains: List[str] = ["berkeley.edu"]  # Restrict to berkeley.edu emails
     dev_mode: bool = False
     
     # Data directory settings

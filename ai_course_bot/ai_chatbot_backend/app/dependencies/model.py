@@ -6,6 +6,8 @@ import transformers
 from .remote_model import RemoteModelClient
 from ..config import settings
 
+# Global variable to store the loaded pipeline (singleton pattern)
+_model_pipeline = None
 
 def get_local_model_pipeline():
     """Loads the local text generation model for inference.
@@ -62,22 +64,47 @@ def get_mock_model_pipeline():
     return MockPipeline()
 
 
-def get_model_pipeline():
-    """Returns the appropriate model pipeline based on configuration.
-
-    Modes:
-      - local: Run inference locally.
-      - remote: Call a remote LLM service.
-      - mock: Return simulated responses.
-
-    The effective mode is determined by the overall environment (env) unless llm_mode is explicitly set.
+def initialize_model_pipeline():
+    """Initialize the model pipeline once at startup.
+    
+    Returns the appropriate model pipeline based on configuration.
+    This should be called once during app startup.
     """
+    global _model_pipeline
+    if _model_pipeline is not None:
+        print("⚠️  Model pipeline already initialized, returning existing instance")
+        return _model_pipeline
+        
+    print("🚀 Initializing model pipeline...")
     mode = settings.effective_llm_mode
+    print(f"📦 Using LLM mode: {mode}")
+    
     if mode == "local":
-        return get_local_model_pipeline()
+        print("🔧 Loading local model pipeline...")
+        _model_pipeline = get_local_model_pipeline()
+        print("✅ Local model pipeline loaded successfully!")
     elif mode == "remote":
-        return get_remote_model_pipeline()
+        print("🌐 Setting up remote model pipeline...")
+        _model_pipeline = get_remote_model_pipeline()
+        print("✅ Remote model pipeline setup successfully!")
     elif mode == "mock":
-        return get_mock_model_pipeline()
+        print("🎭 Setting up mock model pipeline...")
+        _model_pipeline = get_mock_model_pipeline()
+        print("✅ Mock model pipeline setup successfully!")
     else:
         raise ValueError(f"Unknown effective LLM mode: {mode}")
+    
+    return _model_pipeline
+
+
+def get_model_pipeline():
+    """Returns the pre-initialized model pipeline.
+    
+    This function should be used after initialize_model_pipeline() has been called.
+    If the pipeline hasn't been initialized, it will initialize it on first call.
+    """
+    global _model_pipeline
+    if _model_pipeline is None:
+        print("⚠️  Model pipeline not initialized, initializing now...")
+        return initialize_model_pipeline()
+    return _model_pipeline

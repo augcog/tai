@@ -13,8 +13,6 @@ import httpx
 import requests
 from app.dependencies.model import get_model_pipeline
 
-pipeline = get_model_pipeline()
-
 def generate_data():
         for number in range(1, 51):  # Generating numbers from 1 to 100
             yield f"Number: {number}\n".encode("utf-8")  # Yields data as bytes
@@ -27,6 +25,9 @@ router = APIRouter(prefix="/api/chat")
 
 @router.post("/completions")
 async def create_completion(params: CompletionCreateParams):
+    # Get the pre-initialized pipeline
+    pipeline = get_model_pipeline()
+    
     # select model based on params.model
     course_model_address = course_selection.get(params.course, "default")
     course = params.course

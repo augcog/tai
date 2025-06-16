@@ -10,12 +10,13 @@ from ..config import settings
 def get_local_model_pipeline():
     """Loads the local text generation model for inference.
     """
-    model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
+    # model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
+    model_id = "THUDM/GLM-4-9B-0414"
     device = 0 if torch.cuda.is_available() else -1
     pipeline = transformers.pipeline(
         "text-generation",
         model=model_id,
-        model_kwargs={"torch_dtype": torch.bfloat16},
+        model_kwargs={"torch_dtype": 'auto'},
         device=device
     )
     return pipeline
@@ -44,33 +45,17 @@ def get_mock_model_pipeline():
     class MockPipeline:
         def __call__(self, prompt: str, **kwargs):
             max_length = kwargs.get("max_length", None)
-            stream = kwargs.get("stream", True)
-            rag = kwargs.get("rag", True)  # Get the rag flag from kwargs, default to True for backward compatibility
 
             def stream_generator():
                 nonlocal max_length
                 # Simulate token-by-token streaming response.
-                # If RAG is enabled, include reference markers in the content
-                if rag and ("github" in prompt.lower() or "tai" in prompt.lower()):
-                    simulated_text = "Simulated complete response about UC Berkeley TAI Teaching [1] for: " + prompt
-                else:
-                    simulated_text = "Simulated complete response about UC Berkeley TAI Teaching for: " + prompt
-                    
+                simulated_text = "Simulated complete response for: " + prompt
                 tokens = simulated_text.split()
                 if max_length is not None:
                     tokens = tokens[:max_length]
                 # Yield each token as a NDJSON message.
                 for token in tokens:
                     yield json.dumps({"type": "token", "data": token + " "}) + "\n"
-                
-                # Add reference info if RAG is enabled
-                if rag and ("github" in prompt.lower() or "tai" in prompt.lower()):
-                    yield json.dumps({
-                        "type": "final", 
-                        "references": ["https://github.com/augcog/tai"]
-                    }) + "\n"
-                else:
-                    yield json.dumps({"type": "final", "references": []}) + "\n"
 
             return stream_generator()
 

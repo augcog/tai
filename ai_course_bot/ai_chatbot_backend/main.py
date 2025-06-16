@@ -19,6 +19,9 @@ from app.core.db_initializer import initialize_database_on_startup
 
 from app.v1.openai_mock import router as openapi_mock_router
 
+# Import model pipeline initializer
+from app.dependencies.model import initialize_model_pipeline
+
 # from app.core.actions.model_selector import get_model
 
 logging.basicConfig(
@@ -37,6 +40,15 @@ else:
 
 # Fallback table creation (in case the initializer doesn't work)
 Base.metadata.create_all(bind=engine)
+
+# Initialize model pipeline once at startup
+print("\n🤖 Initializing AI model pipeline...")
+try:
+    initialize_model_pipeline()
+    print("✅ Model pipeline initialization completed successfully!")
+except Exception as e:
+    print(f"❌ Model pipeline initialization failed: {e}")
+    print("💡 The server will start but model-dependent endpoints may not work.")
 
 # File categories are now simplified and handled automatically
 

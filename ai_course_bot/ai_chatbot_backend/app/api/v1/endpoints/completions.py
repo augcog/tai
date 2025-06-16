@@ -1,7 +1,7 @@
 import os
 import json
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
 
 from app.api.v1.schemas.completion import CompletionCreateParams, ChatCompletionChunk, ToolCall
@@ -13,10 +13,13 @@ from app.dependencies.model import get_model_pipeline
 router = APIRouter()
 
 
-async def process_completion(params: CompletionCreateParams, pipeline):
+async def process_completion(params: CompletionCreateParams):
     course = params.course
     rag = params.rag
     print(f"Processing completion for course: {course} (RAG={'enabled' if rag else 'disabled'})")
+
+    # Get the pre-initialized pipeline
+    pipeline = get_model_pipeline()
 
     # Select model based on params.course if needed.
     course_model_address = course_selection.get(course, "default")
@@ -62,13 +65,10 @@ async def process_completion(params: CompletionCreateParams, pipeline):
 
 
 @router.post("")
-async def create_completion(
-        params: CompletionCreateParams,
-        pipeline=Depends(get_model_pipeline),
-):
+async def create_completion(params: CompletionCreateParams):
     """OpenAI-compatible chat completions endpoint
 
     OpenAI's Relevant Doc:
         https://platform.openai.com/docs/api-reference/chat-streaming/streaming
     """
-    return await process_completion(params, pipeline)
+    return await process_completion(params)

@@ -1,6 +1,6 @@
 from typing import Optional
 
-from ..core.security import verify_google_token
+from ..core.security import verify_auth_token
 from ..core.database import get_db
 from app.config import settings
 from fastapi import Header, HTTPException, status, Request
@@ -8,13 +8,13 @@ from fastapi import Header, HTTPException, status, Request
 
 def get_current_user(authorization: str = Header(...)) -> dict:
     """
-    Dependency that enforces authentication using a Google ID token.
+    Dependency that enforces authentication using a NextAuth JWT token.
     Expects the header in the format: "Bearer <token>".
     
     When auth_required=False in settings, accepts any token and returns a mock user.
     """
     token = authorization.replace("Bearer ", "")
-    return verify_google_token(token)
+    return verify_auth_token(token)
 
 
 def get_current_user_optional(authorization: Optional[str] = Header(None)) -> Optional[dict]:
@@ -28,18 +28,19 @@ def get_current_user_optional(authorization: Optional[str] = Header(None)) -> Op
             # Return mock user without requiring token
             return {
                 "user_id": "dev-user-id",
-                "email": "dev@example.com",
+                "email": "dev@berkeley.edu",
                 "name": "Development User",
-                "picture": None
+                "picture": None,
+                "domain": "berkeley.edu"
             }
         return None
     token = authorization.replace("Bearer ", "")
-    return verify_google_token(token)
+    return verify_auth_token(token)
 
 
 def get_admin_user(authorization: str = Header(...)) -> dict:
     """
-    Dependency that enforces admin authentication using a Google ID token.
+    Dependency that enforces admin authentication using a NextAuth JWT token.
     Expects the header in the format: "Bearer <token>".
     Raises 403 Forbidden if user is not an admin.
     
@@ -76,7 +77,7 @@ def auth_with_query_param(request: Request, authorization: Optional[str] = Heade
     
     # If we have a token, verify it
     if token:
-        return verify_google_token(token)
+        return verify_auth_token(token)
     
     # If no token and auth is required, raise error
     if settings.auth_required:
@@ -88,7 +89,8 @@ def auth_with_query_param(request: Request, authorization: Optional[str] = Heade
     # In dev mode with auth disabled, return mock user
     return {
         "user_id": "dev-user-id",
-        "email": "dev@example.com",
+        "email": "dev@berkeley.edu",
         "name": "Development User",
-        "picture": None
+        "picture": None,
+        "domain": "berkeley.edu"
     }

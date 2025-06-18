@@ -1,151 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Local File Retrieval API Tester</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="/static/css/file_tester.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File API Tester</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/static/css/file_tester.css" />
+  </head>
+  <body>
     <header>
-        <div class="header-content">
-            <h1>Local File Retrieval API Tester</h1>
-            <p>A simple testing interface for the Local File Retrieval API endpoints</p>
-        </div>
+      <div class="header-content">
+        <h1>File API Tester</h1>
+        <p>A simple testing interface for the File Management API endpoints</p>
+      </div>
     </header>
 
     <main>
-        <div class="content-container">
-            <section class="controls-panel panel">
-                <h2>API Controls</h2>
+      <div class="content-container">
+        <section class="controls-panel panel">
+          <h2>API Controls</h2>
 
-                <div class="form-container">
-                    <form id="directory-form" class="form-group">
-                        <h3>List Files</h3>
-                        <div class="input-group">
-                            <label for="directory-input">Directory Path:</label>
-                            <input type="text" id="directory-input" placeholder="Leave empty for root directory">
-                        </div>
-                        <button type="submit" class="btn">
-                            <i class="fas fa-list"></i> List Files
-                        </button>
-                    </form>
+          <div class="form-container">
+            <form id="files-form" class="form-group">
+              <h3>List Files</h3>
+              <div class="input-group">
+                <label for="course-code-input">Course Code:</label>
+                <input
+                  type="text"
+                  id="course-code-input"
+                  placeholder="e.g., CS61A (optional)"
+                />
+              </div>
+              <div class="input-group">
+                <label for="category-input">Category:</label>
+                <select id="category-input">
+                  <option value="">All Categories</option>
+                  <option value="document">Document</option>
+                  <option value="video">Video</option>
+                  <option value="audio">Audio</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label for="search-input">Search:</label>
+                <input
+                  type="text"
+                  id="search-input"
+                  placeholder="Search in file names and titles"
+                />
+              </div>
+              <div class="input-group">
+                <label for="page-input">Page:</label>
+                <input type="number" id="page-input" value="1" min="1" />
+              </div>
+              <div class="input-group">
+                <label for="limit-input">Limit:</label>
+                <input
+                  type="number"
+                  id="limit-input"
+                  value="100"
+                  min="1"
+                  max="1000"
+                />
+              </div>
+              <button type="submit" class="btn">
+                <i class="fas fa-list"></i> List Files
+              </button>
+            </form>
 
-                    <hr>
+            <hr />
 
-                    <form id="file-form" class="form-group">
-                        <h3>Get File</h3>
-                        <div class="input-group">
-                            <label for="file-input">File Path:</label>
-                            <input type="text" id="file-input" placeholder="Path to file">
-                        </div>
-                        <button type="submit" class="btn">
-                            <i class="fas fa-file-download"></i> Get File
-                        </button>
-                    </form>
+            <form id="file-metadata-form" class="form-group">
+              <h3>Get File Metadata</h3>
+              <div class="input-group">
+                <label for="file-id-input">File UUID:</label>
+                <input
+                  type="text"
+                  id="file-id-input"
+                  placeholder="File UUID (click on file from list above)"
+                />
+              </div>
+              <button type="submit" class="btn">
+                <i class="fas fa-info-circle"></i> Get Metadata
+              </button>
+            </form>
 
-                    <hr>
+            <hr />
 
-                    <form id="categories-form" class="form-group">
-                        <h3>Get Categories</h3>
-                        <button type="submit" class="btn">
-                            <i class="fas fa-tags"></i> Get Categories
-                        </button>
-                    </form>
+            <form id="file-download-form" class="form-group">
+              <h3>Download File</h3>
+              <div class="input-group">
+                <label for="download-file-id-input">File UUID:</label>
+                <input
+                  type="text"
+                  id="download-file-id-input"
+                  placeholder="File UUID (click on file from list above)"
+                />
+              </div>
+              <button type="submit" class="btn">
+                <i class="fas fa-download"></i> Download File
+              </button>
+            </form>
 
-                    <hr>
+            <hr />
 
-                    <form id="folders-form" class="form-group">
-                        <h3>Get Folders</h3>
-                        <button type="submit" class="btn">
-                            <i class="fas fa-folder"></i> Get Folders
-                        </button>
-                    </form>
+            <form id="stats-form" class="form-group">
+              <h3>File Statistics</h3>
+              <button type="submit" class="btn">
+                <i class="fas fa-chart-bar"></i> Get Stats
+              </button>
+            </form>
+          </div>
 
-                    <hr>
+          <div class="api-docs">
+            <h3>API Documentation</h3>
+            <div class="api-endpoint">
+              <span class="method">GET</span>
+              <span class="endpoint">/v1/files</span>
+              <p>
+                Lists files with filtering options. Supports course_code,
+                category, search, page, and limit parameters.
+              </p>
+            </div>
+            <div class="api-endpoint">
+              <span class="method">GET</span>
+              <span class="endpoint">/v1/files/{file_id}</span>
+              <p>Gets detailed metadata for a specific file by its UUID.</p>
+            </div>
+            <div class="api-endpoint">
+              <span class="method">GET</span>
+              <span class="endpoint">/v1/files/{file_id}/download</span>
+              <p>
+                Downloads a file by its UUID with proper security validation.
+              </p>
+            </div>
+            <div class="api-endpoint">
+              <span class="method">GET</span>
+              <span class="endpoint">/v1/files/stats/summary</span>
+              <p>
+                Gets comprehensive file system statistics including file counts
+                by course.
+              </p>
+            </div>
+          </div>
+        </section>
 
-                    <form id="hierarchy-form" class="form-group">
-                        <h3>File Hierarchy</h3>
-                        <div class="input-group">
-                            <label for="hierarchy-directory-input">Directory Path:</label>
-                            <input type="text" id="hierarchy-directory-input" placeholder="Leave empty for root directory">
-                        </div>
-                        <div class="input-group">
-                            <label for="max-depth-input">Max Depth:</label>
-                            <input type="number" id="max-depth-input" placeholder="-1 for unlimited" value="-1" min="-1">
-                        </div>
-                        <button type="submit" class="btn">
-                            <i class="fas fa-sitemap"></i> Get Hierarchy
-                        </button>
-                    </form>
-                </div>
+        <section class="files-panel panel">
+          <h2>Files</h2>
+          <div id="file-list" class="file-list-container">
+            <div class="initial-message">
+              <i class="fas fa-folder-open"></i>
+              <p>Click "List Files" to view files</p>
+            </div>
+          </div>
+        </section>
 
-                <div class="api-docs">
-                    <h3>API Documentation</h3>
-                    <div class="api-endpoint">
-                        <span class="method">GET</span>
-                        <span class="endpoint">/v1/local-files</span>
-                        <p>Lists files in a directory. Use the <code>directory</code> query parameter to specify a directory.</p>
-                    </div>
-                    <div class="api-endpoint">
-                        <span class="method">GET</span>
-                        <span class="endpoint">/v1/local-files/hierarchy</span>
-                        <p>Gets a hierarchical tree structure of files and directories. Use <code>directory</code> and <code>max_depth</code> query parameters to customize.</p>
-                    </div>
-                    <div class="api-endpoint">
-                        <span class="method">GET</span>
-                        <span class="endpoint">/v1/local-files/{file_path}</span>
-                        <p>Retrieves a file. The <code>file_path</code> should be URL-encoded.</p>
-                    </div>
-                    <div class="api-endpoint">
-                        <span class="method">GET</span>
-                        <span class="endpoint">/v1/local-files/categories</span>
-                        <p>Lists available file categories.</p>
-                    </div>
-                    <div class="api-endpoint">
-                        <span class="method">GET</span>
-                        <span class="endpoint">/v1/local-files/folders</span>
-                        <p>Lists available file folders.</p>
-                    </div>
-                </div>
-            </section>
+        <section class="response-panel panel">
+          <h2>
+            API Response
+            <button id="clear-response-btn" class="btn-small">Clear</button>
+          </h2>
+          <pre id="json-response" class="json-response"></pre>
+        </section>
 
-            <section class="files-panel panel">
-                <h2>Files</h2>
-                <div id="file-list" class="file-list-container">
-                    <div class="initial-message">
-                        <i class="fas fa-folder-open"></i>
-                        <p>Click "List Files" to view files</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="response-panel panel">
-                <h2>API Response <button id="clear-response-btn" class="btn-small">Clear</button></h2>
-                <pre id="json-response" class="json-response"></pre>
-            </section>
-
-            <section class="preview-panel panel">
-                <h2>Preview</h2>
-                <div id="preview-content" class="preview-content">
-                    <div class="initial-message">
-                        <i class="fas fa-eye"></i>
-                        <p>File preview will appear here</p>
-                    </div>
-                </div>
-            </section>
-        </div>
+        <section class="preview-panel panel">
+          <h2>Preview</h2>
+          <div id="preview-content" class="preview-content">
+            <div class="initial-message">
+              <i class="fas fa-eye"></i>
+              <p>File preview will appear here</p>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
 
     <div id="loading-indicator" class="loading-indicator">
-        <div class="spinner"></div>
+      <div class="spinner"></div>
     </div>
 
     <footer>
-        <p>&copy; 2023 Local File Retrieval API Tester</p>
+      <p>&copy; 2023 File Management API Tester</p>
     </footer>
 
     <script src="/static/js/file_tester.js"></script>
-</body>
+  </body>
 </html>

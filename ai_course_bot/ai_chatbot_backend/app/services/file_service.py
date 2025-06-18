@@ -3,6 +3,7 @@ Clean, unified file service
 Best practices with easy user flow and auto-discovery
 """
 
+import base64
 import hashlib
 import mimetypes
 import os
@@ -24,23 +25,24 @@ from app.api.v1.models.files import FileRegistry
 class FileService:
     """
     Unified file service with clean design and best practices
-    
+
     Features:
     - Auto-discovery: Files found automatically, no manual rescans
     - UUID-based: Secure access without exposing file paths
     - Clean API: Simple, intuitive interface
     - Best practices: Proper error handling, validation, security
     """
-    
+
     def __init__(self):
         self.base_dir = self._get_base_directory()
         self._cache = {}  # Simple cache for performance
         mimetypes.init()
-    
+
     def _get_base_directory(self) -> Path:
         """Get base directory with proper validation"""
         if hasattr(settings, "DATA_DIR") and settings.DATA_DIR:
-            data_dir = str(settings.DATA_DIR).split('#')[0].strip().strip('"\'')
+            data_dir = str(settings.DATA_DIR).split('#')[
+                0].strip().strip('"\'')
             if os.path.isabs(data_dir):
                 base_path = Path(data_dir)
             else:
@@ -49,11 +51,11 @@ class FileService:
         else:
             project_root = Path(__file__).parent.parent.parent
             base_path = project_root / "data"
-        
+
         # Ensure directory exists
         base_path.mkdir(parents=True, exist_ok=True)
         return base_path
-    
+
     def _extract_metadata(self, relative_path: str) -> Dict[str, Any]:
         """Extract simple, essential metadata from file path"""
         parts = relative_path.split('/')
@@ -83,9 +85,7 @@ class FileService:
             metadata['title'] = title
 
         return metadata
-    
 
-    
     def _discover_and_register_file(self, db: Session, file_path: Path, relative_path: str) -> Optional[FileRegistry]:
         """Discover and register a single file with proper error handling"""
         try:
@@ -93,13 +93,13 @@ class FileService:
             existing = db.query(FileRegistry).filter(
                 FileRegistry.relative_path == relative_path
             ).first()
-            
+
             # Get file stats
             file_stat = file_path.stat()
             mime_type, _ = mimetypes.guess_type(str(file_path))
             if not mime_type:
                 mime_type = 'application/octet-stream'
-            
+
             if existing:
                 # Update if file changed
                 if existing.size_bytes != file_stat.st_size:
@@ -112,7 +112,7 @@ class FileService:
             else:
                 # Create new record
                 metadata = self._extract_metadata(relative_path)
-                
+
                 file_record = FileRegistry(
                     id=uuid4(),
                     file_name=file_path.name,
@@ -122,73 +122,76 @@ class FileService:
                     is_active=True,
                     **metadata
                 )
-                
+
                 db.add(file_record)
                 db.commit()
                 return file_record
-                
+
         except Exception as e:
             print(f"Error registering file {file_path}: {e}")
             return None
-    
+
     def _auto_discover_files(self, db: Session, limit: int = 50):
         """Auto-discover new files efficiently"""
         if not self.base_dir.exists():
             return
-        
+
         try:
             discovered = 0
             for file_path in self.base_dir.rglob('*'):
                 if discovered >= limit:  # Limit to keep API responsive
                     break
-                
+
                 if not file_path.is_file():
                     continue
-                
+
                 # Skip hidden files and system files
                 if any(part.startswith('.') for part in file_path.parts):
                     continue
-                
+
                 relative_path = str(file_path.relative_to(self.base_dir))
-                
+
                 # Check cache to avoid repeated processing
                 if relative_path in self._cache:
                     continue
-                
+
                 # Check if already in database
                 exists = db.query(FileRegistry).filter(
                     FileRegistry.relative_path == relative_path
                 ).first()
-                
+
                 if not exists:
-                    self._discover_and_register_file(db, file_path, relative_path)
+                    self._discover_and_register_file(
+                        db, file_path, relative_path)
                     discovered += 1
-                
+
                 # Cache to avoid repeated checks
                 self._cache[relative_path] = True
-                
+
         except Exception as e:
             print(f"Auto-discovery error: {e}")
-    
+
     def list_files(self, db: Session, **filters) -> Dict[str, Any]:
         """
         List files with auto-discovery and comprehensive filtering
-        
+
         Returns both files and pagination info in a clean format
         """
         # Auto-discover new files first
         self._auto_discover_files(db)
-        
+
         # Build query
         query = db.query(FileRegistry).filter(FileRegistry.is_active == True)
-        
+
         # Apply simple, essential filters only
         filter_conditions = []
         if filters.get('course_code'):
-            filter_conditions.append(FileRegistry.course_code == filters['course_code'])
+            filter_conditions.append(
+                FileRegistry.course_code == filters['course_code'])
 
         if filters.get('category'):
-            filter_conditions.append(FileRegistry.category == filters['category'])
+            filter_conditions.append(
+                FileRegistry.category == filters['category'])
 
         if filters.get('search'):
             search_term = f"%{filters['search']}%"
@@ -196,31 +199,31 @@ class FileService:
                 FileRegistry.file_name.ilike(search_term) |
                 FileRegistry.title.ilike(search_term)
             )
-        
+
         # Apply all filters
         if filter_conditions:
             query = query.filter(and_(*filter_conditions))
-        
+
         # Get total count
         total_count = query.count()
-        
+
         # Apply sorting
         sort_by = filters.get('sort_by', 'created_at')
         sort_order = filters.get('sort_order', 'desc')
-        
+
         sort_column = getattr(FileRegistry, sort_by, FileRegistry.created_at)
         if sort_order.lower() == 'asc':
             query = query.order_by(sort_column.asc())
         else:
             query = query.order_by(sort_column.desc())
-        
+
         # Apply pagination
         page = filters.get('page', 1)
         limit = filters.get('limit', 100)
         offset = (page - 1) * limit
-        
+
         files = query.offset(offset).limit(limit).all()
-        
+
         return {
             'files': files,
             'total_count': total_count,
@@ -229,7 +232,7 @@ class FileService:
             'has_next': offset + limit < total_count,
             'has_prev': page > 1
         }
-    
+
     def get_file_by_id(self, db: Session, file_id: UUID) -> Optional[FileRegistry]:
         """Get file by UUID with validation"""
         return db.query(FileRegistry).filter(
@@ -238,23 +241,23 @@ class FileService:
                 FileRegistry.is_active == True
             )
         ).first()
-    
-    def get_file_content(self, db: Session, file_id: UUID) -> FileResponse:
-        """Get file content with security and access tracking"""
+
+    def get_file_with_content(self, db: Session, file_id: UUID) -> Dict[str, Any]:
+        """Get file metadata with base64 encoded content"""
         file_record = self.get_file_by_id(db, file_id)
         if not file_record:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="File not found"
             )
-        
+
         file_path = self.base_dir / file_record.relative_path
         if not file_path.exists():
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="File not found on disk"
             )
-        
+
         # Security check - ensure file is within base directory
         try:
             file_path.resolve().relative_to(self.base_dir.resolve())
@@ -263,23 +266,65 @@ class FileService:
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="Access denied"
             )
-        
+
+        # Read file content and encode as base64
+        try:
+            with open(file_path, 'rb') as f:
+                file_content = f.read()
+            content_base64 = base64.b64encode(file_content).decode('utf-8')
+        except Exception as e:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Error reading file: {str(e)}"
+            )
+
+        return {
+            'file_record': file_record,
+            'content_base64': content_base64
+        }
+
+    def get_file_content(self, db: Session, file_id: UUID) -> FileResponse:
+        """Get file content with security and access tracking"""
+        file_record = self.get_file_by_id(db, file_id)
+        if not file_record:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="File not found"
+            )
+
+        file_path = self.base_dir / file_record.relative_path
+        if not file_path.exists():
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="File not found on disk"
+            )
+
+        # Security check - ensure file is within base directory
+        try:
+            file_path.resolve().relative_to(self.base_dir.resolve())
+        except ValueError:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Access denied"
+            )
+
         # Note: Access tracking removed for simplicity
         # Could be added back if needed
-        
+
         return FileResponse(
             path=str(file_path),
             media_type=file_record.mime_type,
             filename=file_record.file_name
         )
-    
+
     def get_stats(self, db: Session) -> Dict[str, Any]:
         """Get comprehensive file system statistics"""
         # Auto-discover before stats
         self._auto_discover_files(db)
-        
-        total_files = db.query(FileRegistry).filter(FileRegistry.is_active == True).count()
-        
+
+        total_files = db.query(FileRegistry).filter(
+            FileRegistry.is_active == True).count()
+
         # Get course breakdown
         from sqlalchemy import func
         course_stats = db.query(
@@ -289,7 +334,7 @@ class FileService:
             FileRegistry.is_active == True,
             FileRegistry.course_code.isnot(None)
         ).group_by(FileRegistry.course_code).all()
-        
+
         return {
             "total_files": total_files,
             "base_directory": str(self.base_dir),

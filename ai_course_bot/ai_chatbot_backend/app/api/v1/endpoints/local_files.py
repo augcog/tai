@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, Path, status
 from sqlalchemy.orm import Session
 
 from app.api.deps import get_current_user_optional, get_db
-from app.api.v1.schemas.files import FileMetadata, FileListResponse, FileStatsResponse
+from app.api.v1.schemas.files import FileMetadata, FileListResponse, FileStatsResponse, FileWithContent
 from app.services.file_service import file_service
 
 router = APIRouter()
@@ -13,9 +13,12 @@ router = APIRouter()
 
 @router.get("", response_model=FileListResponse, summary="List files with auto-discovery")
 async def list_files(
-        course_code: Optional[str] = Query(None, description="Filter by course code (e.g., CS61A)"),
-        category: Optional[str] = Query(None, description="Filter by category (document, video, audio, other)"),
-        search: Optional[str] = Query(None, description="Search in file names and titles"),
+        course_code: Optional[str] = Query(
+            None, description="Filter by course code (e.g., CS61A)"),
+        category: Optional[str] = Query(
+            None, description="Filter by category (document, video, audio, other)"),
+        search: Optional[str] = Query(
+            None, description="Search in file names and titles"),
         page: int = Query(1, ge=1, description="Page number"),
         limit: int = Query(100, ge=1, le=1000, description="Items per page"),
         db: Session = Depends(get_db),
@@ -46,7 +49,8 @@ async def list_files(
         )
 
         return FileListResponse(
-            files=[FileMetadata.from_db_model(file) for file in result['files']],
+            files=[FileMetadata.from_db_model(file)
+                   for file in result['files']],
             total_count=result['total_count'],
             page=result['page'],
             limit=result['limit'],
@@ -66,28 +70,36 @@ async def list_files(
         )
 
 
-@router.get("/{file_id}", response_model=FileMetadata, summary="Get file metadata by UUID")
-async def get_file_metadata(
+@router.get("/{file_id}", response_model=FileWithContent, summary="Get file metadata with content by UUID")
+async def get_file_with_content(
         file_id: UUID = Path(..., description="File UUID"),
         db: Session = Depends(get_db),
         user: dict = Depends(get_current_user_optional)
 ):
     """
-    Get detailed metadata for a specific file by its UUID.
+    Get detailed metadata and content for a specific file by its UUID.
 
     Returns comprehensive file information including:
     - Basic info: name, size, type, creation date
     - Academic info: course, category, assignment number
-    - Access info: download count, last accessed
-    """
-    file_record = file_service.get_file_by_id(db, file_id)
-    if not file_record:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"File with ID {file_id} not found"
-        )
+    - File content: Base64 encoded file content for immediate use
 
-    return FileMetadata.from_db_model(file_record)
+    This endpoint combines both metadata and file content in a single response,
+    eliminating the need for separate API calls.
+    """
+    try:
+        result = file_service.get_file_with_content(db, file_id)
+        return FileWithContent.from_db_model_with_content(
+            result['file_record'],
+            result['content_base64']
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error retrieving file: {str(e)}"
+        )
 
 
 @router.get("/{file_id}/download", summary="Download file by UUID")
@@ -104,6 +116,9 @@ async def download_file(
     - Access tracking: Download count and last access time
     - Security validation: Ensures file is within allowed directory
     - Proper headers: Correct MIME type and filename
+
+    This endpoint is kept for direct file downloads (browser downloads).
+    For getting both metadata and content in JSON, use GET /{file_id}.
     """
     return file_service.get_file_content(db, file_id)
 

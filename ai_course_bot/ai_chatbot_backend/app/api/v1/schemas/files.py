@@ -64,68 +64,6 @@ class FileMetadata(BaseModel):
         }
 
 
-class FileWithContent(BaseModel):
-    """File metadata with content - combines metadata and file content in one response"""
-
-    # Metadata (inherited from FileMetadata)
-    uuid: str = Field(..., description="Unique file identifier")
-    filename: str = Field(..., description="Original filename")
-    title: Optional[str] = Field(None, description="Clean, formatted title")
-    relative_path: str = Field(...,
-                               description="Path relative to data directory")
-    size_bytes: int = Field(..., description="File size in bytes")
-    mime_type: str = Field(..., description="MIME type")
-    created_at: Optional[datetime] = Field(
-        None, description="File creation timestamp")
-    modified_at: Optional[datetime] = Field(
-        None, description="Last modification timestamp")
-    course: Optional[str] = Field(
-        None, description="Course code (e.g., CS61A)")
-    category: Optional[str] = Field(
-        None, description="File category (document, video, audio, other)")
-
-    # File content
-    content: str = Field(..., description="Base64 encoded file content")
-    content_encoding: str = Field(
-        default="base64", description="Content encoding format")
-
-    @classmethod
-    def from_db_model_with_content(cls, db_model, content_base64: str):
-        """Create schema from database model with file content"""
-        return cls(
-            uuid=str(db_model.id),
-            filename=db_model.file_name,
-            title=db_model.title,
-            relative_path=db_model.relative_path,
-            size_bytes=db_model.size_bytes,
-            mime_type=db_model.mime_type,
-            created_at=db_model.created_at,
-            modified_at=db_model.modified_at,
-            course=db_model.course_code,
-            category=db_model.category,
-            content=content_base64,
-            content_encoding="base64"
-        )
-
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "uuid": "550e8400-e29b-41d4-a716-446655440000",
-                "filename": "lab_01_getting_started.pdf",
-                "title": "Lab 01 Getting Started",
-                "relative_path": "CS61A/documents/lab_01_getting_started.pdf",
-                "size_bytes": 1048576,
-                "mime_type": "application/pdf",
-                "created_at": "2023-01-01T00:00:00Z",
-                "modified_at": "2023-01-01T00:00:00Z",
-                "course": "CS61A",
-                "category": "document",
-                "content": "JVBERi0xLjQKJcOkw7zDtsO8...",
-                "content_encoding": "base64"
-            }
-        }
-
-
 class FileListResponse(BaseModel):
     """Response for file listing"""
     files: List[FileMetadata] = Field(..., description="List of files")

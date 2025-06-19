@@ -1,24 +1,23 @@
-// Constants for API URLs and common values
+// Constants for API URLs
 const BASE_URL = "/v1/files";
-const AUTH_TOKEN = "Bearer your_access_token_here";
 
-// Store current files for reference
+// Store current file list for reference
 let currentFiles = [];
 
 // After DOM content is loaded, initialize the application
 document.addEventListener("DOMContentLoaded", () => {
-    // Add event listeners to various forms and inputs
+    // Add event listeners to forms
     document.getElementById("files-form").addEventListener("submit", handleFilesSubmit);
     document.getElementById("file-metadata-form").addEventListener("submit", handleFileMetadataSubmit);
     document.getElementById("file-download-form").addEventListener("submit", handleFileDownloadSubmit);
     document.getElementById("stats-form").addEventListener("submit", handleStatsSubmit);
     document.getElementById("clear-response-btn").addEventListener("click", clearResponse);
     
-    // Initialize by listing files
+    // Initialize by listing all files
     listFiles();
 });
 
-// Handler for listing files with filters
+// Handler for listing files
 async function handleFilesSubmit(event) {
     event.preventDefault();
     
@@ -31,7 +30,7 @@ async function handleFilesSubmit(event) {
     await listFiles(courseCode, category, search, page, limit);
 }
 
-// Handler for getting file metadata and content
+// Handler for file metadata
 async function handleFileMetadataSubmit(event) {
     event.preventDefault();
     const fileId = document.getElementById("file-id-input").value.trim();
@@ -41,10 +40,10 @@ async function handleFileMetadataSubmit(event) {
         return;
     }
     
-    await getFileWithContent(fileId);
+    await getFileMetadata(fileId);
 }
 
-// Handler for downloading a file
+// Handler for file download
 async function handleFileDownloadSubmit(event) {
     event.preventDefault();
     const fileId = document.getElementById("download-file-id-input").value.trim();
@@ -57,31 +56,33 @@ async function handleFileDownloadSubmit(event) {
     await downloadFile(fileId);
 }
 
-// Handler for getting file statistics
+// Handler for file statistics
 async function handleStatsSubmit(event) {
     event.preventDefault();
     await getFileStats();
 }
 
-// Function to list files with optional filters
+// Function to list files with filtering
 async function listFiles(courseCode = "", category = "", search = "", page = 1, limit = 100) {
     showLoading();
     
     try {
+        // Build query parameters
         const params = new URLSearchParams();
         if (courseCode) params.append("course_code", courseCode);
         if (category) params.append("category", category);
         if (search) params.append("search", search);
-        if (page > 1) params.append("page", page);
-        if (limit !== 100) params.append("limit", limit);
+        params.append("page", page.toString());
+        params.append("limit", limit.toString());
         
         const queryString = params.toString();
         const url = queryString ? `${BASE_URL}?${queryString}` : BASE_URL;
         
+        console.log("Fetching files from:", url);
+        
         const response = await fetch(url, {
             method: "GET",
             headers: {
-                "Authorization": AUTH_TOKEN,
                 "Accept": "application/json"
             }
         });
@@ -92,38 +93,30 @@ async function listFiles(courseCode = "", category = "", search = "", page = 1, 
             throw new Error(data.detail || "Failed to list files");
         }
         
-        // Log the data to console for debugging
         console.log("Files API Response:", data);
-        
-        // Store current files for reference
-        currentFiles = data.files || [];
         
         // Update UI with the file list
         renderFileList(data);
         displayJsonResponse(data);
         
     } catch (error) {
+        console.error("Error listing files:", error);
         showError(`Error listing files: ${error.message}`);
     } finally {
         hideLoading();
     }
 }
 
-// Function to get file metadata and content by UUID
-async function getFileWithContent(fileId) {
+// Function to get file metadata by UUID
+async function getFileMetadata(fileId) {
     showLoading();
     
     try {
-        if (!isValidUUID(fileId)) {
-            throw new Error("Invalid UUID format");
-        }
+        console.log("Fetching metadata for file:", fileId);
         
-        const url = `${BASE_URL}/${fileId}`;
-        
-        const response = await fetch(url, {
+        const response = await fetch(`${BASE_URL}/${fileId}`, {
             method: "GET",
             headers: {
-                "Authorization": AUTH_TOKEN,
                 "Accept": "application/json"
             }
         });
@@ -131,47 +124,34 @@ async function getFileWithContent(fileId) {
         const data = await response.json();
         
         if (!response.ok) {
-            throw new Error(data.detail || "Failed to get file");
+            throw new Error(data.detail || "Failed to get file metadata");
         }
         
-        console.log("File with content:", data);
+        console.log("File metadata:", data);
         
-        // Update UI with file data (metadata + content)
-        renderFilePreview(data);
+        // Display metadata in JSON response
         displayJsonResponse(data);
         
-    } catch (error) {
-        showError(`Error getting file: ${error.message}`);
+        // Show file preview with metadata
+        renderFilePreview(data);
         
-        // Show error in preview panel too
-        const previewElement = document.getElementById("preview-content");
-        previewElement.innerHTML = `
-            <div class="error-message">
-                <i class="fas fa-exclamation-triangle"></i>
-                <p>Error retrieving file: ${error.message}</p>
-            </div>
-        `;
+    } catch (error) {
+        console.error("Error getting file metadata:", error);
+        showError(`Error getting file metadata: ${error.message}`);
     } finally {
         hideLoading();
     }
 }
 
-// Function to download a file by UUID
+// Function to download file by UUID
 async function downloadFile(fileId) {
     showLoading();
     
     try {
-        if (!isValidUUID(fileId)) {
-            throw new Error("Invalid UUID format");
-        }
+        console.log("Downloading file:", fileId);
         
-        const url = `${BASE_URL}/${fileId}/download`;
-        
-        const response = await fetch(url, {
-            method: "GET",
-            headers: {
-                "Authorization": AUTH_TOKEN
-            }
+        const response = await fetch(`${BASE_URL}/${fileId}/download`, {
+            method: "GET"
         });
         
         if (!response.ok) {
@@ -179,36 +159,35 @@ async function downloadFile(fileId) {
             throw new Error(errorData.detail || "Failed to download file");
         }
         
-        // Get filename from Content-Disposition header or use default
-        const contentDisposition = response.headers.get("Content-Disposition");
-        let filename = "download";
+        // Get filename from response headers or use default
+        const contentDisposition = response.headers.get('Content-Disposition');
+        let filename = 'download';
         if (contentDisposition) {
-            const match = contentDisposition.match(/filename="?([^"]+)"?/);
-            if (match) filename = match[1];
+            const filenameMatch = contentDisposition.match(/filename="?([^"]+)"?/);
+            if (filenameMatch) {
+                filename = filenameMatch[1];
+            }
         }
         
-        // Get the file content as blob
+        // Download the file
         const blob = await response.blob();
-        
-        // Create download link
-        const downloadUrl = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.style.display = "none";
-        a.href = downloadUrl;
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
         a.download = filename;
         document.body.appendChild(a);
         a.click();
-        window.URL.revokeObjectURL(downloadUrl);
+        window.URL.revokeObjectURL(url);
         document.body.removeChild(a);
         
         displayJsonResponse({
             message: "File downloaded successfully",
             filename: filename,
-            size: blob.size,
-            type: blob.type
+            size: blob.size
         });
         
     } catch (error) {
+        console.error("Error downloading file:", error);
         showError(`Error downloading file: ${error.message}`);
     } finally {
         hideLoading();
@@ -220,12 +199,11 @@ async function getFileStats() {
     showLoading();
     
     try {
-        const url = `${BASE_URL}/stats/summary`;
+        console.log("Fetching file statistics");
         
-        const response = await fetch(url, {
+        const response = await fetch(`${BASE_URL}/stats/summary`, {
             method: "GET",
             headers: {
-                "Authorization": AUTH_TOKEN,
                 "Accept": "application/json"
             }
         });
@@ -238,24 +216,28 @@ async function getFileStats() {
         
         console.log("File statistics:", data);
         
-        // Update UI with statistics
-        renderFileStats(data);
+        // Display stats in JSON response
         displayJsonResponse(data);
         
+        // Show stats in a formatted way
+        renderStatsDisplay(data);
+        
     } catch (error) {
+        console.error("Error getting file statistics:", error);
         showError(`Error getting file statistics: ${error.message}`);
     } finally {
         hideLoading();
     }
 }
 
-// Function to render file list
+// Function to render file list in UI
 function renderFileList(data) {
     const fileListElement = document.getElementById("file-list");
+    fileListElement.innerHTML = "";
     
     if (!data.files || data.files.length === 0) {
         fileListElement.innerHTML = `
-            <div class="initial-message">
+            <div class="empty-state">
                 <i class="fas fa-folder-open"></i>
                 <p>No files found</p>
             </div>
@@ -263,239 +245,179 @@ function renderFileList(data) {
         return;
     }
     
-    let html = `
-        <div class="file-list-header">
-            <h3>Files (${data.total_count} total, page ${data.page} of ${Math.ceil(data.total_count / data.limit)})</h3>
-        </div>
-        <div class="file-grid">
+    // Store current files for reference
+    currentFiles = data.files;
+    
+    // Create list header with pagination info
+    const listHeader = document.createElement('div');
+    listHeader.className = 'list-header';
+    listHeader.innerHTML = `
+        <span class="file-count">${data.files.length} files (Page ${data.page} of ${Math.ceil(data.total_count / data.limit)})</span>
+        <span class="total-count">Total: ${data.total_count}</span>
     `;
+    fileListElement.appendChild(listHeader);
+    
+    // Show applied filters if any
+    if (data.filters_applied && Object.values(data.filters_applied).some(v => v)) {
+        const filtersDiv = document.createElement('div');
+        filtersDiv.className = 'applied-filters';
+        const activeFilters = Object.entries(data.filters_applied)
+            .filter(([key, value]) => value)
+            .map(([key, value]) => `${key}: ${value}`)
+            .join(', ');
+        filtersDiv.innerHTML = `<small>Filters: ${activeFilters}</small>`;
+        fileListElement.appendChild(filtersDiv);
+    }
+    
+    // Create file items
+    const listContainer = document.createElement('div');
+    listContainer.className = 'file-items';
     
     data.files.forEach(file => {
-        const icon = getFileIcon(file.filename);
-        const sizeFormatted = formatFileSize(file.size_bytes || 0);
+        const fileItem = document.createElement('div');
+        fileItem.className = 'file-item file';
         
-        html += `
-            <div class="file-item" data-file-id="${file.uuid}" onclick="selectFile('${file.uuid}', '${file.filename}')">
-                <div class="file-icon">
-                    <i class="${icon}"></i>
-                </div>
-                <div class="file-info">
-                    <div class="file-name" title="${file.filename}">${file.filename}</div>
-                    <div class="file-details">
-                        <span class="file-size">${sizeFormatted}</span>
-                        ${file.course ? `<span class="file-course">${file.course}</span>` : ''}
-                        ${file.category ? `<span class="file-category">${file.category}</span>` : ''}
-                    </div>
-                    <div class="file-uuid" title="File UUID">${file.uuid}</div>
-                </div>
+        const iconClass = getFileIcon(file.filename);
+        
+        fileItem.innerHTML = `
+            <i class="fas ${iconClass}"></i>
+            <div class="file-details">
+                <span class="file-name" title="${file.filename}">${file.title || file.filename}</span>
+                <span class="file-info">
+                    ${formatFileSize(file.size_bytes)}
+                    ${file.course ? `• ${file.course}` : ''}
+                    ${file.category ? `• ${file.category}` : ''}
+                </span>
+                <span class="file-uuid" title="UUID: ${file.uuid}">UUID: ${file.uuid.substring(0, 8)}...</span>
             </div>
         `;
-    });
-    
-    html += `</div>`;
-    
-    // Add pagination if applicable
-    if (data.has_prev || data.has_next) {
-        html += `
-            <div class="pagination">
-                ${data.has_prev ? `<button onclick="changePage(${data.page - 1})">Previous</button>` : ''}
-                <span>Page ${data.page}</span>
-                ${data.has_next ? `<button onclick="changePage(${data.page + 1})">Next</button>` : ''}
-            </div>
-        `;
-    }
-    
-    fileListElement.innerHTML = html;
-}
-
-// Function to render file statistics
-function renderFileStats(data) {
-    const previewElement = document.getElementById("preview-content");
-    
-    let html = `
-        <div class="stats-container">
-            <h3>File System Statistics</h3>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-value">${data.total_files}</div>
-                    <div class="stat-label">Total Files</div>
-                </div>
-    `;
-    
-    if (data.courses) {
-        html += `
-                <div class="stat-item">
-                    <div class="stat-value">${Object.keys(data.courses).length}</div>
-                    <div class="stat-label">Courses</div>
-                </div>
-        `;
         
-        html += `
-            </div>
-            <div class="course-breakdown">
-                <h4>Files by Course</h4>
-                <div class="course-list">
-        `;
-        
-        Object.entries(data.courses).forEach(([course, count]) => {
-            html += `
-                <div class="course-item">
-                    <span class="course-name">${course}</span>
-                    <span class="course-count">${count} files</span>
-                </div>
-            `;
+        // Add click event to populate UUID fields and get metadata
+        fileItem.addEventListener('click', () => {
+            // Populate UUID input fields
+            document.getElementById("file-id-input").value = file.uuid;
+            document.getElementById("download-file-id-input").value = file.uuid;
+            
+            // Show file metadata
+            getFileMetadata(file.uuid);
         });
         
-        html += `</div></div>`;
-    } else {
-        html += `</div>`;
-    }
+        listContainer.appendChild(fileItem);
+    });
     
-    if (data.last_updated) {
-        html += `
-            <div class="last-updated">
-                <small>Last updated: ${new Date(data.last_updated).toLocaleString()}</small>
-            </div>
-        `;
-    }
+    fileListElement.appendChild(listContainer);
     
-    html += `</div>`;
-    
-    previewElement.innerHTML = html;
-}
-
-// Function to render file preview/metadata with content
-function renderFilePreview(fileData) {
-    const previewElement = document.getElementById("preview-content");
-    
-    if (!fileData) {
-        previewElement.innerHTML = `
-            <div class="error-message">
-                <i class="fas fa-exclamation-triangle"></i>
-                <p>No file data available</p>
-            </div>
-        `;
-        return;
-    }
-    
-    const icon = getFileIcon(fileData.filename);
-    const sizeFormatted = formatFileSize(fileData.size_bytes || 0);
-    
-    let html = `
-        <div class="file-preview">
-            <div class="file-header">
-                <div class="file-icon-large">
-                    <i class="${icon}"></i>
-                </div>
-                <div class="file-details-large">
-                    <h3>${fileData.filename}</h3>
-                    <p class="file-uuid">UUID: ${fileData.uuid}</p>
-                    <p class="file-size">Size: ${sizeFormatted}</p>
-                    <p class="file-mime">Type: ${fileData.mime_type}</p>
-                    ${fileData.course ? `<p class="file-course">Course: ${fileData.course}</p>` : ''}
-                    ${fileData.category ? `<p class="file-category">Category: ${fileData.category}</p>` : ''}
-                    ${fileData.title ? `<p class="file-title">Title: ${fileData.title}</p>` : ''}
-                </div>
-            </div>
-    `;
-    
-    if (fileData.created_at) {
-        html += `<p class="file-created">Created: ${new Date(fileData.created_at).toLocaleString()}</p>`;
-    }
-    
-    if (fileData.modified_at) {
-        html += `<p class="file-modified">Modified: ${new Date(fileData.modified_at).toLocaleString()}</p>`;
-    }
-    
-    // Render file content based on type
-    if (fileData.content) {
-        html += `<div class="content-section">`;
+    // Add pagination controls if needed
+    if (data.has_prev || data.has_next) {
+        const paginationDiv = document.createElement('div');
+        paginationDiv.className = 'pagination-controls';
         
-        if (fileData.mime_type.includes("image/")) {
-            // Handle image files
-            html += `
-                <h4>Preview</h4>
-                <div class="image-preview">
-                    <img src="data:${fileData.mime_type};base64,${fileData.content}" alt="${fileData.filename}" />
-                </div>
-            `;
-        } else if (fileData.mime_type.includes("text/") || fileData.mime_type.includes("application/json")) {
-            // Handle text files
-            try {
-                const decodedContent = atob(fileData.content);
-                html += `
-                    <h4>Content Preview</h4>
-                    <div class="text-preview">
-                        <pre>${decodedContent.substring(0, 2000)}${decodedContent.length > 2000 ? '...' : ''}</pre>
-                    </div>
-                `;
-            } catch (e) {
-                html += `<p class="preview-error">Cannot preview text content</p>`;
-            }
-        } else if (fileData.mime_type.includes("application/pdf")) {
-            // Handle PDF files
-            html += `
-                <h4>PDF Preview</h4>
-                <p>PDF content available. Use download button to view the full document.</p>
-            `;
-        } else {
-            // Handle other binary files
-            html += `
-                <h4>Binary File</h4>
-                <p>This is a binary file (${fileData.mime_type}). Use download button to access content.</p>
-            `;
+        let paginationHTML = '';
+        if (data.has_prev) {
+            paginationHTML += `<button class="btn-small" onclick="changePage(${data.page - 1})">Previous</button>`;
+        }
+        paginationHTML += `<span>Page ${data.page}</span>`;
+        if (data.has_next) {
+            paginationHTML += `<button class="btn-small" onclick="changePage(${data.page + 1})">Next</button>`;
         }
         
-        html += `</div>`;
+        paginationDiv.innerHTML = paginationHTML;
+        fileListElement.appendChild(paginationDiv);
     }
-    
-    html += `
-            <div class="file-actions">
-                <button onclick="downloadFile('${fileData.uuid}')" class="btn">
-                    <i class="fas fa-download"></i> Download
-                </button>
-            </div>
-        </div>
-    `;
-    
-    previewElement.innerHTML = html;
-}
-
-// Function to select a file and populate UUID inputs, and automatically get its content
-function selectFile(fileId, fileName) {
-    // Highlight selected file
-    document.querySelectorAll('.file-item').forEach(item => {
-        item.classList.remove('selected');
-    });
-    document.querySelector(`[data-file-id="${fileId}"]`).classList.add('selected');
-    
-    // Populate UUID inputs
-    document.getElementById("file-id-input").value = fileId;
-    document.getElementById("download-file-id-input").value = fileId;
-    
-    console.log(`Selected file: ${fileName} (${fileId})`);
-    
-    // Automatically get file content and metadata
-    getFileWithContent(fileId);
 }
 
 // Function to change page
-function changePage(page) {
-    const courseCode = document.getElementById("course-code-input").value.trim();
-    const category = document.getElementById("category-input").value;
-    const search = document.getElementById("search-input").value.trim();
-    const limit = parseInt(document.getElementById("limit-input").value) || 100;
-    
-    // Update page input
-    document.getElementById("page-input").value = page;
-    
-    listFiles(courseCode, category, search, page, limit);
+function changePage(newPage) {
+    document.getElementById("page-input").value = newPage;
+    document.getElementById("files-form").dispatchEvent(new Event('submit'));
 }
 
-// Utility function to validate UUID format
-function isValidUUID(uuid) {
-    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-    return uuidRegex.test(uuid);
+// Function to render file preview
+function renderFilePreview(fileData) {
+    const previewElement = document.getElementById("preview-content");
+    
+    let previewHTML = `
+        <div class="file-preview">
+            <div class="file-header">
+                <h3>${fileData.title || fileData.filename}</h3>
+                <p class="file-meta">
+                    <strong>UUID:</strong> ${fileData.uuid}<br>
+                    <strong>Size:</strong> ${formatFileSize(fileData.size_bytes)}<br>
+                    <strong>Type:</strong> ${fileData.mime_type}<br>
+                    ${fileData.course ? `<strong>Course:</strong> ${fileData.course}<br>` : ''}
+                    ${fileData.category ? `<strong>Category:</strong> ${fileData.category}<br>` : ''}
+                    <strong>Created:</strong> ${new Date(fileData.created_at).toLocaleString()}
+                </p>
+            </div>
+    `;
+    
+    // Show preview based on file type
+    if (fileData.mime_type.startsWith('image/')) {
+        previewHTML += `
+            <div class="image-preview">
+                <p><em>Image preview not available in metadata view. Use download to view the image.</em></p>
+            </div>
+        `;
+    } else if (fileData.mime_type.startsWith('text/')) {
+        previewHTML += `
+            <div class="text-preview">
+                <p><em>Text preview not available in metadata view. Use download to view the content.</em></p>
+            </div>
+        `;
+    } else {
+        previewHTML += `
+            <div class="file-preview-info">
+                <p><em>Preview not available for this file type. Use download to access the file.</em></p>
+            </div>
+        `;
+    }
+    
+    previewHTML += '</div>';
+    previewElement.innerHTML = previewHTML;
+}
+
+// Function to render statistics display
+function renderStatsDisplay(stats) {
+    const previewElement = document.getElementById("preview-content");
+    
+    let statsHTML = `
+        <div class="stats-display">
+            <h3>File System Statistics</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <strong>Total Files:</strong> ${stats.total_files}
+                </div>
+                <div class="stat-item">
+                    <strong>Base Directory:</strong> ${stats.base_directory}
+                </div>
+                <div class="stat-item">
+                    <strong>Auto Discovery:</strong> ${stats.auto_discovery}
+                </div>
+                <div class="stat-item">
+                    <strong>Last Updated:</strong> ${new Date(stats.last_updated).toLocaleString()}
+                </div>
+            </div>
+    `;
+    
+    if (stats.courses && Object.keys(stats.courses).length > 0) {
+        statsHTML += `
+            <div class="courses-breakdown">
+                <h4>Files by Course:</h4>
+                <ul>
+        `;
+        
+        Object.entries(stats.courses).forEach(([course, count]) => {
+            statsHTML += `<li><strong>${course}:</strong> ${count} files</li>`;
+        });
+        
+        statsHTML += `
+                </ul>
+            </div>
+        `;
+    }
+    
+    statsHTML += '</div>';
+    previewElement.innerHTML = statsHTML;
 }
 
 // Function to display JSON response
@@ -535,83 +457,65 @@ function getFileIcon(fileName) {
     
     const iconMap = {
         // Documents
-        'pdf': 'fas fa-file-pdf',
-        'doc': 'fas fa-file-word',
-        'docx': 'fas fa-file-word',
-        'txt': 'fas fa-file-alt',
-        'rtf': 'fas fa-file-alt',
-        'odt': 'fas fa-file-alt',
+        'pdf': 'fa-file-pdf',
+        'doc': 'fa-file-word',
+        'docx': 'fa-file-word',
+        'txt': 'fa-file-alt',
+        'rtf': 'fa-file-alt',
         
         // Spreadsheets
-        'xls': 'fas fa-file-excel',
-        'xlsx': 'fas fa-file-excel',
-        'csv': 'fas fa-file-csv',
-        'ods': 'fas fa-file-excel',
+        'xls': 'fa-file-excel',
+        'xlsx': 'fa-file-excel',
+        'csv': 'fa-file-csv',
         
         // Presentations
-        'ppt': 'fas fa-file-powerpoint',
-        'pptx': 'fas fa-file-powerpoint',
-        'odp': 'fas fa-file-powerpoint',
+        'ppt': 'fa-file-powerpoint',
+        'pptx': 'fa-file-powerpoint',
         
         // Images
-        'jpg': 'fas fa-file-image',
-        'jpeg': 'fas fa-file-image',
-        'png': 'fas fa-file-image',
-        'gif': 'fas fa-file-image',
-        'bmp': 'fas fa-file-image',
-        'svg': 'fas fa-file-image',
-        'webp': 'fas fa-file-image',
+        'jpg': 'fa-file-image',
+        'jpeg': 'fa-file-image',
+        'png': 'fa-file-image',
+        'gif': 'fa-file-image',
+        'bmp': 'fa-file-image',
+        'svg': 'fa-file-image',
+        
+        // Videos
+        'mp4': 'fa-file-video',
+        'avi': 'fa-file-video',
+        'mov': 'fa-file-video',
+        'wmv': 'fa-file-video',
+        'flv': 'fa-file-video',
+        'webm': 'fa-file-video',
         
         // Audio
-        'mp3': 'fas fa-file-audio',
-        'wav': 'fas fa-file-audio',
-        'flac': 'fas fa-file-audio',
-        'aac': 'fas fa-file-audio',
-        'ogg': 'fas fa-file-audio',
-        'm4a': 'fas fa-file-audio',
-        
-        // Video
-        'mp4': 'fas fa-file-video',
-        'avi': 'fas fa-file-video',
-        'mkv': 'fas fa-file-video',
-        'mov': 'fas fa-file-video',
-        'wmv': 'fas fa-file-video',
-        'flv': 'fas fa-file-video',
-        'webm': 'fas fa-file-video',
-        
-        // Code
-        'js': 'fas fa-file-code',
-        'html': 'fas fa-file-code',
-        'css': 'fas fa-file-code',
-        'py': 'fas fa-file-code',
-        'java': 'fas fa-file-code',
-        'cpp': 'fas fa-file-code',
-        'c': 'fas fa-file-code',
-        'php': 'fas fa-file-code',
-        'rb': 'fas fa-file-code',
-        'go': 'fas fa-file-code',
-        'rs': 'fas fa-file-code',
-        'swift': 'fas fa-file-code',
-        'kt': 'fas fa-file-code',
-        'ts': 'fas fa-file-code',
-        'jsx': 'fas fa-file-code',
-        'vue': 'fas fa-file-code',
-        'sql': 'fas fa-file-code',
-        'json': 'fas fa-file-code',
-        'xml': 'fas fa-file-code',
-        'yaml': 'fas fa-file-code',
-        'yml': 'fas fa-file-code',
+        'mp3': 'fa-file-audio',
+        'wav': 'fa-file-audio',
+        'flac': 'fa-file-audio',
+        'aac': 'fa-file-audio',
+        'ogg': 'fa-file-audio',
         
         // Archives
-        'zip': 'fas fa-file-archive',
-        'rar': 'fas fa-file-archive',
-        '7z': 'fas fa-file-archive',
-        'tar': 'fas fa-file-archive',
-        'gz': 'fas fa-file-archive',
-        'bz2': 'fas fa-file-archive'
+        'zip': 'fa-file-archive',
+        'rar': 'fa-file-archive',
+        '7z': 'fa-file-archive',
+        'tar': 'fa-file-archive',
+        'gz': 'fa-file-archive',
+        
+        // Code
+        'js': 'fa-file-code',
+        'html': 'fa-file-code',
+        'css': 'fa-file-code',
+        'py': 'fa-file-code',
+        'java': 'fa-file-code',
+        'cpp': 'fa-file-code',
+        'c': 'fa-file-code',
+        'php': 'fa-file-code',
+        'json': 'fa-file-code',
+        'xml': 'fa-file-code'
     };
     
-    return iconMap[extension] || 'fas fa-file';
+    return iconMap[extension] || 'fa-file';
 }
 
 // Function to format file size
@@ -627,9 +531,13 @@ function formatFileSize(bytes) {
 
 // Function to show error message
 function showError(message) {
-    const responseElement = document.getElementById("json-response");
-    responseElement.innerHTML = `<span class="error">Error: ${message}</span>`;
-    console.error("API Error:", message);
+    const previewElement = document.getElementById("preview-content");
+    previewElement.innerHTML = `
+        <div class="error-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>${message}</p>
+        </div>
+    `;
 }
 
 // Function to show loading indicator

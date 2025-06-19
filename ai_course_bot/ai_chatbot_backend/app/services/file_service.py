@@ -3,7 +3,6 @@ Clean, unified file service
 Best practices with easy user flow and auto-discovery
 """
 
-import base64
 import hashlib
 import mimetypes
 import os
@@ -241,47 +240,6 @@ class FileService:
                 FileRegistry.is_active == True
             )
         ).first()
-
-    def get_file_with_content(self, db: Session, file_id: UUID) -> Dict[str, Any]:
-        """Get file metadata with base64 encoded content"""
-        file_record = self.get_file_by_id(db, file_id)
-        if not file_record:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="File not found"
-            )
-
-        file_path = self.base_dir / file_record.relative_path
-        if not file_path.exists():
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="File not found on disk"
-            )
-
-        # Security check - ensure file is within base directory
-        try:
-            file_path.resolve().relative_to(self.base_dir.resolve())
-        except ValueError:
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="Access denied"
-            )
-
-        # Read file content and encode as base64
-        try:
-            with open(file_path, 'rb') as f:
-                file_content = f.read()
-            content_base64 = base64.b64encode(file_content).decode('utf-8')
-        except Exception as e:
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail=f"Error reading file: {str(e)}"
-            )
-
-        return {
-            'file_record': file_record,
-            'content_base64': content_base64
-        }
 
     def get_file_content(self, db: Session, file_id: UUID) -> FileResponse:
         """Get file content with security and access tracking"""

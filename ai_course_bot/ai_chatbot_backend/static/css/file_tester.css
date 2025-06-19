@@ -467,7 +467,8 @@ code {
 }
 
 .file-created,
-.file-modified {
+.file-downloads,
+.file-last-accessed {
   margin-bottom: 0.5rem;
   font-size: 0.875rem;
   color: var(--muted-text);

@@ -1,4 +1,5 @@
 from typing import List, Optional, Tuple
+import uuid
 
 from sqlalchemy.orm import Session
 
@@ -10,8 +11,8 @@ def create_course(db: Session, course: CourseCreate) -> CourseModel:
     """Create a new course in the database."""
     db_course = CourseModel(
         course_name=course.course_name,
-        course_code=course.course_code,
-        ip_address=course.ip_address,
+        server_url=course.server_url,
+        enabled=course.enabled,
         access_type=course.access_type,
         school=course.school if course.access_type == "login_required" else None
     )
@@ -33,9 +34,9 @@ def get_course(db: Session, course_id: int) -> Optional[CourseModel]:
     return db.query(CourseModel).filter(CourseModel.id == course_id).first()
 
 
-def get_course_by_code(db: Session, course_code: str) -> Optional[CourseModel]:
-    """Get a course by course code."""
-    return db.query(CourseModel).filter(CourseModel.course_code == course_code).first()
+def get_course_by_uuid(db: Session, course_uuid: str) -> Optional[CourseModel]:
+    """Get a course by course UUID string."""
+    return db.query(CourseModel).filter(CourseModel.course_id == course_uuid).first()
 
 
 def update_course(db: Session, course_id: int, course_update: CourseUpdate) -> Optional[CourseModel]:
@@ -67,3 +68,15 @@ def delete_course(db: Session, course_id: int) -> bool:
     db.delete(db_course)
     db.commit()
     return True
+
+
+def toggle_course_enabled(db: Session, course_id: int) -> Optional[CourseModel]:
+    """Toggle the enabled status of a course."""
+    db_course = get_course(db, course_id)
+    if db_course is None:
+        return None
+
+    db_course.enabled = not db_course.enabled
+    db.commit()
+    db.refresh(db_course)
+    return db_course

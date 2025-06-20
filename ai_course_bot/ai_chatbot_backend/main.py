@@ -123,6 +123,7 @@ async def home():
             <h2>Testing Tools</h2>
             <div class="links">
                 <a href="/file-tester">File API Tester</a>
+                <a href="/course-config">Course Configuration</a>
                 <a href="/database-status">Database Status</a>
                 <a href="/health">Health Check</a>
             </div>
@@ -147,6 +148,14 @@ async def file_tester(request: Request):
     Simple HTML interface for testing the Local File Retrieval API
     """
     return templates.TemplateResponse("file_tester.html", {"request": request})
+
+
+@app.get("/course-config", response_class=HTMLResponse)
+async def course_config(request: Request):
+    """
+    Admin interface for course configuration and management
+    """
+    return templates.TemplateResponse("course_config.html", {"request": request})
 
 
 @app.get("/health")

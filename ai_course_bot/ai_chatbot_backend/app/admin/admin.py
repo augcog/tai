@@ -8,30 +8,40 @@ from app.core.models.courses import CourseModel
 class CourseAdmin(ModelView, model=CourseModel):
     column_list = [
         CourseModel.id,
+        CourseModel.course_id,
         CourseModel.course_name,
-        CourseModel.course_code,
-        CourseModel.ip_address,
+        CourseModel.server_url,
+        CourseModel.enabled,
         CourseModel.access_type,
         CourseModel.school
     ]
     column_details_exclude_list = []
-    column_sortable_list = [CourseModel.id, CourseModel.course_name, CourseModel.course_code]
-    column_searchable_list = [CourseModel.course_name, CourseModel.course_code]
+    column_sortable_list = [CourseModel.id,
+                            CourseModel.course_name, CourseModel.enabled]
+    column_searchable_list = [CourseModel.course_name, CourseModel.server_url]
 
     # Customize form for admin panel
     form_columns = [
         "course_name",
-        "course_code",
-        "ip_address",
+        "server_url",
+        "enabled",
         "access_type",
         "school"
     ]
 
     # Add validators and help text
     form_args = {
-        "course_code": {
-            "label": "Course Code",
-            "description": "Unique identifier for the course (e.g., CS61A)"
+        "course_name": {
+            "label": "Course Name",
+            "description": "The full name of the course (e.g., Introduction to Computer Science)"
+        },
+        "server_url": {
+            "label": "Server URL",
+            "description": "The server URL for this course"
+        },
+        "enabled": {
+            "label": "Enabled",
+            "description": "Whether this course is enabled and available"
         },
         "access_type": {
             "label": "Access Type",

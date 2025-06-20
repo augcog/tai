@@ -1,9 +1,11 @@
 ## Setup Instructions
+
 1. install requirements `pip install -r requirements.txt`
 2. configure env key, see `.env.example`
 3. run server `python main.py`
 
 ### Configure SQLite Support
+
 1. Download the appropriate `vector0.dylib` and `vss0.dylib` for your machine's hardware from https://github.com/asg017/sqlite-vss/releases. Place `vector0.dylib` and `vss0.dylib` files into the `ai_course_bot/ai-chatbot-backend/app/core/actions/dist/debug` directory.
 
 2. To enable SQLite support, please set `SQLDB = True` in `ai_course_bot/ai-chatbot-backend/app/core/actions/llama_seletor.py`
@@ -24,6 +26,7 @@ Detailed API documentation is available in the `docs` directory:
 Two Postman collections are available in the `postman` directory for testing the Local File API:
 
 1. **Basic Collection** (`postman/local_file_postman_collection.json`):
+
    - Simple collection with basic examples
    - Provides essential requests for each endpoint
 

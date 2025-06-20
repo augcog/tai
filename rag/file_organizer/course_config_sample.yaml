@@ -1,0 +1,54 @@
+topic_summaries:
+  Lecture1 Welcome: "provides an overview of the CS 61A course structure and expectations"
+  Lecture2 Functions: "Content unavailable due to exceeding model's token limit."
+  Lecture3 Control: "Examines control structures in Python, such as conditionals, loops, and environment management."
+  Lecture4 Higher-Order Functions: "Explores control expressions, short-circuiting, and functions as return values."
+  Lecture5 Environments: "Explores environments, higher-order functions, lambda expressions, and variable scoping."
+  Lecture6 Functional Abstraction: "Discusses functional abstraction, naming conventions, and error handling in Python."
+  Lecture7 Function Examples: "Covers Python decorators and function implementation strategies."
+  Lecture8 Newton (Optional): "implementing Newton's method."
+  Lecture9 Recursion: "Delves into recursion concepts, including implementing the Luhn algorithm and self-reference."
+  Lecture10 Tree Recursion: "Discusses counting partitions, tree recursion, and the Fibonacci sequence."
+  Lecture11 Sequences: "Explores lists and sequences in Python, including operations and recursive processing."
+  Lecture12 Containers: "Discusses Python containers like lists and dictionaries, including slicing and string operations."
+  Lecture13 Data Abstraction: "Highlights abstraction barriers and data abstraction principles using rational number examples."
+  Lecture14 Trees: "Covers combinatorial counting, recursion, and tree data structures in programming."
+  Lecture15 Mutability: "Covers strings, tuples, objects, and mutation operations in Python."
+  Lecture16 Iterators: "Examines Python's built-in iterator functions and their applications in programming."
+  Lecture17 Generators: "Introduces generators and iterators for computing partitions and processing large datasets."
+  Lecture18 Objects: "Discusses custom classes and methods in Python, emphasizing object-oriented programming."
+  Lecture19 Attributes: "Explores attribute assignment, lookup, bound methods, and class attributes in Python."
+  Lecture20 Inheritance: "Covers object-oriented programming concepts like inheritance, method overriding, and composition."
+  Lecture21 Representation: "Focuses on polymorphic functions, special method names, and type dispatching in Python."
+  Lecture22 Composition: "Introduces linked lists and trees, focusing on their implementation and processing in Python."
+  Lecture23 Efficiency: "Analyzes algorithm efficiency, memoization, and understanding orders of growth."
+  Lecture24 Decomposition: "Focuses on handling external data files, JSON parsing, and set intersection techniques."
+  Lecture25 Data Examples (Zoom Only): "implementation, memory representation, and mutation of data structures, specifically linked lists, Python lists, and trees."
+  Lecture26 Scheme: "Covers various topics in Scheme programming, including special forms and interpreter design."
+  Lecture27 Scheme Lists: "Discusses list processing, linked lists, and symbolic programming in Scheme."
+  Lecture28 Calculator: "Content unavailable due to exceeding model's token limit."
+  Lecture29 Interpreters: "Discusses defining expressions and procedures in Scheme, including recursive function calls."
+  Lecture30 Programs as Data: "Explores code generation and iteration in Scheme using quasi-quotation."
+  Lecture31 Macros: "Introduces macros in Scheme, including quasi-quotation and defining new special forms."
+  Lecture32 SQL: "Covers SQL basics, including arithmetic operations, database fundamentals, and executing queries."
+  Lecture33 Tables: "Details advanced SQL concepts like aliases, joins, and manipulating values in expressions."
+  Lecture34 Aggregation: "Covers SQL aggregation functions and grouping data using GROUP BY clauses."
+  Lecture35 Databases (Optional): "Details creating and managing SQLite tables and integrating SQL with Python."
+#  Lecture36 Designing Functions: null
+  Lecture37 Language Models (Optional): "explains how language models function using neural networks and are trained on data"
+#  Lecture38 Conclusion: null
+  Project1 Hog: "Simulate the dice game Hog with rules involving special scoring and higher-order functions."
+  Project2 Cat: "Write a program to measure typing speed and accuracy, featuring autocorrect and multiplayer typing tests."
+  Project3 ants: "Build an object-oriented tower defense game where ants with different abilities defend their colony against invading bees."
+  Project4 Scheme: "This project involves building a Scheme language interpreter in Python by implementing its core evaluation and application logic."
+  Midterm1: "Practice materials or information related to the first midterm exam."
+  Midterm2: "Practice materials or information related to the second midterm exam."
+  Final: "Practice materials or information related to the final exam."
+  cs61a_general: "General CS61A course content not specific to any other categories."
+
+
+
+predefined_classification:  # Predefined classifications for specific folders
+  "practice": ["course_website/lab", "course_website/disc", "course_website/hw", "course_website/project", "course_website/exam"]
+  "study": ["course_website/assets/slides", "lecture_videos"]
+

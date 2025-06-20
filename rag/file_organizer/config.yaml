@@ -1,0 +1,17 @@
+# Course Organizer Configuration
+# This file contains all configuration options for the course organizer system
+
+# Summary Generation Configuration
+summarizer:
+  max_length: 300
+  min_chunk_size: 10
+  llm_profile: nvidia_llama  # LLM profile to use for summary generation
+
+# Topic Classification Configuration
+topic_classifier:
+  max_topic_num: 3  # Maximum number of topics to assign to each file
+  llm_profile: accurate  # LLM profile to use for topic classification
+
+# Function Classification Configuration
+func_classifier:
+  llm_profile: accurate  # LLM profile to use for function classification

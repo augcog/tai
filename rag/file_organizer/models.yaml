@@ -1,0 +1,18 @@
+profiles:
+  local:
+    provider: local_hf
+    model_id: meta-llama/Meta-Llama-3-8B-Instruct
+    quantization: 4bit         # extra kwargs the adapter accepts
+    max_new_tokens: 1024
+    temperature: 0.7
+  accurate:
+    provider: openai
+    model_name: gpt-4.1
+    temperature: 0.2
+  mock:
+    provider: mock
+  nvidia_llama:
+    provider: nvidia
+    model_name: meta/llama3-8b-instruct
+    temperature: 0.5
+    max_new_tokens: 1024

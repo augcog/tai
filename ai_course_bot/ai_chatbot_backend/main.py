@@ -12,7 +12,9 @@ from app.admin import setup_admin
 from app.api.v1.router import router as v1_router
 from app.core.database import engine
 from app.core.models.courses import Base
-from app.api.v1.models.files import FileRegistry  # Import to ensure table creation
+# Import to ensure table creation
+from app.api.v1.models.files import FileRegistry
+from app.config import settings  # Import the configuration
 
 # Import the new database initializer
 from app.core.db_initializer import initialize_database_on_startup
@@ -161,11 +163,11 @@ async def database_status():
     Database status endpoint - shows database initialization status
     """
     from app.core.db_initializer import get_initializer
-    
+
     try:
         initializer = get_initializer("data")
         status = initializer.get_database_status()
-        
+
         return {
             "status": "ok",
             "database": status,
@@ -180,4 +182,26 @@ async def database_status():
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+    # Use settings from .env file configuration
+    print(f"🚀 Starting server...")
+    print(f"📍 Environment: {settings.environment}")
+    print(
+        f"🔄 Auto-reload: {'disabled' if settings.is_production or not settings.RELOAD else 'enabled'}")
+    print(f"🌐 Host: {settings.HOST}:{settings.PORT}")
+    print(f"🤖 LLM Mode: {settings.effective_llm_mode}")
+    print(f"🔐 Auth Required: {settings.auth_required}")
+    print(f"📁 Data Directory: {settings.DATA_DIR}")
+
+    # Determine reload setting: disabled in production or based on RELOAD setting
+    reload_enabled = not settings.is_production and settings.RELOAD
+
+    uvicorn.run(
+        "main:app",
+        host=settings.HOST,
+        port=settings.PORT,
+        reload=reload_enabled,
+        # Additional production optimizations
+        # Disable access logs in production for performance
+        access_log=not settings.is_production,
+        log_level="info" if settings.is_production else "debug"
+    )

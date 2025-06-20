@@ -40,6 +40,9 @@ class Settings(BaseSettings):
     auth_required: bool = Field(
         description="Whether authentication is required"
     )
+    admin_token: str = Field(
+        description="Admin token required for course management endpoints. Must be set in .env file."
+    )
     nextauth_secret: str = Field(
         description="NextAuth secret for JWT token verification"
     )

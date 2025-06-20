@@ -11,8 +11,8 @@ class AccessType(str, Enum):
 
 class CourseBase(BaseModel):
     course_name: str
-    course_code: str
-    ip_address: str
+    server_url: str
+    enabled: bool = True
     access_type: AccessType = AccessType.PUBLIC
     school: Optional[str] = None
 
@@ -23,14 +23,15 @@ class CourseCreate(CourseBase):
 
 class CourseUpdate(BaseModel):
     course_name: Optional[str] = None
-    course_code: Optional[str] = None
-    ip_address: Optional[str] = None
+    server_url: Optional[str] = None
+    enabled: Optional[bool] = None
     access_type: Optional[AccessType] = None
     school: Optional[str] = None
 
 
 class CourseResponse(CourseBase):
     id: int
+    course_id: str
 
     class Config:
         orm_mode = True
@@ -39,4 +40,4 @@ class CourseResponse(CourseBase):
 
 class CourseListResponse(BaseModel):
     courses: List[CourseResponse]
-    total: int 
+    total: int

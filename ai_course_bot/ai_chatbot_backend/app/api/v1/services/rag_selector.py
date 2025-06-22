@@ -83,7 +83,7 @@ def build_augmented_prompt(user_message: str, course: str, embedding_dir: str, t
     print(top_ids)
     print(similarity_scores)
     for i in range(len(top_docs)):
-        reference_list.append(top_urls[i] if top_urls[i] else "")
+        # reference_list.append(top_urls[i] if top_urls[i] else "")
         if similarity_scores[i] > threshold:
             n += 1
             cleaned_info_path = top_ids[i]
@@ -101,6 +101,7 @@ def build_augmented_prompt(user_message: str, course: str, embedding_dir: str, t
                     f"<|end_of_reference_name|><|begin_of_reference_link|>{top_urls[i]}"
                     f"<|end_of_reference_link|>\n\n"
                 )
+                reference_list.append([cleaned_info_path,top_urls[i]])
             else:
                 insert_document += (
                     f"\"\"\"Reference Number: {n}\n"
@@ -113,6 +114,7 @@ def build_augmented_prompt(user_message: str, course: str, embedding_dir: str, t
                     f"<|end_of_reference_name|><|begin_of_reference_link|>"
                     f"<|end_of_reference_link|>\n\n"
                 )
+                reference_list.append([cleaned_info_path, ''])
 
     if not insert_document or n == 0:
         modified_message = (

@@ -1,9 +1,8 @@
 from typing import List, Optional, Tuple
-import uuid
 
 from sqlalchemy.orm import Session
 
-from app.api.v1.schemas.course_admin import CourseCreate, CourseUpdate
+from app.schemas.course_admin import CourseCreate, CourseUpdate
 from app.core.models.courses import CourseModel
 
 

@@ -1,10 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-import uuid
-from typing import Optional
 
-from app.api.v1.schemas.course_admin import CourseCreate, CourseUpdate, CourseResponse, CourseListResponse
-from app.api.v1.services import course_admin_service
+from app.schemas.course_admin import CourseCreate, CourseUpdate, CourseResponse, CourseListResponse
+from app.services import course_admin_service
 from app.core.database import get_db
 from app.api.deps import get_admin_token_user
 

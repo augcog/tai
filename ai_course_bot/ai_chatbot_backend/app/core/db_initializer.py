@@ -9,23 +9,20 @@ This module handles:
 4. Course registration from directory structure
 """
 
-import os
-import sys
 import sqlite3
 import mimetypes
 import uuid
 from pathlib import Path
 from datetime import datetime
-from typing import List, Dict, Optional, Tuple
+from typing import List, Dict
 import logging
 
 from sqlalchemy import create_engine, inspect, text
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.exc import SQLAlchemyError
 
-from .database import Base, SQLALCHEMY_DATABASE_URL, SessionLocal
-from .models.courses import CourseModel
-from ..api.v1.models.files import FileRegistry
+from app.core.database import Base, SQLALCHEMY_DATABASE_URL
+from app.core.models.courses import CourseModel
+from app.core.models.files import FileRegistry
 
 # Configure logging
 logger = logging.getLogger(__name__)

@@ -14,6 +14,7 @@ class CourseModel(Base):
     course_name = Column(String, index=True)
     server_url = Column(String, nullable=False)
     enabled = Column(Boolean, default=True)
+    order = Column(Integer, default=0)
     access_type = Column(
         Enum("public", "login_required", "private", name="access_type_enum"),
         default="public"

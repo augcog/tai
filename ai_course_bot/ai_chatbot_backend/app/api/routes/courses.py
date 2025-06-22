@@ -3,9 +3,9 @@ from sqlalchemy.orm import Session
 
 from fastapi import APIRouter, Depends, Query
 
-from ..schemas.course import CoursesResponse, Meta as CoursesMeta
-from ..services import courses_service
-from ...deps import get_current_user_optional
+from app.schemas.course import CoursesResponse, Meta as CoursesMeta
+from app.services import courses_service
+from app.api.deps import get_current_user_optional
 from app.core.database import get_db
 
 router = APIRouter()

@@ -17,7 +17,7 @@ from app.core.database import Base
 class FileRegistry(Base):
     """
     Clean file registry for UUID-based file management
-    
+
     Simplified design focused on essential functionality:
     - UUID-based secure access
     - Basic metadata (course, category, title)
@@ -27,30 +27,33 @@ class FileRegistry(Base):
     __tablename__ = "file_registry"
 
     # Primary UUID identifier for API access
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
-    
+    id = Column(UUID(as_uuid=True), primary_key=True,
+                default=uuid.uuid4, index=True)
+
     # File identification and location
     file_name = Column(String(255), nullable=False, index=True)
-    relative_path = Column(String(500), nullable=False, unique=True, index=True)
-    
+    relative_path = Column(String(500), nullable=False,
+                           unique=True, index=True)
+
     # File metadata
     mime_type = Column(String(100), nullable=False)
     size_bytes = Column(Integer, nullable=False)
-    
+
     # Simple organization (no over-engineering)
     course_code = Column(String(20), nullable=True, index=True)
-    category = Column(String(50), nullable=True, index=True)  # document, video, audio, other
-    
+    # document, video, audio, other
+    category = Column(String(50), nullable=True, index=True)
+
     # Content metadata
     title = Column(String(255), nullable=True)
-    
+
     # Status
     is_active = Column(Boolean, default=True, nullable=False, index=True)
-    
+
     # Timestamps
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     modified_at = Column(DateTime(timezone=True), onupdate=func.now())
-    
+
     # Performance indexes for common queries
     __table_args__ = (
         Index('idx_file_course_category', 'course_code', 'category'),

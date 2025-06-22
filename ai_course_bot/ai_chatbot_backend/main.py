@@ -1,6 +1,7 @@
 import logging
 import os
 
+from app.utils.log_filter import IgnoreWatchfilesChangeDetected
 import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -9,17 +10,15 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from app.admin import setup_admin
-from app.api.v1.router import router as v1_router
+from app.api.router import api_router
 from app.core.database import engine
 from app.core.models.courses import Base
 # Import to ensure table creation
-from app.api.v1.models.files import FileRegistry
+from app.core.models.files import FileRegistry
 from app.config import settings  # Import the configuration
 
 # Import the new database initializer
 from app.core.db_initializer import initialize_database_on_startup
-
-from app.v1.openai_mock import router as openapi_mock_router
 
 # Import model pipeline initializer
 from app.dependencies.model import initialize_model_pipeline
@@ -27,7 +26,7 @@ from app.dependencies.model import initialize_model_pipeline
 # from app.core.actions.model_selector import get_model
 
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.WARNING if settings.is_production else logging.DEBUG,
     format="[%(asctime)s] {%(filename)s:%(funcName)s:%(lineno)d} %(levelname)s - %(message)s",
     handlers=[logging.FileHandler("logs.log"), logging.StreamHandler()],
 )
@@ -84,9 +83,8 @@ templates = Jinja2Templates(directory="templates")
 # Setup the admin interface
 setup_admin(app)
 
-# Include routers
-app.include_router(openapi_mock_router)
-app.include_router(v1_router, prefix="/v1", tags=["v1"])
+# Include consolidated API router
+app.include_router(api_router, prefix="/api", tags=["api-v1"])
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -209,8 +207,5 @@ if __name__ == "__main__":
         host=settings.HOST,
         port=settings.PORT,
         reload=reload_enabled,
-        # Additional production optimizations
-        # Disable access logs in production for performance
-        access_log=not settings.is_production,
-        log_level="info" if settings.is_production else "debug"
+        reload_excludes=["*.log", "*.log.*", "*.log.*.*", "*.log.*.*.*"]
     )

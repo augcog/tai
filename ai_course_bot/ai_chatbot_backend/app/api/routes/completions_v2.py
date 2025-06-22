@@ -4,9 +4,9 @@ import json
 from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
 
-from app.api.v1.schemas.completion import CompletionCreateParams, ChatCompletionChunk, ToolCall
-from app.api.v1.services.rag_selector import rag_json_stream_generator, format_chat_msg
-from app.api.v1.utils.stream_processing import openai_format_stream, extract_text_and_references_from_openai_format
+from app.schemas.completion import CompletionCreateParams, ChatCompletionChunk, ToolCall
+from app.services.rag_selector import rag_json_stream_generator, format_chat_msg
+from app.utils.stream_processing import openai_format_stream, extract_text_and_references_from_openai_format
 from app.core.actions.model_selector import course_selection
 from app.dependencies.model import get_model_pipeline
 
@@ -16,7 +16,8 @@ router = APIRouter()
 async def process_completion(params: CompletionCreateParams):
     course = params.course
     rag = params.rag
-    print(f"Processing completion for course: {course} (RAG={'enabled' if rag else 'disabled'})")
+    print(
+        f"Processing completion for course: {course} (RAG={'enabled' if rag else 'disabled'})")
 
     # Get the pre-initialized pipeline
     pipeline = get_model_pipeline()
@@ -42,18 +43,19 @@ async def process_completion(params: CompletionCreateParams):
     else:
         # Use OpenAI format and convert to single response
         openai_stream = openai_format_stream(response)
-        full_text, references = extract_text_and_references_from_openai_format(openai_stream)
+        full_text, references = extract_text_and_references_from_openai_format(
+            openai_stream)
 
         # Create tool calls for references
         tool_calls = None
         if references:
             tool_calls = [
                 ChatCompletionChunk.create_reference_tool_call(
-                    f"Reference {i+1}", 
+                    f"Reference {i+1}",
                     url
                 ) for i, url in enumerate(references) if url
             ]
-        
+
         # Create a single chunk response with all content
         chunk = ChatCompletionChunk.create_chunk(
             role="assistant",
@@ -64,7 +66,7 @@ async def process_completion(params: CompletionCreateParams):
         return chunk.model_dump()
 
 
-@router.post("")
+@router.post("/completions_v2")
 async def create_completion(params: CompletionCreateParams):
     """OpenAI-compatible chat completions endpoint
 

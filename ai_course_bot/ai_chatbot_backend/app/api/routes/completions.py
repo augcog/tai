@@ -1,33 +1,29 @@
-# Import necessary components from FastAPI
+# Consolidated completions router
 from fastapi import APIRouter, Depends
 from app.core.models.chat_completion import *
 from typing import Any
-import asyncio
-import uuid
 import time
-from fastapi.responses import StreamingResponse, PlainTextResponse
+from fastapi.responses import StreamingResponse, PlainTextResponse, JSONResponse
 from app.core.actions.model_selector import course_selection
-from app.api.v1.services.rag_selector import generate_chat_response, local_parser, format_chat_msg
-from app.api.v1.services.rag_retriever import top_k_selector
-import httpx
-import requests
+from app.services.rag_selector import generate_chat_response, local_parser, format_chat_msg
+from app.services.rag_retriever import top_k_selector
 from app.dependencies.model import get_model_pipeline
 
-def generate_data():
-        for number in range(1, 51):  # Generating numbers from 1 to 100
-            yield f"Number: {number}\n".encode("utf-8")  # Yields data as bytes
-            # Simulate a delay, can be removed or replaced with real data fetching
-            time.sleep(0.1)
-# Create an API router
-router = APIRouter(prefix="/api/chat")
+router = APIRouter()
 
+
+def generate_data():
+    for number in range(1, 51):  # Generating numbers from 1 to 100
+        yield f"Number: {number}\n".encode("utf-8")  # Yields data as bytes
+        # Simulate a delay, can be removed or replaced with real data fetching
+        time.sleep(0.1)
 
 
 @router.post("/completions")
 async def create_completion(params: CompletionCreateParams):
     # Get the pre-initialized pipeline
     pipeline = get_model_pipeline()
-    
+
     # select model based on params.model
     course_model_address = course_selection.get(params.course, "default")
     course = params.course
@@ -38,12 +34,14 @@ async def create_completion(params: CompletionCreateParams):
     selector = generate_chat_response
     parser = local_parser
 
-    response,reference_string = selector(formatter(params.messages), stream=params.stream,course=course, pipeline=pipeline)
+    response, reference_string = selector(formatter(
+        params.messages), stream=params.stream, course=course, pipeline=pipeline)
 
     if params.stream:
-        return StreamingResponse(parser(response,reference_string), media_type="text/plain")
+        return StreamingResponse(parser(response, reference_string), media_type="text/plain")
     else:
-         return PlainTextResponse(response)
+        return PlainTextResponse(response)
+
 
 @router.post("/top_k_docs")
 async def get_top_k_docs(message: str, k: int = 3, course: str = None):

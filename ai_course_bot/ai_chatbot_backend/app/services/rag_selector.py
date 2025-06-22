@@ -3,7 +3,7 @@ from threading import Thread, Lock
 from typing import Any, Generator, List, Optional, Tuple
 
 import transformers
-from app.api.v1.services.rag_retriever import (
+from app.services.rag_retriever import (
     clean_path,
     _get_reference_documents,
     _get_pickle_and_class,
@@ -37,7 +37,8 @@ def generate_text_in_thread(messages: List[Message], streamer_iterator: Any, pip
             #     pipeline.tokenizer.eos_token_id,
             #     pipeline.tokenizer.convert_tokens_to_ids("<|eot_id|>")
             # ]
-            msg=[{"role": message.role, "content": message.content} for message in messages]
+            msg = [{"role": message.role, "content": message.content}
+                   for message in messages]
             prompt = pipeline.tokenizer.apply_chat_template(
                 msg,
                 tokenize=False,
@@ -54,7 +55,7 @@ def generate_text_in_thread(messages: List[Message], streamer_iterator: Any, pip
             pipeline(prompt, max_new_tokens=1000, do_sample=True)
 
 
-def build_augmented_prompt(user_message: str, course: str, embedding_dir: str, threshold: float, rag: bool,top_k: int = 7
+def build_augmented_prompt(user_message: str, course: str, embedding_dir: str, threshold: float, rag: bool, top_k: int = 7
                            ) -> Tuple[str, List[str], str]:
     """
     Build an augmented prompt by retrieving reference documents.
@@ -74,7 +75,8 @@ def build_augmented_prompt(user_message: str, course: str, embedding_dir: str, t
     query_embed = embedding_model.encode(
         user_message, return_dense=True, return_sparse=True, return_colbert_vecs=True
     )
-    top_ids, top_docs, top_urls, similarity_scores,top_files,top_topic_paths = _get_reference_documents(query_embed, current_dir, picklefile,top_k=7)
+    top_ids, top_docs, top_urls, similarity_scores, top_files, top_topic_paths = _get_reference_documents(
+        query_embed, current_dir, picklefile, top_k=7)
 
     insert_document = ""
     reference_list: List[str] = []
@@ -174,7 +176,6 @@ def format_chat_msg(messages: List[Message]) -> List[Message]:
     return response
 
 
-
 def generate_chat_response(
         messages: List[Message],
         stream: bool = True,
@@ -196,8 +197,10 @@ def generate_chat_response(
 
     messages[-1].content = modified_message
     if is_local_pipeline(pipeline):
-        streamer_iterator = transformers.TextIteratorStreamer(pipeline.tokenizer, skip_prompt=True)
-        t = Thread(target=generate_text_in_thread, args=(messages, streamer_iterator, pipeline))
+        streamer_iterator = transformers.TextIteratorStreamer(
+            pipeline.tokenizer, skip_prompt=True)
+        t = Thread(target=generate_text_in_thread, args=(
+            messages, streamer_iterator, pipeline))
         t.start()
         return streamer_iterator, reference_string
     else:
@@ -225,8 +228,10 @@ def rag_json_stream_generator(
     )
     messages[-1].content = modified_message
     if is_local_pipeline(pipeline):
-        streamer_iterator = transformers.TextIteratorStreamer(pipeline.tokenizer, skip_prompt=True)
-        t = Thread(target=generate_text_in_thread, args=(messages, streamer_iterator, pipeline))
+        streamer_iterator = transformers.TextIteratorStreamer(
+            pipeline.tokenizer, skip_prompt=True)
+        t = Thread(target=generate_text_in_thread, args=(
+            messages, streamer_iterator, pipeline))
         t.start()
 
         def stream_json_response() -> Generator[str, None, None]:
@@ -236,7 +241,8 @@ def rag_json_stream_generator(
 
         return stream_json_response()
     else:
-        remote_stream = pipeline(messages[-1].content, stream=stream, course=course)
+        remote_stream = pipeline(
+            messages[-1].content, stream=stream, course=course)
 
         def stream_json_response() -> Generator[str, None, None]:
             for item in remote_stream:

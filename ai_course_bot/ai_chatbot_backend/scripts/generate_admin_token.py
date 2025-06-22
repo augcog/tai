@@ -8,7 +8,6 @@ Use this when setting up new environments or rotating tokens for security.
 
 import secrets
 import string
-import sys
 from pathlib import Path
 
 

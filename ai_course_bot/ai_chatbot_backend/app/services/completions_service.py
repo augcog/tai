@@ -1,4 +1,4 @@
-from ..schemas.file_completion import CompletionResponse
+from app.schemas.file_completion import CompletionResponse
 
 
 def create_completion(fileId: str, prompt: str, user: dict, rag: bool) -> CompletionResponse:

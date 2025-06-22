@@ -3,7 +3,6 @@ Clean, unified file service
 Best practices with easy user flow and auto-discovery
 """
 
-import hashlib
 import mimetypes
 import os
 import re
@@ -18,7 +17,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import and_
 
 from app.config import settings
-from app.api.v1.models.files import FileRegistry
+from app.core.models.files import FileRegistry
 
 
 class FileService:

@@ -4,13 +4,11 @@ from typing import Any, Generator, List, Optional, Tuple
 
 import transformers
 from app.services.rag_retriever import (
-    clean_path,
     _get_reference_documents,
     _get_pickle_and_class,
     embedding_model
 )
 from app.core.models.chat_completion import Message
-from pydantic import BaseModel
 
 pipeline_generation_lock = Lock()
 

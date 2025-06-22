@@ -33,10 +33,10 @@ async def list_files(
     - Pagination: Efficient handling of large file collections
 
     Example usage:
-    - GET /v1/files - List all files
-    - GET /v1/files?course_code=CS61A - CS61A files only
-    - GET /v1/files?category=document - Document files
-    - GET /v1/files?search=lab - Search for files containing "lab"
+    - GET /api/files - List all files
+    - GET /api/files?course_code=CS61A - CS61A files only
+    - GET /api/files?category=document - Document files
+    - GET /api/files?search=lab - Search for files containing "lab"
     """
     try:
         result = file_service.list_files(

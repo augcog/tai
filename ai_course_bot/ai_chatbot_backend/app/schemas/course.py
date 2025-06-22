@@ -7,6 +7,9 @@ class Course(BaseModel):
     courseId: str
     courseName: str
     isPublic: bool
+    order: int
+    school: str
+    serverUrl: str
 
 
 class Meta(BaseModel):

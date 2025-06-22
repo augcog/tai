@@ -1,5 +1,5 @@
 // Constants for API URLs
-const BASE_URL = "/v1/files";
+const BASE_URL = "/api/files";
 
 // Store current file list for reference
 let currentFiles = [];

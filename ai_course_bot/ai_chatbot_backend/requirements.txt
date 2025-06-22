@@ -31,3 +31,5 @@ PyJWT==2.8.0  # JWT token handling for authentication
 
 # File management dependencies
 watchdog==4.0.0  # For real-time file watching (optional but recommended)
+
+itsdangerous==2.2.0

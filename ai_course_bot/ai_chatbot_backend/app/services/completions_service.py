@@ -1,7 +1,7 @@
 from app.schemas.file_completion import CompletionResponse
 
 
-def create_completion(fileId: str, prompt: str, user: dict, rag: bool) -> CompletionResponse:
+def create_completion(fileId: str, prompt: str, rag: bool) -> CompletionResponse:
     """
     Create a chat completion for a file.
     Returns None if the file is not found (simulate error).

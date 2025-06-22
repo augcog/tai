@@ -1,7 +1,6 @@
 import logging
 import os
 
-from app.utils.log_filter import IgnoreWatchfilesChangeDetected
 import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -26,7 +25,7 @@ from app.dependencies.model import initialize_model_pipeline
 # from app.core.actions.model_selector import get_model
 
 logging.basicConfig(
-    level=logging.WARNING if settings.is_production else logging.DEBUG,
+    level=logging.WARNING,
     format="[%(asctime)s] {%(filename)s:%(funcName)s:%(lineno)d} %(levelname)s - %(message)s",
     handlers=[logging.FileHandler("logs.log"), logging.StreamHandler()],
 )
@@ -84,7 +83,7 @@ templates = Jinja2Templates(directory="templates")
 setup_admin(app)
 
 # Include consolidated API router
-app.include_router(api_router, prefix="/api", tags=["api-v1"])
+app.include_router(api_router, prefix="/api")
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -129,9 +128,9 @@ async def home():
             <div class="auth-section">
                 <h2>Authentication Testing</h2>
                 <div class="links">
-                    <a href="/v1/auth/test-token">Get Test Bearer Token</a>
-                    <a href="/v1/auth/auth-config">View Auth Configuration</a>
-                    <a href="/v1/auth/auth-status">Check Auth Status</a>
+                    <a href="/api/auth/test-token">Get Test Bearer Token</a>
+                    <a href="/api/auth/auth-config">View Auth Configuration</a>
+                    <a href="/api/auth/auth-status">Check Auth Status</a>
                 </div>
                 <p><small>Note: Test tokens are only available in development mode (auth_required=False)</small></p>
             </div>
@@ -153,7 +152,7 @@ async def course_config(request: Request):
     """
     Admin interface for course configuration and management
     """
-    return templates.TemplateResponse("course_config.html", {"request": request})
+    return RedirectResponse(url="admin/course-model/list")
 
 
 @app.get("/health")

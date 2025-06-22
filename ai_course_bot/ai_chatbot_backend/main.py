@@ -10,10 +10,10 @@ from fastapi.templating import Jinja2Templates
 
 from app.admin import setup_admin
 from app.api.router import api_router
-from app.core.database import engine
-from app.core.models.courses import Base
+from app.core.database import engine, Base
 # Import to ensure table creation
 from app.core.models.files import FileRegistry
+from app.core.models.courses import CourseModel
 from app.config import settings  # Import the configuration
 
 # Import the new database initializer

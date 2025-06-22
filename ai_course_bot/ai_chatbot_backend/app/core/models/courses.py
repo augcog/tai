@@ -1,8 +1,6 @@
 from sqlalchemy import Column, Integer, String, Enum, Boolean
-from sqlalchemy.ext.declarative import declarative_base
+from app.core.database import Base
 import uuid
-
-Base = declarative_base()
 
 
 class CourseModel(Base):

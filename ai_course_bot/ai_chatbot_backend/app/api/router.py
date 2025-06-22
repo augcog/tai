@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.api.routes import auth, completions, courses, files, admin, file_completions, file_tester, completions_v2
+from app.api.routes import auth, completions, courses, files, file_completions, file_tester, completions_v2
 
 # Create main API router
 api_router = APIRouter()
@@ -39,13 +39,6 @@ api_router.include_router(
     tags=["courses"]
 )
 
-# Course admin
-api_router.include_router(
-    admin.router,
-    prefix="/course-admin",
-    tags=["course-admin"]
-)
-
 # Files management
 api_router.include_router(
     files.router,
@@ -57,5 +50,4 @@ api_router.include_router(
 api_router.include_router(
     file_tester.router,
     prefix="/file-tester",
-    tags=["file-tester"]
 )

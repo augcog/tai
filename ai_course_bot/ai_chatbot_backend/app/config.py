@@ -40,9 +40,18 @@ class Settings(BaseSettings):
     auth_required: bool = Field(
         description="Whether authentication is required"
     )
+
     admin_token: str = Field(
         description="Admin token required for course management endpoints. Must be set in .env file."
     )
+
+    admin_username: str = Field(
+        description="Admin username for course management endpoints. Must be set in .env file."
+    )
+    admin_password: str = Field(
+        description="Admin password for course management endpoints. Must be set in .env file."
+    )
+
     nextauth_secret: str = Field(
         description="NextAuth secret for JWT token verification"
     )
@@ -137,6 +146,18 @@ class Settings(BaseSettings):
     def is_development(self) -> bool:
         """Check if running in development environment."""
         return self.environment == EnvironmentEnum.dev
+
+    @property
+    def admin_token(self) -> str:
+        return self.admin_token
+
+    @property
+    def admin_username(self) -> str:
+        return self.admin_username
+
+    @property
+    def admin_password(self) -> str:
+        return self.admin_password
 
     class Config:
         env_file = ".env"

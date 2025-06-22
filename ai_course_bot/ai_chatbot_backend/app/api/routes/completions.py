@@ -4,7 +4,6 @@ from app.core.models.chat_completion import *
 from typing import Any
 import time
 from fastapi.responses import StreamingResponse, PlainTextResponse, JSONResponse
-from app.core.actions.model_selector import course_selection
 from app.services.rag_selector import generate_chat_response, local_parser, format_chat_msg
 from app.services.rag_retriever import top_k_selector
 from app.dependencies.model import get_model_pipeline
@@ -25,11 +24,7 @@ async def create_completion(params: CompletionCreateParams):
     pipeline = get_model_pipeline()
 
     # select model based on params.model
-    course_model_address = course_selection.get(params.course, "default")
     course = params.course
-    stream = params.stream
-    print("course")
-    print(course)
     formatter = format_chat_msg
     selector = generate_chat_response
     parser = local_parser

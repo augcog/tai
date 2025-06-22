@@ -10,26 +10,6 @@ def get_courses(page: int, limit: int, user: dict = None, db: Session = None) ->
     Return a list of courses from the database. If the user is authenticated, return both public and private courses;
     otherwise, return only public courses.
     """
-    if db is None:
-        # Fallback mock data if no database session is provided
-        if user:
-            courses = [
-                Course(courseId="mock-uuid-1",
-                       courseName="CS61A", isPublic=True),
-                Course(courseId="mock-uuid-2",
-                       courseName="CS61B", isPublic=False),
-            ]
-        else:
-            courses = [
-                Course(courseId="mock-uuid-1",
-                       courseName="CS61A", isPublic=True),
-            ]
-        total = len(courses)
-        start = (page - 1) * limit
-        end = start + limit
-        paged_courses = courses[start:end]
-        return paged_courses, total
-
     # Query database for courses
     query = db.query(CourseModel)
 
@@ -57,7 +37,10 @@ def get_courses(page: int, limit: int, user: dict = None, db: Session = None) ->
         course = Course(
             courseId=db_course.course_id,
             courseName=db_course.course_name,
-            isPublic=(db_course.access_type == "public")
+            isPublic=(db_course.access_type == "public"),
+            order=db_course.order,
+            school=db_course.school,
+            serverUrl=db_course.server_url
         )
         courses.append(course)
 

@@ -26,10 +26,10 @@ def mock_current_user():
     """Override authentication during testing"""
     # Store original auth_required setting
     original_auth_required = settings.auth_required
-    
+
     # Force auth_required to False during tests
     settings.auth_required = False
-    
+
     # Create a mock user
     mock_user = {
         "user_id": "test-user-simple",
@@ -37,12 +37,12 @@ def mock_current_user():
         "name": "Test User",
         "picture": None
     }
-    
+
     # Override authentication dependency
     app.dependency_overrides[get_current_user] = lambda: mock_user
-    
+
     yield mock_user
-    
+
     # Restore original settings and clear overrides
     settings.auth_required = original_auth_required
     app.dependency_overrides.clear()
@@ -170,16 +170,18 @@ class TestFileService:
         from app.services.file_service import file_service
 
         # Test simple cases
-        metadata = file_service._extract_metadata("CS61A/documents/my_file.pdf")
+        metadata = file_service._extract_metadata(
+            "CS61A/documents/my_file.pdf")
         assert metadata["title"] == "My File"
 
-        metadata = file_service._extract_metadata("CS61A/videos/lecture-notes.mp4")
+        metadata = file_service._extract_metadata(
+            "CS61A/videos/lecture-notes.mp4")
         assert metadata["title"] == "Lecture Notes"
 
 
 class TestFileAPIHealth:
     """Test basic API health and imports"""
-    
+
     def test_api_health_check(self, client):
         """Test that the API is responsive"""
         response = client.get("/health")
@@ -187,7 +189,7 @@ class TestFileAPIHealth:
         data = response.json()
         assert "status" in data
         assert data["status"] == "ok"
-    
+
     def test_imports_work(self):
         """Test that all imports work correctly"""
         # Test file service import
@@ -195,7 +197,7 @@ class TestFileAPIHealth:
         assert file_service is not None
 
         # Test models import
-        from app.api.v1.models.files import FileRegistry
+        from app.core.models.files import FileRegistry
         assert FileRegistry is not None
 
     def test_file_service_initialization(self):
@@ -209,13 +211,13 @@ class TestFileAPIHealth:
 
 class TestFileAPIErrorHandling:
     """Test error handling scenarios"""
-    
+
     def test_invalid_file_path(self, client, mock_current_user):
         """Test invalid file path handling"""
         response = client.get("/v1/files/../../../etc/passwd")
         # Should either return 404 or handle the security issue
         assert response.status_code in [404, 400, 403]
-    
+
     def test_files_empty_directory(self, client, mock_current_user):
         """Test files with empty directory"""
         from unittest.mock import patch
@@ -264,7 +266,8 @@ class TestFileServiceUtilities:
 
         test_cases = [
             ("CS61A/documents/lab_01_getting_started.pdf", "Lab 01 Getting Started"),
-            ("CS61A/documents/homework-02-data-structures.pdf", "Homework 02 Data Structures"),
+            ("CS61A/documents/homework-02-data-structures.pdf",
+             "Homework 02 Data Structures"),
             ("CS61A/documents/lecture_notes_week_3.pdf", "Lecture Notes Week 3"),
             ("CS61A/documents/final_exam_solution.pdf", "Final Exam Solution"),
         ]
@@ -278,11 +281,11 @@ class TestFileServiceUtilities:
 def test_basic_api_integration():
     """Test basic API integration without complex mocking"""
     client = TestClient(app)
-    
+
     # Test that the app starts and basic endpoints exist
     response = client.get("/health")
     assert response.status_code == 200
-    
+
     # Test that API docs are available
     response = client.get("/docs")
     assert response.status_code == 200
@@ -292,11 +295,11 @@ def test_basic_api_integration():
 def test_settings_configuration():
     """Test that settings are configured correctly"""
     from app.config import settings
-    
+
     # Test that basic settings exist
     assert hasattr(settings, 'auth_required')
     assert hasattr(settings, 'DATA_DIR')
-    
+
     # Test that we can modify auth_required for testing
     original = settings.auth_required
     settings.auth_required = False

@@ -10,10 +10,10 @@ from pathlib import Path
 from typing import Dict, List, Any
 
 from app.core.models.courses import Base as CourseBase
-from app.api.v1.schemas.course_admin import CourseCreate, AccessType
+from app.schemas.course_admin import CourseCreate, AccessType
 from app.api.deps import get_current_user, get_admin_user, auth_with_query_param
 from app.core.database import get_db
-from app.api.v1.services import course_admin_service
+from app.services import course_admin_service
 from app.config import settings
 from main import app
 
@@ -24,7 +24,8 @@ engine = create_engine(
     connect_args={"check_same_thread": False},
     poolclass=StaticPool,
 )
-TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+TestingSessionLocal = sessionmaker(
+    autocommit=False, autoflush=False, bind=engine)
 
 
 # ===== Global Test Setup =====
@@ -210,21 +211,24 @@ def multiple_course_data():
 @pytest.fixture
 def course_fixture(course_db_session, sample_course_data):
     """Create a course in the database for testing."""
-    course = course_admin_service.create_course(course_db_session, sample_course_data)
+    course = course_admin_service.create_course(
+        course_db_session, sample_course_data)
     return course
 
 
 @pytest.fixture
 def login_required_course_fixture(course_db_session, sample_login_required_course_data):
     """Create a login_required course in the database for testing."""
-    course = course_admin_service.create_course(course_db_session, sample_login_required_course_data)
+    course = course_admin_service.create_course(
+        course_db_session, sample_login_required_course_data)
     return course
 
 
 @pytest.fixture
 def private_course_fixture(course_db_session, sample_private_course_data):
     """Create a private course in the database for testing."""
-    course = course_admin_service.create_course(course_db_session, sample_private_course_data)
+    course = course_admin_service.create_course(
+        course_db_session, sample_private_course_data)
     return course
 
 
@@ -233,7 +237,8 @@ def multiple_courses_fixture(course_db_session, multiple_course_data):
     """Create multiple courses in the database for testing pagination."""
     courses = []
     for course_data in multiple_course_data:
-        course = course_admin_service.create_course(course_db_session, course_data)
+        course = course_admin_service.create_course(
+            course_db_session, course_data)
         courses.append(course)
     return courses
 
@@ -241,6 +246,7 @@ def multiple_courses_fixture(course_db_session, multiple_course_data):
 # ===== Fixtures Testing Utilities =====
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
+
 
 def load_fixtures(directory: Path = FIXTURES_DIR) -> Dict[str, List[Dict]]:
     """Load all fixture files for testing."""
@@ -276,6 +282,7 @@ def load_fixtures(directory: Path = FIXTURES_DIR) -> Dict[str, List[Dict]]:
                     print(f"Error loading fixture file: {file}")
 
     return fixtures
+
 
 @pytest.fixture
 def fixtures():

@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, Path, status
 from sqlalchemy.orm import Session
 
 from app.api.deps import get_current_user_optional, get_db
-from app.api.v1.schemas.files import FileMetadata, FileListResponse, FileStatsResponse
+from app.schemas.files import FileMetadata, FileListResponse, FileStatsResponse
 from app.services.file_service import file_service
 
 router = APIRouter()

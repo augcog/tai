@@ -3,11 +3,12 @@ import json
 import torch
 import transformers
 
-from .remote_model import RemoteModelClient
-from ..config import settings
+from app.dependencies.remote_model import RemoteModelClient
+from app.config import settings
 
 # Global variable to store the loaded pipeline (singleton pattern)
 _model_pipeline = None
+
 
 def get_local_model_pipeline():
     """Loads the local text generation model for inference.
@@ -66,7 +67,7 @@ def get_mock_model_pipeline():
 
 def initialize_model_pipeline():
     """Initialize the model pipeline once at startup.
-    
+
     Returns the appropriate model pipeline based on configuration.
     This should be called once during app startup.
     """
@@ -74,11 +75,11 @@ def initialize_model_pipeline():
     if _model_pipeline is not None:
         print("⚠️  Model pipeline already initialized, returning existing instance")
         return _model_pipeline
-        
+
     print("🚀 Initializing model pipeline...")
     mode = settings.effective_llm_mode
     print(f"📦 Using LLM mode: {mode}")
-    
+
     if mode == "local":
         print("🔧 Loading local model pipeline...")
         _model_pipeline = get_local_model_pipeline()
@@ -93,13 +94,13 @@ def initialize_model_pipeline():
         print("✅ Mock model pipeline setup successfully!")
     else:
         raise ValueError(f"Unknown effective LLM mode: {mode}")
-    
+
     return _model_pipeline
 
 
 def get_model_pipeline():
     """Returns the pre-initialized model pipeline.
-    
+
     This function should be used after initialize_model_pipeline() has been called.
     If the pipeline hasn't been initialized, it will initialize it on first call.
     """

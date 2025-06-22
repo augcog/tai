@@ -1,7 +1,7 @@
 from typing import Tuple, List
 from sqlalchemy.orm import Session
 
-from ..schemas.course import Course
+from app.schemas.course import Course
 from app.core.models.courses import CourseModel
 
 

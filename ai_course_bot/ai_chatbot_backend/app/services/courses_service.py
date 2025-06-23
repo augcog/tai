@@ -16,14 +16,6 @@ def get_courses(page: int, limit: int, user: dict = None, db: Session = None) ->
     # Filter by enabled courses only
     query = query.filter(CourseModel.enabled == True)
 
-    # Filter by access type based on user authentication
-    if user:
-        # Authenticated users can see all enabled courses
-        pass
-    else:
-        # Unauthenticated users can only see public courses
-        query = query.filter(CourseModel.access_type == "public")
-
     # Get total count before pagination
     total = query.count()
 
@@ -37,7 +29,7 @@ def get_courses(page: int, limit: int, user: dict = None, db: Session = None) ->
         course = Course(
             courseId=db_course.course_id,
             courseName=db_course.course_name,
-            isPublic=(db_course.access_type == "public"),
+            accessType=db_course.access_type,
             order=db_course.order,
             school=db_course.school,
             serverUrl=db_course.server_url,

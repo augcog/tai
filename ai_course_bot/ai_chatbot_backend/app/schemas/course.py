@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from pydantic import BaseModel
 
@@ -6,10 +6,10 @@ from pydantic import BaseModel
 class Course(BaseModel):
     courseId: str
     courseName: str
-    semester: str
-    isPublic: bool
+    semester: Optional[str] = None
+    accessType: str
     order: int
-    school: str
+    school: Optional[str] = None
     serverUrl: str
     courseCode: str
 

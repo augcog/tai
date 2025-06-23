@@ -12,7 +12,7 @@ class CourseModel(Base):
     course_name = Column(String, index=True)
     server_url = Column(String, nullable=False)
     course_code = Column(String, nullable=False)
-    semester = Column(String, nullable=False)
+    semester = Column(String, nullable=True)
     enabled = Column(Boolean, default=True)
     order = Column(Integer, default=0)
     access_type = Column(

@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 from app.schemas.file_completion import CompletionResponse
 from app.services import completions_service
-from app.api.deps import get_current_user
+from app.api.deps import verify_api_token
 
 router = APIRouter()
 
@@ -16,7 +16,8 @@ class CompletionRequest(BaseModel):
 def create_completion(
         fileId: str = Path(...),
         request: CompletionRequest = None,
-        rag: bool = Body(True)
+        rag: bool = Body(True),
+        _: bool = Depends(verify_api_token)
 ):
     if not request or not request.prompt:
         raise HTTPException(

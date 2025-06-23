@@ -36,11 +36,6 @@ class Settings(BaseSettings):
         description="URL for remote model API"
     )
 
-    # Authentication settings
-    auth_required: bool = Field(
-        description="Whether authentication is required"
-    )
-
     admin_token: str = Field(
         description="Admin token required for course management endpoints. Must be set in .env file."
     )
@@ -52,17 +47,10 @@ class Settings(BaseSettings):
         description="Admin password for course management endpoints. Must be set in .env file."
     )
 
-    nextauth_secret: str = Field(
-        description="NextAuth secret for JWT token verification"
+    api_auth_token: str = Field(
+        description="API authentication token for NextJS <-> Backend communication. Must be set in .env file."
     )
-    nextauth_url: str = Field(
-        description="NextAuth URL for authentication"
-    )
-    allowed_domains_str: str = Field(
-        default="",
-        description="Comma-separated list of allowed email domains for authentication",
-        alias="allowed_domains"
-    )
+
     dev_mode: bool = Field(
         default=False,
         description="Development mode flag"
@@ -86,36 +74,6 @@ class Settings(BaseSettings):
         default=False,
         description="Enable auto-reload for development"
     )
-
-    @validator('auth_required', pre=True)
-    def parse_auth_required(cls, value):
-        if isinstance(value, str):
-            # Strip comments (anything after #) and whitespace
-            clean_value = value.split('#')[0].strip().lower()
-            if clean_value == 'true':
-                return True
-            elif clean_value == 'false':
-                return False
-        return value
-
-    @validator('allowed_domains_str', pre=True, always=True)
-    def parse_allowed_domains(cls, value):
-        if value is None:
-            return ""
-        if isinstance(value, str):
-            # Handle string representation from .env file
-            # Remove brackets and quotes if present
-            clean_value = value.strip().strip('[]').replace('"', '').replace("'", '')
-            return clean_value
-        else:
-            return str(value) if value else ""
-
-    @property
-    def allowed_domains(self) -> List[str]:
-        """Convert allowed_domains_str to list."""
-        if not self.allowed_domains_str:
-            return []
-        return [domain.strip() for domain in self.allowed_domains_str.split(',') if domain.strip()]
 
     @property
     def effective_llm_mode(self) -> LLMModeEnum:

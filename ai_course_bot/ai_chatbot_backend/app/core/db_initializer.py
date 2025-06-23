@@ -12,9 +12,10 @@ This module handles:
 import sqlite3
 import mimetypes
 import uuid
+import json
 from pathlib import Path
 from datetime import datetime
-from typing import List, Dict
+from typing import List, Dict, Optional
 import logging
 
 from sqlalchemy import create_engine, inspect, text
@@ -306,43 +307,80 @@ class DatabaseInitializer:
         }
 
     def _update_course_registry(self) -> int:
-        """Update course registry based on data directory structure"""
+        """Load courses from JSON only if database is empty (fresh initialization)"""
         session = self.SessionLocal()
+
+        try:
+            # Check if there are already courses in the database
+            existing_course_count = session.query(CourseModel).count()
+
+            if existing_course_count > 0:
+                logger.info(
+                    f"📚 Found {existing_course_count} existing courses in database, skipping course loading")
+                return 0
+
+            # Database is empty, proceed with JSON loading
+            logger.info(
+                "📄 Database is empty, loading courses from course.json...")
+            return self._load_courses_from_json(session)
+
+        except Exception as e:
+            logger.error(f"❌ Course registry check failed: {e}")
+            return 0
+        finally:
+            session.close()
+
+    def _load_courses_from_json(self, session) -> int:
+        """Load courses from course.json file (only called when database is empty)"""
         course_count = 0
 
         try:
-            if not self.data_dir.exists():
+            course_json_path = Path("course.json")
+
+            if not course_json_path.exists():
+                logger.warning(
+                    "📄 course.json not found, no courses will be loaded")
                 return 0
 
-            # Get existing courses by their course_id (UUID)
-            existing_course_names = set()
-            for course in session.query(CourseModel).all():
-                # Use course_name as the identifier since course_id is now a UUID
-                existing_course_names.add(course.course_name)
+            # Read JSON file
+            with open(course_json_path, 'r', encoding='utf-8') as f:
+                courses_data = json.load(f)
 
-            # Find course directories
-            for course_dir in self.data_dir.iterdir():
-                if course_dir.is_dir() and not course_dir.name.startswith('.'):
-                    course_name_candidate = f"{course_dir.name} Course"
+            if not isinstance(courses_data, list):
+                logger.error("❌ course.json must contain a list of courses")
+                return 0
 
-                    if course_name_candidate not in existing_course_names:
-                        # Create new course entry with the new schema
-                        course = CourseModel(
-                            course_name=course_name_candidate,
-                            server_url=f"https://example.com/{course_dir.name}",
-                            enabled=True,
-                            access_type="public"
-                        )
-                        session.add(course)
-                        course_count += 1
+            # Load all courses from JSON (database is empty)
+            for course_data in courses_data:
+                try:
+                    course = CourseModel(
+                        course_name=course_data.get(
+                            "course_name", "Unknown Course"),
+                        course_code=course_data.get("course_code", "UNKNOWN"),
+                        server_url=course_data.get(
+                            "server_url", "http://128.32.43.233:8000"),
+                        semester=course_data.get("semester", "Fall 2024"),
+                        enabled=course_data.get("enabled", True),
+                        order=course_data.get("order", course_count),
+                        access_type=course_data.get("access_type", "public"),
+                        school=course_data.get("school")
+                    )
+                    session.add(course)
+                    course_count += 1
+                    logger.info(
+                        f"📚 Loading course: {course.course_name} ({course.course_code})")
+
+                except Exception as e:
+                    logger.error(f"❌ Failed to load course {course_data}: {e}")
+                    continue
 
             session.commit()
+            logger.info(
+                f"✅ Successfully loaded {course_count} courses from course.json")
 
         except Exception as e:
             session.rollback()
-            logger.error(f"❌ Course registry update failed: {e}")
-        finally:
-            session.close()
+            logger.error(f"❌ Failed to load courses from JSON: {e}")
 
         return course_count
 

@@ -9,29 +9,31 @@ from app.config import settings
 
 class CourseAdmin(ModelView, model=CourseModel):
     column_list = [
-        CourseModel.id,
-        CourseModel.course_id,
         CourseModel.course_name,
+        CourseModel.course_code,
+        CourseModel.order,
         CourseModel.server_url,
+        CourseModel.semester,
         CourseModel.enabled,
         CourseModel.access_type,
-        CourseModel.school,
-        CourseModel.order
+        CourseModel.school
     ]
     column_details_exclude_list = []
-    column_sortable_list = [CourseModel.id,
-                            CourseModel.course_name, CourseModel.enabled, CourseModel.order]
+    column_sortable_list = [CourseModel.course_name,
+                            CourseModel.enabled, CourseModel.order]
     column_searchable_list = [CourseModel.course_name,
-                              CourseModel.server_url, CourseModel.school]
+                              CourseModel.server_url, CourseModel.school, CourseModel.course_code, CourseModel.semester]
 
     # Customize form for admin panel
     form_columns = [
         "course_name",
+        "course_code",
+        "order",
         "server_url",
         "enabled",
+        "semester",
         "access_type",
         "school",
-        "order"
     ]
 
     # Add validators and help text
@@ -39,6 +41,14 @@ class CourseAdmin(ModelView, model=CourseModel):
         "course_name": {
             "label": "Course Name",
             "description": "The full name of the course (e.g., Introduction to Computer Science)"
+        },
+        "course_code": {
+            "label": "Course Code",
+            "description": "The course code (e.g., CS61A)"
+        },
+        "semester": {
+            "label": "Semester",
+            "description": "The semester of the course (e.g., Spring 2024)"
         },
         "server_url": {
             "label": "Server URL",

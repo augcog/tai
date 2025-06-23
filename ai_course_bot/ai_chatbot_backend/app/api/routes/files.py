@@ -3,8 +3,8 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Path, status
 from sqlalchemy.orm import Session
-
-from app.api.deps import get_current_user_optional, get_db
+from app.core.database import get_db
+from app.api.deps import verify_api_token
 from app.schemas.files import FileMetadata, FileListResponse, FileStatsResponse
 from app.services.file_service import file_service
 
@@ -22,7 +22,7 @@ async def list_files(
         page: int = Query(1, ge=1, description="Page number"),
         limit: int = Query(100, ge=1, le=1000, description="Items per page"),
         db: Session = Depends(get_db),
-        user: dict = Depends(get_current_user_optional)
+        _: bool = Depends(verify_api_token)
 ):
     """
     List files with simple filtering and auto-discovery.
@@ -74,7 +74,7 @@ async def list_files(
 async def get_file_metadata(
         file_id: UUID = Path(..., description="File UUID"),
         db: Session = Depends(get_db),
-        user: dict = Depends(get_current_user_optional)
+        _: bool = Depends(verify_api_token)
 ):
     """
     Get detailed metadata for a specific file by its UUID.
@@ -98,7 +98,7 @@ async def get_file_metadata(
 async def download_file(
         file_id: UUID = Path(..., description="File UUID"),
         db: Session = Depends(get_db),
-        user: dict = Depends(get_current_user_optional)
+        _: bool = Depends(verify_api_token)
 ):
     """
     Download a file by its UUID.
@@ -115,7 +115,7 @@ async def download_file(
 @router.get("/stats/summary", response_model=FileStatsResponse, summary="Get file system statistics")
 async def get_file_stats(
         db: Session = Depends(get_db),
-        user: dict = Depends(get_current_user_optional)
+        _: bool = Depends(verify_api_token)
 ):
     """
     Get comprehensive file system statistics.

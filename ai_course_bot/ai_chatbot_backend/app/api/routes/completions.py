@@ -7,6 +7,7 @@ from fastapi.responses import StreamingResponse, PlainTextResponse, JSONResponse
 from app.services.rag_selector import generate_chat_response, local_parser, format_chat_msg
 from app.services.rag_retriever import top_k_selector
 from app.dependencies.model import get_model_pipeline
+from app.api.deps import verify_api_token
 
 router = APIRouter()
 
@@ -19,7 +20,7 @@ def generate_data():
 
 
 @router.post("/completions")
-async def create_completion(params: CompletionCreateParams):
+async def create_completion(params: CompletionCreateParams, _: bool = Depends(verify_api_token)):
     # Get the pre-initialized pipeline
     pipeline = get_model_pipeline()
 
@@ -39,7 +40,7 @@ async def create_completion(params: CompletionCreateParams):
 
 
 @router.post("/top_k_docs")
-async def get_top_k_docs(message: str, k: int = 3, course: str = None):
+async def get_top_k_docs(message: str, k: int = 3, course: str = None, _: bool = Depends(verify_api_token)):
     # get top k chunks
     result = top_k_selector(message, k=k, course=course)
     top_docs = result['top_docs']

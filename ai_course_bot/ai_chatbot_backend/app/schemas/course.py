@@ -6,10 +6,12 @@ from pydantic import BaseModel
 class Course(BaseModel):
     courseId: str
     courseName: str
+    semester: str
     isPublic: bool
     order: int
     school: str
     serverUrl: str
+    courseCode: str
 
 
 class Meta(BaseModel):

@@ -1,7 +1,7 @@
 import os
 import json
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from fastapi.responses import StreamingResponse
 
 from app.schemas.completion import CompletionCreateParams, ChatCompletionChunk, ToolCall
@@ -9,6 +9,7 @@ from app.services.rag_selector import rag_json_stream_generator, format_chat_msg
 from app.utils.stream_processing import openai_format_stream, extract_text_and_references_from_openai_format
 from app.core.actions.model_selector import course_selection
 from app.dependencies.model import get_model_pipeline
+from app.api.deps import verify_api_token
 
 router = APIRouter()
 
@@ -67,7 +68,7 @@ async def process_completion(params: CompletionCreateParams):
 
 
 @router.post("/completions_v2")
-async def create_completion(params: CompletionCreateParams):
+async def create_completion(params: CompletionCreateParams, _: bool = Depends(verify_api_token)):
     """OpenAI-compatible chat completions endpoint
 
     OpenAI's Relevant Doc:

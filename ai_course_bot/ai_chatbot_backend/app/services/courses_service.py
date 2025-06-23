@@ -40,7 +40,9 @@ def get_courses(page: int, limit: int, user: dict = None, db: Session = None) ->
             isPublic=(db_course.access_type == "public"),
             order=db_course.order,
             school=db_course.school,
-            serverUrl=db_course.server_url
+            serverUrl=db_course.server_url,
+            courseCode=db_course.course_code,
+            semester=db_course.semester
         )
         courses.append(course)
 

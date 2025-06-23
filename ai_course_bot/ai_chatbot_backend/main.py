@@ -24,6 +24,7 @@ from app.dependencies.model import initialize_model_pipeline
 
 # from app.core.actions.model_selector import get_model
 
+
 logging.basicConfig(
     level=logging.WARNING,
     format="[%(asctime)s] {%(filename)s:%(funcName)s:%(lineno)d} %(levelname)s - %(message)s",
@@ -31,7 +32,9 @@ logging.basicConfig(
 )
 
 # Initialize database with automatic file import and migration
-print("🚀 Initializing database and importing existing files...")
+print(f"🚀 Initializing database and importing existing files...")
+print(f"📚 Course loading: from course.json (only if database is empty)")
+
 if not initialize_database_on_startup("data"):
     print("❌ Database initialization failed! Server may not work correctly.")
     print("💡 Check the logs above for details, or run database scripts manually.")
@@ -124,16 +127,6 @@ async def home():
                 <a href="/database-status">Database Status</a>
                 <a href="/health">Health Check</a>
             </div>
-            
-            <div class="auth-section">
-                <h2>Authentication Testing</h2>
-                <div class="links">
-                    <a href="/api/auth/test-token">Get Test Bearer Token</a>
-                    <a href="/api/auth/auth-config">View Auth Configuration</a>
-                    <a href="/api/auth/auth-status">Check Auth Status</a>
-                </div>
-                <p><small>Note: Test tokens are only available in development mode (auth_required=False)</small></p>
-            </div>
         </body>
     </html>
     """
@@ -195,7 +188,6 @@ if __name__ == "__main__":
         f"🔄 Auto-reload: {'disabled' if settings.is_production or not settings.RELOAD else 'enabled'}")
     print(f"🌐 Host: {settings.HOST}:{settings.PORT}")
     print(f"🤖 LLM Mode: {settings.effective_llm_mode}")
-    print(f"🔐 Auth Required: {settings.auth_required}")
     print(f"📁 Data Directory: {settings.DATA_DIR}")
 
     # Determine reload setting: disabled in production or based on RELOAD setting

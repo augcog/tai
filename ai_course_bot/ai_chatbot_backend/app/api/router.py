@@ -1,15 +1,9 @@
 from fastapi import APIRouter
-from app.api.routes import auth, completions, courses, files, file_completions, file_tester, completions_v2
+from app.api.routes import completions, courses, files, file_completions, file_tester, completions_v2
 
 # Create main API router
 api_router = APIRouter()
 
-# Authentication endpoints
-api_router.include_router(
-    auth.router,
-    prefix="/auth",
-    tags=["authentication"]
-)
 
 # V1 style completions endpoint
 api_router.include_router(

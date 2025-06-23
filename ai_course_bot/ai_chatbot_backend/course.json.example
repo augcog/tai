@@ -1,0 +1,32 @@
+[
+  {
+    "course_name": "CS61A - The Structure and Interpretation of Computer Programs",
+    "course_code": "CS61A",
+    "server_url": "https://example.com",
+    "enabled": true,
+    "semester": "Spring 2024",
+    "order": 0,
+    "access_type": "public",
+    "school": null
+  },
+  {
+    "course_name": "CS61B - Data Structures",
+    "course_code": "CS61B",
+    "server_url": "https://example.com",
+    "enabled": true,
+    "semester": "Spring 2024",
+    "order": 1,
+    "access_type": "public",
+    "school": null
+  },
+  {
+    "course_name": "CS70 - Discrete Mathematics and Probability Theory",
+    "course_code": "CS70",
+    "server_url": "https://example.com",
+    "enabled": true,
+    "semester": "Spring 2024",
+    "order": 2,
+    "access_type": "login_required",
+    "school": "UC Berkeley"
+  }
+] 

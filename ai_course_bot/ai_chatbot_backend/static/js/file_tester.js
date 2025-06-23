@@ -4,6 +4,9 @@ const BASE_URL = "/api/files";
 // Store current file list for reference
 let currentFiles = [];
 
+// Store API token
+let apiToken = null;
+
 // After DOM content is loaded, initialize the application
 document.addEventListener("DOMContentLoaded", () => {
     // Add event listeners to forms
@@ -12,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("file-download-form").addEventListener("submit", handleFileDownloadSubmit);
     document.getElementById("stats-form").addEventListener("submit", handleStatsSubmit);
     document.getElementById("clear-response-btn").addEventListener("click", clearResponse);
+    document.getElementById("set-api-token-btn").addEventListener("click", handleSetApiToken);
     
     // Initialize by listing all files
     listFiles();
@@ -62,6 +66,42 @@ async function handleStatsSubmit(event) {
     await getFileStats();
 }
 
+// Handler for setting API token
+function handleSetApiToken() {
+    const tokenInput = document.getElementById("api-token-input");
+    const token = tokenInput.value.trim();
+    const statusDiv = document.getElementById("token-status");
+    
+    if (!token) {
+        statusDiv.innerHTML = '<span style="color: red;"><i class="fas fa-exclamation-triangle"></i> Please enter a token</span>';
+        return;
+    }
+    
+    // Store the token
+    apiToken = token;
+    
+    // Clear the input for security
+    tokenInput.value = "";
+    
+    // Show success message
+    statusDiv.innerHTML = '<span style="color: green;"><i class="fas fa-check-circle"></i> API token set successfully</span>';
+    
+    console.log("API token set successfully");
+}
+
+// Helper function to get headers with API token
+function getHeaders() {
+    const headers = {
+        "Accept": "application/json"
+    };
+    
+    if (apiToken) {
+        headers["Authorization"] = `Bearer ${apiToken}`;
+    }
+    
+    return headers;
+}
+
 // Function to list files with filtering
 async function listFiles(courseCode = "", category = "", search = "", page = 1, limit = 100) {
     showLoading();
@@ -82,9 +122,7 @@ async function listFiles(courseCode = "", category = "", search = "", page = 1, 
         
         const response = await fetch(url, {
             method: "GET",
-            headers: {
-                "Accept": "application/json"
-            }
+            headers: getHeaders()
         });
         
         const data = await response.json();
@@ -116,9 +154,7 @@ async function getFileMetadata(fileId) {
         
         const response = await fetch(`${BASE_URL}/${fileId}`, {
             method: "GET",
-            headers: {
-                "Accept": "application/json"
-            }
+            headers: getHeaders()
         });
         
         const data = await response.json();
@@ -151,7 +187,8 @@ async function downloadFile(fileId) {
         console.log("Downloading file:", fileId);
         
         const response = await fetch(`${BASE_URL}/${fileId}/download`, {
-            method: "GET"
+            method: "GET",
+            headers: getHeaders()
         });
         
         if (!response.ok) {
@@ -203,9 +240,7 @@ async function getFileStats() {
         
         const response = await fetch(`${BASE_URL}/stats/summary`, {
             method: "GET",
-            headers: {
-                "Accept": "application/json"
-            }
+            headers: getHeaders()
         });
         
         const data = await response.json();

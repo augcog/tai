@@ -158,12 +158,40 @@
           </div>
         </section>
 
-        <section class="response-panel panel">
-          <h2>
-            API Response
-            <button id="clear-response-btn" class="btn-small">Clear</button>
-          </h2>
-          <pre id="json-response" class="json-response"></pre>
+        <section class="right-top-container">
+          <div class="admin-config-panel panel">
+            <h2>API Token Configuration</h2>
+            <div class="input-group">
+              <label for="api-token-input">API Token:</label>
+              <input
+                type="password"
+                id="api-token-input"
+                placeholder="Enter your API authentication token"
+              />
+              <small
+                style="
+                  color: var(--muted-text);
+                  margin-top: 0.25rem;
+                  display: block;
+                "
+              >
+                This token is required for all API requests. Contact the
+                development team to obtain the secure API token.
+              </small>
+            </div>
+            <button id="set-api-token-btn" class="btn btn-update">
+              <i class="fas fa-key"></i> Set API Token
+            </button>
+            <div id="token-status" class="token-status"></div>
+          </div>
+
+          <div class="response-panel panel">
+            <h2>
+              API Response
+              <button id="clear-response-btn" class="btn-small">Clear</button>
+            </h2>
+            <pre id="json-response" class="json-response"></pre>
+          </div>
         </section>
 
         <section class="preview-panel panel">

@@ -11,6 +11,8 @@ class CourseModel(Base):
                        default=lambda: str(uuid.uuid4()))
     course_name = Column(String, index=True)
     server_url = Column(String, nullable=False)
+    course_code = Column(String, nullable=False)
+    semester = Column(String, nullable=False)
     enabled = Column(Boolean, default=True)
     order = Column(Integer, default=0)
     access_type = Column(

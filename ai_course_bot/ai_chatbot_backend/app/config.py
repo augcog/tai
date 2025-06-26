@@ -119,6 +119,12 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
+        env_file_encoding = "utf-8"
+        extra = "allow"  # Allow extra fields from .env file for Pydantic v2 compatibility
+        # Prevent automatic JSON parsing of list fields
+        env_nested_delimiter = None
+        # Custom parsing for complex types
+        arbitrary_types_allowed = True
 
 
 settings = Settings()

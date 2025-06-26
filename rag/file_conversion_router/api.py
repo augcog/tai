@@ -16,5 +16,3 @@ def convert_directory(input_dir: Union[str, Path], output_dir: Union[str, Path],
     2. Markdown (To clarify, this markdown includes additional tree structure of original markdown file)
     """
     process_folder(input_dir, output_dir, log_dir=log_dir, cache_path=cache_path)
-
-convert_directory("/Users/yyk956614/tai/rag/file_conversion_router/test/fl", "/Users/yyk956614/tai/rag/file_conversion_router/test_output/fl")

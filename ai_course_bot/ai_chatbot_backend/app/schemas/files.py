@@ -14,22 +14,21 @@ class FileMetadata(BaseModel):
     uuid: str = Field(..., description="Unique file identifier")
     filename: str = Field(..., description="Original filename")
     title: Optional[str] = Field(None, description="Clean, formatted title")
-    relative_path: str = Field(...,
-                               description="Path relative to data directory")
+    relative_path: str = Field(..., description="Path relative to data directory")
 
     # File properties
     size_bytes: int = Field(..., description="File size in bytes")
     mime_type: str = Field(..., description="MIME type")
-    created_at: Optional[datetime] = Field(
-        None, description="File creation timestamp")
+    created_at: Optional[datetime] = Field(None, description="File creation timestamp")
     modified_at: Optional[datetime] = Field(
-        None, description="Last modification timestamp")
+        None, description="Last modification timestamp"
+    )
 
     # Simple metadata
-    course: Optional[str] = Field(
-        None, description="Course code (e.g., CS61A)")
+    course: Optional[str] = Field(None, description="Course code (e.g., CS61A)")
     category: Optional[str] = Field(
-        None, description="File category (document, video, audio, other)")
+        None, description="File category (document, video, audio, other)"
+    )
 
     @classmethod
     def from_db_model(cls, db_model):
@@ -44,7 +43,7 @@ class FileMetadata(BaseModel):
             created_at=db_model.created_at,
             modified_at=db_model.modified_at,
             course=db_model.course_code,
-            category=db_model.category
+            category=db_model.category,
         )
 
     class Config:
@@ -59,13 +58,14 @@ class FileMetadata(BaseModel):
                 "created_at": "2023-01-01T00:00:00Z",
                 "modified_at": "2023-01-01T00:00:00Z",
                 "course": "CS61A",
-                "category": "document"
+                "category": "document",
             }
         }
 
 
 class FileListResponse(BaseModel):
     """Response for file listing"""
+
     files: List[FileMetadata] = Field(..., description="List of files")
     total_count: int = Field(..., description="Total number of files")
     page: int = Field(..., description="Current page number")
@@ -75,7 +75,8 @@ class FileListResponse(BaseModel):
 
     # Applied filters for transparency
     filters_applied: dict = Field(
-        default_factory=dict, description="Filters that were applied")
+        default_factory=dict, description="Filters that were applied"
+    )
 
     class Config:
         json_schema_extra = {
@@ -91,7 +92,7 @@ class FileListResponse(BaseModel):
                         "created_at": "2023-01-01T00:00:00Z",
                         "modified_at": "2023-01-01T00:00:00Z",
                         "course": "CS61A",
-                        "category": "document"
+                        "category": "document",
                     }
                 ],
                 "total_count": 1,
@@ -99,16 +100,14 @@ class FileListResponse(BaseModel):
                 "limit": 100,
                 "has_next": False,
                 "has_prev": False,
-                "filters_applied": {
-                    "course": "CS61A",
-                    "category": "document"
-                }
+                "filters_applied": {"course": "CS61A", "category": "document"},
             }
         }
 
 
 class FileStatsResponse(BaseModel):
     """Simple file statistics"""
+
     total_files: int = Field(..., description="Total number of files")
     base_directory: str = Field(..., description="Base directory path")
     auto_discovery: str = Field(..., description="Auto-discovery status")
@@ -122,32 +121,30 @@ class FileStatsResponse(BaseModel):
                 "base_directory": "/path/to/data",
                 "auto_discovery": "enabled",
                 "courses": {"CS61A": 75, "CS61B": 50, "CS70": 25},
-                "last_updated": "2023-01-01T12:00:00Z"
+                "last_updated": "2023-01-01T12:00:00Z",
             }
         }
 
 
 class ErrorResponse(BaseModel):
     """Standard error response"""
+
     detail: str = Field(..., description="Error message")
     error_code: Optional[str] = Field(None, description="Error code")
 
     class Config:
         json_schema_extra = {
-            "example": {
-                "detail": "File not found",
-                "error_code": "FILE_NOT_FOUND"
-            }
+            "example": {"detail": "File not found", "error_code": "FILE_NOT_FOUND"}
         }
 
 
 # Simple query parameters
 class FileListParams(BaseModel):
     """Simple query parameters for file listing"""
+
     course: Optional[str] = Field(None, description="Filter by course")
     category: Optional[str] = Field(None, description="Filter by category")
-    search: Optional[str] = Field(
-        None, description="Search in filename and title")
+    search: Optional[str] = Field(None, description="Search in filename and title")
     page: int = Field(1, ge=1, description="Page number")
     limit: int = Field(100, ge=1, le=1000, description="Items per page")
 
@@ -158,6 +155,6 @@ class FileListParams(BaseModel):
                 "category": "document",
                 "search": "lab",
                 "page": 1,
-                "limit": 50
+                "limit": 50,
             }
         }

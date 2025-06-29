@@ -21,50 +21,57 @@ class TopicClassifier:
 
     def _generate_mock_topics(self, file_path: str, topics_list: list) -> List[str]:
         """Generate mock topics for testing purposes."""
-        return random.sample(topics_list, min(len(topics_list), self.config.max_topic_num))
+        return random.sample(
+            topics_list, min(len(topics_list), self.config.max_topic_num)
+        )
 
-    async def classify_file(self, file_path: str, summary: str, topics_list: Dict[str, str]) -> Dict:
+    async def classify_file(
+        self, file_path: str, summary: str, topics_list: Dict[str, str]
+    ) -> Dict:
         """
         Classify a file into topics based on its summary.
-        
+
         Args:
             file_path: Path to the file
             summary: Summary of the file content
-            
+
         Returns:
             Dictionary containing the file's topics
         """
         message = self.prompt_service.create_classification_prompt(summary, topics_list)
-        response = await self.model.chat(
-            messages=message
-        )
+        response = await self.model.chat(messages=message)
         topics = response.strip().split(",") if response else []
-        return {
-            file_path: topics
-        }
+        return {file_path: topics}
 
-    async def batch_process_summaries(self, summaries: Dict[str, str], topics_list: Dict[str, str]) -> Dict:
-        message = self.prompt_service.create_classification_prompt(str(summaries), topics_list)
-        response = await self.model.chat(
-            messages=message
+    async def batch_process_summaries(
+        self, summaries: Dict[str, str], topics_list: Dict[str, str]
+    ) -> Dict:
+        message = self.prompt_service.create_classification_prompt(
+            str(summaries), topics_list
         )
+        response = await self.model.chat(messages=message)
         return ast.literal_eval(response.strip()) if response else {}
 
-    async def process_summaries(self, summaries_path: str, output_path: str, topics_list: Dict[str, str]) -> Dict:
+    async def process_summaries(
+        self, summaries_path: str, output_path: str, topics_list: Dict[str, str]
+    ) -> Dict:
         """Process all summaries and classify them into topics."""
-        with open(summaries_path, 'r') as f:
+        with open(summaries_path, "r") as f:
             summaries = json.load(f)
-            
+
         if not summaries:
             logger.error(f"No summaries found in {summaries_path}")
             return {}
-            
-        logger.info(f"Found {len(summaries)} summaries to process") 
-        
+
+        logger.info(f"Found {len(summaries)} summaries to process")
+
         results = {}
         # use batch processing by chunking summaries into smaller parts
         chunk_size = 10
-        chunks = [list(summaries.items())[i:i + chunk_size] for i in range(0, len(summaries), chunk_size)]
+        chunks = [
+            list(summaries.items())[i : i + chunk_size]
+            for i in range(0, len(summaries), chunk_size)
+        ]
         for chunk in chunks:
             chunk_dict = dict(chunk)
             logger.info(f"Processing chunk with {len(chunk_dict)} summaries")

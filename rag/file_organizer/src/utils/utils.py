@@ -23,7 +23,7 @@ def save_dict_to_json(summaries: Dict, output_path: str) -> None:
     if output_dir and not os.path.exists(output_dir):
         os.makedirs(output_dir)
     try:
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             json.dump(summaries, f, indent=2, ensure_ascii=False)
     except Exception as e:
         raise IOError(f"Error saving summaries to {output_path}: {str(e)}")
@@ -53,6 +53,7 @@ def find_markdown_files(folder_path: str, text_filter: str = None) -> List[str]:
 
     return files
 
+
 def all_subfolders_non_empty(root_dir: str) -> bool:
     """
     Check that all immediate subfolders of `root_dir` are non-empty.
@@ -69,6 +70,7 @@ def all_subfolders_non_empty(root_dir: str) -> bool:
             if not any(os.listdir(subfolder_path)):
                 return False
     return True
+
 
 def split_into_chunks(text: str, max_chunk_size: int = 2500) -> List[str]:
     """Split text into smaller chunks of a specified maximum size."""

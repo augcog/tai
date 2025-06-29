@@ -32,38 +32,35 @@ Examples:
   %(prog)s --check                  # Check database status
   %(prog)s --force                  # Force reimport all files
   %(prog)s --data-dir /path/to/data # Use custom data directory
-        """
+        """,
     )
 
     parser.add_argument(
-        '--data-dir',
+        "--data-dir",
         type=str,
-        default='data',
-        help='Data directory path (default: data)'
+        default="data",
+        help="Data directory path (default: data)",
     )
 
     parser.add_argument(
-        '--check',
-        action='store_true',
-        help='Check database status without making changes'
+        "--check",
+        action="store_true",
+        help="Check database status without making changes",
     )
 
     parser.add_argument(
-        '--force',
-        action='store_true',
-        help='Force reimport of all files (clears existing file registry first)'
+        "--force",
+        action="store_true",
+        help="Force reimport of all files (clears existing file registry first)",
     )
 
-    parser.add_argument(
-        '--verbose',
-        action='store_true',
-        help='Enable verbose logging'
-    )
+    parser.add_argument("--verbose", action="store_true", help="Enable verbose logging")
 
     args = parser.parse_args()
 
     # Configure logging level
     import logging
+
     if args.verbose:
         logging.basicConfig(level=logging.DEBUG)
     else:
@@ -80,24 +77,31 @@ Examples:
         print("🔍 Checking database status...")
         status = initializer.get_database_status()
 
-        if 'error' in status:
+        if "error" in status:
             print(f"❌ Error checking database: {status['error']}")
             return 1
 
         print("\n📊 Database Status Report:")
         print(
-            f"  Database exists: {'✅ Yes' if status['database_exists'] else '❌ No'}")
+            f"  Database exists: {'✅ Yes' if status['database_exists'] else '❌ No'}"
+        )
         print(f"  Database size: {status['database_size_bytes']:,} bytes")
         print(f"  Files in registry: {status['file_count']:,}")
         print(f"  Registered courses: {status['course_count']:,}")
         print(
-            f"  Data directory exists: {'✅ Yes' if status['data_directory_exists'] else '❌ No'}")
+            f"  Data directory exists: {'✅ Yes' if status['data_directory_exists'] else '❌ No'}"
+        )
 
-        if status['data_directory_exists']:
+        if status["data_directory_exists"]:
             # Count files in data directory
             data_path = Path(args.data_dir)
-            file_count = len([f for f in data_path.rglob(
-                '*') if f.is_file() and not f.name.startswith('.')])
+            file_count = len(
+                [
+                    f
+                    for f in data_path.rglob("*")
+                    if f.is_file() and not f.name.startswith(".")
+                ]
+            )
             print(f"  Files in data directory: {file_count:,}")
 
         return 0
@@ -107,7 +111,7 @@ Examples:
         print("⚠️  Force mode: This will clear the existing file registry!")
         confirm = input("Are you sure you want to continue? (y/N): ")
 
-        if confirm.lower() != 'y':
+        if confirm.lower() != "y":
             print("❌ Operation cancelled.")
             return 0
 
@@ -115,6 +119,7 @@ Examples:
         session = initializer.SessionLocal()
         try:
             from app.core.models.files import FileRegistry
+
             session.query(FileRegistry).delete()
             session.commit()
             print("✅ File registry cleared.")

@@ -10,9 +10,11 @@ api_key = os.getenv("OPENAI_API_KEY")
 
 openai.api_key = api_key
 
-GENERAL_LABELS = ["Logistics: Questions and Discussions About Course Administration and Operations", 
-                  "Concepts: Understanding and Clarifying Theoretical knowledge and ideas", 
-                  "Application: Practical Use of Knowledge in Assignments, Projects, and Real-world Contexts"]
+GENERAL_LABELS = [
+    "Logistics: Questions and Discussions About Course Administration and Operations",
+    "Concepts: Understanding and Clarifying Theoretical knowledge and ideas",
+    "Application: Practical Use of Knowledge in Assignments, Projects, and Real-world Contexts",
+]
 
 client = None
 
@@ -23,50 +25,62 @@ def generate_qa_pairs(data):
     qa_pairs = []
 
     for post in data:
-        if post['type'] == 'question' and post['user']['role'] == 'student' and post['answers']:
+        if (
+            post["type"] == "question"
+            and post["user"]["role"] == "student"
+            and post["answers"]
+        ):
             student_posts.append(post)
 
-        if post['type'] == 'post' and post['user']['role'] == 'admin' and post['comments']:
+        if (
+            post["type"] == "post"
+            and post["user"]["role"] == "admin"
+            and post["comments"]
+        ):
             admin_posts.append(post)
 
     for post in student_posts:
-        question = post.get('text', '')
+        question = post.get("text", "")
         answer = None
-        category = post.get('category', '')
+        category = post.get("category", "")
 
-        for answer_post in post['answers']:
-            if answer_post['user']['role'] == 'admin':
-                answer = answer_post.get('text', '')
+        for answer_post in post["answers"]:
+            if answer_post["user"]["role"] == "admin":
+                answer = answer_post.get("text", "")
                 break
-        
+
         if question and answer:
-            qa_pairs.append({
-                "question": question,
-                "answer": answer,
-                "category": category,
-            })
+            qa_pairs.append(
+                {
+                    "question": question,
+                    "answer": answer,
+                    "category": category,
+                }
+            )
 
     for post in admin_posts:
-        category = post.get('category', '')
+        category = post.get("category", "")
 
-        for comment in post.get('comments', []):
-            if comment['user']['role'] == 'student':
-                question = comment.get('text', '')
+        for comment in post.get("comments", []):
+            if comment["user"]["role"] == "student":
+                question = comment.get("text", "")
                 answer = None
 
-                for reply in comment.get('comments', []):
-                    if reply['user']['role'] == 'admin':
-                        answer = reply.get('text', '')
+                for reply in comment.get("comments", []):
+                    if reply["user"]["role"] == "admin":
+                        answer = reply.get("text", "")
                         break
-                
+
                 if question and answer:
                     question = str(question)
                     answer = str(answer)
-                    qa_pairs.append({
-                        "question": question,
-                        "answer": answer,
-                        "category": category,
-                    })
+                    qa_pairs.append(
+                        {
+                            "question": question,
+                            "answer": answer,
+                            "category": category,
+                        }
+                    )
 
     return qa_pairs
 
@@ -88,33 +102,32 @@ def get_labels(question, answer):
                     Question: {question}
                     Answer: {answer}
                 """
-    
+
     if client is None:
         client = OpenAI()
-    
+
     response = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": sys_prompt},
-            {"role": "user", "content": user_prompt}
+            {"role": "user", "content": user_prompt},
         ],
         max_tokens=500,
-        temperature=0.7
+        temperature=0.7,
     )
 
     pprint(response.choices[0].message.content)
     parsed_response = json.loads(response.choices[0].message.content)
-    
+
     return parsed_response
 
 
 def generate(input_filename, num_pairs=None, quiet=False):
-
     input_path = os.path.join("evaluation", "dataset_generate", "input", input_filename)
 
-    with open(input_path, 'r') as file:
+    with open(input_path, "r") as file:
         json_data = json.load(file)
-    
+
     dataset_cleaned = json_kb_filter(json_data)
     qa_pairs = generate_qa_pairs(dataset_cleaned)
 
@@ -125,10 +138,10 @@ def generate(input_filename, num_pairs=None, quiet=False):
 
     final_dataset = []
 
-    for entry in qa_pairs: 
+    for entry in qa_pairs:
         question = entry["question"]
         answer = entry["answer"]
-        
+
         label_response = get_labels(question, answer)
 
         label = label_response.get("label")
@@ -141,14 +154,25 @@ def generate(input_filename, num_pairs=None, quiet=False):
 
         if not quiet:
             pprint(label_response)
-            
-        if valid:
-            final_dataset.append({"question": question, "answer": answer, "category": label, "future_relevance": future_relevance})
-            
-    
-    output_path = os.path.join("evaluation", "dataset_generate", "output", f"evaluation_dataset_{input_filename}")
 
-    with open(output_path, 'w') as output_file:
+        if valid:
+            final_dataset.append(
+                {
+                    "question": question,
+                    "answer": answer,
+                    "category": label,
+                    "future_relevance": future_relevance,
+                }
+            )
+
+    output_path = os.path.join(
+        "evaluation",
+        "dataset_generate",
+        "output",
+        f"evaluation_dataset_{input_filename}",
+    )
+
+    with open(output_path, "w") as output_file:
         json.dump(final_dataset, output_file, indent=4)
 
     print(f"QA pairs successfully written to {output_file}")
@@ -162,4 +186,3 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     generate(args.input_filename, args.num_pairs, args.quiet)
-

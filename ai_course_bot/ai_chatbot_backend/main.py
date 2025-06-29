@@ -3,28 +3,27 @@ import os
 
 # Import model pipeline initializer
 from app.dependencies.model import initialize_model_engine
+
 initialize_model_engine()
 print("✅ Model pipeline initialization completed successfully!")
 
 import uvicorn
+from app.admin import setup_admin
+from app.api.router import api_router
+from app.config import settings  # Import the configuration
+from app.core.database import Base, engine
+
+# Import the new database initializer
+from app.core.db_initializer import initialize_database_on_startup
+from app.core.models.courses import CourseModel
+
+# Import to ensure table creation
+from app.core.models.files import FileRegistry
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-
-from app.admin import setup_admin
-from app.api.router import api_router
-from app.core.database import engine, Base
-
-# Import to ensure table creation
-from app.core.models.files import FileRegistry
-from app.core.models.courses import CourseModel
-from app.config import settings  # Import the configuration
-
-# Import the new database initializer
-from app.core.db_initializer import initialize_database_on_startup
-
 
 # from app.core.actions.model_selector import get_model
 
@@ -117,13 +116,13 @@ async def home():
         <body>
             <h1>Course AI Assistant API</h1>
             <p>Welcome to the Course AI Assistant API. Use the links below to explore the API.</p>
-            
+
             <h2>API Documentation</h2>
             <div class="links">
                 <a href="/docs">API Documentation (Swagger UI)</a>
                 <a href="/redoc">API Documentation (ReDoc)</a>
             </div>
-            
+
             <h2>Testing Tools</h2>
             <div class="links">
                 <a href="/file-tester">File API Tester</a>
@@ -174,13 +173,13 @@ async def database_status():
         return {
             "status": "ok",
             "database": status,
-            "message": "Database status retrieved successfully"
+            "message": "Database status retrieved successfully",
         }
     except Exception as e:
         return {
             "status": "error",
             "error": str(e),
-            "message": "Failed to get database status"
+            "message": "Failed to get database status",
         }
 
 
@@ -189,7 +188,8 @@ if __name__ == "__main__":
     print(f"🚀 Starting server...")
     print(f"📍 Environment: {settings.environment}")
     print(
-        f"🔄 Auto-reload: {'disabled' if settings.is_production or not settings.RELOAD else 'enabled'}")
+        f"🔄 Auto-reload: {'disabled' if settings.is_production or not settings.RELOAD else 'enabled'}"
+    )
     print(f"🌐 Host: {settings.HOST}:{settings.PORT}")
     print(f"🤖 LLM Mode: {settings.effective_llm_mode}")
     print(f"📁 Data Directory: {settings.DATA_DIR}")
@@ -202,5 +202,5 @@ if __name__ == "__main__":
         host=settings.HOST,
         port=settings.PORT,
         reload=reload_enabled,
-        reload_excludes=["*.log", "*.log.*", "*.log.*.*", "*.log.*.*.*"]
+        reload_excludes=["*.log", "*.log.*", "*.log.*.*", "*.log.*.*.*"],
     )

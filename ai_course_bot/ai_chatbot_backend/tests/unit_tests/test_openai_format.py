@@ -3,11 +3,14 @@ import unittest
 
 from jsonschema import validate
 
-from app.api.v1.utils.stream_processing import openai_format_stream, extract_text_and_references_from_openai_format
+from app.api.v1.utils.stream_processing import (
+    openai_format_stream,
+    extract_text_and_references_from_openai_format,
+)
 from tests.common.test_utils.openai_format_validation import (
     TOOL_CALL_SCHEMA,
     validate_stream_chunks,
-    assert_contains_reference_markers
+    assert_contains_reference_markers,
 )
 
 
@@ -20,8 +23,10 @@ class TestOpenAIFormat(unittest.TestCase):
             return [
                 json.dumps({"type": "token", "data": "Hello"}) + "\n",
                 json.dumps({"type": "token", "data": " world"}) + "\n",
-                json.dumps({"type": "token", "data": " [1]"}) + "\n",  # Reference marker
-                json.dumps({"type": "final", "references": ["https://example.com"]}) + "\n"
+                json.dumps({"type": "token", "data": " [1]"})
+                + "\n",  # Reference marker
+                json.dumps({"type": "final", "references": ["https://example.com"]})
+                + "\n",
             ]
 
         def mock_generator():
@@ -60,7 +65,9 @@ class TestOpenAIFormat(unittest.TestCase):
                 self.assertEqual(args["url"], "https://example.com")
                 break
 
-        self.assertTrue(tool_call_chunk_found, "Expected to find a chunk with tool calls")
+        self.assertTrue(
+            tool_call_chunk_found, "Expected to find a chunk with tool calls"
+        )
 
         # Last chunk should have finish_reason
         self.assertEqual(chunks[-1]["choices"][0]["finish_reason"], "stop")
@@ -78,80 +85,111 @@ class TestOpenAIFormat(unittest.TestCase):
 
         # Simulate an OpenAI formatted stream with tool calls for references
         def mock_openai_stream():
-            yield json.dumps({
-                "id": "chatcmpl-123",
-                "object": "chat.completion.chunk",
-                "created": 1694268190,
-                "model": "custom-model",
-                "system_fingerprint": "fp_custom",
-                "choices": [{
-                    "index": 0,
-                    "delta": {"role": "assistant"},
-                    "finish_reason": None
-                }]
-            }) + "\n"
+            yield (
+                json.dumps(
+                    {
+                        "id": "chatcmpl-123",
+                        "object": "chat.completion.chunk",
+                        "created": 1694268190,
+                        "model": "custom-model",
+                        "system_fingerprint": "fp_custom",
+                        "choices": [
+                            {
+                                "index": 0,
+                                "delta": {"role": "assistant"},
+                                "finish_reason": None,
+                            }
+                        ],
+                    }
+                )
+                + "\n"
+            )
 
-            yield json.dumps({
-                "id": "chatcmpl-123",
-                "object": "chat.completion.chunk",
-                "created": 1694268190,
-                "model": "custom-model",
-                "system_fingerprint": "fp_custom",
-                "choices": [{
-                    "index": 0,
-                    "delta": {"content": "Hello"},
-                    "finish_reason": None
-                }]
-            }) + "\n"
+            yield (
+                json.dumps(
+                    {
+                        "id": "chatcmpl-123",
+                        "object": "chat.completion.chunk",
+                        "created": 1694268190,
+                        "model": "custom-model",
+                        "system_fingerprint": "fp_custom",
+                        "choices": [
+                            {
+                                "index": 0,
+                                "delta": {"content": "Hello"},
+                                "finish_reason": None,
+                            }
+                        ],
+                    }
+                )
+                + "\n"
+            )
 
-            yield json.dumps({
-                "id": "chatcmpl-123",
-                "object": "chat.completion.chunk",
-                "created": 1694268190,
-                "model": "custom-model",
-                "system_fingerprint": "fp_custom",
-                "choices": [{
-                    "index": 0,
-                    "delta": {"content": " world [1]"},
-                    "finish_reason": None
-                }]
-            }) + "\n"
+            yield (
+                json.dumps(
+                    {
+                        "id": "chatcmpl-123",
+                        "object": "chat.completion.chunk",
+                        "created": 1694268190,
+                        "model": "custom-model",
+                        "system_fingerprint": "fp_custom",
+                        "choices": [
+                            {
+                                "index": 0,
+                                "delta": {"content": " world [1]"},
+                                "finish_reason": None,
+                            }
+                        ],
+                    }
+                )
+                + "\n"
+            )
 
             # Tool call for reference
-            yield json.dumps({
-                "id": "chatcmpl-123",
-                "object": "chat.completion.chunk",
-                "created": 1694268190,
-                "model": "custom-model",
-                "system_fingerprint": "fp_custom",
-                "choices": [{
-                    "index": 0,
-                    "delta": {
-                        "tool_calls": [{
-                            "id": "call_abc123",
-                            "type": "function",
-                            "function": {
-                                "name": "add_reference",
-                                "arguments": "{\"number\":1,\"title\":\"Reference 1\",\"url\":\"https://example.com\"}"
+            yield (
+                json.dumps(
+                    {
+                        "id": "chatcmpl-123",
+                        "object": "chat.completion.chunk",
+                        "created": 1694268190,
+                        "model": "custom-model",
+                        "system_fingerprint": "fp_custom",
+                        "choices": [
+                            {
+                                "index": 0,
+                                "delta": {
+                                    "tool_calls": [
+                                        {
+                                            "id": "call_abc123",
+                                            "type": "function",
+                                            "function": {
+                                                "name": "add_reference",
+                                                "arguments": '{"number":1,"title":"Reference 1","url":"https://example.com"}',
+                                            },
+                                        }
+                                    ]
+                                },
+                                "finish_reason": None,
                             }
-                        }]
-                    },
-                    "finish_reason": None
-                }]
-            }) + "\n"
+                        ],
+                    }
+                )
+                + "\n"
+            )
 
-            yield json.dumps({
-                "id": "chatcmpl-123",
-                "object": "chat.completion.chunk",
-                "created": 1694268190,
-                "model": "custom-model",
-                "system_fingerprint": "fp_custom",
-                "choices": [{
-                    "index": 0,
-                    "delta": {},
-                    "finish_reason": "stop"
-                }]
-            }) + "\n"
+            yield (
+                json.dumps(
+                    {
+                        "id": "chatcmpl-123",
+                        "object": "chat.completion.chunk",
+                        "created": 1694268190,
+                        "model": "custom-model",
+                        "system_fingerprint": "fp_custom",
+                        "choices": [{"index": 0, "delta": {}, "finish_reason": "stop"}],
+                    }
+                )
+                + "\n"
+            )
 
         # Validate each chunk
         chunks = list(mock_openai_stream())
@@ -166,7 +204,9 @@ class TestOpenAIFormat(unittest.TestCase):
         validate(instance=tool_call, schema=TOOL_CALL_SCHEMA)
 
         # Extract text and references
-        content, references = extract_text_and_references_from_openai_format(mock_openai_stream())
+        content, references = extract_text_and_references_from_openai_format(
+            mock_openai_stream()
+        )
 
         # Check content
         self.assertEqual(content, "Hello world [1]")

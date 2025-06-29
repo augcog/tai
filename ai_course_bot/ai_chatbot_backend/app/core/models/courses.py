@@ -7,8 +7,9 @@ class CourseModel(Base):
     __tablename__ = "courses"
 
     id = Column(Integer, primary_key=True, index=True)
-    course_id = Column(String, unique=True, index=True,
-                       default=lambda: str(uuid.uuid4()))
+    course_id = Column(
+        String, unique=True, index=True, default=lambda: str(uuid.uuid4())
+    )
     course_name = Column(String, index=True)
     server_url = Column(String, nullable=False)
     course_code = Column(String, nullable=False)
@@ -17,7 +18,7 @@ class CourseModel(Base):
     order = Column(Integer, default=0)
     access_type = Column(
         Enum("public", "login_required", "private", name="access_type_enum"),
-        default="public"
+        default="public",
     )
     # Only used when access_type is login_required
     school = Column(String, nullable=True)

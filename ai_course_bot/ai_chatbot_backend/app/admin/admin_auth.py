@@ -1,6 +1,6 @@
+from app.config import settings
 from sqladmin.authentication import AuthenticationBackend
 from starlette.requests import Request
-from app.config import settings
 
 
 class AdminAuth(AuthenticationBackend):

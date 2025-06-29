@@ -5,7 +5,7 @@ from typing import Dict, Any, Optional, TypeVar, Generic
 
 from rag.file_conversion_router.classes.chunk import Chunk
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 class ContextVariable(Generic[T]):
@@ -36,10 +36,10 @@ class ContextVariable(Generic[T]):
     def metadata(self) -> Dict[str, Any]:
         """Get variable metadata."""
         return {
-            'description': self._description,
-            'last_updated': self._last_updated,
-            'access_count': self._access_count,
-            'type': type(self._value).__name__
+            "description": self._description,
+            "last_updated": self._last_updated,
+            "access_count": self._access_count,
+            "type": type(self._value).__name__,
         }
 
 
@@ -56,19 +56,20 @@ class TaskContext:
         metadata: Additional metadata about the context
         _history: Internal tracking of context changes
     """
+
     chunk: Chunk
     results: Dict[str, Any] = field(default_factory=dict)
     variables: Dict[str, ContextVariable] = field(default_factory=dict)
-    metadata: Dict[str, Any] = field(default_factory=lambda: {
-        'created_at': datetime.now(),
-        'updates': 0
-    })
-    _history: Dict[str, list] = field(default_factory=lambda: {
-        'variables': [],
-        'results': []
-    })
+    metadata: Dict[str, Any] = field(
+        default_factory=lambda: {"created_at": datetime.now(), "updates": 0}
+    )
+    _history: Dict[str, list] = field(
+        default_factory=lambda: {"variables": [], "results": []}
+    )
 
-    def set_variable(self, name: str, value: Any, description: Optional[str] = None) -> None:
+    def set_variable(
+        self, name: str, value: Any, description: Optional[str] = None
+    ) -> None:
         """
         Set a context variable with optional description.
 
@@ -79,12 +80,10 @@ class TaskContext:
         """
         var = ContextVariable(value, description)
         self.variables[name] = var
-        self._history['variables'].append({
-            'name': name,
-            'value': value,
-            'timestamp': datetime.now()
-        })
-        self.metadata['updates'] += 1
+        self._history["variables"].append(
+            {"name": name, "value": value, "timestamp": datetime.now()}
+        )
+        self.metadata["updates"] += 1
 
     def get_variable(self, name: str, default: Optional[Any] = None) -> Any:
         """
@@ -109,11 +108,10 @@ class TaskContext:
             result: Task execution result
         """
         self.results[task_name] = result
-        self._history['results'].append({
-            'task': task_name,
-            'timestamp': datetime.now()
-        })
-        self.metadata['updates'] += 1
+        self._history["results"].append(
+            {"task": task_name, "timestamp": datetime.now()}
+        )
+        self.metadata["updates"] += 1
 
     def get_result(self, task_name: str, default: Optional[Any] = None) -> Any:
         """
@@ -136,13 +134,13 @@ class TaskContext:
             Dictionary of variables ready for template use
         """
         template_vars = {
-            'content': self.chunk.content,
+            "content": self.chunk.content,
             **{name: var.value for name, var in self.variables.items()},
-            **{f"result_{k}": v for k, v in self.results.items()}
+            **{f"result_{k}": v for k, v in self.results.items()},
         }
         return template_vars
 
-    def create_child_context(self) -> 'TaskContext':
+    def create_child_context(self) -> "TaskContext":
         """
         Create a new context inheriting from this one.
         Useful for subtasks that need isolated context.
@@ -157,10 +155,10 @@ class TaskContext:
                 name: ContextVariable(var.value, var._description)
                 for name, var in self.variables.items()
             },
-            metadata={'parent_context_id': id(self), 'created_at': datetime.now()}
+            metadata={"parent_context_id": id(self), "created_at": datetime.now()},
         )
 
-    def merge_child_context(self, child_context: 'TaskContext') -> None:
+    def merge_child_context(self, child_context: "TaskContext") -> None:
         """
         Merge results and variables from a child context.
 
@@ -169,8 +167,10 @@ class TaskContext:
         """
         self.results.update(child_context.results)
         for name, var in child_context.variables.items():
-            if name not in self.variables or \
-                    var._last_updated > self.variables[name]._last_updated:
+            if (
+                name not in self.variables
+                or var._last_updated > self.variables[name]._last_updated
+            ):
                 self.variables[name] = var
 
     def get_execution_summary(self) -> Dict[str, Any]:
@@ -181,15 +181,15 @@ class TaskContext:
             Dictionary containing execution summary
         """
         return {
-            'total_updates': self.metadata['updates'],
-            'variable_updates': len(self._history['variables']),
-            'result_updates': len(self._history['results']),
-            'execution_time': (datetime.now() - self.metadata['created_at']).total_seconds(),
-            'variables': {
-                name: var.metadata for name, var in self.variables.items()
-            }
+            "total_updates": self.metadata["updates"],
+            "variable_updates": len(self._history["variables"]),
+            "result_updates": len(self._history["results"]),
+            "execution_time": (
+                datetime.now() - self.metadata["created_at"]
+            ).total_seconds(),
+            "variables": {name: var.metadata for name, var in self.variables.items()},
         }
 
     def clear_history(self) -> None:
         """Clear execution history to free memory."""
-        self._history = {'variables': [], 'results': []}
+        self._history = {"variables": [], "results": []}

@@ -2,7 +2,9 @@ from unittest.mock import patch
 
 import pytest
 
-from rag.file_conversion_router.embedding_optimization.src.models.server_model_tai import ServerModelTAI
+from rag.file_conversion_router.embedding_optimization.src.models.server_model_tai import (
+    ServerModelTAI,
+)
 
 
 @pytest.fixture
@@ -24,5 +26,5 @@ def mock_server_response():
 @pytest.fixture
 def mock_server_model(mock_server_response):
     """Create a mocked server model."""
-    with patch.object(ServerModelTAI, 'generate', side_effect=mock_server_response):
+    with patch.object(ServerModelTAI, "generate", side_effect=mock_server_response):
         yield ServerModelTAI(endpoint="mock_endpoint", api_key="mock_key")

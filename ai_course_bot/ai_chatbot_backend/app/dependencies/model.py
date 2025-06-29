@@ -6,6 +6,7 @@ from vllm import AsyncLLMEngine, AsyncEngineArgs
 # Global variable to store the loaded pipeline (singleton pattern)
 _model_engine = None
 
+
 def get_local_model_engine():
     MODEL_ID = "THUDM/GLM-4-9B-0414"
     TP_SIZE = 2  # tensor_parallel_size
@@ -17,6 +18,7 @@ def get_local_model_engine():
     )
     engine = AsyncLLMEngine.from_engine_args(engine_args)
     return engine
+
 
 def get_remote_model_pipeline():
     """Returns a pipeline that sends inference requests to a remote service.

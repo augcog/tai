@@ -3,21 +3,30 @@ from dataclasses import dataclass
 from string import Template
 from typing import Dict, Any, Optional
 
-from rag.file_conversion_router.embedding_optimization.src.configs.pipeline_config import TaskType, TaskConfig
-from rag.file_conversion_router.embedding_optimization.src.models.base_model import BaseModel
-from rag.file_conversion_router.embedding_optimization.src.tasks.task_context import TaskContext
+from rag.file_conversion_router.embedding_optimization.src.configs.pipeline_config import (
+    TaskType,
+    TaskConfig,
+)
+from rag.file_conversion_router.embedding_optimization.src.models.base_model import (
+    BaseModel,
+)
+from rag.file_conversion_router.embedding_optimization.src.tasks.task_context import (
+    TaskContext,
+)
 
 logger = logging.getLogger(__name__)
 
 
 class TaskExecutionError(Exception):
     """Raised when task execution fails."""
+
     pass
 
 
 @dataclass
 class TaskResult:
     """Contains the result of a task execution."""
+
     content: str
     metadata: Dict[str, Any]
 
@@ -58,21 +67,27 @@ class TaskRunner:
             if task.type == TaskType.COMPOSED and task.subtasks:
                 for subtask in task.subtasks:
                     if subtask not in self.task_registry:
-                        raise TaskExecutionError(f"Subtask '{subtask}' not found in registry")
+                        raise TaskExecutionError(
+                            f"Subtask '{subtask}' not found in registry"
+                        )
                     check_cycles(subtask)
 
             # Check dependencies in sequence
             if task.type == TaskType.SEQUENTIAL and task.sequence:
                 for seq_task in task.sequence:
                     if seq_task not in self.task_registry:
-                        raise TaskExecutionError(f"Sequence task '{seq_task}' not found in registry")
+                        raise TaskExecutionError(
+                            f"Sequence task '{seq_task}' not found in registry"
+                        )
                     check_cycles(seq_task)
 
             # Check explicit dependencies
             if task.depends_on:
                 for dep in task.depends_on:
                     if dep not in self.task_registry:
-                        raise TaskExecutionError(f"Dependency '{dep}' not found in registry")
+                        raise TaskExecutionError(
+                            f"Dependency '{dep}' not found in registry"
+                        )
                     check_cycles(dep)
 
             path.remove(task_name)
@@ -113,9 +128,13 @@ class TaskRunner:
                 raise TaskExecutionError(f"Unknown task type: {task_config.type}")
 
         except Exception as e:
-            raise TaskExecutionError(f"Failed to execute task '{task_id}': {str(e)}") from e
+            raise TaskExecutionError(
+                f"Failed to execute task '{task_id}': {str(e)}"
+            ) from e
 
-    def _execute_prompt_task(self, task_config: TaskConfig, context: TaskContext) -> str:
+    def _execute_prompt_task(
+        self, task_config: TaskConfig, context: TaskContext
+    ) -> str:
         """Execute a prompt-based task."""
         try:
             # Create template from the prompt template string
@@ -123,9 +142,9 @@ class TaskRunner:
 
             # Prepare variables for template substitution
             template_vars = {
-                'content': context.chunk.content,
+                "content": context.chunk.content,
                 **context.variables,
-                **{f"result_{k}": v for k, v in context.results.items()}
+                **{f"result_{k}": v for k, v in context.results.items()},
             }
 
             # Generate the prompt
@@ -140,7 +159,9 @@ class TaskRunner:
         except Exception as e:
             raise TaskExecutionError(f"Failed to execute prompt task: {str(e)}") from e
 
-    def _execute_composed_task(self, task_config: TaskConfig, context: TaskContext) -> str:
+    def _execute_composed_task(
+        self, task_config: TaskConfig, context: TaskContext
+    ) -> str:
         """Execute a composed task that combines multiple subtasks."""
         try:
             # Execute all subtasks
@@ -154,8 +175,7 @@ class TaskRunner:
             if task_config.final_prompt:
                 context.variables.update(subtask_results)
                 final_config = TaskConfig(
-                    type=TaskType.PROMPT,
-                    prompt_template=task_config.final_prompt
+                    type=TaskType.PROMPT, prompt_template=task_config.final_prompt
                 )
                 return self._execute_prompt_task(final_config, context)
 
@@ -163,9 +183,13 @@ class TaskRunner:
             return subtask_results[task_config.subtasks[-1]]
 
         except Exception as e:
-            raise TaskExecutionError(f"Failed to execute composed task: {str(e)}") from e
+            raise TaskExecutionError(
+                f"Failed to execute composed task: {str(e)}"
+            ) from e
 
-    def _execute_sequential_task(self, task_config: TaskConfig, context: TaskContext) -> str:
+    def _execute_sequential_task(
+        self, task_config: TaskConfig, context: TaskContext
+    ) -> str:
         """Execute a sequence of tasks in order."""
         try:
             result = context.chunk.content
@@ -184,7 +208,9 @@ class TaskRunner:
             return result
 
         except Exception as e:
-            raise TaskExecutionError(f"Failed to execute sequential task: {str(e)}") from e
+            raise TaskExecutionError(
+                f"Failed to execute sequential task: {str(e)}"
+            ) from e
 
     def get_task_info(self, task_id: str) -> Optional[Dict[str, Any]]:
         """
@@ -201,10 +227,10 @@ class TaskRunner:
 
         task = self.task_registry[task_id]
         return {
-            'type': task.type.value,
-            'has_prompt': bool(task.prompt_template),
-            'subtasks': task.subtasks,
-            'sequence': task.sequence,
-            'has_final_prompt': bool(task.final_prompt),
-            'dependencies': task.depends_on
+            "type": task.type.value,
+            "has_prompt": bool(task.prompt_template),
+            "subtasks": task.subtasks,
+            "sequence": task.sequence,
+            "has_final_prompt": bool(task.final_prompt),
+            "dependencies": task.depends_on,
         }

@@ -24,16 +24,15 @@ class FileRegistry(Base):
     - File properties (size, type, timestamps)
     - No over-engineering (no assignment_number, week_number, subcategory)
     """
+
     __tablename__ = "file_registry"
 
     # Primary UUID identifier for API access
-    id = Column(UUID(as_uuid=True), primary_key=True,
-                default=uuid.uuid4, index=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
 
     # File identification and location
     file_name = Column(String(255), nullable=False, index=True)
-    relative_path = Column(String(500), nullable=False,
-                           unique=True, index=True)
+    relative_path = Column(String(500), nullable=False, unique=True, index=True)
 
     # File metadata
     mime_type = Column(String(100), nullable=False)
@@ -56,9 +55,9 @@ class FileRegistry(Base):
 
     # Performance indexes for common queries
     __table_args__ = (
-        Index('idx_file_course_category', 'course_code', 'category'),
-        Index('idx_file_active', 'is_active'),
-        Index('idx_file_created', 'created_at'),
+        Index("idx_file_course_category", "course_code", "category"),
+        Index("idx_file_active", "is_active"),
+        Index("idx_file_created", "created_at"),
     )
 
     def __repr__(self):
@@ -72,4 +71,4 @@ class FileRegistry(Base):
     @property
     def file_extension(self) -> str:
         """Get file extension"""
-        return self.file_name.split('.')[-1].lower() if '.' in self.file_name else ''
+        return self.file_name.split(".")[-1].lower() if "." in self.file_name else ""

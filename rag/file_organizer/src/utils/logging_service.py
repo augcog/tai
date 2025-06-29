@@ -16,16 +16,16 @@ import os
 from pathlib import Path
 from functools import lru_cache
 
-DEFAULT_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()      # e.g. DEBUG in dev
+DEFAULT_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()  # e.g. DEBUG in dev
 MAX_BYTES = int(os.getenv("LOG_MAX_BYTES", 5 * 1024 * 1024))  # 5 MB
-BACKUP_COUNT = int(os.getenv("LOG_BACKUP_COUNT", 3))       # keep 3 old logs
+BACKUP_COUNT = int(os.getenv("LOG_BACKUP_COUNT", 3))  # keep 3 old logs
 
 
 @lru_cache(maxsize=1)
 def _configure_root() -> None:
     """Runs exactly once per process (thanks to lru_cache)."""
     root = logging.getLogger()
-    if root.handlers:            # someone else configured logging – respect it
+    if root.handlers:  # someone else configured logging – respect it
         return
 
     root.setLevel(DEFAULT_LEVEL)

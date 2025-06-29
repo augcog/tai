@@ -201,6 +201,10 @@ Copy the json below into your `.vscode/settings.json` to make code formatting an
     "python.analysis.inlayHints.variableTypes": true,
     "python.testing.pytestEnabled": true,
     "python.testing.unittestEnabled": false,
+    "python.poetry.enabled": true,
+    "python.poetry.automaticallyActivatePoetryShell": true,
+    "python.venvPath": "${workspaceFolder}",
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
     "[python]": {
         "editor.codeActionsOnSave": {
             "source.organizeImports": "explicit"
@@ -213,6 +217,34 @@ Copy the json below into your `.vscode/settings.json` to make code formatting an
 }
 
 ```
+
+### Python Interpreter Detection Issues
+
+If VSCode isn't detecting your Python interpreter:
+
+1. **Install required VSCode extensions:**
+
+   - Python (ms-python.python)
+   - Black Formatter (ms-python.black-formatter)
+   - isort (ms-python.isort)
+
+2. **Manually select the Poetry interpreter:**
+
+   - Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux)
+   - Type "Python: Select Interpreter"
+   - Choose the interpreter from `tai/.venv/bin/python`
+
+3. **Verify Poetry environment exists:**
+
+   ```bash
+   cd tai
+   poetry env info --path  # Should show the virtual environment path
+   make install          # Create environment if it doesn't exist
+   ```
+
+4. **Force VSCode to refresh:**
+   - Reload VSCode window: `Cmd+R` (Mac) or `Ctrl+R` (Windows/Linux)
+   - Or restart VSCode completely
 
 ## Core Algorithms
 

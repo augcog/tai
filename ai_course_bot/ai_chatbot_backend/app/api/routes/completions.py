@@ -6,7 +6,7 @@ import time
 from fastapi.responses import StreamingResponse, PlainTextResponse, JSONResponse
 from app.services.rag_selector import generate_chat_response, local_parser, format_chat_msg
 from app.services.rag_retriever import top_k_selector
-from app.dependencies.model import get_model_pipeline
+from app.dependencies.model import get_model_engine
 from app.api.deps import verify_api_token
 
 router = APIRouter()
@@ -22,7 +22,7 @@ def generate_data():
 @router.post("/completions")
 async def create_completion(params: CompletionCreateParams, _: bool = Depends(verify_api_token)):
     # Get the pre-initialized pipeline
-    pipeline = get_model_pipeline()
+    engine = get_model_engine()
 
     # select model based on params.model
     course = params.course
@@ -31,7 +31,7 @@ async def create_completion(params: CompletionCreateParams, _: bool = Depends(ve
     parser = local_parser
 
     response, reference_string = selector(formatter(
-        params.messages), stream=params.stream, course=course, pipeline=pipeline)
+        params.messages), stream=params.stream, course=course, engine=engine)
 
     if params.stream:
         return StreamingResponse(parser(response, reference_string), media_type="text/plain")

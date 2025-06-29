@@ -170,3 +170,5 @@ cython_debug/
 .vscode
 
 knowledge_management/km/
+
+.claude/

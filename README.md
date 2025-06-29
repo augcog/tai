@@ -1,12 +1,124 @@
 # TAI: Teaching Assistant Intelligence
 ![TAI_logo.png](TAI_logo.png)
 
+[![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![Poetry](https://img.shields.io/badge/poetry-1.4+-blue.svg)](https://python-poetry.org/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+## 🚀 Quick Start
+
+Get TAI running with just two commands:
+
+```bash
+# Install Poetry if you haven't already
+curl -sSL https://install.python-poetry.org | python3 -
+
+# Setup everything
+make setup
+```
+
+Start the backend service:
+```bash
+make dev-backend
+```
+
+Visit `http://localhost:8000` to see the API documentation. 🎉
+
 ## Link to Website
 https://tai.berkeley.edu
+
 ## What is TAI?
 TAI is an open source project developed by researchers and students at UC Berkeley (see Credits below), with the goal to offer the power of edge GPT models and services for education purposes. The GPT models selected in TAI are carefully curated to allow students to easily spin up their own local GPT services and websites. The project further develops robust embedding and RAG toolkits to allow users to convert their knowledge base and multimedia documents into searchable vector databases. 
 
 Once installed locally, TAI allows individuals to easily start a conversation to use GPT techniques to search through local documents using simple natural languages.
+
+## 🏗️ Architecture
+
+TAI is organized as a monorepo with the following components:
+
+```
+tai/
+├── 🚀 ai_course_bot/ai_chatbot_backend/  # FastAPI backend service
+├── 🧠 rag/                              # RAG pipeline and file processing  
+├── 📁 rag/file_organizer/               # File organization utilities
+└── 📊 evaluation/dataset_generate/      # Evaluation and dataset tools
+```
+
+## 💻 Development Workflow
+
+### Available Commands
+
+```bash
+# Installation
+make install-all          # Install all components
+make install-backend      # Install only backend
+make install-rag          # Install only RAG pipeline
+
+# Development  
+make dev-backend          # Start backend service
+make dev-rag             # Start RAG tools
+
+# Testing & Quality
+make test-all            # Run all tests
+make lint-all            # Lint all code  
+make format-all          # Format all code
+make clean-all           # Clean artifacts
+
+# Status & Help
+make help                # Show all commands
+```
+
+### Working with Components
+
+```bash
+# Work with specific components
+make backend TASK=test      # Run backend tests
+make rag TASK=lint         # Lint RAG code
+make organizer TASK=format # Format organizer code
+```
+
+## 📦 Package Management
+
+TAI uses Poetry for modern dependency management. Each component has isolated dependencies.
+
+### Adding New Packages
+
+```bash
+# Navigate to component and add packages
+cd ai_course_bot/ai_chatbot_backend
+make add PKG=torch                    # Add production dependency
+make add-dev PKG=pytest              # Add development dependency
+make remove PKG=outdated-package     # Remove package
+make update                          # Update dependencies
+```
+
+Poetry automatically updates `pyproject.toml` and `poetry.lock` files - no more manual requirements.txt editing!
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+make test-all
+
+# Component-specific testing
+cd ai_course_bot/ai_chatbot_backend && make test
+cd rag && make test
+```
+
+## 🔧 Troubleshooting
+
+### Poetry Issues
+```bash
+# Install Poetry
+curl -sSL https://install.python-poetry.org | python3 -
+
+# Reset environment
+poetry cache clear pypi --all
+make clean-all && make install-all
+```
+
+### Python Version
+Requires Python 3.10+. Check with `python --version`.
 
 ## Core Algorithms
 Llama3 as base model, BGE-M3 as embedding model, Sqlite-vss as vector database, and RAG agent.

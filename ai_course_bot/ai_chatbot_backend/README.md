@@ -47,12 +47,14 @@ ai_chatbot_backend/
 ## 🎯 Core Features
 
 ### 1. **Course Management**
+
 - Course registration with metadata (name, code, semester, school)
 - Access control (public, login_required, private)
 - Course ordering and enabling/disabling
 - Pagination support
 
 ### 2. **File System Service**
+
 - **Auto-discovery**: Automatically scans and registers new files
 - **UUID-based access**: Secure file access without exposing paths
 - **Metadata extraction**: Course code, category, and title from file paths
@@ -60,6 +62,7 @@ ai_chatbot_backend/
 - **Search and filtering**: By course, category, filename, and title
 
 ### 3. **AI & RAG System**
+
 - **Embedding Model**: BAAI/bge-m3 (BGE-M3) with fp16 optimization
 - **Multi-modal scoring**: Dense, sparse, and ColBERT embeddings
 - **Course-specific knowledge**: Separate embeddings per course
@@ -68,6 +71,7 @@ ai_chatbot_backend/
 ## 🛠️ Development Commands
 
 ### Installation & Setup
+
 ```bash
 make install           # Install all dependencies
 make install-dev       # Install with development tools
@@ -75,6 +79,7 @@ make clean             # Clean build artifacts
 ```
 
 ### Development Server
+
 ```bash
 make dev               # Start development server with auto-reload
 make server            # Start production server
@@ -82,6 +87,7 @@ make db-init           # Initialize database and files
 ```
 
 ### Testing
+
 ```bash
 make test              # Run all tests
 make test-unit         # Run unit tests only
@@ -91,6 +97,7 @@ make coverage          # Run tests with coverage report
 ```
 
 ### Code Quality
+
 ```bash
 make lint              # Run linting (ruff + mypy)
 make format            # Format code (black + ruff)
@@ -99,43 +106,49 @@ make check             # Run all quality checks
 
 ## 📦 Package Management
 
-TAI Backend uses Poetry for dependency management:
+TAI Backend uses the unified monorepo Poetry environment. All package management commands automatically modify the root `pyproject.toml`:
 
 ```bash
-# Add new packages
-make add PKG=torch                    # Add production dependency
-make add-dev PKG=pytest              # Add development dependency
-make add-optional PKG=torch GROUP=ml  # Add to optional group
+# Add new packages (adds to root monorepo)
+make add PKG=torch                    # Add production dependency to root
+make add-dev PKG=pytest              # Add development dependency to root
 
-# Manage packages
-make remove PKG=torch                 # Remove package
-make update                          # Update all dependencies
-make update PKG=torch                # Update specific package
-make show PKG=torch                  # Show package info
+# Manage packages (all modify root pyproject.toml)
+make remove PKG=torch                 # Remove package from root
+make update                          # Update all dependencies in root
+make show PKG=torch                  # Show package info from root
+
+# Installation (always installs to root .venv)
+make install                         # Install all dependencies to root
+make install-dev                     # Install with development dependencies
 ```
+
+**Note**: This component uses the unified monorepo environment. All dependencies are managed in the root `pyproject.toml` and installed to `/tai/.venv`. The local `pyproject.toml` serves as documentation of backend-specific dependencies.
 
 ## ⚙️ Configuration
 
 ### Environment Setup
 
 1. Copy the example environment file:
+
    ```bash
    cp .env.example .env
    ```
 
 2. Configure your environment variables:
+
    ```bash
    # Database
    DATA_DIR=/path/to/course/files
-   
+
    # AI Models
    LLM_MODE=local  # or openai, anthropic
-   
+
    # Server
    HOST=localhost
    PORT=8000
    RELOAD=true
-   
+
    # Authentication (optional)
    SECRET_KEY=your-secret-key
    API_TOKENS=token1,token2
@@ -173,14 +186,14 @@ For enhanced vector search capabilities:
 
 ### Core APIs
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/courses` | GET | List courses with pagination |
-| `/api/files` | GET | List files with filtering |
-| `/api/files/{file_id}` | GET | Get file metadata by UUID |
-| `/api/files/{file_id}/download` | GET | Download file by UUID |
-| `/api/completions` | POST | Generate chat completions with RAG |
-| `/api/top_k_docs` | POST | Retrieve relevant document chunks |
+| Endpoint                        | Method | Description                        |
+| ------------------------------- | ------ | ---------------------------------- |
+| `/api/courses`                  | GET    | List courses with pagination       |
+| `/api/files`                    | GET    | List files with filtering          |
+| `/api/files/{file_id}`          | GET    | Get file metadata by UUID          |
+| `/api/files/{file_id}/download` | GET    | Download file by UUID              |
+| `/api/completions`              | POST   | Generate chat completions with RAG |
+| `/api/top_k_docs`               | POST   | Retrieve relevant document chunks  |
 
 ### Admin Interface
 
@@ -198,6 +211,7 @@ For enhanced vector search capabilities:
 The backend includes comprehensive test suites:
 
 ### Test Structure
+
 ```
 tests/
 ├── unit_tests/          # Unit tests for individual components
@@ -207,6 +221,7 @@ tests/
 ```
 
 ### Running Tests
+
 ```bash
 # All tests
 make test
@@ -221,6 +236,7 @@ make coverage
 ```
 
 ### Test Data
+
 - **Fixtures**: Request/response examples for all endpoints
 - **Mock data**: Sample courses, files, and embeddings
 - **Integration tests**: Full API workflow testing
@@ -236,6 +252,7 @@ make coverage
 ## 📊 Performance & Monitoring
 
 ### Optimizations
+
 - **Auto-discovery Caching**: Prevents repeated file scanning
 - **Database Indexing**: Optimized queries for common operations
 - **Streaming Responses**: Real-time chat completions
@@ -243,6 +260,7 @@ make coverage
 - **Connection Pooling**: Efficient database connections
 
 ### Monitoring
+
 - Built-in health checks
 - Database performance metrics
 - File system statistics
@@ -251,12 +269,14 @@ make coverage
 ## 🚀 Deployment
 
 ### Docker Support
+
 ```bash
 # Build and run with Docker Compose
 docker-compose up --build
 ```
 
 ### Production Configuration
+
 ```bash
 # Set environment for production
 export RELOAD=false
@@ -272,12 +292,14 @@ poetry run gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
 ### Common Issues
 
 **Model Loading Failures**
+
 ```bash
 # Check CUDA availability and memory
 python -c "import torch; print(torch.cuda.is_available())"
 ```
 
 **File Discovery Issues**
+
 ```bash
 # Verify data directory permissions
 ls -la $DATA_DIR
@@ -285,12 +307,14 @@ make db-init  # Reinitialize file registry
 ```
 
 **Authentication Errors**
+
 ```bash
 # Validate API tokens
 curl -H "Authorization: Bearer your-token" http://localhost:8000/health
 ```
 
 **Database Issues**
+
 ```bash
 # Reset database
 rm -f *.db
@@ -298,6 +322,7 @@ make db-init
 ```
 
 ### Debug Mode
+
 ```bash
 # Start with debug logging
 export LOG_LEVEL=debug
@@ -307,12 +332,13 @@ make dev
 ## 🤝 Contributing
 
 1. Follow existing code structure and patterns
-2. Add tests for new functionality  
+2. Add tests for new functionality
 3. Update API documentation for changes
 4. Use established error handling patterns
 5. Maintain compatibility with existing course data
 
 ### Code Style
+
 - **Linting**: Ruff + MyPy
 - **Formatting**: Black (88 character line length)
 - **Type Hints**: Required for all public functions
@@ -328,6 +354,7 @@ make dev
 ## 🆘 Support
 
 For issues and questions:
+
 1. Check the troubleshooting section above
 2. Review [GitHub Issues](https://github.com/your-org/tai/issues)
 3. Consult the main [TAI Documentation](../../README.md)

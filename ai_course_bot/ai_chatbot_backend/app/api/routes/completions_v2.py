@@ -1,15 +1,17 @@
-import os
 import json
+import os
 
-from fastapi import APIRouter, Depends
-from fastapi.responses import StreamingResponse
-
-from app.schemas.completion import CompletionCreateParams, ChatCompletionChunk, ToolCall
-from app.services.rag_selector import rag_json_stream_generator, format_chat_msg
-from app.utils.stream_processing import openai_format_stream, extract_text_and_references_from_openai_format
+from app.api.deps import verify_api_token
 from app.core.actions.model_selector import course_selection
 from app.dependencies.model import get_model_engine
-from app.api.deps import verify_api_token
+from app.schemas.completion import ChatCompletionChunk, CompletionCreateParams, ToolCall
+from app.services.rag_selector import format_chat_msg, rag_json_stream_generator
+from app.utils.stream_processing import (
+    extract_text_and_references_from_openai_format,
+    openai_format_stream,
+)
+from fastapi import APIRouter, Depends
+from fastapi.responses import StreamingResponse
 
 router = APIRouter()
 
@@ -18,7 +20,8 @@ async def process_completion(params: CompletionCreateParams):
     course = params.course
     rag = params.rag
     print(
-        f"Processing completion for course: {course} (RAG={'enabled' if rag else 'disabled'})")
+        f"Processing completion for course: {course} (RAG={'enabled' if rag else 'disabled'})"
+    )
 
     # Get the pre-initialized pipeline
     pipeline = get_model_engine()
@@ -31,11 +34,19 @@ async def process_completion(params: CompletionCreateParams):
     selector = rag_json_stream_generator
 
     # Use the embedding directory from an environment variable (if set) or fall back to the default.
-    embedding_dir = os.environ.get("EMBEDDING_DIR",
-                                   "/home/bot/localgpt/tai/ai_course_bot/ai_chatbot_backend/app/embedding/")
+    embedding_dir = os.environ.get(
+        "EMBEDDING_DIR",
+        "/home/bot/localgpt/tai/ai_course_bot/ai_chatbot_backend/app/embedding/",
+    )
     # Call the selector with the appropriate RAG flag.
-    response = selector(formatter(params.messages), stream=params.stream, course=course, pipeline=pipeline, rag=rag,
-                        embedding_dir=embedding_dir)
+    response = selector(
+        formatter(params.messages),
+        stream=params.stream,
+        course=course,
+        pipeline=pipeline,
+        rag=rag,
+        embedding_dir=embedding_dir,
+    )
 
     if params.stream:
         # Convert to OpenAI format
@@ -45,16 +56,16 @@ async def process_completion(params: CompletionCreateParams):
         # Use OpenAI format and convert to single response
         openai_stream = openai_format_stream(response)
         full_text, references = extract_text_and_references_from_openai_format(
-            openai_stream)
+            openai_stream
+        )
 
         # Create tool calls for references
         tool_calls = None
         if references:
             tool_calls = [
-                ChatCompletionChunk.create_reference_tool_call(
-                    f"Reference {i+1}",
-                    url
-                ) for i, url in enumerate(references) if url
+                ChatCompletionChunk.create_reference_tool_call(f"Reference {i+1}", url)
+                for i, url in enumerate(references)
+                if url
             ]
 
         # Create a single chunk response with all content
@@ -62,13 +73,15 @@ async def process_completion(params: CompletionCreateParams):
             role="assistant",
             content=full_text,
             finish_reason="stop",
-            tool_calls=tool_calls
+            tool_calls=tool_calls,
         )
         return chunk.model_dump()
 
 
 @router.post("/completions_v2")
-async def create_completion(params: CompletionCreateParams, _: bool = Depends(verify_api_token)):
+async def create_completion(
+    params: CompletionCreateParams, _: bool = Depends(verify_api_token)
+):
     """OpenAI-compatible chat completions endpoint
 
     OpenAI's Relevant Doc:

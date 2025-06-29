@@ -13,7 +13,9 @@ from tests.utils import compare_files
 BASE_PATH = Path(__file__).parent
 DATA_FOLDER = BASE_PATH / "data"
 CONFIG_FILE_PATH = DATA_FOLDER / "test_cases_config.yaml"
-TEST_EMBEDDING_OPTIMIZER_CONFIG_PATH = DATA_FOLDER / "test_embedding_optimizer_config.yaml"
+TEST_EMBEDDING_OPTIMIZER_CONFIG_PATH = (
+    DATA_FOLDER / "test_embedding_optimizer_config.yaml"
+)
 # Global variable to cache the test cases configuration
 TEST_CASES_CONFIG = None
 
@@ -98,8 +100,8 @@ def load_test_cases_config(*keys):
 @pytest.fixture(scope="function")
 def pdf_converter():
     with patch(
-        'rag.file_conversion_router.conversion.base_converter.BaseConverter.DEFAULT_EMBEDDING_OPTIMIZATION_CONFIG_PATH',
-        TEST_EMBEDDING_OPTIMIZER_CONFIG_PATH
+        "rag.file_conversion_router.conversion.base_converter.BaseConverter.DEFAULT_EMBEDDING_OPTIMIZATION_CONFIG_PATH",
+        TEST_EMBEDDING_OPTIMIZER_CONFIG_PATH,
     ):
         return PdfConverter()
 
@@ -107,15 +109,19 @@ def pdf_converter():
 @pytest.fixture(scope="function")
 def md_converter():
     with patch(
-        'rag.file_conversion_router.conversion.base_converter.BaseConverter.DEFAULT_EMBEDDING_OPTIMIZATION_CONFIG_PATH',
-        TEST_EMBEDDING_OPTIMIZER_CONFIG_PATH
+        "rag.file_conversion_router.conversion.base_converter.BaseConverter.DEFAULT_EMBEDDING_OPTIMIZATION_CONFIG_PATH",
+        TEST_EMBEDDING_OPTIMIZER_CONFIG_PATH,
     ):
         return MarkdownConverter()
 
 
-def helper_unit_test_on_converter(input_path: str, expected_output_paths: List[str], tmp_path, converter):
+def helper_unit_test_on_converter(
+    input_path: str, expected_output_paths: List[str], tmp_path, converter
+):
     input_path = Path(input_path)
-    expected_paths = [Path(expected_output_path) for expected_output_path in expected_output_paths]
+    expected_paths = [
+        Path(expected_output_path) for expected_output_path in expected_output_paths
+    ]
     output_folder = tmp_path / input_path.stem
     converter.convert(input_path, output_folder)
 

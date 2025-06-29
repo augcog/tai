@@ -5,6 +5,7 @@ from rag.file_conversion_router.classes.page import Page
 from rst_to_myst import rst_to_myst
 import yaml
 
+
 class RstConverter(BaseConverter):
     def __init__(self):
         super().__init__()
@@ -30,19 +31,19 @@ class RstConverter(BaseConverter):
     #     """Perform Markdown to Page conversion."""
 
     #     output_path.parent.mkdir(parents = True, exist_ok = True)
-        
+
     #     parent = input_path.parent
     #     self._to_markdown(input_path, output_path)
     #     stem = input_path.stem
     #     filetype = input_path.suffix.split(".")[1]
-        
+
     #     with open(input_path, "r") as input_file:
     #         text = input_file.read()
     #     metadata = parent / (stem+"_metadata.yaml")
-        
+
     #     with open(metadata, "r") as metadata_file:
     #         metadata_content = yaml.safe_load(metadata_file)
-        
+
     #     url = metadata_content["URL"]
     #     page = Page(pagename=stem, content={'text': text}, filetype=filetype, page_url=url)
     #     return page

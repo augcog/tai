@@ -35,7 +35,7 @@ def mock_current_user():
         "user_id": "test-user-simple",
         "email": "test@example.com",
         "name": "Test User",
-        "picture": None
+        "picture": None,
     }
 
     # Override authentication dependency
@@ -55,15 +55,15 @@ class TestUnifiedFilesAPI:
         """Test basic files listing with auto-discovery"""
         from unittest.mock import patch, MagicMock
 
-        with patch('app.services.file_service.file_service.list_files') as mock_list:
+        with patch("app.services.file_service.file_service.list_files") as mock_list:
             # Create mock result
             mock_result = {
-                'files': [],
-                'total_count': 0,
-                'page': 1,
-                'limit': 100,
-                'has_next': False,
-                'has_prev': False
+                "files": [],
+                "total_count": 0,
+                "page": 1,
+                "limit": 100,
+                "has_next": False,
+                "has_prev": False,
             }
             mock_list.return_value = mock_result
 
@@ -79,14 +79,14 @@ class TestUnifiedFilesAPI:
         """Test files with course filter"""
         from unittest.mock import patch
 
-        with patch('app.services.file_service.file_service.list_files') as mock_list:
+        with patch("app.services.file_service.file_service.list_files") as mock_list:
             mock_result = {
-                'files': [],
-                'total_count': 0,
-                'page': 1,
-                'limit': 100,
-                'has_next': False,
-                'has_prev': False
+                "files": [],
+                "total_count": 0,
+                "page": 1,
+                "limit": 100,
+                "has_next": False,
+                "has_prev": False,
             }
             mock_list.return_value = mock_result
 
@@ -100,14 +100,14 @@ class TestUnifiedFilesAPI:
         """Test files search functionality"""
         from unittest.mock import patch
 
-        with patch('app.services.file_service.file_service.list_files') as mock_list:
+        with patch("app.services.file_service.file_service.list_files") as mock_list:
             mock_result = {
-                'files': [],
-                'total_count': 0,
-                'page': 1,
-                'limit': 100,
-                'has_next': False,
-                'has_prev': False
+                "files": [],
+                "total_count": 0,
+                "page": 1,
+                "limit": 100,
+                "has_next": False,
+                "has_prev": False,
             }
             mock_list.return_value = mock_result
 
@@ -121,14 +121,14 @@ class TestUnifiedFilesAPI:
         """Test files pagination"""
         from unittest.mock import patch
 
-        with patch('app.services.file_service.file_service.list_files') as mock_list:
+        with patch("app.services.file_service.file_service.list_files") as mock_list:
             mock_result = {
-                'files': [],
-                'total_count': 150,
-                'page': 2,
-                'limit': 50,
-                'has_next': True,
-                'has_prev': True
+                "files": [],
+                "total_count": 150,
+                "page": 2,
+                "limit": 50,
+                "has_next": True,
+                "has_prev": True,
             }
             mock_list.return_value = mock_result
 
@@ -170,12 +170,10 @@ class TestFileService:
         from app.services.file_service import file_service
 
         # Test simple cases
-        metadata = file_service._extract_metadata(
-            "CS61A/documents/my_file.pdf")
+        metadata = file_service._extract_metadata("CS61A/documents/my_file.pdf")
         assert metadata["title"] == "My File"
 
-        metadata = file_service._extract_metadata(
-            "CS61A/videos/lecture-notes.mp4")
+        metadata = file_service._extract_metadata("CS61A/videos/lecture-notes.mp4")
         assert metadata["title"] == "Lecture Notes"
 
 
@@ -194,10 +192,12 @@ class TestFileAPIHealth:
         """Test that all imports work correctly"""
         # Test file service import
         from app.services.file_service import file_service
+
         assert file_service is not None
 
         # Test models import
         from app.core.models.files import FileRegistry
+
         assert FileRegistry is not None
 
     def test_file_service_initialization(self):
@@ -222,14 +222,14 @@ class TestFileAPIErrorHandling:
         """Test files with empty directory"""
         from unittest.mock import patch
 
-        with patch('app.services.file_service.file_service.list_files') as mock_list:
+        with patch("app.services.file_service.file_service.list_files") as mock_list:
             mock_result = {
-                'files': [],
-                'total_count': 0,
-                'page': 1,
-                'limit': 100,
-                'has_next': False,
-                'has_prev': False
+                "files": [],
+                "total_count": 0,
+                "page": 1,
+                "limit": 100,
+                "has_next": False,
+                "has_prev": False,
             }
             mock_list.return_value = mock_result
 
@@ -266,8 +266,10 @@ class TestFileServiceUtilities:
 
         test_cases = [
             ("CS61A/documents/lab_01_getting_started.pdf", "Lab 01 Getting Started"),
-            ("CS61A/documents/homework-02-data-structures.pdf",
-             "Homework 02 Data Structures"),
+            (
+                "CS61A/documents/homework-02-data-structures.pdf",
+                "Homework 02 Data Structures",
+            ),
             ("CS61A/documents/lecture_notes_week_3.pdf", "Lecture Notes Week 3"),
             ("CS61A/documents/final_exam_solution.pdf", "Final Exam Solution"),
         ]
@@ -297,8 +299,8 @@ def test_settings_configuration():
     from app.config import settings
 
     # Test that basic settings exist
-    assert hasattr(settings, 'auth_required')
-    assert hasattr(settings, 'DATA_DIR')
+    assert hasattr(settings, "auth_required")
+    assert hasattr(settings, "DATA_DIR")
 
     # Test that we can modify auth_required for testing
     original = settings.auth_required

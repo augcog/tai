@@ -5,7 +5,7 @@ from app.schemas.completion import ChatCompletionChunk, ToolCall
 
 # Pattern to match reference numbers in text content
 # Format: [1], [2], etc.
-REFERENCE_PATTERN = re.compile(r'\[(\d+)\]')
+REFERENCE_PATTERN = re.compile(r"\[(\d+)\]")
 
 
 def openai_format_stream(generator_response: Any) -> Generator[str, None, None]:
@@ -42,7 +42,7 @@ def openai_format_stream(generator_response: Any) -> Generator[str, None, None]:
             # Create a mapping of reference number to URL
             for i, ref in enumerate(references):
                 if ref:  # Only include non-empty references
-                    reference_urls[i+1] = ref
+                    reference_urls[i + 1] = ref
 
     # Second pass: process tokens and generate chunks
     for data in messages:
@@ -67,7 +67,7 @@ def openai_format_stream(generator_response: Any) -> Generator[str, None, None]:
                             ChatCompletionChunk.create_reference_tool_call(
                                 f"Reference {ref_num}",
                                 url,
-                                ref_num  # Pass the reference number
+                                ref_num,  # Pass the reference number
                             )
                         )
                 except ValueError:
@@ -80,7 +80,8 @@ def openai_format_stream(generator_response: Any) -> Generator[str, None, None]:
             # Then, if we have new tool calls, yield them
             if new_tool_calls:
                 tool_calls_chunk = ChatCompletionChunk.create_chunk(
-                    tool_calls=new_tool_calls)
+                    tool_calls=new_tool_calls
+                )
                 yield json.dumps(tool_calls_chunk.model_dump()) + "\n"
 
         # No need to handle the "final" case here, as we already processed references
@@ -90,7 +91,9 @@ def openai_format_stream(generator_response: Any) -> Generator[str, None, None]:
     yield json.dumps(final_chunk.model_dump()) + "\n"
 
 
-def extract_text_and_references_from_openai_format(openai_stream: Generator[str, None, None]) -> Tuple[str, List[str]]:
+def extract_text_and_references_from_openai_format(
+    openai_stream: Generator[str, None, None],
+) -> Tuple[str, List[str]]:
     """
     Extract content text and reference URLs from an OpenAI-formatted stream.
 
@@ -116,11 +119,12 @@ def extract_text_and_references_from_openai_format(openai_stream: Generator[str,
             # Extract references from tool calls
             if "tool_calls" in delta and delta["tool_calls"]:
                 for tool_call in delta["tool_calls"]:
-                    if (tool_call["type"] == "function" and
-                            tool_call["function"]["name"] == "add_reference"):
+                    if (
+                        tool_call["type"] == "function"
+                        and tool_call["function"]["name"] == "add_reference"
+                    ):
                         try:
-                            args = json.loads(
-                                tool_call["function"]["arguments"])
+                            args = json.loads(tool_call["function"]["arguments"])
                             if args.get("url"):
                                 url = args["url"]
                                 # Get the reference number from arguments if available

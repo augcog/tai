@@ -2,6 +2,7 @@
 
 Currently, other TAI Nougat functionalities, such as Dependency Injection, are not configurable.
 """
+
 import logging
 from dataclasses import dataclass, field
 from typing import Callable, Union
@@ -10,7 +11,9 @@ from .nougat_config import NougatConfig
 
 from rag.file_conversion_router.utils.hardware_detection import detect_is_apple_silicon
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 logger = logging.getLogger(__name__)
 
 
@@ -24,7 +27,9 @@ def determine_using_torch() -> bool:
 @dataclass
 class TAINougatConfig(NougatConfig):
     # Allow either a boolean or a callable that returns a boolean
-    using_torch: Union[bool, Callable[[], bool]] = field(default_factory=determine_using_torch)
+    using_torch: Union[bool, Callable[[], bool]] = field(
+        default_factory=determine_using_torch
+    )
 
     def __post_init__(self):
         if callable(self.using_torch):
@@ -33,4 +38,6 @@ class TAINougatConfig(NougatConfig):
         if self.using_torch:
             logger.info("Using Torch for Nougat PDF conversion.")
         else:
-            logger.info("Using MLX for Nougat PDF conversion for Apple Silicon for better performance.")
+            logger.info(
+                "Using MLX for Nougat PDF conversion for Apple Silicon for better performance."
+            )

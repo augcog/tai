@@ -16,7 +16,7 @@ class RemoteModelClient:
             "messages": [{"role": "user", "content": prompt}],
             "course": kwargs.get("course", "default"),
             "temperature": kwargs.get("temperature", 0.7),
-            "stream": kwargs.get("stream", False)
+            "stream": kwargs.get("stream", False),
         }
 
         stream = payload.get("stream", False)

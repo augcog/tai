@@ -2,7 +2,9 @@ import time
 
 import pytest
 
-from rag.file_conversion_router.embedding_optimization.src.models.mock_model import MockModel
+from rag.file_conversion_router.embedding_optimization.src.models.mock_model import (
+    MockModel,
+)
 
 
 class TestMockModel:
@@ -86,8 +88,8 @@ class TestMockModel:
         assert len(history) == len(prompts)
 
         for i, prompt in enumerate(prompts):
-            assert history[i]['prompt'] == prompt
-            assert history[i]['kwargs']['temperature'] == 0.7
+            assert history[i]["prompt"] == prompt
+            assert history[i]["kwargs"]["temperature"] == 0.7
 
         # Test history clearing
         model.clear_call_history()

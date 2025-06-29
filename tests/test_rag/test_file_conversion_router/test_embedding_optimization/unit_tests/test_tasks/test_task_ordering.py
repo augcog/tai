@@ -6,7 +6,9 @@ import pytest
 import yaml
 
 from rag.file_conversion_router.classes.chunk import Chunk
-from rag.file_conversion_router.embedding_optimization.src.pipeline.optimizer import EmbeddingOptimizer
+from rag.file_conversion_router.embedding_optimization.src.pipeline.optimizer import (
+    EmbeddingOptimizer,
+)
 
 
 class OrderTrackingMock:
@@ -39,29 +41,27 @@ def complex_config_path():
         "variables": {
             "max_length": 100,
             "style": "professional",
-            "language": "english"
+            "language": "english",
         },
         "tasks": {
             # Basic tasks
             "summarize": {
                 "type": "prompt",
-                "prompt_template": "Please summarize: $content"
+                "prompt_template": "Please summarize: $content",
             },
             "enhance": {
                 "type": "prompt",
-                "prompt_template": "Please enhance: $content"
+                "prompt_template": "Please enhance: $content",
             },
             "translate": {
                 "type": "prompt",
-                "prompt_template": "Please translate: $content"
+                "prompt_template": "Please translate: $content",
             },
-
             # Sequential task that runs summarize then enhance
             "sequential_process": {
                 "type": "sequential",
-                "sequence": ["summarize", "enhance"]
+                "sequence": ["summarize", "enhance"],
             },
-
             # Composed task that combines summary and translation
             "parallel_process": {
                 "type": "composed",
@@ -70,35 +70,36 @@ def complex_config_path():
                 Combine these results:
                 Summary: $result_summarize
                 Translation: $result_translate
-                """
+                """,
             },
-
             # Complex nested task
             "complex_process": {
                 "type": "sequential",
                 "sequence": [
                     "parallel_process",  # First run parallel processing
-                    "sequential_process"  # Then run sequential processing
-                ]
-            }
+                    "sequential_process",  # Then run sequential processing
+                ],
+            },
         },
         "pipeline": {
             "chunk_task": "complex_process",
             "markdown_task": "complex_process",
-            "batch_size": 1
+            "batch_size": 1,
         },
         "models": {
             "default": "test_model",
-            "options": [{
-                "name": "test_model",
-                "type": "server",
-                "endpoint": "mock_endpoint",
-                "api_key": "mock_key"
-            }]
-        }
+            "options": [
+                {
+                    "name": "test_model",
+                    "type": "server",
+                    "endpoint": "mock_endpoint",
+                    "api_key": "mock_key",
+                }
+            ],
+        },
     }
 
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as tmp:
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as tmp:
         yaml.safe_dump(config, tmp)
         return tmp.name
 
@@ -110,12 +111,14 @@ class TestTaskOrdering:
         """Test that sequential tasks are executed in the correct order."""
         tracker = OrderTrackingMock()
 
-        with patch('rag.file_conversion_router.embedding_optimization.src.pipeline.builder.ServerModelTAI',
-                   return_value=tracker):
+        with patch(
+            "rag.file_conversion_router.embedding_optimization.src.pipeline.builder.ServerModelTAI",
+            return_value=tracker,
+        ):
             optimizer = EmbeddingOptimizer(complex_config_path)
 
             # Override pipeline to test sequential_process directly
-            optimizer.config.pipeline_settings.chunk_task = 'sequential_process'
+            optimizer.config.pipeline_settings.chunk_task = "sequential_process"
 
             chunk = Chunk(content="Test content", metadata={})
             optimizer.process_chunks([chunk])
@@ -127,12 +130,14 @@ class TestTaskOrdering:
         """Test that composed tasks execute subtasks and combine results."""
         tracker = OrderTrackingMock()
 
-        with patch('rag.file_conversion_router.embedding_optimization.src.pipeline.builder.ServerModelTAI',
-                   return_value=tracker):
+        with patch(
+            "rag.file_conversion_router.embedding_optimization.src.pipeline.builder.ServerModelTAI",
+            return_value=tracker,
+        ):
             optimizer = EmbeddingOptimizer(complex_config_path)
 
             # Override pipeline to test parallel_process directly
-            optimizer.config.pipeline_settings.chunk_task = 'parallel_process'
+            optimizer.config.pipeline_settings.chunk_task = "parallel_process"
 
             chunk = Chunk(content="Test content", metadata={})
             optimizer.process_chunks([chunk])
@@ -146,8 +151,10 @@ class TestTaskOrdering:
         """Test complex nested task execution with both sequential and composed tasks."""
         tracker = OrderTrackingMock()
 
-        with patch('rag.file_conversion_router.embedding_optimization.src.pipeline.builder.ServerModelTAI',
-                   return_value=tracker):
+        with patch(
+            "rag.file_conversion_router.embedding_optimization.src.pipeline.builder.ServerModelTAI",
+            return_value=tracker,
+        ):
             optimizer = EmbeddingOptimizer(complex_config_path)
 
             # Use complex_process as main task
@@ -164,9 +171,9 @@ class TestTaskOrdering:
             assert "enhance" in execution_flow
 
             # Verify task results in metadata
-            task_results = result[0].metadata['task_results']
-            assert 'parallel_process' in task_results
-            assert 'sequential_process' in task_results
+            task_results = result[0].metadata["task_results"]
+            assert "parallel_process" in task_results
+            assert "sequential_process" in task_results
 
     def test_task_dependency_validation(self, complex_config_path):
         """Test that task dependencies are properly validated."""
@@ -175,14 +182,14 @@ class TestTaskOrdering:
             config = yaml.safe_load(f)
 
         # Add invalid dependency
-        config['tasks']['invalid_task'] = {
-            'type': 'sequential',
-            'sequence': ['nonexistent_task']
+        config["tasks"]["invalid_task"] = {
+            "type": "sequential",
+            "sequence": ["nonexistent_task"],
         }
-        config['pipeline']['main_task'] = 'invalid_task'
+        config["pipeline"]["main_task"] = "invalid_task"
 
         # Write modified config
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as tmp:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as tmp:
             yaml.safe_dump(config, tmp)
             invalid_config_path = tmp.name
 
@@ -198,30 +205,29 @@ class TestTaskOrdering:
             config = yaml.safe_load(f)
 
         # Create circular dependency
-        config['tasks']['task_a'] = {
-            'type': 'sequential',
-            'sequence': ['task_b']
-        }
-        config['tasks']['task_b'] = {
-            'type': 'sequential',
-            'sequence': ['task_a']
-        }
-        config['pipeline']['main_task'] = 'task_a'
+        config["tasks"]["task_a"] = {"type": "sequential", "sequence": ["task_b"]}
+        config["tasks"]["task_b"] = {"type": "sequential", "sequence": ["task_a"]}
+        config["pipeline"]["main_task"] = "task_a"
 
         # Write modified config
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as tmp:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as tmp:
             yaml.safe_dump(config, tmp)
             cycle_config_path = tmp.name
 
         # Verify that cycle is detected
         with pytest.raises(Exception) as exc_info:
             EmbeddingOptimizer(cycle_config_path)
-        assert "cycle" in str(exc_info.value).lower() or "circular" in str(exc_info.value).lower()
+        assert (
+            "cycle" in str(exc_info.value).lower()
+            or "circular" in str(exc_info.value).lower()
+        )
 
-    def verify_execution_metadata(self, chunk: Chunk, expected_tasks: List[str]) -> None:
+    def verify_execution_metadata(
+        self, chunk: Chunk, expected_tasks: List[str]
+    ) -> None:
         """Helper method to verify task execution metadata."""
-        assert 'task_results' in chunk.metadata
-        results = chunk.metadata['task_results']
+        assert "task_results" in chunk.metadata
+        results = chunk.metadata["task_results"]
         for task in expected_tasks:
             assert task in results
-        assert chunk.metadata['processing_status'] == 'success'
+        assert chunk.metadata["processing_status"] == "success"

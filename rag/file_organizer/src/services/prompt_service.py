@@ -1,5 +1,6 @@
 from typing import Dict, List
 
+
 class PromptService:
     @staticmethod
     def create_summary_prompt(file_content: str):
@@ -14,7 +15,7 @@ class PromptService:
 
         return [
             {"role": "system", "content": system_message},
-            {"role": "user", "content": user_message}
+            {"role": "user", "content": user_message},
         ]
 
     @staticmethod
@@ -38,7 +39,7 @@ class PromptService:
 
         return [
             {"role": "system", "content": system_message},
-            {"role": "user", "content": user_message}
+            {"role": "user", "content": user_message},
         ]
 
     @staticmethod
@@ -54,12 +55,16 @@ class PromptService:
 
         return [
             {"role": "system", "content": system_message},
-            {"role": "user", "content": user_message}
+            {"role": "user", "content": user_message},
         ]
 
     @staticmethod
-    def create_combined_summary_prompt(file_name: str, summaries: List[str]) -> List[Dict[str, str]]:
-        system_message = "You are a helpful AI that combines summaries into a cohesive overview."
+    def create_combined_summary_prompt(
+        file_name: str, summaries: List[str]
+    ) -> List[Dict[str, str]]:
+        system_message = (
+            "You are a helpful AI that combines summaries into a cohesive overview."
+        )
         user_message = f"""
         Combine the following summaries into a cohesive summary that briefly and clearly captures the overall concepts of the file:
         Just return the final summary of concepts without any additional text.
@@ -69,11 +74,13 @@ class PromptService:
 
         return [
             {"role": "system", "content": system_message},
-            {"role": "user", "content": user_message}
+            {"role": "user", "content": user_message},
         ]
 
     @staticmethod
-    def create_classification_prompt(summaries: str, topics: Dict[str, str]) -> List[Dict[str, str]]:
+    def create_classification_prompt(
+        summaries: str, topics: Dict[str, str]
+    ) -> List[Dict[str, str]]:
         system_message = "You are a course material classification expert. Your task is to classify educational content into appropriate lecture topics and content categories."
 
         user_message = f"""
@@ -86,12 +93,14 @@ class PromptService:
 
         return [
             {"role": "system", "content": system_message},
-            {"role": "user", "content": user_message}
+            {"role": "user", "content": user_message},
         ]
 
     @staticmethod
     def create_func_classification_prompt(summaries: str) -> List[Dict[str, str]]:
-        system_message = "You are a helpful AI that classifies files based on their content."
+        system_message = (
+            "You are a helpful AI that classifies files based on their content."
+        )
         user_message = f"""
         Classify the following file summaries into on of three categories:
         practice: if the content is mainly practice questions, quiz, exams, homeworks.
@@ -105,5 +114,5 @@ class PromptService:
 
         return [
             {"role": "system", "content": system_message},
-            {"role": "user", "content": user_message}
+            {"role": "user", "content": user_message},
         ]

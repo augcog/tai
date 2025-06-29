@@ -15,7 +15,9 @@ router = APIRouter()
 
 
 @router.get("/", response_class=HTMLResponse)
-async def get_file_tester_interface(request: Request, _: bool = Depends(verify_api_token)):
+async def get_file_tester_interface(
+    request: Request, _: bool = Depends(verify_api_token)
+):
     """
     Serve the file tester interface HTML page.
     """

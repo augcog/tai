@@ -85,56 +85,49 @@ class ChatCompletionChunk(BaseModel):
     choices: List[ChatCompletionChoice]
 
     @classmethod
-    def create_chunk(cls, content: Optional[str] = None, role: Optional[str] = None, 
-                     finish_reason: Optional[str] = None, tool_calls: Optional[List[ToolCall]] = None):
-        delta = ChatCompletionDelta(
-            role=role,
-            content=content,
-            tool_calls=tool_calls
-        )
-        
-        choice = ChatCompletionChoice(
-            index=0,
-            delta=delta,
-            finish_reason=finish_reason
-        )
-        
+    def create_chunk(
+        cls,
+        content: Optional[str] = None,
+        role: Optional[str] = None,
+        finish_reason: Optional[str] = None,
+        tool_calls: Optional[List[ToolCall]] = None,
+    ):
+        delta = ChatCompletionDelta(role=role, content=content, tool_calls=tool_calls)
+
+        choice = ChatCompletionChoice(index=0, delta=delta, finish_reason=finish_reason)
+
         return cls(choices=[choice])
-        
+
     @classmethod
-    def create_reference_tool_call(cls, title: str, url: str, number: int = None) -> ToolCall:
+    def create_reference_tool_call(
+        cls, title: str, url: str, number: int = None
+    ) -> ToolCall:
         """
         Create a tool call for a reference.
-        
+
         Args:
             title: Title of the reference
             url: URL of the reference
             number: The reference number (e.g., 1 for [1]) to explicitly link the marker to the tool call
-            
+
         Returns:
             ToolCall: A formatted tool call for adding a reference
         """
         # Generate a unique ID for the tool call
         tool_call_id = f"call_{uuid.uuid4().hex}"
-        
+
         # Create the arguments dictionary
-        arguments_dict = {
-            "title": title,
-            "url": url
-        }
-        
+        arguments_dict = {"title": title, "url": url}
+
         # Add the number if provided
         if number is not None:
             arguments_dict["number"] = number
-        
+
         # Convert arguments to JSON string
         arguments_json = json.dumps(arguments_dict)
-        
+
         return ToolCall(
             id=tool_call_id,
             type="function",
-            function=ToolCallFunction(
-                name="add_reference",
-                arguments=arguments_json
-            )
+            function=ToolCallFunction(name="add_reference", arguments=arguments_json),
         )

@@ -46,18 +46,21 @@ rag/
 ## 🎯 Core Features
 
 ### 1. **Document Conversion**
+
 - **PDF Processing**: Advanced OCR with MinerU and Nougat
 - **Multi-format Support**: Markdown, HTML, Python, Jupyter
 - **Metadata Extraction**: Automatic title, author, and structure detection
 - **Chunking Strategies**: Recursive, paragraph, sentence-based splitting
 
 ### 2. **Embedding Generation**
+
 - **State-of-the-art Models**: BGE-M3, sentence-transformers
 - **Multi-modal Embeddings**: Dense, sparse, and ColBERT
 - **Optimization Pipeline**: Configurable processing workflows
 - **Vector Storage**: Efficient storage and retrieval systems
 
 ### 3. **Service Architecture**
+
 - **FastAPI Integration**: RESTful APIs for all operations
 - **External Services**: MinerU, Nougat OCR integration
 - **Task Management**: Distributed processing capabilities
@@ -66,15 +69,17 @@ rag/
 ## 🛠️ Development Commands
 
 ### Installation & Setup
+
 ```bash
 make install              # Install core dependencies
 make install-cv           # Install computer vision extras
-make install-ocr          # Install OCR dependencies  
+make install-ocr          # Install OCR dependencies
 make install-full         # Install all optional dependencies
 make clean                # Clean build artifacts
 ```
 
 ### Development
+
 ```bash
 make dev                  # Start development server
 make test                 # Run tests (excludes slow/GPU tests)
@@ -84,6 +89,7 @@ make format               # Format code
 ```
 
 ### Document Processing
+
 ```bash
 make convert              # Run document conversion pipeline
 make embed                # Generate embeddings
@@ -92,47 +98,54 @@ make process              # Full processing pipeline
 
 ## 📦 Package Management
 
-The RAG pipeline uses Poetry with optional dependency groups:
+The RAG pipeline uses the unified monorepo Poetry environment. All package management commands automatically modify the root `pyproject.toml`:
 
 ```bash
-# Core ML dependencies (always installed)
-make add PKG=torch
+# Add dependencies (adds to root monorepo)
+make add PKG=torch                   # Add production dependency to root
+make add-dev PKG=pytest             # Add development dependency to root
 
-# Optional groups
-make install-extras EXTRAS=cv        # Computer vision
-make install-extras EXTRAS=ocr       # OCR capabilities
-make install-extras EXTRAS=ml-heavy  # Performance optimizations
-make install-extras EXTRAS=scientific # Scientific computing
+# Install optional feature groups (installs to root .venv)
+make install-cv                     # Computer vision support
+make install-ocr                    # OCR capabilities
+make install-ml-heavy               # Performance optimizations
+make install-video                  # Video processing
+make install-web                    # Web scraping
+make install-full                   # All optional features
 
-# Development tools
-make add-dev PKG=pytest
-make remove PKG=outdated-package
-make update                          # Update all dependencies
+# Manage packages (all modify root pyproject.toml)
+make remove PKG=outdated-package    # Remove from root
+make update                         # Update all dependencies in root
+make show PKG=torch                 # Show package info from root
 ```
+
+**Note**: This component uses the unified monorepo environment. All dependencies are managed in the root `pyproject.toml` and installed to `/tai/.venv`. The local `pyproject.toml` serves as documentation of RAG-specific dependencies.
 
 ### Available Extras
 
-| Extra | Description | Key Packages |
-|-------|-------------|--------------|
-| `cv` | Computer Vision | opencv, albumentations, scikit-image |
-| `ocr` | OCR Processing | paddleocr, pix2text, rapidocr |
-| `ml-heavy` | Performance | accelerate, optimum, onnx |
-| `scientific` | Scientific Computing | scipy, scikit-learn, numba |
-| `nlp` | NLP Tools | nltk, spacy, rapidfuzz |
-| `video` | Video Processing | moviepy, ffmpeg-python |
-| `web` | Web Scraping | playwright, selenium |
-| `formats` | Format Support | python-pptx, easyocr, pypdf |
+| Extra        | Description          | Key Packages                         |
+| ------------ | -------------------- | ------------------------------------ |
+| `cv`         | Computer Vision      | opencv, albumentations, scikit-image |
+| `ocr`        | OCR Processing       | paddleocr, pix2text, rapidocr        |
+| `ml-heavy`   | Performance          | accelerate, optimum, onnx            |
+| `scientific` | Scientific Computing | scipy, scikit-learn, numba           |
+| `nlp`        | NLP Tools            | nltk, spacy, rapidfuzz               |
+| `video`      | Video Processing     | moviepy, ffmpeg-python               |
+| `web`        | Web Scraping         | playwright, selenium                 |
+| `formats`    | Format Support       | python-pptx, easyocr, pypdf          |
 
 ## ⚙️ Configuration
 
 ### Environment Setup
 
 Create a `.env` file from the example:
+
 ```bash
 cp example.env .env
 ```
 
 Configure key settings:
+
 ```bash
 # Document processing
 INPUT_DIR=/path/to/documents
@@ -156,14 +169,14 @@ OCR_PROVIDER=paddleocr  # or nougat, mineru
 
 ### Supported Formats
 
-| Format | Converter | Features |
-|--------|-----------|----------|
-| PDF | `pdf_converter.py` | OCR, layout detection, table extraction |
-| Markdown | `md_converter.py` | Syntax parsing, metadata extraction |
-| HTML | `html_converter.py` | Clean text extraction, link preservation |
-| Python | `python_converter.py` | Code parsing, docstring extraction |
-| Jupyter | `notebook_converter.py` | Cell processing, output handling |
-| Video | `video_converter.py` | Transcript extraction, scene detection |
+| Format   | Converter               | Features                                 |
+| -------- | ----------------------- | ---------------------------------------- |
+| PDF      | `pdf_converter.py`      | OCR, layout detection, table extraction  |
+| Markdown | `md_converter.py`       | Syntax parsing, metadata extraction      |
+| HTML     | `html_converter.py`     | Clean text extraction, link preservation |
+| Python   | `python_converter.py`   | Code parsing, docstring extraction       |
+| Jupyter  | `notebook_converter.py` | Cell processing, output handling         |
+| Video    | `video_converter.py`    | Transcript extraction, scene detection   |
 
 ### Conversion Pipeline
 
@@ -219,7 +232,7 @@ MODELS = {
 # Chunking strategies
 STRATEGIES = {
     "recursive": "Recursive character splitting",
-    "paragraph": "Paragraph-based chunks", 
+    "paragraph": "Paragraph-based chunks",
     "sentence": "Sentence-based chunks",
     "semantic": "Semantic similarity splitting"
 }
@@ -276,7 +289,7 @@ Scientific document OCR:
 ```python
 from file_conversion_router.services.tai_nougat_service import NougatService
 
-service = NougatService(base_url="http://localhost:8002") 
+service = NougatService(base_url="http://localhost:8002")
 result = service.process_pdf("/path/to/scientific_paper.pdf")
 ```
 
@@ -299,6 +312,7 @@ status = manager.get_task_status(task_id)
 ## 🧪 Testing
 
 ### Test Structure
+
 ```
 tests/
 ├── test_file_conversion_router/    # Core conversion tests
@@ -327,7 +341,7 @@ poetry run pytest -m "slow" --durations=10
 ### Test Markers
 
 - `slow`: Time-intensive tests
-- `cv`: Computer vision tests  
+- `cv`: Computer vision tests
 - `ocr`: OCR functionality tests
 - `gpu`: GPU-required tests
 - `integration`: Service integration tests
@@ -336,12 +350,14 @@ poetry run pytest -m "slow" --durations=10
 ## 🔒 Security & Performance
 
 ### Security Features
+
 - **Input Validation**: Comprehensive file type and content validation
 - **Sandboxed Processing**: Isolated conversion environments
 - **Resource Limits**: Memory and CPU usage controls
 - **Path Traversal Protection**: Secure file handling
 
 ### Performance Optimizations
+
 - **Caching System**: Intelligent conversion result caching
 - **Batch Processing**: Efficient multi-document handling
 - **GPU Acceleration**: CUDA support for ML operations
@@ -402,6 +418,7 @@ poetry run uvicorn file_conversion_router.api:app --host 0.0.0.0 --port 8000
 ### Common Issues
 
 **OCR Dependencies**
+
 ```bash
 # Install OCR dependencies
 make install-ocr
@@ -411,6 +428,7 @@ poetry run python -c "import paddleocr; print('OCR ready')"
 ```
 
 **GPU Memory Issues**
+
 ```bash
 # Check GPU status
 poetry run python -c "import torch; print(torch.cuda.get_device_properties(0))"
@@ -421,6 +439,7 @@ export MAX_LENGTH=512
 ```
 
 **Model Download Issues**
+
 ```bash
 # Clear model cache
 rm -rf ~/.cache/huggingface/
@@ -456,7 +475,7 @@ class NewFormatConverter(BaseConverter):
     def convert(self, input_path: str, output_path: str) -> dict:
         # Implementation here
         pass
-        
+
     def validate_input(self, file_path: str) -> bool:
         # Validation logic
         pass
@@ -472,6 +491,7 @@ class NewFormatConverter(BaseConverter):
 ## 🆘 Support
 
 For issues and questions:
+
 1. Check the troubleshooting section above
 2. Review test cases for usage examples
 3. Consult the main [TAI Documentation](../README.md)

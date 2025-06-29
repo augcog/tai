@@ -4,7 +4,9 @@ from unittest.mock import patch, Mock
 import pytest
 import requests
 
-from rag.file_conversion_router.embedding_optimization.src.models.server_model_tai import ServerModelTAI
+from rag.file_conversion_router.embedding_optimization.src.models.server_model_tai import (
+    ServerModelTAI,
+)
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -29,7 +31,7 @@ class TestServerModelTAI:
             user_id="test_user",
             course_id="test_course",
             api_key="test_key",
-            timeout=60
+            timeout=60,
         )
         assert model.endpoint == "https://test.endpoint/api"  # Trailing slash removed
         assert model.user_id == "test_user"
@@ -43,20 +45,20 @@ class TestServerModelTAI:
         model = ServerModelTAI(endpoint="https://test.endpoint")
         headers = model._build_headers()
         assert headers == {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            "Content-Type": "application/json",
+            "Accept": "application/json",
         }
 
         # With API key
         model = ServerModelTAI(endpoint="https://test.endpoint", api_key="test_key")
         headers = model._build_headers()
         assert headers == {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer test_key'
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "Authorization": "Bearer test_key",
         }
 
-    @patch('requests.post')
+    @patch("requests.post")
     def test_successful_generation(self, mock_post):
         """Test successful text generation."""
         # Setup mock response
@@ -68,7 +70,7 @@ class TestServerModelTAI:
         model = ServerModelTAI(
             endpoint="https://test.endpoint",
             user_id="test_user",
-            course_id="test_course"
+            course_id="test_course",
         )
 
         result = model.generate("Test prompt")
@@ -84,22 +86,22 @@ class TestServerModelTAI:
         assert call_args[0][0] == "https://test.endpoint"
 
         # Verify payload
-        payload = call_args[1]['json']
+        payload = call_args[1]["json"]
         assert payload == {
-            'course': 'test_course',
-            'messages': [
+            "course": "test_course",
+            "messages": [
                 {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": "Test prompt"}
+                {"role": "user", "content": "Test prompt"},
             ],
-            'temperature': 0.7,
-            'stream': False,
-            'userId': 'test_user'
+            "temperature": 0.7,
+            "stream": False,
+            "userId": "test_user",
         }
 
         # Verify request parameters
-        assert call_args[1]['timeout'] == 30
+        assert call_args[1]["timeout"] == 30
 
-    @patch('requests.post')
+    @patch("requests.post")
     def test_error_handling(self, mock_post):
         """Test various error scenarios."""
         model = ServerModelTAI(endpoint="https://test.endpoint")
@@ -126,10 +128,12 @@ class TestServerModelTAI:
         mock_post.side_effect = None
         mock_post.return_value = mock_response
 
-        with pytest.raises(ValueError, match="Invalid response from server: content missing."):
+        with pytest.raises(
+            ValueError, match="Invalid response from server: content missing."
+        ):
             model.generate("Test prompt")
 
-    @patch('requests.post')
+    @patch("requests.post")
     def test_whitespace_handling(self, mock_post):
         """Test handling of whitespace in responses."""
         mock_response = Mock()
@@ -143,7 +147,7 @@ class TestServerModelTAI:
         # Verify whitespace is stripped
         assert result == "Response with whitespace"
 
-    @patch('requests.post')
+    @patch("requests.post")
     def test_logging(self, mock_post, caplog):
         """Test logging functionality."""
         model = ServerModelTAI(endpoint="https://test.endpoint")

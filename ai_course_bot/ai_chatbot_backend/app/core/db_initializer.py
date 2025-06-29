@@ -34,10 +34,12 @@ class DatabaseInitializer:
 
     def __init__(self, data_dir: str = "data"):
         self.data_dir = Path(data_dir)
-        self.engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={
-                                    "check_same_thread": False})
+        self.engine = create_engine(
+            SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+        )
         self.SessionLocal = sessionmaker(
-            autocommit=False, autoflush=False, bind=self.engine)
+            autocommit=False, autoflush=False, bind=self.engine
+        )
 
     def initialize_database(self) -> bool:
         """
@@ -58,11 +60,11 @@ class DatabaseInitializer:
             # Step 3: Import existing files from data directory
             if self.data_dir.exists():
                 imported_count = self._import_existing_files()
-                logger.info(
-                    f"📁 Imported {imported_count} files from data directory")
+                logger.info(f"📁 Imported {imported_count} files from data directory")
             else:
                 logger.info(
-                    f"📁 Data directory {self.data_dir} does not exist, skipping file import")
+                    f"📁 Data directory {self.data_dir} does not exist, skipping file import"
+                )
 
             # Step 4: Update course registry
             course_count = self._update_course_registry()
@@ -96,15 +98,13 @@ class DatabaseInitializer:
         try:
             # Check if we have the modern schema
             inspector = inspect(self.engine)
-            if 'file_registry' not in inspector.get_table_names():
-                logger.info(
-                    "✅ No existing file_registry table, using modern schema")
+            if "file_registry" not in inspector.get_table_names():
+                logger.info("✅ No existing file_registry table, using modern schema")
                 return True
 
             # Check column structure
-            columns = [col['name']
-                       for col in inspector.get_columns('file_registry')]
-            has_modern_schema = 'modified_at' in columns and 'updated_at' not in columns
+            columns = [col["name"] for col in inspector.get_columns("file_registry")]
+            has_modern_schema = "modified_at" in columns and "updated_at" not in columns
 
             if has_modern_schema:
                 logger.info("✅ Database already has modern schema")
@@ -123,23 +123,25 @@ class DatabaseInitializer:
             # This is a simplified version of the migration
             # For complex migrations, you might want to use the full migrate_to_modern_files.py script
 
-            db_path = SQLALCHEMY_DATABASE_URL.replace('sqlite:///', '')
+            db_path = SQLALCHEMY_DATABASE_URL.replace("sqlite:///", "")
             conn = sqlite3.connect(db_path)
             cursor = conn.cursor()
 
             # Backup existing data
-            cursor.execute("""
+            cursor.execute(
+                """
                 SELECT id, file_name, relative_path, mime_type, size_bytes,
                        course_code, category, title, is_active, created_at
                 FROM file_registry WHERE is_active = 1
-            """)
+            """
+            )
             existing_data = cursor.fetchall()
 
             if existing_data:
-                logger.info(
-                    f"💾 Backing up {len(existing_data)} existing files...")
+                logger.info(f"💾 Backing up {len(existing_data)} existing files...")
                 cursor.execute(
-                    "ALTER TABLE file_registry RENAME TO file_registry_backup")
+                    "ALTER TABLE file_registry RENAME TO file_registry_backup"
+                )
                 conn.commit()
 
             conn.close()
@@ -159,19 +161,25 @@ class DatabaseInitializer:
                             mime_type=row[3],
                             size_bytes=row[4],
                             course_code=row[5],
-                            category=row[6] if row[6] in [
-                                'document', 'video', 'audio', 'other'] else 'other',
+                            category=(
+                                row[6]
+                                if row[6] in ["document", "video", "audio", "other"]
+                                else "other"
+                            ),
                             title=row[7],
-                            is_active=bool(
-                                row[8]) if row[8] is not None else True,
-                            created_at=datetime.fromisoformat(
-                                row[9]) if row[9] else datetime.now()
+                            is_active=bool(row[8]) if row[8] is not None else True,
+                            created_at=(
+                                datetime.fromisoformat(row[9])
+                                if row[9]
+                                else datetime.now()
+                            ),
                         )
                         session.add(file_record)
 
                     session.commit()
                     logger.info(
-                        f"✅ Migrated {len(existing_data)} files to modern schema")
+                        f"✅ Migrated {len(existing_data)} files to modern schema"
+                    )
                 except Exception as e:
                     session.rollback()
                     logger.error(f"❌ Migration failed: {e}")
@@ -204,19 +212,18 @@ class DatabaseInitializer:
 
                 try:
                     # Calculate relative path from project root
-                    relative_path = str(
-                        abs_file_path.relative_to(project_root))
+                    relative_path = str(abs_file_path.relative_to(project_root))
                 except ValueError:
                     # If file is not under project root, use the path relative to data directory
                     try:
                         relative_path = str(
-                            abs_file_path.relative_to(self.data_dir.resolve()))
+                            abs_file_path.relative_to(self.data_dir.resolve())
+                        )
                         relative_path = f"{self.data_dir.name}/{relative_path}"
                     except ValueError:
                         # Fall back to absolute path if all else fails
                         relative_path = str(abs_file_path)
-                        logger.warning(
-                            f"Using absolute path for file: {relative_path}")
+                        logger.warning(f"Using absolute path for file: {relative_path}")
 
                 # Skip if already in database
                 if relative_path in existing_files:
@@ -229,12 +236,12 @@ class DatabaseInitializer:
                 file_record = FileRegistry(
                     file_name=file_path.name,
                     relative_path=relative_path,
-                    mime_type=metadata['mime_type'],
-                    size_bytes=metadata['size_bytes'],
-                    course_code=metadata['course_code'],
-                    category=metadata['category'],
-                    title=metadata['title'],
-                    is_active=True
+                    mime_type=metadata["mime_type"],
+                    size_bytes=metadata["size_bytes"],
+                    course_code=metadata["course_code"],
+                    category=metadata["category"],
+                    title=metadata["title"],
+                    is_active=True,
                 )
 
                 session.add(file_record)
@@ -264,8 +271,8 @@ class DatabaseInitializer:
             return files
 
         # Recursively find all files
-        for file_path in self.data_dir.rglob('*'):
-            if file_path.is_file() and not file_path.name.startswith('.'):
+        for file_path in self.data_dir.rglob("*"):
+            if file_path.is_file() and not file_path.name.startswith("."):
                 files.append(file_path)
 
         return files
@@ -278,32 +285,32 @@ class DatabaseInitializer:
         # Determine MIME type
         mime_type, _ = mimetypes.guess_type(str(file_path))
         if not mime_type:
-            mime_type = 'application/octet-stream'
+            mime_type = "application/octet-stream"
 
         # Extract course code from path (assumes data/COURSE_CODE/... structure)
         path_parts = file_path.parts
         course_code = None
-        if len(path_parts) > 1 and path_parts[0] == 'data':
+        if len(path_parts) > 1 and path_parts[0] == "data":
             course_code = path_parts[1] if len(path_parts) > 1 else None
 
         # Determine category from path
-        category = 'other'
-        if 'documents' in path_parts:
-            category = 'document'
-        elif 'videos' in path_parts:
-            category = 'video'
-        elif 'audios' in path_parts:
-            category = 'audio'
+        category = "other"
+        if "documents" in path_parts:
+            category = "document"
+        elif "videos" in path_parts:
+            category = "video"
+        elif "audios" in path_parts:
+            category = "audio"
 
         # Generate title from filename
-        title = file_path.stem.replace('_', ' ').replace('-', ' ').title()
+        title = file_path.stem.replace("_", " ").replace("-", " ").title()
 
         return {
-            'mime_type': mime_type,
-            'size_bytes': stats.st_size,
-            'course_code': course_code,
-            'category': category,
-            'title': title
+            "mime_type": mime_type,
+            "size_bytes": stats.st_size,
+            "course_code": course_code,
+            "category": category,
+            "title": title,
         }
 
     def _update_course_registry(self) -> int:
@@ -316,12 +323,12 @@ class DatabaseInitializer:
 
             if existing_course_count > 0:
                 logger.info(
-                    f"📚 Found {existing_course_count} existing courses in database, skipping course loading")
+                    f"📚 Found {existing_course_count} existing courses in database, skipping course loading"
+                )
                 return 0
 
             # Database is empty, proceed with JSON loading
-            logger.info(
-                "📄 Database is empty, loading courses from course.json...")
+            logger.info("📄 Database is empty, loading courses from course.json...")
             return self._load_courses_from_json(session)
 
         except Exception as e:
@@ -338,12 +345,11 @@ class DatabaseInitializer:
             course_json_path = Path("course.json")
 
             if not course_json_path.exists():
-                logger.warning(
-                    "📄 course.json not found, no courses will be loaded")
+                logger.warning("📄 course.json not found, no courses will be loaded")
                 return 0
 
             # Read JSON file
-            with open(course_json_path, 'r', encoding='utf-8') as f:
+            with open(course_json_path, "r", encoding="utf-8") as f:
                 courses_data = json.load(f)
 
             if not isinstance(courses_data, list):
@@ -354,21 +360,22 @@ class DatabaseInitializer:
             for course_data in courses_data:
                 try:
                     course = CourseModel(
-                        course_name=course_data.get(
-                            "course_name", "Unknown Course"),
+                        course_name=course_data.get("course_name", "Unknown Course"),
                         course_code=course_data.get("course_code", "UNKNOWN"),
                         server_url=course_data.get(
-                            "server_url", "http://128.32.43.233:8000"),
+                            "server_url", "http://128.32.43.233:8000"
+                        ),
                         semester=course_data.get("semester", "Fall 2024"),
                         enabled=course_data.get("enabled", True),
                         order=course_data.get("order", course_count),
                         access_type=course_data.get("access_type", "public"),
-                        school=course_data.get("school")
+                        school=course_data.get("school"),
                     )
                     session.add(course)
                     course_count += 1
                     logger.info(
-                        f"📚 Loading course: {course.course_name} ({course.course_code})")
+                        f"📚 Loading course: {course.course_name} ({course.course_code})"
+                    )
 
                 except Exception as e:
                     logger.error(f"❌ Failed to load course {course_data}: {e}")
@@ -376,7 +383,8 @@ class DatabaseInitializer:
 
             session.commit()
             logger.info(
-                f"✅ Successfully loaded {course_count} courses from course.json")
+                f"✅ Successfully loaded {course_count} courses from course.json"
+            )
 
         except Exception as e:
             session.rollback()
@@ -389,28 +397,30 @@ class DatabaseInitializer:
         try:
             session = self.SessionLocal()
 
-            file_count = session.query(FileRegistry).filter(
-                FileRegistry.is_active == True).count()
+            file_count = (
+                session.query(FileRegistry)
+                .filter(FileRegistry.is_active == True)
+                .count()
+            )
             course_count = session.query(CourseModel).count()
 
             session.close()
 
             # Check database file size
-            db_path = SQLALCHEMY_DATABASE_URL.replace('sqlite:///', '')
-            db_size = Path(db_path).stat().st_size if Path(
-                db_path).exists() else 0
+            db_path = SQLALCHEMY_DATABASE_URL.replace("sqlite:///", "")
+            db_size = Path(db_path).stat().st_size if Path(db_path).exists() else 0
 
             return {
-                'database_exists': Path(db_path).exists(),
-                'database_size_bytes': db_size,
-                'file_count': file_count,
-                'course_count': course_count,
-                'data_directory_exists': self.data_dir.exists()
+                "database_exists": Path(db_path).exists(),
+                "database_size_bytes": db_size,
+                "file_count": file_count,
+                "course_count": course_count,
+                "data_directory_exists": self.data_dir.exists(),
             }
 
         except Exception as e:
             logger.error(f"❌ Failed to get database status: {e}")
-            return {'error': str(e)}
+            return {"error": str(e)}
 
 
 # Global initializer instance

@@ -29,15 +29,15 @@ class Summarizer:
     async def generate_summary(self, file_path: str) -> Dict[str, str]:
         """
         Generate a summary for a given file.
-        
+
         Args:
             file_path: Path to the file to summarize
-            
+
         Returns:
             Dictionary with file path as key and summary as value
         """
         # Read file content
-        with open(file_path, 'r', encoding='utf-8') as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             file_content = f.read()
 
         if len(file_content) < self.config.min_chunk_size:
@@ -49,12 +49,8 @@ class Summarizer:
         chunk_summaries = []
         for i, chunk in enumerate(chunks, 1):
             # Generate prompt
-            messages = self.prompt_service.create_chunk_summary_prompt(
-                chunk=chunk
-            )
-            chunk_summary = await self.model.chat(
-                messages=messages
-            )
+            messages = self.prompt_service.create_chunk_summary_prompt(chunk=chunk)
+            chunk_summary = await self.model.chat(messages=messages)
             chunk_summaries.append(chunk_summary.strip())
 
         # messages = self.prompt_service.create_combined_summary_prompt(
@@ -74,10 +70,10 @@ class Summarizer:
     async def generate_all_summaries(self, file_paths: list) -> Dict[str, str]:
         """
         Generate summaries for multiple files in batch.
-        
+
         Args:
             file_paths: List of file paths to summarize
-            
+
         Returns:
             Dictionary mapping file paths to their summaries
         """
@@ -93,41 +89,43 @@ class Summarizer:
                 continue
         # sort summaries by file name
         summaries = dict(sorted(summaries.items(), key=lambda item: item[0]))
-        return summaries 
+        return summaries
 
-    async def process_folder(self, input_folder_path: str | Path, output_path: str | Path, text_filter: str = None) -> Dict[str, str]:
+    async def process_folder(
+        self,
+        input_folder_path: str | Path,
+        output_path: str | Path,
+        text_filter: str = None,
+    ) -> Dict[str, str]:
         """
         Process all markdown files in a folder and save their summaries.
-        
+
         Args:
             input_folder_path: Path to the folder containing markdown files
             output_path: Path where to save the summaries JSON file
             text_filter: Optional text to filter filenames
-            
+
         Returns:
             Dictionary mapping file paths to their summaries
-            
+
         Raises:
             ValueError: If the input folder doesn't exist
             IOError: If there's an error writing the output file
         """
         # Find all markdown files
         file_paths = find_markdown_files(input_folder_path, text_filter)
-        
+
         if not file_paths:
             logger.info(f"No markdown files found in {input_folder_path}")
             return {}
-            
+
         logger.info(f"Found {len(file_paths)} markdown files")
-        
+
         # Generate summaries for all files
         summaries = await self.generate_all_summaries(file_paths)
-        
+
         # Save summaries to JSON
         save_dict_to_json(summaries, output_path)
         logger.info(f"Summaries saved to {output_path}")
-        
+
         return summaries
-
-
- 

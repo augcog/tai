@@ -24,7 +24,9 @@ def load_conversion_version(version_file_path):
 
 
 def is_empty_md(file_hash):
-    return file_hash == "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    return (
+        file_hash == "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    )
 
 
 def check_url(url: str) -> int:

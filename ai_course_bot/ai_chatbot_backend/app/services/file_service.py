@@ -39,8 +39,7 @@ class FileService:
     def _get_base_directory(self) -> Path:
         """Get base directory with proper validation"""
         if hasattr(settings, "DATA_DIR") and settings.DATA_DIR:
-            data_dir = str(settings.DATA_DIR).split('#')[
-                0].strip().strip('"\'')
+            data_dir = str(settings.DATA_DIR).split("#")[0].strip().strip("\"'")
             if os.path.isabs(data_dir):
                 base_path = Path(data_dir)
             else:
@@ -56,47 +55,51 @@ class FileService:
 
     def _extract_metadata(self, relative_path: str) -> Dict[str, Any]:
         """Extract simple, essential metadata from file path"""
-        parts = relative_path.split('/')
+        parts = relative_path.split("/")
         metadata = {}
 
         # Extract course code (first directory)
         if len(parts) >= 1:
-            metadata['course_code'] = parts[0]
+            metadata["course_code"] = parts[0]
 
         # Extract category (second directory) - simplified
         if len(parts) >= 2:
             category_map = {
-                'documents': 'document',
-                'videos': 'video',
-                'audios': 'audio',
-                'others': 'other'
+                "documents": "document",
+                "videos": "video",
+                "audios": "audio",
+                "others": "other",
             }
-            metadata['category'] = category_map.get(parts[1], 'other')
+            metadata["category"] = category_map.get(parts[1], "other")
 
         # Generate clean title from filename
         filename = parts[-1] if parts else ""
         if filename:
-            title = filename.rsplit('.', 1)[0]  # Remove extension
-            title = re.sub(r'[_-]', ' ', title)  # Replace with spaces
-            title = re.sub(r'\s+', ' ', title).strip()  # Normalize
+            title = filename.rsplit(".", 1)[0]  # Remove extension
+            title = re.sub(r"[_-]", " ", title)  # Replace with spaces
+            title = re.sub(r"\s+", " ", title).strip()  # Normalize
             title = title.title()  # Title case
-            metadata['title'] = title
+            metadata["title"] = title
 
         return metadata
 
-    def _discover_and_register_file(self, db: Session, file_path: Path, relative_path: str) -> Optional[FileRegistry]:
+    def _discover_and_register_file(
+        self, db: Session, file_path: Path, relative_path: str
+    ) -> Optional[FileRegistry]:
         """Discover and register a single file with proper error handling"""
         try:
             # Check if already registered
-            existing = db.query(FileRegistry).filter(
-                FileRegistry.relative_path == relative_path
-            ).first()
+            existing = (
+                db.query(FileRegistry)
+                .filter(FileRegistry.relative_path == relative_path)
+                .first()
+            )
 
             # Get file stats
             file_stat = file_path.stat()
             mime_type, _ = mimetypes.guess_type(str(file_path))
             if not mime_type:
-                mime_type = 'application/octet-stream'
+                mime_type = "application/octet-stream"
 
             if existing:
                 # Update if file changed
@@ -118,7 +121,7 @@ class FileService:
                     mime_type=mime_type,
                     size_bytes=file_stat.st_size,
                     is_active=True,
-                    **metadata
+                    **metadata,
                 )
 
                 db.add(file_record)
@@ -136,7 +139,7 @@ class FileService:
 
         try:
             discovered = 0
-            for file_path in self.base_dir.rglob('*'):
+            for file_path in self.base_dir.rglob("*"):
                 if discovered >= limit:  # Limit to keep API responsive
                     break
 
@@ -144,7 +147,7 @@ class FileService:
                     continue
 
                 # Skip hidden files and system files
-                if any(part.startswith('.') for part in file_path.parts):
+                if any(part.startswith(".") for part in file_path.parts):
                     continue
 
                 relative_path = str(file_path.relative_to(self.base_dir))
@@ -154,13 +157,14 @@ class FileService:
                     continue
 
                 # Check if already in database
-                exists = db.query(FileRegistry).filter(
-                    FileRegistry.relative_path == relative_path
-                ).first()
+                exists = (
+                    db.query(FileRegistry)
+                    .filter(FileRegistry.relative_path == relative_path)
+                    .first()
+                )
 
                 if not exists:
-                    self._discover_and_register_file(
-                        db, file_path, relative_path)
+                    self._discover_and_register_file(db, file_path, relative_path)
                     discovered += 1
 
                 # Cache to avoid repeated checks
@@ -183,19 +187,17 @@ class FileService:
 
         # Apply simple, essential filters only
         filter_conditions = []
-        if filters.get('course_code'):
-            filter_conditions.append(
-                FileRegistry.course_code == filters['course_code'])
+        if filters.get("course_code"):
+            filter_conditions.append(FileRegistry.course_code == filters["course_code"])
 
-        if filters.get('category'):
-            filter_conditions.append(
-                FileRegistry.category == filters['category'])
+        if filters.get("category"):
+            filter_conditions.append(FileRegistry.category == filters["category"])
 
-        if filters.get('search'):
+        if filters.get("search"):
             search_term = f"%{filters['search']}%"
             filter_conditions.append(
-                FileRegistry.file_name.ilike(search_term) |
-                FileRegistry.title.ilike(search_term)
+                FileRegistry.file_name.ilike(search_term)
+                | FileRegistry.title.ilike(search_term)
             )
 
         # Apply all filters
@@ -206,54 +208,51 @@ class FileService:
         total_count = query.count()
 
         # Apply sorting
-        sort_by = filters.get('sort_by', 'created_at')
-        sort_order = filters.get('sort_order', 'desc')
+        sort_by = filters.get("sort_by", "created_at")
+        sort_order = filters.get("sort_order", "desc")
 
         sort_column = getattr(FileRegistry, sort_by, FileRegistry.created_at)
-        if sort_order.lower() == 'asc':
+        if sort_order.lower() == "asc":
             query = query.order_by(sort_column.asc())
         else:
             query = query.order_by(sort_column.desc())
 
         # Apply pagination
-        page = filters.get('page', 1)
-        limit = filters.get('limit', 100)
+        page = filters.get("page", 1)
+        limit = filters.get("limit", 100)
         offset = (page - 1) * limit
 
         files = query.offset(offset).limit(limit).all()
 
         return {
-            'files': files,
-            'total_count': total_count,
-            'page': page,
-            'limit': limit,
-            'has_next': offset + limit < total_count,
-            'has_prev': page > 1
+            "files": files,
+            "total_count": total_count,
+            "page": page,
+            "limit": limit,
+            "has_next": offset + limit < total_count,
+            "has_prev": page > 1,
         }
 
     def get_file_by_id(self, db: Session, file_id: UUID) -> Optional[FileRegistry]:
         """Get file by UUID with validation"""
-        return db.query(FileRegistry).filter(
-            and_(
-                FileRegistry.id == file_id,
-                FileRegistry.is_active == True
-            )
-        ).first()
+        return (
+            db.query(FileRegistry)
+            .filter(and_(FileRegistry.id == file_id, FileRegistry.is_active == True))
+            .first()
+        )
 
     def get_file_content(self, db: Session, file_id: UUID) -> FileResponse:
         """Get file content with security and access tracking"""
         file_record = self.get_file_by_id(db, file_id)
         if not file_record:
             raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="File not found"
+                status_code=status.HTTP_404_NOT_FOUND, detail="File not found"
             )
 
         file_path = self.base_dir / file_record.relative_path
         if not file_path.exists():
             raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="File not found on disk"
+                status_code=status.HTTP_404_NOT_FOUND, detail="File not found on disk"
             )
 
         # Security check - ensure file is within base directory
@@ -261,8 +260,7 @@ class FileService:
             file_path.resolve().relative_to(self.base_dir.resolve())
         except ValueError:
             raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="Access denied"
+                status_code=status.HTTP_403_FORBIDDEN, detail="Access denied"
             )
 
         # Note: Access tracking removed for simplicity
@@ -271,7 +269,7 @@ class FileService:
         return FileResponse(
             path=str(file_path),
             media_type=file_record.mime_type,
-            filename=file_record.file_name
+            filename=file_record.file_name,
         )
 
     def get_stats(self, db: Session) -> Dict[str, Any]:
@@ -279,25 +277,30 @@ class FileService:
         # Auto-discover before stats
         self._auto_discover_files(db)
 
-        total_files = db.query(FileRegistry).filter(
-            FileRegistry.is_active == True).count()
+        total_files = (
+            db.query(FileRegistry).filter(FileRegistry.is_active == True).count()
+        )
 
         # Get course breakdown
         from sqlalchemy import func
-        course_stats = db.query(
-            FileRegistry.course_code,
-            func.count(FileRegistry.id).label('count')
-        ).filter(
-            FileRegistry.is_active == True,
-            FileRegistry.course_code.isnot(None)
-        ).group_by(FileRegistry.course_code).all()
+
+        course_stats = (
+            db.query(
+                FileRegistry.course_code, func.count(FileRegistry.id).label("count")
+            )
+            .filter(
+                FileRegistry.is_active == True, FileRegistry.course_code.isnot(None)
+            )
+            .group_by(FileRegistry.course_code)
+            .all()
+        )
 
         return {
             "total_files": total_files,
             "base_directory": str(self.base_dir),
             "auto_discovery": "enabled",
             "courses": {code: count for code, count in course_stats},
-            "last_updated": datetime.now()
+            "last_updated": datetime.now(),
         }
 
 

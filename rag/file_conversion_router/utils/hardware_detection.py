@@ -19,7 +19,11 @@ def detect_is_apple_silicon():
     if system == "Darwin":  # macOS
         # Check if it's Apple Silicon
         try:
-            output = subprocess.check_output(["sysctl", "-n", "machdep.cpu.brand_string"]).decode().strip()
+            output = (
+                subprocess.check_output(["sysctl", "-n", "machdep.cpu.brand_string"])
+                .decode()
+                .strip()
+            )
             if "Apple" in output:
                 return True
         except subprocess.CalledProcessError:

@@ -4,7 +4,12 @@ import yaml
 import os
 import json
 from rag.scraper.Scraper_master.scrapers.base_scraper import BaseScraper
-from rag.scraper.Scraper_master.utils.file_utils import create_and_enter_dir, cd_back_link, replace_backslash_with_slash, save_to_file
+from rag.scraper.Scraper_master.utils.file_utils import (
+    create_and_enter_dir,
+    cd_back_link,
+    replace_backslash_with_slash,
+    save_to_file,
+)
 
 
 class ScrapeMd(BaseScraper):
@@ -20,16 +25,15 @@ class ScrapeMd(BaseScraper):
         - Returns: The content fetched from the URL.
         """
         # Fetch the content from the URL
-        headers = {'Accept': 'application/json'}
+        headers = {"Accept": "application/json"}
         response = requests.get(url, headers=headers)
         data = response.json()
-        content = data['payload']['blob']['rawLines']
+        content = data["payload"]["blob"]["rawLines"]
 
         # Convert the content list into a single string
-        content = '\n'.join(content)
+        content = "\n".join(content)
 
         return content
-
 
     def fetch_file_content_from_github(self, url):
         """
@@ -39,9 +43,8 @@ class ScrapeMd(BaseScraper):
         """
         response = requests.get(url)
         data = response.json()
-        content = base64.b64decode(data['content']).decode('utf-8')
+        content = base64.b64decode(data["content"]).decode("utf-8")
         return content
-
 
     def get_url_child(self, url):
         """
@@ -49,17 +52,16 @@ class ScrapeMd(BaseScraper):
         - url (str): The GitHub directory URL to fetch the markdown files from.
         - Returns: A list of markdown file names.
         """
-        headers = {'Accept': 'application/json'}
+        headers = {"Accept": "application/json"}
         response = requests.get(url, headers=headers)
         data = response.json()
         childs = []
         md_files = data["payload"]["tree"]["items"]
         for i in md_files:
-            name = i['name']
-            if name.endswith('.md'):
+            name = i["name"]
+            if name.endswith(".md"):
                 childs.append(name)
         return childs
-
 
     def fetch_urls(self, base_url, nav):
         """
@@ -80,21 +82,21 @@ class ScrapeMd(BaseScraper):
                 os.chdir(cur_dir)
                 continue
             key, value = i.popitem()
-            if (not key):
+            if not key:
                 continue
             create_and_enter_dir(key)
             # if it is nested
             if isinstance(value, list):
                 self.fetch_urls(base_url, value)
             # if it is not md
-            elif value.endswith('/') and not value.startswith('http'):
+            elif value.endswith("/") and not value.startswith("http"):
                 cur_child_dir = os.getcwd()
                 url = os.path.join(base_url, value)
                 childs = self.get_url_child(url)
                 print(childs)
                 for child in childs:
                     filename = value.split("/")[-1]
-                    create_and_enter_dir(child.replace('.md', ''))
+                    create_and_enter_dir(child.replace(".md", ""))
                     child_url = os.path.join(url, child)
                     child_url += "?plain=1"
                     filename = child
@@ -102,7 +104,7 @@ class ScrapeMd(BaseScraper):
                     self.metadata_extract(filename, child_url)
                     os.chdir(cur_child_dir)
 
-            elif not value.endswith('.md'):
+            elif not value.endswith(".md"):
                 continue
             else:
                 url = os.path.join(base_url, value)
@@ -112,11 +114,6 @@ class ScrapeMd(BaseScraper):
                 self.metadata_extract(filename, url)
 
             os.chdir(cur_dir)
-
-
-
-
-
 
     def extract_yaml_sections(self, data: str) -> str:
         """
@@ -136,7 +133,11 @@ class ScrapeMd(BaseScraper):
             elif stripped_line.startswith("nav:"):
                 result.append(lines[i])
                 cur = i + 1
-                while lines[cur].strip().startswith("-") or lines[cur].strip() == ("") or lines[cur].strip().startswith("#"):
+                while (
+                    lines[cur].strip().startswith("-")
+                    or lines[cur].strip() == ("")
+                    or lines[cur].strip().startswith("#")
+                ):
                     result.append(lines[cur])
                     cur += 1
                     if cur >= len(lines):
@@ -152,7 +153,7 @@ class ScrapeMd(BaseScraper):
     def scrape(self) -> None:
         create_and_enter_dir(self.root_filename)
         # Set headers for the request to specify that application/json is accepted
-        headers = {'Accept': 'application/json'}
+        headers = {"Accept": "application/json"}
 
         # Send the GET request
         response = requests.get(self.url, headers=headers)
@@ -161,8 +162,8 @@ class ScrapeMd(BaseScraper):
         data = response.json()
 
         # Extract specific content, assumed to be raw YAML lines
-        content = data['payload']['blob']['rawLines']
-        content = '\n'.join(content)
+        content = data["payload"]["blob"]["rawLines"]
+        content = "\n".join(content)
 
         # Function to extract YAML sections, assuming it's defined elsewhere
         content = self.extract_yaml_sections(content)
@@ -171,13 +172,13 @@ class ScrapeMd(BaseScraper):
         parsed_yaml = yaml.load(content, Loader=yaml.SafeLoader)
 
         # Extract various pieces of data from the YAML
-        repo_url = parsed_yaml['repo_url']
-        edit_url = parsed_yaml.get('edit_uri')
+        repo_url = parsed_yaml["repo_url"]
+        edit_url = parsed_yaml.get("edit_uri")
         if edit_url:
-            edit_url = edit_url.replace('\\', '/').replace('edit/', 'blob/')
+            edit_url = edit_url.replace("\\", "/").replace("edit/", "blob/")
 
         # Determine the base URL using a function cd_back_link assumed to be defined elsewhere
-        docs_dir = parsed_yaml.get('docs_dir', None)
+        docs_dir = parsed_yaml.get("docs_dir", None)
         if docs_dir:
             base_url = os.path.join(cd_back_link(self.url), docs_dir)
         else:
@@ -185,19 +186,20 @@ class ScrapeMd(BaseScraper):
         base_url = replace_backslash_with_slash(base_url)
 
         # Fetch URLs based on navigation data
-        nav = parsed_yaml['nav']
+        nav = parsed_yaml["nav"]
         self.fetch_urls(base_url, nav)
+
     def content_extract(self, filename, url, **kwargs):
         markdown = self.get_content(url)
         save_to_file(filename, markdown)
 
     def metadata_extract(self, filename, url, **kwargs):
         yaml_content = f"URL: {self.site_url}{url.split('/')[-1].split('.md')[0]}/"
-        save_to_file(f'{filename}_metadata.yaml', yaml_content)
+        save_to_file(f"{filename}_metadata.yaml", yaml_content)
 
-if __name__ == '__main__':
-    root_filename = 'MonashDataFluency'
+
+if __name__ == "__main__":
+    root_filename = "MonashDataFluency"
     site_url = "https://monashdatafluency.github.io/python-web-scraping/"
     github_url = "https://github.com/MonashDataFluency/python-web-scraping/blob/master/mkdocs.yml"
     ScrapeMd(github_url, site_url, root_filename).scrape()
-

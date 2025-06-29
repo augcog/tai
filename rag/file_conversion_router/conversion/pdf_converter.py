@@ -5,9 +5,13 @@ from pathlib import Path
 
 import fitz
 from rag.file_conversion_router.conversion.base_converter import BaseConverter
+
 # from rag.file_conversion_router.services.tai_nougat_service import TAINougatConfig
 # from rag.file_conversion_router.services.tai_nougat_service.api import convert_pdf_to_mmd
-from rag.file_conversion_router.services.tai_MinerU_service.api import convert_pdf_to_md_by_MinerU
+from rag.file_conversion_router.services.tai_MinerU_service.api import (
+    convert_pdf_to_md_by_MinerU,
+)
+
 
 class PdfConverter(BaseConverter):
     def __init__(self):
@@ -25,16 +29,15 @@ class PdfConverter(BaseConverter):
         Remove image links from the text.
         """
         # Regular expression to match image links
-        image_link_pattern = r'!\[.*?\]\(.*?\)'
+        image_link_pattern = r"!\[.*?\]\(.*?\)"
         # Remove all image links
-        return re.sub(image_link_pattern, '', text)
-
+        return re.sub(image_link_pattern, "", text)
 
     def clean_markdown_content(self, markdown_content):
-        with open(markdown_content, 'r', encoding='utf-8') as file:
+        with open(markdown_content, "r", encoding="utf-8") as file:
             content = file.read()
         cleaned_content = self.remove_image_links(content)
-        with open(markdown_content, 'w', encoding='utf-8') as file:
+        with open(markdown_content, "w", encoding="utf-8") as file:
             file.write(cleaned_content)
 
     def validate_tool(self, tool_name):
@@ -42,7 +45,9 @@ class PdfConverter(BaseConverter):
         Validate if the tool is supported, raise an error if not.
         """
         if not self.is_tool_supported(tool_name):
-            raise ValueError(f"Tool '{tool_name}' is not supported. Available tools: {', '.join(self.available_tools)}")
+            raise ValueError(
+                f"Tool '{tool_name}' is not supported. Available tools: {', '.join(self.available_tools)}"
+            )
 
     def extract_and_convert_pdf_to_md(self, pdf_path, md_path, output_folder):
         # Open the PDF document
@@ -54,28 +59,38 @@ class PdfConverter(BaseConverter):
             return
 
         # Read the existing Markdown content
-        with open(md_path, 'r', encoding='utf-8') as md_file:
+        with open(md_path, "r", encoding="utf-8") as md_file:
             markdown_content = md_file.read()
 
         # Match all forms of MISSING_PAGE markers
-        missing_pages = re.findall(r'\[MISSING_PAGE.*?:(\d+)\]', markdown_content)
+        missing_pages = re.findall(r"\[MISSING_PAGE.*?:(\d+)\]", markdown_content)
         if missing_pages:
-            self._content_logger.warning(f"Found {len(missing_pages)} Missing pages when converting {pdf_path}")
+            self._content_logger.warning(
+                f"Found {len(missing_pages)} Missing pages when converting {pdf_path}"
+            )
 
         # Extract missing pages as separate PDF files
         for page_number in missing_pages:
             page_index = int(page_number) - 1
             page = pdf_document.load_page(page_index)
-            single_page_pdf_path = os.path.join(output_folder, f"page_{page_number}.pdf")
+            single_page_pdf_path = os.path.join(
+                output_folder, f"page_{page_number}.pdf"
+            )
             single_page_document = fitz.open()
-            single_page_document.insert_pdf(pdf_document, from_page=page_index, to_page=page_index)
+            single_page_document.insert_pdf(
+                pdf_document, from_page=page_index, to_page=page_index
+            )
             single_page_document.save(single_page_pdf_path)
 
             # Run Nougat on the single page PDF
-            single_page_output_folder = os.path.join(output_folder, f"page_{page_number}_output")
+            single_page_output_folder = os.path.join(
+                output_folder, f"page_{page_number}_output"
+            )
             if not os.path.exists(single_page_output_folder):
                 os.makedirs(single_page_output_folder)
-            self.convert_pdf_to_markdown(single_page_pdf_path, single_page_output_folder)
+            self.convert_pdf_to_markdown(
+                single_page_pdf_path, single_page_output_folder
+            )
 
             # Read the generated Markdown content for this page
             single_page_md_files = os.listdir(single_page_output_folder)
@@ -83,27 +98,39 @@ class PdfConverter(BaseConverter):
                 print(f"No Markdown file generated for page {page_number}")
                 continue
 
-            single_page_md_path = os.path.join(single_page_output_folder, single_page_md_files[0])
-            with open(single_page_md_path, 'r', encoding='utf-8') as single_page_md_file:
+            single_page_md_path = os.path.join(
+                single_page_output_folder, single_page_md_files[0]
+            )
+            with open(
+                single_page_md_path, "r", encoding="utf-8"
+            ) as single_page_md_file:
                 single_page_md_content = single_page_md_file.read()
 
             # Escape backslashes in single_page_md_content
-            single_page_md_content = single_page_md_content.replace('\\', '\\\\')
+            single_page_md_content = single_page_md_content.replace("\\", "\\\\")
 
-            self._content_logger.info(f"missing page {page_number} replaced"
-                                      f"with content: {single_page_md_content[:100]}...")
+            self._content_logger.info(
+                f"missing page {page_number} replaced"
+                f"with content: {single_page_md_content[:100]}..."
+            )
 
             # Replace the missing page marker with the actual content
-            markdown_content = re.sub(rf'\[MISSING_PAGE.*?:{page_number}\]', single_page_md_content, markdown_content)
+            markdown_content = re.sub(
+                rf"\[MISSING_PAGE.*?:{page_number}\]",
+                single_page_md_content,
+                markdown_content,
+            )
 
         pdf_document.close()
 
         # Save the updated Markdown content
-        with open(md_path, 'w', encoding='utf-8') as md_file:
+        with open(md_path, "w", encoding="utf-8") as md_file:
             md_file.write(markdown_content)
 
     # Override
-    def _to_markdown(self, input_path: Path, output_path: Path, conversion_method: str = "MinerU") -> Path:
+    def _to_markdown(
+        self, input_path: Path, output_path: Path, conversion_method: str = "MinerU"
+    ) -> Path:
         # """Perform PDF to Markdown conversion using Nougat with the detected hardware configuration."""
         self.validate_tool(conversion_method)
         temp_dir_path = output_path.parent
@@ -114,20 +141,21 @@ class PdfConverter(BaseConverter):
 
         # Convert the PDF to Markdown using Nougat.
         if conversion_method == "nougat":
-            print('Using Nougat')
+            print("Using Nougat")
             # Define the path for the PDF without images in the output directory
             pdf_without_images_path = temp_dir_path / input_path.name
             # Remove images from the PDF and save to the output directory
             self._to_markdown_using_tai_nougat(pdf_without_images_path, output_path)
             # Now change the file name of generated mmd file to align with the expected md file path from base converter
             output_mmd_path = output_path.with_suffix(".mmd")
-            self.extract_and_convert_pdf_to_md(str(pdf_without_images_path), str(output_mmd_path), str(temp_dir_path))
+            self.extract_and_convert_pdf_to_md(
+                str(pdf_without_images_path), str(output_mmd_path), str(temp_dir_path)
+            )
             target = output_path.with_suffix(".md")
             output_mmd_path.rename(target)
             print(output_mmd_path)
             # Rename it to md file
             target = output_path.with_suffix(".md")
-
 
         elif conversion_method == "MinerU":
             convert_pdf_to_md_by_MinerU(input_path, output_path)

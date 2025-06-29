@@ -37,10 +37,14 @@ class ConversionCache:
     _times_cache: Dict[str, float] = {}  # In-memory conversion times
     _access_count: Dict[str, int] = {}  # In-memory access counts
     _cache_file_path: Optional[Path] = None  # Cache file path
-    version = load_conversion_version(Path(__file__).parent.parent / "conversion_version.txt")
+    version = load_conversion_version(
+        Path(__file__).parent.parent / "conversion_version.txt"
+    )
 
     def __init__(self, *args, **kwargs):
-        raise RuntimeError("ConversionCache is a singleton. Use ConversionCache.method() directly.")
+        raise RuntimeError(
+            "ConversionCache is a singleton. Use ConversionCache.method() directly."
+        )
 
     @classmethod
     def set_cache_path(cls, cache_file_path: Optional[Union[str, Path]]):
@@ -58,7 +62,9 @@ class ConversionCache:
                     with cls._cache_file_path.open("rb") as f:
                         cls._cache = pickle.load(f)
                 except Exception as e:
-                    print(f"Warning: Failed to load cache from {cls._cache_file_path}: {e}")
+                    print(
+                        f"Warning: Failed to load cache from {cls._cache_file_path}: {e}"
+                    )
                     cls._cache = {}
 
     @classmethod
@@ -71,7 +77,9 @@ class ConversionCache:
                     with cls._cache_file_path.open("wb") as f:
                         pickle.dump(cls._cache, f)
                 except Exception as e:
-                    print(f"Warning: Failed to save cache to {cls._cache_file_path}: {e}")
+                    print(
+                        f"Warning: Failed to save cache to {cls._cache_file_path}: {e}"
+                    )
 
     @classmethod
     def get_cached_paths(cls, file_hash: str) -> Optional[List[str]]:
@@ -86,10 +94,16 @@ class ConversionCache:
     def get_file_conversion_version(cls, file_hash: str) -> Optional[str]:
         """Return the conversion version for a given file hash."""
         with cls._lock:
-            return cls._cache[file_hash]["conversion_version"] if file_hash in cls._cache else None
+            return (
+                cls._cache[file_hash]["conversion_version"]
+                if file_hash in cls._cache
+                else None
+            )
 
     @classmethod
-    def set_cache_and_time(cls, file_hash: str, input_path: str, paths: List[Path], time_taken: float) -> None:
+    def set_cache_and_time(
+        cls, file_hash: str, input_path: str, paths: List[Path], time_taken: float
+    ) -> None:
         """Store cached conversion results and record the conversion time."""
         with cls._lock:
             str_paths = [str(p) for p in paths]
@@ -147,5 +161,3 @@ class ConversionCache:
                 for file_hash, time in cls._times_cache.items()
                 if (accesses := cls._access_count.get(file_hash, 0)) > 0
             )
-
-

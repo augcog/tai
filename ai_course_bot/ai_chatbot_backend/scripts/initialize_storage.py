@@ -14,33 +14,15 @@ import argparse
 COURSE_DIRECTORY_STRUCTURE = {
     "documents": {
         "display_name": "Documents",
-        "subdirs": [
-            "lab_material",
-            "code_script",
-            "exams",
-            "past_projects"
-        ]
+        "subdirs": ["lab_material", "code_script", "exams", "past_projects"],
     },
-    "videos": {
-        "display_name": "Videos",
-        "subdirs": []
-    },
-    "audios": {
-        "display_name": "Audio",
-        "subdirs": []
-    },
-    "others": {
-        "display_name": "Others",
-        "subdirs": []
-    }
+    "videos": {"display_name": "Videos", "subdirs": []},
+    "audios": {"display_name": "Audio", "subdirs": []},
+    "others": {"display_name": "Others", "subdirs": []},
 }
 
 # Define courses
-EXAMPLE_COURSES = [
-    "CS61A",
-    "CS61B",
-    "CS170"
-]
+EXAMPLE_COURSES = ["CS61A", "CS61B", "CS170"]
 
 
 def initialize_directories(base_dir: Path, courses=None, clean=False):
@@ -119,7 +101,8 @@ def create_example_files(base_dir: Path):
     with open(example_video_stub, "w") as f:
         f.write("This is a stub for a video file. Replace with actual MP4 file.\n")
         f.write(
-            "The .stub extension is just for demonstration and should be removed for real files.\n")
+            "The .stub extension is just for demonstration and should be removed for real files.\n"
+        )
     print(f"Created example video stub: {example_video_stub}")
 
 
@@ -132,23 +115,21 @@ def main():
         "--base-dir",
         type=str,
         default="data",
-        help="Base directory for file storage (default: data)"
+        help="Base directory for file storage (default: data)",
     )
     parser.add_argument(
         "--courses",
         nargs="+",
         default=EXAMPLE_COURSES,
-        help="List of course codes to create subdirectories for"
+        help="List of course codes to create subdirectories for",
     )
     parser.add_argument(
         "--clean",
         action="store_true",
-        help="Clean the base directory before initializing"
+        help="Clean the base directory before initializing",
     )
     parser.add_argument(
-        "--examples",
-        action="store_true",
-        help="Create example placeholder files"
+        "--examples", action="store_true", help="Create example placeholder files"
     )
 
     args = parser.parse_args()

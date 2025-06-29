@@ -99,46 +99,71 @@ tai/
 
 ```bash
 # Installation
-make install-all          # Install all components
-make install-backend      # Install only backend
-make install-rag          # Install only RAG pipeline
+make install             # Install core dependencies
+make install-cv          # Install computer vision packages
+make install-ocr         # Install OCR packages (heavy)
+make install-ml-heavy    # Install heavy ML packages
+make install-video       # Install video processing packages
+make install-web         # Install web scraping packages
+make install-formats     # Install additional format support
+make install-training    # Install ML training packages
+make install-full        # Install all optional packages
 
 # Development
-make dev-backend          # Start backend service
-make dev-rag             # Start RAG tools
+make dev-backend         # Start backend service
+make dev-rag            # Start RAG tools
+make dev                # Alias for dev-backend
 
 # Testing & Quality
-make test-all            # Run all tests
-make lint-all            # Lint all code
-make format-all          # Format all code
-make clean-all           # Clean artifacts
+make test               # Run all tests
+make test-backend       # Run backend tests only
+make test-rag          # Run RAG pipeline tests only
+make test-evaluation   # Run evaluation tests only
+make test-organizer    # Run file organizer tests only
+make lint              # Run linting across all code
+make format            # Format code across all projects
+make check-format      # Check if code is formatted correctly
+make type              # Run type checking
+make check-all         # Run all code quality checks
+make clean             # Clean build artifacts and caches
+
+# Package Management
+make add PKG=name      # Add a package
+make add-dev PKG=name  # Add a development package
+make remove PKG=name   # Remove a package
+make update            # Update all dependencies
+make show-deps         # Show dependency tree
 
 # Status & Help
-make help                # Show all commands
+make help              # Show all commands
+make status            # Show status of the unified environment
 ```
 
 ### Working with Components
 
+All components are now managed from the unified Poetry environment in the root directory. Use the specific test commands for each component:
+
 ```bash
-# Work with specific components
-make backend TASK=test      # Run backend tests
-make rag TASK=lint         # Lint RAG code
-make organizer TASK=format # Format organizer code
+# Component-specific testing
+make test-backend       # Run backend tests
+make test-rag          # Run RAG pipeline tests
+make test-evaluation   # Run evaluation tests
+make test-organizer    # Run file organizer tests
 ```
 
 ## 📦 Package Management
 
-TAI uses Poetry for modern dependency management. Each component has isolated dependencies.
+TAI uses Poetry with a unified environment for all components. All package management is done from the root directory.
 
 ### Adding New Packages
 
 ```bash
-# Navigate to component and add packages
-cd ai_course_bot/ai_chatbot_backend
+# All package management from root directory
 make add PKG=torch                    # Add production dependency
 make add-dev PKG=pytest              # Add development dependency
 make remove PKG=outdated-package     # Remove package
 make update                          # Update dependencies
+make show-deps                       # Show dependency tree
 ```
 
 Poetry automatically updates `pyproject.toml` and `poetry.lock` files - no more manual requirements.txt editing!
@@ -147,11 +172,13 @@ Poetry automatically updates `pyproject.toml` and `poetry.lock` files - no more 
 
 ```bash
 # Run all tests
-make test-all
+make test
 
-# Component-specific testing
-cd ai_course_bot/ai_chatbot_backend && make test
-cd rag && make test
+# Component-specific testing (all from root directory)
+make test-backend       # Run backend tests only
+make test-rag          # Run RAG pipeline tests only
+make test-evaluation   # Run evaluation tests only
+make test-organizer    # Run file organizer tests only
 ```
 
 ## 🔧 Troubleshooting
@@ -164,7 +191,7 @@ curl -sSL https://install.python-poetry.org | python3 -
 
 # Reset environment
 poetry cache clear pypi --all
-make clean-all && make install-all
+make clean && make install
 ```
 
 ### Python Version
@@ -201,9 +228,6 @@ Copy the json below into your `.vscode/settings.json` to make code formatting an
     "python.analysis.inlayHints.variableTypes": true,
     "python.testing.pytestEnabled": true,
     "python.testing.unittestEnabled": false,
-    "python.poetry.enabled": true,
-    "python.poetry.automaticallyActivatePoetryShell": true,
-    "python.venvPath": "${workspaceFolder}",
     "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
     "[python]": {
         "editor.codeActionsOnSave": {

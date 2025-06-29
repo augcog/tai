@@ -11,18 +11,21 @@ from app.services.file_service import file_service
 router = APIRouter()
 
 
-@router.get("", response_model=FileListResponse, summary="List files with auto-discovery")
+@router.get(
+    "", response_model=FileListResponse, summary="List files with auto-discovery"
+)
 async def list_files(
-        course_code: Optional[str] = Query(
-            None, description="Filter by course code (e.g., CS61A)"),
-        category: Optional[str] = Query(
-            None, description="Filter by category (document, video, audio, other)"),
-        search: Optional[str] = Query(
-            None, description="Search in file names and titles"),
-        page: int = Query(1, ge=1, description="Page number"),
-        limit: int = Query(100, ge=1, le=1000, description="Items per page"),
-        db: Session = Depends(get_db),
-        _: bool = Depends(verify_api_token)
+    course_code: Optional[str] = Query(
+        None, description="Filter by course code (e.g., CS61A)"
+    ),
+    category: Optional[str] = Query(
+        None, description="Filter by category (document, video, audio, other)"
+    ),
+    search: Optional[str] = Query(None, description="Search in file names and titles"),
+    page: int = Query(1, ge=1, description="Page number"),
+    limit: int = Query(100, ge=1, le=1000, description="Items per page"),
+    db: Session = Depends(get_db),
+    _: bool = Depends(verify_api_token),
 ):
     """
     List files with simple filtering and auto-discovery.
@@ -45,36 +48,37 @@ async def list_files(
             category=category,
             search=search,
             page=page,
-            limit=limit
+            limit=limit,
         )
 
         return FileListResponse(
-            files=[FileMetadata.from_db_model(file)
-                   for file in result['files']],
-            total_count=result['total_count'],
-            page=result['page'],
-            limit=result['limit'],
-            has_next=result['has_next'],
-            has_prev=result['has_prev'],
+            files=[FileMetadata.from_db_model(file) for file in result["files"]],
+            total_count=result["total_count"],
+            page=result["page"],
+            limit=result["limit"],
+            has_next=result["has_next"],
+            has_prev=result["has_prev"],
             filters_applied={
                 "course_code": course_code,
                 "category": category,
-                "search": search
-            }
+                "search": search,
+            },
         )
 
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Error listing files: {str(e)}"
+            detail=f"Error listing files: {str(e)}",
         )
 
 
-@router.get("/{file_id}", response_model=FileMetadata, summary="Get file metadata by UUID")
+@router.get(
+    "/{file_id}", response_model=FileMetadata, summary="Get file metadata by UUID"
+)
 async def get_file_metadata(
-        file_id: UUID = Path(..., description="File UUID"),
-        db: Session = Depends(get_db),
-        _: bool = Depends(verify_api_token)
+    file_id: UUID = Path(..., description="File UUID"),
+    db: Session = Depends(get_db),
+    _: bool = Depends(verify_api_token),
 ):
     """
     Get detailed metadata for a specific file by its UUID.
@@ -88,7 +92,7 @@ async def get_file_metadata(
     if not file_record:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"File with ID {file_id} not found"
+            detail=f"File with ID {file_id} not found",
         )
 
     return FileMetadata.from_db_model(file_record)
@@ -96,9 +100,9 @@ async def get_file_metadata(
 
 @router.get("/{file_id}/download", summary="Download file by UUID")
 async def download_file(
-        file_id: UUID = Path(..., description="File UUID"),
-        db: Session = Depends(get_db),
-        _: bool = Depends(verify_api_token)
+    file_id: UUID = Path(..., description="File UUID"),
+    db: Session = Depends(get_db),
+    _: bool = Depends(verify_api_token),
 ):
     """
     Download a file by its UUID.
@@ -112,10 +116,13 @@ async def download_file(
     return file_service.get_file_content(db, file_id)
 
 
-@router.get("/stats/summary", response_model=FileStatsResponse, summary="Get file system statistics")
+@router.get(
+    "/stats/summary",
+    response_model=FileStatsResponse,
+    summary="Get file system statistics",
+)
 async def get_file_stats(
-        db: Session = Depends(get_db),
-        _: bool = Depends(verify_api_token)
+    db: Session = Depends(get_db), _: bool = Depends(verify_api_token)
 ):
     """
     Get comprehensive file system statistics.
@@ -133,5 +140,5 @@ async def get_file_stats(
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Error getting stats: {str(e)}"
+            detail=f"Error getting stats: {str(e)}",
         )

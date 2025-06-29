@@ -10,24 +10,31 @@ load_dotenv()
 
 # TODO MODEL
 # model = 'zephyr'
-model = 'openai'
+model = "openai"
 # TODO TOKEN LIMIT
 n = 400
 
-if model == 'local' or model == 'zephyr':
+if model == "local" or model == "zephyr":
     openai.api_key = "empty"
     openai.api_base = "http://localhost:8000/v1"
-elif model == 'openai':
+elif model == "openai":
     openai.api_key = os.getenv("OPENAI_API_KEY")
+
+
 def token_size(sentence):
     encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
     return len(encoding.encode(sentence))
 
+
 def rfind_punctuation(s, start, end):
-    for i in range(end-1, start-1, -1):  # end-1 because Python slices are exclusive at the end
+    for i in range(
+        end - 1, start - 1, -1
+    ):  # end-1 because Python slices are exclusive at the end
         if s[i] in string.punctuation:
             return i
     return -1  # If no punctuation is found
+
+
 def send_split_message_user(response, token_limit=300):
     msg_list = []
     # print(token_limit)
@@ -41,13 +48,13 @@ def send_split_message_user(response, token_limit=300):
 
             if end < len(response):
                 # Look for a suitable split position
-                split_pos = response.rfind('\n\n', start, end)
+                split_pos = response.rfind("\n\n", start, end)
                 if split_pos == -1:
-                    split_pos = response.rfind('\n', start, end)
+                    split_pos = response.rfind("\n", start, end)
                 if split_pos == -1:
                     split_pos = rfind_punctuation(response, start, end)
                 if split_pos == -1:
-                    split_pos = response.rfind(' ', start, end)
+                    split_pos = response.rfind(" ", start, end)
                 if split_pos == -1 or split_pos <= start:
                     split_pos = end - 1
 
@@ -61,20 +68,18 @@ def send_split_message_user(response, token_limit=300):
         msg_list.append(response)
 
     return msg_list
+
+
 def generate_path_question(id, document):
-    user_question = ''
+    user_question = ""
     # function reads all .pkl files in a given directory, extracts text segments from them, and returns a concatenated string of all these segments.
-    system_prompt = "Generate a long and specific question that could be asked about this document."
+    system_prompt = (
+        "Generate a long and specific question that could be asked about this document."
+    )
     # Construct the messages list with the current system prompt, documents, and user question
     messages = [
-        {
-            "role": "system",
-            "content": system_prompt
-        },
-        {
-            "role": "user",
-            "content": f"document: {document}"
-        },
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": f"document: {document}"},
     ]
 
     # Get the response from OpenAI's model for the current set of messages
@@ -86,8 +91,12 @@ def generate_path_question(id, document):
     # Add the response to the responses list
     return (id, openai_response["choices"][0]["message"]["content"])
 
+
 def string_subtraction(main_string, sub_string):
-    return main_string.replace(sub_string, '', 1)  # The '1' ensures only the first occurrence is removed
+    return main_string.replace(
+        sub_string, "", 1
+    )  # The '1' ensures only the first occurrence is removed
+
 
 def traverse_files(path, start_folder_name):
     results = []
@@ -99,28 +108,40 @@ def traverse_files(path, start_folder_name):
     folder_tree = f"{start_folder_name} (h1)\n"
     for root, dir, files in os.walk(path):
         for file in files:
-            if file.endswith('.pkl'):
-                path_list = [start_folder_name] + string_subtraction(root, path).split('/')[1:]
-                line = ((len(path_list)-1)*"--" + path_list[-1] + f" (L{len(path_list)})")
+            if file.endswith(".pkl"):
+                path_list = [start_folder_name] + string_subtraction(root, path).split(
+                    "/"
+                )[1:]
+                line = (
+                    (len(path_list) - 1) * "--"
+                    + path_list[-1]
+                    + f" (L{len(path_list)})"
+                )
                 folder_tree += f"{line}\n"
-    for root, dir ,files in os.walk(path):
+    for root, dir, files in os.walk(path):
         for file in files:
-            if file.endswith('.pkl'):
+            if file.endswith(".pkl"):
                 # file path
                 file_path = os.path.join(root, file)
-                path_list = [start_folder_name] + string_subtraction(root, path).split('/')[1:]
-                with open(file_path, 'rb') as pkl_file:
+                path_list = [start_folder_name] + string_subtraction(root, path).split(
+                    "/"
+                )[1:]
+                with open(file_path, "rb") as pkl_file:
                     content = pickle.load(pkl_file)
                 # print(path_list)
-                folder_path = ' > '.join(f"{item} (Level{i+1})" for i, item in enumerate(path_list))
+                folder_path = " > ".join(
+                    f"{item} (Level{i+1})" for i, item in enumerate(path_list)
+                )
                 # print(content)
                 results.append(([folder_tree, folder_path], content))
     return results
+
+
 docs = []
-#print(os.path.exists("../cs61a_website_ver3"))
+# print(os.path.exists("../cs61a_website_ver3"))
 docs = traverse_files("cs61a_website_ver3", "cs61a_website_ver3")
 
-questions =[]
+questions = []
 
 for doc in tqdm(docs, desc="Generating questions"):
     folder = doc[0]
@@ -128,9 +149,9 @@ for doc in tqdm(docs, desc="Generating questions"):
     folder_tree = folder[0]
     folder_path = folder[1]
     for chunk in file:
-        segment_tree = chunk['Page_table']
-        segment_path = chunk['Page_path'].split('\n')[-1]
-        segment = chunk['Segment_print']
+        segment_tree = chunk["Page_table"]
+        segment_path = chunk["Page_path"].split("\n")[-1]
+        segment = chunk["Segment_print"]
         count = 1
         # seperate recursively
         segment = send_split_message_user(segment, n)
@@ -143,7 +164,7 @@ for doc in tqdm(docs, desc="Generating questions"):
     break
 print(os.path)
 os.chdir("questions")
-with open(f'{model}_{n}_questions.pkl', 'wb') as f:
+with open(f"{model}_{n}_questions.pkl", "wb") as f:
     pickle.dump(questions, f)
 os.chdir("..")
 for i in questions:

@@ -24,11 +24,11 @@ engine = create_engine(
     connect_args={"check_same_thread": False},
     poolclass=StaticPool,
 )
-TestingSessionLocal = sessionmaker(
-    autocommit=False, autoflush=False, bind=engine)
+TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
 # ===== Global Test Setup =====
+
 
 @pytest.fixture(scope="session", autouse=True)
 def disable_auth_for_testing():
@@ -46,7 +46,7 @@ def disable_auth_for_testing():
             "email": "test@example.com",
             "name": "Test User",
             "picture": None,
-            "is_admin": False
+            "is_admin": False,
         }
 
     def mock_admin():
@@ -55,7 +55,7 @@ def disable_auth_for_testing():
             "email": "admin@example.com",
             "name": "Admin User",
             "picture": None,
-            "is_admin": True
+            "is_admin": True,
         }
 
     # Override global auth dependencies
@@ -71,13 +71,14 @@ def disable_auth_for_testing():
 
 # ===== User Fixtures =====
 
+
 def dummy_admin_user():
     """Dummy admin user for testing."""
     return {
         "user_id": "admin_user",
         "email": "admin@example.com",
         "name": "Admin User",
-        "is_admin": True
+        "is_admin": True,
     }
 
 
@@ -87,11 +88,12 @@ def dummy_regular_user():
         "user_id": "regular_user",
         "email": "user@example.com",
         "name": "Regular User",
-        "is_admin": False
+        "is_admin": False,
     }
 
 
 # ===== Database Fixtures =====
+
 
 @pytest.fixture
 def course_db_session():
@@ -107,9 +109,11 @@ def course_db_session():
 
 # ===== Client Fixtures =====
 
+
 @pytest.fixture
 def admin_client(course_db_session):
     """Test client with admin user permissions."""
+
     def override_get_db():
         try:
             yield course_db_session
@@ -131,13 +135,14 @@ def reject_non_admin_user():
     """Reject non-admin users with a 403 Forbidden error."""
     raise HTTPException(
         status_code=status.HTTP_403_FORBIDDEN,
-        detail="Admin access required for this endpoint"
+        detail="Admin access required for this endpoint",
     )
 
 
 @pytest.fixture
 def regular_client(course_db_session):
     """Test client with regular user permissions."""
+
     def override_get_db():
         try:
             yield course_db_session
@@ -157,6 +162,7 @@ def regular_client(course_db_session):
 
 # ===== Course Admin Fixtures =====
 
+
 @pytest.fixture
 def sample_course_data():
     """Provide sample course data for tests."""
@@ -165,7 +171,7 @@ def sample_course_data():
         course_code="TEST101",
         ip_address="127.0.0.1",
         access_type=AccessType.PUBLIC,
-        school=None
+        school=None,
     )
 
 
@@ -177,7 +183,7 @@ def sample_login_required_course_data():
         course_code="SCHOOL101",
         ip_address="127.0.0.1",
         access_type=AccessType.LOGIN_REQUIRED,
-        school="Test University"
+        school="Test University",
     )
 
 
@@ -189,7 +195,7 @@ def sample_private_course_data():
         course_code="PRIV101",
         ip_address="127.0.0.1",
         access_type=AccessType.PRIVATE,
-        school=None
+        school=None,
     )
 
 
@@ -202,7 +208,7 @@ def multiple_course_data():
             course_code=f"TEST{i:03d}",
             ip_address="127.0.0.1",
             access_type=AccessType.PUBLIC,
-            school=None
+            school=None,
         )
         for i in range(1, 21)  # Creates 20 test courses
     ]
@@ -211,8 +217,7 @@ def multiple_course_data():
 @pytest.fixture
 def course_fixture(course_db_session, sample_course_data):
     """Create a course in the database for testing."""
-    course = course_admin_service.create_course(
-        course_db_session, sample_course_data)
+    course = course_admin_service.create_course(course_db_session, sample_course_data)
     return course
 
 
@@ -220,7 +225,8 @@ def course_fixture(course_db_session, sample_course_data):
 def login_required_course_fixture(course_db_session, sample_login_required_course_data):
     """Create a login_required course in the database for testing."""
     course = course_admin_service.create_course(
-        course_db_session, sample_login_required_course_data)
+        course_db_session, sample_login_required_course_data
+    )
     return course
 
 
@@ -228,7 +234,8 @@ def login_required_course_fixture(course_db_session, sample_login_required_cours
 def private_course_fixture(course_db_session, sample_private_course_data):
     """Create a private course in the database for testing."""
     course = course_admin_service.create_course(
-        course_db_session, sample_private_course_data)
+        course_db_session, sample_private_course_data
+    )
     return course
 
 
@@ -237,8 +244,7 @@ def multiple_courses_fixture(course_db_session, multiple_course_data):
     """Create multiple courses in the database for testing pagination."""
     courses = []
     for course_data in multiple_course_data:
-        course = course_admin_service.create_course(
-            course_db_session, course_data)
+        course = course_admin_service.create_course(course_db_session, course_data)
         courses.append(course)
     return courses
 
@@ -250,10 +256,7 @@ FIXTURES_DIR = Path(__file__).parent / "fixtures"
 
 def load_fixtures(directory: Path = FIXTURES_DIR) -> Dict[str, List[Dict]]:
     """Load all fixture files for testing."""
-    fixtures = {
-        "requests": [],
-        "responses": []
-    }
+    fixtures = {"requests": [], "responses": []}
 
     request_dir = directory / "endpoints" / "completions" / "requests"
     response_dir = directory / "endpoints" / "completions" / "responses"

@@ -11,7 +11,9 @@ ConverterFunc = Callable[[str, str], Any]
 
 
 def schedule_conversion(
-    converter_func: ConverterFunc, input_path: Union[str, Path], output_folder: Union[str, Path]
+    converter_func: ConverterFunc,
+    input_path: Union[str, Path],
+    output_folder: Union[str, Path],
 ) -> Any:
     """Schedule a file conversion task using a thread pool and return the future.
 

@@ -4,7 +4,9 @@ from dataclasses import dataclass
 from typing import List, Optional, Union, Dict, Any
 
 from rag.file_conversion_router.classes.chunk import Chunk
-from rag.file_conversion_router.embedding_optimization.src.tasks.task_context import TaskContext
+from rag.file_conversion_router.embedding_optimization.src.tasks.task_context import (
+    TaskContext,
+)
 from .builder import PipelineBuilder
 
 logger = logging.getLogger(__name__)
@@ -13,6 +15,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class ProcessingResult:
     """Contains the results of content processing."""
+
     content: Union[str, Chunk]  # Can be either processed text or chunk
     success: bool
     error: Optional[str] = None
@@ -57,25 +60,23 @@ class ChunkProcessor(ContentProcessor):
                     chunk_url=chunk.chunk_url,
                     metadata={
                         **(chunk.metadata or {}),
-                        'processing_status': 'error',
-                        'error_message': error
-                    }
+                        "processing_status": "error",
+                        "error_message": error,
+                    },
                 ),
                 success=False,
-                error=error
+                error=error,
             )
 
         try:
             context = TaskContext(
-                chunk=chunk,
-                results={},
-                variables=self.config.variables
+                chunk=chunk, results={}, variables=self.config.variables
             )
 
             # Use proper attribute access instead of dictionary access
             processed_content = self.task_runner.execute_task(
                 self.config.pipeline_settings.chunk_task,  # Use attribute access
-                context
+                context,
             )
 
             return ProcessingResult(
@@ -85,11 +86,11 @@ class ChunkProcessor(ContentProcessor):
                     chunk_url=chunk.chunk_url,
                     metadata={
                         **(chunk.metadata or {}),
-                        'task_results': context.results,
-                        'processing_status': 'success'
-                    }
+                        "task_results": context.results,
+                        "processing_status": "success",
+                    },
                 ),
-                success=True
+                success=True,
             )
 
         except Exception as e:
@@ -102,12 +103,12 @@ class ChunkProcessor(ContentProcessor):
                     chunk_url=chunk.chunk_url,
                     metadata={
                         **(chunk.metadata or {}),
-                        'processing_status': 'error',
-                        'error_message': error_msg
-                    }
+                        "processing_status": "error",
+                        "error_message": error_msg,
+                    },
                 ),
                 success=False,
-                error=error_msg
+                error=error_msg,
             )
 
 
@@ -132,29 +133,29 @@ class MarkdownProcessor(ContentProcessor):
                 content=content,
                 success=False,
                 error=error,
-                metadata={'processing_status': 'error'}
+                metadata={"processing_status": "error"},
             )
 
         try:
             context = TaskContext(
                 chunk=Chunk(content=content),
                 results={},
-                variables=self.config.variables
+                variables=self.config.variables,
             )
 
             # Use proper attribute access
             processed_content = self.task_runner.execute_task(
                 self.config.pipeline_settings.markdown_task,  # Use attribute access
-                context
+                context,
             )
 
             return ProcessingResult(
                 content=processed_content,
                 success=True,
                 metadata={
-                    'processing_status': 'success',
-                    'task_results': context.results
-                }
+                    "processing_status": "success",
+                    "task_results": context.results,
+                },
             )
 
         except Exception as e:
@@ -164,7 +165,7 @@ class MarkdownProcessor(ContentProcessor):
                 content=content,
                 success=False,
                 error=error_msg,
-                metadata={'processing_status': 'error'}
+                metadata={"processing_status": "error"},
             )
 
 
@@ -182,7 +183,9 @@ class EmbeddingOptimizer:
         self.markdown_processor = MarkdownProcessor(self.task_runner, self.config)
         self.chunk_processor = ChunkProcessor(self.task_runner, self.config)
 
-        logger.info(f"Initialized EmbeddingOptimizer with configuration from {config_path}")
+        logger.info(
+            f"Initialized EmbeddingOptimizer with configuration from {config_path}"
+        )
 
     def process_markdown(self, content: str) -> ProcessingResult:
         """
@@ -197,7 +200,9 @@ class EmbeddingOptimizer:
         logger.info("Processing markdown content")
         return self.markdown_processor.process(content)
 
-    def process_chunks(self, chunks: List[Chunk], fail_fast: bool = False) -> List[Chunk]:
+    def process_chunks(
+        self, chunks: List[Chunk], fail_fast: bool = False
+    ) -> List[Chunk]:
         """
         Process a list of chunks.
 
@@ -223,7 +228,11 @@ class EmbeddingOptimizer:
 
             results.append(result.content)
 
-        successful = sum(1 for r in results if r.metadata.get('processing_status') == 'success')
-        logger.info(f"Completed processing: {successful}/{len(chunks)} chunks successful")
+        successful = sum(
+            1 for r in results if r.metadata.get("processing_status") == "success"
+        )
+        logger.info(
+            f"Completed processing: {successful}/{len(chunks)} chunks successful"
+        )
 
         return results

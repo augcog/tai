@@ -10,19 +10,19 @@ class RequestsDriver(Driver):
         response = requests.get(url, stream=True)
         response.raise_for_status()  # Raise an exception for HTTP errors
 
-        content_type = response.headers.get('Content-Type', '').lower()
+        content_type = response.headers.get("Content-Type", "").lower()
 
-        if 'text/html' in content_type:
-            with open(f'{filename.split(".")[0]}.html', 'w', encoding='utf-8') as file:
+        if "text/html" in content_type:
+            with open(f'{filename.split(".")[0]}.html', "w", encoding="utf-8") as file:
                 file.write(response.text)
         else:
-            with open(filename, 'wb') as file:
+            with open(filename, "wb") as file:
                 for chunk in response.iter_content(chunk_size=8192):
                     file.write(chunk)
 
         return Resp(
-            html_content=response.text if 'text/html' in content_type else None,
-            is_html='text/html' in content_type,
+            html_content=response.text if "text/html" in content_type else None,
+            is_html="text/html" in content_type,
             true_url=response.url,
         )
 

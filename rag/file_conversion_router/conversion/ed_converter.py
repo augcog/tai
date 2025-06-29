@@ -5,6 +5,7 @@ from rag.file_conversion_router.conversion.base_converter import BaseConverter
 from rag.file_conversion_router.classes.page import Page
 from rag.file_conversion_router.classes.chunk import Chunk
 
+
 class EdConverter(BaseConverter):
     def __init__(self):
         super().__init__()
@@ -19,34 +20,42 @@ class EdConverter(BaseConverter):
         """
         # call on scrape.py's modified json converter + load the json_data
         output_path = output_path.with_suffix(".md")
-        with open(input_path, 'r') as file:
+        with open(input_path, "r") as file:
             json_data = json.load(file)
-        
+
         # filter the json so only good data remains -- comment out if filter not needed/wanted!
         json_data = json_kb_filter(json_data)
 
         # run the ed scraper
         scrape_json(json_data, output_path)
         return output_path
-    
+
     def _to_page(self, input_path: Path, output_path: Path) -> Page:
         """Perform Markdown to Page conversion."""
         try:
             input_path = self._to_markdown(input_path, output_path)
         except Exception as e:
-            self._logger.error(f"An error occurred during markdown conversion: {str(e)}")
+            self._logger.error(
+                f"An error occurred during markdown conversion: {str(e)}"
+            )
             raise
 
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
-        filetype = input_path.suffix.lstrip('.')
+        filetype = input_path.suffix.lstrip(".")
         with open(input_path, "r") as input_file:
             text = input_file.read()
 
         metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
         metadata_content = self._read_metadata(metadata_path)
         url = metadata_content.get("URL")
-        return Page(pagename=input_path.stem, content={'text': text}, filetype=filetype, page_url=url)
+        return Page(
+            pagename=input_path.stem,
+            content={"text": text},
+            filetype=filetype,
+            page_url=url,
+        )
+
 
 # recursive filter for json data
 def json_kb_filter(data):
@@ -56,7 +65,14 @@ def json_kb_filter(data):
         lowered = elem["text"].lower()
 
         submission_words = 0
-        for word in ["gradescope", "submi", "extension", "autograder", "slip day", "exception"]:
+        for word in [
+            "gradescope",
+            "submi",
+            "extension",
+            "autograder",
+            "slip day",
+            "exception",
+        ]:
             submission_words += lowered.count(word)
         first_person_words = 0
         for word in [" i ", " i'", " me ", " my ", " mine "]:
@@ -75,7 +91,9 @@ def json_kb_filter(data):
             if elem["private"] == True:
                 elem["url"] += " -- Private post"
                 debug_lst.append(elem)
-            elif ("waitlist" in lowered or submission_words > 1) and first_person_words > 2:
+            elif (
+                "waitlist" in lowered or submission_words > 1
+            ) and first_person_words > 2:
                 elem["url"] += " -- Personal post"
                 debug_lst.append(elem)
             elif dated_question or (short_query and "release" in lowered):
@@ -99,6 +117,7 @@ def json_kb_filter(data):
 
     return ret
 
+
 # filters all comments - takes and recieves a list of comments
 def json_kb_comments_filter(data, debug_lst=None):
     ret = []
@@ -110,7 +129,14 @@ def json_kb_comments_filter(data, debug_lst=None):
         for elem in [" i ", " i'", " me ", " my ", " mine "]:
             first_person_words += lowered.count(elem)
         submission_words = 0
-        for elem in ["gradescope", "submi", "extension", "autograder", "slip day", "exception"]:
+        for elem in [
+            "gradescope",
+            "submi",
+            "extension",
+            "autograder",
+            "slip day",
+            "exception",
+        ]:
             submission_words += lowered.count(elem)
         dated_question = False
         for word in ["submi", "post", "release", "due"]:
@@ -118,15 +144,34 @@ def json_kb_comments_filter(data, debug_lst=None):
                 dated_question = True
         if "publish" in lowered and " be" in lowered:
             dated_question = True
-        is_question = any([elem in lowered for elem in [" can ", "could", "who", "what", "when", "where", "why", "how", "?"]])
-        popular_comment = comment["votes"] > 0 or any([elem["user"]["role"] == "student" for elem in comment["comments"]])
+        is_question = any(
+            [
+                elem in lowered
+                for elem in [
+                    " can ",
+                    "could",
+                    "who",
+                    "what",
+                    "when",
+                    "where",
+                    "why",
+                    "how",
+                    "?",
+                ]
+            ]
+        )
+        popular_comment = comment["votes"] > 0 or any(
+            [elem["user"]["role"] == "student" for elem in comment["comments"]]
+        )
         short_query = len(lowered.split(" ")) < 15
 
         # filter parameters!
         if comment["user"]["role"] == "admin":
-            comment["comments"] = json_kb_comments_filter(comment["comments"], debug_lst)
+            comment["comments"] = json_kb_comments_filter(
+                comment["comments"], debug_lst
+            )
             ret.append(comment)
-        elif len(comment["comments"]) == 0  and not popular_comment:
+        elif len(comment["comments"]) == 0 and not popular_comment:
             comment["url"] += " -- Last (Unpopular) Comment"
             debug_lst.append(comment)
         elif first_person_words > 2 and not popular_comment:
@@ -140,21 +185,32 @@ def json_kb_comments_filter(data, debug_lst=None):
             debug_lst.append(comment)
         # special case! if the comment is a question with responses, prune some conditionally
         elif is_question:
-            admin_res = any([res["user"]["role"] == "admin" for res in comment["comments"]])
+            admin_res = any(
+                [res["user"]["role"] == "admin" for res in comment["comments"]]
+            )
             for res in comment["comments"]:
                 # if there's an admin response and this "res" is unpopular, prune it
-                if admin_res and len(res["comments"]) + res["votes"] == 0 and res["user"]["role"] != "admin":
+                if (
+                    admin_res
+                    and len(res["comments"]) + res["votes"] == 0
+                    and res["user"]["role"] != "admin"
+                ):
                     comment["url"] += " -- Tangential comment"
                     debug_lst.append(comment)
                 else:
                     ret.append(comment)
 
                 if "comments" in res and len(res["comments"]) > 0:
-                    res["comments"] = json_kb_comments_filter(res["comments"], debug_lst)
+                    res["comments"] = json_kb_comments_filter(
+                        res["comments"], debug_lst
+                    )
         else:
-            comment["comments"] = json_kb_comments_filter(comment["comments"], debug_lst)
+            comment["comments"] = json_kb_comments_filter(
+                comment["comments"], debug_lst
+            )
             ret.append(comment)
     return ret
+
 
 # filters all answers - takes and recieves a list of answers
 def json_kb_answers_filter(data, debug_lst=None):
@@ -162,7 +218,9 @@ def json_kb_answers_filter(data, debug_lst=None):
     admin_res = any([res["user"]["role"] == "admin" for res in data])
 
     for res in data:
-        popular_comment = res["votes"] > 0 or ("comments" in res and len(res["comments"]) > 0)
+        popular_comment = res["votes"] > 0 or (
+            "comments" in res and len(res["comments"]) > 0
+        )
 
         # filter parameters!
         if res["user"]["role"] == "admin":
@@ -176,11 +234,13 @@ def json_kb_answers_filter(data, debug_lst=None):
 
     return ret
 
+
 def scrape_json(json_data, output_path: Path) -> Path:
     # Convert JSON data to Markdown
     markdown_content = convert_json_to_markdown(json_data)
     # Save Markdown content to output.md
-    save_markdown(markdown_content, output_path) 
+    save_markdown(markdown_content, output_path)
+
 
 def convert_json_to_markdown(data):
     markdown = ""
@@ -212,10 +272,12 @@ def convert_json_to_markdown(data):
 
     return markdown
 
+
 ### UTILITY FUNCTIONS ###
 def save_markdown(markdown_content, file_path):
-    with open(file_path, 'w') as file:
+    with open(file_path, "w") as file:
         file.write(markdown_content)
+
 
 def process_comments(comments):
     markdown = ""
@@ -226,5 +288,5 @@ def process_comments(comments):
         markdown += f"{comment['text']}\n"
         if "comments" in comment and len(comment.get("comments", [])) > 0:
             markdown += process_comments(comment["comments"])
-            markdown += '\n'
+            markdown += "\n"
     return markdown

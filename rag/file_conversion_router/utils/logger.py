@@ -16,14 +16,14 @@ content_logger.setLevel(logging.INFO)
 content_logger.propagate = False
 
 
-def set_log_file_path(logger, output_path, mode='w'):
+def set_log_file_path(logger, output_path, mode="w"):
     for handler in logger.handlers[:]:
         logger.removeHandler(handler)
 
     os.makedirs(output_path, exist_ok=True)
 
     # Configure the log file
-    log_file_path = os.path.join(output_path, f'{logger.name}.log')
+    log_file_path = os.path.join(output_path, f"{logger.name}.log")
     try:
         file_handler = logging.FileHandler(log_file_path, mode=mode)
         file_handler.setFormatter(logging.Formatter(format_string))

@@ -2,6 +2,8 @@ from pathlib import Path
 from rag.file_conversion_router.classes.page import Page
 import yaml
 import os
+
+
 def to_page(input_path):
     filepath = Path(input_path).parent
     filename = Path(input_path).stem
@@ -10,17 +12,17 @@ def to_page(input_path):
         content = input_file.read()
 
     url = "URL_NOT_AVAILABLE"
-    page = Page(filename, content={'text': content}, filetype=filetype, page_url=url)
+    page = Page(filename, content={"text": content}, filetype=filetype, page_url=url)
     page.page_seperate_to_segments()
     page.tree_print()
     page.tree_segments_to_chunks()
-
 
 
 to_page("/home/roar-tai-1/Desktop/yk/tai/output/61a-sp24-mt1/61a-sp24-mt1.md")
 import pickle
 from pathlib import Path
 from rag.file_conversion_router.classes.chunk import Chunk
+
 
 def load_pkl_file(file_path: Path):
     """Load and return the contents of a pickle file.
@@ -34,6 +36,7 @@ def load_pkl_file(file_path: Path):
     with open(file_path, "rb") as file:
         data = pickle.load(file)
     return data
+
 
 # Specify the path to the .pkl file
 file_path = Path("/home/roar-tai-1/Desktop/yk/tai/output/61a-sp24-mt1/61a-sp24-mt1.pkl")

@@ -1,10 +1,16 @@
 from typing import List
 
-from rag.file_conversion_router.embedding_optimization.src.tasks.base_tasks import BaseTask
+from rag.file_conversion_router.embedding_optimization.src.tasks.base_tasks import (
+    BaseTask,
+)
 
 from rag.file_conversion_router.classes.chunk import Chunk
-from rag.file_conversion_router.embedding_optimization.src.models.base_model import BaseModel
-from rag.file_conversion_router.embedding_optimization.src.tasks.composed_task import ComposedTask
+from rag.file_conversion_router.embedding_optimization.src.models.base_model import (
+    BaseModel,
+)
+from rag.file_conversion_router.embedding_optimization.src.tasks.composed_task import (
+    ComposedTask,
+)
 
 
 class TaskPipeline:
@@ -19,7 +25,9 @@ class TaskPipeline:
         for task in self.tasks:
             missing_deps = set(task.depends_on) - task_names
             if missing_deps:
-                raise ValueError(f"Task {task.name} has missing dependencies: {missing_deps}")
+                raise ValueError(
+                    f"Task {task.name} has missing dependencies: {missing_deps}"
+                )
 
         # Check for cycles
         self._check_cycles()
@@ -52,7 +60,9 @@ class TaskPipeline:
         while len(executed) < len(self.tasks):
             level = []
             for task in self.tasks:
-                if task.name not in executed and all(dep in executed for dep in task.depends_on):
+                if task.name not in executed and all(
+                    dep in executed for dep in task.depends_on
+                ):
                     level.append(task)
             if not level:
                 raise ValueError("Unable to resolve task dependencies")
@@ -67,7 +77,9 @@ class TaskPipeline:
 
         for level_tasks in execution_order:
             # Group tasks by type (sequential vs composed)
-            sequential_tasks = [t for t in level_tasks if not isinstance(t, ComposedTask)]
+            sequential_tasks = [
+                t for t in level_tasks if not isinstance(t, ComposedTask)
+            ]
             composed_tasks = [t for t in level_tasks if isinstance(t, ComposedTask)]
 
             # Process sequential tasks

@@ -10,11 +10,11 @@ class MockModel(BaseModel):
     """Mock model for testing purposes that simulates a language model's behavior."""
 
     def __init__(
-            self,
-            should_fail: bool = False,
-            fixed_response: Optional[str] = None,
-            delay_seconds: float = 0,
-            track_calls: bool = True
+        self,
+        should_fail: bool = False,
+        fixed_response: Optional[str] = None,
+        delay_seconds: float = 0,
+        track_calls: bool = True,
     ):
         """
         Initialize mock model with configurable behavior.
@@ -46,10 +46,7 @@ class MockModel(BaseModel):
             ValueError: If should_fail is True or if prompt is empty
         """
         if self.track_calls:
-            self.call_history.append({
-                'prompt': prompt,
-                'kwargs': kwargs
-            })
+            self.call_history.append({"prompt": prompt, "kwargs": kwargs})
 
         # Log the call
         logger.debug(f"MockModel.generate called with prompt: {prompt[:50]}...")
@@ -65,6 +62,7 @@ class MockModel(BaseModel):
         # Simulate processing delay
         if self.delay_seconds > 0:
             import time
+
             time.sleep(self.delay_seconds)
 
         # Return fixed response if provided

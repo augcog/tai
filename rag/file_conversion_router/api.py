@@ -7,8 +7,12 @@ from typing import Union
 from rag.file_conversion_router.services.directory_service import process_folder
 
 
-def convert_directory(input_dir: Union[str, Path], output_dir: Union[str, Path],
-                      log_dir: Union[str, Path] = None, cache_path: Union[str, Path] = None) -> None:
+def convert_directory(
+    input_dir: Union[str, Path],
+    output_dir: Union[str, Path],
+    log_dir: Union[str, Path] = None,
+    cache_path: Union[str, Path] = None,
+) -> None:
     """Convert all supported files in the given directory to Markdown format, to the specified output directory.
 
     Current supported file types:

@@ -5,7 +5,9 @@ from app.schemas.course import Course
 from app.core.models.courses import CourseModel
 
 
-def get_courses(page: int, limit: int, user: dict = None, db: Session = None) -> Tuple[List[Course], int]:
+def get_courses(
+    page: int, limit: int, user: dict = None, db: Session = None
+) -> Tuple[List[Course], int]:
     """
     Return a list of courses from the database. If the user is authenticated, return both public and private courses;
     otherwise, return only public courses.
@@ -34,7 +36,7 @@ def get_courses(page: int, limit: int, user: dict = None, db: Session = None) ->
             school=db_course.school,
             serverUrl=db_course.server_url,
             courseCode=db_course.course_code,
-            semester=db_course.semester
+            semester=db_course.semester,
         )
         courses.append(course)
 

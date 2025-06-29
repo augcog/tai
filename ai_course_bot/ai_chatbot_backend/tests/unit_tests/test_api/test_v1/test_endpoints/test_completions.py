@@ -3,7 +3,9 @@ import re
 
 import pytest
 
-from app.api.v1.utils.stream_processing import extract_text_and_references_from_openai_format
+from app.api.v1.utils.stream_processing import (
+    extract_text_and_references_from_openai_format,
+)
 from tests.common.test_utils.openai_format_validation import (
     validate,
     validate_sample_chunks,
@@ -13,7 +15,7 @@ from tests.common.test_utils.openai_format_validation import (
     extract_references_from_tool_calls,
     OPENAI_CHUNK_SCHEMA,
     TOOL_CALL_SCHEMA,
-    parse_chunk
+    parse_chunk,
 )
 
 
@@ -26,7 +28,9 @@ from tests.common.test_utils.openai_format_validation import (
         ("/v1/completions", True, [], False),
     ],
 )
-def test_create_completion(client_unit, tai_trivia_question, endpoint, stream, expected_ref, rag):
+def test_create_completion(
+    client_unit, tai_trivia_question, endpoint, stream, expected_ref, rag
+):
     """
     Test the completions endpoint with OpenAI format.
     Tests both streaming and non-streaming responses, with and without RAG.
@@ -44,7 +48,9 @@ def test_create_completion(client_unit, tai_trivia_question, endpoint, stream, e
     if stream:
         # For streaming responses, verify the content-type and extract streamed messages.
         assert response.headers["content-type"].startswith("application/json")
-        content, references = extract_text_and_references_from_openai_format(response.iter_lines())
+        content, references = extract_text_and_references_from_openai_format(
+            response.iter_lines()
+        )
         assert content, "Expected non-empty content"
         assert isinstance(references, list), "Expected references to be a list"
 
@@ -88,7 +94,9 @@ def test_create_completion(client_unit, tai_trivia_question, endpoint, stream, e
     if rag:
         # Additional assertions for provided extra keywords.
         for keyword in expected_ref:
-            assert any(keyword in ref for ref in references), f"Expected keyword '{keyword}' in references"
+            assert any(
+                keyword in ref for ref in references
+            ), f"Expected keyword '{keyword}' in references"
     else:
         assert not references, "Expected no references"
 
@@ -101,12 +109,16 @@ def validate_sample_chunks(chunks, sample_size=3):
     # Parse first chunk (should have role)
     first_chunk = parse_chunk(chunks[0])
     validate(instance=first_chunk, schema=OPENAI_CHUNK_SCHEMA)
-    assert "role" in first_chunk["choices"][0]["delta"], "First chunk should contain role"
+    assert (
+        "role" in first_chunk["choices"][0]["delta"]
+    ), "First chunk should contain role"
 
     # Parse last chunk (should have finish_reason)
     last_chunk = parse_chunk(chunks[-1])
     validate(instance=last_chunk, schema=OPENAI_CHUNK_SCHEMA)
-    assert last_chunk["choices"][0]["finish_reason"] == "stop", "Last chunk should have finish_reason 'stop'"
+    assert (
+        last_chunk["choices"][0]["finish_reason"] == "stop"
+    ), "Last chunk should have finish_reason 'stop'"
 
     # Validate a few content chunks
     for i in range(1, min(sample_size + 1, len(chunks) - 1)):
@@ -117,14 +129,16 @@ def validate_sample_chunks(chunks, sample_size=3):
 def parse_chunk(chunk):
     """Parse a chunk into a JSON object, handling bytes or string."""
     if isinstance(chunk, bytes):
-        return json.loads(chunk.decode('utf-8'))
+        return json.loads(chunk.decode("utf-8"))
     return json.loads(chunk)
 
 
 def assert_contains_reference_markers(content):
     """Check if the content contains reference markers [n]."""
-    reference_pattern = re.compile(r'\[\d+\]')
-    assert reference_pattern.search(content), "Expected reference markers [n] in content with RAG enabled"
+    reference_pattern = re.compile(r"\[\d+\]")
+    assert reference_pattern.search(
+        content
+    ), "Expected reference markers [n] in content with RAG enabled"
 
 
 def assert_has_tool_calls_for_references(chunks):
@@ -145,7 +159,9 @@ def assert_has_tool_calls_for_references(chunks):
             assert "url" in args, "Tool call arguments should contain a URL"
             break
 
-    assert tool_call_found, "Expected to find tool calls for references with RAG enabled"
+    assert (
+        tool_call_found
+    ), "Expected to find tool calls for references with RAG enabled"
 
 
 def assert_tool_calls_in_response(data):

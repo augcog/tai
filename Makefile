@@ -26,9 +26,12 @@ help: ## Show this help message
 # Installation commands
 install: ## Install core dependencies in single virtual environment
 	@echo "🔥 Installing TAI unified environment..."
+	@echo "🔧 Configuring Poetry for in-project virtual environment..."
+	poetry config virtualenvs.in-project true
 	@echo "📦 Installing core dependencies..."
 	poetry install
 	@echo "✅ Core installation complete!"
+	@echo "📍 Virtual environment created at: $(shell pwd)/.venv"
 	@echo ""
 	@echo "🎯 Next steps:"
 	@echo "  make dev-backend     # Start the backend service"

@@ -83,22 +83,22 @@ class BaseCourseAdminTest(ABC):
     def test_update_course(self, course_fixture):
         """Test updating a course."""
         update_data = CourseUpdate(
-            course_name="Updated Course Name",
-            ip_address="192.168.1.1"
+            course_name="Updated Course Name", ip_address="192.168.1.1"
         )
         updated_course = self.update_course(course_fixture.id, update_data)
         assert updated_course is not None
         assert updated_course.id == course_fixture.id
         assert updated_course.course_name == "Updated Course Name"
         assert updated_course.ip_address == "192.168.1.1"
-        assert updated_course.course_code == course_fixture.course_code  # Unchanged field
+        assert (
+            updated_course.course_code == course_fixture.course_code
+        )  # Unchanged field
 
     def test_update_course_access_type(self, course_fixture):
         """Test updating a course's access type."""
         # Change to login_required and add school
         update_data = CourseUpdate(
-            access_type=AccessType.LOGIN_REQUIRED,
-            school="Test School"
+            access_type=AccessType.LOGIN_REQUIRED, school="Test School"
         )
         updated_course = self.update_course(course_fixture.id, update_data)
         assert updated_course is not None
@@ -106,9 +106,7 @@ class BaseCourseAdminTest(ABC):
         assert updated_course.school == "Test School"
 
         # Change to private (school should be set to None)
-        update_data = CourseUpdate(
-            access_type=AccessType.PRIVATE
-        )
+        update_data = CourseUpdate(access_type=AccessType.PRIVATE)
         updated_course = self.update_course(course_fixture.id, update_data)
         assert updated_course is not None
         assert updated_course.access_type == AccessType.PRIVATE
@@ -116,9 +114,7 @@ class BaseCourseAdminTest(ABC):
 
     def test_update_nonexistent_course(self):
         """Test updating a nonexistent course."""
-        update_data = CourseUpdate(
-            course_name="Updated Course Name"
-        )
+        update_data = CourseUpdate(course_name="Updated Course Name")
         updated_course = self.update_course(999, update_data)
         assert updated_course is None
 

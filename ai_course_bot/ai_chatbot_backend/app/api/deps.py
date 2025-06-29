@@ -11,7 +11,7 @@ def verify_api_token(authorization: str = Header(...)) -> bool:
     if not authorization.startswith("Bearer "):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid authorization header format. Use 'Bearer <api_token>'"
+            detail="Invalid authorization header format. Use 'Bearer <api_token>'",
         )
 
     token = authorization.replace("Bearer ", "")
@@ -19,7 +19,7 @@ def verify_api_token(authorization: str = Header(...)) -> bool:
     if token != settings.api_auth_token:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid API token. Access denied."
+            detail="Invalid API token. Access denied.",
         )
 
     return True

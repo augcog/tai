@@ -13,10 +13,11 @@ class MarkdownParser:
         self.fail = False
 
         if not filepath.exists():
-            raise FileNotFoundError(f"Failed to read not existing markdown file: {filepath}")
+            raise FileNotFoundError(
+                f"Failed to read not existing markdown file: {filepath}"
+            )
         if self.fetch_data() == 1:
             self.fail = True
-
 
     @staticmethod
     def determine_level(s):
@@ -75,11 +76,15 @@ class MarkdownParser:
         try:
             with open(self.filepath, "r", encoding="utf-8") as file:
                 md_content = file.readlines()
-            self.headers_content_list = MarkdownParser.extract_headers_and_content(md_content)
+            self.headers_content_list = MarkdownParser.extract_headers_and_content(
+                md_content
+            )
         except FileNotFoundError:
             print(colored(f"File '{self.filepath}' not found.", "red"))
             return 1
-        self.headers_content_list = MarkdownParser.extract_headers_and_content(md_content)
+        self.headers_content_list = MarkdownParser.extract_headers_and_content(
+            md_content
+        )
 
     def print_header_tree(self):
         result = ""
@@ -153,7 +158,13 @@ class MarkdownParser:
                     f.write("\n" + "-" * 80 + "\n")
                     top_header = top_header[: (level - 1)]
                     top_header.append((header, content, level))
-                    dict_list.append({"Page_table": page_toc, "Page_path": page_path, "Segment_print": segment})
+                    dict_list.append(
+                        {
+                            "Page_table": page_toc,
+                            "Page_path": page_path,
+                            "Segment_print": segment,
+                        }
+                    )
                     counter += 1
                 # end of for loop
                 all_headers = [header[0] for header in self.headers_content_list]
@@ -188,7 +199,13 @@ class MarkdownParser:
                     f.write("\n" + "-" * 80 + "\n")
                     top_header = top_header[: (level - 1)]
                     top_header.append((header, content, level))
-                    dict_list.append({"Page_table": page_toc, "Page_path": page_path, "Segment_print": segment})
+                    dict_list.append(
+                        {
+                            "Page_table": page_toc,
+                            "Page_path": page_path,
+                            "Segment_print": segment,
+                        }
+                    )
         print(f"Generated tree file: {tree_file_path}")
         self.save_content_to_pkl(dict_list, filename=f"{self.filepath}.pkl")
 

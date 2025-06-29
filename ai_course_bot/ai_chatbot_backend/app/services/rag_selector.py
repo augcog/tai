@@ -4,18 +4,14 @@ from typing import Any, Generator, List, Optional, Tuple
 from app.services.rag_retriever import (
     _get_reference_documents,
     _get_pickle_and_class,
-    embedding_model
+    embedding_model,
 )
 from app.core.models.chat_completion import Message
 from transformers import AutoTokenizer
 from vllm import SamplingParams
 import time
 
-SAMPLING = SamplingParams(
-    temperature=0.3,
-    top_p=0.95,
-    max_tokens=4096
-)
+SAMPLING = SamplingParams(temperature=0.3, top_p=0.95, max_tokens=4096)
 MODEL_ID = "THUDM/GLM-4-9B-0414"
 tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
 
@@ -30,18 +26,24 @@ def is_local_engine(engine: Any) -> bool:
 
 
 def generate_streaming_response(messages: List[Message], engine: Any = None) -> Any:
-    chat=[
-    {"role": m.role, "content": m.content, "tool_call_id": m.tool_call_id}
-    for m in messages
+    chat = [
+        {"role": m.role, "content": m.content, "tool_call_id": m.tool_call_id}
+        for m in messages
     ]
     prompt = tokenizer.apply_chat_template(
         chat, tokenize=False, add_generation_prompt=True
     )
-    return engine.generate(prompt, SAMPLING,request_id=str(time.time_ns()))
+    return engine.generate(prompt, SAMPLING, request_id=str(time.time_ns()))
 
 
-def build_augmented_prompt(user_message: str, course: str, embedding_dir: str, threshold: float, rag: bool, top_k: int = 7
-                           ) -> Tuple[str, List[str], str]:
+def build_augmented_prompt(
+    user_message: str,
+    course: str,
+    embedding_dir: str,
+    threshold: float,
+    rag: bool,
+    top_k: int = 7,
+) -> Tuple[str, List[str], str]:
     """
     Build an augmented prompt by retrieving reference documents.
     Returns:
@@ -60,8 +62,14 @@ def build_augmented_prompt(user_message: str, course: str, embedding_dir: str, t
     query_embed = embedding_model.encode(
         user_message, return_dense=True, return_sparse=True, return_colbert_vecs=True
     )
-    top_ids, top_docs, top_urls, similarity_scores, top_files, top_topic_paths = _get_reference_documents(
-        query_embed, current_dir, picklefile, top_k=7)
+    (
+        top_ids,
+        top_docs,
+        top_urls,
+        similarity_scores,
+        top_files,
+        top_topic_paths,
+    ) = _get_reference_documents(query_embed, current_dir, picklefile, top_k=7)
 
     insert_document = ""
     reference_list: List[str] = []
@@ -78,30 +86,30 @@ def build_augmented_prompt(user_message: str, course: str, embedding_dir: str, t
             cleaned_topic_path = top_topic_paths[i]
             if top_urls[i]:
                 insert_document += (
-                    f"\"\"\"Reference Number: {n}\n"
+                    f'"""Reference Number: {n}\n'
                     f"Directory Path to file: {cleaned_file_path}\n"
                     f"Topic Path of chunk in file: {cleaned_topic_path}\n"
-                    f"Document: {top_docs[i]}\"\"\"\n\n"
+                    f'Document: {top_docs[i]}"""\n\n'
                 )
                 reference_string += (
                     f"Reference {n}: <|begin_of_reference_name|>{cleaned_info_path}"
                     f"<|end_of_reference_name|><|begin_of_reference_link|>{top_urls[i]}"
                     f"<|end_of_reference_link|>\n\n"
                 )
-                reference_list.append([cleaned_info_path,top_urls[i]])
+                reference_list.append([cleaned_info_path, top_urls[i]])
             else:
                 insert_document += (
-                    f"\"\"\"Reference Number: {n}\n"
+                    f'"""Reference Number: {n}\n'
                     f"Directory Path to file: {cleaned_file_path}\n"
                     f"Topic Path of chunk in file: {cleaned_topic_path}\n"
-                    f"Document: {top_docs[i]}\"\"\"\n\n"
+                    f'Document: {top_docs[i]}"""\n\n'
                 )
                 reference_string += (
                     f"Reference {n}: <|begin_of_reference_name|>{cleaned_info_path}"
                     f"<|end_of_reference_name|><|begin_of_reference_link|>"
                     f"<|end_of_reference_link|>\n\n"
                 )
-                reference_list.append([cleaned_info_path, ''])
+                reference_list.append([cleaned_info_path, ""])
 
     if not insert_document or n == 0:
         modified_message = (
@@ -123,7 +131,9 @@ def build_augmented_prompt(user_message: str, course: str, embedding_dir: str, t
     return modified_message, reference_list, reference_string
 
 
-async def local_parser(stream: Any, reference_string: str) -> Generator[str, None, None]:
+async def local_parser(
+    stream: Any, reference_string: str
+) -> Generator[str, None, None]:
     """
     Yield tokens from a text stream and append the reference block at the end.
     TODO: This function can be removed in the future once the legacy code migration is completed.
@@ -131,11 +141,11 @@ async def local_parser(stream: Any, reference_string: str) -> Generator[str, Non
     previous_text = ""
     async for output in stream:
         text = output.outputs[0].text
-        chunk = text[len(previous_text):]
+        chunk = text[len(previous_text) :]
         yield chunk
         previous_text = text
         print(chunk, end="")
-    ref_block = f'\n\n<|begin_of_reference|>\n\n{reference_string}<|end_of_reference|>'
+    ref_block = f"\n\n<|begin_of_reference|>\n\n{reference_string}<|end_of_reference|>"
     yield ref_block
     print(ref_block)
 
@@ -147,7 +157,7 @@ async def parse_token_stream_for_json(stream: Any) -> Generator[str, None, None]
     previous_text = ""
     async for output in stream:
         text = output.outputs[0].text
-        chunk = text[len(previous_text):]
+        chunk = text[len(previous_text) :]
         yield chunk
         previous_text = text
 
@@ -170,14 +180,14 @@ def format_chat_msg(messages: List[Message]) -> List[Message]:
 
 
 def generate_chat_response(
-        messages: List[Message],
-        stream: bool = True,
-        rag: bool = True,
-        course: Optional[str] = None,
-        embedding_dir: str = "/home/bot/localgpt/tai/ai_course_bot/ai_chatbot_backend/app/embedding/",
-        threshold: float = 0.32,
-        top_k: int = 7,
-        engine: Any = None
+    messages: List[Message],
+    stream: bool = True,
+    rag: bool = True,
+    course: Optional[str] = None,
+    embedding_dir: str = "/home/bot/localgpt/tai/ai_course_bot/ai_chatbot_backend/app/embedding/",
+    threshold: float = 0.32,
+    top_k: int = 7,
+    engine: Any = None,
 ) -> Tuple[Any, str]:
     """
     Build an augmented message with references and run LLM inference.
@@ -198,15 +208,15 @@ def generate_chat_response(
 
 
 def rag_json_stream_generator(
-        messages: List[Message],
-        stream: bool = True,
-        rag: bool = True,
-        course: Optional[str] = None,
-        # TODO: Revise the default embedding_dir path. And put it into the environment variable for best practice.
-        embedding_dir: str = "/home/bot/localgpt/tai/ai_course_bot/ai_chatbot_backend/app/embedding/",
-        threshold: float = 0.38,
-        top_k: int = 7,
-        engine: Any = None
+    messages: List[Message],
+    stream: bool = True,
+    rag: bool = True,
+    course: Optional[str] = None,
+    # TODO: Revise the default embedding_dir path. And put it into the environment variable for best practice.
+    embedding_dir: str = "/home/bot/localgpt/tai/ai_course_bot/ai_chatbot_backend/app/embedding/",
+    threshold: float = 0.38,
+    top_k: int = 7,
+    engine: Any = None,
 ) -> Generator[str, None, None]:
     """
     Build an augmented message with references and produce a JSON streaming response.
@@ -226,8 +236,7 @@ def rag_json_stream_generator(
 
         return stream_json_response()
     else:
-        remote_stream = engine(
-            messages[-1].content, stream=stream, course=course)
+        remote_stream = engine(messages[-1].content, stream=stream, course=course)
 
         def stream_json_response() -> Generator[str, None, None]:
             for item in remote_stream:

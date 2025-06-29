@@ -42,12 +42,14 @@ evaluation/dataset_generate/
 ## 🛠️ Development Commands
 
 ### Installation & Setup
+
 ```bash
 make install              # Install core dependencies
 make clean                # Clean build artifacts
 ```
 
 ### Dataset Operations
+
 ```bash
 make generate             # Generate evaluation datasets
 make analyze              # Analyze system performance
@@ -55,6 +57,7 @@ make visualize            # Create result visualizations
 ```
 
 ### Development & Testing
+
 ```bash
 make test                # Run tests
 make lint                # Run linting
@@ -63,16 +66,23 @@ make format              # Format code
 
 ## 📦 Package Management
 
-```bash
-# Add new packages
-make add PKG=openai                  # Add production dependency
-make add-dev PKG=pytest             # Add development dependency
+The Evaluation Tools use the unified monorepo Poetry environment. All package management commands automatically modify the root `pyproject.toml`:
 
-# Manage packages
-make remove PKG=torch                # Remove package
-make update                          # Update all dependencies
-make show PKG=openai                 # Show package info
+```bash
+# Add new packages (adds to root monorepo)
+make add PKG=openai                  # Add production dependency to root
+make add-dev PKG=pytest             # Add development dependency to root
+
+# Installation (always installs to root .venv)
+make install                         # Install all dependencies to root
+
+# Manage packages (all modify root pyproject.toml)
+make remove PKG=torch                # Remove package from root
+make update                          # Update all dependencies in root
+make show                            # Show dependencies from root
 ```
+
+**Note**: This component uses the unified monorepo environment. All dependencies are managed in the root `pyproject.toml` and installed to `/tai/.venv`. The local `pyproject.toml` serves as documentation of evaluation-specific dependencies.
 
 ## ⚙️ Configuration
 
@@ -204,17 +214,17 @@ print(f"Top-5 recall: {results['recall@5']:.3f}")
 
 The system generates various types of evaluation questions:
 
-| Type | Description | Example |
-|------|-------------|---------|
-| **Factual** | Direct information retrieval | "What is the time complexity of quicksort?" |
-| **Conceptual** | Understanding of concepts | "Explain the difference between iteration and recursion" |
-| **Application** | Practical problem-solving | "How would you implement a binary search tree?" |
-| **Analysis** | Critical thinking | "Compare the advantages of different sorting algorithms" |
+| Type            | Description                  | Example                                                  |
+| --------------- | ---------------------------- | -------------------------------------------------------- |
+| **Factual**     | Direct information retrieval | "What is the time complexity of quicksort?"              |
+| **Conceptual**  | Understanding of concepts    | "Explain the difference between iteration and recursion" |
+| **Application** | Practical problem-solving    | "How would you implement a binary search tree?"          |
+| **Analysis**    | Critical thinking            | "Compare the advantages of different sorting algorithms" |
 
 ### Difficulty Levels
 
 - **Easy**: Basic recall and simple application
-- **Medium**: Moderate reasoning and multi-step problems  
+- **Medium**: Moderate reasoning and multi-step problems
 - **Hard**: Complex analysis and synthesis
 
 ### Output Formats
@@ -250,18 +260,21 @@ Generated datasets include:
 The analyzer computes comprehensive performance metrics:
 
 #### Retrieval Metrics
+
 - **Recall@K**: Fraction of relevant documents retrieved in top-K results
 - **Precision@K**: Fraction of retrieved documents that are relevant
 - **MRR (Mean Reciprocal Rank)**: Average reciprocal rank of first relevant result
 - **NDCG@K**: Normalized Discounted Cumulative Gain
 
 #### Answer Quality Metrics
+
 - **Semantic Similarity**: Cosine similarity between generated and expected answers
 - **BLEU Score**: N-gram overlap between answers
 - **ROUGE Score**: Recall-oriented metrics for answer quality
 - **BERTScore**: Contextual embedding-based similarity
 
 #### System Performance
+
 - **Response Time**: Average time per query
 - **Throughput**: Queries processed per second
 - **Memory Usage**: Peak memory consumption
@@ -323,6 +336,7 @@ poetry run visualize-results --type comparison --models "bge-m3,openai"
 ## 🧪 Testing
 
 ### Test Structure
+
 ```
 tests/
 ├── test_generation/        # Dataset generation tests
@@ -351,12 +365,14 @@ poetry run pytest -m "not openai and not api"
 ## 🔒 Security & Privacy
 
 ### Data Handling
+
 - **Local Storage**: All generated datasets stored locally
 - **API Safety**: Secure handling of OpenAI API keys
 - **Content Privacy**: Course materials processed securely
 - **Anonymization**: Option to anonymize student data in evaluations
 
 ### API Security
+
 - **Rate Limiting**: Built-in OpenAI API rate limiting
 - **Error Handling**: Robust error handling for API failures
 - **Retry Logic**: Intelligent retry mechanisms for failed requests
@@ -364,6 +380,7 @@ poetry run pytest -m "not openai and not api"
 ## 📈 Performance Optimization
 
 ### Generation Optimization
+
 ```bash
 # Batch processing for large datasets
 export BATCH_SIZE=10
@@ -378,6 +395,7 @@ export ENABLE_PROMPT_CACHE=true
 ```
 
 ### Analysis Optimization
+
 ```bash
 # Parallel processing for large evaluations
 export ANALYSIS_WORKERS=8
@@ -396,6 +414,7 @@ export TORCH_DEVICE=cuda
 ### Common Issues
 
 **OpenAI API Issues:**
+
 ```bash
 # Test API connectivity
 poetry run python -c "
@@ -412,6 +431,7 @@ export OPENAI_RATE_LIMIT=60  # requests per minute
 ```
 
 **Memory Issues:**
+
 ```bash
 # Reduce batch size
 export BATCH_SIZE=5
@@ -424,6 +444,7 @@ export EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
 ```
 
 **Dataset Issues:**
+
 ```bash
 # Validate dataset format
 poetry run python -c "
@@ -442,6 +463,7 @@ poetry run python scripts/validate_dataset.py --dataset dataset.json
 ### Adding New Evaluation Metrics
 
 1. Create metric class in `src/metrics.py`:
+
 ```python
 class NewMetric(BaseMetric):
     def compute(self, predictions, ground_truth):
@@ -450,6 +472,7 @@ class NewMetric(BaseMetric):
 ```
 
 2. Register in analyzer:
+
 ```python
 AVAILABLE_METRICS["new_metric"] = NewMetric
 ```
@@ -473,6 +496,7 @@ class NewQuestionGenerator(BaseQuestionGenerator):
 ## 🆘 Support
 
 For issues and questions:
+
 1. Check the troubleshooting section above
 2. Verify API keys and configuration
 3. Test with sample datasets first

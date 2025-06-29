@@ -10,7 +10,6 @@ from rag.scraper.Scraper_master.utils.file_utils import *
 
 
 class VideoScraper(BaseScraper):
-
     def scrape(self, url, driver, task_folder_path):
         # Set base folder for all downloads
         os.makedirs(task_folder_path, exist_ok=True)
@@ -32,14 +31,21 @@ class VideoScraper(BaseScraper):
     def _is_youtube_url(self, url):
         """Checks if a URL belongs to YouTube."""
         parsed_url = urlparse(url)
-        return parsed_url.netloc in ["www.youtube.com", "youtube.com", "m.youtube.com", "youtu.be"]
+        return parsed_url.netloc in [
+            "www.youtube.com",
+            "youtube.com",
+            "m.youtube.com",
+            "youtu.be",
+        ]
 
     def _is_playlist(self, url):
         """Returns True if the given URL is a playlist."""
         ydl_opts = {"quiet": True, "no_warnings": True}
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(url, download=False)  # Get metadata without downloading
+            info = ydl.extract_info(
+                url, download=False
+            )  # Get metadata without downloading
 
         return info.get("_type") == "playlist"
 
@@ -50,14 +56,17 @@ class VideoScraper(BaseScraper):
             print(f"Skipping {url}, unable to retrieve info.")
             return
 
-        title = video_info.get("title", "Untitled").replace("/", "_").replace("\\", "_") + f"_{index}"
+        title = (
+            video_info.get("title", "Untitled").replace("/", "_").replace("\\", "_")
+            + f"_{index}"
+        )
         video_folder = os.path.join(folder, title)
 
         # Download video
-        self._download_yt_video(url, video_folder )
+        self._download_yt_video(url, video_folder)
 
         # Save metadata
-        self._save_metadata(video_folder + '/' + f'{title}_metadata.yaml', url)
+        self._save_metadata(video_folder + "/" + f"{title}_metadata.yaml", url)
         print(f"Downloaded Video: {title} --- {url}")
 
     def _download_playlist(self, url, base_folder):
@@ -76,7 +85,11 @@ class VideoScraper(BaseScraper):
                 return
 
         # Extract playlist title
-        playlist_title = playlist_info.get("title", "Untitled Playlist").replace("/", "_").replace("\\", "_")
+        playlist_title = (
+            playlist_info.get("title", "Untitled Playlist")
+            .replace("/", "_")
+            .replace("\\", "_")
+        )
         playlist_folder = os.path.join(base_folder, playlist_title)
         os.makedirs(playlist_folder, exist_ok=True)
         # print(playlist_info)
@@ -129,5 +142,3 @@ if __name__ == "__main__":
     parsed_url = urlparse(url)
     query_params = parse_qs(parsed_url.query)
     print("list" in query_params and "playlist" in parsed_url.path)
-
-

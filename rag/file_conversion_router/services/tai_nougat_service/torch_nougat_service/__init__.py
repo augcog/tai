@@ -21,20 +21,21 @@ logging.basicConfig(level=logging.INFO)
 
 def create_model(config: NougatConfig) -> NougatModel:
     if config.checkpoint is None or not config.checkpoint.exists():
-        config.checkpoint = get_checkpoint(config.checkpoint, model_tag=config.model_tag)
+        config.checkpoint = get_checkpoint(
+            config.checkpoint, model_tag=config.model_tag
+        )
 
     model = NougatModel.from_pretrained(config.checkpoint)
-    model = move_to_device(model, bf16=not config.full_precision, cuda=config.batch_size > 0)
+    model = move_to_device(
+        model, bf16=not config.full_precision, cuda=config.batch_size > 0
+    )
     model.eval()
     print("model loaded")  # debug
     return model
 
 
 class NougatContainer(containers.DeclarativeContainer):
-    model = providers.Singleton(
-        create_model,
-        config=NougatConfig()
-    )
+    model = providers.Singleton(create_model, config=NougatConfig())
 
 
 def load_datasets(config: NougatConfig, model: NougatModel) -> List[LazyDataset]:
@@ -45,7 +46,9 @@ def load_datasets(config: NougatConfig, model: NougatModel) -> List[LazyDataset]
         if config.output_dir:
             out_path = config.output_dir / pdf.with_suffix(".mmd").name
             if out_path.exists() and not config.recompute:
-                logging.info(f"Skipping {pdf.name}, already computed. Run with recompute=True to convert again.")
+                logging.info(
+                    f"Skipping {pdf.name}, already computed. Run with recompute=True to convert again."
+                )
                 continue
         try:
             dataset = LazyDataset(
@@ -90,21 +93,25 @@ def main(config: NougatConfig, model: NougatModel = Provide[NougatContainer.mode
     page_info_list = []  # List to store metadata for each page
 
     for sample, is_last_page in tqdm(dataloader):
-        model_output = model.inference(image_tensors=sample, early_stopping=config.skipping)
+        model_output = model.inference(
+            image_tensors=sample, early_stopping=config.skipping
+        )
 
         for j, output in enumerate(model_output["predictions"]):
             if page_num == 0:
-                logging.info(f"Processing file {datasets[file_index].name} with {datasets[file_index].size} pages")
+                logging.info(
+                    f"Processing file {datasets[file_index].name} with {datasets[file_index].size} pages"
+                )
             page_num += 1
 
             # Process output and include page number
             processed_output = process_output(output, page_num, config)
 
             # Calculate the number of lines in the current page
-            line_count = processed_output.count('\n')
+            line_count = processed_output.count("\n")
 
             # Add page metadata
-            page_info_list.append({'page_num': page_num, 'start_line': current_line})
+            page_info_list.append({"page_num": page_num, "start_line": current_line})
             predictions.append(processed_output)
             current_line += line_count  # Update line counter
 
@@ -121,14 +128,18 @@ def main(config: NougatConfig, model: NougatModel = Provide[NougatContainer.mode
                     out_path.write_text(out, encoding="utf-8")
 
                     # Construct the metadata file path
-                    metadata_path = config.output_dir / (Path(original_name).stem + "_page_info.yaml")
-                    with open(metadata_path, 'w', encoding='utf-8') as yaml_file:
-                        yaml.dump({'pages': page_info_list}, yaml_file, allow_unicode=True)
+                    metadata_path = config.output_dir / (
+                        Path(original_name).stem + "_page_info.yaml"
+                    )
+                    with open(metadata_path, "w", encoding="utf-8") as yaml_file:
+                        yaml.dump(
+                            {"pages": page_info_list}, yaml_file, allow_unicode=True
+                        )
                         logging.info(f"Metadata written to {metadata_path}")
                 else:
                     print(out, "\n\n")
                     # If not writing to a file, print the metadata as well
-                    print(yaml.dump({'pages': page_info_list}, allow_unicode=True))
+                    print(yaml.dump({"pages": page_info_list}, allow_unicode=True))
 
                 # Reset variables for the next file
                 predictions = []

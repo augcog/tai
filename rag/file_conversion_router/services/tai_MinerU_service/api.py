@@ -1,4 +1,6 @@
-from rag.file_conversion_router.services.tai_MinerU_service.utils.convert import process_pdf
+from rag.file_conversion_router.services.tai_MinerU_service.utils.convert import (
+    process_pdf,
+)
 from pathlib import Path
 
 

@@ -7,6 +7,7 @@ class BaseScraper(ABC):
     """
     Base abstract scraper.
     """
+
     @abstractmethod
     def scrape(self, url: str, driver: Driver, task_folder_path: str) -> List:
         """

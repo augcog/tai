@@ -7,6 +7,7 @@ from pydantic_settings import BaseSettings
 
 class EnvironmentEnum(str, Enum):
     """Allowed application environments."""
+
     dev = "dev"
     production = "production"
     test = "test"
@@ -14,6 +15,7 @@ class EnvironmentEnum(str, Enum):
 
 class LLMModeEnum(str, Enum):
     """Allowed LLM modes for inference."""
+
     local = "local"
     remote = "remote"
     mock = "mock"
@@ -30,11 +32,9 @@ class Settings(BaseSettings):
     # LLM Configuration
     llm_mode: Optional[LLMModeEnum] = Field(
         default=None,
-        description="LLM mode: local, remote, or mock. Defaults based on environment if not set."
+        description="LLM mode: local, remote, or mock. Defaults based on environment if not set.",
     )
-    remote_model_url: str = Field(
-        description="URL for remote model API"
-    )
+    remote_model_url: str = Field(description="URL for remote model API")
 
     admin_token: str = Field(
         description="Admin token required for course management endpoints. Must be set in .env file."
@@ -51,28 +51,16 @@ class Settings(BaseSettings):
         description="API authentication token for NextJS <-> Backend communication. Must be set in .env file."
     )
 
-    dev_mode: bool = Field(
-        default=False,
-        description="Development mode flag"
-    )
+    dev_mode: bool = Field(default=False, description="Development mode flag")
 
     # Data directory settings
-    DATA_DIR: str = Field(
-        description="Directory path for file storage"
-    )
+    DATA_DIR: str = Field(description="Directory path for file storage")
 
     # Server configuration
-    HOST: str = Field(
-        default="127.0.0.1",
-        description="Server host address"
-    )
-    PORT: int = Field(
-        default=8000,
-        description="Server port"
-    )
+    HOST: str = Field(default="127.0.0.1", description="Server host address")
+    PORT: int = Field(default=8000, description="Server port")
     RELOAD: bool = Field(
-        default=False,
-        description="Enable auto-reload for development"
+        default=False, description="Enable auto-reload for development"
     )
 
     @property
@@ -120,7 +108,9 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
-        extra = "allow"  # Allow extra fields from .env file for Pydantic v2 compatibility
+        extra = (
+            "allow"  # Allow extra fields from .env file for Pydantic v2 compatibility
+        )
         # Prevent automatic JSON parsing of list fields
         env_nested_delimiter = None
         # Custom parsing for complex types

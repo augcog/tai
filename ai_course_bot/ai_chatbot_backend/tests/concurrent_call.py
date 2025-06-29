@@ -2,11 +2,25 @@ import requests
 import json
 import time
 import statistics
+import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 API_URL = "http://128.32.43.233:8000/api/chat/completions"
-HEADERS = {"Content-Type": "application/json"}
+
+api_auth_token = os.getenv("api_auth_token")
+if not api_auth_token:
+    raise ValueError(
+        "api_auth_token environment variable is required. Please set it in your .env file or environment.")
+
+HEADERS = {"Content-Type": "application/json",
+           "Authorization": f"Bearer {api_auth_token}"}
 DATA = {
     "messages": [
         {
@@ -18,7 +32,7 @@ DATA = {
     "max_tokens": 150,
     "stream": True,
     "rag": True,
-    "course": "CS 61A"
+    "course": "CS61A"
 }
 
 

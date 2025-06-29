@@ -1,0 +1,70 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "evaluation-tools"
+version = "0.1.0"
+description = "Dataset generation and evaluation tools for TAI"
+authors = ["TAI Team"]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.13"
+
+# Core dependencies
+openai = "^1.58.1"
+plotly = "^5.24.1"
+
+# Local RAG dependency (path dependency to main rag package)
+rag-pipeline = {path = "../../rag", develop = true}
+
+# Additional utilities
+pandas = "^2.2.0"
+numpy = "^1.26.0"
+PyYAML = "^6.0.1"
+click = "^8.1.7"
+rich = "^13.9.4"
+tqdm = "^4.66.0"
+
+[tool.poetry.group.dev.dependencies]
+# Development tools
+pytest = "^8.1.0"
+pytest-cov = "^4.1.0"
+black = "^24.0.0"
+ruff = "^0.1.0"
+mypy = "^1.7.0"
+jupyter = "^1.0.0"
+
+[tool.poetry.scripts]
+# CLI entry points
+generate-dataset = "src.generate:main"
+analyze-performance = "src.analyze:main"
+visualize-results = "src.visualize:main"
+
+# Tool configurations
+[tool.black]
+line-length = 88
+target-version = ['py310']
+
+[tool.ruff]
+target-version = "py310"
+line-length = 88
+select = ["E", "W", "F", "I", "B", "C4", "UP"]
+ignore = ["E501", "B008"]
+
+[tool.mypy]
+python_version = "3.10"
+check_untyped_defs = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers"
+testpaths = ["tests"]
+markers = [
+    "slow: marks tests as slow",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+    "openai: marks tests requiring OpenAI API",
+]

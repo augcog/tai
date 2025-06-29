@@ -1,8 +1,0 @@
-version: '3.8'  # Specify the version of Docker Compose
-
-services:
-  frontend:
-    image: berkeley_tai/frontend  # Specify the image to use
-    ports:
-      - "3000:3000"  # Map port 3000 on the host to port 3000 in the container
-    restart: unless-stopped  # Automatically restart the container unless it is explicitly stopped

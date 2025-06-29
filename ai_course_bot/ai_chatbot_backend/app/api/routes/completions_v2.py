@@ -8,7 +8,7 @@ from app.schemas.completion import CompletionCreateParams, ChatCompletionChunk, 
 from app.services.rag_selector import rag_json_stream_generator, format_chat_msg
 from app.utils.stream_processing import openai_format_stream, extract_text_and_references_from_openai_format
 from app.core.actions.model_selector import course_selection
-from app.dependencies.model import get_model_pipeline
+from app.dependencies.model import get_model_engine
 from app.api.deps import verify_api_token
 
 router = APIRouter()
@@ -21,7 +21,7 @@ async def process_completion(params: CompletionCreateParams):
         f"Processing completion for course: {course} (RAG={'enabled' if rag else 'disabled'})")
 
     # Get the pre-initialized pipeline
-    pipeline = get_model_pipeline()
+    pipeline = get_model_engine()
 
     # Select model based on params.course if needed.
     course_model_address = course_selection.get(course, "default")

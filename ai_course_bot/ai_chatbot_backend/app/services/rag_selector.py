@@ -1,16 +1,23 @@
 import json
-from threading import Thread, Lock
 from typing import Any, Generator, List, Optional, Tuple
 
-import transformers
 from app.services.rag_retriever import (
     _get_reference_documents,
     _get_pickle_and_class,
     embedding_model
 )
 from app.core.models.chat_completion import Message
+from transformers import AutoTokenizer
+from vllm import SamplingParams
+import time
 
-pipeline_generation_lock = Lock()
+SAMPLING = SamplingParams(
+    temperature=0.3,
+    top_p=0.95,
+    max_tokens=4096
+)
+MODEL_ID = "THUDM/GLM-4-9B-0414"
+tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
 
 
 # class Message(BaseModel):
@@ -18,39 +25,19 @@ pipeline_generation_lock = Lock()
 #     content: str
 
 
-def is_local_pipeline(pipeline: Any) -> bool:
-    return hasattr(pipeline, "tokenizer") and pipeline.tokenizer is not None
+def is_local_engine(engine: Any) -> bool:
+    return hasattr(engine, "is_running") and engine.is_running
 
 
-def generate_text_in_thread(messages: List[Message], streamer_iterator: Any, pipeline: Any = None) -> None:
-    """
-    Generate text via a local Hugging Face pipeline in a background thread.
-    Uses tokenizer-based prompt generation if available; otherwise calls the pipeline with raw text.
-
-    This behavior is to enable running model on local / mock mode / remote mode.
-    """
-    with pipeline_generation_lock:
-        if is_local_pipeline(pipeline):
-            # terminators = [
-            #     pipeline.tokenizer.eos_token_id,
-            #     pipeline.tokenizer.convert_tokens_to_ids("<|eot_id|>")
-            # ]
-            msg = [{"role": message.role, "content": message.content}
-                   for message in messages]
-            prompt = pipeline.tokenizer.apply_chat_template(
-                msg,
-                tokenize=False,
-                add_generation_prompt=True
-            )
-            pipeline(
-                prompt,
-                max_new_tokens=1024,
-                do_sample=True,
-                streamer=streamer_iterator
-            )
-        else:
-            prompt = messages[-1].content
-            pipeline(prompt, max_new_tokens=1000, do_sample=True)
+def generate_streaming_response(messages: List[Message], engine: Any = None) -> Any:
+    chat=[
+    {"role": m.role, "content": m.content, "tool_call_id": m.tool_call_id}
+    for m in messages
+    ]
+    prompt = tokenizer.apply_chat_template(
+        chat, tokenize=False, add_generation_prompt=True
+    )
+    return engine.generate(prompt, SAMPLING,request_id=str(time.time_ns()))
 
 
 def build_augmented_prompt(user_message: str, course: str, embedding_dir: str, threshold: float, rag: bool, top_k: int = 7
@@ -126,37 +113,43 @@ def build_augmented_prompt(user_message: str, course: str, embedding_dir: str, t
     else:
         insert_document += f"Instruction: {user_message}"
         modified_message = (
-            f"Understand the reference documents and pick the helpful ones to answer the instruction thoroughly with a well structured markdown format answer. "
+            f"---\n{insert_document}"
+            f"Understand the reference documents and pick the helpful ones to answer the instruction thoroughly with a well structured markdown format answer but no need to add '```markdown'. "
             f"Keep your answer grounded in the facts of the references that are relevant."
             f"Remember to refer to specific reference number inline with md *bold style*.Remember to refer to specific reference number inline with md *bold style*. Remember to refer to specific reference number inline with md *bold style*.Do not list reference at the end. Do not explain if the reference is not related to the question."
             f"If the instruction is not related to any topic related to {class_name}, explain and refuse to answer.\n"
-            f"---\n{insert_document}"
         )
     print("\nAugmented Prompt: \n", modified_message, "\n")
     return modified_message, reference_list, reference_string
 
 
-def local_parser(stream: Any, reference_string: str) -> Generator[str, None, None]:
+async def local_parser(stream: Any, reference_string: str) -> Generator[str, None, None]:
     """
     Yield tokens from a text stream and append the reference block at the end.
     TODO: This function can be removed in the future once the legacy code migration is completed.
     """
-    for chunk in stream:
-        result = chunk.replace("---<|user|>", "")
-        yield result if result is not None else ""
-        print(result, end="")
+    previous_text = ""
+    async for output in stream:
+        text = output.outputs[0].text
+        chunk = text[len(previous_text):]
+        yield chunk
+        previous_text = text
+        print(chunk, end="")
     ref_block = f'\n\n<|begin_of_reference|>\n\n{reference_string}<|end_of_reference|>'
     yield ref_block
     print(ref_block)
 
 
-def parse_token_stream_for_json(stream: Any) -> Generator[str, None, None]:
+async def parse_token_stream_for_json(stream: Any) -> Generator[str, None, None]:
     """
     Yield tokens from a text stream (simplified version for JSON output).
     """
-    for chunk in stream:
-        result = chunk.replace("<|eot_id|>", "")
-        yield result if result is not None else ""
+    previous_text = ""
+    async for output in stream:
+        text = output.outputs[0].text
+        chunk = text[len(previous_text):]
+        yield chunk
+        previous_text = text
 
 
 def format_chat_msg(messages: List[Message]) -> List[Message]:
@@ -184,7 +177,7 @@ def generate_chat_response(
         embedding_dir: str = "/home/bot/localgpt/tai/ai_course_bot/ai_chatbot_backend/app/embedding/",
         threshold: float = 0.32,
         top_k: int = 7,
-        pipeline: Any = None
+        engine: Any = None
 ) -> Tuple[Any, str]:
     """
     Build an augmented message with references and run LLM inference.
@@ -196,15 +189,11 @@ def generate_chat_response(
     )
 
     messages[-1].content = modified_message
-    if is_local_pipeline(pipeline):
-        streamer_iterator = transformers.TextIteratorStreamer(
-            pipeline.tokenizer, skip_prompt=True)
-        t = Thread(target=generate_text_in_thread, args=(
-            messages, streamer_iterator, pipeline))
-        t.start()
-        return streamer_iterator, reference_string
+    if is_local_engine(engine):
+        iterator = generate_streaming_response(messages, engine)
+        return iterator, reference_string
     else:
-        response = pipeline(messages[-1].content, stream=stream, course=course)
+        response = engine(messages[-1].content, stream=stream, course=course)
         return response, reference_string
 
 
@@ -217,7 +206,7 @@ def rag_json_stream_generator(
         embedding_dir: str = "/home/bot/localgpt/tai/ai_course_bot/ai_chatbot_backend/app/embedding/",
         threshold: float = 0.38,
         top_k: int = 7,
-        pipeline: Any = None
+        engine: Any = None
 ) -> Generator[str, None, None]:
     """
     Build an augmented message with references and produce a JSON streaming response.
@@ -227,21 +216,17 @@ def rag_json_stream_generator(
         user_message, course if course else "", embedding_dir, threshold, rag, top_k
     )
     messages[-1].content = modified_message
-    if is_local_pipeline(pipeline):
-        streamer_iterator = transformers.TextIteratorStreamer(
-            pipeline.tokenizer, skip_prompt=True)
-        t = Thread(target=generate_text_in_thread, args=(
-            messages, streamer_iterator, pipeline))
-        t.start()
+    if is_local_engine(engine):
+        iterator = generate_streaming_response(messages, engine)
 
         def stream_json_response() -> Generator[str, None, None]:
-            for chunk in parse_token_stream_for_json(streamer_iterator):
+            for chunk in parse_token_stream_for_json(iterator):
                 yield json.dumps({"type": "token", "data": chunk}) + "\n"
             yield json.dumps({"type": "final", "references": reference_list}) + "\n"
 
         return stream_json_response()
     else:
-        remote_stream = pipeline(
+        remote_stream = engine(
             messages[-1].content, stream=stream, course=course)
 
         def stream_json_response() -> Generator[str, None, None]:

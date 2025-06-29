@@ -1,6 +1,11 @@
 import logging
 import os
 
+# Import model pipeline initializer
+from app.dependencies.model import initialize_model_engine
+initialize_model_engine()
+print("✅ Model pipeline initialization completed successfully!")
+
 import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -11,6 +16,7 @@ from fastapi.templating import Jinja2Templates
 from app.admin import setup_admin
 from app.api.router import api_router
 from app.core.database import engine, Base
+
 # Import to ensure table creation
 from app.core.models.files import FileRegistry
 from app.core.models.courses import CourseModel
@@ -19,8 +25,6 @@ from app.config import settings  # Import the configuration
 # Import the new database initializer
 from app.core.db_initializer import initialize_database_on_startup
 
-# Import model pipeline initializer
-from app.dependencies.model import initialize_model_pipeline
 
 # from app.core.actions.model_selector import get_model
 
@@ -46,12 +50,12 @@ Base.metadata.create_all(bind=engine)
 
 # Initialize model pipeline once at startup
 print("\n🤖 Initializing AI model pipeline...")
-try:
-    initialize_model_pipeline()
-    print("✅ Model pipeline initialization completed successfully!")
-except Exception as e:
-    print(f"❌ Model pipeline initialization failed: {e}")
-    print("💡 The server will start but model-dependent endpoints may not work.")
+# try:
+#     initialize_model_engine()
+#     print("✅ Model pipeline initialization completed successfully!")
+# except Exception as e:
+#     print(f"❌ Model pipeline initialization failed: {e}")
+#     print("💡 The server will start but model-dependent endpoints may not work.")
 
 # File categories are now simplified and handled automatically
 

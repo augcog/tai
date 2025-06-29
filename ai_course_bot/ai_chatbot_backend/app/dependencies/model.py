@@ -1,29 +1,22 @@
 import json
-
-import torch
-import transformers
-
 from app.dependencies.remote_model import RemoteModelClient
 from app.config import settings
+from vllm import AsyncLLMEngine, AsyncEngineArgs
 
 # Global variable to store the loaded pipeline (singleton pattern)
-_model_pipeline = None
+_model_engine = None
 
-
-def get_local_model_pipeline():
-    """Loads the local text generation model for inference.
-    """
-    # model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
-    model_id = "THUDM/GLM-4-9B-0414"
-    device = 0 if torch.cuda.is_available() else -1
-    pipeline = transformers.pipeline(
-        "text-generation",
-        model=model_id,
-        model_kwargs={"torch_dtype": 'auto'},
-        device=device
+def get_local_model_engine():
+    MODEL_ID = "THUDM/GLM-4-9B-0414"
+    TP_SIZE = 2  # tensor_parallel_size
+    GPU_UTIL = 0.6
+    engine_args = AsyncEngineArgs(
+        model=MODEL_ID,
+        tensor_parallel_size=TP_SIZE,
+        gpu_memory_utilization=GPU_UTIL,
     )
-    return pipeline
-
+    engine = AsyncLLMEngine.from_engine_args(engine_args)
+    return engine
 
 def get_remote_model_pipeline():
     """Returns a pipeline that sends inference requests to a remote service.
@@ -65,16 +58,16 @@ def get_mock_model_pipeline():
     return MockPipeline()
 
 
-def initialize_model_pipeline():
+def initialize_model_engine():
     """Initialize the model pipeline once at startup.
 
     Returns the appropriate model pipeline based on configuration.
     This should be called once during app startup.
     """
-    global _model_pipeline
-    if _model_pipeline is not None:
+    global _model_engine
+    if _model_engine is not None:
         print("⚠️  Model pipeline already initialized, returning existing instance")
-        return _model_pipeline
+        return _model_engine
 
     print("🚀 Initializing model pipeline...")
     mode = settings.effective_llm_mode
@@ -82,30 +75,30 @@ def initialize_model_pipeline():
 
     if mode == "local":
         print("🔧 Loading local model pipeline...")
-        _model_pipeline = get_local_model_pipeline()
+        _model_engine = get_local_model_engine()
         print("✅ Local model pipeline loaded successfully!")
     elif mode == "remote":
         print("🌐 Setting up remote model pipeline...")
-        _model_pipeline = get_remote_model_pipeline()
+        _model_engine = get_remote_model_pipeline()
         print("✅ Remote model pipeline setup successfully!")
     elif mode == "mock":
         print("🎭 Setting up mock model pipeline...")
-        _model_pipeline = get_mock_model_pipeline()
+        _model_engine = get_mock_model_pipeline()
         print("✅ Mock model pipeline setup successfully!")
     else:
         raise ValueError(f"Unknown effective LLM mode: {mode}")
 
-    return _model_pipeline
+    return _model_engine
 
 
-def get_model_pipeline():
+def get_model_engine():
     """Returns the pre-initialized model pipeline.
 
     This function should be used after initialize_model_pipeline() has been called.
     If the pipeline hasn't been initialized, it will initialize it on first call.
     """
-    global _model_pipeline
-    if _model_pipeline is None:
+    global _model_engine
+    if _model_engine is None:
         print("⚠️  Model pipeline not initialized, initializing now...")
-        return initialize_model_pipeline()
-    return _model_pipeline
+        return initialize_model_engine()
+    return _model_engine

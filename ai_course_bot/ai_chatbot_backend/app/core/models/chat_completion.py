@@ -38,6 +38,7 @@ class Message(BaseModel):
     tool_call_id: Optional[str] = None
 
 
+
 class CompletionCreateParams(BaseModel):
     course: str
     messages: Optional[List[Message]]

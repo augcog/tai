@@ -10,23 +10,20 @@ from threading import Lock
 from typing import Dict, List, Union
 
 import yaml
-from rag.file_conversion_router.classes.chunk import Chunk
-from rag.file_conversion_router.classes.page import Page
-from rag.file_conversion_router.classes.vidpage import VidPage
-from rag.file_conversion_router.embedding_optimization.src.pipeline.optimizer import (
+
+from file_conversion_router.classes.chunk import Chunk
+from file_conversion_router.classes.page import Page
+from file_conversion_router.classes.vidpage import VidPage
+from file_conversion_router.embedding_optimization.src.pipeline.optimizer import (
     EmbeddingOptimizer,
 )
-from rag.file_conversion_router.utils.logger import (
+from file_conversion_router.utils.conversion_cache import ConversionCache
+from file_conversion_router.utils.logger import (
+    content_logger,
     conversion_logger,
     logger,
-    content_logger,
 )
-from rag.file_conversion_router.utils.utils import (
-    calculate_hash,
-    ensure_path,
-    check_url,
-)
-from rag.file_conversion_router.utils.conversion_cache import ConversionCache
+from file_conversion_router.utils.utils import calculate_hash, check_url, ensure_path
 
 
 class BaseConverter(ABC):

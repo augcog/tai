@@ -1,17 +1,19 @@
-from pathlib import Path
+import os
 import time
+from pathlib import Path
+
+import torch
 import whisper
-from rag.file_conversion_router.conversion.base_converter import BaseConverter
-from rag.file_conversion_router.classes.vidpage import VidPage
-from rag.file_conversion_router.classes.page import Page
+import yaml
 from moviepy.editor import AudioFileClip
-from scenedetect import open_video, SceneManager
+from scenedetect import SceneManager, open_video
 from scenedetect.detectors import AdaptiveDetector
 from scenedetect.scene_manager import save_images, write_scene_list
-from transformers import pipeline, set_seed, AutoTokenizer, AutoModelForCausalLM
-import torch
-import os
-import yaml
+from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline, set_seed
+
+from file_conversion_router.classes.page import Page
+from file_conversion_router.classes.vidpage import VidPage
+from file_conversion_router.conversion.base_converter import BaseConverter
 
 
 class VideoConverter(BaseConverter):

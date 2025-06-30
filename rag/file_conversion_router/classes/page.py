@@ -1,11 +1,13 @@
-import string
-from typing import Optional
-from rag.file_conversion_router.classes.chunk import Chunk
-import tiktoken
-import yaml
 import pickle
 import re
+import string
 from pathlib import Path
+from typing import Optional
+
+import tiktoken
+import yaml
+
+from file_conversion_router.classes.chunk import Chunk
 
 
 class Page:

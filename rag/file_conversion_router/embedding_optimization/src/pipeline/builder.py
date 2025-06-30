@@ -1,25 +1,25 @@
 from pathlib import Path
 from typing import Tuple
 
-from rag.file_conversion_router.embedding_optimization.src.configs.pipeline_config import (
-    PipelineConfig,
+from file_conversion_router.embedding_optimization.src.configs.pipeline_config import (
+    ConfigValidationError,
     ModelConfig,
     ModelType,
-    ConfigValidationError,
+    PipelineConfig,
 )
-from rag.file_conversion_router.embedding_optimization.src.models.base_model import (
+from file_conversion_router.embedding_optimization.src.models.base_model import (
     BaseModel,
 )
-from rag.file_conversion_router.embedding_optimization.src.models.local_model import (
+from file_conversion_router.embedding_optimization.src.models.local_model import (
     LocalLLama3Model,
 )
-from rag.file_conversion_router.embedding_optimization.src.models.mock_model import (
+from file_conversion_router.embedding_optimization.src.models.mock_model import (
     MockModel,
 )
-from rag.file_conversion_router.embedding_optimization.src.models.server_model_tai import (
+from file_conversion_router.embedding_optimization.src.models.server_model_tai import (
     ServerModelTAI,
 )
-from rag.file_conversion_router.embedding_optimization.src.tasks.task_runner import (
+from file_conversion_router.embedding_optimization.src.tasks.task_runner import (
     TaskRunner,
 )
 

@@ -1,11 +1,8 @@
 from functools import reduce
-from typing import List, Optional, Dict, Any
+from typing import Any, Dict, List, Optional
 
-from rag.file_conversion_router.embedding_optimization.src.tasks.base_tasks import (
-    BaseTask,
-)
-
-from rag.file_conversion_router.classes.chunk import Chunk
+from file_conversion_router.classes.chunk import Chunk
+from file_conversion_router.embedding_optimization.src.tasks.base_tasks import BaseTask
 
 
 class ComposedTask(BaseTask):

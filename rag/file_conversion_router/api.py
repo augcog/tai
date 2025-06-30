@@ -4,7 +4,7 @@
 from pathlib import Path
 from typing import Union
 
-from rag.file_conversion_router.services.directory_service import process_folder
+from file_conversion_router.services.directory_service import process_folder
 
 
 def convert_directory(

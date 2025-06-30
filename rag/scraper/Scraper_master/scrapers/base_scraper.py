@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
-from rag.scraper.Scraper_master.drivers.driver import Driver
+
+from scraper.Scraper_master.drivers.driver import Driver
 
 
 class BaseScraper(ABC):

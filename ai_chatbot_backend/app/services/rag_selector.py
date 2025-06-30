@@ -184,7 +184,7 @@ def generate_chat_response(
     stream: bool = True,
     rag: bool = True,
     course: Optional[str] = None,
-    embedding_dir: str = "/home/bot/localgpt/tai/ai_course_bot/ai_chatbot_backend/app/embedding/",
+    embedding_dir: str = "/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/",
     threshold: float = 0.32,
     top_k: int = 7,
     engine: Any = None,
@@ -213,7 +213,7 @@ def rag_json_stream_generator(
     rag: bool = True,
     course: Optional[str] = None,
     # TODO: Revise the default embedding_dir path. And put it into the environment variable for best practice.
-    embedding_dir: str = "/home/bot/localgpt/tai/ai_course_bot/ai_chatbot_backend/app/embedding/",
+    embedding_dir: str = "/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/",
     threshold: float = 0.38,
     top_k: int = 7,
     engine: Any = None,

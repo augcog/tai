@@ -36,7 +36,7 @@ async def process_completion(params: CompletionCreateParams):
     # Use the embedding directory from an environment variable (if set) or fall back to the default.
     embedding_dir = os.environ.get(
         "EMBEDDING_DIR",
-        "/home/bot/localgpt/tai/ai_course_bot/ai_chatbot_backend/app/embedding/",
+        "/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/",
     )
     # Call the selector with the appropriate RAG flag.
     response = selector(

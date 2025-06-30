@@ -59,11 +59,9 @@ direnv allow  # Allow automatic environment activation
 # Follow instructions in rag/README.md
 ```
 
-### Recommended vscode setting for editor Cursor/VScode:
+### Recommended setup for Cursor/VScode:
 
-Install `ms-python.black-formatter` extension in the editor.
-
-That's it! Each project will automatically activate its environment when you enter the directory.
+Highly recommand openning the project using `workspace`(eidtor should alert you automatically) and install all recommand extension and plugins.
 
 ## 🏗️ Architecture
 

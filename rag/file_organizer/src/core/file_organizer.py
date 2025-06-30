@@ -1,12 +1,11 @@
+import json
 import os
 import shutil
 from enum import Enum
-from typing import List, Dict
-import json
+from typing import Dict, List
 
-from rag.file_organizer.src.utils.utils import find_markdown_files
-
-from rag.file_organizer.src.utils.logging_service import get_logger
+from file_organizer.src.utils.logging_service import get_logger
+from file_organizer.src.utils.utils import find_markdown_files
 
 logger = get_logger(__name__)
 

@@ -46,7 +46,7 @@ Navigate to each project directory to set up and use. Each project has its own R
 #### AI Chatbot Backend
 
 ```bash
-cd ai_course_bot/ai_chatbot_backend
+cd ai_chatbot_backend
 direnv allow  # Allow automatic environment activation
 # Follow instructions in ai_course_bot/ai_chatbot_backend/README.md
 ```
@@ -61,64 +61,7 @@ direnv allow  # Allow automatic environment activation
 
 ### Recommended vscode setting for editor Cursor/VScode:
 
-Create a folder .vscode if not exist. Create settings.json inside the folder and change
-to This:
-
-```JSON
-{
-    "editor.formatOnSave": true,
-    "files.exclude": {
-        "**/__pycache__": true,
-        "**/.pytest_cache": true,
-        "**/.mypy_cache": true,
-        "**/.ruff_cache": true,
-        "**/*.egg-info": true,
-        "**/.classpath": true,
-        "**/.project": true,
-        "**/.settings": true,
-        "**/.factorypath": true
-    },
-    "files.insertFinalNewline": true,
-    "files.trimTrailingWhitespace": true,
-    "isort.args": [
-        "--settings-path",
-        "${workspaceFolder}"
-    ],
-    "isort.check": true,
-    "isort.importStrategy": "fromEnvironment",
-    "python.analysis.inlayHints.callArgumentNames": "all",
-    "python.analysis.inlayHints.functionReturnTypes": true,
-    "python.analysis.inlayHints.variableTypes": true,
-    "python.testing.pytestEnabled": true,
-    "python.testing.unittestEnabled": false,
-    "python.defaultInterpreterPath": "${workspaceFolder}/ai_course_bot/ai_chatbot_backend/.venv/bin/python",
-    "python.terminal.activateEnvironment": false,
-
-    "python.analysis.extraPaths": [
-        "./ai_course_bot/ai_chatbot_backend/app",
-        "./rag"
-    ],
-
-    "search.exclude": {
-        "**/node_modules": true,
-        "**/.venv": true,
-        "**/*.egg-info": true,
-        "**/__pycache__": true
-    },
-
-    "[python]": {
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": "explicit"
-        },
-        "editor.defaultFormatter": "ms-python.black-formatter",
-        "editor.rulers": [
-            120
-        ]
-    }
-}
-```
-
-NOTE: need to install `ms-python.black-formatter` extension in the editor.
+Install `ms-python.black-formatter` extension in the editor.
 
 That's it! Each project will automatically activate its environment when you enter the directory.
 
@@ -128,7 +71,7 @@ TAI is organized as a modular monorepo with independent project environments:
 
 ```
 tai/
-├── 🚀 ai_course_bot/ai_chatbot_backend/  # FastAPI backend service
+├── 🚀 ai_chatbot_backend/  # FastAPI backend service
 │   ├── .venv/                           # Project-specific virtual environment
 │   ├── pyproject.toml                   # Poetry dependencies
 │   ├── Makefile                         # Project commands
@@ -144,7 +87,7 @@ tai/
 
 ## 🔄 How It Works
 
-1. **Navigate** to a project: `cd ai_course_bot/ai_chatbot_backend`
+1. **Navigate** to a project: `cd ai_chatbot_backend`
 2. **Environment activates** automatically via direnv
 3. **Use project commands**: `make help` to see available commands
 4. **VSCode detects** the correct Python interpreter automatically

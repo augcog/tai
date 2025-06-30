@@ -1,6 +1,7 @@
 from pathlib import Path
-from rag.file_conversion_router.conversion.base_converter import BaseConverter
-from rag.file_conversion_router.classes.page import Page
+
+from file_conversion_router.classes.page import Page
+from file_conversion_router.conversion.base_converter import BaseConverter
 
 
 class PythonConverter(BaseConverter):

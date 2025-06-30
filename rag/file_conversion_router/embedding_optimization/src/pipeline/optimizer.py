@@ -1,12 +1,13 @@
 import logging
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import List, Optional, Union, Dict, Any
+from typing import Any, Dict, List, Optional, Union
 
-from rag.file_conversion_router.classes.chunk import Chunk
-from rag.file_conversion_router.embedding_optimization.src.tasks.task_context import (
+from file_conversion_router.classes.chunk import Chunk
+from file_conversion_router.embedding_optimization.src.tasks.task_context import (
     TaskContext,
 )
+
 from .builder import PipelineBuilder
 
 logger = logging.getLogger(__name__)

@@ -1,12 +1,14 @@
-import requests
 import base64
-import yaml
-import os
 import json
-from rag.scraper.Scraper_master.scrapers.base_scraper import BaseScraper
-from rag.scraper.Scraper_master.utils.file_utils import (
-    create_and_enter_dir,
+import os
+
+import requests
+import yaml
+
+from scraper.Scraper_master.scrapers.base_scraper import BaseScraper
+from scraper.Scraper_master.utils.file_utils import (
     cd_back_link,
+    create_and_enter_dir,
     replace_backslash_with_slash,
     save_to_file,
 )

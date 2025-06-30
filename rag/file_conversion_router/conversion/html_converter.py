@@ -1,11 +1,11 @@
-from pathlib import Path
-from bs4 import BeautifulSoup
-from markdownify import markdownify as md
 import re
+from pathlib import Path
 from urllib.parse import urlparse
 
-from rag.file_conversion_router.conversion.base_converter import BaseConverter
-from rst_to_myst import rst_to_myst
+from bs4 import BeautifulSoup
+from markdownify import markdownify as md
+
+from file_conversion_router.conversion.base_converter import BaseConverter
 
 content_tags_dict = {
     "https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html": [

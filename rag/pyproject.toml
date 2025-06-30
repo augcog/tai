@@ -65,6 +65,15 @@ PyYAML = "*"
 # FastAPI for RAG API
 fastapi = "*"
 uvicorn = "*"
+magic-pdf = "^1.3.12"
+mlx = "^0.26.1"
+markdownify = "^1.1.0"
+rst-to-myst = "^0.4.0"
+whisper = "^1.1.10"
+moviepy = "^2.2.1"
+yt-dlp = "^2025.6.25"
+voyageai = "^0.3.2"
+cohere = "^5.15.0"
 
 [tool.poetry.group.dev.dependencies]
 # Development tools

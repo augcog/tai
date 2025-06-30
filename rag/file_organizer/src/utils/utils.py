@@ -1,8 +1,7 @@
-from typing import List
-import os
 import glob
 import json
-from typing import Dict, Any
+import os
+from typing import Any, Dict, List
 
 
 def save_dict_to_json(summaries: Dict, output_path: str) -> None:

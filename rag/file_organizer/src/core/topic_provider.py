@@ -1,9 +1,9 @@
-from typing import Dict
-from pathlib import Path
 import random
+from pathlib import Path
+from typing import Dict
 
-from rag.file_organizer.src.utils.utils import *
-from rag.file_organizer.src.services.models import LLMBase
+from file_organizer.src.services.models import LLMBase
+from file_organizer.src.utils.utils import *
 
 
 class TopicProvider:

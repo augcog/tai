@@ -8,6 +8,12 @@ initialize_model_engine()
 print("✅ Model pipeline initialization completed successfully!")
 
 import uvicorn
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+
 from app.admin import setup_admin
 from app.api.router import api_router
 from app.config import settings  # Import the configuration
@@ -19,11 +25,6 @@ from app.core.models.courses import CourseModel
 
 # Import to ensure table creation
 from app.core.models.files import FileRegistry
-from fastapi import FastAPI, Request
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
 
 # from app.core.actions.model_selector import get_model
 

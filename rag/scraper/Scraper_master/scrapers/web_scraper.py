@@ -1,13 +1,14 @@
-import yaml
 import logging
 from pathlib import Path
-from typing import Dict, List, Set, Optional
+from typing import Dict, List, Optional, Set
 
-from rag.scraper.Scraper_master.scrapers.general_scraper import GeneralScraper
-from rag.scraper.Scraper_master.scrapers.scrape_vid import VideoScraper
-from rag.scraper.Scraper_master.drivers.playwright_driver import PlaywrightDriver
-from rag.scraper.Scraper_master.drivers.requests_driver import RequestsDriver
-from rag.scraper.Scraper_master.logger import logger, set_up_logger
+import yaml
+
+from scraper.Scraper_master.drivers.playwright_driver import PlaywrightDriver
+from scraper.Scraper_master.drivers.requests_driver import RequestsDriver
+from scraper.Scraper_master.logger import logger, set_up_logger
+from scraper.Scraper_master.scrapers.general_scraper import GeneralScraper
+from scraper.Scraper_master.scrapers.scrape_vid import VideoScraper
 
 SCRAPER_MAPPING = {"general_scraper": GeneralScraper, "video_scraper": VideoScraper}
 

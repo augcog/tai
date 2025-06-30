@@ -1,13 +1,14 @@
-import requests
 import os
 import re
 from urllib.parse import urljoin
 
-from rag.scraper.Scraper_master.scrapers.base_scraper import BaseScraper
-from rag.scraper.Scraper_master.utils.file_utils import (
-    save_to_file,
-    create_and_enter_dir,
+import requests
+
+from scraper.Scraper_master.scrapers.base_scraper import BaseScraper
+from scraper.Scraper_master.utils.file_utils import (
     cd_back_link,
+    create_and_enter_dir,
+    save_to_file,
 )
 
 ignore = ["glossary", "*"]

@@ -1,13 +1,14 @@
+import os
+from abc import ABC, abstractmethod
 from functools import lru_cache
-from typing import List, Dict, Optional
+from typing import Dict, List, Optional
+
 import torch
 import transformers
-from abc import ABC, abstractmethod
 from openai import OpenAI
-import os
 
-from rag.file_organizer.src.utils.logging_service import get_logger
-from rag.file_organizer.src.config.config import load_profiles
+from file_organizer.src.config.config import load_profiles
+from file_organizer.src.utils.logging_service import get_logger
 
 logger = get_logger(__name__)
 

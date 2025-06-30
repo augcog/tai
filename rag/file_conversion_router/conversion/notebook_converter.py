@@ -1,9 +1,10 @@
 from pathlib import Path
+
 import nbformat
 from nbconvert import MarkdownExporter
 
-from rag.file_conversion_router.conversion.base_converter import BaseConverter
-from rag.file_conversion_router.classes.page import Page
+from file_conversion_router.classes.page import Page
+from file_conversion_router.conversion.base_converter import BaseConverter
 
 
 class NotebookConverter(BaseConverter):

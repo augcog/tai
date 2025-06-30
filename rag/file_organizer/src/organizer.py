@@ -1,19 +1,20 @@
 # organizer/core.py
 from __future__ import annotations
-from pathlib import Path
+
 import logging
 import os
+from pathlib import Path
 
 import yaml
-
-from rag.file_organizer.src.config.config import OrganizerCfg
-from rag.file_organizer.src.services.models import get_llm
-from rag.file_organizer.src.core.summarizer import Summarizer
-from rag.file_organizer.src.core.topic_classifier import TopicClassifier
-from rag.file_organizer.src.core.func_classifier import FuncClassifier
-from rag.file_organizer.src.core.file_organizer import organize_files
-from rag.file_organizer.src.utils.logging_service import get_logger
 from dotenv import load_dotenv
+
+from file_organizer.src.config.config import OrganizerCfg
+from file_organizer.src.core.file_organizer import organize_files
+from file_organizer.src.core.func_classifier import FuncClassifier
+from file_organizer.src.core.summarizer import Summarizer
+from file_organizer.src.core.topic_classifier import TopicClassifier
+from file_organizer.src.services.models import get_llm
+from file_organizer.src.utils.logging_service import get_logger
 
 log = get_logger(__name__)
 

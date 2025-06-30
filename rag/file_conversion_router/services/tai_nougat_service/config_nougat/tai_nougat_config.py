@@ -7,9 +7,7 @@ import logging
 from dataclasses import dataclass, field
 from typing import Callable, Union
 
-from .nougat_config import NougatConfig
-
-from rag.file_conversion_router.utils.hardware_detection import detect_is_apple_silicon
+from file_conversion_router.utils.hardware_detection import detect_is_apple_silicon
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"

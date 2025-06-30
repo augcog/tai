@@ -1,14 +1,11 @@
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
-from rag.file_conversion_router.embedding_optimization.src.configs.enums import (
-    TaskContext,
-)
-
-from rag.file_conversion_router.classes.chunk import Chunk
-from rag.file_conversion_router.embedding_optimization.src.models.base_model import (
+from file_conversion_router.classes.chunk import Chunk
+from file_conversion_router.embedding_optimization.src.configs.enums import TaskContext
+from file_conversion_router.embedding_optimization.src.models.base_model import (
     BaseModel,
 )
-from rag.file_conversion_router.embedding_optimization.src.tasks.task_runner import (
+from file_conversion_router.embedding_optimization.src.tasks.task_runner import (
     TaskRunner,
 )
 

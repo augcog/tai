@@ -1,14 +1,13 @@
-from typing import Dict, List
+import ast
 import json
 import random
-import ast
+from typing import Dict, List
 
-
-from rag.file_organizer.src.services.models import LLMBase
-from rag.file_organizer.src.services.prompt_service import PromptService
-from rag.file_organizer.src.config.config import TopicClassifierCfg
-from rag.file_organizer.src.utils.utils import save_dict_to_json
-from rag.file_organizer.src.utils.logging_service import get_logger
+from file_organizer.src.config.config import TopicClassifierCfg
+from file_organizer.src.services.models import LLMBase
+from file_organizer.src.services.prompt_service import PromptService
+from file_organizer.src.utils.logging_service import get_logger
+from file_organizer.src.utils.utils import save_dict_to_json
 
 logger = get_logger(__name__)
 

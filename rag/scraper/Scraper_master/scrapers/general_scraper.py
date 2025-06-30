@@ -1,11 +1,10 @@
 from bs4 import BeautifulSoup
 
-from rag.scraper.Scraper_master.scrapers.base_scraper import BaseScraper
-from rag.scraper.Scraper_master.utils.web_utils import *
-from rag.scraper.Scraper_master.utils.file_utils import *
-
-from rag.scraper.Scraper_master.drivers.playwright_driver import PlaywrightDriver
-from rag.scraper.Scraper_master.drivers.requests_driver import RequestsDriver
+from scraper.Scraper_master.drivers.playwright_driver import PlaywrightDriver
+from scraper.Scraper_master.drivers.requests_driver import RequestsDriver
+from scraper.Scraper_master.scrapers.base_scraper import BaseScraper
+from scraper.Scraper_master.utils.file_utils import *
+from scraper.Scraper_master.utils.web_utils import *
 
 
 class GeneralScraper(BaseScraper):

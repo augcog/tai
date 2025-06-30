@@ -133,7 +133,4 @@ cython_debug/
 #csv
 *.csv
 
-#vscode
-.vscode
-
 .claude/

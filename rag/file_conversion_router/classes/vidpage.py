@@ -1,8 +1,10 @@
-import string
-from rag.file_conversion_router.classes.chunk import Chunk
-from rag.file_conversion_router.classes.page import Page
-import tiktoken
 import pickle
+import string
+
+import tiktoken
+
+from file_conversion_router.classes.chunk import Chunk
+from file_conversion_router.classes.page import Page
 
 
 class VidPage(Page):

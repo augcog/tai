@@ -234,7 +234,7 @@ def perform_rag(messages: List[Message], course: str) -> Any:
         "Default": ["Berkeley.pkl", "Berkeley"],
     }
     picklefile, class_name = course_pickle_map.get(course, ["Berkeley.pkl", "Berkeley"])
-    current_dir = "/home/bot/localgpt/tai/ai_course_bot/ai_chatbot_backend/app/embedding/"  # Modify as needed
+    current_dir = "/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/"  # Modify as needed
     num_docs = 7
     if SQLDB:
         # SQLDB logic

@@ -214,7 +214,7 @@ def top_k_selector(
     if rag:
         picklefile, _ = _get_pickle_and_class(course if course else "")
         current_dir = (
-            "/home/bot/localgpt/tai/ai_course_bot/ai_chatbot_backend/app/embedding/"
+            "/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/"
         )
         query_embed = embedding_model.encode(
             message, return_dense=True, return_sparse=True, return_colbert_vecs=True

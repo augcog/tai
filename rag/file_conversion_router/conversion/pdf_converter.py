@@ -4,11 +4,12 @@ import subprocess
 from pathlib import Path
 
 import fitz
-from rag.file_conversion_router.conversion.base_converter import BaseConverter
+
+from file_conversion_router.conversion.base_converter import BaseConverter
 
 # from rag.file_conversion_router.services.tai_nougat_service import TAINougatConfig
 # from rag.file_conversion_router.services.tai_nougat_service.api import convert_pdf_to_mmd
-from rag.file_conversion_router.services.tai_MinerU_service.api import (
+from file_conversion_router.services.tai_MinerU_service.api import (
     convert_pdf_to_md_by_MinerU,
 )
 

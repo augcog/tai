@@ -10,11 +10,12 @@ Usage
 """
 
 from __future__ import annotations
+
 import logging
 import logging.handlers
 import os
-from pathlib import Path
 from functools import lru_cache
+from pathlib import Path
 
 DEFAULT_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()  # e.g. DEBUG in dev
 MAX_BYTES = int(os.getenv("LOG_MAX_BYTES", 5 * 1024 * 1024))  # 5 MB

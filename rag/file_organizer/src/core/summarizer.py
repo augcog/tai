@@ -1,14 +1,17 @@
-from typing import Dict
+import json
+import os
 from dataclasses import dataclass
 from pathlib import Path
-import os
-import json
+from typing import Dict
 
-from rag.file_organizer.src.services.models import LLMBase
-from rag.file_organizer.src.services.prompt_service import PromptService
-from rag.file_organizer.src.utils.utils import split_into_chunks, find_markdown_files
-from rag.file_organizer.src.utils.utils import save_dict_to_json
-from rag.file_organizer.src.utils.logging_service import get_logger
+from file_organizer.src.services.models import LLMBase
+from file_organizer.src.services.prompt_service import PromptService
+from file_organizer.src.utils.logging_service import get_logger
+from file_organizer.src.utils.utils import (
+    find_markdown_files,
+    save_dict_to_json,
+    split_into_chunks,
+)
 
 logger = get_logger(__name__)
 

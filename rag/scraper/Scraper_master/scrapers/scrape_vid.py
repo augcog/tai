@@ -1,12 +1,13 @@
 import os
+from urllib.parse import parse_qs, urlparse
+
 import requests
 import yaml
-from bs4 import BeautifulSoup
-from urllib.parse import urlparse, parse_qs
 import yt_dlp
+from bs4 import BeautifulSoup
 
-from rag.scraper.Scraper_master.scrapers.base_scraper import BaseScraper
-from rag.scraper.Scraper_master.utils.file_utils import *
+from scraper.Scraper_master.scrapers.base_scraper import BaseScraper
+from scraper.Scraper_master.utils.file_utils import *
 
 
 class VideoScraper(BaseScraper):

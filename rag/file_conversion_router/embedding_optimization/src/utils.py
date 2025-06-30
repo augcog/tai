@@ -1,11 +1,10 @@
 import logging
 import pickle
-from typing import List
-from typing import Optional
+from typing import List, Optional
 
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-from rag.file_conversion_router.classes.chunk import Chunk
+from file_conversion_router.classes.chunk import Chunk
 
 logger = logging.getLogger(__name__)
 

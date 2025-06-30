@@ -1,9 +1,11 @@
-from pathlib import Path
-import yaml
 import json
-from rag.file_conversion_router.conversion.base_converter import BaseConverter
-from rag.file_conversion_router.classes.page import Page
-from rag.file_conversion_router.classes.chunk import Chunk
+from pathlib import Path
+
+import yaml
+
+from file_conversion_router.classes.chunk import Chunk
+from file_conversion_router.classes.page import Page
+from file_conversion_router.conversion.base_converter import BaseConverter
 
 
 class EdConverter(BaseConverter):

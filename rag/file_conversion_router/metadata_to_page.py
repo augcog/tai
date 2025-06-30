@@ -1,7 +1,9 @@
-from pathlib import Path
-from rag.file_conversion_router.classes.page import Page
-import yaml
 import os
+from pathlib import Path
+
+import yaml
+
+from file_conversion_router.classes.page import Page
 
 
 def to_page(input_path):
@@ -21,7 +23,8 @@ def to_page(input_path):
 to_page("/home/roar-tai-1/Desktop/yk/tai/output/61a-sp24-mt1/61a-sp24-mt1.md")
 import pickle
 from pathlib import Path
-from rag.file_conversion_router.classes.chunk import Chunk
+
+from file_conversion_router.classes.chunk import Chunk
 
 
 def load_pkl_file(file_path: Path):

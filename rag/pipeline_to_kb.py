@@ -1,11 +1,10 @@
 import os
+
 import yaml
 
-from rag.scraper.Scraper_master.factory import ScraperFactory
-from rag.scraper.Scraper_master.configs import ScraperConfig
-from rag.file_conversion_router.api import convert_directory
-from rag.file_conversion_router.embedding_create import embedding_create
-from rag.scraper.Scraper_master.scrapers.web_scraper import WebScraper
+from file_conversion_router.api import convert_directory
+from file_conversion_router.embedding_create import embedding_create
+from scraper.Scraper_master.scrapers.web_scraper import WebScraper
 
 
 def load_yaml(file_path):

@@ -2,17 +2,14 @@ import logging
 from typing import Optional
 
 import torch
-from transformers import (
-    AutoModelForCausalLM,
-    AutoTokenizer,
-    pipeline,
-    logging as hf_logging,
-)
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import logging as hf_logging
+from transformers import pipeline
 
-from rag.file_conversion_router.embedding_optimization.src.models.base_model import (
+from file_conversion_router.embedding_optimization.src.models.base_model import (
     BaseModel,
 )
-from rag.file_conversion_router.embedding_optimization.src.utils import (
+from file_conversion_router.embedding_optimization.src.utils import (
     ensure_model_downloaded,
 )
 

@@ -3,206 +3,66 @@
 ![TAI_logo.png](TAI_logo.png)
 
 [![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![Poetry](https://img.shields.io/badge/poetry-1.4+-blue.svg)](https://python-poetry.org/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ## 🚀 Quick Start
 
-Get TAI running with just two commands:
+TAI uses project-specific virtual environments with automatic activation. Each project has its own dependencies and setup.
+
+### Prerequisites
+
+#### 1. Install Poetry
 
 ```bash
-# Install Poetry if you haven't already
 curl -sSL https://install.python-poetry.org | python3 -
-
-# Setup everything
-make setup
 ```
 
-Start the backend service:
+#### 2. Install direnv for automatic environment activation
 
 ```bash
-make dev-backend
+# On macOS with Homebrew
+brew install direnv
+
+# On Linux with apt
+sudo apt install direnv
 ```
 
-Visit `http://localhost:8000` to see the API documentation. 🎉
-
-## 🔄 Automatic Environment Activation
-
-TAI includes a `.envrc` file that automatically activates the Poetry environment when you enter the directory. To enable this:
-
-### Using direnv (Recommended)
-
-1. **Install direnv:**
-
-   ```bash
-   # On macOS with Homebrew
-   brew install direnv
-
-   # On Linux with apt
-   sudo apt install direnv
-   ```
-
-2. **Add direnv hook to your shell:**
-
-   **For zsh:**
-
-   ```bash
-   echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc
-   source ~/.zshrc
-   ```
-
-   **For bash:**
-
-   ```bash
-   echo 'eval "$(direnv hook bash)"' >> ~/.bashrc
-   source ~/.bashrc
-   ```
-
-3. **Allow the .envrc file:**
-   ```bash
-   cd /path/to/TAI/tai
-   direnv allow
-   ```
-
-Now whenever you `cd` into the `tai` directory, your Poetry environment will automatically activate! You'll see:
-
-```
-🐍 Activating Poetry environment: TAI-xyz123
-direnv: loading .../TAI/tai/.envrc
-```
-
-## Link to Website
-
-https://tai.berkeley.edu
-
-## What is TAI?
-
-TAI is an open source project developed by researchers and students at UC Berkeley (see Credits below), with the goal to offer the power of edge GPT models and services for education purposes. The GPT models selected in TAI are carefully curated to allow students to easily spin up their own local GPT services and websites. The project further develops robust embedding and RAG toolkits to allow users to convert their knowledge base and multimedia documents into searchable vector databases.
-
-Once installed locally, TAI allows individuals to easily start a conversation to use GPT techniques to search through local documents using simple natural languages.
-
-## 🏗️ Architecture
-
-TAI is organized as a monorepo with the following components:
-
-```
-tai/
-├── 🚀 ai_course_bot/ai_chatbot_backend/  # FastAPI backend service
-├── 🧠 rag/                              # RAG pipeline and file processing
-├── 📁 rag/file_organizer/               # File organization utilities
-└── 📊 evaluation/dataset_generate/      # Evaluation and dataset tools
-```
-
-## 💻 Development Workflow
-
-### Available Commands
+#### 3. Add direnv hook to your shell
 
 ```bash
-# Installation
-make install             # Install core dependencies
-make install-cv          # Install computer vision packages
-make install-ocr         # Install OCR packages (heavy)
-make install-ml-heavy    # Install heavy ML packages
-make install-video       # Install video processing packages
-make install-web         # Install web scraping packages
-make install-formats     # Install additional format support
-make install-training    # Install ML training packages
-make install-full        # Install all optional packages
+# For zsh
+echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc
+source ~/.zshrc
 
-# Development
-make dev-backend         # Start backend service
-make dev-rag            # Start RAG tools
-make dev                # Alias for dev-backend
-
-# Testing & Quality
-make test               # Run all tests
-make test-backend       # Run backend tests only
-make test-rag          # Run RAG pipeline tests only
-make test-evaluation   # Run evaluation tests only
-make test-organizer    # Run file organizer tests only
-make lint              # Run linting across all code
-make format            # Format code across all projects
-make check-format      # Check if code is formatted correctly
-make type              # Run type checking
-make check-all         # Run all code quality checks
-make clean             # Clean build artifacts and caches
-
-# Package Management
-make add PKG=name      # Add a package
-make add-dev PKG=name  # Add a development package
-make remove PKG=name   # Remove a package
-make update            # Update all dependencies
-make show-deps         # Show dependency tree
-
-# Status & Help
-make help              # Show all commands
-make status            # Show status of the unified environment
+# For bash
+echo 'eval "$(direnv hook bash)"' >> ~/.bashrc
+source ~/.bashrc
 ```
 
-### Working with Components
+### Setup Projects
 
-All components are now managed from the unified Poetry environment in the root directory. Use the specific test commands for each component:
+Navigate to each project directory to set up and use. Each project has its own README with detailed instructions:
+
+#### AI Chatbot Backend
 
 ```bash
-# Component-specific testing
-make test-backend       # Run backend tests
-make test-rag          # Run RAG pipeline tests
-make test-evaluation   # Run evaluation tests
-make test-organizer    # Run file organizer tests
+cd ai_course_bot/ai_chatbot_backend
+direnv allow  # Allow automatic environment activation
+# Follow instructions in ai_course_bot/ai_chatbot_backend/README.md
 ```
 
-## 📦 Package Management
-
-TAI uses Poetry with a unified environment for all components. All package management is done from the root directory.
-
-### Adding New Packages
+#### RAG Pipeline
 
 ```bash
-# All package management from root directory
-make add PKG=torch                    # Add production dependency
-make add-dev PKG=pytest              # Add development dependency
-make remove PKG=outdated-package     # Remove package
-make update                          # Update dependencies
-make show-deps                       # Show dependency tree
+cd rag
+direnv allow  # Allow automatic environment activation
+# Follow instructions in rag/README.md
 ```
 
-Poetry automatically updates `pyproject.toml` and `poetry.lock` files - no more manual requirements.txt editing!
+### Recommended vscode setting for editor Cursor/VScode:
 
-## 🧪 Testing
-
-```bash
-# Run all tests
-make test
-
-# Component-specific testing (all from root directory)
-make test-backend       # Run backend tests only
-make test-rag          # Run RAG pipeline tests only
-make test-evaluation   # Run evaluation tests only
-make test-organizer    # Run file organizer tests only
-```
-
-## 🔧 Troubleshooting
-
-### Poetry Issues
-
-```bash
-# Install Poetry
-curl -sSL https://install.python-poetry.org | python3 -
-
-# Reset environment
-poetry cache clear pypi --all
-make clean && make install
-```
-
-### Python Version
-
-Requires Python 3.10+. Check with `python --version`.
-
-### Useful extension
-
-`ms-python.black-formatter` is the formatter extension the project use.
-
-Copy the json below into your `.vscode/settings.json` to make code formatting and style aligned.
+Create a folder .vscode if not exist. Create settings.json inside the folder and change
+to This:
 
 ```JSON
 {
@@ -210,6 +70,9 @@ Copy the json below into your `.vscode/settings.json` to make code formatting an
     "files.exclude": {
         "**/__pycache__": true,
         "**/.pytest_cache": true,
+        "**/.mypy_cache": true,
+        "**/.ruff_cache": true,
+        "**/*.egg-info": true,
         "**/.classpath": true,
         "**/.project": true,
         "**/.settings": true,
@@ -228,7 +91,21 @@ Copy the json below into your `.vscode/settings.json` to make code formatting an
     "python.analysis.inlayHints.variableTypes": true,
     "python.testing.pytestEnabled": true,
     "python.testing.unittestEnabled": false,
-    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+    "python.defaultInterpreterPath": "${workspaceFolder}/ai_course_bot/ai_chatbot_backend/.venv/bin/python",
+    "python.terminal.activateEnvironment": false,
+
+    "python.analysis.extraPaths": [
+        "./ai_course_bot/ai_chatbot_backend/app",
+        "./rag"
+    ],
+
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/.venv": true,
+        "**/*.egg-info": true,
+        "**/__pycache__": true
+    },
+
     "[python]": {
         "editor.codeActionsOnSave": {
             "source.organizeImports": "explicit"
@@ -239,42 +116,54 @@ Copy the json below into your `.vscode/settings.json` to make code formatting an
         ]
     }
 }
-
 ```
 
-### Python Interpreter Detection Issues
+NOTE: need to install `ms-python.black-formatter` extension in the editor.
 
-If VSCode isn't detecting your Python interpreter:
+That's it! Each project will automatically activate its environment when you enter the directory.
 
-1. **Install required VSCode extensions:**
+## 🏗️ Architecture
 
-   - Python (ms-python.python)
-   - Black Formatter (ms-python.black-formatter)
-   - isort (ms-python.isort)
+TAI is organized as a modular monorepo with independent project environments:
 
-2. **Manually select the Poetry interpreter:**
+```
+tai/
+├── 🚀 ai_course_bot/ai_chatbot_backend/  # FastAPI backend service
+│   ├── .venv/                           # Project-specific virtual environment
+│   ├── pyproject.toml                   # Poetry dependencies
+│   ├── Makefile                         # Project commands
+│   └── .envrc                           # Auto-activation with direnv
+├── 🧠 rag/                              # RAG pipeline and file processing
+│   ├── .venv/                           # Project-specific virtual environment
+│   ├── pyproject.toml                   # Poetry dependencies
+│   ├── Makefile                         # Project commands
+│   └── .envrc                           # Auto-activation with direnv
+├── 📁 rag/file_organizer/               # File organization utilities
+└── 📊 evaluation/dataset_generate/      # Evaluation and dataset tools
+```
 
-   - Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux)
-   - Type "Python: Select Interpreter"
-   - Choose the interpreter from `tai/.venv/bin/python`
+## 🔄 How It Works
 
-3. **Verify Poetry environment exists:**
+1. **Navigate** to a project: `cd ai_course_bot/ai_chatbot_backend`
+2. **Environment activates** automatically via direnv
+3. **Use project commands**: `make help` to see available commands
+4. **VSCode detects** the correct Python interpreter automatically
 
-   ```bash
-   cd tai
-   poetry env info --path  # Should show the virtual environment path
-   make install          # Create environment if it doesn't exist
-   ```
+## Link to Website
 
-4. **Force VSCode to refresh:**
-   - Reload VSCode window: `Cmd+R` (Mac) or `Ctrl+R` (Windows/Linux)
-   - Or restart VSCode completely
+https://tai.berkeley.edu
+
+## What is TAI?
+
+TAI is an open source project developed by researchers and students at UC Berkeley (see Credits below), with the goal to offer the power of edge GPT models and services for education purposes. The GPT models selected in TAI are carefully curated to allow students to easily spin up their own local GPT services and websites. The project further develops robust embedding and RAG toolkits to allow users to convert their knowledge base and multimedia documents into searchable vector databases.
+
+Once installed locally, TAI allows individuals to easily start a conversation to use GPT techniques to search through local documents using simple natural languages.
 
 ## Core Algorithms
 
 Llama3 as base model, BGE-M3 as embedding model, Sqlite-vss as vector database, and RAG agent.
 
-## AI course bot
+## AI Course Bot
 
 AI course bot is our Open-Source RAG Framework, designed to facilitate the creation and deployment of a TAI website. This platform harnesses the power of a Retrieval-Augmented Generation (RAG) system to provide answers to questions sourced from course materials and online resources. With its user-friendly deployment process and customization options, the TAI serves as a valuable resource for providing seamless support to students.
 

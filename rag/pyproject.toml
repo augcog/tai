@@ -1,7 +1,5 @@
-# RAG Pipeline Component Configuration
-# This file specifies RAG-specific dependencies for documentation purposes.
-# Actual installation happens from the root monorepo pyproject.toml.
-# Use 'make install' from this directory to install all dependencies to root .venv
+# RAG Pipeline - Standalone Configuration
+# This project uses Poetry for dependency management with local .venv
 
 [build-system]
 requires = ["poetry-core"]
@@ -15,8 +13,7 @@ authors = ["TAI Team"]
 readme = "README.md"
 packages = [{include = "file_conversion_router"}]
 
-# Component-specific dependencies (for documentation)
-# These are included in the root monorepo pyproject.toml
+# Production dependencies
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
 
@@ -80,7 +77,7 @@ ruff = "*"
 mypy = "*"
 jupyter = "*"
 
-# Optional dependency groups (install via root with --with flags)
+# Optional dependency groups
 [tool.poetry.group.cv.dependencies]
 # Computer Vision packages
 opencv-python = "*"
@@ -110,11 +107,11 @@ selenium = "*"
 aiolimiter = "*"
 
 [tool.poetry.scripts]
-# Entry points for this component
+# Entry points
 rag-convert = "file_conversion_router.api:convert_files"
 rag-embed = "file_conversion_router.embedding.table_create:main"
 
-# Component-specific tool configurations
+# Tool configurations
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 markers = [

@@ -1,7 +1,5 @@
-# Backend Component Configuration
-# This file specifies backend-specific dependencies for documentation purposes.
-# Actual installation happens from the root monorepo pyproject.toml.
-# Use 'make install' from this directory to install all dependencies to root .venv
+# AI Chatbot Backend - Standalone Configuration
+# This project uses Poetry for dependency management with local .venv
 
 [build-system]
 requires = ["poetry-core"]
@@ -15,8 +13,7 @@ authors = ["TAI Team"]
 readme = "README.md"
 packages = [{include = "app"}]
 
-# Component-specific dependencies (for documentation)
-# These are included in the root monorepo pyproject.toml
+# Production dependencies
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
 
@@ -52,9 +49,10 @@ python-dotenv = "*"
 jsonschema = "*"
 watchdog = "*"
 requests = "*"
+vllm = "^0.9.1"
 
 [tool.poetry.group.dev.dependencies]
-# Development tools used by backend
+# Development tools
 pytest = "*"
 pytest-asyncio = "*"
 pytest-cov = "*"
@@ -67,10 +65,10 @@ mypy = "*"
 ipython = "*"
 
 [tool.poetry.scripts]
-# Entry point for this component
+# Entry point
 tai-backend = "main:main"
 
-# Component-specific tool configurations
+# Tool configurations
 [tool.pytest.ini_options]
 minversion = "7.0"
 addopts = "-ra -q --strict-markers --cov=app --cov-report=term-missing"

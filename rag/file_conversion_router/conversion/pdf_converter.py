@@ -6,8 +6,8 @@ from rag.file_conversion_router.conversion.base_converter import BaseConverter
 from rag.file_conversion_router.services.tai_MinerU_service.api import convert_pdf_to_md_by_MinerU
 
 class PdfConverter(BaseConverter):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, course_name, course_id):
+        super().__init__(course_name, course_id)
         self.available_tools = ["nougat", "MinerU"]
 
     def is_tool_supported(self, tool_name):
@@ -26,11 +26,11 @@ class PdfConverter(BaseConverter):
         return re.sub(image_link_pattern, '', text)
 
 
-    def clean_markdown_content(self, markdown_content):
-        with open(markdown_content, 'r', encoding='utf-8') as file:
+    def clean_markdown_content(self, markdown_path):
+        with open(markdown_path, 'r', encoding='utf-8') as file:
             content = file.read()
         cleaned_content = self.remove_image_links(content)
-        with open(markdown_content, 'w', encoding='utf-8') as file:
+        with open(markdown_path, 'w', encoding='utf-8') as file:
             file.write(cleaned_content)
 
     def validate_tool(self, tool_name):
@@ -39,7 +39,6 @@ class PdfConverter(BaseConverter):
         """
         if not self.is_tool_supported(tool_name):
             raise ValueError(f"Tool '{tool_name}' is not supported. Available tools: {', '.join(self.available_tools)}")
-
 
     # Override
     def _to_markdown(self, input_path: Path, output_path: Path, conversion_method: str = "MinerU") -> Path:
@@ -62,9 +61,3 @@ class PdfConverter(BaseConverter):
             target = md_file_path
             self.clean_markdown_content(target)
         return target
-
-if __name__ == "__main__":
-    pdf_path = "/home/bot/bot/tai/rag/file_conversion_router/test/01-Welcome_1pp.pdf"
-    output_path = Path("/home/bot/bot/tai/rag/file_conversion_router/test_output/01-Welcome_1pp.md")
-    converter = PdfConverter()
-    converter._to_markdown(Path(pdf_path), output_path)

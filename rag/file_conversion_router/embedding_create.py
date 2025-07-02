@@ -24,7 +24,7 @@ def string_subtraction(main_string, sub_string):
     return main_string.replace(sub_string, '', 1)  # The '1' ensures only the first occurrence is removed
 
 
-def traverse_files(path, start_folder_name, url_list, id_list, doc_list, file_paths_list, topic_path_list):
+def traverse_files(path, start_folder_name , url_list, id_list, doc_list, file_paths_list, topic_path_list):
     results = []
     # Check if the provided path exists
     if not os.path.exists(path):

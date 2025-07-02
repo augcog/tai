@@ -4,8 +4,8 @@ from rag.file_conversion_router.classes.page import Page
 
 
 class PythonConverter(BaseConverter):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, course_name, course_id):
+        super().__init__(self, course_name, course_id)
 
     # Override
     def _to_markdown(self, input_path: Path, output_path: Path) -> Path:

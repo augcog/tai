@@ -9,6 +9,8 @@
 
 root_folder: "cs61atest"
 log_folder: "cs61atest_log"
+course_name: "The_Structure_and_Interpretation_of_Computer_Programs"
+course_id : "CS61A"
 tasks:
   - name: "course_website"
     local: True

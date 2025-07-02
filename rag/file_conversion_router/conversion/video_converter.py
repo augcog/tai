@@ -17,8 +17,8 @@ class VideoConverter(BaseConverter):
     auto_tokenizer = None
     pipeline = None
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, course_name, course_id):
+        super().__init__(self, course_name, course_id)
         # Initialize the tokenizer and model only once when the classes is instantiated
         self.paragraphs = []
 

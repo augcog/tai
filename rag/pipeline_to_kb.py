@@ -1,6 +1,5 @@
 import os
 import yaml
-
 # from rag.scraper.Scraper_master.factory import ScraperFactory
 # from rag.scraper.Scraper_master.configs import ScraperConfig
 from rag.file_conversion_router.api import convert_directory
@@ -35,6 +34,8 @@ def pipeline(yaml):
     embedding_name=os.path.basename(os.path.normpath(root))
     markdown_path = root + "_md"
     cache_path = root + "_cache"
+    course_name = data['course_name']
+    course_id = data['course_id']
     log_path = os.path.abspath(data.get('log_path', f'{root}_log"'))
 
     # print("MDPATH", markdown_path)

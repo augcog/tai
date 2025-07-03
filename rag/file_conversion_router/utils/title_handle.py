@@ -22,26 +22,24 @@ def get_structured_content_without_title(md_content: str, file_name: str, course
         messages=[
             {
                 "role": "system",
-                "content": dedent(f"""
-                You are an expert AI assistant specializing in analyzing and structuring educational material. You will be given markdown content from a video in the course "{course_name}", from the file "{file_name}". The text is already divided into paragraphs.
-                Your task is to perform the following actions and format the output as a single JSON object:
-                1.  **Group into Sections:** Analyze the entire text and divide it into **at most 5 logical sections**.
-                2.  **Generate Titles:**
-                    - For each **section**, create a concise and descriptive title.
-                    - For each **original paragraph**, create an engaging title that reflects its main topic.
-                3.  **Create a Nested Structure:** The JSON output must have a `sections` array.
-                    - Each element in the `sections` array is an object representing one section.
-                    - **Crucially, each section object must contain its own `paragraphs` array.** This nested array should list all the paragraphs that belong to that section.
-                    - Each paragraph object within the nested array must include its title and its **original index** from the source text (starting from 1).
-                ### Part 2: Extract Key Concepts
-                Your goal is to identifying and explaining the key concepts in each section to help a student recap the material.
-                For each Key Concept, provide the following information:
-               - **Key Concept:** A descriptive phrase or sentence that clearly captures the main idea
-               - **Source Section:** The specific section title(s) in the material where this concept is discussed
-               - **Content Coverage:** List only the aspects that the section actually explained with aspect and content. 
-                 - Some good examples of aspect: Definition, How it works, What happened, Why is it important, etc
-                 - The content also should be from the section.
-                """)
+                "content": dedent(f""" You are an expert AI assistant specializing in analyzing and structuring 
+                educational material. You will be given markdown content from a video in the course "{course_name}", 
+                from the file "{file_name}". The text is already divided into paragraphs. Your task is to perform the 
+                following actions and format the output as a single JSON object: 1.  **Group into Sections:** Analyze 
+                the entire text and divide it into **at most 5 logical sections**. 2.  **Generate Titles:** - For 
+                each **section**, create a concise and descriptive title. - For each **original paragraph**, 
+                create an engaging title that reflects its main topic. 3.  **Create a Nested Structure:** The JSON 
+                output must have a `sections` array. - Each element in the `sections` array is an object representing 
+                one section. - **Crucially, each section object must contain its own `paragraphs` array.** This 
+                nested array should list all the paragraphs that belong to that section. - Each paragraph object 
+                within the nested array must include its title and its **original index** from the source text (
+                starting from 1). ### Part 2: Extract Key Concepts Your goal is to identifying and explaining the key 
+                concepts in each section to help a student recap the material. For each Key Concept, provide the 
+                following information: - **Key Concept:** A descriptive phrase or sentence that clearly captures the 
+                main idea - **Source Section:** The specific section title(s) in the material where this concept is 
+                discussed - **Content Coverage:** List only the aspects that the section actually explained with 
+                aspect and content. - Some good examples of aspect: Definition, How it works, What happened, 
+                Why is it important, etc - The content also should be from the section. """)
             },
             {
                 "role": "user",
@@ -78,7 +76,7 @@ def get_structured_content_without_title(md_content: str, file_name: str, course
                                 "properties": {
                                     "section_title": {"type": "string"},
                                     "start_paragraph_index": {"type": "integer",
-                                                              "description": "The 1-based index from the 'paragraphs' array where this section begins.",
+                                                              "description": 'The 1-based index from the paragraphs array where this section begins.',
                                                               "minimum": 1,
                                                               "maximum": paragraph_count}
                                 },
@@ -134,27 +132,29 @@ def get_structured_content_with_one_title_level(md_content: str, file_name: str,
         messages=[
             {
                 "role": "system",
-                "content": dedent(f"""
-                        You are an expert AI assistant for structuring educational material. You will be given markdown content from the file "{file_name}" for the course "{course_name}".
-                        Your task is to analyze this content and produce a structured JSON output. The task has two parts: title structuring and key concept extraction.
-                        ### Part 1: Correct Title Hierarchy
-                        **Your Goal:** The markdown's title hierarchy is likely flat (e.g., every title starts with a single '#'). Your job is to determine the correct semantic level for each of these titles.
-                        **Crucial Rule:**
-                        - A line is considered a title if, and only if, it begins with one or more '#' characters in the provided text. Do NOT invent new titles or treat any other text as a title.
-                        **How to Determine the Correct Level (1, 2, 3, etc.):**
-                        1.  **Analyze Logical Structure:** Read the titles in sequence to understand the flow of the document. A title that introduces a new, major section is a high level (e.g., level 1). A title that discusses a sub-point of the previous title is a lower level (e.g., level 2 or 3).
-                        2.  **Preserve Order:** The titles in your JSON output must be in the exact same order they appear in the source text.
-                        3.  **Output Format:** In the JSON, provide the clean title text (without the '#') and the integer level you have assigned.
+                "content": dedent(f""" You are an expert AI assistant for structuring educational material. You will 
+                be given markdown content from the file "{file_name}" for the course "{course_name}". Your task is to 
+                analyze this content and produce a structured JSON output. The task has two parts: title structuring 
+                and key concept extraction. ### Part 1: Correct Title Hierarchy **Your Goal:** The markdown's title 
+                hierarchy is likely flat (e.g., every title starts with a single '#'). Your job is to determine the 
+                correct semantic level for each of these titles. **Crucial Rule:** - A line is considered a title if, 
+                and only if, it begins with one or more '#' characters in the provided text. Do NOT invent new titles 
+                or treat any other text as a title. **How to Determine the Correct Level (1, 2, 3, etc.):** 1.  
+                **Analyze Logical Structure:** Read the titles in sequence to understand the flow of the document. A 
+                title that introduces a new, major section is a high level (e.g., level 1). A title that discusses a 
+                sub-point of the previous title is a lower level (e.g., level 2 or 3). 2.  **Preserve Order:** The 
+                titles in your JSON output must be in the exact same order they appear in the source text. 3.  
+                **Output Format:** In the JSON, provide the clean title text (without the '#') and the integer level 
+                you have assigned.
 
-                        ### Part 2: Extract Key Concepts
-                        Your goal is to identifying and explaining the key concepts in each level 1 title to help a student recap the material.
-                        For each Key Concept, provide the following information:
-                       - **Key Concept:** A descriptive phrase or sentence that clearly captures the main idea
-                       - **Source Section:** The specific level 1 title(s) in the material where this concept is discussed
-                       - **Content Coverage:** List only the aspects that the section actually explained with aspect and content. 
-                         - Some good examples of aspect: Definition, How it works, What happened, Why is it important, etc
-                         - The content also should be from the sections.
-                        """)
+                ### Part 2: Extract Key Concepts Your goal is to identifying and explaining the key concepts 
+                in each level 1 title to help a student recap the material. For each Key Concept, provide the 
+                following information: - **Key Concept:** A descriptive phrase or sentence that clearly 
+                captures the main idea - **Source Section:** The specific level 1 title(s) in the material 
+                where this concept is discussed - **Content Coverage:** List only the aspects that the 
+                section actually explained with aspect and content. - Some good examples of aspect: 
+                Definition, How it works, What happened, Why is it important, etc - The content also should 
+                be from the sections. """)
             },
             {
                 "role": "user",
@@ -165,14 +165,13 @@ def get_structured_content_with_one_title_level(md_content: str, file_name: str,
             "type": "json_schema",
             "json_schema": {
                 "name": "course_content_knowledge_sorting",
-                "strict": True,
-                "description": "Structures course content into titles and key concept.",
+                "strict": False,
                 "schema": {
                     "type": "object",
                     "properties": {
                         "titles_with_levels": {
                             "type": "array",
-                            "description": "A list of titles with their inferred hierarchical level, preserving the original order.",
+                            "description": 'A list of titles with their inferred hierarchical level, preserving the original order.',
                             "items": {
                                 "type": "object",
                                 "properties": {
@@ -180,7 +179,7 @@ def get_structured_content_with_one_title_level(md_content: str, file_name: str,
                                               "enum": title_list},
 
                                     "level_of_title": {"type": "integer",
-                                                       "description": "The inferred hierarchy level (e.g., 1, 2, 3)."}
+                                                       "description": 'The inferred hierarchy level (e.g., 1, 2, 3).'}
                                 },
                                 "required": ["title", "level_of_title"],
                                 "additionalProperties": False
@@ -301,15 +300,17 @@ def apply_structure_for_one_title(md_content: str, content_dict):
             raw_title = match.group('title').strip()
             if raw_title in title_level_map:
                 new_level = title_level_map[raw_title]
-                new_lines.append(f"\n\n{'#' * new_level} {raw_title}\n\n")
+                new_lines.append(f"{'#' * new_level} {raw_title}")
                 continue
         new_lines.append(line)
-    return "".join(new_lines)
+    return "\n\n".join(new_lines)
 
 def save_key_concept_to_metadata(json_dict, metadata_path: Path):
+    # TODO title -> page number -> key_concept -> aspects
     if not metadata_path.exists():
         logger.warning("No metadata file exists, creating a new one.")
     key_concept = json_dict["key_concepts"]
+    key_concept[0]['source_section_title'] = key_concept[0]['source_section_title'].strip()
     with open(metadata_path, "r") as metadata_file:
         data = yaml.safe_load(metadata_file)
         if not data:

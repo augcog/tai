@@ -11,7 +11,7 @@ Ensure Python version 3.10 is installed.
 3. if you have any problem relate to magic-pdf please refer to the following link: [magic-pdf](https://github.com/opendatalab/MinerU)
 4. if you have GPU on your machine, you can also refer to https://github.com/opendatalab/MinerU to install the GPU version of the magic-pdf.
    ```bash
-   - **Note**: Ensure the Transformer library version is below `4.39.0` as per compatibility requirements. The current version in `rag/requirements.txt` is set to `4.38.2`.
+   - **Note**: Ensure the Transformer library version at least is  `4.42.4` as per compatibility requirements. The current version in `rag/requirements.txt` is set to `4.42.4`.
    - **Reference**: [Issue #1653 on GPT Academic](https://github.com/binary-husky/gpt_academic/issues/1653#issuecomment-2016794493)
 
 #### Configuration

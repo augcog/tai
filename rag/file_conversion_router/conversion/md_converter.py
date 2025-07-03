@@ -6,7 +6,7 @@ from rag.file_conversion_router.classes.chunk import Chunk
 
 class MarkdownConverter(BaseConverter):
     def __init__(self, course_name, course_id):
-        super().__init__(self, course_name, course_id)
+        super().__init__(course_name, course_id)
 
     def _to_markdown(self, input_path: Path, output_path: Path) -> Path:
         """Perform reStructuredText to Markdown conversion."""
@@ -42,7 +42,3 @@ class MarkdownConverter(BaseConverter):
         url = metadata_content.get("URL")
         return Page(pagename=input_path.stem, content={'text': text}, filetype=filetype, page_url=url)
 
-# if __name__ == "__main__":
-#     converter = MarkdownConverter()
-# # Run the conversion to Page
-# page = converter._to_page(Path("tests\\test_rag\data\integrated_tests\input_folder2_nested_folder_pdf+md\mds\section-3-API-based-scraping.md"), Path("tests\\test_rag\data\integrated_tests\expected_output_folder2_nested_folder_pdf+md\section-3-API-based-scraping\section-3-API-based-scraping.md"))

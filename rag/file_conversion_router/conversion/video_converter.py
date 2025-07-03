@@ -18,7 +18,7 @@ class VideoConverter(BaseConverter):
     pipeline = None
 
     def __init__(self, course_name, course_id):
-        super().__init__(self, course_name, course_id)
+        super().__init__(course_name, course_id)
         # Initialize the tokenizer and model only once when the classes is instantiated
         self.paragraphs = []
 
@@ -143,6 +143,8 @@ class VideoConverter(BaseConverter):
                 num_images=1,
                 output_dir=images_output_dir,
             )
+
+            # Prepare the list of start and end times
             scene_times = [(start_time.get_seconds(), end_time.get_seconds()) for start_time, end_time in scene_list]
 
             for i, ((start_time, end_time), images) in enumerate(zip(scene_list, image_filenames.values()), start=1):

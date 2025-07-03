@@ -300,9 +300,11 @@ class BaseConverter(ABC):
         file_type = input_path.suffix.lstrip('.')
         md_path = self._to_markdown(input_path, output_path)
         metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
-        structured_md = self.apply_markdown_structure(input_md_path=md_path, file_type=file_type, metadata_path=metadata_path)
-        with open(md_path, "w", encoding="utf-8") as md_file:
-            md_file.write(structured_md)
+        with open(md_path, "r", encoding="utf-8") as md_file:
+            structured_md = md_file.read()
+        # structured_md = self.apply_markdown_structure(input_md_path=md_path, file_type=file_type, metadata_path=metadata_path)
+        # with open(md_path, "w", encoding="utf-8") as md_file:
+        #     md_file.write(structured_md)
         page_path = output_path.with_name(f"{stem}_content_list.json")
         metadata_content = self._read_metadata(metadata_path)
         url = metadata_content.get("URL")
@@ -341,6 +343,7 @@ class BaseConverter(ABC):
             save_key_concept_to_metadata(content_dict, metadata_path=metadata_path)
             return new_md
         else:
+            # TODO base on the header levels, we can apply different key concept extraction methods if more than 5 generate section titles reflate to original paragraph index and url
             content_dict = get_only_key_concepts(md_content=content_text, file_name=file_name, course_name=self.course_name)
             save_key_concept_to_metadata(content_dict, metadata_path=metadata_path)
             return content_text

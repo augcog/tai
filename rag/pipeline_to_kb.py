@@ -42,7 +42,7 @@ def pipeline(yaml):
     scraper = WebScraper(yaml)
     scraper.run()
 
-    convert_directory(root, markdown_path, log_dir=log_path, cache_path=cache_path)
+    convert_directory(root, markdown_path, log_dir=log_path, cache_path=cache_path, course_name=course_name, course_id=course_id)
 
     folder_name = "embedding"
     model = "BGE"
@@ -65,4 +65,4 @@ def convert_only(yaml):
 
 
 if __name__ == "__main__":
-    pipeline('/home/bot/bot/tai/rag/scraper/Scraper_master/CS61A.yaml')
+    pipeline('/home/bot/bot/yk/yk_tai/rag/scraper/Scraper_master/CS61A.yaml')

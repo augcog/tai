@@ -8,12 +8,12 @@ from rag.file_conversion_router.classes.page import Page
 
 class NotebookConverter(BaseConverter):
     def __init__(self, course_name, course_id):
-        super().__init__(self, course_name, course_id)
+        super().__init__(course_name, course_id)
 
     # Override
     def _to_markdown(self, input_path: Path, output_path: Path) -> Path:
         output_path = output_path.with_suffix(".md")
-        
+
         with open(input_path, "r") as input_file, open(output_path, "w") as output_file:
             content = nbformat.read(input_file, as_version=4)
             markdown_converter = MarkdownExporter()
@@ -22,15 +22,15 @@ class NotebookConverter(BaseConverter):
         return output_path
 
     def _post_process_markdown(self, markdown_content: str) -> str:
-        lines = markdown_content.split("\n")[1:] # first line is the title of the course section
+        lines = markdown_content.split("\n")[1:]  # first line is the title of the course section
 
         processed_lines = []
         for i, line in enumerate(lines):
-            if i == 1: # convert lecture title to h1
+            if i == 1:  # convert lecture title to h1
                 processed_lines.append(f"# {line.lstrip('#').strip()}")
-            elif line.startswith("#"): # convert all other heading down one level
+            elif line.startswith("#"):  # convert all other heading down one level
                 processed_lines.append(f"#{line.strip()}")
             else:
-                processed_lines.append(line.strip()) 
+                processed_lines.append(line.strip())
 
         return "\n".join(processed_lines) 

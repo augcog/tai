@@ -1,12 +1,9 @@
-import time
-from typing import Any
-
 from app.api.deps import verify_api_token
 from ai_chatbot_backend.app.core.models.chat_completion import ConversationCreateParams
 from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse, StreamingResponse
 
-from ai_chatbot_backend.app.services.practice_service import *
+from ai_chatbot_backend.app.services.practice_service import generate_practice_template, generate_practice
 
 router = APIRouter()
 

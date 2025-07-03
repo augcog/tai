@@ -3,10 +3,9 @@ Service file for practice apis
 All logics related to practice.py api should be written here
 """
 
-from typing import List, Optional, Dict
+from typing import List
 
 from ai_chatbot_backend.app.core.models.chat_completion import Message
-from ai_chatbot_backend.app.schemas.practice import PracticeResponse
 from fastapi.responses import JSONResponse, StreamingResponse
 
 

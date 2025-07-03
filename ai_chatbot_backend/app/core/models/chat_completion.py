@@ -44,3 +44,19 @@ class CompletionCreateParams(BaseModel):
     temperature: float
     stream: bool
     rag: Optional[bool] = True
+
+class ConversationCreateParams(BaseModel):
+    """
+    file_name: the name of the course file
+    block_info: the content of the block, usually the question
+    block_content: the answer to the block question from the student
+    messages: chat box messages written in the list
+    question_number: question number (for now either 1 or 2)
+    question_state: either no show, show, show with answer
+    """
+    file_name: str
+    block_info: Optional[str]
+    block_content: Optional[str]
+    messages: Optional[List[Message]]
+    question_number: Optional[int]
+    question_state: Optional[str]

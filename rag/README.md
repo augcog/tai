@@ -17,6 +17,10 @@ make dev
 
 # Convert documents to embeddings
 make convert
+
+# Run tests
+make test
+
 ```
 
 ## 🏗️ Architecture
@@ -83,7 +87,6 @@ make clean                # Clean build artifacts
 ```bash
 make dev                  # Start development server
 make test                 # Run tests (excludes slow/GPU tests)
-make test-full            # Run all tests including slow ones
 make lint                 # Run linting
 make format               # Format code
 ```

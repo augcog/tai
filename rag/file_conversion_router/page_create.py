@@ -1,14 +1,17 @@
 from typing import Optional
 
 from pathlib import Path
-from rag.file_conversion_router.classes.page import Page  # adjust import to wherever your Page class lives
+from file_conversion_router.classes.page import (
+    Page,
+)  # adjust import to wherever your Page class lives
+
 
 def process_page_file(
     input_path: str,
     output_pkl: str = None,
     filetype: Optional[str] = None,
     page_url: str = "",
-    mapping_json_path: Optional[str] = None
+    mapping_json_path: Optional[str] = None,
 ) -> list:
     """
     Read a Markdown (or PDF-derived Markdown) file, split it into chunks via Page,
@@ -27,13 +30,15 @@ def process_page_file(
     input_path = Path(input_path)
     # infer filetype
     if filetype is None:
-        filetype = input_path.suffix.lstrip('.')
+        filetype = input_path.suffix.lstrip(".")
     # load content
     if filetype.lower() in ("md", "markdown", "txt"):
         text = input_path.read_text(encoding="utf-8")
         content = {"text": text}
     else:
-        raise ValueError(f"Unsupported filetype '{filetype}' — only Markdown-derived inputs supported here.")
+        raise ValueError(
+            f"Unsupported filetype '{filetype}' — only Markdown-derived inputs supported here."
+        )
 
     # prepare mapping path
     mapping_path = Path(mapping_json_path) if mapping_json_path else None
@@ -44,7 +49,7 @@ def process_page_file(
         content=content,
         filetype=filetype,
         page_url=page_url,
-        mapping_json_path=mapping_path
+        mapping_json_path=mapping_path,
     )
     page.to_chunk()
     chunks = page.chunks
@@ -54,6 +59,8 @@ def process_page_file(
         page.chunks_to_pkl(output_pkl)
 
     return chunks
+
+
 if __name__ == "__main__":
     # Process a Markdown page and pickle the results
     chunks = process_page_file(

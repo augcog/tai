@@ -13,24 +13,29 @@ class Chunk:
         chunk_url: URL source of the chunk
         metadata: Additional metadata as a dictionary
     """
+
     # TODO: Revise the Chunk design here. Is it necessary to have titles, and chunk_url as separate fields?
     #  Can they be combined into a single metadata field?
     content: str
     titles: str = "default_title"
-    chunk_url: Union[str, List[str]] = "default_no_url",
+    chunk_url: Union[str, List[str]] = ("default_no_url",)
     metadata: Dict[str, Any] = field(default_factory=dict)
     is_split: bool = False
     page_num: Any = None
 
     def __post_init__(self):
         if not isinstance(self.metadata, dict):
-            raise TypeError(f"metadata must be a dictionary, got {type(self.metadata).__name__}")
-        self.metadata.update({
-            'titles': self.titles,
-            'chunk_url': self.chunk_url,
-            'page_num': self.page_num,
-            'is_split': self.is_split
-        })
+            raise TypeError(
+                f"metadata must be a dictionary, got {type(self.metadata).__name__}"
+            )
+        self.metadata.update(
+            {
+                "titles": self.titles,
+                "chunk_url": self.chunk_url,
+                "page_num": self.page_num,
+                "is_split": self.is_split,
+            }
+        )
 
     def __eq__(self, other):
         """
@@ -46,12 +51,12 @@ class Chunk:
             return False
 
         return (
-                self.titles == other.titles and
-                self.content == other.content and
-                self.chunk_url == other.chunk_url and
-                self.page_num == other.page_num and
-                self.metadata == other.metadata and
-                self.is_split == other.is_split
+            self.titles == other.titles
+            and self.content == other.content
+            and self.chunk_url == other.chunk_url
+            and self.page_num == other.page_num
+            and self.metadata == other.metadata
+            and self.is_split == other.is_split
         )
 
     def update_metadata(self, new_metadata: Dict[str, Any]) -> None:
@@ -89,8 +94,8 @@ class Chunk:
             Dictionary containing core metadata
         """
         return {
-            'titles': self.titles,
-            'chunk_url': self.chunk_url,
-            'page_num': self.page_num,
-            'is_split': self.is_split
+            "titles": self.titles,
+            "chunk_url": self.chunk_url,
+            "page_num": self.page_num,
+            "is_split": self.is_split,
         }

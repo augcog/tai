@@ -1,14 +1,9 @@
 import os
 import re
-import subprocess
 from pathlib import Path
-
-import fitz
 
 from file_conversion_router.conversion.base_converter import BaseConverter
 
-# from rag.file_conversion_router.services.tai_nougat_service import TAINougatConfig
-# from rag.file_conversion_router.services.tai_nougat_service.api import convert_pdf_to_mmd
 from file_conversion_router.services.tai_MinerU_service.api import (
     convert_pdf_to_md_by_MinerU,
 )
@@ -35,10 +30,10 @@ class PdfConverter(BaseConverter):
         return re.sub(image_link_pattern, "", text)
 
     def clean_markdown_content(self, markdown_path):
-        with open(markdown_path, 'r', encoding='utf-8') as file:
+        with open(markdown_path, "r", encoding="utf-8") as file:
             content = file.read()
         cleaned_content = self.remove_image_links(content)
-        with open(markdown_path, 'w', encoding='utf-8') as file:
+        with open(markdown_path, "w", encoding="utf-8") as file:
             file.write(cleaned_content)
 
     def validate_tool(self, tool_name):
@@ -62,7 +57,7 @@ class PdfConverter(BaseConverter):
         if not temp_dir_path.exists():
             os.makedirs(temp_dir_path)
         if conversion_method == "MinerU":
-            new_output_path = output_path.with_suffix('')
+            new_output_path = output_path.with_suffix("")
             convert_pdf_to_md_by_MinerU(input_path, new_output_path)
             base_name = input_path.stem  # e.g., "07-Function_Examples_1pp"
             md_file_path = new_output_path.parent / f"{base_name}.md"

@@ -7,8 +7,11 @@ from pathlib import Path
 import re
 import os
 
+
 class OpenAIChatMarkdownStructure:
-    def __init__(self, api_key: str, file_path: Union[str, Path], file_type: str, course_name):
+    def __init__(
+        self, api_key: str, file_path: Union[str, Path], file_type: str, course_name
+    ):
         self.client = OpenAI(api_key=api_key)
         self.file_path = file_path
         self.file_type = file_type
@@ -16,9 +19,9 @@ class OpenAIChatMarkdownStructure:
 
     def remove_redundant_title(self, file_path: Union[str, Path]) -> bool | None:
         file_path = Path(file_path)
-        normalized_filename = file_path.stem.lower().replace('-', ' ').replace('_', ' ')
+        normalized_filename = file_path.stem.lower().replace("-", " ").replace("_", " ")
         try:
-            with open(file_path, 'r', encoding='utf-8') as f:
+            with open(file_path, "r", encoding="utf-8") as f:
                 lines = f.readlines()
         except FileNotFoundError:
             print(f"Error: File not found at '{file_path}'")
@@ -26,17 +29,17 @@ class OpenAIChatMarkdownStructure:
         if not lines:
             return False
         first_line = lines[0]
-        if first_line.startswith('# '):
-            title_text = first_line.lstrip('# ').strip()
+        if first_line.startswith("# "):
+            title_text = first_line.lstrip("# ").strip()
             normalized_title = title_text.lower()
             if normalized_filename == normalized_title:
                 print(f"Found redundant title in '{file_path}'. Removing and saving...")
                 remaining_lines = lines[1:]
-                while remaining_lines and remaining_lines[0].strip() == '':
+                while remaining_lines and remaining_lines[0].strip() == "":
                     remaining_lines.pop(0)
                 new_content = "".join(remaining_lines)
                 try:
-                    with open(file_path, 'w', encoding='utf-8') as f:
+                    with open(file_path, "w", encoding="utf-8") as f:
                         f.write(new_content)
                     print(f"Successfully updated '{file_path}'.")
                     return True
@@ -49,36 +52,54 @@ class OpenAIChatMarkdownStructure:
     def _markdown_structure(self):
         if self.file_type == "pdf":
             self.remove_redundant_title(self.file_path)
-            response = self.pdf_markdown_structure(course_name = self.course_name, file_path = self.file_path)
-            json_file_path = self.file_path.with_suffix('.json')
+            response = self.pdf_markdown_structure(
+                course_name=self.course_name, file_path=self.file_path
+            )
+            json_file_path = self.file_path.with_suffix(".json")
             self.save_chat_response_to_file(response, json_file_path)
-            output_file_path = self.file_path.parent / f"{self.file_path.stem}_structured{self.file_path.suffix}"
-            self.insert_title_levels(md_path=self.file_path,mapping_path= json_file_path, output_path=output_file_path)
+            output_file_path = (
+                self.file_path.parent
+                / f"{self.file_path.stem}_structured{self.file_path.suffix}"
+            )
+            self.insert_title_levels(
+                md_path=self.file_path,
+                mapping_path=json_file_path,
+                output_path=output_file_path,
+            )
         if self.file_type == "mp4" or self.file_type == "mp3":
-            response = self.video_markdown_structure(course_name = self.course_name, file_path = self.file_path)
-            json_file_path = Path(self.file_path).with_suffix('.json')
+            response = self.video_markdown_structure(
+                course_name=self.course_name, file_path=self.file_path
+            )
+            json_file_path = Path(self.file_path).with_suffix(".json")
             self.save_chat_response_to_file(response, json_file_path)
-            output_file_path = self.file_path.parent / f"{self.file_path.stem}_structured{self.file_path.suffix}"
-            self.insert_sections_and_paragraph_titles(original_md_path=self.file_path, json_path=json_file_path, output_md_path=output_file_path)
+            output_file_path = (
+                self.file_path.parent
+                / f"{self.file_path.stem}_structured{self.file_path.suffix}"
+            )
+            self.insert_sections_and_paragraph_titles(
+                original_md_path=self.file_path,
+                json_path=json_file_path,
+                output_md_path=output_file_path,
+            )
         else:
             output_file_path = self.file_path
         return output_file_path
 
-    def pdf_markdown_structure(self,
-                               course_name: str,
-                               file_path: str) -> ChatCompletionMessage:
-
-        with open(file_path, 'r', encoding='utf-8') as file:
+    def pdf_markdown_structure(
+        self, course_name: str, file_path: str
+    ) -> ChatCompletionMessage:
+        with open(file_path, "r", encoding="utf-8") as file:
             content = file.read()
         if not content.strip():
             raise ValueError("The content is empty or not properly formatted.")
-        file_name = str(file_path).split('/')[-1]
+        file_name = str(file_path).split("/")[-1]
         response = self.client.chat.completions.create(
             model="gpt-4.1",
             messages=[
                 {
                     "role": "system",
-                    "content": dedent(f"""
+                    "content": dedent(
+                        f"""
             You are an expert AI assistant for structuring educational material. You will be given markdown content from the file "{file_name}" for the course "{course_name}".
             Your task is to analyze this content and produce a structured JSON output. The task has two parts: title structuring and key concept extraction.
             ### Part 1: Correct Title Hierarchy
@@ -101,12 +122,10 @@ class OpenAIChatMarkdownStructure:
             -   **Code Example:** A short, clear code snippet (for technical topics).
             -   **Real-world Example:** A concrete example of the concept in action.
             -   **Common Pitfall:** A warning about common mistakes or misunderstandings.
-        """)
+        """
+                    ),
                 },
-                {
-                    "role": "user",
-                    "content": f"{content}"
-                               }
+                {"role": "user", "content": f"{content}"},
             ],
             response_format={
                 "type": "json_schema",
@@ -123,15 +142,18 @@ class OpenAIChatMarkdownStructure:
                                 "items": {
                                     "type": "object",
                                     "properties": {
-                                        "title": {"type": "string",
-                                                  "description": "The clean text of the title, without any '#' characters."},
-
-                                        "level_of_title": {"type": "integer",
-                                                           "description": "The inferred hierarchy level (e.g., 1, 2, 3)."}
+                                        "title": {
+                                            "type": "string",
+                                            "description": "The clean text of the title, without any '#' characters.",
+                                        },
+                                        "level_of_title": {
+                                            "type": "integer",
+                                            "description": "The inferred hierarchy level (e.g., 1, 2, 3).",
+                                        },
                                     },
                                     "required": ["title", "level_of_title"],
-                                    "additionalProperties": False
-                                }
+                                    "additionalProperties": False,
+                                },
                             },
                             "key_concept": {
                                 "type": "array",
@@ -140,67 +162,71 @@ class OpenAIChatMarkdownStructure:
                                     "type": "object",
                                     "properties": {
                                         "term": {"type": "string"},
-                                        "explanation_points": {"type": "string",}
+                                        "explanation_points": {
+                                            "type": "string",
+                                        },
                                     },
                                     "required": ["term", "explanation_points"],
-                                    "additionalProperties": False
-                                }
-                            }
+                                    "additionalProperties": False,
+                                },
+                            },
                         },
                         "required": ["titles_with_levels", "key_concept"],
-                        "additionalProperties": False
+                        "additionalProperties": False,
                     },
-                }
+                },
             },
         )
         print(response.choices[0].message)
         return response.choices[0].message
 
-    def insert_title_levels(self,
-                            md_path:Union[Path, str],
-                            mapping_path: Union[Path, str],
-                            output_path: Union[Path, str]):
-        raw = json.load(open(mapping_path, 'r', encoding='utf-8'))
-        if 'titles_with_levels' not in raw and 'content' in raw:
-            raw = json.loads(raw['content'])
-        mapping_list = raw.get('titles_with_levels')
+    def insert_title_levels(
+        self,
+        md_path: Union[Path, str],
+        mapping_path: Union[Path, str],
+        output_path: Union[Path, str],
+    ):
+        raw = json.load(open(mapping_path, "r", encoding="utf-8"))
+        if "titles_with_levels" not in raw and "content" in raw:
+            raw = json.loads(raw["content"])
+        mapping_list = raw.get("titles_with_levels")
         if not mapping_list:
             raise KeyError("Can not find the titles with levels")
 
         title_level_map = {}
         for item in mapping_list:
-            if 'titles' in item and 'levels_of_titles' in item:
-                t, lvl = item['titles'].strip(), int(item['levels_of_titles'])
-            elif 'title' in item and 'level_of_title' in item:
-                t, lvl = item['title'].strip(), int(item['level_of_title'])
+            if "titles" in item and "levels_of_titles" in item:
+                t, lvl = item["titles"].strip(), int(item["levels_of_titles"])
+            elif "title" in item and "level_of_title" in item:
+                t, lvl = item["title"].strip(), int(item["level_of_title"])
             else:
                 raise KeyError(f"Can not found {item}")
             title_level_map[t] = lvl
 
-        lines = Path(md_path).read_text(encoding='utf-8').splitlines(keepends=True)
+        lines = Path(md_path).read_text(encoding="utf-8").splitlines(keepends=True)
 
-        title_pattern = re.compile(r'^(?P<hashes>#+)\s*(?P<title>.+?)\s*$')
+        title_pattern = re.compile(r"^(?P<hashes>#+)\s*(?P<title>.+?)\s*$")
 
         new_lines = []
         for line in lines:
             m = title_pattern.match(line)
             if m:
-                raw_title = m.group('title')
+                raw_title = m.group("title")
                 if raw_title in title_level_map:
                     new_lvl = title_level_map[raw_title]
                     new_lines.append(f"{'#' * new_lvl} {raw_title}\n")
                     continue
             new_lines.append(line)
 
-        Path(output_path).write_text(''.join(new_lines), encoding='utf-8')
+        Path(output_path).write_text("".join(new_lines), encoding="utf-8")
         print(f"✅ writen ：{output_path}")
 
     def save_chat_response_to_file(
-            self,
-            response: Union[ChatCompletion, ChatCompletionMessage, dict, str],
-            JSON_file_path: Union[str, Path],
-            *,
-            full: bool = True
+        self,
+        response: Union[ChatCompletion, ChatCompletionMessage, dict, str],
+        JSON_file_path: Union[str, Path],
+        *,
+        full: bool = True,
     ) -> dict:
         data = None
         if isinstance(response, dict):
@@ -223,8 +249,10 @@ class OpenAIChatMarkdownStructure:
                 elif hasattr(msg, "dict"):
                     data = msg.dict()
                 else:
-                    data = {"role": getattr(msg, "role", None),
-                            "content": getattr(msg, "content", None)}
+                    data = {
+                        "role": getattr(msg, "role", None),
+                        "content": getattr(msg, "content", None),
+                    }
             elif isinstance(response, ChatCompletionMessage):
                 if hasattr(response, "to_dict"):
                     data = response.to_dict()
@@ -243,21 +271,22 @@ class OpenAIChatMarkdownStructure:
         print(f"Wrote JSON to {JSON_file_path}")
         return data
 
-    def video_markdown_structure(self,
-                                 course_name: str,
-                                 file_path: str) -> ChatCompletionMessage:
-        with open(file_path, 'r', encoding='utf-8') as file:
+    def video_markdown_structure(
+        self, course_name: str, file_path: str
+    ) -> ChatCompletionMessage:
+        with open(file_path, "r", encoding="utf-8") as file:
             content = file.read()
         if not content.strip():
             raise ValueError("The content is empty or not properly formatted.")
-        file_name = str(file_path).split('/')[-1]
+        file_name = str(file_path).split("/")[-1]
 
         response = self.client.chat.completions.create(
             model="gpt-4.1",
             messages=[
                 {
                     "role": "system",
-                    "content": dedent(f"""
+                    "content": dedent(
+                        f"""
                                 You are an expert AI assistant specializing in analyzing and structuring educational material. You will be given markdown content from a video in the course "{course_name}", from the file "{file_name}". The text is already divided into paragraphs.
                                 Your task is to perform the following actions and format the output as a single JSON object:
                                 1.  **Group into Sections:** Analyze the entire text and divide it into **3 to 5 logical sections**.
@@ -277,12 +306,10 @@ class OpenAIChatMarkdownStructure:
                                 -   **Code Example:** A short, clear code snippet (for technical topics).
                                 -   **Real-world Example:** A concrete example of the concept in action.
                                 -   **Common Pitfall:** A warning about common mistakes or misunderstandings.
-                                """)
+                                """
+                    ),
                 },
-                {
-                    "role": "user",
-                    "content": f"{content} "
-                               }
+                {"role": "user", "content": f"{content} "},
             ],
             response_format={
                 "type": "json_schema",
@@ -301,14 +328,20 @@ class OpenAIChatMarkdownStructure:
                                 "items": {
                                     "type": "object",
                                     "properties": {
-                                        "section_index": {"type": "integer",
-                                                          "description": "The sequential index of the section (e.g., 1, 2, 3).",
-                                                          "minimum": 1},
-                                        "section_title": {"type": "string",
-                                                          "description": "A concise title for the entire section."},
-                                        "title_level": {"type": "integer",
-                                                        "description": "The markdown heading level for the section title.",
-                                                        "enum": [1]},
+                                        "section_index": {
+                                            "type": "integer",
+                                            "description": "The sequential index of the section (e.g., 1, 2, 3).",
+                                            "minimum": 1,
+                                        },
+                                        "section_title": {
+                                            "type": "string",
+                                            "description": "A concise title for the entire section.",
+                                        },
+                                        "title_level": {
+                                            "type": "integer",
+                                            "description": "The markdown heading level for the section title.",
+                                            "enum": [1],
+                                        },
                                         "paragraphs": {
                                             "type": "array",
                                             "description": "An array of paragraphs that belong to this section.",
@@ -316,23 +349,38 @@ class OpenAIChatMarkdownStructure:
                                             "items": {
                                                 "type": "object",
                                                 "properties": {
-                                                    "paragraph_index": {"type": "integer",
-                                                                        "description": "The original index of the paragraph in the source text, starting from 1.",
-                                                                        "minimum": 1},
-                                                    "paragraph_title": {"type": "string",
-                                                                        "description": "An engaging title for this specific paragraph."},
-                                                    "title_level": {"type": "integer",
-                                                                    "description": "The markdown heading level for the paragraph title.",
-                                                                    "enum": [2]}
+                                                    "paragraph_index": {
+                                                        "type": "integer",
+                                                        "description": "The original index of the paragraph in the source text, starting from 1.",
+                                                        "minimum": 1,
+                                                    },
+                                                    "paragraph_title": {
+                                                        "type": "string",
+                                                        "description": "An engaging title for this specific paragraph.",
+                                                    },
+                                                    "title_level": {
+                                                        "type": "integer",
+                                                        "description": "The markdown heading level for the paragraph title.",
+                                                        "enum": [2],
+                                                    },
                                                 },
-                                                "required": ["paragraph_index", "paragraph_title", "title_level"],
-                                                "additionalProperties": False
-                                            }
-                                        }
+                                                "required": [
+                                                    "paragraph_index",
+                                                    "paragraph_title",
+                                                    "title_level",
+                                                ],
+                                                "additionalProperties": False,
+                                            },
+                                        },
                                     },
-                                    "required": ["section_index", "section_title", "title_level", "paragraphs"],
-                                    "additionalProperties": False
-                                }
+                                    "required": [
+                                        "section_index",
+                                        "section_title",
+                                        "title_level",
+                                        "paragraphs",
+                                    ],
+                                    "additionalProperties": False,
+                                },
                             },
                             "key_concept": {
                                 "type": "array",
@@ -341,47 +389,55 @@ class OpenAIChatMarkdownStructure:
                                     "type": "object",
                                     "properties": {
                                         "term": {"type": "string"},
-                                        "explanation_points": {"type": "string",}
+                                        "explanation_points": {
+                                            "type": "string",
+                                        },
                                     },
                                     "required": ["term", "explanation_points"],
-                                    "additionalProperties": False
-                                }
-                            }
+                                    "additionalProperties": False,
+                                },
+                            },
                         },
                         "required": ["sections", "key_concept"],
-                        "additionalProperties": False
-                    }
-                }
+                        "additionalProperties": False,
+                    },
+                },
             },
         )
         return response.choices[0].message
 
-    def insert_sections_and_paragraph_titles(self,
-                                             original_md_path: Union[Path, str],
-                                             json_path: Union[Path, str],
-                                             output_md_path: Union[Path, str]):
+    def insert_sections_and_paragraph_titles(
+        self,
+        original_md_path: Union[Path, str],
+        json_path: Union[Path, str],
+        output_md_path: Union[Path, str],
+    ):
         if not os.path.exists(json_path):
             raise FileNotFoundError(f"JSON file not found at: {json_path}")
         if not os.path.exists(original_md_path):
-            raise FileNotFoundError(f"Original Markdown file not found at: {original_md_path}")
-        with open(json_path, 'r', encoding='utf-8') as f:
+            raise FileNotFoundError(
+                f"Original Markdown file not found at: {original_md_path}"
+            )
+        with open(json_path, "r", encoding="utf-8") as f:
             api_response = json.load(f)
-        if 'content' in api_response and isinstance(api_response['content'], str):
+        if "content" in api_response and isinstance(api_response["content"], str):
             try:
-                structured_data = json.loads(api_response['content'])
+                structured_data = json.loads(api_response["content"])
             except json.JSONDecodeError:
-                raise ValueError(f"The 'content' field in {json_path} is not valid JSON.")
+                raise ValueError(
+                    f"The 'content' field in {json_path} is not valid JSON."
+                )
         else:
             structured_data = api_response
-        with open(original_md_path, 'r', encoding='utf-8') as f:
+        with open(original_md_path, "r", encoding="utf-8") as f:
             content = f.read()
-        original_paragraphs = [p.strip() for p in content.split('\n\n') if p.strip()]
+        original_paragraphs = [p.strip() for p in content.split("\n\n") if p.strip()]
         new_content_parts = []
-        for section in structured_data['sections']:
+        for section in structured_data["sections"]:
             new_content_parts.append(f"# {section['section_title']}")
-            for paragraph in section['paragraphs']:
+            for paragraph in section["paragraphs"]:
                 new_content_parts.append(f"## {paragraph['paragraph_title']}")
-                p_index = paragraph['paragraph_index'] - 1
+                p_index = paragraph["paragraph_index"] - 1
                 if 0 <= p_index < len(original_paragraphs):
                     new_content_parts.append(original_paragraphs[p_index])
                 else:
@@ -395,7 +451,7 @@ class OpenAIChatMarkdownStructure:
             base, _ = os.path.splitext(original_md_path)
             output_md_path = f"{base}.structured.md"
 
-        with open(output_md_path, 'w', encoding='utf-8') as f:
+        with open(output_md_path, "w", encoding="utf-8") as f:
             f.write(final_markdown)
 
         print(f"✅ Successfully created structured markdown file at: {output_md_path}")
@@ -403,12 +459,12 @@ class OpenAIChatMarkdownStructure:
 
 
 # if __name__ == "__main__":
-    # course_name_61a = "Structure and Interpretation of Computer Programs"
-    # course_name_294 = "Immersive Computing and Virtual Reality"
-    # file_path_61a = Path("/rag/file_conversion_router/test/18-Objects_1pp.md")
-    # file_path_294 = Path(
-    #     "/rag/file_conversion_router/test/Interaction Techniques Part 3 - Symbolic Input and Text Entry.md")
-    # pdf_md_structure = OpenAIChatMarkdownStructure(api_key,file_path_61a,"pdf", course_name_61a)
-    # video_md_structure = OpenAIChatMarkdownStructure(api_key,file_path_294,"mp4",course_name_294)
-    # output_path = pdf_md_structure._markdown_structure(pdf_md_structure)
-    # output_path = video_md_structure._markdown_structure()
+# course_name_61a = "Structure and Interpretation of Computer Programs"
+# course_name_294 = "Immersive Computing and Virtual Reality"
+# file_path_61a = Path("/rag/file_conversion_router/test/18-Objects_1pp.md")
+# file_path_294 = Path(
+#     "/rag/file_conversion_router/test/Interaction Techniques Part 3 - Symbolic Input and Text Entry.md")
+# pdf_md_structure = OpenAIChatMarkdownStructure(api_key,file_path_61a,"pdf", course_name_61a)
+# video_md_structure = OpenAIChatMarkdownStructure(api_key,file_path_294,"mp4",course_name_294)
+# output_path = pdf_md_structure._markdown_structure(pdf_md_structure)
+# output_path = video_md_structure._markdown_structure()

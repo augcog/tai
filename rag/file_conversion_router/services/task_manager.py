@@ -1,5 +1,4 @@
-"""Task manager module for scheduling file conversion tasks.
-"""
+"""Task manager module for scheduling file conversion tasks."""
 
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path

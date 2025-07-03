@@ -1,5 +1,5 @@
-"""Base classes for all file type converters.
-"""
+"""Base classes for all file type converters."""
+
 import logging
 from abc import ABC, abstractmethod
 from concurrent.futures import Future, ThreadPoolExecutor
@@ -9,14 +9,26 @@ from threading import Lock
 from typing import Dict, List, Union
 
 import yaml
-from rag.file_conversion_router.classes.chunk import Chunk
-from rag.file_conversion_router.classes.page import Page
-from rag.file_conversion_router.classes.vidpage import VidPage
-from rag.file_conversion_router.embedding_optimization.src.pipeline.optimizer import EmbeddingOptimizer
-from rag.file_conversion_router.utils.logger import conversion_logger, logger, content_logger
-from rag.file_conversion_router.utils.utils import calculate_hash, ensure_path, check_url
-from rag.file_conversion_router.utils.conversion_cache import ConversionCache
-from rag.file_conversion_router.utils.title_handle import *
+from file_conversion_router.classes.chunk import Chunk
+from file_conversion_router.classes.page import Page
+from file_conversion_router.classes.vidpage import VidPage
+from file_conversion_router.embedding_optimization.src.pipeline.optimizer import (
+    EmbeddingOptimizer,
+)
+from file_conversion_router.utils.logger import (
+    conversion_logger,
+    logger,
+    content_logger,
+)
+from file_conversion_router.utils.utils import (
+    calculate_hash,
+    ensure_path,
+    check_url,
+)
+from file_conversion_router.utils.conversion_cache import ConversionCache
+from file_conversion_router.utils.title_handle import *
+
+
 class BaseConverter(ABC):
     """Base classes for all file type converters.
 
@@ -31,10 +43,21 @@ class BaseConverter(ABC):
     As long as a child classes can convert a file to Markdown,
     the base classes will handle the rest of the conversion process.
     """
-    DEFAULT_EMBEDDING_OPTIMIZATION_CONFIG_PATH = str(
-        (Path(__file__).parent / ".." / "embedding_optimization" / "src" / "configs" / "default_config.yaml").resolve())
 
-    def __init__(self, course_name, course_id, optimizer_config_path: Union[str, Path] = None):
+    DEFAULT_EMBEDDING_OPTIMIZATION_CONFIG_PATH = str(
+        (
+            Path(__file__).parent
+            / ".."
+            / "embedding_optimization"
+            / "src"
+            / "configs"
+            / "default_config.yaml"
+        ).resolve()
+    )
+
+    def __init__(
+        self, course_name, course_id, optimizer_config_path: Union[str, Path] = None
+    ):
         self.course_name = course_name
         self.course_id = course_id
         self._md_parser = None
@@ -54,17 +77,25 @@ class BaseConverter(ABC):
         if optimizer_config_path:
             config_path = Path(optimizer_config_path)
             if not config_path.is_file():
-                self._logger.error(f"Optimizer config file does not exist at: {config_path}")
-                raise FileNotFoundError(f"Optimizer config file does not exist at: {config_path}")
+                self._logger.error(
+                    f"Optimizer config file does not exist at: {config_path}"
+                )
+                raise FileNotFoundError(
+                    f"Optimizer config file does not exist at: {config_path}"
+                )
 
             self.optimizer = EmbeddingOptimizer(config_path=str(config_path))
-            self._logger.info(f"EmbeddingOptimizer initialized with config: {config_path}")
+            self._logger.info(
+                f"EmbeddingOptimizer initialized with config: {config_path}"
+            )
         else:
             self.optimizer = None
             self._logger.info("Embedding optimization is disabled.")
 
     @conversion_logger
-    def convert(self, input_path: Union[str, Path], output_folder: Union[str, Path]) -> None:
+    def convert(
+        self, input_path: Union[str, Path], output_folder: Union[str, Path]
+    ) -> None:
         """Convert an input file to 3 files: Markdown, tree txt, and pkl file, under the output folder.
 
         Args:
@@ -84,26 +115,40 @@ class BaseConverter(ABC):
 
         file_hash = calculate_hash(input_path)
         cached_paths = self.cache.get_cached_paths(file_hash)
-        same_version = self.cache.version == ConversionCache.get_file_conversion_version(file_hash)
-        if cached_paths and all(Path(path).exists() for path in cached_paths) and same_version:
+        same_version = (
+            self.cache.version == ConversionCache.get_file_conversion_version(file_hash)
+        )
+        if (
+            cached_paths
+            and all(Path(path).exists() for path in cached_paths)
+            and same_version
+        ):
             self._logger.info(
                 f"Cached result found, using cached files for input path: {input_path} "
                 f"in output folder: {output_folder}."
                 f"\n Cached content are: {[str(path) for path in cached_paths]}."
             )
-            self._content_logger.warning(f"Cached result found, using cached files for input path: {input_path} ")
+            self._content_logger.warning(
+                f"Cached result found, using cached files for input path: {input_path} "
+            )
             self._use_cached_files(cached_paths, output_folder)
             return
 
         future = self.cache.get_future(file_hash)
         if not future or not future.running():
             with ThreadPoolExecutor() as executor:
-                future = executor.submit(self._convert_and_cache, input_path, output_folder, file_hash)
+                future = executor.submit(
+                    self._convert_and_cache, input_path, output_folder, file_hash
+                )
                 self.cache.store_future(file_hash, future)
-                self._logger.info("New conversion task started or previous task completed.")
+                self._logger.info(
+                    "New conversion task started or previous task completed."
+                )
                 return
 
-        self._logger.info("Conversion is already in progress, waiting for it to complete.")
+        self._logger.info(
+            "Conversion is already in progress, waiting for it to complete."
+        )
         # This will block until the future is completed
         future.result()
         self._logger.info(
@@ -122,7 +167,9 @@ class BaseConverter(ABC):
         page = self._to_page(input_path, output_path)
         return page
 
-    def _setup_output_paths(self, input_path: Union[str, Path], output_folder: Union[str, Path]) -> None:
+    def _setup_output_paths(
+        self, input_path: Union[str, Path], output_folder: Union[str, Path]
+    ) -> None:
         """Set up the output paths for the Markdown, tree txt, and pkl files."""
         input_path = ensure_path(input_path)
         output_folder = ensure_path(output_folder)
@@ -132,13 +179,19 @@ class BaseConverter(ABC):
         #  since the markdown parser generates below file paths by default
         self._pkl_path = ensure_path(output_folder / f"{input_path.stem}.pkl")
 
-    def _convert_and_cache(self, input_path: Path, output_folder: Path, file_hash: str) -> List[Path]:
+    def _convert_and_cache(
+        self, input_path: Path, output_folder: Path, file_hash: str
+    ) -> List[Path]:
         self._setup_output_paths(input_path, output_folder)
         # This method embeds the abstract method `_to_markdown`, which needs to be implemented by the child classes.
         _, conversion_time = self._perform_conversion(input_path, output_folder)
         paths = [self._md_path, self._pkl_path]
-        assert all(path.exists() for path in paths), "Not all output files were generated."
-        self.cache.set_cache_and_time(file_hash, str(input_path), paths, conversion_time)
+        assert all(path.exists() for path in paths), (
+            "Not all output files were generated."
+        )
+        self.cache.set_cache_and_time(
+            file_hash, str(input_path), paths, conversion_time
+        )
         logger.info(f"cached into {self.cache._cache_file_path}")
 
     def _use_cached_files(self, cached_paths: List[Path], output_folder: Path) -> None:
@@ -154,7 +207,9 @@ class BaseConverter(ABC):
             path = Path(path)
             # Prevent self-copying if source and destination are identical
             if path.resolve() == des_path.resolve():
-                self._logger.info(f"Skipping self-copy: {path} is already in {output_folder}.")
+                self._logger.info(
+                    f"Skipping self-copy: {path} is already in {output_folder}."
+                )
                 continue
 
             des_path = Path(copy2(path, output_folder))
@@ -171,7 +226,9 @@ class BaseConverter(ABC):
                 self._logger.error(f"Error reading metadata file: {str(e)}")
                 return self._get_mocked_metadata()
         else:
-            self._logger.warning(f"Metadata file not found: {metadata_path}. Using mocked metadata.")
+            self._logger.warning(
+                f"Metadata file not found: {metadata_path}. Using mocked metadata."
+            )
             return self._get_mocked_metadata()
 
     @staticmethod
@@ -189,7 +246,9 @@ class BaseConverter(ABC):
         logger.info(f"🚀 Starting conversion for {input_path}")
         if not output_folder.exists():
             output_folder.mkdir(parents=True, exist_ok=True)
-            logger.warning(f"Output folder did not exist, it's now created: {output_folder}")
+            logger.warning(
+                f"Output folder did not exist, it's now created: {output_folder}"
+            )
         filename = output_folder.stem
         pkl_output_path = output_folder / f"{filename}.pkl"
         logger.info(f"📄 Expected Markdown Path: {self._md_path}")
@@ -202,11 +261,10 @@ class BaseConverter(ABC):
         except Exception as e:
             logger.error(f"❌ ERROR during processing: {e}", exc_info=True)
 
-
         # Add embedding optimization if enabled
         if self.optimizer:
             # Handle Markdown Optimization
-            original_content = page.content.get('text', '')
+            original_content = page.content.get("text", "")
             self._optimize_markdown_content(page, original_content)
 
             # Handle Chunk Optimization
@@ -231,12 +289,14 @@ class BaseConverter(ABC):
                 f"{original_content}"
             )
             # Update the page content with combined content
-            page.content['text'] = combined_content
+            page.content["text"] = combined_content
 
             # Resave the combined Markdown content
             with open(self._md_path, "w", encoding="utf-8") as md_file:
                 md_file.write(combined_content)
-            self._logger.info(f"Enhanced and original Markdown saved to {self._md_path}")
+            self._logger.info(
+                f"Enhanced and original Markdown saved to {self._md_path}"
+            )
         else:
             self._logger.error(f"Failed to optimize Markdown: {result.error}")
 
@@ -262,10 +322,10 @@ class BaseConverter(ABC):
                 chunk_url=original_chunk.chunk_url,
                 metadata={
                     **(original_chunk.metadata or {}),
-                    'enhanced': True,
-                    'original_chunk_url': original_chunk.chunk_url  # Preserve original URL if needed
+                    "enhanced": True,
+                    "original_chunk_url": original_chunk.chunk_url,  # Preserve original URL if needed
                 },
-                page_num = original_chunk.page_num if original_chunk.page_num else None
+                page_num=original_chunk.page_num if original_chunk.page_num else None,
             )
             combined_chunks.append(combined_chunk)
 
@@ -273,31 +333,32 @@ class BaseConverter(ABC):
 
         return combined_chunks
 
-
-
     def _check_page_content(self, page: Page, input_path: Path) -> bool:
         content_length_threshold = Page.PAGE_LENGTH_THRESHOLD
-        content_length = len(page.content.get('text', ''))
+        content_length = len(page.content.get("text", ""))
         page_url = page.page_url
         url_state = check_url(page_url)
         if content_length < content_length_threshold:
-            self._content_logger.warning(f"File: {input_path} removed. Page has content length: {content_length} "
-                                         f"less than threshold: {content_length_threshold}")
+            self._content_logger.warning(
+                f"File: {input_path} removed. Page has content length: {content_length} "
+                f"less than threshold: {content_length_threshold}"
+            )
             return False
 
         if url_state != 200:
             self._content_logger.error(f"File: {input_path} has url state: {url_state}")
         else:
-            self._content_logger.info(f"File: {input_path} has content length {content_length}, "
-                                      f"url state: {url_state}")
+            self._content_logger.info(
+                f"File: {input_path} has content length {content_length}, "
+                f"url state: {url_state}"
+            )
         return True
-
 
     def _to_page(self, input_path: Path, output_path: Path) -> Page:
         # Ensure the output directory exists
         output_path.parent.mkdir(parents=True, exist_ok=True)
         stem = input_path.stem
-        file_type = input_path.suffix.lstrip('.')
+        file_type = input_path.suffix.lstrip(".")
         md_path = self._to_markdown(input_path, output_path)
         metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
         with open(md_path, "r", encoding="utf-8") as md_file:
@@ -311,10 +372,18 @@ class BaseConverter(ABC):
         if file_type == "mp4":
             timestamp = [i[1] for i in self.paragraphs]
             content = {"text": structured_md, "timestamp": timestamp}
-            return VidPage(pagename=stem, content=content, filetype=file_type, page_url=url)
+            return VidPage(
+                pagename=stem, content=content, filetype=file_type, page_url=url
+            )
         else:
             content = {"text": structured_md}
-            return Page(pagename=stem, content=content, filetype=file_type, page_url=url, mapping_json_path=page_path)
+            return Page(
+                pagename=stem,
+                content=content,
+                filetype=file_type,
+                page_url=url,
+                mapping_json_path=page_path,
+            )
 
     def count_header_levels(self, content_text: str) -> int:
         """
@@ -327,29 +396,44 @@ class BaseConverter(ABC):
                 header_levels.add(level)
         return len(header_levels)
 
-    def apply_markdown_structure(self, input_md_path: Path | None, file_type: str, metadata_path:Path) -> str:
+    def apply_markdown_structure(
+        self, input_md_path: Path | None, file_type: str, metadata_path: Path
+    ) -> str:
         file_name = input_md_path.stem
-        with open(input_md_path, "r", encoding= 'UTF-8') as input_file:
+        with open(input_md_path, "r", encoding="UTF-8") as input_file:
             content_text = input_file.read()
         header_levels = self.count_header_levels(content_text)
         if header_levels == 0 and file_type == "mp4":
-            content_dict = get_structured_content_without_title(md_content=content_text, file_name=file_name, course_name=self.course_name)
-            new_md = apply_structure_for_no_title(md_content=content_text, content_dict=content_dict)
-            save_key_concept_to_metadata(content_dict, metadata_path= metadata_path)
+            content_dict = get_structured_content_without_title(
+                md_content=content_text,
+                file_name=file_name,
+                course_name=self.course_name,
+            )
+            new_md = apply_structure_for_no_title(
+                md_content=content_text, content_dict=content_dict
+            )
+            save_key_concept_to_metadata(content_dict, metadata_path=metadata_path)
             return new_md
         if header_levels == 1 and file_type == "pdf":
-            content_dict = get_structured_content_with_one_title_level(md_content=content_text, file_name=file_name,course_name=self.course_name)
-            new_md = apply_structure_for_one_title(md_content=content_text, content_dict=content_dict)
+            content_dict = get_structured_content_with_one_title_level(
+                md_content=content_text,
+                file_name=file_name,
+                course_name=self.course_name,
+            )
+            new_md = apply_structure_for_one_title(
+                md_content=content_text, content_dict=content_dict
+            )
             save_key_concept_to_metadata(content_dict, metadata_path=metadata_path)
             return new_md
         else:
             # TODO base on the header levels, we can apply different key concept extraction methods if more than 5 generate section titles reflate to original paragraph index and url
-            content_dict = get_only_key_concepts(md_content=content_text, file_name=file_name, course_name=self.course_name)
+            content_dict = get_only_key_concepts(
+                md_content=content_text,
+                file_name=file_name,
+                course_name=self.course_name,
+            )
             save_key_concept_to_metadata(content_dict, metadata_path=metadata_path)
             return content_text
-
-
-
 
     @abstractmethod
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:

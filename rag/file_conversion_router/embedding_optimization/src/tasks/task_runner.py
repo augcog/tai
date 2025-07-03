@@ -3,14 +3,14 @@ from dataclasses import dataclass
 from string import Template
 from typing import Dict, Any, Optional
 
-from rag.file_conversion_router.embedding_optimization.src.configs.pipeline_config import (
+from file_conversion_router.embedding_optimization.src.configs.pipeline_config import (
     TaskType,
     TaskConfig,
 )
-from rag.file_conversion_router.embedding_optimization.src.models.base_model import (
+from file_conversion_router.embedding_optimization.src.models.base_model import (
     BaseModel,
 )
-from rag.file_conversion_router.embedding_optimization.src.tasks.task_context import (
+from file_conversion_router.embedding_optimization.src.tasks.task_context import (
     TaskContext,
 )
 

@@ -36,19 +36,17 @@ converter_mapping: ConverterMapping = {
 }
 
 
-def process_folder(
-    input_dir: Union[str, Path],
-    output_dir: Union[str, Path],
-    log_dir: Union[str, Path] = None,
-    cache_path: Union[str, Path] = None,
-) -> None:
+def process_folder(input_dir: Union[str, Path], output_dir: Union[str, Path], course_name: str, course_id :str,
+                   log_dir: Union[str, Path] = None, cache_path: Union[str, Path] = None) -> None:
     """Walk through the input directory and schedule conversion tasks for specified file types.
 
     Args:
         input_dir (Union[str, Path]): The directory from which to read files.
         output_dir (Union[str, Path]): The directory where converted files will be placed.
         log_dir (Union[str, Path], optional): The directory where log files will be placed. Defaults to None.
-        cache_dir (Union[str, Path], optional): The directory where cache files will be placed. Defaults to None.
+        course_name (str): The name of the course.
+        course_id (str): The ID of the course.
+        cache_path (Union[str, Path], optional): The directory where cache files will be placed. Defaults to None.
     Raises:
         ValueError: If either input_dir or output_dir is not a directory.
     """
@@ -89,10 +87,8 @@ def process_folder(
             # Instantiate a new converter object for each file based on the file extension
             converter_class = converter_mapping.get(input_file_path.suffix)
             if converter_class:
-                converter = converter_class()
-                future = schedule_conversion(
-                    converter.convert, input_file_path, output_file_path
-                )
+                converter = converter_class(course_name, course_id)
+                future = schedule_conversion(converter.convert, input_file_path, output_file_path)
                 futures.append(future)
                 logging.info(
                     f"Scheduled conversion for {input_file_path} to {output_file_path}"

@@ -31,8 +31,9 @@ class ModelManager:
 
     def get_model_and_processor(self) -> Tuple[Any, Any]:
         if self.model is None or self.processor is None:
-            self.model, self.processor = get_model_and_processor(ModelNameMapper.
-                                                                 get_model_name(TAINougatConfig.model_tag))
+            self.model, self.processor = get_model_and_processor(
+                ModelNameMapper.get_model_name(TAINougatConfig.model_tag)
+            )
         return self.model, self.processor
 
 
@@ -45,15 +46,15 @@ def process_page(page_idx: int, image: Any, model: Any, processor: Any) -> tuple
     sequence = processor.batch_decode([outputs], skip_special_tokens=True)[0]
     sequence = processor.post_process_generation(sequence, fix_markdown=False)
 
-
-    line_count = len(sequence.strip().split('\n')) + 1
+    line_count = len(sequence.strip().split("\n")) + 1
 
     return sequence, line_count
+
 
 def main(input_pdf_path: Path, output_dir: Path) -> None:
     pdf_path = str(input_pdf_path)
     output_md_file_path = output_dir / f"{input_pdf_path.stem}.mmd"
-    if not pdf_path.endswith('.pdf'):
+    if not pdf_path.endswith(".pdf"):
         raise ValueError(f"Expected a PDF file, but got {pdf_path}")
     images = extract_pdf_pages_as_images(pdf_path)
     pages = list(range(len(images)))
@@ -65,7 +66,7 @@ def main(input_pdf_path: Path, output_dir: Path) -> None:
         image = images[page_idx]
         content, line_count = process_page(page_idx, image, model, processor)
         start_line = current_line
-        page_info_list.append({'page_num': page_idx + 1, 'start_line': start_line})
+        page_info_list.append({"page_num": page_idx + 1, "start_line": start_line})
         full_content += content.strip() + "\n\n"
         current_line += line_count
     # Write the extracted content to the Markdown file
@@ -73,8 +74,10 @@ def main(input_pdf_path: Path, output_dir: Path) -> None:
         f.write(full_content.strip())
 
     # Save the page information metadata to a new YAML file
-    metadata_content = {'pages': page_info_list}
-    new_yaml_file_path = output_md_file_path.with_name(output_md_file_path.stem + '_page_info.yaml')
+    metadata_content = {"pages": page_info_list}
+    new_yaml_file_path = output_md_file_path.with_name(
+        output_md_file_path.stem + "_page_info.yaml"
+    )
     print(f"Page metadata content: {metadata_content}")
 
     with open(new_yaml_file_path, "w", encoding="utf-8") as f:

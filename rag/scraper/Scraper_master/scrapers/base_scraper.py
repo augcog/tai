@@ -1,12 +1,14 @@
 from abc import ABC, abstractmethod
 from typing import List
-from rag.scraper.Scraper_master.drivers.driver import Driver
+
+from scraper.Scraper_master.drivers.driver import Driver
 
 
 class BaseScraper(ABC):
     """
     Base abstract scraper.
     """
+
     @abstractmethod
     def scrape(self, url: str, driver: Driver, task_folder_path: str) -> List:
         """

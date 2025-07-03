@@ -1,0 +1,72 @@
+{
+    "folders": [
+        {
+            "name": "🤖 AI Chatbot Backend",
+            "path": "./ai_chatbot_backend"
+        },
+        {
+            "name": "🔍 RAG Pipeline",
+            "path": "./rag"
+        },
+        {
+            "name": "📊 Evaluation",
+            "path": "./evaluation"
+        },
+        {
+            "name": "🧪 Tests",
+            "path": "./tests"
+        },
+        {
+            "name": "📁 Root",
+            "path": "."
+        }
+    ],
+    "settings": {
+        "editor.formatOnSave": true,
+        "files.exclude": {
+            "**/__pycache__": true,
+            "**/.pytest_cache": true,
+            "**/.mypy_cache": true,
+            "**/.ruff_cache": true,
+            "**/*.egg-info": true,
+            "**/.classpath": true,
+            "**/.project": true,
+            "**/.settings": true,
+            "**/.factorypath": true
+        },
+        "files.insertFinalNewline": true,
+        "files.trimTrailingWhitespace": true,
+        "isort.args": [
+            "--settings-path",
+            "${workspaceFolder}"
+        ],
+        "isort.check": true,
+        "isort.importStrategy": "fromEnvironment",
+        "python.analysis.inlayHints.callArgumentNames": "all",
+        "python.analysis.inlayHints.functionReturnTypes": true,
+        "python.analysis.inlayHints.variableTypes": true,
+        "python.testing.pytestEnabled": true,
+        "python.testing.unittestEnabled": false,
+        "python.terminal.activateEnvironment": false,
+        "search.exclude": {
+            "**/node_modules": true,
+            "**/.venv": true,
+            "**/*.egg-info": true,
+            "**/__pycache__": true
+        },
+        "[python]": {
+            "editor.codeActionsOnSave": {
+                "source.organizeImports": "explicit"
+            },
+            "editor.defaultFormatter": "ms-python.black-formatter",
+            "editor.rulers": [120]
+        },
+    },
+    "extensions": {
+        "recommendations": [
+            "ms-python.python",
+            "ms-python.black-formatter",
+            "ms-vscode.makefile-tools"
+        ]
+    }
+}

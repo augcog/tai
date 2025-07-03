@@ -1,10 +1,15 @@
-import requests
 import os
 import re
 from urllib.parse import urljoin
 
-from rag.scraper.Scraper_master.scrapers.base_scraper import BaseScraper
-from rag.scraper.Scraper_master.utils.file_utils import save_to_file, create_and_enter_dir, cd_back_link
+import requests
+
+from scraper.Scraper_master.scrapers.base_scraper import BaseScraper
+from scraper.Scraper_master.utils.file_utils import (
+    cd_back_link,
+    create_and_enter_dir,
+    save_to_file,
+)
 
 ignore = ["glossary", "*"]
 
@@ -23,15 +28,15 @@ class ScrapeRst(BaseScraper):
         :return: str or None: The fetched content or None if the request fails.
         """
         # print(f"Fetching data from {url}")
-        headers = {'Accept': 'application/json'}
+        headers = {"Accept": "application/json"}
         try:
-            response = requests.get(url + '?plain=1', headers=headers)
+            response = requests.get(url + "?plain=1", headers=headers)
             response.raise_for_status()
             data = response.json()
 
             # Extract and return the relevant content
-            data = data['payload']['blob']['rawLines']
-            data = '\n'.join(data)
+            data = data["payload"]["blob"]["rawLines"]
+            data = "\n".join(data)
             return data
         except (requests.RequestException, KeyError) as e:
             print(f"Failed to fetch data from {url}: {e}")
@@ -52,7 +57,7 @@ class ScrapeRst(BaseScraper):
             return []
 
         toctree_content = []
-        lines = content.split('\n')
+        lines = content.split("\n")
         for i in range(len(lines)):
             line = lines[i]
             if line.startswith(".. toctree::"):
@@ -62,7 +67,7 @@ class ScrapeRst(BaseScraper):
 
                 cur += 1
                 while cur < len(lines) and lines[cur].strip() != "":
-                    match = re.search(r'<(.*?)>', lines[cur])
+                    match = re.search(r"<(.*?)>", lines[cur])
                     if match:
                         toctree_content.append(match.group(1).strip())
                     else:
@@ -88,19 +93,19 @@ class ScrapeRst(BaseScraper):
         self.content_extract(filename, url)
         self.metadata_extract(filename, url)
         toctree_content = self.extract_toctree_from_rst(url)
-        url = cd_back_link(url) + '/'
+        url = cd_back_link(url) + "/"
         current_directory = os.getcwd()
 
         for sublink in toctree_content:
-            if sublink.startswith('/'):
+            if sublink.startswith("/"):
                 sublink = sublink[1:]
                 part = sublink.split("/")
-                cur_name, dir = part[-1], '/'.join(part[:-1])
-                if cur_name == '*' or re.match(r'^https.*', sublink) is not None:
+                cur_name, dir = part[-1], "/".join(part[:-1])
+                if cur_name == "*" or re.match(r"^https.*", sublink) is not None:
                     continue
                 os.chdir(home_dir)
                 create_and_enter_dir(dir)
-                sublink = sublink[:-4] if sublink.endswith('.rst') else sublink
+                sublink = sublink[:-4] if sublink.endswith(".rst") else sublink
                 temp_url = url
                 url = home_url + sublink + ".rst"
                 self.tree_call(cur_name, url, home_url, home_dir)
@@ -108,21 +113,21 @@ class ScrapeRst(BaseScraper):
                 os.chdir(current_directory)
             else:
                 part = sublink.split("/")
-                cur_name, dir = part[-1], '/'.join(part[:-1])
-                if cur_name in ignore or re.match(r'^https.*', sublink) is not None:
+                cur_name, dir = part[-1], "/".join(part[:-1])
+                if cur_name in ignore or re.match(r"^https.*", sublink) is not None:
                     continue
                 create_and_enter_dir(dir)
-                sublink = sublink[:-4] if sublink.endswith('.rst') else sublink
+                sublink = sublink[:-4] if sublink.endswith(".rst") else sublink
                 url += sublink + ".rst"
                 self.tree_call(cur_name, url, home_url, home_dir)
-                url = cd_back_link(url, len(part)) + '/'
+                url = cd_back_link(url, len(part)) + "/"
                 os.chdir(current_directory)
 
     def scrape(self):
         create_and_enter_dir(self.filename)
-        home_url = self.url.rsplit('/', 1)[0]
+        home_url = self.url.rsplit("/", 1)[0]
         home_dir = os.getcwd()
-        self.tree_call('index', self.url, home_url, home_dir)
+        self.tree_call("index", self.url, home_url, home_dir)
 
     def content_extract(self, filename, url, **kwargs):
         """
@@ -136,7 +141,8 @@ class ScrapeRst(BaseScraper):
 
     def metadata_extract(self, filename, url, **kwargs):
         yaml_content = f"URL: {self.doc_url.replace('index.html', '')}{'/'.join(url.split('/')[url.split('/').index('main') + 1:]).replace('.rst', '.html')}"
-        save_to_file(f'{filename}_metadata.yaml', yaml_content)
+        save_to_file(f"{filename}_metadata.yaml", yaml_content)
+
 
 if __name__ == "__main__":
     # filename = "Moveit"

@@ -1,13 +1,14 @@
 import os
+
 import yaml
-# from rag.scraper.Scraper_master.factory import ScraperFactory
-# from rag.scraper.Scraper_master.configs import ScraperConfig
-from rag.file_conversion_router.api import convert_directory
-from rag.file_conversion_router.embedding_create import embedding_create
-from rag.scraper.Scraper_master.scrapers.web_scraper import WebScraper
+
+from file_conversion_router.api import convert_directory
+from file_conversion_router.embedding_create import embedding_create
+from scraper.Scraper_master.scrapers.web_scraper import WebScraper
+
 
 def load_yaml(file_path):
-    with open(file_path, 'r') as file:
+    with open(file_path, "r") as file:
         return yaml.safe_load(file)
 
 
@@ -27,11 +28,11 @@ def pipeline(yaml):
 
     """
     data = load_yaml(yaml)
-    root1 = data['root_folder']
-    print("ROOT1:",root1)
-    root=os.path.abspath(root1)
-    _, n= os.path.split(root)
-    embedding_name=os.path.basename(os.path.normpath(root))
+    root1 = data["root_folder"]
+    print("ROOT1:", root1)
+    root = os.path.abspath(root1)
+    _, n = os.path.split(root)
+    embedding_name = os.path.basename(os.path.normpath(root))
     markdown_path = root + "_md"
     cache_path = root + "_cache"
     course_name = data['course_name']
@@ -51,7 +52,7 @@ def pipeline(yaml):
 
 def convert_only(yaml):
     data = load_yaml(yaml)
-    root1 = data['root_folder']
+    root1 = data["root_folder"]
     print("ROOT1:", root1)
     root = os.path.abspath(root1)
     _, n = os.path.split(root)

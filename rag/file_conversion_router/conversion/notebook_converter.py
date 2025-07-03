@@ -1,9 +1,10 @@
 from pathlib import Path
+
 import nbformat
 from nbconvert import MarkdownExporter
 
-from rag.file_conversion_router.conversion.base_converter import BaseConverter
-from rag.file_conversion_router.classes.page import Page
+from file_conversion_router.classes.page import Page
+from file_conversion_router.conversion.base_converter import BaseConverter
 
 
 class NotebookConverter(BaseConverter):
@@ -17,12 +18,16 @@ class NotebookConverter(BaseConverter):
         with open(input_path, "r") as input_file, open(output_path, "w") as output_file:
             content = nbformat.read(input_file, as_version=4)
             markdown_converter = MarkdownExporter()
-            (markdown_content, resources) = markdown_converter.from_notebook_node(content)
+            (markdown_content, resources) = markdown_converter.from_notebook_node(
+                content
+            )
             output_file.write(self._post_process_markdown(markdown_content))
         return output_path
 
     def _post_process_markdown(self, markdown_content: str) -> str:
-        lines = markdown_content.split("\n")[1:]  # first line is the title of the course section
+        lines = markdown_content.split("\n")[
+            1:
+        ]  # first line is the title of the course section
 
         processed_lines = []
         for i, line in enumerate(lines):
@@ -33,4 +38,4 @@ class NotebookConverter(BaseConverter):
             else:
                 processed_lines.append(line.strip())
 
-        return "\n".join(processed_lines) 
+        return "\n".join(processed_lines)

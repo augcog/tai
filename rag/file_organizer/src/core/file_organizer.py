@@ -1,12 +1,12 @@
+import json
 import os
 import shutil
 from enum import Enum
-from typing import List, Dict
-import json
+from typing import Dict, List
 
-from rag.file_organizer.src.utils.utils import find_markdown_files
+from file_organizer.src.utils.logging_service import get_logger
+from file_organizer.src.utils.utils import find_markdown_files
 
-from rag.file_organizer.src.utils.logging_service import get_logger
 logger = get_logger(__name__)
 
 
@@ -16,12 +16,17 @@ class ContentCategory(Enum):
     STUDY = "study"
 
 
-def organize_files(input_folder, topics_path, function_path, destination_root: str, move_files: bool = True):
-
+def organize_files(
+    input_folder,
+    topics_path,
+    function_path,
+    destination_root: str,
+    move_files: bool = True,
+):
     files = find_markdown_files(input_folder)
-    with open(topics_path, 'r') as f:
+    with open(topics_path, "r") as f:
         topics_dict = json.load(f)
-    with open(function_path, 'r') as f:
+    with open(function_path, "r") as f:
         functions_dict = json.load(f)
 
     for file in files:

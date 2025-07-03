@@ -7,9 +7,15 @@ import pytest
 import yaml
 
 from rag.file_conversion_router.classes.chunk import Chunk
-from rag.file_conversion_router.embedding_optimization.src.models.mock_model import MockModel
-from rag.file_conversion_router.embedding_optimization.src.pipeline.optimizer import EmbeddingOptimizer
-from rag.file_conversion_router.embedding_optimization.src.utils import ensure_model_downloaded
+from rag.file_conversion_router.embedding_optimization.src.models.mock_model import (
+    MockModel,
+)
+from rag.file_conversion_router.embedding_optimization.src.pipeline.optimizer import (
+    EmbeddingOptimizer,
+)
+from rag.file_conversion_router.embedding_optimization.src.utils import (
+    ensure_model_downloaded,
+)
 
 # Configure logging for the test
 logging.basicConfig(level=logging.INFO)
@@ -17,9 +23,11 @@ logger = logging.getLogger(__name__)
 
 
 @pytest.mark.integration
-@pytest.mark.skip(reason="1. This test takes really long time (2 min for Mac M1) to run for most personal devices.\n"
-                         "2. Local model needs some additional set up, such as get access from huggingface.\n"
-                         "Run it only when necessary.")
+@pytest.mark.skip(
+    reason="1. This test takes really long time (2 min for Mac M1) to run for most personal devices.\n"
+    "2. Local model needs some additional set up, such as get access from huggingface.\n"
+    "Run it only when necessary."
+)
 def test_embedding_optimizer_integration_with_local_llama_3_2_3b(sample_chunks):
     """
     Integration test for EmbeddingOptimizer to ensure it processes chunks correctly using the LocalLLama3Model.
@@ -28,7 +36,9 @@ def test_embedding_optimizer_integration_with_local_llama_3_2_3b(sample_chunks):
     # Define the model name and directory
     test_path = Path(__file__).parent
     model_name = "meta-llama/Llama-3.2-3B"  # Replace with actual Llama 3 model name
-    model_cache_dir = str(Path(test_path) / "models" / "Meta-Llama-3.2-3B")  # Replace with actual model directory
+    model_cache_dir = str(
+        Path(test_path) / "models" / "Meta-Llama-3.2-3B"
+    )  # Replace with actual model directory
 
     # Ensure the model is downloaded
     try:
@@ -38,24 +48,19 @@ def test_embedding_optimizer_integration_with_local_llama_3_2_3b(sample_chunks):
 
     # Create a temporary config file
     config = {
-        'processing': {
-            'enable': True,
-            'tasks': ['summarize']
-        },
-        'models': {
-            'default': model_name,
-            'options': [
-                {
-                    'name': model_name,
-                    'type': 'local',
-                    'path': model_cache_path
-                }
-            ]
+        "processing": {"enable": True, "tasks": ["summarize"]},
+        "models": {
+            "default": model_name,
+            "options": [
+                {"name": model_name, "type": "local", "path": model_cache_path}
+            ],
         },
     }
 
     # Write config to a temporary file
-    with tempfile.NamedTemporaryFile(mode='w+', delete=False, suffix='.yaml') as tmp_config:
+    with tempfile.NamedTemporaryFile(
+        mode="w+", delete=False, suffix=".yaml"
+    ) as tmp_config:
         yaml.dump(config, tmp_config)
         config_path = tmp_config.name
 
@@ -72,17 +77,25 @@ def test_embedding_optimizer_integration_with_local_llama_3_2_3b(sample_chunks):
 
     assert len(optimized_chunks[0].content) > 0, "Content should not be empty."
     assert "TAI" in optimized_chunks[0].content, "Content should contain 'TAI'."
-    assert optimized_chunks[0].content != copy_old_chunk_content[0], "Content should be different."
+    assert (
+        optimized_chunks[0].content != copy_old_chunk_content[0]
+    ), "Content should be different."
     # assert len(optimized_chunks[0].content) < len(copy_old_chunk_content[0]), "Content should be shorter."
 
     assert len(optimized_chunks[1].content) > 0, "Content should not be empty."
-    assert "transfer learning" in optimized_chunks[1].content, "Content should contain 'TAI'."
-    assert optimized_chunks[1].content != copy_old_chunk_content[1], "Content should be different."
+    assert (
+        "transfer learning" in optimized_chunks[1].content
+    ), "Content should contain 'TAI'."
+    assert (
+        optimized_chunks[1].content != copy_old_chunk_content[1]
+    ), "Content should be different."
     # assert len(optimized_chunks[1].content) < len(copy_old_chunk_content[1]), "Content should be shorter."
 
 
 @pytest.mark.integration
-def test_server_model_generate_summary_integration(server_model_tai, config_path_for_test):
+def test_server_model_generate_summary_integration(
+    server_model_tai, config_path_for_test
+):
     """Integration test for EmbeddingOptimizer to ensure it correctly processes summaries using the server model.
 
     Prerequisites:
@@ -94,18 +107,20 @@ def test_server_model_generate_summary_integration(server_model_tai, config_path
     sample_chunks = [
         Chunk(
             content="Someone told Perry that Artificial intelligence (AI) is intelligence demonstrated by machines, unlike the natural intelligence displayed by humans and animals.",
-            metadata={"test_id": 1}
+            metadata={"test_id": 1},
         ),
         Chunk(
             content="Perry learned from TAI that Machine learning (ML) is a subset of AI that involves the study of computer algorithms that improve automatically through experience.",
-            metadata={"test_id": 2}
-        )
+            metadata={"test_id": 2},
+        ),
     ]
 
     try:
         processed_chunks = optimizer.process_chunks(sample_chunks)
 
-        assert len(processed_chunks) == len(sample_chunks), "Number of processed chunks should match input"
+        assert len(processed_chunks) == len(
+            sample_chunks
+        ), "Number of processed chunks should match input"
 
         for idx, chunk in enumerate(processed_chunks):
             logger.info(f"Original text {idx + 1}: {sample_chunks[idx].content}")
@@ -113,10 +128,16 @@ def test_server_model_generate_summary_integration(server_model_tai, config_path
 
             assert isinstance(chunk.content, str), "Summary should be a string"
             assert len(chunk.content) > 0, "Summary should not be empty"
-            assert chunk.content != sample_chunks[idx].content, "Summary should differ from original text"
+            assert (
+                chunk.content != sample_chunks[idx].content
+            ), "Summary should differ from original text"
 
-            assert chunk.metadata["test_id"] == sample_chunks[idx].metadata["test_id"], "Metadata should be preserved"
-            assert "task_results" in chunk.metadata, "Task results should be included in metadata"
+            assert (
+                chunk.metadata["test_id"] == sample_chunks[idx].metadata["test_id"]
+            ), "Metadata should be preserved"
+            assert (
+                "task_results" in chunk.metadata
+            ), "Task results should be included in metadata"
 
     except Exception as e:
         pytest.fail(f"EmbeddingOptimizer processing raised an exception: {e}")
@@ -149,8 +170,8 @@ def test_server_model_handle_markdown(config_path_for_test, server_model_tai):
     processed_content = result.content
 
     # Verify basic markdown elements are preserved
-    assert '#' in processed_content  # Headers
-    assert '*' in processed_content or '-' in processed_content  # Lists
+    assert "#" in processed_content  # Headers
+    assert "*" in processed_content or "-" in processed_content  # Lists
 
 
 class TestEmbeddingOptimizerWithMockModel:
@@ -172,9 +193,9 @@ class TestEmbeddingOptimizerWithMockModel:
         for chunk in processed_chunks:
             assert isinstance(chunk, Chunk)
             assert chunk.content != ""
-            assert 'task_results' in chunk.metadata
-            assert 'processing_status' in chunk.metadata
-            assert chunk.metadata['processing_status'] == 'success'
+            assert "task_results" in chunk.metadata
+            assert "processing_status" in chunk.metadata
+            assert chunk.metadata["processing_status"] == "success"
 
     def test_task_execution_flow(self, mock_config_path, sample_chunks):
         """Test that tasks are executed in the correct order."""
@@ -191,11 +212,11 @@ class TestEmbeddingOptimizerWithMockModel:
         # Verify task execution order
         assert len(history) > 0
         # First calls should be for 'summarize' task
-        assert "summarize" in history[0]['prompt'].lower()
+        assert "summarize" in history[0]["prompt"].lower()
         # Later calls should include 'enhance' task
-        assert any("enhance" in call['prompt'].lower() for call in history)
+        assert any("enhance" in call["prompt"].lower() for call in history)
         # Final calls should include 'combine' text
-        assert any("combine" in call['prompt'].lower() for call in history)
+        assert any("combine" in call["prompt"].lower() for call in history)
 
     def test_error_handling(self, mock_config_path, sample_chunks):
         """Test error handling with failing MockModel."""
@@ -207,8 +228,8 @@ class TestEmbeddingOptimizerWithMockModel:
         processed_chunks = optimizer.process_chunks(sample_chunks, fail_fast=False)
         assert len(processed_chunks) == len(sample_chunks)
         for chunk in processed_chunks:
-            assert chunk.metadata['processing_status'] == 'error'
-            assert 'error_message' in chunk.metadata
+            assert chunk.metadata["processing_status"] == "error"
+            assert "error_message" in chunk.metadata
 
         # Process with fail_fast=True
         optimizer.model.clear_call_history()
@@ -221,14 +242,17 @@ class TestEmbeddingOptimizerWithMockModel:
 
         # Add some metadata
         for chunk in sample_chunks:
-            chunk.metadata['original_length'] = len(chunk.content)
+            chunk.metadata["original_length"] = len(chunk.content)
 
         processed_chunks = optimizer.process_chunks(sample_chunks)
 
         # Verify metadata
         for original, processed in zip(sample_chunks, processed_chunks):
-            assert processed.metadata['original_length'] == original.metadata['original_length']
-            assert 'task_results' in processed.metadata
+            assert (
+                processed.metadata["original_length"]
+                == original.metadata["original_length"]
+            )
+            assert "task_results" in processed.metadata
 
     def test_mock_response_customization(self, mock_config_path, sample_chunks):
         """Test with customized mock responses."""
@@ -251,6 +275,7 @@ class TestEmbeddingOptimizerWithMockModel:
         optimizer.model.set_delay(0.1)
 
         import time
+
         start_time = time.time()
 
         processed_chunks = optimizer.process_chunks(sample_chunks)

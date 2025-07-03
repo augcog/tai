@@ -1,0 +1,131 @@
+# RAG Pipeline - Standalone Configuration
+# This project uses Poetry for dependency management with local .venv
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "rag-pipeline"
+version = "0.1.0"
+description = "RAG pipeline for document processing, embedding generation, and retrieval"
+authors = ["TAI Team"]
+readme = "README.md"
+packages = [{include = "file_conversion_router"}]
+
+# Production dependencies
+[tool.poetry.dependencies]
+python = ">=3.10,<3.13"
+
+# Core RAG dependencies
+torch = "*"
+transformers = "*"
+FlagEmbedding = "*"
+sentence-transformers = "*"
+huggingface-hub = "*"
+accelerate = "*"
+safetensors = "*"
+tokenizers = "*"
+
+# Document processing
+PyMuPDF = "*"
+python-docx = "*"
+openpyxl = "*"
+markdown = "*"
+beautifulsoup4 = "*"
+lxml = "*"
+pypdf = "*"
+
+# Image processing
+Pillow = "*"
+
+# Data analysis
+pandas = "*"
+numpy = "*"
+scipy = "*"
+scikit-learn = "*"
+
+# NLP packages
+nltk = "*"
+spacy = "*"
+regex = "*"
+rapidfuzz = "*"
+langdetect = "*"
+ftfy = "*"
+
+# Utilities
+tqdm = "*"
+requests = "*"
+aiohttp = "*"
+click = "*"
+rich = "*"
+loguru = "*"
+PyYAML = "*"
+
+# FastAPI for RAG API
+fastapi = "*"
+uvicorn = "*"
+magic-pdf = "^1.3.12"
+mlx = "^0.26.1"
+markdownify = "^1.1.0"
+rst-to-myst = "^0.4.0"
+whisper = "^1.1.10"
+moviepy = "^2.2.1"
+yt-dlp = "^2025.6.25"
+voyageai = "^0.3.2"
+cohere = "^5.15.0"
+
+[tool.poetry.group.dev.dependencies]
+# Development tools
+pytest = "*"
+pytest-asyncio = "*"
+pytest-cov = "*"
+pytest-mock = "*"
+black = "*"
+ruff = "*"
+mypy = "*"
+jupyter = "*"
+
+# Optional dependency groups
+[tool.poetry.group.cv.dependencies]
+# Computer Vision packages
+opencv-python = "*"
+opencv-contrib-python = "*"
+albumentations = "*"
+scikit-image = "*"
+imageio = "*"
+
+[tool.poetry.group.ocr.dependencies]
+# OCR packages (heavy dependencies)
+paddleocr = "*"
+rapidocr-onnxruntime = "*"
+pix2text = "*"
+easyocr = "*"
+
+[tool.poetry.group.video.dependencies]
+# Video processing
+moviepy = "*"
+ffmpeg-python = "*"
+imageio-ffmpeg = "*"
+scenedetect = "*"
+
+[tool.poetry.group.web.dependencies]
+# Web scraping
+playwright = "*"
+selenium = "*"
+aiolimiter = "*"
+
+[tool.poetry.scripts]
+# Entry points
+rag-convert = "file_conversion_router.api:convert_files"
+rag-embed = "file_conversion_router.embedding.table_create:main"
+
+# Tool configurations
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "slow: marks tests as slow",
+    "cv: marks tests requiring computer vision packages",
+    "ocr: marks tests requiring OCR packages",
+    "gpu: marks tests requiring GPU",
+]

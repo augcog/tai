@@ -2,10 +2,16 @@ import logging
 from typing import Optional
 
 import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline, logging as hf_logging
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import logging as hf_logging
+from transformers import pipeline
 
-from rag.file_conversion_router.embedding_optimization.src.models.base_model import BaseModel
-from rag.file_conversion_router.embedding_optimization.src.utils import ensure_model_downloaded
+from file_conversion_router.embedding_optimization.src.models.base_model import (
+    BaseModel,
+)
+from file_conversion_router.embedding_optimization.src.utils import (
+    ensure_model_downloaded,
+)
 
 # Suppress excessive logging from transformers library
 hf_logging.set_verbosity_error()
@@ -15,13 +21,13 @@ logger = logging.getLogger(__name__)
 
 class LocalLLama3Model(BaseModel):
     def __init__(
-            self,
-            model_name: str,
-            model_cache_dir: Optional[str] = None,
-            device: Optional[int] = None,
-            max_length: int = 256,
-            num_beams: int = 4,
-            **kwargs
+        self,
+        model_name: str,
+        model_cache_dir: Optional[str] = None,
+        device: Optional[int] = None,
+        max_length: int = 256,
+        num_beams: int = 4,
+        **kwargs,
     ):
         """
         Initialize the LocalLLama3Model with the given model name and configurations.
@@ -36,7 +42,9 @@ class LocalLLama3Model(BaseModel):
         """
         self.model_name = model_name
         self.model_dir = model_cache_dir
-        self.device = device if device is not None else (0 if torch.cuda.is_available() else -1)
+        self.device = (
+            device if device is not None else (0 if torch.cuda.is_available() else -1)
+        )
         self.max_length = max_length
         self.num_beams = num_beams
         self.pipeline_kwargs = kwargs
@@ -51,13 +59,19 @@ class LocalLLama3Model(BaseModel):
         Load the model and tokenizer if they haven't been loaded yet.
         This method ensures that the model is loaded only once, even in multi-threaded environments.
         """
-        if self.model is not None and self.tokenizer is not None and self.summarizer is not None:
+        if (
+            self.model is not None
+            and self.tokenizer is not None
+            and self.summarizer is not None
+        ):
             return  # Model is already loaded
 
         if self._is_loading:
             logger.info("Model is currently being loaded by another process.")
             # Optionally, implement waiting or raise an exception
-            raise RuntimeError("Model is currently being loaded. Please try again shortly.")
+            raise RuntimeError(
+                "Model is currently being loaded. Please try again shortly."
+            )
 
         self._is_loading = True
         try:
@@ -81,13 +95,15 @@ class LocalLLama3Model(BaseModel):
 
             logger.info("Initializing summarization pipeline...")
             # Remove any unexpected kwargs
-            sanitized_kwargs = {k: v for k, v in self.pipeline_kwargs.items() if k != 'model_path'}
+            sanitized_kwargs = {
+                k: v for k, v in self.pipeline_kwargs.items() if k != "model_path"
+            }
             self.summarizer = pipeline(
                 "text-generation",
                 model=self.model,
                 tokenizer=self.tokenizer,
                 device=self.device if self.device >= 0 else -1,
-                **sanitized_kwargs
+                **sanitized_kwargs,
             )
             logger.info("Summarization pipeline initialized successfully.")
         except Exception as e:
@@ -120,7 +136,9 @@ class LocalLLama3Model(BaseModel):
             summary_list = self.summarizer(
                 prompt,
                 max_length=self.max_length,
-                min_length=int(self.max_length * 0.5),  # Optional: Enforce minimum length
+                min_length=int(
+                    self.max_length * 0.5
+                ),  # Optional: Enforce minimum length
                 num_beams=self.num_beams,
                 early_stopping=True,
                 no_repeat_ngram_size=3,
@@ -132,7 +150,7 @@ class LocalLLama3Model(BaseModel):
             )
 
             # Extract the summary from the generated text
-            generated_text = summary_list[0]['generated_text']
+            generated_text = summary_list[0]["generated_text"]
             # Adjust extraction based on the new prompt
             summary = generated_text.split("Summary:")[-1].strip()
             logger.debug(f"Generated summary: {summary}")

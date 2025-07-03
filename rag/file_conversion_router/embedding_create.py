@@ -1,28 +1,21 @@
 from datetime import datetime
 import os
 import time
+from datetime import datetime
+
 import numpy as np
 import pickle
-import openai
-from tqdm import tqdm
-import cohere
-import voyageai
-from voyageai import get_embedding
-from transformers import AutoModel, AutoTokenizer
 from dotenv import load_dotenv
-import torch
-import torch.nn.functional as F
-from torch import Tensor
-from angle_emb import AnglE, Prompts
-import re
 from rag.file_conversion_router.utils.logger import content_logger
+from tqdm import tqdm
 
 load_dotenv()
 
 
 def string_subtraction(main_string, sub_string):
-    return main_string.replace(sub_string, '', 1)  # The '1' ensures only the first occurrence is removed
-
+    return main_string.replace(
+        sub_string, "", 1
+    )  # The '1' ensures only the first occurrence is removed
 
 def traverse_files(path, start_folder_name , url_list, id_list, doc_list, file_paths_list, topic_path_list):
     results = []
@@ -35,22 +28,30 @@ def traverse_files(path, start_folder_name , url_list, id_list, doc_list, file_p
 
     for root, dir, files in os.walk(path):
         for file in files:
-            if file.endswith('.pkl'):
-                path_list = [start_folder_name] + string_subtraction(root, path).split('/')[1:]
-                line = ((len(path_list) - 1) * "--" + path_list[-1] + f" (L{len(path_list)})")
+            if file.endswith(".pkl"):
+                path_list = [start_folder_name] + string_subtraction(root, path).split(
+                    "/"
+                )[1:]
+                line = (
+                    (len(path_list) - 1) * "--"
+                    + path_list[-1]
+                    + f" (L{len(path_list)})"
+                )
                 folder_tree += f"{line}\n"
 
     for root, dir, files in os.walk(path):
         for file in files:
-            if file.endswith('.pkl'):
+            if file.endswith(".pkl"):
                 # file path
                 file_path = os.path.join(root, file)
-                path_list = [start_folder_name] + string_subtraction(root, path).split('/')[1:]
+                path_list = [start_folder_name] + string_subtraction(root, path).split(
+                    "/"
+                )[1:]
 
                 # Find associated file (pdf, video, or md) in the same directory
                 base_name = os.path.splitext(file)[0]
                 pdf_path = os.path.join(root, f"{base_name}.pdf")
-                video_extensions = ['.mp4', '.avi', '.mov', '.mkv', '.webm']
+                video_extensions = [".mp4", ".avi", ".mov", ".mkv", ".webm"]
                 video_path = None
                 for ext in video_extensions:
                     potential_video = os.path.join(root, f"{base_name}{ext}")
@@ -76,21 +77,15 @@ def traverse_files(path, start_folder_name , url_list, id_list, doc_list, file_p
                 else:
                     relative_file_path = None
 
-                with open(file_path, 'rb') as pkl_file:
+                with open(file_path, "rb") as pkl_file:
                     print(file_path)
                     chunks = pickle.load(pkl_file)
                 for chunk in chunks:
-                    # folder_path = ''.join(f"{item}" for i, item in enumerate(path_list))
-                    # match = re.search(r'\((.*?)\)', chunk.titles)
-                    # if match:
-                    #     topic_path = match.group(1)
-                    #     topic_path_list.append(topic_path)
-                    # else:
-                    #     topic_path = chunk.titles  # Fallback if the pattern isn't found
-                    #     topic_path_list.append(topic_path)
-                    topic_path = chunk.titles
-                    print( f"topic_path: {topic_path} in {file_path}")
-                    id = base_name + ' > ' + topic_path
+                    folder_path = " > ".join(
+                        f"{item} (Level{i + 1})" for i, item in enumerate(path_list)
+                    )
+                    page_path = chunk.titles
+                    id = folder_path + " > " + page_path
                     id_list.append(id)
                     doc_list.append(chunk.content)
                     url = "".join(chunk.chunk_url)
@@ -100,9 +95,9 @@ def traverse_files(path, start_folder_name , url_list, id_list, doc_list, file_p
 
 
 def embedding_create(markdown_path, name, embedding_name, folder_name, model):
-    '''
+    """
     Traverse through files
-    '''
+    """
     id_list = []
     doc_list = []
     embedding_list = []

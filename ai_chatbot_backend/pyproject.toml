@@ -1,0 +1,91 @@
+# AI Chatbot Backend - Standalone Configuration
+# This project uses Poetry for dependency management with local .venv
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "ai-course-bot-backend"
+version = "0.1.0"
+description = "FastAPI backend service for TAI course assistant with RAG capabilities"
+authors = ["TAI Team"]
+readme = "README.md"
+packages = [{include = "app"}]
+
+# Production dependencies
+[tool.poetry.dependencies]
+python = ">=3.10,<3.13"
+
+# Core backend dependencies
+fastapi = "*"
+uvicorn = "*"
+starlette = "*"
+pydantic = "*"
+pydantic-settings = "*"
+
+# Database
+sqlalchemy = "*"
+sqlite-vss = "*"
+
+# AI/ML for backend
+FlagEmbedding = "*"
+torch = "*"
+transformers = "*"
+openai = "*"
+
+# Authentication
+PyJWT = "*"
+itsdangerous = "*"
+google-auth = "*"
+google-auth-oauthlib = "*"
+
+# Admin interface
+sqladmin = "*"
+
+# Utilities
+cachetools = "*"
+python-dotenv = "*"
+jsonschema = "*"
+watchdog = "*"
+requests = "*"
+vllm = "^0.9.1"
+
+[tool.poetry.group.dev.dependencies]
+# Development tools
+pytest = "*"
+pytest-asyncio = "*"
+pytest-cov = "*"
+pytest-mock = "*"
+pytest-xdist = "*"
+httpx = "*"
+black = "*"
+ruff = "*"
+mypy = "*"
+ipython = "*"
+
+[tool.poetry.scripts]
+# Entry point
+tai-backend = "main:main"
+
+# Tool configurations
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers --cov=app --cov-report=term-missing"
+testpaths = ["tests"]
+asyncio_mode = "auto"
+markers = [
+    "slow: marks tests as slow",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+    "api: marks tests as API tests",
+]
+
+[tool.coverage.run]
+source = ["app"]
+omit = [
+    "*/tests/*",
+    "*/venv/*",
+    "*/__pycache__/*",
+    "*/migrations/*",
+]

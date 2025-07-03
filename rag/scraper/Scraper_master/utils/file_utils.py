@@ -2,6 +2,7 @@ import os
 import re
 import shutil
 
+
 def create_and_enter_dir(directory_name):
     """
     Creates a directory with the given name and enters it.
@@ -15,13 +16,15 @@ def create_and_enter_dir(directory_name):
             os.makedirs(directory_name, exist_ok=True)
         os.chdir(directory_name)
 
+
 def delete_and_exit_dir():
     """
     Deletes the current directory and files in it and exits it.
     """
     cur_dir = os.getcwd()
-    os.chdir('..')
+    os.chdir("..")
     shutil.rmtree(cur_dir)
+
 
 def cd_home(url):
     """
@@ -33,8 +36,7 @@ def cd_home(url):
     Returns:
     - str: The home directory URL.
     """
-    return '/'.join(url.split('/')[0:3])
-
+    return "/".join(url.split("/")[0:3])
 
 
 def remove_consecutive_empty_lines(text):
@@ -47,7 +49,8 @@ def remove_consecutive_empty_lines(text):
     Returns:
     - str: Cleaned text with single empty lines.
     """
-    return re.sub(r'\n\s*\n', '\n\n', text)
+    return re.sub(r"\n\s*\n", "\n\n", text)
+
 
 def save_to_file(file_name, content):
     """
@@ -57,7 +60,7 @@ def save_to_file(file_name, content):
     - file_name (str): The name of the file to save the content.
     - content (str): The content to be saved.
     """
-    with open(file_name, 'w', encoding='utf-8') as file:
+    with open(file_name, "w", encoding="utf-8") as file:
         file.write(content)
 
 
@@ -68,7 +71,8 @@ def replace_backslash_with_slash(path):
     - path (str): The file path to modify.
     - Returns: The modified file path with slashes.
     """
-    return path.replace('\\', '/')
+    return path.replace("\\", "/")
+
 
 def cd_back_link(url, num_parts_to_remove=1):
     """
@@ -80,5 +84,5 @@ def cd_back_link(url, num_parts_to_remove=1):
     if not url:
         return ""
     for _ in range(num_parts_to_remove):
-        url = url.rsplit('/', 1)[0]
+        url = url.rsplit("/", 1)[0]
     return url

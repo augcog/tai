@@ -3,7 +3,8 @@
 
 from pathlib import Path
 from typing import Union
-from rag.file_conversion_router.services.directory_service import process_folder
+
+from file_conversion_router.services.directory_service import process_folder
 
 
 def convert_directory(input_dir: Union[str, Path], output_dir: Union[str, Path], course_name: str, course_id:str,

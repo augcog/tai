@@ -10,6 +10,10 @@ from transformers import pipeline, set_seed, AutoTokenizer, AutoModelForCausalLM
 import torch
 import json
 import re
+from file_conversion_router.classes.page import Page
+from file_conversion_router.classes.vidpage import VidPage
+from file_conversion_router.conversion.base_converter import BaseConverter
+
 
 class VideoConverter(BaseConverter):
     model_id = "meta-llama/Llama-3.1-8B-Instruct"
@@ -39,6 +43,7 @@ class VideoConverter(BaseConverter):
             VideoConverter.pipeline.tokenizer.eos_token_id,
             VideoConverter.pipeline.tokenizer.convert_tokens_to_ids("<|eot_id|>")
         ]
+
         messages = [
             {"role": "system",
              "content": "You are a helpful assistant."},
@@ -113,10 +118,13 @@ class VideoConverter(BaseConverter):
         def setup_scene_detection(video_path, custom_window_width=50, custom_weights=None):
             video = open_video(video_path)
             scene_manager = SceneManager()
+
             video_folder = os.path.dirname(video_path)
             images_folder_name = os.path.splitext(os.path.basename(video_path))[0] + "_images"
             images_output_dir = os.path.join(video_folder, images_folder_name)
+
             os.makedirs(images_output_dir, exist_ok=True)
+
             if custom_weights is None:
                 custom_weights = AdaptiveDetector.Components(delta_hue=0.1, delta_sat=1.0, delta_lum=1.0,
                                                              delta_edges=1.0)
@@ -132,11 +140,14 @@ class VideoConverter(BaseConverter):
 
         def detect_scenes_and_save_images(video, scene_manager, images_output_dir):
             scene_manager.detect_scenes(video, show_progress=True)
+
             scene_list = scene_manager.get_scene_list()
             csv_file_path = os.path.join(images_output_dir, "detected_scenes.csv")
             with open(csv_file_path, 'w', newline='') as csv_file:
                 write_scene_list(csv_file, scene_list)
+
             print(f"Scene list saved to {csv_file_path}")
+
             image_filenames = save_images(
                 scene_list=scene_list,
                 video=video,

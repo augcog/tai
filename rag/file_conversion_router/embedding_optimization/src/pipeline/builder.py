@@ -1,17 +1,27 @@
 from pathlib import Path
 from typing import Tuple
 
-from rag.file_conversion_router.embedding_optimization.src.configs.pipeline_config import (
-    PipelineConfig,
+from file_conversion_router.embedding_optimization.src.configs.pipeline_config import (
+    ConfigValidationError,
     ModelConfig,
     ModelType,
-    ConfigValidationError
+    PipelineConfig,
 )
-from rag.file_conversion_router.embedding_optimization.src.models.base_model import BaseModel
-from rag.file_conversion_router.embedding_optimization.src.models.local_model import LocalLLama3Model
-from rag.file_conversion_router.embedding_optimization.src.models.mock_model import MockModel
-from rag.file_conversion_router.embedding_optimization.src.models.server_model_tai import ServerModelTAI
-from rag.file_conversion_router.embedding_optimization.src.tasks.task_runner import TaskRunner
+from file_conversion_router.embedding_optimization.src.models.base_model import (
+    BaseModel,
+)
+from file_conversion_router.embedding_optimization.src.models.local_model import (
+    LocalLLama3Model,
+)
+from file_conversion_router.embedding_optimization.src.models.mock_model import (
+    MockModel,
+)
+from file_conversion_router.embedding_optimization.src.models.server_model_tai import (
+    ServerModelTAI,
+)
+from file_conversion_router.embedding_optimization.src.tasks.task_runner import (
+    TaskRunner,
+)
 
 
 class PipelineBuilder:
@@ -47,18 +57,20 @@ class PipelineBuilder:
 
         elif model_config.type == ModelType.LOCAL:
             if not model_config.path:
-                raise ConfigValidationError("Local model requires 'path' in configuration")
+                raise ConfigValidationError(
+                    "Local model requires 'path' in configuration"
+                )
             return LocalLLama3Model(
-                model_path=model_config.path,
-                model_name=model_config.name
+                model_path=model_config.path, model_name=model_config.name
             )
 
         elif model_config.type == ModelType.SERVER:
             if not model_config.endpoint:
-                raise ConfigValidationError("Server model requires 'endpoint' in configuration")
+                raise ConfigValidationError(
+                    "Server model requires 'endpoint' in configuration"
+                )
             return ServerModelTAI(
-                endpoint=model_config.endpoint,
-                api_key=model_config.api_key
+                endpoint=model_config.endpoint, api_key=model_config.api_key
             )
 
         else:
@@ -67,10 +79,7 @@ class PipelineBuilder:
     @classmethod
     def create_task_runner(cls, config: PipelineConfig, model: BaseModel) -> TaskRunner:
         """Create and initialize TaskRunner instance."""
-        return TaskRunner(
-            task_registry=config.tasks,
-            model=model
-        )
+        return TaskRunner(task_registry=config.tasks, model=model)
 
     @classmethod
     def build(cls, config_path: str) -> Tuple[PipelineConfig, BaseModel, TaskRunner]:

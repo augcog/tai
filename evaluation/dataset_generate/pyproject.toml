@@ -1,0 +1,70 @@
+# Evaluation Component Configuration
+# This file specifies evaluation-specific dependencies for documentation purposes.
+# Actual installation happens from the root monorepo pyproject.toml.
+# Use 'make install' from this directory to install all dependencies to root .venv
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "evaluation-tools"
+version = "0.1.0"
+description = "Dataset generation and analysis tools for TAI evaluation"
+authors = ["TAI Team"]
+readme = "README.md"
+packages = [{include = "src"}]
+
+# Component-specific dependencies (for documentation)
+# These are included in the root monorepo pyproject.toml
+[tool.poetry.dependencies]
+python = ">=3.10,<3.13"
+
+# AI/ML for evaluation
+openai = "*"
+transformers = "*"
+torch = "*"
+sentence-transformers = "*"
+
+# Data analysis and visualization
+pandas = "*"
+numpy = "*"
+matplotlib = "*"
+plotly = "*"
+scipy = "*"
+scikit-learn = "*"
+
+# Dataset generation
+datasets = "*"
+evaluate = "*"
+
+# Utilities
+tqdm = "*"
+click = "*"
+rich = "*"
+PyYAML = "*"
+requests = "*"
+
+# Jupyter for analysis
+jupyter = "*"
+
+[tool.poetry.group.dev.dependencies]
+# Development tools
+pytest = "*"
+pytest-mock = "*"
+black = "*"
+ruff = "*"
+mypy = "*"
+
+[tool.poetry.scripts]
+# Entry points for this component
+generate-dataset = "src.generate:main"
+analyze-performance = "src.analyze:main"
+
+# Component-specific tool configurations
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "slow: marks tests as slow",
+    "openai: marks tests requiring OpenAI API",
+]

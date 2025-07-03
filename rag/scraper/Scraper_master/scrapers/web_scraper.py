@@ -1,23 +1,18 @@
-import yaml
 import logging
 from pathlib import Path
-from typing import Dict, List, Set, Optional
+from typing import Dict, List, Optional, Set
 
-from rag.scraper.Scraper_master.scrapers.general_scraper import GeneralScraper
-from rag.scraper.Scraper_master.scrapers.scrape_vid import VideoScraper
-from rag.scraper.Scraper_master.drivers.playwright_driver import PlaywrightDriver
-from rag.scraper.Scraper_master.drivers.requests_driver import RequestsDriver
-from rag.scraper.Scraper_master.logger import logger, set_up_logger
+import yaml
 
-SCRAPER_MAPPING = {
-    'general_scraper': GeneralScraper,
-    'video_scraper': VideoScraper
-}
+from scraper.Scraper_master.drivers.playwright_driver import PlaywrightDriver
+from scraper.Scraper_master.drivers.requests_driver import RequestsDriver
+from scraper.Scraper_master.logger import logger, set_up_logger
+from scraper.Scraper_master.scrapers.general_scraper import GeneralScraper
+from scraper.Scraper_master.scrapers.scrape_vid import VideoScraper
 
-DRIVER_MAPPING = {
-    'request': RequestsDriver,
-    'playwright': PlaywrightDriver
-}
+SCRAPER_MAPPING = {"general_scraper": GeneralScraper, "video_scraper": VideoScraper}
+
+DRIVER_MAPPING = {"request": RequestsDriver, "playwright": PlaywrightDriver}
 
 
 class WebScraper:
@@ -25,12 +20,12 @@ class WebScraper:
 
     def __init__(self, config_path: str):
         # Load configuration
-        with open(config_path, 'r') as f:
+        with open(config_path, "r") as f:
             self.config = yaml.safe_load(f)
 
         # Create output directories
-        self.root_folder = Path(self.config['root_folder']).resolve()  # absolute path
-        self.log_folder = Path(self.config['log_folder']).resolve()  # absolute path
+        self.root_folder = Path(self.config["root_folder"]).resolve()  # absolute path
+        self.log_folder = Path(self.config["log_folder"]).resolve()  # absolute path
         self.root_folder.mkdir(exist_ok=True)
         self.log_folder.mkdir(exist_ok=True)
         self.current_depths = {}  # root_url -> current depth
@@ -39,24 +34,24 @@ class WebScraper:
 
     def run(self):
         """Run all tasks in the configuration"""
-        for task in self.config['tasks']:
+        for task in self.config["tasks"]:
             self.process_task(task)
 
     def process_task(self, task: Dict):
         """Process a single scraping task using DFS"""
-        set_up_logger(self.logger, self.log_folder / Path(task["name"] + '.log'))
+        set_up_logger(self.logger, self.log_folder / Path(task["name"] + ".log"))
         self.logger.info(f"Starting task: {task['name']}")
 
         # Create driver based on task configuration
-        if task['driver_type'] not in DRIVER_MAPPING:
+        if task["driver_type"] not in DRIVER_MAPPING:
             raise ValueError(f"Unknown driver type: {task['driver_type']}")
-        driver = DRIVER_MAPPING[task['driver_type']]()
+        driver = DRIVER_MAPPING[task["driver_type"]]()
 
-        self.task_folder_path = self.root_folder / task['name']
+        self.task_folder_path = self.root_folder / task["name"]
 
         try:
             # Define root domains for this task
-            root_configs = {root['url']: root for root in task['roots']}
+            root_configs = {root["url"]: root for root in task["roots"]}
 
             # initialize current depths
             self.current_depths = {root_url: 0 for root_url in root_configs.keys()}
@@ -66,7 +61,7 @@ class WebScraper:
             visited = set()
 
             # Start DFS from the initial URL
-            self.dfs_crawl(task['url'], -61, visited, root_configs, driver)
+            self.dfs_crawl(task["url"], -61, visited, root_configs, driver)
 
         finally:
             driver.close()
@@ -80,7 +75,6 @@ class WebScraper:
 
         visited.add(url)
 
-
         # Determine which root this URL belongs to
         matching_root = None
         for root_url in root_configs:
@@ -92,13 +86,13 @@ class WebScraper:
         if not matching_root and current_root != -61:
             return
 
-        indent = '         ' * self.current_depths[current_root]
+        indent = "         " * self.current_depths[current_root]
 
         # Handle starting URL or URLs matching a root
         if matching_root and current_root != -61:
             root_config = root_configs[matching_root]
-            max_depth = root_config['depth']
-            scraper_type = root_config['scraper_type']
+            max_depth = root_config["depth"]
+            scraper_type = root_config["scraper_type"]
 
             # Skip if we've reached max depth for this root
             if self.current_depths[current_root] > max_depth:
@@ -111,7 +105,9 @@ class WebScraper:
 
             self.logger.info(f"")
             self.logger.info(f"{indent}Processing: {url}")
-            self.logger.info(f"{indent}(depth: {self.current_depths[current_root]}, root: {current_root})")
+            self.logger.info(
+                f"{indent}(depth: {self.current_depths[current_root]}, root: {current_root})"
+            )
             # Scrape the page
             try:
                 links = scraper.scrape(url, driver, self.task_folder_path)
@@ -150,5 +146,5 @@ class WebScraper:
 
 
 if __name__ == "__main__":
-    scraper = WebScraper('../task.yaml')
+    scraper = WebScraper("../task.yaml")
     scraper.run()

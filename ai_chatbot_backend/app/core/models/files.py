@@ -4,10 +4,8 @@ Focused on essential functionality without over-engineering
 """
 
 import uuid
-from datetime import datetime
-from typing import Optional
 
-from sqlalchemy import Column, String, Integer, DateTime, Text, Boolean, Index
+from sqlalchemy import Column, String, Integer, DateTime, Boolean, Index
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql import func
 

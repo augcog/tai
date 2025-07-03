@@ -2,7 +2,7 @@ import pytest
 from typing import List, Tuple, Optional
 from fastapi import status
 
-from app.api.v1.schemas.course_admin import CourseCreate, CourseUpdate, CourseResponse
+from app.api.v1.schemas.course_admin import CourseCreate, CourseUpdate
 from app.core.models.courses import CourseModel
 
 from tests.common.test_base_classes.course_admin_base import BaseCourseAdminTest

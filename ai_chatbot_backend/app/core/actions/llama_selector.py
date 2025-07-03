@@ -107,9 +107,9 @@ def bge_compute_score(
         weight_sum = 3
         print("Default weights for dense, sparse, colbert are [1.0, 1.0, 1.0]")
     else:
-        assert (
-            len(weights_for_different_modes) == 3
-        ), "Weights list must have exactly 3 elements."
+        assert len(weights_for_different_modes) == 3, (
+            "Weights list must have exactly 3 elements."
+        )
         weight_sum = sum(weights_for_different_modes)
 
     for i in range(len(document_embeddings)):
@@ -234,7 +234,9 @@ def perform_rag(messages: List[Message], course: str) -> Any:
         "Default": ["Berkeley.pkl", "Berkeley"],
     }
     picklefile, class_name = course_pickle_map.get(course, ["Berkeley.pkl", "Berkeley"])
-    current_dir = "/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/"  # Modify as needed
+    current_dir = (
+        "/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/"  # Modify as needed
+    )
     num_docs = 7
     if SQLDB:
         # SQLDB logic

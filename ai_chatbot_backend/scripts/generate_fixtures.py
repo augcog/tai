@@ -18,7 +18,7 @@ The script will generate all fixtures in the appropriate directories.
 import json
 import argparse
 from pathlib import Path
-from typing import Dict, List, Any, Optional, Union
+from typing import Dict, List, Optional, Union
 
 FIXTURES_DIR = Path("ai_course_bot/ai_chatbot_backend/tests/fixtures")
 

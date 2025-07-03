@@ -1,7 +1,7 @@
 from enum import Enum
-from typing import Optional, List, Union
+from typing import Optional
 
-from pydantic import Field, validator
+from pydantic import Field
 from pydantic_settings import BaseSettings
 
 

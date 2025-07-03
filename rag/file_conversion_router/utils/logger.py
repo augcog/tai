@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 import threading
 
-from rag.file_conversion_router.utils.time_measure import Timer
+from file_conversion_router.utils.time_measure import Timer
 
 format_string = "%(asctime)s - %(levelname)s - %(message)s"
 # Configure logging at the module level

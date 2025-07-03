@@ -13,7 +13,7 @@ class RequestsDriver(Driver):
         content_type = response.headers.get("Content-Type", "").lower()
 
         if "text/html" in content_type:
-            with open(f'{filename.split(".")[0]}.html', "w", encoding="utf-8") as file:
+            with open(f"{filename.split('.')[0]}.html", "w", encoding="utf-8") as file:
                 file.write(response.text)
         else:
             with open(filename, "wb") as file:

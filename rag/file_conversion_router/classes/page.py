@@ -1,6 +1,6 @@
 import string
 from typing import Optional
-from rag.file_conversion_router.classes.chunk import Chunk
+from file_conversion_router.classes.chunk import Chunk
 import tiktoken
 import pickle
 import re
@@ -8,11 +8,18 @@ from pathlib import Path
 import json
 import logging
 
+
 class Page:
     PAGE_LENGTH_THRESHOLD = 20
 
-    def __init__(self, pagename: str, content: dict, filetype: str, page_url: str = "",
-                 mapping_json_path: Optional[Path] = None):
+    def __init__(
+        self,
+        pagename: str,
+        content: dict,
+        filetype: str,
+        page_url: str = "",
+        mapping_json_path: Optional[Path] = None,
+    ):
         """
         Initialize a Page instance.
 
@@ -35,7 +42,9 @@ class Page:
         self.mapping_pointer = 0
         if filetype.lower() == "pdf":
             if mapping_json_path:
-                self.title_page_mapping = self.load_title_page_mapping(mapping_json_path)
+                self.title_page_mapping = self.load_title_page_mapping(
+                    mapping_json_path
+                )
                 self.mapping_pointer = 0
 
     def load_title_page_mapping(self, mapping_json_path: Path) -> list:
@@ -57,7 +66,7 @@ class Page:
         """
 
         try:
-            with open(mapping_json_path, 'r', encoding='utf-8') as f:
+            with open(mapping_json_path, "r", encoding="utf-8") as f:
                 mapping_data = json.load(f)
             # print(f"Loaded title-page mapping: {mapping_data}")
             return mapping_data
@@ -115,17 +124,20 @@ class Page:
             start = 0
             while start < len(response):
                 end = start
-                while end < len(response) and token_size(response[start:end]) < token_limit:
+                while (
+                    end < len(response)
+                    and token_size(response[start:end]) < token_limit
+                ):
                     end += 1
 
                 if end < len(response):
-                    split_pos = response.rfind('\n\n', start, end)
+                    split_pos = response.rfind("\n\n", start, end)
                     if split_pos == -1:
-                        split_pos = response.rfind('\n', start, end)
+                        split_pos = response.rfind("\n", start, end)
                     if split_pos == -1:
                         split_pos = rfind_punctuation(response, start, end)
                     if split_pos == -1:
-                        split_pos = response.rfind(' ', start, end)
+                        split_pos = response.rfind(" ", start, end)
                     if split_pos == -1 or split_pos <= start:
                         split_pos = end - 1
 
@@ -163,9 +175,9 @@ class Page:
         curheader = None
         current_content = ""
         in_code_block = False
-        md_lines = md_content.split('\n')
+        md_lines = md_content.split("\n")
 
-        if self.filetype.lower() == 'pdf' and self.title_page_mapping is not None:
+        if self.filetype.lower() == "pdf" and self.title_page_mapping is not None:
             for line in md_lines:
                 stripped_line = line.strip()
                 if "```" in stripped_line:
@@ -173,19 +185,28 @@ class Page:
                 if in_code_block:
                     current_content += f"{line}\n"
                 else:
-                    if line.startswith('#'):
+                    if line.startswith("#"):
                         if curheader:
-                            page_num_for_header = self._get_page_num_for_title(curheader[0])
-                            headers_content.append(((curheader, page_num_for_header), current_content.strip()))
+                            page_num_for_header = self._get_page_num_for_title(
+                                curheader[0]
+                            )
+                            headers_content.append(
+                                (
+                                    (curheader, page_num_for_header),
+                                    current_content.strip(),
+                                )
+                            )
                         header_level = count_consecutive_hashes(line)
-                        header = line.strip('#').strip()
+                        header = line.strip("#").strip()
                         curheader = (header, header_level)
                         current_content = ""
                     else:
                         current_content += f"{line}\n"
             if curheader:
                 page_num_for_header = self._get_page_num_for_title(curheader[0])
-                headers_content.append(((curheader, page_num_for_header), current_content.strip()))
+                headers_content.append(
+                    ((curheader, page_num_for_header), current_content.strip())
+                )
         else:
             for line in md_lines:
                 stripped_line = line.strip()
@@ -196,11 +217,13 @@ class Page:
                     if curheader:
                         current_content += f"{line}\n"
                 else:
-                    if line.startswith('#'):
+                    if line.startswith("#"):
                         if curheader:
-                            headers_content.append(((curheader, None), current_content.strip()))
+                            headers_content.append(
+                                ((curheader, None), current_content.strip())
+                            )
                         header_level = count_consecutive_hashes(line)
-                        header = line.strip('#').strip()
+                        header = line.strip("#").strip()
                         curheader = (header, header_level)
                         current_content = ""
                     else:
@@ -211,15 +234,19 @@ class Page:
         return headers_content
 
     def page_seperate_to_segments(self) -> None:
-        self.segments = [i for i in self.extract_headers_and_content(self.content['text'])]
+        self.segments = [
+            i for i in self.extract_headers_and_content(self.content["text"])
+        ]
         if not self.segments:
-            self.segments = [((("(NO ANY HEADER DETECTED)", 0), None), self.content['text'])]
+            self.segments = [
+                ((("(NO ANY HEADER DETECTED)", 0), None), self.content["text"])
+            ]
 
     def print_header_tree(self) -> str:
         result = ""
         for (title, level), _ in self.segments:
             if level is not None:
-                indent = '--' * (level - 1)
+                indent = "--" * (level - 1)
                 result += f"{indent}/{title}\n"
             else:
                 result += f"{title} (hUnknown)\n"
@@ -236,7 +263,9 @@ class Page:
                 if header_stack:
                     header_stack.pop()
                 else:
-                    logging.warning("Header stack is empty, cannot pop. In file: %s", self.pagename)
+                    logging.warning(
+                        "Header stack is empty, cannot pop. In file: %s", self.pagename
+                    )
                     break
             header_stack.append(header_title)
             if not content.strip():
@@ -244,12 +273,12 @@ class Page:
             segment_display = f"\n{content.strip()}\n"
             page_toc = "(Table of Contents)\n" + self.print_header_tree() + "\n"
             tree_segment = {
-                'Page_table': page_toc,
-                'Page_path': header_stack.copy(),
-                'Segment_print': segment_display,
+                "Page_table": page_toc,
+                "Page_path": header_stack.copy(),
+                "Segment_print": segment_display,
             }
             if page_num is not None:
-                tree_segment['page_num'] = page_num
+                tree_segment["page_num"] = page_num
             self.tree_segments.append(tree_segment)
             counter += 1
 
@@ -283,7 +312,7 @@ class Page:
                         titles=final_title,
                         chunk_url=urls,
                         page_num=page_num,
-                        is_split=(len(splitted_contents) > 1)
+                        is_split=(len(splitted_contents) > 1),
                     )
                 )
         # self.post_process_merge_short_chunks(400)
@@ -291,7 +320,7 @@ class Page:
         return self.chunks
 
     def to_file(self, output_path: str) -> None:
-        with open(output_path, "w", encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             f.write(str(self))
 
     def to_chunk(self) -> None:
@@ -304,7 +333,9 @@ class Page:
         with open(output_path, "wb") as f:
             pickle.dump(self.chunks, f)
 
-    def post_process_merge_short_chunks(self, short_chunk_token_threshold: int = 50) -> None:
+    def post_process_merge_short_chunks(
+        self, short_chunk_token_threshold: int = 50
+    ) -> None:
         def token_size(text: str) -> int:
             encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
             return len(encoding.encode(text))
@@ -315,9 +346,9 @@ class Page:
             current_chunk = self.chunks[i]
             current_size = token_size(current_chunk.content)
             if (
-                    current_size < short_chunk_token_threshold
-                    and not current_chunk.is_split
-                    and (i + 1 < len(self.chunks))
+                current_size < short_chunk_token_threshold
+                and not current_chunk.is_split
+                and (i + 1 < len(self.chunks))
             ):
                 next_chunk = self.chunks[i + 1]
                 if not next_chunk.is_split:
@@ -328,9 +359,9 @@ class Page:
                         titles=merged_title,
                         chunk_url=current_chunk.chunk_url,
                         page_num=current_chunk.page_num,
-                        is_split=current_chunk.is_split
+                        is_split=current_chunk.is_split,
                     )
-                    print(f'merged_title: {merged_title}')
+                    print(f"merged_title: {merged_title}")
                     new_chunks.append(new_chunk)
                     i += 2
                     continue

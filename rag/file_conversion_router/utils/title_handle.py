@@ -1,4 +1,4 @@
-from dotenv import  load_dotenv
+from dotenv import load_dotenv
 import os
 from textwrap import dedent
 from openai.types.chat import ChatCompletionMessage
@@ -8,21 +8,27 @@ import yaml
 import json
 import re
 
-from tests.test_rag.test_file_conversion_router.test_embedding_optimization.conftest import logger
+from tests.test_rag.test_file_conversion_router.test_embedding_optimization.conftest import (
+    logger,
+)
 
 
-def get_structured_content_without_title(md_content: str, file_name: str, course_name: str):
+def get_structured_content_without_title(
+    md_content: str, file_name: str, course_name: str
+):
     load_dotenv()
-    api_key =os.getenv("OPENAI_API_KEY")
+    api_key = os.getenv("OPENAI_API_KEY")
     client = OpenAI(api_key=api_key)
-    paragraph_count = md_content.count('\n\n') + 1
-    if not md_content.strip(): raise ValueError("The content is empty or not properly formatted.")
+    paragraph_count = md_content.count("\n\n") + 1
+    if not md_content.strip():
+        raise ValueError("The content is empty or not properly formatted.")
     response = client.chat.completions.create(
         model="gpt-4.1",
         messages=[
             {
                 "role": "system",
-                "content": dedent(f""" You are an expert AI assistant specializing in analyzing and structuring 
+                "content": dedent(
+                    f""" You are an expert AI assistant specializing in analyzing and structuring 
                 educational material. You will be given markdown content from a video in the course "{course_name}", 
                 from the file "{file_name}". The text is already divided into paragraphs. Your task is to perform the 
                 following actions and format the output as a single JSON object: 1.  **Group into Sections:** Analyze 
@@ -39,12 +45,10 @@ def get_structured_content_without_title(md_content: str, file_name: str, course
                 main idea - **Source Section:** The specific section title(s) in the material where this concept is 
                 discussed - **Content Coverage:** List only the aspects that the section actually explained with 
                 aspect and content. - Some good examples of aspect: Definition, How it works, What happened, 
-                Why is it important, etc - The content also should be from the section. """)
+                Why is it important, etc - The content also should be from the section. """
+                ),
             },
-            {
-                "role": "user",
-                "content": f"{md_content} "
-            }
+            {"role": "user", "content": f"{md_content} "},
         ],
         response_format={
             "type": "json_schema",
@@ -62,11 +66,11 @@ def get_structured_content_without_title(md_content: str, file_name: str, course
                                 "type": "object",
                                 "properties": {
                                     "title": {"type": "string"},
-                                    "paragraph_index": {"type": "integer"}
+                                    "paragraph_index": {"type": "integer"},
                                 },
                                 "required": ["title", "paragraph_index"],
-                                "additionalProperties": False
-                            }
+                                "additionalProperties": False,
+                            },
                         },
                         "sections": {
                             "type": "array",
@@ -75,14 +79,16 @@ def get_structured_content_without_title(md_content: str, file_name: str, course
                                 "minItems": 5,
                                 "properties": {
                                     "section_title": {"type": "string"},
-                                    "start_paragraph_index": {"type": "integer",
-                                                              "description": 'The 1-based index from the paragraphs array where this section begins.',
-                                                              "minimum": 1,
-                                                              "maximum": paragraph_count}
+                                    "start_paragraph_index": {
+                                        "type": "integer",
+                                        "description": "The 1-based index from the paragraphs array where this section begins.",
+                                        "minimum": 1,
+                                        "maximum": paragraph_count,
+                                    },
                                 },
                                 "required": ["section_title", "start_paragraph_index"],
-                                "additionalProperties": False
-                            }
+                                "additionalProperties": False,
+                            },
                         },
                         "key_concepts": {
                             "type": "array",
@@ -97,22 +103,26 @@ def get_structured_content_without_title(md_content: str, file_name: str, course
                                             "type": "object",
                                             "properties": {
                                                 "aspect": {"type": "string"},
-                                                "content": {"type": "string"}
+                                                "content": {"type": "string"},
                                             },
                                             "required": ["aspect", "content"],
-                                            "additionalProperties": False
-                                        }
-                                    }
+                                            "additionalProperties": False,
+                                        },
+                                    },
                                 },
-                                "required": ["concepts", "source_section_title", "content_coverage"],
-                                "additionalProperties": False
-                            }
-                        }
+                                "required": [
+                                    "concepts",
+                                    "source_section_title",
+                                    "content_coverage",
+                                ],
+                                "additionalProperties": False,
+                            },
+                        },
                     },
                     "required": ["paragraphs", "sections", "key_concepts"],
-                    "additionalProperties": False
-                }
-            }
+                    "additionalProperties": False,
+                },
+            },
         },
     )
     messages = response.choices[0].message
@@ -120,19 +130,24 @@ def get_structured_content_without_title(md_content: str, file_name: str, course
     content_dict = json.loads(data)
     return content_dict
 
-def get_structured_content_with_one_title_level(md_content: str, file_name: str, course_name: str):
+
+def get_structured_content_with_one_title_level(
+    md_content: str, file_name: str, course_name: str
+):
     load_dotenv()
     api_key = os.getenv("OPENAI_API_KEY")
     client = OpenAI(api_key=api_key)
-    if not md_content.strip(): raise ValueError("The content is empty or not properly formatted.")
-    md_content = remove_redundant_title(md_content,file_name)
+    if not md_content.strip():
+        raise ValueError("The content is empty or not properly formatted.")
+    md_content = remove_redundant_title(md_content, file_name)
     title_list = get_title_list(md_content)
     response = client.chat.completions.create(
         model="gpt-4.1",
         messages=[
             {
                 "role": "system",
-                "content": dedent(f""" You are an expert AI assistant for structuring educational material. You will 
+                "content": dedent(
+                    f""" You are an expert AI assistant for structuring educational material. You will 
                 be given markdown content from the file "{file_name}" for the course "{course_name}". Your task is to 
                 analyze this content and produce a structured JSON output. The task has two parts: title structuring 
                 and key concept extraction. ### Part 1: Correct Title Hierarchy **Your Goal:** The markdown's title 
@@ -154,12 +169,10 @@ def get_structured_content_with_one_title_level(md_content: str, file_name: str,
                 where this concept is discussed - **Content Coverage:** List only the aspects that the 
                 section actually explained with aspect and content. - Some good examples of aspect: 
                 Definition, How it works, What happened, Why is it important, etc - The content also should 
-                be from the sections. """)
+                be from the sections. """
+                ),
             },
-            {
-                "role": "user",
-                "content": f"{md_content}"
-            }
+            {"role": "user", "content": f"{md_content}"},
         ],
         response_format={
             "type": "json_schema",
@@ -171,19 +184,19 @@ def get_structured_content_with_one_title_level(md_content: str, file_name: str,
                     "properties": {
                         "titles_with_levels": {
                             "type": "array",
-                            "description": 'A list of titles with their inferred hierarchical level, preserving the original order.',
+                            "description": "A list of titles with their inferred hierarchical level, preserving the original order.",
                             "items": {
                                 "type": "object",
                                 "properties": {
-                                    "title": {"type": "string",
-                                              "enum": title_list},
-
-                                    "level_of_title": {"type": "integer",
-                                                       "description": 'The inferred hierarchy level (e.g., 1, 2, 3).'}
+                                    "title": {"type": "string", "enum": title_list},
+                                    "level_of_title": {
+                                        "type": "integer",
+                                        "description": "The inferred hierarchy level (e.g., 1, 2, 3).",
+                                    },
                                 },
                                 "required": ["title", "level_of_title"],
-                                "additionalProperties": False
-                            }
+                                "additionalProperties": False,
+                            },
                         },
                         "key_concepts": {
                             "type": "array",
@@ -198,22 +211,26 @@ def get_structured_content_with_one_title_level(md_content: str, file_name: str,
                                             "type": "object",
                                             "properties": {
                                                 "aspect": {"type": "string"},
-                                                "content": {"type": "string"}
+                                                "content": {"type": "string"},
                                             },
                                             "required": ["aspect", "content"],
-                                            "additionalProperties": False
-                                        }
-                                    }
+                                            "additionalProperties": False,
+                                        },
+                                    },
                                 },
-                                "required": ["concepts", "source_section_title", "content_coverage"],
-                                "additionalProperties": False
-                            }
-                        }
+                                "required": [
+                                    "concepts",
+                                    "source_section_title",
+                                    "content_coverage",
+                                ],
+                                "additionalProperties": False,
+                            },
+                        },
                     },
                     "required": ["titles_with_levels", "key_concepts"],
-                    "additionalProperties": False
+                    "additionalProperties": False,
                 },
-            }
+            },
         },
     )
     messages = response.choices[0].message
@@ -221,7 +238,8 @@ def get_structured_content_with_one_title_level(md_content: str, file_name: str,
     content_dict = json.loads(data)
     return content_dict
 
-def get_title_list(md_content:str):
+
+def get_title_list(md_content: str):
     lines = md_content.split("\n")
     titles = []
     for line in lines:
@@ -230,32 +248,38 @@ def get_title_list(md_content:str):
             titles.append(line)
     return titles
 
+
 def remove_redundant_title(md_content: str, file_name: str):
-    normalized_filename = file_name.replace('-', ' ').replace('_', ' ')
+    normalized_filename = file_name.replace("-", " ").replace("_", " ")
     first_line = md_content.split("\n")[0]
-    if first_line.startswith('# '):
-        title_text = first_line.lstrip('# ').strip()
+    if first_line.startswith("# "):
+        title_text = first_line.lstrip("# ").strip()
         if normalized_filename == title_text.lower():
             print(f"Found and removing redundant title in '{file_name}'.")
             remaining_lines = md_content.split("\n")[1:]
-            while remaining_lines and remaining_lines[0].strip() == '': remaining_lines.pop(0)
+            while remaining_lines and remaining_lines[0].strip() == "":
+                remaining_lines.pop(0)
             heading_levels_found = set()
             for line in remaining_lines:
                 stripped_line = line.lstrip()
-                if stripped_line.startswith('#'):
+                if stripped_line.startswith("#"):
                     level = 0
-                    while level < len(stripped_line) and stripped_line[level] == '#':
+                    while level < len(stripped_line) and stripped_line[level] == "#":
                         level += 1
                     heading_levels_found.add(level)
 
             final_lines = []
             if len(heading_levels_found) > 1:
-                print("Multiple heading levels found. Promoting subsequent headings by one level.")
+                print(
+                    "Multiple heading levels found. Promoting subsequent headings by one level."
+                )
                 for line in remaining_lines:
                     stripped_line = line.lstrip()
-                    if stripped_line.startswith('##'):
-                        first_hash_index = line.find('#')
-                        new_line = line[:first_hash_index] + line[first_hash_index + 1:]
+                    if stripped_line.startswith("##"):
+                        first_hash_index = line.find("#")
+                        new_line = (
+                            line[:first_hash_index] + line[first_hash_index + 1 :]
+                        )
                         final_lines.append(new_line)
                     else:
                         final_lines.append(line)
@@ -268,13 +292,19 @@ def remove_redundant_title(md_content: str, file_name: str):
     final_lines = md_content
     return final_lines
 
+
 def apply_structure_for_no_title(md_content: str, content_dict):
-    original_paragraphs = [p.strip() for p in md_content.split('\n\n') if p.strip()]
+    original_paragraphs = [p.strip() for p in md_content.split("\n\n") if p.strip()]
     md_parts = []
-    section_starts = {s['start_paragraph_index']: s['section_title'] for s in content_dict.get('sections')}
-    for paragraph in sorted(content_dict['paragraphs'], key=lambda p: p['paragraph_index']):
-        p_index = paragraph['paragraph_index']
-        p_title = paragraph['title']
+    section_starts = {
+        s["start_paragraph_index"]: s["section_title"]
+        for s in content_dict.get("sections")
+    }
+    for paragraph in sorted(
+        content_dict["paragraphs"], key=lambda p: p["paragraph_index"]
+    ):
+        p_index = paragraph["paragraph_index"]
+        p_title = paragraph["title"]
         if p_index in section_starts:
             section_title = section_starts[p_index]
             md_parts.append(f"# {section_title}\n\n")
@@ -288,16 +318,19 @@ def apply_structure_for_no_title(md_content: str, content_dict):
     output_content = "".join(md_parts)
     return output_content
 
+
 def apply_structure_for_one_title(md_content: str, content_dict):
-    mapping_list = content_dict.get('titles_with_levels')
-    title_level_map = {item['title'].strip(): int(item['level_of_title']) for item in mapping_list}
+    mapping_list = content_dict.get("titles_with_levels")
+    title_level_map = {
+        item["title"].strip(): int(item["level_of_title"]) for item in mapping_list
+    }
     lines = md_content.split("\n\n")
-    title_pattern = re.compile(r'^(?P<hashes>#+)\s*(?P<title>.+?)\s*$')
+    title_pattern = re.compile(r"^(?P<hashes>#+)\s*(?P<title>.+?)\s*$")
     new_lines = []
     for line in lines:
         match = title_pattern.match(line)
         if match:
-            raw_title = match.group('title').strip()
+            raw_title = match.group("title").strip()
             if raw_title in title_level_map:
                 new_level = title_level_map[raw_title]
                 new_lines.append(f"{'#' * new_level} {raw_title}")
@@ -305,20 +338,24 @@ def apply_structure_for_one_title(md_content: str, content_dict):
         new_lines.append(line)
     return "\n\n".join(new_lines)
 
+
 def save_key_concept_to_metadata(json_dict, metadata_path: Path):
     # TODO title -> page number -> key_concept -> aspects
     if not metadata_path.exists():
         logger.warning("No metadata file exists, creating a new one.")
     key_concept = json_dict["key_concepts"]
-    key_concept[0]['source_section_title'] = key_concept[0]['source_section_title'].strip()
+    key_concept[0]["source_section_title"] = key_concept[0][
+        "source_section_title"
+    ].strip()
     with open(metadata_path, "r") as metadata_file:
         data = yaml.safe_load(metadata_file)
         if not data:
             logger.warning("No URL found in metadata file")
             data = {}
-    data['key_concepts'] = key_concept
+    data["key_concepts"] = key_concept
     with open(metadata_path, "w") as metadata_file:
         yaml.safe_dump(data, metadata_file, default_flow_style=False)
+
 
 def get_only_key_concepts(md_content: str, file_name: str, course_name: str):
     load_dotenv()
@@ -329,7 +366,8 @@ def get_only_key_concepts(md_content: str, file_name: str, course_name: str):
         messages=[
             {
                 "role": "system",
-                "content": dedent(f"""
+                "content": dedent(
+                    f"""
                     You are an expert AI assistant specializing in analyzing educational material. You will be given markdown content from a course "{course_name}", from the file "{file_name}".
                     Your task is to perform the following actions and format the output as a single JSON object:
                     Your goal is to identifying and explaining the key concepts in each section to help a student recap the material.
@@ -339,12 +377,10 @@ def get_only_key_concepts(md_content: str, file_name: str, course_name: str):
                    - **Content Coverage:** List only the aspects that the section actually explained with aspect and content. 
                      - Some good examples of aspect: Definition, How it works, What happened, Why is it important, etc
                      - The content also should be from the section.
-                    """)
+                    """
+                ),
             },
-            {
-                "role": "user",
-                "content": f"{md_content} "
-            }
+            {"role": "user", "content": f"{md_content} "},
         ],
         response_format={
             "type": "json_schema",
@@ -367,22 +403,26 @@ def get_only_key_concepts(md_content: str, file_name: str, course_name: str):
                                             "type": "object",
                                             "properties": {
                                                 "aspect": {"type": "string"},
-                                                "content": {"type": "string"}
+                                                "content": {"type": "string"},
                                             },
                                             "required": ["aspect", "content"],
-                                            "additionalProperties": False
-                                        }
-                                    }
+                                            "additionalProperties": False,
+                                        },
+                                    },
                                 },
-                                "required": ["concepts", "source_section_title", "content_coverage"],
-                                "additionalProperties": False
-                            }
+                                "required": [
+                                    "concepts",
+                                    "source_section_title",
+                                    "content_coverage",
+                                ],
+                                "additionalProperties": False,
+                            },
                         }
                     },
                     "required": ["key_concepts"],
-                    "additionalProperties": False
-                }
-            }
+                    "additionalProperties": False,
+                },
+            },
         },
     )
     messages = response.choices[0].message

@@ -26,4 +26,3 @@ class RstConverter(BaseConverter):
             content = rst_to_myst(input_file.read())
             output_file.write(content.text)
         return output_path
-

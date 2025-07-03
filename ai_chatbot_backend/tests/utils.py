@@ -5,11 +5,8 @@ Test utilities for the AI Course Bot Backend tests
 import os
 import tempfile
 import shutil
-from pathlib import Path
 from typing import Dict, Any, List, Optional
-from unittest.mock import MagicMock
 
-from fastapi.testclient import TestClient
 from fastapi.responses import FileResponse
 
 from app.api.v1.services.file_storage import local_storage
@@ -116,40 +113,40 @@ class APITestHelper:
         response, expected_status: int, expected_detail: Optional[str] = None
     ):
         """Assert that a response is an error with expected status and detail"""
-        assert (
-            response.status_code == expected_status
-        ), f"Expected status {expected_status}, got {response.status_code}: {response.text}"
+        assert response.status_code == expected_status, (
+            f"Expected status {expected_status}, got {response.status_code}: {response.text}"
+        )
 
         data = response.json()
         assert "detail" in data, "Error response should contain 'detail' field"
 
         if expected_detail:
-            assert (
-                expected_detail in data["detail"]
-            ), f"Expected detail to contain '{expected_detail}', got '{data['detail']}'"
+            assert expected_detail in data["detail"], (
+                f"Expected detail to contain '{expected_detail}', got '{data['detail']}'"
+            )
 
     @staticmethod
     def assert_file_list_response(response, expected_count: Optional[int] = None):
         """Assert that a response is a valid file list response"""
-        assert (
-            response.status_code == 200
-        ), f"Expected 200, got {response.status_code}: {response.text}"
+        assert response.status_code == 200, (
+            f"Expected 200, got {response.status_code}: {response.text}"
+        )
 
         data = response.json()
         assert "files" in data, "Response should contain 'files' field"
         assert "total_count" in data, "Response should contain 'total_count' field"
         assert isinstance(data["files"], list), "'files' should be a list"
-        assert isinstance(
-            data["total_count"], int
-        ), "'total_count' should be an integer"
+        assert isinstance(data["total_count"], int), (
+            "'total_count' should be an integer"
+        )
 
         if expected_count is not None:
-            assert (
-                len(data["files"]) == expected_count
-            ), f"Expected {expected_count} files, got {len(data['files'])}"
-            assert (
-                data["total_count"] == expected_count
-            ), f"Expected total_count {expected_count}, got {data['total_count']}"
+            assert len(data["files"]) == expected_count, (
+                f"Expected {expected_count} files, got {len(data['files'])}"
+            )
+            assert data["total_count"] == expected_count, (
+                f"Expected total_count {expected_count}, got {data['total_count']}"
+            )
 
         # Validate file structure
         for file_data in data["files"]:
@@ -161,16 +158,16 @@ class APITestHelper:
     @staticmethod
     def assert_hierarchy_response(response):
         """Assert that a response is a valid hierarchy response"""
-        assert (
-            response.status_code == 200
-        ), f"Expected 200, got {response.status_code}: {response.text}"
+        assert response.status_code == 200, (
+            f"Expected 200, got {response.status_code}: {response.text}"
+        )
 
         data = response.json()
         assert "root" in data, "Response should contain 'root' field"
         assert "total_files" in data, "Response should contain 'total_files' field"
-        assert (
-            "total_directories" in data
-        ), "Response should contain 'total_directories' field"
+        assert "total_directories" in data, (
+            "Response should contain 'total_directories' field"
+        )
         assert "max_depth" in data, "Response should contain 'max_depth' field"
 
         # Validate root structure

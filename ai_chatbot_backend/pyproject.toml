@@ -50,8 +50,8 @@ jsonschema = "*"
 watchdog = "*"
 requests = "*"
 vllm = "^0.9.1"
+ruff = "*"
 
-[tool.poetry.group.dev.dependencies]
 # Development tools
 pytest = "*"
 pytest-asyncio = "*"
@@ -59,9 +59,6 @@ pytest-cov = "*"
 pytest-mock = "*"
 pytest-xdist = "*"
 httpx = "*"
-black = "*"
-ruff = "*"
-mypy = "*"
 ipython = "*"
 
 [tool.poetry.scripts]

@@ -99,9 +99,9 @@ make coverage          # Run tests with coverage report
 ### Code Quality
 
 ```bash
-make lint              # Run linting (ruff + mypy)
-make format            # Format code (black + ruff)
-make check             # Run all quality checks
+make lint              # Run linting checks (ruff)
+make format            # Format code and auto-fix linting issues (ruff)
+make check             # Run all quality checks (lint + tests)
 ```
 
 ## 📦 Package Management
@@ -339,8 +339,7 @@ make dev
 
 ### Code Style
 
-- **Linting**: Ruff + MyPy
-- **Formatting**: Black (88 character line length)
+- **Linting & Formatting**: Ruff (88 character line length)
 - **Type Hints**: Required for all public functions
 - **Docstrings**: Google style for all modules and classes
 

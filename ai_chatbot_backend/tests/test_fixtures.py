@@ -5,8 +5,6 @@ This module tests that the fixtures conform to the expected formats and schemas.
 """
 
 import pytest
-import json
-from pathlib import Path
 
 # Import the load_fixtures function directly from the current directory
 # We need to use a relative import that pytest can handle
@@ -29,12 +27,12 @@ class TestFixtureStructure:
             assert "stream" in fixture, f"Missing 'stream' field in {path}"
 
             # Check messages structure
-            assert isinstance(
-                fixture["messages"], list
-            ), f"'messages' should be a list in {path}"
-            assert (
-                len(fixture["messages"]) > 0
-            ), f"'messages' should not be empty in {path}"
+            assert isinstance(fixture["messages"], list), (
+                f"'messages' should be a list in {path}"
+            )
+            assert len(fixture["messages"]) > 0, (
+                f"'messages' should not be empty in {path}"
+            )
 
             for message in fixture["messages"]:
                 assert "role" in message, f"Missing 'role' in message in {path}"
@@ -47,9 +45,9 @@ class TestFixtureStructure:
 
             # Check rag field if present
             if "rag" in fixture:
-                assert isinstance(
-                    fixture["rag"], bool
-                ), f"'rag' should be a boolean in {path}"
+                assert isinstance(fixture["rag"], bool), (
+                    f"'rag' should be a boolean in {path}"
+                )
 
     def test_response_fixtures_structure(self, fixtures):
         """Test that response fixtures have the correct structure."""
@@ -63,9 +61,9 @@ class TestFixtureStructure:
             # Check meta fields
             meta = fixture["meta"]
             assert "name" in meta, f"Missing 'name' in meta section of {path}"
-            assert (
-                "description" in meta
-            ), f"Missing 'description' in meta section of {path}"
+            assert "description" in meta, (
+                f"Missing 'description' in meta section of {path}"
+            )
             assert "tags" in meta, f"Missing 'tags' in meta section of {path}"
             assert isinstance(meta["tags"], list), f"'tags' should be a list in {path}"
 
@@ -73,9 +71,9 @@ class TestFixtureStructure:
 
             # If it's streaming, data should be a list of chunks
             if "streaming" in meta.get("tags", []):
-                assert isinstance(
-                    data, list
-                ), f"Data should be a list for streaming response in {path}"
+                assert isinstance(data, list), (
+                    f"Data should be a list for streaming response in {path}"
+                )
                 for chunk in data:
                     assert "id" in chunk, f"Missing 'id' in chunk in {path}"
                     assert "object" in chunk, f"Missing 'object' in chunk in {path}"
@@ -86,9 +84,9 @@ class TestFixtureStructure:
                         assert "delta" in choice, f"Missing 'delta' in choice in {path}"
             else:
                 # Non-streaming responses
-                assert isinstance(
-                    data, dict
-                ), f"Data should be a dict for non-streaming response in {path}"
+                assert isinstance(data, dict), (
+                    f"Data should be a dict for non-streaming response in {path}"
+                )
                 assert "id" in data, f"Missing 'id' in data in {path}"
                 assert "object" in data, f"Missing 'object' in data in {path}"
                 assert "choices" in data, f"Missing 'choices' in data in {path}"
@@ -96,9 +94,9 @@ class TestFixtureStructure:
                 for choice in data["choices"]:
                     assert "index" in choice, f"Missing 'index' in choice in {path}"
                     assert "message" in choice, f"Missing 'message' in choice in {path}"
-                    assert (
-                        "finish_reason" in choice
-                    ), f"Missing 'finish_reason' in choice in {path}"
+                    assert "finish_reason" in choice, (
+                        f"Missing 'finish_reason' in choice in {path}"
+                    )
 
             # Check for tool_calls or references if they are part of the tags
             if "references" in meta.get("tags", []) or "tool-calls" in meta.get(
@@ -112,31 +110,33 @@ class TestFixtureStructure:
                             if "delta" in choice and "tool_calls" in choice["delta"]:
                                 tool_calls_found = True
                                 for tool_call in choice["delta"]["tool_calls"]:
-                                    assert (
-                                        "type" in tool_call
-                                    ), f"Missing 'type' in tool_call in {path}"
-                                    assert (
-                                        "function" in tool_call
-                                    ), f"Missing 'function' in tool_call in {path}"
+                                    assert "type" in tool_call, (
+                                        f"Missing 'type' in tool_call in {path}"
+                                    )
+                                    assert "function" in tool_call, (
+                                        f"Missing 'function' in tool_call in {path}"
+                                    )
 
-                    assert tool_calls_found, f"No tool_calls found in streaming response tagged with 'references' in {path}"
+                    assert tool_calls_found, (
+                        f"No tool_calls found in streaming response tagged with 'references' in {path}"
+                    )
                 else:
                     # For non-streaming responses
                     for choice in data["choices"]:
-                        assert (
-                            "message" in choice
-                        ), f"Missing 'message' in choice in {path}"
-                        assert (
-                            "tool_calls" in choice["message"]
-                        ), f"Missing 'tool_calls' in message in {path}"
+                        assert "message" in choice, (
+                            f"Missing 'message' in choice in {path}"
+                        )
+                        assert "tool_calls" in choice["message"], (
+                            f"Missing 'tool_calls' in message in {path}"
+                        )
 
                         for tool_call in choice["message"]["tool_calls"]:
-                            assert (
-                                "type" in tool_call
-                            ), f"Missing 'type' in tool_call in {path}"
-                            assert (
-                                "function" in tool_call
-                            ), f"Missing 'function' in tool_call in {path}"
+                            assert "type" in tool_call, (
+                                f"Missing 'type' in tool_call in {path}"
+                            )
+                            assert "function" in tool_call, (
+                                f"Missing 'function' in tool_call in {path}"
+                            )
 
     def test_validation_sections(self, fixtures):
         """Test that validation sections are correctly formatted."""
@@ -153,21 +153,21 @@ class TestFixtureStructure:
 
                 # Common validation fields
                 if "expected_status_code" in validation:
-                    assert isinstance(
-                        validation["expected_status_code"], int
-                    ), f"'expected_status_code' should be an integer in {path}"
+                    assert isinstance(validation["expected_status_code"], int), (
+                        f"'expected_status_code' should be an integer in {path}"
+                    )
 
                 if "content_type" in validation:
-                    assert isinstance(
-                        validation["content_type"], str
-                    ), f"'content_type' should be a string in {path}"
+                    assert isinstance(validation["content_type"], str), (
+                        f"'content_type' should be a string in {path}"
+                    )
 
                 # Response-specific validation
                 if "streaming" in fixture.get("meta", {}).get("tags", []):
                     if "expected_content_chunks" in validation:
-                        assert isinstance(
-                            validation["expected_content_chunks"], int
-                        ), f"'expected_content_chunks' should be an integer in {path}"
+                        assert isinstance(validation["expected_content_chunks"], int), (
+                            f"'expected_content_chunks' should be an integer in {path}"
+                        )
 
                     if "expected_tool_call_chunks" in validation:
                         assert isinstance(

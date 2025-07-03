@@ -156,7 +156,7 @@ def print_results(results):
         throughputs = [r["throughput_bytes_per_sec"] for r in successful_results]
 
         print(f"Successful Requests: {len(successful_results)}/{len(results)}")
-        print(f"Success Rate: {len(successful_results)/len(results)*100:.1f}%")
+        print(f"Success Rate: {len(successful_results) / len(results) * 100:.1f}%")
         print()
 
         print("RESPONSE TIME STATISTICS:")

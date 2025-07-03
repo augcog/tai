@@ -1,10 +1,9 @@
-import json
 import os
 
 from app.api.deps import verify_api_token
 from app.core.actions.model_selector import course_selection
 from app.dependencies.model import get_model_engine
-from app.schemas.completion import ChatCompletionChunk, CompletionCreateParams, ToolCall
+from app.schemas.completion import ChatCompletionChunk, CompletionCreateParams
 from app.services.rag_selector import format_chat_msg, rag_json_stream_generator
 from app.utils.stream_processing import (
     extract_text_and_references_from_openai_format,
@@ -63,7 +62,9 @@ async def process_completion(params: CompletionCreateParams):
         tool_calls = None
         if references:
             tool_calls = [
-                ChatCompletionChunk.create_reference_tool_call(f"Reference {i+1}", url)
+                ChatCompletionChunk.create_reference_tool_call(
+                    f"Reference {i + 1}", url
+                )
                 for i, url in enumerate(references)
                 if url
             ]

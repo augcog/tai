@@ -1,7 +1,7 @@
 import json
 import re
-from typing import Tuple, List, Any, Generator, Dict, Optional
-from app.schemas.completion import ChatCompletionChunk, ToolCall
+from typing import Tuple, List, Any, Generator
+from app.schemas.completion import ChatCompletionChunk
 
 # Pattern to match reference numbers in text content
 # Format: [1], [2], etc.

@@ -145,9 +145,9 @@ def main():
     print("You can now add your files to the appropriate directories.")
     print("See docs/local_file_api.md for more information.")
     print("\nExample course structure:")
-    print(f"data/CS61A/documents/lab_material/01_Getting_Started_Guide.txt")
-    print(f"data/CS61A/documents/code_script/example_code.py")
-    print(f"data/CS61A/videos/02_Lab_Instructions.mp4")
+    print("data/CS61A/documents/lab_material/01_Getting_Started_Guide.txt")
+    print("data/CS61A/documents/code_script/example_code.py")
+    print("data/CS61A/videos/02_Lab_Instructions.mp4")
 
 
 if __name__ == "__main__":

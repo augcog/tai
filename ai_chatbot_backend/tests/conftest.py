@@ -1,4 +1,3 @@
-import os
 import pytest
 from fastapi.testclient import TestClient
 from fastapi import HTTPException, status
@@ -7,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 import json
 from pathlib import Path
-from typing import Dict, List, Any
+from typing import Dict, List
 
 from app.core.models.courses import Base as CourseBase
 from app.schemas.course_admin import CourseCreate, AccessType

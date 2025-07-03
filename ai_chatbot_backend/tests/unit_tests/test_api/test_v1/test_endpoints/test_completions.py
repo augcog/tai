@@ -94,9 +94,9 @@ def test_create_completion(
     if rag:
         # Additional assertions for provided extra keywords.
         for keyword in expected_ref:
-            assert any(
-                keyword in ref for ref in references
-            ), f"Expected keyword '{keyword}' in references"
+            assert any(keyword in ref for ref in references), (
+                f"Expected keyword '{keyword}' in references"
+            )
     else:
         assert not references, "Expected no references"
 
@@ -109,16 +109,16 @@ def validate_sample_chunks(chunks, sample_size=3):
     # Parse first chunk (should have role)
     first_chunk = parse_chunk(chunks[0])
     validate(instance=first_chunk, schema=OPENAI_CHUNK_SCHEMA)
-    assert (
-        "role" in first_chunk["choices"][0]["delta"]
-    ), "First chunk should contain role"
+    assert "role" in first_chunk["choices"][0]["delta"], (
+        "First chunk should contain role"
+    )
 
     # Parse last chunk (should have finish_reason)
     last_chunk = parse_chunk(chunks[-1])
     validate(instance=last_chunk, schema=OPENAI_CHUNK_SCHEMA)
-    assert (
-        last_chunk["choices"][0]["finish_reason"] == "stop"
-    ), "Last chunk should have finish_reason 'stop'"
+    assert last_chunk["choices"][0]["finish_reason"] == "stop", (
+        "Last chunk should have finish_reason 'stop'"
+    )
 
     # Validate a few content chunks
     for i in range(1, min(sample_size + 1, len(chunks) - 1)):
@@ -136,9 +136,9 @@ def parse_chunk(chunk):
 def assert_contains_reference_markers(content):
     """Check if the content contains reference markers [n]."""
     reference_pattern = re.compile(r"\[\d+\]")
-    assert reference_pattern.search(
-        content
-    ), "Expected reference markers [n] in content with RAG enabled"
+    assert reference_pattern.search(content), (
+        "Expected reference markers [n] in content with RAG enabled"
+    )
 
 
 def assert_has_tool_calls_for_references(chunks):
@@ -159,9 +159,9 @@ def assert_has_tool_calls_for_references(chunks):
             assert "url" in args, "Tool call arguments should contain a URL"
             break
 
-    assert (
-        tool_call_found
-    ), "Expected to find tool calls for references with RAG enabled"
+    assert tool_call_found, (
+        "Expected to find tool calls for references with RAG enabled"
+    )
 
 
 def assert_tool_calls_in_response(data):

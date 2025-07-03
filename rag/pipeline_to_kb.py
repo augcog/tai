@@ -35,13 +35,15 @@ def pipeline(yaml):
     embedding_name = os.path.basename(os.path.normpath(root))
     markdown_path = root + "_md"
     cache_path = root + "_cache"
-    log_path = os.path.abspath(data.get("log_path", f'{root}_log"'))
+    course_name = data['course_name']
+    course_id = data['course_id']
+    log_path = os.path.abspath(data.get('log_path', f'{root}_log"'))
 
     # print("MDPATH", markdown_path)
     scraper = WebScraper(yaml)
     scraper.run()
 
-    convert_directory(root, markdown_path, log_dir=log_path, cache_path=cache_path)
+    convert_directory(root, markdown_path, log_dir=log_path, cache_path=cache_path, course_name=course_name, course_id=course_id)
 
     folder_name = "embedding"
     model = "BGE"
@@ -64,4 +66,4 @@ def convert_only(yaml):
 
 
 if __name__ == "__main__":
-    pipeline("task.yaml")
+    pipeline('/home/bot/bot/yk/yk_tai/rag/scraper/Scraper_master/CS61A.yaml')

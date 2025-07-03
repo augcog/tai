@@ -30,21 +30,11 @@ jobs:
       id: env-cache
       with:
         path: ${{ env.pythonLocation }}
-        key: ${{ runner.os }}-pythonenv-${{ matrix.python-version }}-${{ hashFiles('rag/requirements-base.txt') }}
+        key: ${{ runner.os }}-pythonenv-${{ matrix.python-version }}-${{ hashFiles('rag/requirements.txt') }}
     - name: Install pip dependencies
       if: steps.env-cache.outputs.cache-hit != 'true'
       run: |
-        pip install -r rag/requirements-base.txt
-
-    - name: Install remaining dependencies
-      run: pip install -r rag/requirements-extend.txt
-
-    - name: Download minerU script
-      run: wget https://github.com/opendatalab/MinerU/raw/master/scripts/download_models_hf.py -O download_models_hf.py
-
-    - name: Run minerU script
-      run: python download_models_hf.py
-
+        pip install -r rag/requirements.txt
 
     - name: Cache pytest artifacts
 

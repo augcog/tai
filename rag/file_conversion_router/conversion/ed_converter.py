@@ -1,9 +1,6 @@
 import json
 from pathlib import Path
 
-import yaml
-
-from file_conversion_router.classes.chunk import Chunk
 from file_conversion_router.classes.page import Page
 from file_conversion_router.conversion.base_converter import BaseConverter
 
@@ -11,6 +8,15 @@ from file_conversion_router.conversion.base_converter import BaseConverter
 class EdConverter(BaseConverter):
     def __init__(self, course_name, course_id):
         super().__init__(self, course_name, course_id)
+
+
+    def title_to_index(self, md_path: Path) -> [dict]:
+        """
+        Create index helper from markdown content.
+        This method is not used in this converter, but must be implemented due to inheritance.
+        """
+        # This converter does not use an index helper, so we return an empty list
+        return []
 
     # Override
     def _to_markdown(self, input_path: Path, output_path: Path) -> Path:

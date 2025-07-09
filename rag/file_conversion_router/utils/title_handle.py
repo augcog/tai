@@ -7,19 +7,197 @@ from pathlib import Path
 import yaml
 import json
 import re
-
-from tests.test_rag.test_file_conversion_router.test_embedding_optimization.conftest import (
-    logger,
-)
+from loguru import logger
 
 
-def get_structured_content_without_title(
-    md_content: str, file_name: str, course_name: str
+def get_strutured_content_for_ipynb(
+        md_content: str, file_name: str, course_name: str,
 ):
     load_dotenv()
     api_key = os.getenv("OPENAI_API_KEY")
     client = OpenAI(api_key=api_key)
-    paragraph_count = md_content.count("\n\n") + 1
+    if not md_content.strip():
+        raise ValueError("The content is empty or not properly formatted.")
+    response = client.chat.completions.create(
+        model="gpt-4.1",
+        messages=[
+            {
+                "role": "system",
+                "content": dedent(
+                    f"""You are an expert AI assistant specializing in analyzing and structuring educational material. 
+                    You will be given markdown content from a video in the course "{course_name}", from the file "{file_name}". 
+                    Your task is to perform the following actions and format the output as a single JSON object: 
+                    ### Part 1: Extract Key Concepts 
+                    Your goal is to identify and explain the key concepts in each section to help a student recap the material. 
+                    For each Key Concept, provide the following information: 
+                    - **Key Concept:** A descriptive phrase or sentence that clearly captures the main idea 
+                    - **Source Section:** The specific section title in the material where this concept is discussed.(Should be only one section title) 
+                    - **Content Coverage:** List only the aspects that the section actually explained with aspect and content. 
+                    - Some good examples of aspect: Definition, How it works, What happened, Why is it important, etc 
+                    - The content should be directly from the section.
+
+                    ### Part 2: Extract and Create Problems
+                    Based on the key concepts you identified, create educational problems that test student understanding. 
+                    For each problem:
+                    - **ID:** Identify if this relates to an existing exercise in the material (e.g., "Exercise 1", "Challenge 1")
+                    - **Content:** Provide the main problem statement or scenario
+                    - **Sub-problems:** Create exactly 2 sub-problems for each main problem:
+                      - Each sub-problem should be a multiple choice question
+                      - Options should include relevant key concepts from the material
+                      - Provide clear explanations for correct answers
+                      - Sub-problems should test different aspects or depths of understanding of the main concept
+
+                    ### Guidelines:
+                    - Focus on the most important concepts that students need to understand
+                    - Ensure all content is directly derived from the provided markdown material
+                    - Make problems challenging but fair, testing true comprehension
+                    - Use key concepts as both correct answers and plausible distractors in multiple choice options
+                    - Provide detailed explanations that reference the source material
+
+                    Format your response as a valid JSON object matching the provided schema."""
+                ),
+            },
+            {"role": "user", "content": f"{md_content} "},
+        ],
+        response_format={
+            'type': 'json_schema',
+            'json_schema': {
+                'name': 'course_content_knowledge_sorting',
+                'strict': True,
+                'schema': {
+                    'type': 'object',
+                    'properties': {
+                        'key_concepts': {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "concepts": {"type": "string"},
+                                    "source_section_title": {"type": "string"},
+                                    "content_coverage": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "aspect": {"type": "string"},
+                                                "content": {"type": "string"},
+                                            },
+                                            "required": ["aspect", "content"],
+                                            "additionalProperties": False,
+                                        },
+                                    },
+                                },
+                                "required": [
+                                    "concepts",
+                                    "source_section_title",
+                                    "content_coverage",
+                                ],
+                                "additionalProperties": False,
+                            },
+                        },
+                        'problems': {
+                            "type": "array",
+                            'items': {
+                                "type": "object",
+                                "properties": {
+                                    "ID": {
+                                        "type": "string",
+                                        'description': 'Which Exercise id this problem belongs to, e.g. "Exercise 1","Challenge 1"'
+                                    },
+                                    'content': {
+                                        'type': "string",
+                                        'description': 'The content of Exercise or Challenge.'
+                                    },
+                                    "sub_problem_1": {
+                                        'type': "object",
+                                        'properties': {
+                                            'description_of_problem': {
+                                                'type': 'string',
+                                                'description': 'The description of the sub problem, it should be a multiple choice question, better contains more than 1 answer e.g. "What key concepts are related to this question?" The goal is to help students understand what concepts are involved in the main problem.'
+                                            },
+                                            'options': {
+                                                'type': 'array',
+                                                'items': {'type': 'string'},
+                                                'description': 'The options for the sub problem, they should be key_concepts in the md_content'
+                                            },
+                                            'answers_options': {
+                                                'type': 'array',
+                                                'items': {'type': 'integer'},
+                                                'description': 'The index of the option in the options array, e.g. [0,1] for the first and second options'
+                                            },
+                                            'explanation_of_answer': {
+                                                'type': 'string',
+                                                'description': 'The explanation of why this option is the answer, it should be a key_concept in the md_content'
+                                            },
+                                        },
+                                        'required': ['description_of_problem', 'options', 'answers_options',
+                                                     'explanation_of_answer'],
+                                        'additionalProperties': False,
+                                    },
+                                    "sub_problem_2": {
+                                        'type': "object",
+                                        'properties': {
+                                            'description_of_problem': {
+                                                'type': 'string',
+                                                'description': 'The description of the sub problem, it should be a multiple choice question, better contains more than 1 answer e.g. "What key concepts are related to this question?" The goal is to help students understand what concepts are involved in the main problem.'
+                                            },
+                                            'options': {
+                                                'type': 'array',
+                                                'items': {'type': 'string'},
+                                                'description': 'The options for the sub problem, they should be key_concepts in the md_content'
+                                            },
+                                            'answers_options': {
+                                                'type': 'array',
+                                                'items': {'type': 'integer'},
+                                                'description': 'The index of the option in the options array, e.g. [0,1] for the first and second options'
+                                            },
+                                            'explanation_of_answer': {
+                                                'type': 'string',
+                                                'description': 'The explanation of why this option is the answer, it should be a key_concept in the md_content'
+                                            },
+                                        },
+                                        'required': ['description_of_problem', 'options', 'answers_options',
+                                                     'explanation_of_answer'],
+                                        'additionalProperties': False,
+                                    },
+                                },
+                                'required': ['ID', 'content', 'sub_problem_1', 'sub_problem_2'],
+                                'additionalProperties': False,
+                            }
+                        }
+                    },
+                    'required': ['key_concepts', 'problems'],
+                    'additionalProperties': False,
+                }
+            }
+        }
+    )
+    messages = response.choices[0].message
+    data = messages.content
+    content_dict = json.loads(data)
+    return content_dict
+
+
+def get_structured_content_without_title(
+        md_content: str, file_name: str, course_name: str,
+):
+    load_dotenv()
+    api_key = os.getenv("OPENAI_API_KEY")
+    client = OpenAI(api_key=api_key)
+
+    def paragraph_count(md_text: str) -> int:
+        # 1. Trim leading/trailing whitespace so blank lines at the edges don’t matter
+        md_text = md_text.strip()
+
+        # 2. Split on ≥1 completely blank line (any amount of spaces/tabs allowed)
+        blocks = re.split(r'\n\s*\n', md_text)
+
+        # 3. Keep only blocks that aren’t just whitespace (handles code fences etc.)
+        paragraphs = [b for b in blocks if b.strip()]
+
+        return len(paragraphs)
+
+    paragraph_count = paragraph_count(md_content)
     if not md_content.strip():
         raise ValueError("The content is empty or not properly formatted.")
     response = client.chat.completions.create(
@@ -60,8 +238,7 @@ def get_structured_content_without_title(
                     "properties": {
                         "paragraphs": {
                             "type": "array",
-                            "minItems": paragraph_count,
-                            "maxItems": paragraph_count,
+
                             "items": {
                                 "type": "object",
                                 "properties": {
@@ -76,7 +253,7 @@ def get_structured_content_without_title(
                             "type": "array",
                             "items": {
                                 "type": "object",
-                                "minItems": 5,
+                                "maxItem": 5,
                                 "properties": {
                                     "section_title": {"type": "string"},
                                     "start_paragraph_index": {
@@ -132,7 +309,7 @@ def get_structured_content_without_title(
 
 
 def get_structured_content_with_one_title_level(
-    md_content: str, file_name: str, course_name: str
+        md_content: str, file_name: str, course_name: str
 ):
     load_dotenv()
     api_key = os.getenv("OPENAI_API_KEY")
@@ -141,40 +318,9 @@ def get_structured_content_with_one_title_level(
         raise ValueError("The content is empty or not properly formatted.")
     md_content = remove_redundant_title(md_content, file_name)
     title_list = get_title_list(md_content)
-    response = client.chat.completions.create(
-        model="gpt-4.1",
-        messages=[
-            {
-                "role": "system",
-                "content": dedent(
-                    f""" You are an expert AI assistant for structuring educational material. You will 
-                be given markdown content from the file "{file_name}" for the course "{course_name}". Your task is to 
-                analyze this content and produce a structured JSON output. The task has two parts: title structuring 
-                and key concept extraction. ### Part 1: Correct Title Hierarchy **Your Goal:** The markdown's title 
-                hierarchy is likely flat (e.g., every title starts with a single '#'). Your job is to determine the 
-                correct semantic level for each of these titles. **Crucial Rule:** - A line is considered a title if, 
-                and only if, it begins with one or more '#' characters in the provided text. Do NOT invent new titles 
-                or treat any other text as a title. **How to Determine the Correct Level (1, 2, 3, etc.):** 1.  
-                **Analyze Logical Structure:** Read the titles in sequence to understand the flow of the document. A 
-                title that introduces a new, major section is a high level (e.g., level 1). A title that discusses a 
-                sub-point of the previous title is a lower level (e.g., level 2 or 3). 2.  **Preserve Order:** The 
-                titles in your JSON output must be in the exact same order they appear in the source text. 3.  
-                **Output Format:** In the JSON, provide the clean title text (without the '#') and the integer level 
-                you have assigned.
 
-                ### Part 2: Extract Key Concepts Your goal is to identifying and explaining the key concepts 
-                in each level 1 title to help a student recap the material. For each Key Concept, provide the 
-                following information: - **Key Concept:** A descriptive phrase or sentence that clearly 
-                captures the main idea - **Source Section:** The specific level 1 title(s) in the material 
-                where this concept is discussed - **Content Coverage:** List only the aspects that the 
-                section actually explained with aspect and content. - Some good examples of aspect: 
-                Definition, How it works, What happened, Why is it important, etc - The content also should 
-                be from the sections. """
-                ),
-            },
-            {"role": "user", "content": f"{md_content}"},
-        ],
-        response_format={
+    def generate_json_schema(title_list):
+        return {
             "type": "json_schema",
             "json_schema": {
                 "name": "course_content_knowledge_sorting",
@@ -231,7 +377,42 @@ def get_structured_content_with_one_title_level(
                     "additionalProperties": False,
                 },
             },
-        },
+        }
+
+    response = client.chat.completions.create(
+        model="gpt-4.1",
+        messages=[
+            {
+                "role": "system",
+                "content": dedent(
+                    f""" You are an expert AI assistant for structuring educational material. You will 
+                be given markdown content from the file "{file_name}" for the course "{course_name}". Your task is to 
+                analyze this content and produce a structured JSON output. The task has two parts: title structuring 
+                and key concept extraction. ### Part 1: Correct Title Hierarchy **Your Goal:** The markdown's title 
+                hierarchy is likely flat (e.g., every title starts with a single '#'). Your job is to determine the 
+                correct semantic level for each of these titles. **Crucial Rule:** - A line is considered a title if, 
+                and only if, it begins with one or more '#' characters in the provided text. Do NOT invent new titles 
+                or treat any other text as a title. **How to Determine the Correct Level (1, 2, 3, etc.):** 1.  
+                **Analyze Logical Structure:** Read the titles in sequence to understand the flow of the document. A 
+                title that introduces a new, major section is a high level (e.g., level 1). A title that discusses a 
+                sub-point of the previous title is a lower level (e.g., level 2 or 3). 2.  **Preserve Order:** The 
+                titles in your JSON output must be in the exact same order they appear in the source text. 3.  
+                **Output Format:** In the JSON, provide the clean title text (without the '#') and the integer level 
+                you have assigned.
+
+                ### Part 2: Extract Key Concepts Your goal is to identifying and explaining the key concepts 
+                in each level 1 title to help a student recap the material. For each Key Concept, provide the 
+                following information: - **Key Concept:** A descriptive phrase or sentence that clearly 
+                captures the main idea - **Source Section:** The specific level 1 title(s) in the material 
+                where this concept is discussed - **Content Coverage:** List only the aspects that the 
+                section actually explained with aspect and content. - Some good examples of aspect: 
+                Definition, How it works, What happened, Why is it important, etc - The content also should 
+                be from the sections. """
+                ),
+            },
+            {"role": "user", "content": f"{md_content}"},
+        ],
+        response_format=generate_json_schema(title_list),
     )
     messages = response.choices[0].message
     data = messages.content
@@ -278,7 +459,7 @@ def remove_redundant_title(md_content: str, file_name: str):
                     if stripped_line.startswith("##"):
                         first_hash_index = line.find("#")
                         new_line = (
-                            line[:first_hash_index] + line[first_hash_index + 1 :]
+                                line[:first_hash_index] + line[first_hash_index + 1:]
                         )
                         final_lines.append(new_line)
                     else:
@@ -296,19 +477,30 @@ def remove_redundant_title(md_content: str, file_name: str):
 def apply_structure_for_no_title(md_content: str, content_dict):
     original_paragraphs = [p.strip() for p in md_content.split("\n\n") if p.strip()]
     md_parts = []
+    content_dict['titles_with_levels'] = []
     section_starts = {
         s["start_paragraph_index"]: s["section_title"]
         for s in content_dict.get("sections")
     }
     for paragraph in sorted(
-        content_dict["paragraphs"], key=lambda p: p["paragraph_index"]
+            content_dict["paragraphs"], key=lambda p: p["paragraph_index"]
     ):
         p_index = paragraph["paragraph_index"]
         p_title = paragraph["title"]
         if p_index in section_starts:
             section_title = section_starts[p_index]
             md_parts.append(f"# {section_title}\n\n")
+            content_dict['titles_with_levels'].append({
+                "title": section_title,
+                "level_of_title": 1,
+                "paragraph_index": p_index,
+            })
         md_parts.append(f"## {p_title}\n\n")
+        content_dict['titles_with_levels'].append({
+            "title": p_title,
+            "level_of_title": 2,
+            "paragraph_index": p_index,
+        })
         content_index = p_index - 1
         if 0 <= content_index < len(original_paragraphs):
             md_parts.append(f"{original_paragraphs[content_index]}\n\n")
@@ -319,40 +511,63 @@ def apply_structure_for_no_title(md_content: str, content_dict):
     return output_content
 
 
+def fix_title_levels(mapping_list):
+    """
+    Fix title levels in the mapping list to ensure they are sequential.
+    """
+    last_level = 0
+    for i in range(len(mapping_list) - 1):
+        current_level = mapping_list[i]["level_of_title"]
+        if current_level > last_level + 1:
+            diff = current_level - (last_level + 1)
+            j = i
+            while j < len(mapping_list) and mapping_list[j]["level_of_title"] >= current_level:
+                mapping_list[j]["level_of_title"] -= diff
+                j += 1
+        last_level = mapping_list[i]["level_of_title"]
+    return mapping_list
+
+
 def apply_structure_for_one_title(md_content: str, content_dict):
     mapping_list = content_dict.get("titles_with_levels")
-    title_level_map = {
-        item["title"].strip(): int(item["level_of_title"]) for item in mapping_list
-    }
+    mapping_list = fix_title_levels(mapping_list)
+    i = 0
     lines = md_content.split("\n\n")
     title_pattern = re.compile(r"^(?P<hashes>#+)\s*(?P<title>.+?)\s*$")
     new_lines = []
     for line in lines:
-        match = title_pattern.match(line)
+        match = title_pattern.match(line.strip())
         if match:
             raw_title = match.group("title").strip()
-            if raw_title in title_level_map:
-                new_level = title_level_map[raw_title]
-                new_lines.append(f"{'#' * new_level} {raw_title}")
-                continue
-        new_lines.append(line)
-    return "\n\n".join(new_lines)
+            assert raw_title == mapping_list[i][
+                "title"].strip(), f"Title mismatch: {raw_title} != {mapping_list[i]['title']}"
+            new_level = mapping_list[i]["level_of_title"]
+            new_lines.append(f"{'#' * new_level} {raw_title}")
+            i += 1
+        else:
+            new_lines.append(line)
+        md_content = "\n\n".join(new_lines)
+
+    return md_content
 
 
 def save_key_concept_to_metadata(json_dict, metadata_path: Path):
-    # TODO title -> page number -> key_concept -> aspects
-    if not metadata_path.exists():
+    if metadata_path.exists():
+        with open(metadata_path, "r") as metadata_file:
+            data = yaml.safe_load(metadata_file)
+            if not data:
+                logger.warning("No URL found in metadata file")
+                data = {}
+    else:
         logger.warning("No metadata file exists, creating a new one.")
+        metadata_path.parent.mkdir(parents=True, exist_ok=True)
+        data = {}
+    print("Creating a new metadata file at:", metadata_path)
     key_concept = json_dict["key_concepts"]
     key_concept[0]["source_section_title"] = key_concept[0][
         "source_section_title"
     ].strip()
-    with open(metadata_path, "r") as metadata_file:
-        data = yaml.safe_load(metadata_file)
-        if not data:
-            logger.warning("No URL found in metadata file")
-            data = {}
-    data["key_concepts"] = key_concept
+    data["key_concept"] = key_concept
     with open(metadata_path, "w") as metadata_file:
         yaml.safe_dump(data, metadata_file, default_flow_style=False)
 
@@ -370,10 +585,10 @@ def get_only_key_concepts(md_content: str, file_name: str, course_name: str):
                     f"""
                     You are an expert AI assistant specializing in analyzing educational material. You will be given markdown content from a course "{course_name}", from the file "{file_name}".
                     Your task is to perform the following actions and format the output as a single JSON object:
-                    Your goal is to identifying and explaining the key concepts in each section to help a student recap the material.
+                    Your goal is to identifying and explaining the key concepts for each section title to help a student recap the material.
                     For each Key Concept, provide the following information:
                    - **Key Concept:** A descriptive phrase or sentence that clearly captures the main idea
-                   - **Source Section:** The specific section title(s) in the material where this concept is discussed
+                   - **Source Section:** The exact one section title in the material which this concept is about
                    - **Content Coverage:** List only the aspects that the section actually explained with aspect and content. 
                      - Some good examples of aspect: Definition, How it works, What happened, Why is it important, etc
                      - The content also should be from the section.

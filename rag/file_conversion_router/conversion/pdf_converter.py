@@ -1,7 +1,8 @@
 import os
 import re
 from pathlib import Path
-
+import json
+import yaml
 from file_conversion_router.conversion.base_converter import BaseConverter
 
 from file_conversion_router.services.tai_MinerU_service.api import (
@@ -12,7 +13,8 @@ from file_conversion_router.services.tai_MinerU_service.api import (
 class PdfConverter(BaseConverter):
     def __init__(self, course_name, course_id):
         super().__init__(course_name, course_id)
-        self.available_tools = ["nougat", "MinerU"]
+        self.available_tools = ["MinerU"]
+        self.index_helper = None
 
     def is_tool_supported(self, tool_name):
         """
@@ -49,7 +51,6 @@ class PdfConverter(BaseConverter):
     def _to_markdown(
         self, input_path: Path, output_path: Path, conversion_method: str = "MinerU"
     ) -> Path:
-        # """Perform PDF to Markdown conversion using Nougat with the detected hardware configuration."""
         self.validate_tool(conversion_method)
         temp_dir_path = output_path.parent
 
@@ -58,9 +59,8 @@ class PdfConverter(BaseConverter):
             os.makedirs(temp_dir_path)
         if conversion_method == "MinerU":
             new_output_path = output_path.with_suffix("")
-            convert_pdf_to_md_by_MinerU(input_path, new_output_path)
-            base_name = input_path.stem  # e.g., "07-Function_Examples_1pp"
-            md_file_path = new_output_path.parent / f"{base_name}.md"
+            md_file_path = convert_pdf_to_md_by_MinerU(input_path, new_output_path)
+
             if md_file_path.exists():
                 print(f"Markdown file found: {md_file_path}")
             else:
@@ -68,46 +68,22 @@ class PdfConverter(BaseConverter):
             # Set the target to this markdown path
             target = md_file_path
             self.clean_markdown_content(target)
-        return target
+            json_file_path = md_file_path.with_name(f"{md_file_path.stem}_content_list.json")
+            with open(json_file_path, "r", encoding="utf-8") as f_json:
+                data = json.load(f_json)
+            self.generate_index_helper(data)
+            return target
 
-    # def _to_markdown_using_native_nougat_cli(self, input_pdf_path: Path, output_path: Path) -> None:
-    #     """
-    #     Perform PDF to Markdown conversion using Native Nougat CLI.
-    #
-    #     The native nougat cli is in the predict.py from meta nougat repo.
-    #     Parameters except input and output path are hard coded for now.
-    #     """
-    #     default_nougat_config = TAINougatConfig()
-    #     command = [
-    #         "nougat",
-    #         str(input_pdf_path),
-    #         # nougat requires the argument output path to be a directory, not file, so we need to handle it here
-    #         "-o",
-    #         str(output_path.parent),
-    #         "--no-skipping" if not default_nougat_config.skipping else "",
-    #         "--recompute" if default_nougat_config.recompute else "",
-    #         "--model",
-    #         default_nougat_config.model_tag,
-    #     ]
-    #     command = [str(arg) for arg in command]
-    #     try:
-    #         result = subprocess.run(command, check=False, capture_output=True, text=True)
-    #         self._logger.info(f"Output: {result.stdout}")
-    #         self._logger.info(f"Errors: {result.stderr}")
-    #         if result.returncode != 0:
-    #             self._logger.error(f"Command exited with a non-zero status: {result.returncode}")
-    #     except Exception as e:
-    #         self._logger.error(f"An error occurred: {str(e)}")
-    #         raise
-    #
-    # @staticmethod
-    # def _to_markdown_using_tai_nougat(input_pdf_path: Path, output_path: Path) -> None:
-    #     """Perform PDF to Markdown conversion using TAI Nougat.
-    #
-    #     TAI nougat is our custom implementation of the Nougat API, with better performance and abstraction.
-    #     """
-    #     config = TAINougatConfig(
-    #         pdf_paths=[input_pdf_path],
-    #         output_dir=output_path.parent,
-    #     )
-    #     convert_pdf_to_mmd(config)
+    def generate_index_helper(self, data):
+        self.index_helper  = []
+        for item in data:
+            if item.get('text_level') == 1:
+                title = item['text'].strip()
+                pattern = r'^\s*ROAR ACADEMY EXERCISES\s*$'
+                if re.match(pattern, title):
+                    continue
+                page_index = item['page_idx'] + 1  # Convert to 1-based indexing
+                self.index_helper.append({title: page_index})
+
+
+

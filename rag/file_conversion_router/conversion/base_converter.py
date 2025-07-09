@@ -58,6 +58,7 @@ class BaseConverter(ABC):
     def __init__(
         self, course_name, course_id, optimizer_config_path: Union[str, Path] = None
     ):
+        self.index_helper = None
         self.course_name = course_name
         self.course_id = course_id
         self._md_parser = None
@@ -133,7 +134,7 @@ class BaseConverter(ABC):
             )
             self._use_cached_files(cached_paths, output_folder)
             return
-
+        # TODO: this is one file conversion, no need to use future
         future = self.cache.get_future(file_hash)
         if not future or not future.running():
             with ThreadPoolExecutor() as executor:
@@ -253,13 +254,14 @@ class BaseConverter(ABC):
         pkl_output_path = output_folder / f"{filename}.pkl"
         logger.info(f"📄 Expected Markdown Path: {self._md_path}")
         logger.info(f"🛠️ Expected Pickle Path: {pkl_output_path}")
-        try:
-            page = self._convert_to_page(input_path, pkl_output_path)
-            logger.info("✅ Page conversion successful.")
-            page.to_chunk()
-            logger.info("✅ Successfully converted page content to chunks.")
-        except Exception as e:
-            logger.error(f"❌ ERROR during processing: {e}", exc_info=True)
+        # try:
+        page = self._convert_to_page(input_path, pkl_output_path)
+        logger.info("✅ Page conversion successful.")
+        # TODO: when chunks are created, instead of save them to pkl, create data base in base_converter.py and save them to database. Consider it is in thead to avoid blocking other addding tasks.
+        page.to_chunk()
+        logger.info("✅ Successfully converted page content to chunks.")
+        # except Exception as e:
+        #     logger.error(f"❌ ERROR during processing: {e}", exc_info=True)
 
         # Add embedding optimization if enabled
         if self.optimizer:
@@ -358,32 +360,100 @@ class BaseConverter(ABC):
         # Ensure the output directory exists
         output_path.parent.mkdir(parents=True, exist_ok=True)
         stem = input_path.stem
-        file_type = input_path.suffix.lstrip(".")
+        self.file_type = input_path.suffix.lstrip(".")
         md_path = self._to_markdown(input_path, output_path)
         metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
-        with open(md_path, "r", encoding="utf-8") as md_file:
-            structured_md = md_file.read()
-        # structured_md = self.apply_markdown_structure(input_md_path=md_path, file_type=file_type, metadata_path=metadata_path)
-        # with open(md_path, "w", encoding="utf-8") as md_file:
-        #     md_file.write(structured_md)
+        # with open(md_path, "r", encoding="utf-8") as md_file:
+        #     structured_md = md_file.read()
+
+        structured_md, content_dict = self.apply_markdown_structure(input_md_path=md_path, file_type=self.file_type)
+        with open(md_path, "w", encoding="utf-8") as md_file:
+            md_file.write(structured_md)
         page_path = output_path.with_name(f"{stem}_content_list.json")
         metadata_content = self._read_metadata(metadata_path)
+        metadata_content={'URL': metadata_content.get('URL', '')}
+        metadata=self._put_content_dict_to_metadata(
+            content_dict=content_dict,
+            metadata_content=metadata_content,
+        )
+        with open(metadata_path, "w", encoding="utf-8") as yaml_file:
+            yaml.safe_dump(metadata, yaml_file, allow_unicode=True)
+
+        # TODO: check to combine page and videopage with index_helper as passed in metadata
+        # return Page(
+        #         metadata=metadata_content,
+        #         content=structured_md,
+        #         index_helper=self.index_helper
+        #     )
         url = metadata_content.get("URL")
-        if file_type == "mp4":
-            timestamp = [i[1] for i in self.paragraphs]
+        if self.file_type == "mp4":
+            timestamp = []
+            for i in self.paragraphs:
+                if isinstance(i, dict) and 'start_time' in i:
+                    timestamp.append(i['start_time'])
+                else:
+                    timestamp.append(0.0)
+
             content = {"text": structured_md, "timestamp": timestamp}
             return VidPage(
-                pagename=stem, content=content, filetype=file_type, page_url=url
+                pagename=stem, content=content, filetype=self.file_type, page_url=url
             )
         else:
             content = {"text": structured_md}
             return Page(
                 pagename=stem,
                 content=content,
-                filetype=file_type,
+                filetype=self.file_type,
                 page_url=url,
                 mapping_json_path=page_path,
             )
+
+    def _put_content_dict_to_metadata(self, content_dict: dict, metadata_content: dict) -> dict:
+        metadata_content["sections"] = content_dict['key_concepts']
+        for section in metadata_content["sections"]:
+            section["name"] = section.pop('source_section_title')
+            section["index"] = section.pop('source_section_index')
+            section["key_concept"] = section.pop('concepts')
+            section["aspects"] = section.pop('content_coverage')
+            for aspect in section["aspects"]:
+                aspect["type"] = aspect.pop('aspect')
+        metadata_content["file_name"] = self._md_path.stem
+        metadata_content['file_ path'] = str(self._md_path)
+        if self.file_type == "ipynb":
+            metadata_content["problems"] = self.process_problems(content_dict)
+        return metadata_content
+
+    def process_problems(self, content_dict):
+        # Return just the list of problems, not a dictionary
+        problems_list = []
+        for problem in content_dict['problems']:
+            processed_problem = {}
+            for title in self.index_helper:
+                if problem['ID'] in title:
+                    processed_problem['problem_index'] = self.index_helper[title]
+                    break
+            else:
+                processed_problem['problem_index'] = None
+            processed_problem['problem_id'] = problem['ID']
+            processed_problem['problem_content'] = problem['content']
+
+            # Create questions structure
+            processed_problem['questions'] = {}
+            for i in range(1, 3):
+                question_key = f'sub_problem_{i}'
+                sub_prob=problem[question_key]
+                processed_problem['questions'][f'question_{i}'] = {
+                    'question': sub_prob.get('description_of_problem', ''),
+                    'choices': sub_prob.get('options', []),
+                    'answer': sub_prob.get('answers_options', []),
+                    'explanation': sub_prob.get('explanation_of_answer', '')
+                }
+
+            problems_list.append(processed_problem)
+
+        return problems_list
+
+
 
     def count_header_levels(self, content_text: str) -> int:
         """
@@ -395,13 +465,47 @@ class BaseConverter(ABC):
                 level = line.count("#")
                 header_levels.add(level)
         return len(header_levels)
+    def update_content_dict_titles_with_levels(self, content_dict: dict,content_text: str) -> dict:
+        """
+        Update the content_dict with titles and their levels from the markdown content.
+        """
+        titles_with_levels = []
+        for line in content_text.splitlines():
+            if line.startswith("#"):
+                level = line.count("#")
+                title = line.lstrip("#").strip()
+                if title.startswith('*'):
+                    title = title.lstrip('*').strip().rstrip('*').strip()
+                titles_with_levels.append({"title": title, "level_of_title": level})
+        content_dict["titles_with_levels"] = titles_with_levels
+        return content_dict
+
+    def fix_index_helper_with_titles_with_level(self, content_dict: dict):
+        """
+        Fix the index_helper with titles and their levels from the content_dict.
+        """
+        titles_with_levels = content_dict.get("titles_with_levels", [])
+        index_helper = []
+        twl_index = 0
+        for item in self.index_helper:
+            title = list(item.keys())[0].strip()
+            if titles_with_levels[twl_index]["title"] == title:
+                index_helper.append(item)
+                twl_index += 1
+                if twl_index >= len(titles_with_levels):
+                    break
+        assert (twl_index == len(titles_with_levels)), (
+            f"twl_index: {twl_index} != len(titles_with_levels): {len(titles_with_levels)}"
+        )
+        self.index_helper = index_helper
 
     def apply_markdown_structure(
-        self, input_md_path: Path | None, file_type: str, metadata_path: Path
-    ) -> str:
+        self, input_md_path: Path | None, file_type: str):
         file_name = input_md_path.stem
         with open(input_md_path, "r", encoding="UTF-8") as input_file:
             content_text = input_file.read()
+            pattern = r'^\s*#\s*ROAR ACADEMY EXERCISES\s*$'
+            content_text = re.sub(pattern, '', content_text, flags=re.MULTILINE)
         header_levels = self.count_header_levels(content_text)
         if header_levels == 0 and file_type == "mp4":
             content_dict = get_structured_content_without_title(
@@ -412,9 +516,19 @@ class BaseConverter(ABC):
             new_md = apply_structure_for_no_title(
                 md_content=content_text, content_dict=content_dict
             )
-            save_key_concept_to_metadata(content_dict, metadata_path=metadata_path)
-            return new_md
-        if header_levels == 1 and file_type == "pdf":
+        elif file_type == "ipynb":
+            content_dict = get_strutured_content_for_ipynb(
+                md_content=content_text,
+                file_name=file_name,
+                course_name=self.course_name,
+            )
+            content_dict=self.update_content_dict_titles_with_levels(
+                content_dict=content_dict, content_text=content_text
+            )
+            self.fix_index_helper_with_titles_with_level(content_dict)
+            new_md =content_text
+
+        elif header_levels == 1 and file_type == "pdf":
             content_dict = get_structured_content_with_one_title_level(
                 md_content=content_text,
                 file_name=file_name,
@@ -423,8 +537,6 @@ class BaseConverter(ABC):
             new_md = apply_structure_for_one_title(
                 md_content=content_text, content_dict=content_dict
             )
-            save_key_concept_to_metadata(content_dict, metadata_path=metadata_path)
-            return new_md
         else:
             # TODO base on the header levels, we can apply different key concept extraction methods if more than 5 generate section titles reflate to original paragraph index and url
             content_dict = get_only_key_concepts(
@@ -432,8 +544,60 @@ class BaseConverter(ABC):
                 file_name=file_name,
                 course_name=self.course_name,
             )
-            save_key_concept_to_metadata(content_dict, metadata_path=metadata_path)
-            return content_text
+            content_dict=self.update_content_dict_titles_with_levels(
+                content_dict=content_dict, content_text=content_text
+            )
+            new_md=content_text
+
+        content_dict = self.add_source_section_index(content_dict)
+        return new_md, content_dict
+
+
+    def generate_index_helper(self, md):
+        """ Generate an index helper from the Markdown content.
+        """
+        self.index_helper = []
+        lines = md.splitlines()
+        for i, line in enumerate(lines):
+            if line.startswith("#"):
+                title = line.strip().lstrip("#").strip()
+                self.index_helper.append({title: i + 1})
+
+    def add_source_section_index(self, content_dict: dict):
+        self.update_index_helper(content_dict)
+        if 'key_concepts' in content_dict:
+            for concept in content_dict['key_concepts']:
+                source_title = concept['source_section_title'].strip()
+                found = False
+                for titles in self.index_helper.keys():
+                    if source_title in titles:
+                        concept['source_section_title'] = source_title
+                        concept['source_section_index'] = self.index_helper[titles]
+                        found = True
+                        break
+                if not found:
+                    print(f"No match found for: '{source_title}'")
+        return content_dict
+
+    def update_index_helper(self, content_dict):
+        """create a helper for titles with their levels, including all sub-paths"""
+        titles_with_levels = content_dict.get("titles_with_levels")
+        result = {}
+        path_stack = []
+        for item, level_info in zip(self.index_helper, titles_with_levels):
+            title = list(item.keys())[0].strip()
+            index = list(item.values())[0]
+            assert(title == level_info["title"]), (
+                f"Title mismatch: {title} != {level_info['title']}"
+            )
+            level = level_info["level_of_title"]
+            target_index = level - 1
+            path_stack = path_stack[:target_index]
+            path_stack.append(title)
+            path = ">".join(path_stack)
+            result[path] = index
+        self.index_helper = result
+
 
     @abstractmethod
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:

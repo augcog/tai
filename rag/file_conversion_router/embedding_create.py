@@ -8,7 +8,7 @@ import pickle
 from dotenv import load_dotenv
 from file_conversion_router.utils.logger import content_logger
 from tqdm import tqdm
-
+from FlagEmbedding import BGEM3FlagModel
 load_dotenv()
 
 
@@ -90,18 +90,18 @@ def traverse_files(
                     print(file_path)
                     chunks = pickle.load(pkl_file)
                 for chunk in chunks:
-                    folder_path = " > ".join(
-                        f"{item} (Level{i + 1})" for i, item in enumerate(path_list)
-                    )
-                    page_path = chunk.titles
-                    id = folder_path + " > " + page_path
+                    # folder_path = ''.join(f"{item}" for i, item in enumerate(path_list))
+                    # s = chunk.titles
+                    topic_path = chunk.titles
+                    # topic_path = s.rsplit("(from)", 1)[0].strip()
+                    topic_path_list.append(topic_path)
+                    print(f"topic_path: {topic_path} in {file_path}")
+                    id =base_name + ' > ' + topic_path
                     id_list.append(id)
                     doc_list.append(chunk.content)
                     url = "".join(chunk.chunk_url)
                     url_list.append(url)
-                    file_paths_list.append(
-                        relative_file_path
-                    )  # Add the relative file path with root folder
+                    file_paths_list.append(relative_file_path)  # Add the relative file path with root folder
     return url_list, id_list, doc_list, file_paths_list, topic_path_list
 
 
@@ -128,27 +128,39 @@ def embedding_create(markdown_path, name, embedding_name, folder_name, model):
         topic_path_list,
     )
     if model == "BGE":
-        from FlagEmbedding import BGEM3FlagModel
+        embedding_model= BGEM3FlagModel("BAAI/bge-m3", use_fp16=True)
+        # from sentence_transformers import SentenceTransformer
+        #
+        # embedding_model = SentenceTransformer("BAAI/bge-m3")
 
-        embedding_model = BGEM3FlagModel("BAAI/bge-m3", use_fp16=True)
-    for i in tqdm(range(len(doc_list))):
-        human_embedding_prompt = (
-            "document_hierarchy_path: {segment_path}\ndocument: {segment}\n"
-        )
-        hp = human_embedding_prompt.format(segment=doc_list[i], segment_path=id_list[i])
+        # embedding_model = FlagAutoModel.from_finetuned('BAAI/bge-base-en-v1.5',
+        #                               query_instruction_for_retrieval="Represent this sentence for searching relevant passages:",
+        #                               use_fp16=True)
+    human_embedding_prompt = (
+        "document_hierarchy_path: {segment_path}\ndocument: {segment}\n"
+    )
+    hp_list = [human_embedding_prompt.format(segment=doc, segment_path=idid) for doc, idid in zip(doc_list, id_list)]
+    embedding_list=embedding_model.encode(
+        hp_list, return_dense=True, return_sparse=True, return_colbert_vecs=True
+    )
+    # for i in tqdm(range(len(doc_list))):
+    #     human_embedding_prompt = (
+    #         "document_hierarchy_path: {segment_path}\ndocument: {segment}\n"
+    #     )
+    #     hp = human_embedding_prompt.format(segment=doc_list[i], segment_path=id_list[i])
+    #
+    #     history = [{"role": "user", "content": hp.strip()}]
+    #     if model == "BGE":
+    #         # print(embedding_model.encode(hp, return_dense=True, return_sparse=True, return_colbert_vecs=True))
+    #         embedding_list.append(
+    #             embedding_model.encode_corpus(
+    #                 hp, return_dense=True, return_sparse=True, return_colbert_vecs=True
+    #             )
+    #         )
 
-        history = [{"role": "user", "content": hp.strip()}]
-        if model == "BGE":
-            # print(embedding_model.encode(hp, return_dense=True, return_sparse=True, return_colbert_vecs=True))
-            embedding_list.append(
-                embedding_model.encode(
-                    hp, return_dense=True, return_sparse=True, return_colbert_vecs=True
-                )
-            )
 
     id_list = np.array(id_list)
     doc_list = np.array(doc_list)
-    embedding_list = np.array(embedding_list)
     url_list = np.array(url_list)
     file_paths_list = np.array(file_paths_list)
     topic_path_list = np.array(topic_path_list)
@@ -219,9 +231,9 @@ def validate_data(data):
 
 if __name__ == "__main__":
     embedding_create(
-        "/Users/yyk956614/tai/rag/file_conversion_router/test_output/fl",
-        "/Users/yyk956614/tai/rag/file_conversion_router/test_output/fl",
-        "cs61a",
-        "500_md",
+        "/home/bot/bot/yk/YK/ROAR-Academy-main-output",
+        "/home/bot/bot/yk/YK/ROAR-Academy-main-output",
+        "ROAR-Academy",
+        "embedding_output",
         "BGE",
     )

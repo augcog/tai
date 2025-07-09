@@ -106,13 +106,13 @@ def process_folder(
                 )
 
     for future in as_completed(futures):
-        try:
-            result = future.result()
-            logging.info(f"Conversion result: {result}")
-            # Handle the successful result here
-            logging.info("Task completed successfully.")
-        except Exception as e:
-            logging.error(f"Conversion failed: {e}")
+        # try:
+        result = future.result()
+        logging.info(f"Conversion result: {result}")
+        # Handle the successful result here
+        logging.info("Task completed successfully.")
+        # except Exception as e:
+        #     logging.error(f"Conversion failed: {e}")
 
     content_logger.info(f"Completed content checking for directory: {input_dir}")
     logging.info(f"Completed processing for directory: {input_dir}")

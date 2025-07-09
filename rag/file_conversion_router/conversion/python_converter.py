@@ -20,5 +20,5 @@ class PythonConverter(BaseConverter):
             # Write filename as a Markdown H1 title, then the code block
             markdown_content = f"# {title}\n\n```python\n{content}\n```"
             output_file.write(markdown_content)
-
+        self.generate_index_helper(markdown_content)
         return output_path

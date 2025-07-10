@@ -7,7 +7,7 @@ from app.core.models.file_metadata import FileMetadataModel
 def main():
     db: Session = SessionLocal()
     try:
-        # 1. 创建file_metadata
+        # 1. Create file_metadata
         file_metadata = FileMetadataModel(
             file_name="test_file.py",
             url="/static/test_file.py",
@@ -17,7 +17,7 @@ def main():
         db.commit()
         db.refresh(file_metadata)
         
-        # 2. 生成两个不同的problem，关联到file_metadata
+        # 2. Generate two different problems, associated with file_metadata
         problem1 = ProblemModel(
             uuid=uuid.uuid4(),
             file_uuid=file_metadata.uuid,
@@ -43,7 +43,7 @@ def main():
             explanation="2 + 2 = 4."
         )
 
-        # 3. 插入problems
+        # 3. Insert problems
         db.add(problem1)
         db.add(problem2)
         db.commit()

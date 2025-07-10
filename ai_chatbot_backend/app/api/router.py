@@ -5,6 +5,8 @@ from app.api.routes import (
     file_completions,
     file_tester,
     files,
+    file_metadata,
+    problems,
 )
 from fastapi import APIRouter
 
@@ -32,6 +34,12 @@ api_router.include_router(courses.router, prefix="/courses", tags=["courses"])
 
 # Files management
 api_router.include_router(files.router, prefix="/files", tags=["files"])
+
+# File metadata management
+api_router.include_router(file_metadata.router, prefix="/file-metadata", tags=["file-metadata"])
+
+# Problems management
+api_router.include_router(problems.router, prefix="/problems", tags=["problems"])
 
 # File tester
 api_router.include_router(

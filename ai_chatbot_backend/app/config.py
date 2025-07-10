@@ -26,6 +26,7 @@ class Settings(BaseSettings):
 
     # Environment configuration
     environment: EnvironmentEnum = Field(
+        default=EnvironmentEnum.dev,
         description="The application environment: dev, production, or test"
     )
 
@@ -34,27 +35,43 @@ class Settings(BaseSettings):
         default=None,
         description="LLM mode: local, remote, or mock. Defaults based on environment if not set.",
     )
-    remote_model_url: str = Field(description="URL for remote model API")
+    remote_model_url: str = Field(
+        default="http://localhost:11434",
+        description="URL for remote model API"
+    )
 
     admin_token: str = Field(
+        default="your_admin_token_here",
         description="Admin token required for course management endpoints. Must be set in .env file."
     )
 
     admin_username: str = Field(
+        default="admin",
         description="Admin username for course management endpoints. Must be set in .env file."
     )
     admin_password: str = Field(
+        default="admin_password",
         description="Admin password for course management endpoints. Must be set in .env file."
     )
 
     api_auth_token: str = Field(
+        default="your_api_token_here",
         description="API authentication token for NextJS <-> Backend communication. Must be set in .env file."
     )
 
     dev_mode: bool = Field(default=False, description="Development mode flag")
 
     # Data directory settings
-    DATA_DIR: str = Field(description="Directory path for file storage")
+    DATA_DIR: str = Field(
+        default="data",
+        description="Directory path for file storage"
+    )
+
+    # Database configuration
+    DATABASE_URL: str = Field(
+        default="sqlite:///./courses.db",
+        description="Database connection URL. Defaults to SQLite in project root."
+    )
 
     # Server configuration
     HOST: str = Field(default="127.0.0.1", description="Server host address")
@@ -92,18 +109,6 @@ class Settings(BaseSettings):
     def is_development(self) -> bool:
         """Check if running in development environment."""
         return self.environment == EnvironmentEnum.dev
-
-    @property
-    def admin_token(self) -> str:
-        return self.admin_token
-
-    @property
-    def admin_username(self) -> str:
-        return self.admin_username
-
-    @property
-    def admin_password(self) -> str:
-        return self.admin_password
 
     class Config:
         env_file = ".env"

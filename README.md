@@ -1,4 +1,4 @@
-# TAI: Teaching Assistant Intelligence Testing
+# TAI: Teaching Assistant Intelligence 
 
 ![TAI_logo.png](TAI_logo.png)
 

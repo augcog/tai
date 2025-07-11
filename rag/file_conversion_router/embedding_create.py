@@ -231,8 +231,8 @@ def validate_data(data):
 
 if __name__ == "__main__":
     embedding_create(
-        "/home/bot/bot/yk/YK/ROAR-Academy-main-output",
-        "/home/bot/bot/yk/YK/ROAR-Academy-main-output",
+        "/home/bot/bot/yk/YK/test_folder/video_test_output",
+        "/home/bot/bot/yk/YK/test_folder/video_test_output",
         "ROAR-Academy",
         "embedding_output",
         "BGE",

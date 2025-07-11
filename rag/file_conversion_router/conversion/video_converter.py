@@ -1,6 +1,4 @@
-from pathlib import Path
 
-import yaml
 from file_conversion_router.conversion.base_converter import BaseConverter
 import os
 import json
@@ -32,12 +30,12 @@ class VideoConverter(BaseConverter):
         device = "cuda"
         batch_size = 16
         compute_type = "float16"
-        model = whisperx.load_model('large-v3-turbo', device='cuda', compute_type=compute_type)
+        model = whisperx.load_model('large-v3', device='cuda', compute_type=compute_type, language="en")
         audio = whisperx.load_audio(audio_file_path)
         result = model.transcribe(audio, batch_size=batch_size)
-        model_a, metadata = whisperx.load_align_model(language_code=result["language"], device=device)
+        model_a, metadata = whisperx.load_align_model(language_code="en", device=device)
         result = whisperx.align(result["segments"], model_a, metadata, audio, device, return_char_alignments=False)
-        diarize_model = whisperx.DiarizationPipeline(use_auth_token=500, device=device)
+        diarize_model = whisperx.DiarizationPipeline(use_auth_token=True, device=device)
         diarize_segments = diarize_model(audio)
         result = whisperx.assign_word_speakers(diarize_segments, result)
         segments = []
@@ -131,7 +129,7 @@ class VideoConverter(BaseConverter):
         for i, paragraph in enumerate(paragraphs):
             start_time = paragraph['start_time']
             paragraph_index = i + 1  # 1-based index
-            self.index_helper[start_time] = paragraph_index
+            self.index_helper[paragraph_index] = start_time
 
 
     def write_to_markdown(self, paragraphs):
@@ -153,9 +151,9 @@ class VideoConverter(BaseConverter):
         def setup_scene_detection(video_path, custom_window_width=50, custom_weights=None):
             video = open_video(video_path)
             scene_manager = SceneManager()
-            video_folder = os.path.dirname(video_path)
+            output_folder = os.path.dirname(output_path)
             images_folder_name = os.path.splitext(os.path.basename(video_path))[0] + "_images"
-            images_output_dir = os.path.join(video_folder, images_folder_name)
+            images_output_dir = os.path.join(output_folder, images_folder_name)
             os.makedirs(images_output_dir, exist_ok=True)
             if custom_weights is None:
                 custom_weights = AdaptiveDetector.Components(delta_hue=0.1, delta_sat=1.0, delta_lum=1.0,
@@ -215,6 +213,7 @@ class VideoConverter(BaseConverter):
             # Convert time from seconds (float) to HH:MM:SS.mmm formatted string.
             formatted_start = self.format_timestamp(start)
             formatted_end = self.format_timestamp(end)
+            # TODO add end time into self.paragraphs
             segment_dict = {
                 "start time": formatted_start,
                 "end time": formatted_end,
@@ -255,34 +254,20 @@ class VideoConverter(BaseConverter):
         into a new mapping stored back in self.index_helper:
             "Section>Subsection>…"  →  start_time
         """
-        # ---------------- Gather and sort the timing info ----------------
-        # Turn {para_idx: time} into an ordered list of (para_idx, time)
         idx_time_pairs = sorted(self.index_helper.items())  # ascending paragraph order
         idx_iter = iter(idx_time_pairs)  # we'll step through as we consume titles
         current_para_idx, current_time = next(idx_iter, (None, None))
-
-        # ---------------- Build the hierarchical keys -------------------
         result: dict[str, float] = {}
         path_stack: list[str] = []
 
         for t in content_dict.get("titles_with_levels", []):
             title = t["title"].strip()
             level = int(t["level_of_title"])
-
-            # If you stored "paragraph_index" with each title, just do:
-            # current_time = self.index_helper[t["paragraph_index"]]
-
-            # Keep only ancestors appropriate for this depth, then append this title
             path_stack = path_stack[: level - 1]
             path_stack.append(title)
             full_path = ">".join(path_stack)
-
-            # Map this breadcrumb path to the current start-time
             result[full_path] = current_time
 
-            # Heuristic: after *paragraph* titles (level 2 here) we advance to
-            # the next timing pair; section titles (#, level 1) reuse the same
-            # start-time, so we *don’t* advance.
             if level >= 2:  # tweak if your hierarchy is deeper
                 current_para_idx, current_time = next(idx_iter, (current_para_idx, current_time))
 

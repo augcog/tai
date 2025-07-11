@@ -501,6 +501,12 @@ class BaseConverter(ABC):
 
     def apply_markdown_structure(
         self, input_md_path: Path | None, file_type: str):
+        """
+        Apply the markdown structure based on the file type and content.
+        input_md_path: Path to the input markdown file.
+        file_type: Type of the file, e.g., "mp4", "pdf", "ipynb".
+        returns: md content and a dictionary with structured content.
+        """
         file_name = input_md_path.stem
         with open(input_md_path, "r", encoding="UTF-8") as input_file:
             content_text = input_file.read()

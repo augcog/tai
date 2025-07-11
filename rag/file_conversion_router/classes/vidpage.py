@@ -16,10 +16,8 @@ class VidPage(Page):
                 merged_title = default_title
             for count, content_chunk in enumerate(splitted_contents):
                 headers = segment["Page_path"]
-                urls = [
-                    f"{self.page_url}&t={int(self.content['timestamp'][n])}"
-                    for header in headers
-                ]
+            # TODO: only add start time and add url as separate field self.url and self.chunk_index
+                urls = [f"{self.page_url}&t={float(self.content['timestamp'])}" ]
                 self.chunks.append(
                     Chunk(
                         content=content_chunk,

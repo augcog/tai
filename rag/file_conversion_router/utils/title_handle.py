@@ -178,57 +178,29 @@ def get_strutured_content_for_ipynb(
     return content_dict
 
 
-def get_structured_content_without_title(
-        md_content: str, file_name: str, course_name: str,
-):
-    load_dotenv()
-    api_key = os.getenv("OPENAI_API_KEY")
-    client = OpenAI(api_key=api_key)
-
-    def paragraph_count(md_text: str) -> int:
-        # 1. Trim leading/trailing whitespace so blank lines at the edges don’t matter
-        md_text = md_text.strip()
-
-        # 2. Split on ≥1 completely blank line (any amount of spaces/tabs allowed)
-        blocks = re.split(r'\n\s*\n', md_text)
-
-        # 3. Keep only blocks that aren’t just whitespace (handles code fences etc.)
-        paragraphs = [b for b in blocks if b.strip()]
-
-        return len(paragraphs)
-
-    paragraph_count = paragraph_count(md_content)
-    if not md_content.strip():
-        raise ValueError("The content is empty or not properly formatted.")
-    response = client.chat.completions.create(
-        model="gpt-4.1",
-        messages=[
-            {
-                "role": "system",
-                "content": dedent(
-                    f""" You are an expert AI assistant specializing in analyzing and structuring 
-                educational material. You will be given markdown content from a video in the course "{course_name}", 
-                from the file "{file_name}". The text is already divided into paragraphs. Your task is to perform the 
-                following actions and format the output as a single JSON object: 1.  **Group into Sections:** Analyze 
-                the entire text and divide it into **at most 5 logical sections**. 2.  **Generate Titles:** - For 
-                each **section**, create a concise and descriptive title. - For each **original paragraph**, 
-                create an engaging title that reflects its main topic. 3.  **Create a Nested Structure:** The JSON 
-                output must have a `sections` array. - Each element in the `sections` array is an object representing 
-                one section. - **Crucially, each section object must contain its own `paragraphs` array.** This 
-                nested array should list all the paragraphs that belong to that section. - Each paragraph object 
-                within the nested array must include its title and its **original index** from the source text (
-                starting from 1). ### Part 2: Extract Key Concepts Your goal is to identifying and explaining the key 
-                concepts in each section to help a student recap the material. For each Key Concept, provide the 
-                following information: - **Key Concept:** A descriptive phrase or sentence that clearly captures the 
-                main idea - **Source Section:** The specific section title(s) in the material where this concept is 
-                discussed - **Content Coverage:** List only the aspects that the section actually explained with 
-                aspect and content. - Some good examples of aspect: Definition, How it works, What happened, 
-                Why is it important, etc - The content also should be from the section. """
-                ),
-            },
-            {"role": "user", "content": f"{md_content} "},
-        ],
-        response_format={
+def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, file_name: str):
+    if paragraph_count >= 5:
+        message_content = dedent(
+            f""" You are an expert AI assistant specializing in analyzing and structuring 
+        educational material. You will be given markdown content from a video in the course "{course_name}", 
+        from the file "{file_name}". The text is already divided into paragraphs. Your task is to perform the 
+        following actions and format the output as a single JSON object: 1.  **Group into Sections:** Analyze 
+        the entire text and divide it into **at most 5 logical sections**. 2.  **Generate Titles:** - For 
+        each **section**, create a concise and descriptive title. - For each **original paragraph**, 
+        create an engaging title that reflects its main topic. 3.  **Create a Nested Structure:** The JSON 
+        output must have a `sections` array. - Each element in the `sections` array is an object representing 
+        one section. - **Crucially, each section object must contain its own `paragraphs` array.** This 
+        nested array should list all the paragraphs that belong to that section. - Each paragraph object 
+        within the nested array must include its title and its **original index** from the source text (
+        starting from 1). ### Part 2: Extract Key Concepts Your goal is to identifying and explaining the key 
+        concepts in each section to help a student recap the material. For each Key Concept, provide the 
+        following information: - **Key Concept:** A descriptive phrase or sentence that clearly captures the 
+        main idea - **Source Section:** The specific section title(s) in the material where this concept is 
+        discussed - **Content Coverage:** List only the aspects that the section actually explained with 
+        aspect and content. - Some good examples of aspect: Definition, How it works, What happened, 
+        Why is it important, etc - The content also should be from the section. """
+        )
+        json_schema = {
             "type": "json_schema",
             "json_schema": {
                 "name": "course_content_knowledge_sorting",
@@ -300,7 +272,108 @@ def get_structured_content_without_title(
                     "additionalProperties": False,
                 },
             },
+        }
+
+    else:
+        message_content = dedent(
+            f""" You are an expert AI assistant specializing in analyzing and structuring 
+            educational material. You will be given markdown content from a video in the course "{course_name}", 
+            from the file "{file_name}". The text is already divided into paragraphs. Your task is to perform the 
+            following actions and format the output as a single JSON object:  1.  **Generate Titles:** - For 
+            each pargraph, create a concise and descriptive title that reflects its main topic. 
+            ### Part 2: Extract Key Concepts Your goal is to identifying and explaining the key 
+            concepts in each paragraph to help a student recap the material. For each Key Concept, provide the 
+            following information: - **Key Concept:** A descriptive phrase or sentence that clearly captures the 
+            main idea - **Source Section:** The specific paragraph title(s) in the material where this concept is 
+            discussed - **Content Coverage:** List only the aspects that the paragraph actually explained with 
+            aspect and content. - Some good examples of aspect: Definition, How it works, What happened, 
+            Why is it important, etc - The content also should be from the section. """
+        )
+        json_schema = {
+            "type": "json_schema",
+            "json_schema": {
+                "name": "course_content_knowledge_sorting",
+                "strict": True,
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "paragraphs": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {"type": "string"},
+                                    "paragraph_index": {"type": "integer",
+                                                        "description": "The 1-based index from the paragraphs array where this paragraph is located."},
+                                },
+                                "required": ["title", "paragraph_index"],
+                                "additionalProperties": False,
+                            },
+                        },
+                        "key_concepts": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "concepts": {"type": "string"},
+                                    "source_section_title": {"type": "string"},
+                                    "content_coverage": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "aspect": {"type": "string"},
+                                                "content": {"type": "string"},
+                                            },
+                                            "required": ["aspect", "content"],
+                                            "additionalProperties": False,
+                                        },
+                                    },
+                                },
+                                "required": [
+                                    "concepts",
+                                    "source_section_title",
+                                    "content_coverage",
+                                ],
+                                "additionalProperties": False,
+                            },
+                        },
+                    },
+                    "required": ["paragraphs", "key_concepts"],
+                    "additionalProperties": False,
+                },
+            },
+        }
+    return message_content, json_schema
+
+
+def get_structured_content_without_title(
+        md_content: str, file_name: str, course_name: str,
+):
+    # TODO : add a check for paragraphs count if less than 5 then do not generate section
+    load_dotenv()
+    api_key = os.getenv("OPENAI_API_KEY")
+    client = OpenAI(api_key=api_key)
+
+    def paragraph_count(md_text: str) -> int:
+        md_text = md_text.strip()
+        blocks = re.split(r'\n\s*\n', md_text)
+        paragraphs = [b for b in blocks if b.strip()]
+        return len(paragraphs)
+
+    paragraph_count = paragraph_count(md_content)
+    message_content, json_schema = generate_json_schema_for_no_title(paragraph_count, course_name, file_name)
+    if not md_content.strip():
+        raise ValueError("The content is empty or not properly formatted.")
+    response = client.chat.completions.create(
+        model="gpt-4.1",
+        messages=[{
+            "role": "system",
+            "content": message_content
         },
+            {"role": "user", "content": f"{md_content} "},
+        ],
+        response_format=json_schema
     )
     messages = response.choices[0].message
     data = messages.content
@@ -478,10 +551,14 @@ def apply_structure_for_no_title(md_content: str, content_dict):
     original_paragraphs = [p.strip() for p in md_content.split("\n\n") if p.strip()]
     md_parts = []
     content_dict['titles_with_levels'] = []
-    section_starts = {
-        s["start_paragraph_index"]: s["section_title"]
-        for s in content_dict.get("sections")
-    }
+    if 'sections' in content_dict:
+        section_starts = {
+            s["start_paragraph_index"]: s["section_title"]
+            for s in content_dict.get("sections")
+        }
+    else:
+        section_starts = {}
+
     for paragraph in sorted(
             content_dict["paragraphs"], key=lambda p: p["paragraph_index"]
     ):

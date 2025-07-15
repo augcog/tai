@@ -53,7 +53,7 @@ class TestUnifiedFilesAPI:
 
     def test_files_list_basic(self, client, mock_current_user):
         """Test basic files listing with auto-discovery"""
-        from unittest.mock import patch, MagicMock
+        from unittest.mock import patch
 
         with patch("app.services.file_service.file_service.list_files") as mock_list:
             # Create mock result

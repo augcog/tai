@@ -84,7 +84,7 @@ Note: Scraping is also supported for Ed, however this is done differently than t
   ├── MonashDataFluency
   │   ├── A (brief) Python refresher
   │   │   ├── section-0-brief-python-refresher.md
-  │   │   ├── section-0-brief-python-refresher.md_metadata.yml
+  │   │   ├── section-0-brief-python-refresher.md_metadata.yaml
   │   ├── API based scraping
   │   │   ├── section-3-API-based-scraping.md
   │   │   ├── section-3-API-based-scraping.md_metadata.yaml

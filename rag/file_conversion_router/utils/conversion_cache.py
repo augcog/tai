@@ -4,7 +4,7 @@ from threading import Lock
 from typing import Dict, List, Union, Optional
 import pickle
 
-from rag.file_conversion_router.utils.utils import load_conversion_version
+from file_conversion_router.utils.utils import load_conversion_version
 
 """
 cache structure

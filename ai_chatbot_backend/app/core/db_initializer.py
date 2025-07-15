@@ -15,10 +15,10 @@ import uuid
 import json
 from pathlib import Path
 from datetime import datetime
-from typing import List, Dict, Optional
+from typing import List, Dict
 import logging
 
-from sqlalchemy import create_engine, inspect, text
+from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import sessionmaker
 
 from app.core.database import Base, SQLALCHEMY_DATABASE_URL

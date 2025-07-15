@@ -140,7 +140,7 @@ class ScrapeRst(BaseScraper):
             save_to_file(f"{filename}.rst", content)
 
     def metadata_extract(self, filename, url, **kwargs):
-        yaml_content = f"URL: {self.doc_url.replace('index.html', '')}{'/'.join(url.split('/')[url.split('/').index('main') + 1:]).replace('.rst', '.html')}"
+        yaml_content = f"URL: {self.doc_url.replace('index.html', '')}{'/'.join(url.split('/')[url.split('/').index('main') + 1 :]).replace('.rst', '.html')}"
         save_to_file(f"{filename}_metadata.yaml", yaml_content)
 
 

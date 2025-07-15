@@ -1,5 +1,4 @@
-"""Base classes for all file type converters.
-"""
+"""Base classes for all file type converters."""
 
 import logging
 from abc import ABC, abstractmethod
@@ -10,20 +9,24 @@ from threading import Lock
 from typing import Dict, List, Union
 
 import yaml
-
 from file_conversion_router.classes.chunk import Chunk
 from file_conversion_router.classes.page import Page
 from file_conversion_router.classes.vidpage import VidPage
 from file_conversion_router.embedding_optimization.src.pipeline.optimizer import (
     EmbeddingOptimizer,
 )
-from file_conversion_router.utils.conversion_cache import ConversionCache
 from file_conversion_router.utils.logger import (
-    content_logger,
     conversion_logger,
     logger,
+    content_logger,
 )
-from file_conversion_router.utils.utils import calculate_hash, check_url, ensure_path
+from file_conversion_router.utils.utils import (
+    calculate_hash,
+    ensure_path,
+    check_url,
+)
+from file_conversion_router.utils.conversion_cache import ConversionCache
+from file_conversion_router.utils.title_handle import *
 
 
 class BaseConverter(ABC):
@@ -52,7 +55,11 @@ class BaseConverter(ABC):
         ).resolve()
     )
 
-    def __init__(self, optimizer_config_path: Union[str, Path] = None):
+    def __init__(
+        self, course_name, course_id, optimizer_config_path: Union[str, Path] = None
+    ):
+        self.course_name = course_name
+        self.course_id = course_id
         self._md_parser = None
 
         self._md_path = None
@@ -179,9 +186,9 @@ class BaseConverter(ABC):
         # This method embeds the abstract method `_to_markdown`, which needs to be implemented by the child classes.
         _, conversion_time = self._perform_conversion(input_path, output_folder)
         paths = [self._md_path, self._pkl_path]
-        assert all(
-            path.exists() for path in paths
-        ), "Not all output files were generated."
+        assert all(path.exists() for path in paths), (
+            "Not all output files were generated."
+        )
         self.cache.set_cache_and_time(
             file_hash, str(input_path), paths, conversion_time
         )
@@ -229,7 +236,6 @@ class BaseConverter(ABC):
         """Return mocked metadata when the actual metadata file is missing."""
         return {
             "URL": "",
-            # Add other mocked metadata fields as needed
         }
 
     @conversion_logger
@@ -353,33 +359,81 @@ class BaseConverter(ABC):
         output_path.parent.mkdir(parents=True, exist_ok=True)
         stem = input_path.stem
         file_type = input_path.suffix.lstrip(".")
-
         md_path = self._to_markdown(input_path, output_path)
-        with open(md_path, "r") as input_file:
-            content_text = input_file.read()
-
         metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
-
-        page_path = output_path.with_name(f"{stem}_page_info.yaml")
-
+        with open(md_path, "r", encoding="utf-8") as md_file:
+            structured_md = md_file.read()
+        # structured_md = self.apply_markdown_structure(input_md_path=md_path, file_type=file_type, metadata_path=metadata_path)
+        # with open(md_path, "w", encoding="utf-8") as md_file:
+        #     md_file.write(structured_md)
+        page_path = output_path.with_name(f"{stem}_content_list.json")
         metadata_content = self._read_metadata(metadata_path)
         url = metadata_content.get("URL")
-
         if file_type == "mp4":
             timestamp = [i[1] for i in self.paragraphs]
-            content = {"text": content_text, "timestamp": timestamp}
+            content = {"text": structured_md, "timestamp": timestamp}
             return VidPage(
                 pagename=stem, content=content, filetype=file_type, page_url=url
             )
         else:
-            content = {"text": content_text}
+            content = {"text": structured_md}
             return Page(
                 pagename=stem,
                 content=content,
                 filetype=file_type,
                 page_url=url,
-                page_path=page_path,
+                mapping_json_path=page_path,
             )
+
+    def count_header_levels(self, content_text: str) -> int:
+        """
+        Count the number of unique header levels in the markdown content.
+        """
+        header_levels = set()
+        for line in content_text.splitlines():
+            if line.startswith("#"):
+                level = line.count("#")
+                header_levels.add(level)
+        return len(header_levels)
+
+    def apply_markdown_structure(
+        self, input_md_path: Path | None, file_type: str, metadata_path: Path
+    ) -> str:
+        file_name = input_md_path.stem
+        with open(input_md_path, "r", encoding="UTF-8") as input_file:
+            content_text = input_file.read()
+        header_levels = self.count_header_levels(content_text)
+        if header_levels == 0 and file_type == "mp4":
+            content_dict = get_structured_content_without_title(
+                md_content=content_text,
+                file_name=file_name,
+                course_name=self.course_name,
+            )
+            new_md = apply_structure_for_no_title(
+                md_content=content_text, content_dict=content_dict
+            )
+            save_key_concept_to_metadata(content_dict, metadata_path=metadata_path)
+            return new_md
+        if header_levels == 1 and file_type == "pdf":
+            content_dict = get_structured_content_with_one_title_level(
+                md_content=content_text,
+                file_name=file_name,
+                course_name=self.course_name,
+            )
+            new_md = apply_structure_for_one_title(
+                md_content=content_text, content_dict=content_dict
+            )
+            save_key_concept_to_metadata(content_dict, metadata_path=metadata_path)
+            return new_md
+        else:
+            # TODO base on the header levels, we can apply different key concept extraction methods if more than 5 generate section titles reflate to original paragraph index and url
+            content_dict = get_only_key_concepts(
+                md_content=content_text,
+                file_name=file_name,
+                course_name=self.course_name,
+            )
+            save_key_concept_to_metadata(content_dict, metadata_path=metadata_path)
+            return content_text
 
     @abstractmethod
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:

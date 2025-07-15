@@ -21,10 +21,8 @@ from app.core.database import Base, engine
 
 # Import the new database initializer
 from app.core.db_initializer import initialize_database_on_startup
-from app.core.models.courses import CourseModel
 
 # Import to ensure table creation
-from app.core.models.files import FileRegistry
 
 # from app.core.actions.model_selector import get_model
 
@@ -36,8 +34,8 @@ logging.basicConfig(
 )
 
 # Initialize database with automatic file import and migration
-print(f"🚀 Initializing database and importing existing files...")
-print(f"📚 Course loading: from course.json (only if database is empty)")
+print("🚀 Initializing database and importing existing files...")
+print("📚 Course loading: from course.json (only if database is empty)")
 
 if not initialize_database_on_startup("data"):
     print("❌ Database initialization failed! Server may not work correctly.")
@@ -186,7 +184,7 @@ async def database_status():
 
 if __name__ == "__main__":
     # Use settings from .env file configuration
-    print(f"🚀 Starting server...")
+    print("🚀 Starting server...")
     print(f"📍 Environment: {settings.environment}")
     print(
         f"🔄 Auto-reload: {'disabled' if settings.is_production or not settings.RELOAD else 'enabled'}"

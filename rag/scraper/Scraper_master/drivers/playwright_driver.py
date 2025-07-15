@@ -37,7 +37,7 @@ class PlaywrightDriver(Driver):
         if "text/html" in content_type:
             resp = self._page.goto(url)
             html_content = self._page.content()
-            with open(f'{filename.split(".")[0]}.html', "w", encoding="utf-8") as f:
+            with open(f"{filename.split('.')[0]}.html", "w", encoding="utf-8") as f:
                 f.write(html_content)
             return Resp(
                 html_content=html_content,

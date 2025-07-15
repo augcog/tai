@@ -95,16 +95,16 @@ def validate_sample_chunks(
     # Parse first chunk (should have role)
     first_chunk = parse_chunk(chunks[0])
     validate(instance=first_chunk, schema=OPENAI_CHUNK_SCHEMA)
-    assert (
-        "role" in first_chunk["choices"][0]["delta"]
-    ), "First chunk should contain role"
+    assert "role" in first_chunk["choices"][0]["delta"], (
+        "First chunk should contain role"
+    )
 
     # Parse last chunk (should have finish_reason)
     last_chunk = parse_chunk(chunks[-1])
     validate(instance=last_chunk, schema=OPENAI_CHUNK_SCHEMA)
-    assert (
-        last_chunk["choices"][0]["finish_reason"] == "stop"
-    ), "Last chunk should have finish_reason 'stop'"
+    assert last_chunk["choices"][0]["finish_reason"] == "stop", (
+        "Last chunk should have finish_reason 'stop'"
+    )
 
     # Validate a few content chunks
     for i in range(1, min(sample_size + 1, len(chunks) - 1)):
@@ -122,9 +122,9 @@ def assert_contains_reference_markers(content: str) -> None:
         AssertionError: If no reference markers are found
     """
     reference_pattern = re.compile(r"\[\d+\]")
-    assert reference_pattern.search(
-        content
-    ), "Expected reference markers [n] in content with RAG enabled"
+    assert reference_pattern.search(content), (
+        "Expected reference markers [n] in content with RAG enabled"
+    )
 
 
 def assert_has_tool_calls_for_references(chunks: List[Union[str, bytes]]) -> None:
@@ -152,14 +152,14 @@ def assert_has_tool_calls_for_references(chunks: List[Union[str, bytes]]) -> Non
             assert "url" in args, "Tool call arguments should contain a URL"
             # If there's a 'number' field, it should be an integer
             if "number" in args:
-                assert isinstance(
-                    args["number"], int
-                ), "Reference number should be an integer"
+                assert isinstance(args["number"], int), (
+                    "Reference number should be an integer"
+                )
             break
 
-    assert (
-        tool_call_found
-    ), "Expected to find tool calls for references with RAG enabled"
+    assert tool_call_found, (
+        "Expected to find tool calls for references with RAG enabled"
+    )
 
 
 def assert_tool_calls_in_response(data: Dict[str, Any]) -> None:

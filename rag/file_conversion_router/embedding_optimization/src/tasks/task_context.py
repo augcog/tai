@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Dict, Any, Optional, TypeVar, Generic
 
-from rag.file_conversion_router.classes.chunk import Chunk
+from file_conversion_router.classes.chunk import Chunk
 
 T = TypeVar("T")
 

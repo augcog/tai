@@ -1,6 +1,5 @@
 # Consolidated completions router
 import time
-from typing import Any
 
 from app.api.deps import verify_api_token
 from app.core.models.chat_completion import *

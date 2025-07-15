@@ -1,13 +1,12 @@
+import string
+from typing import Optional
+from file_conversion_router.classes.chunk import Chunk
+import tiktoken
 import pickle
 import re
-import string
 from pathlib import Path
-from typing import Optional
-
-import tiktoken
-import yaml
-
-from file_conversion_router.classes.chunk import Chunk
+import json
+import logging
 
 
 class Page:
@@ -19,16 +18,19 @@ class Page:
         content: dict,
         filetype: str,
         page_url: str = "",
-        page_path: Optional[Path] = None,
+        mapping_json_path: Optional[Path] = None,
     ):
         """
         Initialize a Page instance.
 
         Args:
-            content (dict): Dictionary of page content attributes.
-            filetype (str): Type of the file (e.g., 'md', 'pdf').
-            page_url (str): URL of the page. Default is an empty string.
+            content (dict): A dictionary containing the page content.
+            filetype (str): The file type (e.g., 'md', 'pdf').
+            page_url (str): The page URL, default is an empty string.
+            mapping_json_path (Optional[Path]): Path to the JSON mapping file, which stores
+                the header-to-page mapping.
         """
+
         self.pagename = pagename
         self.content = content
         self.filetype = filetype
@@ -36,38 +38,74 @@ class Page:
         self.segments = []
         self.tree_segments = []
         self.chunks = []
-        if filetype.lower() == "pdf" and page_path:
-            self.page_numbers = self.load_metadata_page_numbers(page_path)
-        else:
-            self.page_numbers = None
+        self.title_page_mapping = None
+        self.mapping_pointer = 0
+        if filetype.lower() == "pdf":
+            if mapping_json_path:
+                self.title_page_mapping = self.load_title_page_mapping(
+                    mapping_json_path
+                )
+                self.mapping_pointer = 0
 
-    def load_metadata_page_numbers(self, page_path: Path):
-        try:
-            with open(page_path, "r", encoding="utf-8") as f:
-                page_data = yaml.safe_load(f)
-            loaded_page_numbers = [
+    def load_title_page_mapping(self, mapping_json_path: Path) -> list:
+        """
+        Load the JSON mapping file.
+
+        Args:
+            mapping_json_path (Path): Path to the JSON file containing the header-to-page mapping.
+                Each entry in the file follows this structure:
                 {
-                    "page_num": page_info.get("page_num"),
-                    "start_line": page_info.get("start_line"),
+                    "type": "text",
+                    "text": "1. (8.0 points) What Would Python Display?",
+                    "text_level": 1,
+                    "page_idx": 0
                 }
-                for page_info in page_data.get("pages", [])
-            ]
-            print(f"Loaded page numbers: {loaded_page_numbers}")
-            return loaded_page_numbers
+
+        Returns:
+            list: A list of JSON mapping data.
+        """
+
+        try:
+            with open(mapping_json_path, "r", encoding="utf-8") as f:
+                mapping_data = json.load(f)
+            # print(f"Loaded title-page mapping: {mapping_data}")
+            return mapping_data
         except Exception as e:
-            print(f"Error reading metadata: {e}")
+            print(f"Error loading title page mapping: {e}")
             return []
+
+    def _get_page_num_for_title(self, header: str) -> Optional[int]:
+        """
+        Find the corresponding page number for a given header from the JSON mapping, searching only from the last matched position onward.
+
+        Args:
+            header (str): The header text parsed from the Markdown.
+
+        Returns:
+            Optional[int]: The corresponding page index if a match is found, otherwise None.
+        """
+
+        if not self.title_page_mapping:
+            return None
+
+        for i in range(self.mapping_pointer, len(self.title_page_mapping)):
+            entry = self.title_page_mapping[i]
+            if entry.get("text", "").strip() == header.strip():
+                self.mapping_pointer = i + 1
+                page_num = entry.get("page_idx") + 1
+                return page_num
+        return None
 
     def recursive_separate(self, response: str, token_limit: int = 400) -> list:
         """
-        Recursively separate a response into chunks based on token limit.
+        Recursively split the response into multiple paragraphs based on the token limit.
 
         Args:
-            response (str): The text response to be separated.
-            token_limit (int): Maximum number of tokens per chunk.
+            response (str): The text to be split.
+            token_limit (int): Maximum number of tokens per paragraph.
 
         Returns:
-            list: List of separated text chunks.
+            list: A list of split text segments.
         """
 
         def token_size(sentence: str) -> int:
@@ -113,8 +151,18 @@ class Page:
 
         return msg_list
 
-    def extract_headers_and_content(self, md_content):
-        def count_consecutive_hashes(s):
+    def extract_headers_and_content(self, md_content: str):
+        """
+        Extract headers and corresponding content from Markdown text while determining page numbers based on JSON mapping for PDF files.
+
+        Args:
+            md_content (str): Text content in Markdown format.
+
+        Returns:
+            list: A list of tuples where each element is ((header, page_num), content).
+        """
+
+        def count_consecutive_hashes(s: str) -> int:
             count = 0
             for char in s:
                 if char == "#":
@@ -129,47 +177,59 @@ class Page:
         in_code_block = False
         md_lines = md_content.split("\n")
 
-        current_page_num = (
-            self.page_numbers[0]["page_num"] if self.page_numbers else None
-        )
-        page_num_index = 1  # Start from the second page since we've assigned the first
-        total_pages = len(self.page_numbers) if self.page_numbers else 0
-
-        for line_num, line in enumerate(md_lines, start=1):
-            stripped_line = line.strip()
-
-            # Update current_page_num based on start_line
-            if self.page_numbers:
-                while (
-                    page_num_index < total_pages
-                    and line_num >= self.page_numbers[page_num_index]["start_line"]
-                ):
-                    current_page_num = self.page_numbers[page_num_index]["page_num"]
-                    page_num_index += 1
-            if "```" in stripped_line:
-                in_code_block = not in_code_block
-
-            if in_code_block:
-                if curheader:
+        if self.filetype.lower() == "pdf" and self.title_page_mapping is not None:
+            for line in md_lines:
+                stripped_line = line.strip()
+                if "```" in stripped_line:
+                    in_code_block = not in_code_block
+                if in_code_block:
                     current_content += f"{line}\n"
-            else:
-                if line.startswith("#"):  # Identify headers
-                    if curheader:  # Save the previous header and its content
-                        headers_content.append(
-                            ((curheader, current_page_num), current_content.strip())
-                        )
-                    header_level = count_consecutive_hashes(line)  # Count header level
-                    header = line.strip("#").strip()
-                    curheader = (header, header_level)  # Save the header and level
-                    current_content = ""  # Reset content
                 else:
-                    current_content += f"{line}\n"
+                    if line.startswith("#"):
+                        if curheader:
+                            page_num_for_header = self._get_page_num_for_title(
+                                curheader[0]
+                            )
+                            headers_content.append(
+                                (
+                                    (curheader, page_num_for_header),
+                                    current_content.strip(),
+                                )
+                            )
+                        header_level = count_consecutive_hashes(line)
+                        header = line.strip("#").strip()
+                        curheader = (header, header_level)
+                        current_content = ""
+                    else:
+                        current_content += f"{line}\n"
+            if curheader:
+                page_num_for_header = self._get_page_num_for_title(curheader[0])
+                headers_content.append(
+                    ((curheader, page_num_for_header), current_content.strip())
+                )
+        else:
+            for line in md_lines:
+                stripped_line = line.strip()
+                if "```" in stripped_line:
+                    in_code_block = not in_code_block
 
-        # Append the last header and its content, if there was any header encountered
-        if curheader:
-            headers_content.append(
-                ((curheader, current_page_num), current_content.strip())
-            )
+                if in_code_block:
+                    if curheader:
+                        current_content += f"{line}\n"
+                else:
+                    if line.startswith("#"):
+                        if curheader:
+                            headers_content.append(
+                                ((curheader, None), current_content.strip())
+                            )
+                        header_level = count_consecutive_hashes(line)
+                        header = line.strip("#").strip()
+                        curheader = (header, header_level)
+                        current_content = ""
+                    else:
+                        current_content += f"{line}\n"
+            if curheader:
+                headers_content.append(((curheader, None), current_content.strip()))
 
         return headers_content
 
@@ -178,15 +238,16 @@ class Page:
             i for i in self.extract_headers_and_content(self.content["text"])
         ]
         if not self.segments:
-            # LEVEL 0 for no header found
-            self.segments = [("(NO ANY HEADER DETECTED)", 0), self.content["text"]]
+            self.segments = [
+                ((("(NO ANY HEADER DETECTED)", 0), None), self.content["text"])
+            ]
 
-    def print_header_tree(self) -> object:
+    def print_header_tree(self) -> str:
         result = ""
         for (title, level), _ in self.segments:
             if level is not None:
                 indent = "--" * (level - 1)
-                result += f"{indent}{title}\n"
+                result += f"{indent}/{title}\n"
             else:
                 result += f"{title} (hUnknown)\n"
         return result
@@ -199,11 +260,17 @@ class Page:
             level = header[1]
             header_title = header[0]
             while len(header_stack) >= level:
-                header_stack.pop()
+                if header_stack:
+                    header_stack.pop()
+                else:
+                    logging.warning(
+                        "Header stack is empty, cannot pop. In file: %s", self.pagename
+                    )
+                    break
             header_stack.append(header_title)
             if not content.strip():
                 continue
-            segment_display = f"(Segment {counter})\n{'#' * level} {header_title} (h{level})\n{content.strip()}\n"
+            segment_display = f"\n{content.strip()}\n"
             page_toc = "(Table of Contents)\n" + self.print_header_tree() + "\n"
             tree_segment = {
                 "Page_table": page_toc,
@@ -217,70 +284,87 @@ class Page:
 
     def tree_segments_to_chunks(self):
         for segment in self.tree_segments:
-            segment_title = (
-                segment["Page_path"][-1] if segment["Page_path"] else "(NO TITLE)"
-            )
-            content_chunks = self.recursive_separate(segment["Segment_print"], 400)
+            header_list = segment["Page_path"]
+            print(f"header_list: {header_list}")
+            if len(header_list) > 1:
+                final_title = f"{header_list[-1]} < {' '.join(header_list[:-1])}"
+                print(f"final_title: {final_title}")
+            elif len(header_list) == 1:
+                final_title = header_list[0]
+                print(f"final_title: {final_title}")
+            else:
+                final_title = "(NO TITLE)"
+            splitted_contents = self.recursive_separate(segment["Segment_print"], 400)
             page_num = segment.get("page_num", None)
-            for count, content_chunk in enumerate(content_chunks):
-                headers = segment["Page_path"]
-                if self.page_url != "":
+
+            for content_chunk in splitted_contents:
+                if self.page_url:
                     if page_num is not None:
                         urls = f"{self.page_url}#page={page_num}"
                     else:
                         urls = self.page_url
                 else:
                     urls = ""
-                # if self.page_url and page_num:
-                #     urls = f"{self.page_url}#page={page_num}"
-                # else:
-                #     urls = "URL_NOT_AVAILABLE"
-                page_path = (
-                    " > ".join(
-                        f"{item} (h{i + 1})"
-                        for i, item in enumerate(segment["Page_path"])
-                    )
-                    + f" ({count})"
-                )
+
                 self.chunks.append(
                     Chunk(
                         content=content_chunk,
-                        titles=segment_title,
+                        titles=final_title,
                         chunk_url=urls,
-                        # metadata={"page_path": page_path},  # Include page_path in metadata
                         page_num=page_num,
+                        is_split=(len(splitted_contents) > 1),
                     )
                 )
+        # self.post_process_merge_short_chunks(400)
 
         return self.chunks
 
     def to_file(self, output_path: str) -> None:
-        """
-        Write the page content to a file.
-
-        Args:
-            output_path (str): The path where the file will be written.
-        """
-        with open(output_path, "w") as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             f.write(str(self))
 
     def to_chunk(self) -> None:
-        """
-        Convert the page content to a list of Chunk objects.
-
-        Returns:
-            list[Chunk]: List of Chunk objects.
-        """
         self.page_seperate_to_segments()
         self.tree_print()
         self.chunks = self.tree_segments_to_chunks()
+        # self.post_process_merge_short_chunks(short_chunk_token_threshold=400)
 
     def chunks_to_pkl(self, output_path: str) -> None:
-        """
-        Write the page content chunks to a pkl file.
-
-        Args:
-            output_path (str): The path where the pkl file will be written.
-        """
         with open(output_path, "wb") as f:
             pickle.dump(self.chunks, f)
+
+    def post_process_merge_short_chunks(
+        self, short_chunk_token_threshold: int = 50
+    ) -> None:
+        def token_size(text: str) -> int:
+            encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
+            return len(encoding.encode(text))
+
+        new_chunks = []
+        i = 0
+        while i < len(self.chunks):
+            current_chunk = self.chunks[i]
+            current_size = token_size(current_chunk.content)
+            if (
+                current_size < short_chunk_token_threshold
+                and not current_chunk.is_split
+                and (i + 1 < len(self.chunks))
+            ):
+                next_chunk = self.chunks[i + 1]
+                if not next_chunk.is_split:
+                    merged_content = current_chunk.content + "\n\n" + next_chunk.content
+                    merged_title = f"{current_chunk.titles} / {next_chunk.titles}"
+                    new_chunk = Chunk(
+                        content=merged_content,
+                        titles=merged_title,
+                        chunk_url=current_chunk.chunk_url,
+                        page_num=current_chunk.page_num,
+                        is_split=current_chunk.is_split,
+                    )
+                    print(f"merged_title: {merged_title}")
+                    new_chunks.append(new_chunk)
+                    i += 2
+                    continue
+            new_chunks.append(current_chunk)
+            i += 1
+        self.chunks = new_chunks

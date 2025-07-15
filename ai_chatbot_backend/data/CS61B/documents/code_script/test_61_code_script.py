@@ -1,5 +1,4 @@
-"""61B Code Script Example
-"""
+"""61B Code Script Example"""
 
 
 def factorial(n):

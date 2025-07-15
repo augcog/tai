@@ -229,7 +229,7 @@ def perform_rag(messages: List[Message], course: str) -> Any:
             "Immersive Computing and Virtual Reality using Unity",
         ],
         "Econ 140": ["Econ140.pkl", "Econometrics"],
-        "ROAR Academy": ["roar_academy.pkl", "ROAR Academy"],
+        "ROAR Academy": ["ROAR-Academy.pkl", "ROAR Academy"],
         "Multilingual Engagement": ["language.pkl", "Multilingual_Engagement"],
         "Default": ["Berkeley.pkl", "Berkeley"],
     }

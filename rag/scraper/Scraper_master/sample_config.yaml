@@ -9,6 +9,8 @@
 
 root_folder: "cs61atest"
 log_folder: "cs61atest_log"
+course_name: "The_Structure_and_Interpretation_of_Computer_Programs"
+course_id : "CS61A"
 tasks:
   - name: "course_website"
     local: True
@@ -16,7 +18,7 @@ tasks:
     driver_type: "request" # or "playwright"
     roots:
       - url: https://cs61a.org/
-        depth: 5
+        depth: 8
         scraper_type: general_scraper  # or "video_scraper"
       - url: https://www.youtube.com
         depth: 1

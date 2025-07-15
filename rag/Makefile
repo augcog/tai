@@ -104,38 +104,9 @@ dev-api: ## Start FastAPI development server
 	@echo "🚀 Starting RAG API server..."
 	$(POETRY) run uvicorn file_conversion_router.api:app --reload --port 8001
 
-# Testing with feature-specific tests
-test: ## Run basic tests for RAG components
-	@echo "🧪 Running basic RAG tests..."
-	$(PYTEST) -v -m "not slow and not cv and not ocr and not gpu" tests/
-
-test-all: ## Run all RAG tests (requires full installation)
-	@echo "🧪 Running all RAG tests..."
-	$(PYTEST) -v tests/
-
-test-unit: ## Run unit tests only for RAG
-	@echo "🧪 Running RAG unit tests..."
-	$(PYTEST) -v -m "unit" tests/
-
-test-integration: ## Run integration tests for RAG
-	@echo "🧪 Running RAG integration tests..."
-	$(PYTEST) -v -m "integration" tests/
-
-test-cv: ## Run computer vision tests (requires CV packages)
-	@echo "🧪 Running computer vision tests..."
-	$(PYTEST) -v -m "cv" tests/
-
-test-ocr: ## Run OCR tests (requires OCR packages)
-	@echo "🧪 Running OCR tests..."
-	$(PYTEST) -v -m "ocr" tests/
-
-test-ml: ## Run ML tests (requires ML packages)
-	@echo "🧪 Running ML tests..."
-	$(PYTEST) -v -m "not slow" --timeout=300 tests/
-
-test-slow: ## Run slow/heavy tests
-	@echo "🧪 Running slow tests (this may take a while)..."
-	$(PYTEST) -v -m "slow" --timeout=1800 tests/
+test: ## Run all tests
+	@echo "🧪 Running all tests..."
+	$(PYTEST) tests
 
 # Code quality
 lint: ## Run linting checks on RAG files only

@@ -1,14 +1,14 @@
 from typing import List
 
-from rag.file_conversion_router.embedding_optimization.src.tasks.base_tasks import (
+from file_conversion_router.embedding_optimization.src.tasks.base_tasks import (
     BaseTask,
 )
 
-from rag.file_conversion_router.classes.chunk import Chunk
-from rag.file_conversion_router.embedding_optimization.src.models.base_model import (
+from file_conversion_router.classes.chunk import Chunk
+from file_conversion_router.embedding_optimization.src.models.base_model import (
     BaseModel,
 )
-from rag.file_conversion_router.embedding_optimization.src.tasks.composed_task import (
+from file_conversion_router.embedding_optimization.src.tasks.composed_task import (
     ComposedTask,
 )
 

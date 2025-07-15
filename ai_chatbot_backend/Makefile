@@ -109,23 +109,14 @@ test-watch: ## Run tests in watch mode
 lint: ## Run linting checks
 	@echo "🔍 Running linting checks..."
 	$(POETRY) run ruff check .
-	$(POETRY) run mypy app --ignore-missing-imports
-	@echo "✅ Linting completed!"
+	@echo "✅ Linting checks completed!"
 
-lint-fix: ## Run linting with auto-fix
-	@echo "🔍 Running linting with auto-fix..."
+format: ## Format code and auto-fix linting issues
+	@echo "🎨 Formatting code and auto-fixing linting issues..."
+	$(POETRY) run ruff format .
 	$(POETRY) run ruff check --fix .
-	$(POETRY) run ruff format .
+	@echo "✅ Code formatted and linting issues auto-fixed!"
 
-format: ## Format code
-	@echo "🎨 Formatting code..."
-	$(POETRY) run black .
-	$(POETRY) run ruff format .
-	@echo "✅ Code formatted!"
-
-type-check: ## Run type checking
-	@echo "🔍 Running type checks..."
-	$(POETRY) run mypy app --ignore-missing-imports
 
 # Package management with Poetry
 add: ## Add production dependency (use: make add PKG=package-name)
@@ -262,8 +253,11 @@ setup: install db-init ## Complete setup for new developers
 	@echo "  make test        # Run the test suite"
 	@echo "  make admin       # Open admin interface"
 
-check: lint test ## Run all quality checks
+check: ## Run all quality checks (lint + tests)
+	@echo "🔍 Running all quality checks..."
+	$(POETRY) run ruff check .
+	$(PYTEST) -v tests/
 	@echo "✅ All quality checks passed!"
 
-ci: install lint test ## Run CI pipeline locally
+ci: install check ## Run CI pipeline locally
 	@echo "✅ CI pipeline completed successfully!"

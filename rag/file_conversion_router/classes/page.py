@@ -306,7 +306,6 @@ class Page:
                         content=content_chunk,
                         titles=final_title,
                         chunk_url=urls,
-                        page_num=page_num,
                         is_split=(len(split_contents) > 1),
                     )
                 )
@@ -353,7 +352,6 @@ class Page:
                         content=merged_content,
                         titles=merged_title,
                         chunk_url=current_chunk.chunk_url,
-                        page_num=current_chunk.page_num,
                         is_split=current_chunk.is_split,
                     )
                     print(f"merged_title: {merged_title}")

@@ -68,7 +68,7 @@ templates = Jinja2Templates(directory="templates")
 # setup_admin(app)
 
 # Include only basic API routes (skip model-dependent ones)
-from app.api.routes import files, file_metadata, problems, courses
+from app.api.routes import files, problems, courses
 from fastapi import APIRouter
 
 # Create a minimal API router with only basic endpoints
@@ -76,7 +76,6 @@ minimal_api_router = APIRouter()
 
 # Include only the routes that don't depend on models
 minimal_api_router.include_router(files.router, prefix="/files", tags=["files"])
-minimal_api_router.include_router(file_metadata.router, prefix="/file-metadata", tags=["file-metadata"])
 minimal_api_router.include_router(problems.router, prefix="/problems", tags=["problems"])
 minimal_api_router.include_router(courses.router, prefix="/courses", tags=["courses"])
 

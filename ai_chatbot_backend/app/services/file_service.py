@@ -302,6 +302,11 @@ class FileService:
             "last_updated": datetime.now(),
         }
 
+    @staticmethod
+    def get_file_metadata_by_name(db: Session, file_name: str) -> Optional[FileMetadataModel]:
+        """Get file metadata by file name"""
+        return db.query(FileMetadataModel).filter(FileMetadataModel.file_name == file_name).first()
+
 
 # Global service instance
 file_service = FileService()

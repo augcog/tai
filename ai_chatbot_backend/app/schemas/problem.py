@@ -74,4 +74,39 @@ class ProblemListParams(BaseModel):
     file_uuid: Optional[str] = Field(None, description="Filter by file UUID")
     search: Optional[str] = Field(None, description="Search in question text")
     page: int = Field(1, ge=1, description="Page number")
-    limit: int = Field(100, ge=1, le=1000, description="Items per page") 
+    limit: int = Field(100, ge=1, le=1000, description="Items per page")
+
+
+class ProblemsByFileNameListResponse(BaseModel):
+    """Response for problems by file name query"""
+    file_name: str = Field(..., description="File name")
+    problems: List[ProblemDetail] = Field(..., description="List of problems for this file")
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "file_name": "test_file.py",
+                "problems": [
+                    {
+                        "uuid": "550e8400-e29b-41d4-a716-446655440001",
+                        "file_uuid": "550e8400-e29b-41d4-a716-446655440000",
+                        "problem_index": "1.1",
+                        "problem_id": "PROB001",
+                        "question": "What is the capital of France?",
+                        "choices": ["Berlin", "Paris", "London"],
+                        "answer": 1,
+                        "explanation": "Paris is the capital of France."
+                    },
+                    {
+                        "uuid": "550e8400-e29b-41d4-a716-446655440002",
+                        "file_uuid": "550e8400-e29b-41d4-a716-446655440000",
+                        "problem_index": "1.2",
+                        "problem_id": "PROB002",
+                        "question": "What is 2 + 2?",
+                        "choices": ["3", "4", "5"],
+                        "answer": 1,
+                        "explanation": "2 + 2 = 4."
+                    }
+                ]
+            }
+        }

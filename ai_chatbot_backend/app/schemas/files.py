@@ -158,3 +158,26 @@ class FileListParams(BaseModel):
                 "limit": 50,
             }
         }
+
+class PracticeConversation(BaseModel):
+    """Conversation model for vs code extension"""
+    """
+    TODO: add needed input for conversation. dont forget to add config
+    """
+    course: Optional[str] = Field(None, description="Filter by course")
+    category: Optional[str] = Field(None, description="Filter by category")
+    search: Optional[str] = Field(None, description="Search in filename and title")
+    page: int = Field(1, ge=1, description="Page number")
+    limit: int = Field(100, ge=1, le=1000, description="Items per page")
+
+
+class PracticeResponse(BaseModel):
+    """response model for vs code extension"""
+    """
+    TODO: add needed input for conversation. dont forget to add config
+    """
+    course: Optional[str] = Field(None, description="Filter by course")
+    category: Optional[str] = Field(None, description="Filter by category")
+    search: Optional[str] = Field(None, description="Search in filename and title")
+    page: int = Field(1, ge=1, description="Page number")
+    limit: int = Field(100, ge=1, le=1000, description="Items per page")

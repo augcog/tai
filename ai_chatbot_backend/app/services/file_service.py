@@ -18,6 +18,7 @@ from sqlalchemy import and_
 
 from app.config import settings
 from app.core.models.files import FileRegistry
+from app.core.models.file_metadata import FileMetadataModel
 
 
 class FileService:

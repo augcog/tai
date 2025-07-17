@@ -17,9 +17,8 @@ class ProblemService:
     def get_problems_by_file_uuid(db: Session, file_uuid: str) -> List[ProblemModel]:
         """Get all problems for a specific file"""
         try:
-            file_uuid_obj = uuid.UUID(file_uuid)
             return db.query(ProblemModel).filter(
-                ProblemModel.file_uuid == file_uuid_obj
+                ProblemModel.file_uuid == file_uuid
             ).all()
         except ValueError:
             return []

@@ -17,7 +17,7 @@ from fastapi.templating import Jinja2Templates
 from app.admin import setup_admin
 from app.api.router import api_router
 from app.config import settings  # Import the configuration
-from app.core.database import Base, engine
+from app.core.database import Base, engine, PracticeBase, practice_engine
 
 # Import the new database initializer
 from app.core.db_initializer import initialize_database_on_startup
@@ -45,6 +45,7 @@ else:
 
 # Fallback table creation (in case the initializer doesn't work)
 Base.metadata.create_all(bind=engine)
+PracticeBase.metadata.create_all(bind=practice_engine)
 
 # Initialize model pipeline once at startup
 print("\n🤖 Initializing AI model pipeline...")

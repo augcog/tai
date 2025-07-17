@@ -2,7 +2,7 @@
 Problem schemas for API requests and responses
 """
 
-from typing import List, Optional
+from typing import List, Optional, Union
 from pydantic import BaseModel, Field
 from uuid import UUID
 from datetime import datetime
@@ -76,11 +76,25 @@ class ProblemListParams(BaseModel):
     page: int = Field(1, ge=1, description="Page number")
     limit: int = Field(100, ge=1, le=1000, description="Items per page")
 
+class ProblemDetail(BaseModel):
+    """Problem detail for response"""
+    uuid: str = Field(..., description="Problem UUID")
+    file_uuid: str = Field(..., description="File UUID")
+    problem_index: Optional[Union[str, float]] = Field(None, description="Problem index")
+    problem_id: Optional[str] = Field(None, description="Problem ID")
+    problem_content: Optional[str] = Field(None, description="Problem content")
+    question_id: Optional[int] = Field(None, description="Question ID")
+    question: str = Field(..., description="Question text")
+    choices: List[str] = Field(..., description="List of choices")
+    answer: List[int] = Field(..., description="Correct answer indices (multi-select)")
+    explanation: Optional[str] = Field(None, description="Answer explanation")
+
 
 class ProblemsByFileNameListResponse(BaseModel):
     """Response for problems by file name query"""
     file_name: str = Field(..., description="File name")
     problems: List[ProblemDetail] = Field(..., description="List of problems for this file")
+    file_uuid: UUID = Field(..., description="File UUID")
 
     class Config:
         json_schema_extra = {

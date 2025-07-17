@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, Path, status
 from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.api.deps import verify_api_token
-from app.schemas.files import FileMetadata, FileListResponse, FileStatsResponse, PracticeConversation
+from app.schemas.files import FileMetadata, FileListResponse, FileStatsResponse, PracticeConversation, PracticeResponse
 from app.services.file_service import file_service
 
 router = APIRouter()
@@ -143,7 +143,7 @@ async def get_file_stats(
             detail=f"Error getting stats: {str(e)}",
         )
 
-@router.post("/practice", response_model=PracticeResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/practice", response_model=PracticeResponse, summary = "Get ai response for given practice conversation")
 async def generate_practice(
         metadata_data: PracticeConversation,
         db: Session = Depends(get_db),

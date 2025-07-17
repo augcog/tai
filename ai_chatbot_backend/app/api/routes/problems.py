@@ -5,8 +5,8 @@ Problem API routes
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
-from app.core.database import get_db
-from app.schemas.problem import ProblemsByFileNameListResponse
+from app.core.database import get_practice_db
+from app.schemas.problem import ProblemsByFileNameListResponse, ProblemDetail
 from app.services.file_service import FileService
 from app.services.problem_service import ProblemService
 from app.api.deps import verify_api_token
@@ -40,4 +40,4 @@ def get_problems_by_file_name(file_name: str, db: Session = Depends(get_db), _: 
         )
         for problem in problems
     ]
-    return ProblemsByFileNameListResponse(file_name=file_name, problems=problem_details)
+    return ProblemsByFileNameListResponse(file_name=file_name, problems=problem_details, file_uuid=metadata.uuid)

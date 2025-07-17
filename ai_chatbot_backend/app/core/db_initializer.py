@@ -21,7 +21,7 @@ import logging
 from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import sessionmaker
 
-from app.core.database import Base, SQLALCHEMY_DATABASE_URL
+from app.core.database import Base, SQLALCHEMY_DATABASE_URL, PracticeBase, PRACTICE_DATABASE_URL
 from app.core.models.courses import CourseModel
 from app.core.models.files import FileRegistry
 
@@ -36,6 +36,12 @@ class DatabaseInitializer:
         self.data_dir = Path(data_dir)
         self.engine = create_engine(
             SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+        )
+        self.practice_engine = create_engine(
+            PRACTICE_DATABASE_URL, connect_args={"check_same_thread": False}
+        )
+        self.PracticeSessionLocal = sessionmaker(
+            autocommit=False, autoflush=False, bind=self.practice_engine
         )
         self.SessionLocal = sessionmaker(
             autocommit=False, autoflush=False, bind=self.engine
@@ -82,6 +88,7 @@ class DatabaseInitializer:
         try:
             logger.info("🏗️  Creating database tables...")
             Base.metadata.create_all(bind=self.engine)
+            PracticeBase.metadata.create_all(bind=self.practice_engine)
 
             # Verify tables were created
             inspector = inspect(self.engine)

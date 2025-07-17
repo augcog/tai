@@ -11,7 +11,7 @@ from fastapi.templating import Jinja2Templates
 # Skip admin for now to avoid model dependencies
 # from app.admin import setup_admin
 from app.config import settings
-from app.core.database import Base, engine
+from app.core.database import Base, engine, PracticeBase, practice_engine
 
 # Import the new database initializer
 from app.core.db_initializer import initialize_database_on_startup
@@ -34,6 +34,7 @@ else:
 
 # Fallback table creation (in case the initializer doesn't work)
 Base.metadata.create_all(bind=engine)
+PracticeBase.metadata.create_all(bind=practice_engine)
 
 print("\n🤖 Skipping AI model pipeline initialization...")
 print("💡 Model-dependent endpoints may not work, but basic API will be available.")

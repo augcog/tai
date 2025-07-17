@@ -10,7 +10,7 @@ from uuid import uuid4
 class TestProblemEndpoints:
     """Test problem API endpoints"""
 
-    def test_create_problem_success(self, client: TestClient, db_session: Session):
+    def test_create_problem_success(self, client: TestClient, practice_db_session: Session):
         """Test successful problem creation"""
         problem_data = {
             "question": "What is the correct value?",
@@ -30,7 +30,7 @@ class TestProblemEndpoints:
         assert "uuid" in data
         assert "created_at" in data
 
-    def test_create_problem_invalid_answer(self, client: TestClient, db_session: Session):
+    def test_create_problem_invalid_answer(self, client: TestClient, practice_db_session: Session):
         """Test problem creation with invalid answer index"""
         problem_data = {
             "question": "What is the correct value?",
@@ -43,7 +43,7 @@ class TestProblemEndpoints:
         assert response.status_code == 400
         assert "Answer index must be less than the number of choices" in response.json()["detail"]
 
-    def test_get_problem_success(self, client: TestClient, db_session: Session):
+    def test_get_problem_success(self, client: TestClient, practice_db_session: Session):
         """Test successful problem retrieval"""
         # Create a problem first
         problem_data = {
@@ -63,13 +63,13 @@ class TestProblemEndpoints:
         assert data["question"] == problem_data["question"]
         assert data["choices"] == problem_data["choices"]
 
-    def test_get_problem_not_found(self, client: TestClient, db_session: Session):
+    def test_get_problem_not_found(self, client: TestClient, practice_db_session: Session):
         """Test getting non-existent problem"""
         response = client.get(f"/api/v1/problems/{uuid4()}")
         assert response.status_code == 404
         assert "Problem not found" in response.json()["detail"]
 
-    def test_list_problems(self, client: TestClient, db_session: Session):
+    def test_list_problems(self, client: TestClient, practice_db_session: Session):
         """Test problem listing"""
         # Create some problems
         problems_data = [
@@ -102,7 +102,7 @@ class TestProblemEndpoints:
         assert "has_next" in data
         assert "has_prev" in data
 
-    def test_update_problem_success(self, client: TestClient, db_session: Session):
+    def test_update_problem_success(self, client: TestClient, practice_db_session: Session):
         """Test successful problem update"""
         # Create a problem first
         problem_data = {
@@ -130,7 +130,7 @@ class TestProblemEndpoints:
         assert data["answer"] == update_data["answer"]
         assert data["explanation"] == update_data["explanation"]
 
-    def test_delete_problem_success(self, client: TestClient, db_session: Session):
+    def test_delete_problem_success(self, client: TestClient, practice_db_session: Session):
         """Test successful problem deletion"""
         # Create a problem first
         problem_data = {
@@ -150,7 +150,7 @@ class TestProblemEndpoints:
         get_response = client.get(f"/api/v1/problems/{problem_uuid}")
         assert get_response.status_code == 404
 
-    def test_validate_answer_correct(self, client: TestClient, db_session: Session):
+    def test_validate_answer_correct(self, client: TestClient, practice_db_session: Session):
         """Test answer validation with correct answer"""
         # Create a problem first
         problem_data = {
@@ -171,7 +171,7 @@ class TestProblemEndpoints:
         assert data["correct_answer"] == 1
         assert data["explanation"] == "Option B is correct because..."
 
-    def test_validate_answer_incorrect(self, client: TestClient, db_session: Session):
+    def test_validate_answer_incorrect(self, client: TestClient, practice_db_session: Session):
         """Test answer validation with incorrect answer"""
         # Create a problem first
         problem_data = {
@@ -192,7 +192,7 @@ class TestProblemEndpoints:
         assert data["correct_answer"] == 1
         assert data["explanation"] == "Option B is correct because..."
 
-    def test_get_problems_by_uuids(self, client: TestClient, db_session: Session):
+    def test_get_problems_by_uuids(self, client: TestClient, practice_db_session: Session):
         """Test getting multiple problems by UUIDs"""
         # Create problems
         problems_data = [

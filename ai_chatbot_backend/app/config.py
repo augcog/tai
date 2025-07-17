@@ -59,6 +59,9 @@ class Settings(BaseSettings):
     # Database configuration
     DATABASE_URL: str = Field(description="Database connection URL. Defaults to SQLite in project root.")
 
+    # Practice Database configuration
+    PRACTICE_DATABASE_URL: str = Field(description="Practice Database connection URL. Defaults to SQLite in project root.")
+
     # Server configuration
     HOST: str = Field(default="127.0.0.1", description="Server host address")
     PORT: int = Field(default=8000, description="Server port")

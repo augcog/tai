@@ -121,6 +121,7 @@ class FileService:
                     relative_path=relative_path,
                     mime_type=mime_type,
                     size_bytes=file_stat.st_size,
+                    is_active=True,
                     **metadata,
                 )
 
@@ -183,7 +184,7 @@ class FileService:
         self._auto_discover_files(db)
 
         # Build query
-        query = db.query(FileRegistry)
+        query = db.query(FileRegistry).filter(FileRegistry.is_active == True)
 
         # Apply simple, essential filters only
         filter_conditions = []
@@ -237,7 +238,7 @@ class FileService:
         """Get file by UUID with validation"""
         return (
             db.query(FileRegistry)
-            .filter(and_(FileRegistry.id == file_id))
+            .filter(and_(FileRegistry.id == file_id, FileRegistry.is_active == True))
             .first()
         )
 
@@ -278,7 +279,7 @@ class FileService:
         self._auto_discover_files(db)
 
         total_files = (
-            db.query(FileRegistry).count()
+            db.query(FileRegistry).filter(FileRegistry.is_active == True).count()
         )
 
         # Get course breakdown
@@ -289,7 +290,7 @@ class FileService:
                 FileRegistry.course_code, func.count(FileRegistry.id).label("count")
             )
             .filter(
-                FileRegistry.course_code.isnot(None)
+                FileRegistry.is_active == True, FileRegistry.course_code.isnot(None)
             )
             .group_by(FileRegistry.course_code)
             .all()

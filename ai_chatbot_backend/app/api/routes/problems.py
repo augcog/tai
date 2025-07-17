@@ -14,7 +14,7 @@ from app.api.deps import verify_api_token
 router = APIRouter(prefix="/problems")
 
 @router.get("/by-name/{file_name}", response_model=ProblemsByFileNameListResponse)
-def get_problems_by_file_name(file_name: str, db: Session = Depends(get_db), _: bool = Depends(verify_api_token)):
+def get_problems_by_file_name(file_name: str, db: Session = Depends(get_practice_db), _: bool = Depends(verify_api_token)):
     """Get problems by file name"""
     metadata = FileService.get_file_metadata_by_name(db, file_name)
     if not metadata:

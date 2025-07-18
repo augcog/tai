@@ -4,6 +4,7 @@ from app.api.routes import (
     courses,
     file_completions,
     files,
+    problems,
 )
 from fastapi import APIRouter
 
@@ -32,3 +33,5 @@ api_router.include_router(courses.router, prefix="/courses", tags=["courses"])
 # Files management
 api_router.include_router(files.router, prefix="/files", tags=["files"])
 
+# Problems management
+api_router.include_router(problems.router, prefix="/problems", tags=["problems"])

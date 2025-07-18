@@ -96,7 +96,6 @@ class FileService:
             )
 
             # Get file stats
-            file_stat = file_path.stat()
             mime_type, _ = mimetypes.guess_type(str(file_path))
             if not mime_type:
                 mime_type = "application/octet-stream"
@@ -298,6 +297,11 @@ class FileService:
             "courses": {code: count for code, count in course_stats},
             "last_updated": datetime.now(),
         }
+
+    @staticmethod
+    def get_file_metadata_by_name(db: Session, file_name: str) -> Optional[FileModel]:
+        """Get file metadata by file name"""
+        return db.query(FileModel).filter(FileModel.file_name == file_name).first()
 
 
 # Global service instance

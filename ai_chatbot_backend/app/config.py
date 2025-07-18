@@ -65,7 +65,6 @@ class Settings(BaseSettings):
         default=True, 
         description="Whether to use MongoDB for cloud data storage"
     )
-    
     # Server configuration
     HOST: str = Field(default="127.0.0.1", description="Server host address")
     PORT: int = Field(default=8000, description="Server port")

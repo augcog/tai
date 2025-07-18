@@ -5,8 +5,8 @@ from sqlalchemy.orm import sessionmaker
 """
     TODO: merge practice db and course db together
 """
-# Database configuration - use same database as metadata
-COURSE_DATABASE_URL = "sqlite:///./db/metadata.db"
+# Database configuration - separate courses database
+COURSE_DATABASE_URL = "sqlite:///./db/courses.db"
 
 engine = create_engine(
     COURSE_DATABASE_URL, connect_args={"check_same_thread": False}

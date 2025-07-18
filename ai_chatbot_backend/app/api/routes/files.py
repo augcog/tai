@@ -142,3 +142,4 @@ async def get_file_stats(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error getting stats: {str(e)}",
         )
+

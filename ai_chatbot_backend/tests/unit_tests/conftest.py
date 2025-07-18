@@ -42,6 +42,7 @@ def db_session():
         Base.metadata.drop_all(bind=engine)
 
 
+
 @pytest.fixture
 def client_unit(db_session):
     """Create a test client with database session and authentication."""

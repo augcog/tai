@@ -29,6 +29,3 @@ def convert_directory(
         cache_path=cache_path,
     )
 
-# convert_directory("/home/bot/bot/yk/YK_final/test_folder/roar_test/pdf", "/home/bot/bot/yk/YK_final/test_folder/roar_test/pdf_output", "test_course", "test_course_id", cache_path="/home/bot/bot/yk/YK_final/test_folder/roar_test/pdf")
-convert_directory("/home/bot/bot/yk/YK_final/test_folder/roar_test", "/home/bot/bot/yk/YK_final/test_folder/roar_test_output", "test_course", "test_course_id",cache_path="/home/bot/bot/yk/YK_final/test_folder/roar_test_output")
-# convert_directory("/home/bot/bot/yk/YK_final/courses/ROAR-Academy", "/home/bot/bot/yk/YK_final/output/ROAR-Academy_output", course_name="ROAR", course_id="ROAR")

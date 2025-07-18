@@ -94,10 +94,10 @@ Examples:
         print("🗑️  Clearing existing databases...")
         try:
             # Remove database files
-            from app.core.dbs.course_db import SQLALCHEMY_DATABASE_URL
+            from app.core.dbs.course_db import COURSE_DATABASE_URL
             from app.core.dbs.metadata_db import METADATA_DATABASE_URL
             
-            courses_db_path = Path(SQLALCHEMY_DATABASE_URL.replace("sqlite:///", ""))
+            courses_db_path = Path(COURSE_DATABASE_URL.replace("sqlite:///", ""))
             metadata_db_path = Path(METADATA_DATABASE_URL.replace("sqlite:///", ""))
             
             if courses_db_path.exists():

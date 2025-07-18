@@ -19,12 +19,15 @@ class VidPage(Page):
                 timestamp_list = self.content['timestamp']
                 timestamp = timestamp_list[n]
             # TODO: only add start time and add url as separate field self.url and self.chunk_index
-                url = f"{self.page_url}&t={float(timestamp)}"
+                if len(self.page_url) > 0 and timestamp is not None:
+                    url_with_time = f"{self.page_url}&t={float(timestamp)}"
+                else:
+                    url_with_time = " "
                 self.chunks.append(
                     Chunk(
                         content=content_chunk,
                         titles=merged_title,
-                        chunk_url=url,
+                        chunk_url=url_with_time,
                         page_num=segment.get("page_num", None),
                         is_split=is_split_flag,
                     )

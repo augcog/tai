@@ -10,7 +10,7 @@ from typing import Dict, List, Union
 
 import yaml
 from file_conversion_router.classes.chunk import Chunk
-from file_conversion_router.classes.page import Page
+from file_conversion_router.classes.new_page import Page
 from file_conversion_router.classes.vidpage import VidPage
 from file_conversion_router.embedding_optimization.src.pipeline.optimizer import (
     EmbeddingOptimizer,
@@ -71,9 +71,9 @@ class BaseConverter(ABC):
 
         self.cache = ConversionCache
 
-        if optimizer_config_path is None:
-            optimizer_config_path = self.DEFAULT_EMBEDDING_OPTIMIZATION_CONFIG_PATH
-        self.optimizer_config_path = optimizer_config_path
+        # if optimizer_config_path is None:
+        #     optimizer_config_path = self.DEFAULT_EMBEDDING_OPTIMIZATION_CONFIG_PATH
+        # self.optimizer_config_path = optimizer_config_path
 
         if optimizer_config_path:
             config_path = Path(optimizer_config_path)
@@ -95,7 +95,7 @@ class BaseConverter(ABC):
 
     @conversion_logger
     def convert(
-        self, input_path: Union[str, Path], output_folder: Union[str, Path]
+        self, input_path: Union[str, Path], output_folder: Union[str, Path], input_root: Union[str, Path] = None
     ) -> None:
         """Convert an input file to 3 files: Markdown, tree txt, and pkl file, under the output folder.
 
@@ -106,7 +106,10 @@ class BaseConverter(ABC):
                 - 'path/to/output_folder/file.md'
                 - 'path/to/output_folder/file.md.tree.txt'
                 - 'path/to/output_folder/file.md.pkl'
+            input_root: The root folder of the input file, used to calculate the relative path of the input file.
         """
+        self.file_name=input_path.name
+        self.relatice_path = input_path.relative_to(input_root)
         input_path, output_folder = ensure_path(input_path), ensure_path(output_folder)
         if not input_path.exists():
             self._logger.error(f"The file {input_path} does not exist.")
@@ -174,6 +177,8 @@ class BaseConverter(ABC):
         """Set up the output paths for the Markdown, tree txt, and pkl files."""
         input_path = ensure_path(input_path)
         output_folder = ensure_path(output_folder)
+        self.file_name = input_path.name
+        # self.relatice_path = input_path.relative_to(output_folder)
         self._md_path = ensure_path(output_folder / f"{input_path.stem}.md")
         # TODO: current MarkdownParser does not support custom output paths,
         #  below paths are only used for caching purposes at the moment,
@@ -194,6 +199,7 @@ class BaseConverter(ABC):
             file_hash, str(input_path), paths, conversion_time
         )
         logger.info(f"cached into {self.cache._cache_file_path}")
+        return paths
 
     def _use_cached_files(self, cached_paths: List[Path], output_folder: Path) -> None:
         """Use cached files and copy them to the specified output folder, avoiding self-copying."""
@@ -250,32 +256,16 @@ class BaseConverter(ABC):
             logger.warning(
                 f"Output folder did not exist, it's now created: {output_folder}"
             )
-        filename = output_folder.stem
-        pkl_output_path = output_folder / f"{filename}.pkl"
         logger.info(f"📄 Expected Markdown Path: {self._md_path}")
-        logger.info(f"🛠️ Expected Pickle Path: {pkl_output_path}")
+        logger.info(f"🛠️ Expected Pickle Path: {self._pkl_path}")
         # try:
-        page = self._convert_to_page(input_path, pkl_output_path)
+        page = self._to_page(input_path, self._md_path)
         logger.info("✅ Page conversion successful.")
         # TODO: when chunks are created, instead of save them to pkl, create data base in base_converter.py and save them to database. Consider it is in thead to avoid blocking other addding tasks.
         page.to_chunk()
         logger.info("✅ Successfully converted page content to chunks.")
-        # except Exception as e:
-        #     logger.error(f"❌ ERROR during processing: {e}", exc_info=True)
 
-        # Add embedding optimization if enabled
-        if self.optimizer:
-            # Handle Markdown Optimization
-            original_content = page.content.get("text", "")
-            self._optimize_markdown_content(page, original_content)
-
-            # Handle Chunk Optimization
-            combined_chunks = self._optimize_chunks(page.chunks)
-            page.chunks = combined_chunks
-
-        if self._check_page_content(page, input_path):
-            logger.info(f"📝 Saving Pickle to {pkl_output_path}")
-            page.chunks_to_pkl(str(pkl_output_path))
+        page.chunks_to_pkl(str(self._pkl_path))
 
     def _optimize_markdown_content(self, page: Page, original_content: str) -> None:
         """Optimize the Markdown content and combine enhanced and original versions."""
@@ -322,17 +312,8 @@ class BaseConverter(ABC):
                 content=combined_chunk_content,
                 titles=original_chunk.titles,
                 chunk_url=original_chunk.chunk_url,
-                metadata={
-                    **(original_chunk.metadata or {}),
-                    "enhanced": True,
-                    "original_chunk_url": original_chunk.chunk_url,  # Preserve original URL if needed
-                },
-                page_num=original_chunk.page_num if original_chunk.page_num else None,
             )
             combined_chunks.append(combined_chunk)
-
-            # self._logger.info(f"Combined enhanced and original chunk for URL: {original_chunk.page_num}")
-
         return combined_chunks
 
     def _check_page_content(self, page: Page, input_path: Path) -> bool:
@@ -363,50 +344,26 @@ class BaseConverter(ABC):
         self.file_type = input_path.suffix.lstrip(".")
         md_path = self._to_markdown(input_path, output_path)
         metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
-        # with open(md_path, "r", encoding="utf-8") as md_file:
-        #     structured_md = md_file.read()
-
         structured_md, content_dict = self.apply_markdown_structure(input_md_path=md_path, file_type=self.file_type)
         with open(md_path, "w", encoding="utf-8") as md_file:
             md_file.write(structured_md)
-        page_path = output_path.with_name(f"{stem}_content_list.json")
         metadata_content = self._read_metadata(metadata_path)
         metadata_content={'URL': metadata_content.get('URL', '')}
-        metadata=self._put_content_dict_to_metadata(
+        metadata = self._put_content_dict_to_metadata(
             content_dict=content_dict,
             metadata_content=metadata_content,
         )
         with open(metadata_path, "w", encoding="utf-8") as yaml_file:
             yaml.safe_dump(metadata, yaml_file, allow_unicode=True)
-
-        # TODO: check to combine page and videopage with index_helper as passed in metadata
-        # return Page(
-        #         metadata=metadata_content,
-        #         content=structured_md,
-        #         index_helper=self.index_helper
-        #     )
         url = metadata_content.get("URL")
-        if self.file_type == "mp4":
-            timestamp = []
-            for i in self.paragraphs:
-                if isinstance(i, dict) and 'start_time' in i:
-                    timestamp.append(i['start_time'])
-                else:
-                    timestamp.append(0.0)
-
-            content = {"text": structured_md, "timestamp": timestamp}
-            return VidPage(
-                pagename=stem, content=content, filetype=self.file_type, page_url=url
-            )
-        else:
-            content = {"text": structured_md}
-            return Page(
-                pagename=stem,
-                content=content,
-                filetype=self.file_type,
-                page_url=url,
-                mapping_json_path=page_path,
-            )
+        content = {"text": structured_md}
+        return Page(
+            filetype=self.file_type,
+            content=content,
+            page_name=stem,
+            page_url=url,
+            index_helper=self.index_helper,
+        )
 
     def _put_content_dict_to_metadata(self, content_dict: dict, metadata_content: dict) -> dict:
         metadata_content["sections"] = content_dict['key_concepts']
@@ -417,8 +374,10 @@ class BaseConverter(ABC):
             section["aspects"] = section.pop('content_coverage')
             for aspect in section["aspects"]:
                 aspect["type"] = aspect.pop('aspect')
-        metadata_content["file_name"] = self._md_path.stem
-        metadata_content['file_ path'] = str(self._md_path)
+        metadata_content["file_name"] = str(self.file_name)
+        metadata_content['file_path'] = str(self.relatice_path)
+        metadata_content["course_name"] = self.course_name
+        metadata_content["course_id"] = self.course_id
         if self.file_type == "ipynb":
             metadata_content["problems"] = self.process_problems(content_dict)
         return metadata_content
@@ -475,7 +434,9 @@ class BaseConverter(ABC):
                 level = line.count("#")
                 title = line.lstrip("#").strip()
                 if title.startswith('*'):
-                    title = title.lstrip('*').strip().rstrip('*').strip()
+                    title = title.lstrip('*').rstrip('*').strip()
+                if not title:
+                    continue
                 titles_with_levels.append({"title": title, "level_of_title": level})
         content_dict["titles_with_levels"] = titles_with_levels
         return content_dict
@@ -494,9 +455,8 @@ class BaseConverter(ABC):
                 twl_index += 1
                 if twl_index >= len(titles_with_levels):
                     break
-        assert (twl_index == len(titles_with_levels)), (
-            f"twl_index: {twl_index} != len(titles_with_levels): {len(titles_with_levels)}"
-        )
+        if len(index_helper) != len(titles_with_levels):
+            raise AssertionError(f"twl_index: {twl_index} != len(titles_with_levels): {len(titles_with_levels)}")
         self.index_helper = index_helper
 
     def apply_markdown_structure(
@@ -593,6 +553,7 @@ class BaseConverter(ABC):
         for item, level_info in zip(self.index_helper, titles_with_levels):
             title = list(item.keys())[0].strip()
             index = list(item.values())[0]
+            level_info["title"]=level_info["title"].strip()
             assert(title == level_info["title"]), (
                 f"Title mismatch: {title} != {level_info['title']}"
             )
@@ -600,8 +561,9 @@ class BaseConverter(ABC):
             target_index = level - 1
             path_stack = path_stack[:target_index]
             path_stack.append(title)
-            path = ">".join(path_stack)
+            path = " > ".join(path_stack)
             result[path] = index
+
         self.index_helper = result
 
 

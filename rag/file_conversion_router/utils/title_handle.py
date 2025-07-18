@@ -73,7 +73,8 @@ def get_strutured_content_for_ipynb(
                                 "type": "object",
                                 "properties": {
                                     "concepts": {"type": "string"},
-                                    "source_section_title": {"type": "string"},
+                                    "source_section_title": {"type": "string",
+                                                             "description": "*Exactly* the section title as it appears in the markdown (copy‑paste—do **not** alter capitalization, spacing, or punctuation and do not include #)."},
                                     "content_coverage": {
                                         "type": "array",
                                         "items": {
@@ -563,19 +564,22 @@ def apply_structure_for_no_title(md_content: str, content_dict):
             content_dict["paragraphs"], key=lambda p: p["paragraph_index"]
     ):
         p_index = paragraph["paragraph_index"]
-        p_title = paragraph["title"]
+        p_title = paragraph["title"].strip()
         if p_index in section_starts:
-            section_title = section_starts[p_index]
+            section_title = section_starts[p_index].strip()
             md_parts.append(f"# {section_title}\n\n")
             content_dict['titles_with_levels'].append({
                 "title": section_title,
                 "level_of_title": 1,
                 "paragraph_index": p_index,
             })
-        md_parts.append(f"## {p_title}\n\n")
+            level_of_para_title = 2
+        else:
+            level_of_para_title = 1
+        md_parts.append(f"{'#' * level_of_para_title} {p_title}\n\n")
         content_dict['titles_with_levels'].append({
             "title": p_title,
-            "level_of_title": 2,
+            "level_of_title": level_of_para_title,
             "paragraph_index": p_index,
         })
         content_index = p_index - 1
@@ -595,6 +599,7 @@ def fix_title_levels(mapping_list):
     last_level = 0
     for i in range(len(mapping_list) - 1):
         current_level = mapping_list[i]["level_of_title"]
+        mapping_list[i]['title']=mapping_list[i]['title'].strip()
         if current_level > last_level + 1:
             diff = current_level - (last_level + 1)
             j = i

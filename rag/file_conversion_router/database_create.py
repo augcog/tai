@@ -9,7 +9,7 @@ import json, uuid, yaml, sqlite3, pathlib
 from typing import List, Dict, Any
 
 # ───────────────────────── helpers ────────────────────────────────────────────
-ROOT = pathlib.Path("/home/bot/bot/yk/YK/ROAR-Academy-main-output")
+ROOT = pathlib.Path("/home/bot/bot/yk/YK_final/courses/")
 DB_PATH = ROOT / "metadata.db"
 
 
@@ -52,7 +52,10 @@ with db:
             uuid       TEXT PRIMARY KEY,
             file_name  TEXT UNIQUE NOT NULL,
             url        TEXT,
-            sections   TEXT              -- JSON blob
+            sections   TEXT,              -- JSON blob
+            relative_path TEXT DEFAULT '', -- relative path to the file in the course directory
+            course_code TEXT DEFAULT '', -- course code, e.g. "CS61A"
+            course_name TEXT DEFAULT ''  -- course name, e.g. "CS61A: Structure and Interpretation of Computer Programs"
         );
 
         /* one row per question --------------------------------------------- */
@@ -82,14 +85,17 @@ def ingest(files: List[Dict[str, Any]]) -> None:
 
         db.execute(
             """
-            INSERT INTO file (uuid, file_name, url, sections)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO file (uuid, file_name, url, sections, relative_path, course_code, course_name)
+            VALUES (?, ?, ?, ?, ?, ?,?)
             """,
             (
                 file_uuid,
                 f["file_name"],
                 f.get("URL"),
                 jdump(f.get("sections")),
+                f['file_path'],
+                f['course_id'],
+                f['course_name'],
             ),
         )
 
@@ -129,6 +135,6 @@ def ingest(files: List[Dict[str, Any]]) -> None:
 
 # ───────────────────────────── CLI entrypoint ────────────────────────────────
 if __name__ == "__main__":
-    payload = load_yaml_dir("/home/bot/bot/yk/YK/ROAR-Academy-main")
+    payload = load_yaml_dir(ROOT)
     ingest(payload)
     print(f"✅ Imported {len(payload)} files and their questions into {DB_PATH}")

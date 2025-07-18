@@ -17,10 +17,9 @@ class VideoConverter(BaseConverter):
         self.paragraphs = []
         self.index_helper = None
 
-    def convert_mp4_to_wav(self, mp4_file_path):
-        wav_file_path = mp4_file_path.with_suffix(".wav")
+    def convert_mp4_to_wav(self, mp4_file_path,output_path):
+        wav_file_path = output_path.with_suffix(".wav")
         if not wav_file_path.exists():
-            print(mp4_file_path)
             audio_clip = AudioFileClip(str(mp4_file_path))  # Load the audio track from the MP4 file
             audio_clip.write_audiofile(str(wav_file_path))  # Save the audio as a WAV file
             audio_clip.close()  # Close the clip to free resources
@@ -234,8 +233,7 @@ class VideoConverter(BaseConverter):
         return f"{hours:02d}:{minutes:02d}:{seconds_remainder:06.3f}"
 
     def _to_markdown(self, input_path, output_path):
-        input_video_name = os.path.basename(input_path)
-        audio = self.convert_mp4_to_wav(input_path)
+        audio = self.convert_mp4_to_wav(input_path, output_path)
         seg_time = self.process_video_scenes(input_path, output_path)
         segments = self._video_convert_whisperx(str(audio))
         paragraphs = self.paragraph_generator(segments, seg_time)
@@ -263,7 +261,7 @@ class VideoConverter(BaseConverter):
         for t in content_dict.get("titles_with_levels", []):
             title = t["title"].strip()
             level = int(t["level_of_title"])
-            path_stack = path_stack[: level - 1]
+            path_stack = path_stack[:level - 1]
             path_stack.append(title)
             full_path = ">".join(path_stack)
             result[full_path] = current_time

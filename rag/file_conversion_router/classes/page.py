@@ -314,10 +314,6 @@ class Page:
 
         return self.chunks
 
-    def to_file(self, output_path: str) -> None:
-        with open(output_path, "w", encoding="utf-8") as f:
-            f.write(str(self))
-
     def to_chunk(self) -> None:
         self.page_seperate_to_segments()
         self.tree_print()

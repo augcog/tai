@@ -27,6 +27,7 @@ pydantic-settings = "*"
 # Database
 sqlalchemy = "*"
 sqlite-vss = "*"
+pymongo = "*"
 
 # AI/ML for backend
 FlagEmbedding = "*"

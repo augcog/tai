@@ -10,7 +10,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
-from app.core.database import get_db
+from app.core.dbs.course_db import get_db
 from app.core.models.courses import Base
 from app.api.deps import get_current_user
 from main import app

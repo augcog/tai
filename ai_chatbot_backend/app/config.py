@@ -56,11 +56,24 @@ class Settings(BaseSettings):
     # Data directory settings
     DATA_DIR: str = Field(description="Directory path for file storage")
 
+    # MongoDB configuration
+    MONGODB_URI: str = Field(
+        description="MongoDB connection URI"
+    )
+    MONGODB_ENABLED: bool = Field(
+        default=True, 
+        description="Whether to use MongoDB for cloud data storage"
+    )
+    
     # Server configuration
     HOST: str = Field(default="127.0.0.1", description="Server host address")
     PORT: int = Field(default=8000, description="Server port")
     RELOAD: bool = Field(
         default=False, description="Enable auto-reload for development"
+    )
+    SERVER_URL: str = Field(
+        default="http://127.0.0.1:8000", 
+        description="Default server URL for course configuration"
     )
 
     @property

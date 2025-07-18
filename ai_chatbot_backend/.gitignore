@@ -119,7 +119,7 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-courses.db
+db/
+data/
+exports/
 
-# Course configuration file
-course.json

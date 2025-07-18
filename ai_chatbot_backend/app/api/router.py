@@ -3,7 +3,6 @@ from app.api.routes import (
     completions_v2,
     courses,
     file_completions,
-    file_tester,
     files,
 )
 from fastapi import APIRouter
@@ -33,8 +32,3 @@ api_router.include_router(courses.router, prefix="/courses", tags=["courses"])
 # Files management
 api_router.include_router(files.router, prefix="/files", tags=["files"])
 
-# File tester
-api_router.include_router(
-    file_tester.router,
-    prefix="/file-tester",
-)

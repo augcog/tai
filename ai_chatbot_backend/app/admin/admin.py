@@ -1,6 +1,6 @@
 from app.admin.admin_auth import AdminAuth
 from app.config import settings
-from app.core.database import engine
+from app.core.dbs.course_db import engine
 from app.core.models.courses import CourseModel
 from fastapi import FastAPI
 from sqladmin import Admin, ModelView

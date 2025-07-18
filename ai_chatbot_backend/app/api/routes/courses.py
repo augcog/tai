@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, Query
 from app.schemas.course import CoursesResponse, Meta as CoursesMeta
 from app.services import courses_service
 from app.api.deps import verify_api_token
-from app.core.database import get_db
+from app.core.dbs.course_db import get_db
 
 router = APIRouter()
 

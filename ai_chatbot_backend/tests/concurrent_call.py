@@ -13,7 +13,7 @@ try:
 except ImportError:
     pass
 
-API_URL = "http://128.32.43.233:8000/api/chat/completions"
+API_URL = f"{os.getenv('SERVER_URL', 'http://127.0.0.1:8000')}/api/chat/completions"
 
 api_auth_token = os.getenv("api_auth_token")
 if not api_auth_token:

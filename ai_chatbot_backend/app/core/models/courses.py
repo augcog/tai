@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Enum, Boolean
-from app.core.database import Base
+from app.core.dbs.course_db import Base
 import uuid
 
 

@@ -1,5 +1,4 @@
 import logging
-import os
 
 # Import model pipeline initializer
 from app.dependencies.model import initialize_model_engine
@@ -8,10 +7,9 @@ initialize_model_engine()
 print("✅ Model pipeline initialization completed successfully!")
 
 import uvicorn
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi.staticfiles import StaticFiles
 
 from app.admin import setup_admin
 from app.api.router import api_router
@@ -34,9 +32,8 @@ logging.basicConfig(
 
 # Initialize database with automatic file import and migration
 print("🚀 Initializing database and importing existing files...")
-print("📚 Course loading: from course.json (only if database is empty)")
 
-if not initialize_database_on_startup("data"):
+if not initialize_database_on_startup():
     print("❌ Database initialization failed! Server may not work correctly.")
     print("💡 Check the logs above for details, or run database scripts manually.")
 else:
@@ -74,11 +71,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mount static files directory for serving test files
-curr_abs_path = os.path.dirname(os.path.abspath(__file__))
-static_dir = os.path.join(curr_abs_path, "static")
-# app.mount("/static", StaticFiles(directory="static"), name="static")
-app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 
 # Setup the admin interface
@@ -130,10 +122,8 @@ async def home():
     """
 
 
-
-
 @app.get("/course-config", response_class=HTMLResponse)
-async def course_config(request: Request):
+async def course_config():
     """
     Admin interface for course configuration and management
     """
@@ -156,7 +146,7 @@ async def database_status():
     from app.core.dbs.db_initializer import get_initializer
 
     try:
-        initializer = get_initializer("data")
+        initializer = get_initializer()
         status = initializer.get_database_status()
 
         return {

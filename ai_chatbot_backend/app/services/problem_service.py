@@ -2,12 +2,10 @@
 Problem service for business logic operations
 """
 
-from typing import List, Optional, Dict
+from typing import List
 from sqlalchemy.orm import Session
-import uuid
 
-from app.core.models.problems import ProblemModel
-from app.schemas.problem import ProblemCreate, ProblemUpdate, ProblemListParams
+from app.core.models.metadata import ProblemModel
 
 
 class ProblemService:

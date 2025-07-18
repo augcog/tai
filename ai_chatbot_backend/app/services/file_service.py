@@ -96,7 +96,6 @@ class FileService:
             )
 
             # Get file stats
-            file_stat = file_path.stat()
             mime_type, _ = mimetypes.guess_type(str(file_path))
             if not mime_type:
                 mime_type = "application/octet-stream"

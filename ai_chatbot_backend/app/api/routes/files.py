@@ -4,6 +4,7 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, Query, Path, status
 from sqlalchemy.orm import Session
 from app.core.dbs.metadata_db import get_metadata_db
+from app.core.dbs.course_db import get_db
 from app.api.deps import verify_api_token
 from app.schemas.files import FileMetadata, FileListResponse, FileStatsResponse, PracticeConversation, PracticeResponse
 from app.services.file_service import file_service

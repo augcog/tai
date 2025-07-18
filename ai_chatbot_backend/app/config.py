@@ -33,6 +33,7 @@ class Settings(BaseSettings):
     llm_mode: Optional[LLMModeEnum] = Field(
         default=None,
         description="LLM mode: local, remote, or mock. Defaults based on environment if not set.",
+        alias="LLM_MODE"
     )
     remote_model_url: str = Field(description="URL for remote model API")
 

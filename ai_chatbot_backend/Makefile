@@ -62,8 +62,9 @@ server: ## Start the FastAPI development server
 	@echo "📍 Server will be available at: http://localhost:8000"
 	@echo "📚 API Documentation: http://localhost:8000/docs"
 	@echo "🔧 Admin Interface: http://localhost:8000/admin"
+	@echo "🌐 Using remote model mode for development"
 	@echo ""
-	$(PYTHON) main.py
+	LLM_MODE=remote $(PYTHON) main.py
 
 # Database operations
 db-init: ## Initialize database and import files

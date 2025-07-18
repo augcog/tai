@@ -3,9 +3,6 @@ import tiktoken
 import pickle
 import re
 
-
-
-
 from file_conversion_router.classes.chunk import Chunk
 class Page:
     PAGE_LENGTH_THRESHOLD = 20
@@ -80,8 +77,8 @@ class Page:
             if path_stack:
                 page_path = " > ".join(path_stack)
                 segments.append({
-                    "page_path": path_stack,
-                    "index": self.index_helper[page_path],
+                    "page_path": path_stack.copy(),
+                    "index": self.index_helper.get(page_path, 0),
                     "content": "\n".join(current_content).strip()
                 })
                 current_content.clear()
@@ -90,11 +87,13 @@ class Page:
             stripped = line.strip()
             if stripped.startswith("#"):
                 flush_segment()
-                hashes, title = stripped.split(maxsplit=1)
-                if not title:
-                    print(f"Warning: Empty title found in line: {line}")
+                hash_match = re.match(r"#+", stripped)
+                hashes = hash_match.group(0) if hash_match else ""
+                title_part = stripped[len(hashes):].strip()
+                if not title_part:
+                    print(f"Warning: Empty title found in line: {raw!r}")
                     continue
-                title = re.sub(r'\*+', '', title).strip()
+                title = re.sub(r'\*+', '', title_part).strip()
                 level = len(hashes)
                 path_stack = path_stack[:level - 1]
                 path_stack.append(title)

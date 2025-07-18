@@ -5,11 +5,10 @@ Best practices with easy user flow and auto-discovery
 
 import mimetypes
 import os
-import re
 from datetime import datetime
 from pathlib import Path
 from typing import Optional, Dict, Any
-from uuid import UUID, uuid4
+from uuid import UUID
 
 from fastapi import HTTPException, status
 from fastapi.responses import FileResponse
@@ -25,7 +24,7 @@ class FileService:
     Unified file service with clean design and best practices
 
     Features:
-    - Auto-discovery: Files found automatically, no manual rescans
+    - MongoDB-based: Files loaded from MongoDB database only
     - UUID-based: Secure access without exposing file paths
     - Clean API: Simple, intuitive interface
     - Best practices: Proper error handling, validation, security
@@ -33,7 +32,6 @@ class FileService:
 
     def __init__(self):
         self.base_dir = self._get_base_directory()
-        self._cache = {}  # Simple cache for performance
         mimetypes.init()
 
     def _get_base_directory(self) -> Path:
@@ -53,127 +51,16 @@ class FileService:
         base_path.mkdir(parents=True, exist_ok=True)
         return base_path
 
-    def _extract_metadata(self, relative_path: str) -> Dict[str, Any]:
-        """Extract simple, essential metadata from file path"""
-        parts = relative_path.split("/")
-        metadata = {}
 
-        # Extract course code (first directory)
-        if len(parts) >= 1:
-            metadata["course_code"] = parts[0]
 
-        # Extract category (second directory) - simplified
-        if len(parts) >= 2:
-            category_map = {
-                "documents": "document",
-                "videos": "video",
-                "audios": "audio",
-                "others": "other",
-            }
-            metadata["category"] = category_map.get(parts[1], "other")
-
-        # Generate clean title from filename
-        filename = parts[-1] if parts else ""
-        if filename:
-            title = filename.rsplit(".", 1)[0]  # Remove extension
-            title = re.sub(r"[_-]", " ", title)  # Replace with spaces
-            title = re.sub(r"\s+", " ", title).strip()  # Normalize
-            title = title.title()  # Title case
-            metadata["title"] = title
-
-        return metadata
-
-    def _discover_and_register_file(
-        self, db: Session, file_path: Path, relative_path: str
-    ) -> Optional[FileModel]:
-        """Discover and register a single file with proper error handling"""
-        try:
-            # Check if already registered
-            existing = (
-                db.query(FileModel)
-                .filter(FileModel.relative_path == relative_path)
-                .first()
-            )
-
-            # Get file stats
-            mime_type, _ = mimetypes.guess_type(str(file_path))
-            if not mime_type:
-                mime_type = "application/octet-stream"
-
-            if existing:
-                # File already exists, just return it
-                return existing
-            else:
-                # Create new record
-                metadata = self._extract_metadata(relative_path)
-
-                file_record = FileModel(
-                    uuid=str(uuid4()),
-                    file_name=file_path.name,
-                    relative_path=relative_path,
-                    course_code=metadata.get("course_code", ""),
-                    course_name=metadata.get("course_code", ""),  # Use course_code as course_name for now
-                    url=None,
-                    sections=None,
-                )
-
-                db.add(file_record)
-                db.commit()
-                return file_record
-
-        except Exception as e:
-            print(f"Error registering file {file_path}: {e}")
-            return None
-
-    def _auto_discover_files(self, db: Session, limit: int = 50):
-        """Auto-discover new files efficiently"""
-        if not self.base_dir.exists():
-            return
-
-        try:
-            discovered = 0
-            for file_path in self.base_dir.rglob("*"):
-                if discovered >= limit:  # Limit to keep API responsive
-                    break
-
-                if not file_path.is_file():
-                    continue
-
-                # Skip hidden files and system files
-                if any(part.startswith(".") for part in file_path.parts):
-                    continue
-
-                relative_path = str(file_path.relative_to(self.base_dir))
-
-                # Check cache to avoid repeated processing
-                if relative_path in self._cache:
-                    continue
-
-                # Check if already in database
-                exists = (
-                    db.query(FileModel)
-                    .filter(FileModel.relative_path == relative_path)
-                    .first()
-                )
-
-                if not exists:
-                    self._discover_and_register_file(db, file_path, relative_path)
-                    discovered += 1
-
-                # Cache to avoid repeated checks
-                self._cache[relative_path] = True
-
-        except Exception as e:
-            print(f"Auto-discovery error: {e}")
 
     def list_files(self, db: Session, **filters) -> Dict[str, Any]:
         """
-        List files with auto-discovery and comprehensive filtering
+        List files with comprehensive filtering
 
         Returns both files and pagination info in a clean format
         """
-        # Auto-discover new files first
-        self._auto_discover_files(db)
+        # Removed auto-discovery - only rely on MongoDB data
 
         # Build query
         query = db.query(FileModel)
@@ -181,9 +68,9 @@ class FileService:
         # Apply simple, essential filters only
         filter_conditions = []
         
-        # Only include files with complete relative paths (must start with course directory)
-        # Format should be: COURSE/path/to/file.ext
-        filter_conditions.append(FileModel.relative_path.like('%/%/%'))
+        # Only include files with valid relative paths
+        # Format should be: COURSE/file.ext or COURSE/subfolder/file.ext
+        filter_conditions.append(FileModel.relative_path.like('%/%'))
         
         if filters.get("course_code"):
             filter_conditions.append(FileModel.course_code == filters["course_code"])

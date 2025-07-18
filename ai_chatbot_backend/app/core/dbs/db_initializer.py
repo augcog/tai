@@ -15,7 +15,7 @@ import logging
 from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import sessionmaker
 
-from app.core.dbs.course_db import Base, SQLALCHEMY_DATABASE_URL
+from app.core.dbs.course_db import Base, COURSE_DATABASE_URL
 from app.core.dbs.metadata_db import (
     MetadataBase,
     metadata_engine,
@@ -35,7 +35,7 @@ class DatabaseInitializer:
 
     def __init__(self):
         self.engine = create_engine(
-            SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+            COURSE_DATABASE_URL, connect_args={"check_same_thread": False}
         )
         self.SessionLocal = sessionmaker(
             autocommit=False, autoflush=False, bind=self.engine
@@ -373,7 +373,7 @@ class DatabaseInitializer:
             session.close()
 
             # Check database file size
-            db_path = SQLALCHEMY_DATABASE_URL.replace("sqlite:///", "")
+            db_path = COURSE_DATABASE_URL.replace("sqlite:///", "")
             db_size = Path(db_path).stat().st_size if Path(db_path).exists() else 0
 
             return {

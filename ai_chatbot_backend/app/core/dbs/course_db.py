@@ -1,18 +1,15 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-import os
-
-from app.config import settings
 
 """
     TODO: merge practice db and course db together
 """
-# Database configuration - can be overridden by environment variables
-SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./db/courses.db")
+# Database configuration - use same database as metadata
+COURSE_DATABASE_URL = "sqlite:///./db/metadata.db"
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+    COURSE_DATABASE_URL, connect_args={"check_same_thread": False}
 )
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

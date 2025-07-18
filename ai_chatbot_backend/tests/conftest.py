@@ -17,9 +17,9 @@ from app.config import settings
 from main import app
 
 # Create a test database engine
-SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
+COURSE_DATABASE_URL = "sqlite:///:memory:"
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL,
+    COURSE_DATABASE_URL,
     connect_args={"check_same_thread": False},
     poolclass=StaticPool,
 )

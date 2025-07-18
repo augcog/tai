@@ -16,9 +16,9 @@ from app.api.deps import get_current_user
 from main import app
 
 # Create an in-memory SQLite database
-SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
+COURSE_DATABASE_URL = "sqlite:///:memory:"
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL,
+    COURSE_DATABASE_URL,
     connect_args={"check_same_thread": False},
     poolclass=StaticPool,
 )

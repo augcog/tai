@@ -120,8 +120,7 @@ async def home():
         </body>
     </html>
     """
-
-
+  
 @app.get("/course-config", response_class=HTMLResponse)
 async def course_config():
     """

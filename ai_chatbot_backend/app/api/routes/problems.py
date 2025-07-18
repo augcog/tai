@@ -11,11 +11,10 @@ from app.services.file_service import FileService
 from app.services.problem_service import ProblemService
 from app.api.deps import verify_api_token
 
-router = APIRouter(prefix="/problems")
+router = APIRouter()
 
-@router.get("/by-name/{file_name}", response_model=ProblemsByFileNameListResponse)
+@router.get("/by-name/{file_name}", response_model=ProblemsByFileNameListResponse, summary="Get problems by file name")
 def get_problems_by_file_name(file_name: str, db: Session = Depends(get_practice_db), _: bool = Depends(verify_api_token)):
-    """Get problems by file name"""
     metadata = FileService.get_file_metadata_by_name(db, file_name)
     if not metadata:
         raise HTTPException(

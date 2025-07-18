@@ -9,10 +9,7 @@ from app.config import settings
     TODO: merge practice db and course db together
 """
 # Database configuration - can be overridden by environment variables
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./db/courses.db")
-
-# Use SQLite for simplicity, can be changed to other databases as needed
-SQLALCHEMY_DATABASE_URL = "sqlite:///./db/courses.db"
+SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./db/courses.db")
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}

@@ -4,9 +4,8 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, Query, Path, status
 from sqlalchemy.orm import Session
 from app.core.dbs.metadata_db import get_metadata_db
-from app.core.dbs.course_db import get_db
 from app.api.deps import verify_api_token
-from app.schemas.files import FileMetadata, FileListResponse, FileStatsResponse, PracticeConversation, PracticeResponse
+from app.schemas.files import FileMetadata, FileListResponse, FileStatsResponse
 from app.services.file_service import file_service
 
 router = APIRouter()
@@ -144,13 +143,3 @@ async def get_file_stats(
             detail=f"Error getting stats: {str(e)}",
         )
 
-@router.post("/practice", response_model=PracticeResponse, summary = "Get ai response for given practice conversation")
-async def generate_practice(
-        metadata_data: PracticeConversation,
-        db: Session = Depends(get_db),
-        _: bool = Depends(verify_api_token)):
-    """
-    TODO: this is the API logic for MS2 for vs code extension. filled out the input json for PracticeConversation in schemas.
-    e.g: PracticeConversation should at least include prompt, file uuid and else as needed
-    """
-    return None

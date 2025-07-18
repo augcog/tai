@@ -122,4 +122,5 @@ cython_debug/
 db/
 data/
 exports/
+*.db
 

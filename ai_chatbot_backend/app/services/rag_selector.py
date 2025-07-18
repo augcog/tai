@@ -52,16 +52,21 @@ def build_augmented_prompt(
       - reference_string: formatted string for plain text references.
     TODO: reference_string can be removed in the future once the legacy code migration is completed.
     """
+    print('\n Course: \n', course, '\n')
     print("\nUser Question: \n", user_message, "\n")
+    print('time of the day:', time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()), '\n')
 
     if not rag:
         return user_message, [], ""
 
     picklefile, class_name = _get_pickle_and_class(course)
     current_dir = embedding_dir
+    start_time = time.time()
     query_embed = embedding_model.encode(
         user_message, return_dense=True, return_sparse=True, return_colbert_vecs=True
     )
+    end_time = time.time()
+    print(f"Embedding time: {end_time - start_time:.2f} seconds")
     (
         top_ids,
         top_docs,
@@ -75,8 +80,6 @@ def build_augmented_prompt(
     reference_list: List[str] = []
     reference_string = ""
     n = 0
-    print(top_ids)
-    print(similarity_scores)
     for i in range(len(top_docs)):
         # reference_list.append(top_urls[i] if top_urls[i] else "")
         if similarity_scores[i] > threshold:
@@ -127,7 +130,6 @@ def build_augmented_prompt(
             f"Remember to refer to specific reference number inline with md *bold style*.Remember to refer to specific reference number inline with md *bold style*. Remember to refer to specific reference number inline with md *bold style*.Do not list reference at the end. Do not explain if the reference is not related to the question."
             f"If the instruction is not related to any topic related to {class_name}, explain and refuse to answer.\n"
         )
-    print("\nAugmented Prompt: \n", modified_message, "\n")
     return modified_message, reference_list, reference_string
 
 
@@ -138,6 +140,7 @@ async def local_parser(
     Yield tokens from a text stream and append the reference block at the end.
     TODO: This function can be removed in the future once the legacy code migration is completed.
     """
+    print('Response:')
     previous_text = ""
     async for output in stream:
         text = output.outputs[0].text

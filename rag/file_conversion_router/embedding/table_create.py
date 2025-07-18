@@ -190,7 +190,7 @@ def create_main_table(filename, pickle_data):
         placeholders = ", ".join(["?" for _ in columns])
         cur.execute(
             f"""
-            INSERT INTO {table_name} ({', '.join(columns)}) 
+            INSERT INTO {table_name} ({", ".join(columns)}) 
             VALUES ({placeholders})
         """,
             row,

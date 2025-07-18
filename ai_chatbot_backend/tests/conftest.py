@@ -11,7 +11,7 @@ from typing import Dict, List
 from app.core.models.courses import Base as CourseBase
 from app.schemas.course_admin import CourseCreate, AccessType
 from app.api.deps import get_current_user, get_admin_user, auth_with_query_param
-from app.core.database import get_db
+from app.core.dbs.course_db import get_db
 from app.services import course_admin_service
 from app.config import settings
 from main import app

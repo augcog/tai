@@ -10,24 +10,19 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
-from app.core.database import get_db, practice_engine
+from app.core.dbs.course_db import get_db
 from app.core.models.courses import Base
 from app.api.deps import get_current_user
 from main import app
 
 # Create an in-memory SQLite database
 SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
-SQLALCHEMY_PRACTICE_DATABASE_URL = "sqlite:///:practice_memory:"
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
     connect_args={"check_same_thread": False},
     poolclass=StaticPool,
 )
-practice_engine = create_engine(
-
-)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-TestingPracticeSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=practice_engine)
 
 
 def dummy_get_current_user():
@@ -46,16 +41,6 @@ def db_session():
         session.close()
         Base.metadata.drop_all(bind=engine)
 
-@pytest.fixture
-def practice_db_session():
-    """Create a fresh database session for each test."""
-    PracticeBase.metadata.create_all(bind=practice_engine)
-    session = TestingPracticeSessionLocal()
-    try:
-        yield session
-    finally:
-        session.close()
-        PracticeBase.metadata.drop_all(bind=practice_engine)
 
 
 @pytest.fixture

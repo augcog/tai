@@ -17,8 +17,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import and_
 
 from app.config import settings
-from app.core.models.files import FileRegistry
-from app.core.models.file_metadata import FileMetadataModel
+from app.core.models.metadata import FileModel
 
 
 class FileService:
@@ -86,13 +85,13 @@ class FileService:
 
     def _discover_and_register_file(
         self, db: Session, file_path: Path, relative_path: str
-    ) -> Optional[FileRegistry]:
+    ) -> Optional[FileModel]:
         """Discover and register a single file with proper error handling"""
         try:
             # Check if already registered
             existing = (
-                db.query(FileRegistry)
-                .filter(FileRegistry.relative_path == relative_path)
+                db.query(FileModel)
+                .filter(FileModel.relative_path == relative_path)
                 .first()
             )
 
@@ -103,26 +102,20 @@ class FileService:
                 mime_type = "application/octet-stream"
 
             if existing:
-                # Update if file changed
-                if existing.size_bytes != file_stat.st_size:
-                    existing.size_bytes = file_stat.st_size
-                    existing.mime_type = mime_type
-                    existing.modified_at = datetime.now()
-                    db.commit()
-
+                # File already exists, just return it
                 return existing
             else:
                 # Create new record
                 metadata = self._extract_metadata(relative_path)
 
-                file_record = FileRegistry(
-                    id=uuid4(),
+                file_record = FileModel(
+                    uuid=str(uuid4()),
                     file_name=file_path.name,
                     relative_path=relative_path,
-                    mime_type=mime_type,
-                    size_bytes=file_stat.st_size,
-                    is_active=True,
-                    **metadata,
+                    course_code=metadata.get("course_code", ""),
+                    course_name=metadata.get("course_code", ""),  # Use course_code as course_name for now
+                    url=None,
+                    sections=None,
                 )
 
                 db.add(file_record)
@@ -159,8 +152,8 @@ class FileService:
 
                 # Check if already in database
                 exists = (
-                    db.query(FileRegistry)
-                    .filter(FileRegistry.relative_path == relative_path)
+                    db.query(FileModel)
+                    .filter(FileModel.relative_path == relative_path)
                     .first()
                 )
 
@@ -184,21 +177,22 @@ class FileService:
         self._auto_discover_files(db)
 
         # Build query
-        query = db.query(FileRegistry).filter(FileRegistry.is_active == True)
+        query = db.query(FileModel)
 
         # Apply simple, essential filters only
         filter_conditions = []
+        
+        # Only include files with complete relative paths (must start with course directory)
+        # Format should be: COURSE/path/to/file.ext
+        filter_conditions.append(FileModel.relative_path.like('%/%/%'))
+        
         if filters.get("course_code"):
-            filter_conditions.append(FileRegistry.course_code == filters["course_code"])
-
-        if filters.get("category"):
-            filter_conditions.append(FileRegistry.category == filters["category"])
+            filter_conditions.append(FileModel.course_code == filters["course_code"])
 
         if filters.get("search"):
             search_term = f"%{filters['search']}%"
             filter_conditions.append(
-                FileRegistry.file_name.ilike(search_term)
-                | FileRegistry.title.ilike(search_term)
+                FileModel.file_name.ilike(search_term)
             )
 
         # Apply all filters
@@ -208,11 +202,11 @@ class FileService:
         # Get total count
         total_count = query.count()
 
-        # Apply sorting
-        sort_by = filters.get("sort_by", "created_at")
-        sort_order = filters.get("sort_order", "desc")
+        # Apply sorting by file_name for now (metadata.db doesn't have created_at)
+        sort_by = filters.get("sort_by", "file_name")
+        sort_order = filters.get("sort_order", "asc")
 
-        sort_column = getattr(FileRegistry, sort_by, FileRegistry.created_at)
+        sort_column = getattr(FileModel, sort_by, FileModel.file_name)
         if sort_order.lower() == "asc":
             query = query.order_by(sort_column.asc())
         else:
@@ -234,11 +228,11 @@ class FileService:
             "has_prev": page > 1,
         }
 
-    def get_file_by_id(self, db: Session, file_id: UUID) -> Optional[FileRegistry]:
+    def get_file_by_id(self, db: Session, file_id: UUID) -> Optional[FileModel]:
         """Get file by UUID with validation"""
         return (
-            db.query(FileRegistry)
-            .filter(and_(FileRegistry.id == file_id, FileRegistry.is_active == True))
+            db.query(FileModel)
+            .filter(FileModel.uuid == str(file_id))
             .first()
         )
 
@@ -267,9 +261,14 @@ class FileService:
         # Note: Access tracking removed for simplicity
         # Could be added back if needed
 
+        # Get mime type since it's not in metadata db
+        mime_type, _ = mimetypes.guess_type(str(file_path))
+        if not mime_type:
+            mime_type = "application/octet-stream"
+
         return FileResponse(
             path=str(file_path),
-            media_type=file_record.mime_type,
+            media_type=mime_type,
             filename=file_record.file_name,
         )
 
@@ -278,21 +277,17 @@ class FileService:
         # Auto-discover before stats
         self._auto_discover_files(db)
 
-        total_files = (
-            db.query(FileRegistry).filter(FileRegistry.is_active == True).count()
-        )
+        total_files = db.query(FileModel).count()
 
         # Get course breakdown
         from sqlalchemy import func
 
         course_stats = (
             db.query(
-                FileRegistry.course_code, func.count(FileRegistry.id).label("count")
+                FileModel.course_code, func.count(FileModel.uuid).label("count")
             )
-            .filter(
-                FileRegistry.is_active == True, FileRegistry.course_code.isnot(None)
-            )
-            .group_by(FileRegistry.course_code)
+            .filter(FileModel.course_code.isnot(None))
+            .group_by(FileModel.course_code)
             .all()
         )
 
@@ -305,9 +300,9 @@ class FileService:
         }
 
     @staticmethod
-    def get_file_metadata_by_name(db: Session, file_name: str) -> Optional[FileMetadataModel]:
+    def get_file_metadata_by_name(db: Session, file_name: str) -> Optional[FileModel]:
         """Get file metadata by file name"""
-        return db.query(FileMetadataModel).filter(FileMetadataModel.file_name == file_name).first()
+        return db.query(FileModel).filter(FileModel.file_name == file_name).first()
 
 
 # Global service instance

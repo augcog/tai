@@ -17,6 +17,10 @@ make dev
 
 # Convert documents to embeddings
 make convert
+
+# Run tests
+make test
+
 ```
 
 ## 🏗️ Architecture
@@ -83,7 +87,6 @@ make clean                # Clean build artifacts
 ```bash
 make dev                  # Start development server
 make test                 # Run tests (excludes slow/GPU tests)
-make test-full            # Run all tests including slow ones
 make lint                 # Run linting
 make format               # Format code
 ```
@@ -98,28 +101,34 @@ make process              # Full processing pipeline
 
 ## 📦 Package Management
 
-The RAG pipeline uses the unified monorepo Poetry environment. All package management commands automatically modify the root `pyproject.toml`:
+The RAG pipeline uses Poetry with workspace-specific virtual environments. Each workspace maintains its own isolated environment:
 
 ```bash
-# Add dependencies (adds to root monorepo)
-make add PKG=torch                   # Add production dependency to root
-make add-dev PKG=pytest             # Add development dependency to root
+# Add dependencies (modifies local pyproject.toml)
+make add PKG=torch                   # Add latest version
+make add PKG="torch==2.0.1"         # Add specific version
+make add-dev PKG=pytest             # Add development dependency
+make add-dev PKG="pytest==7.4.0"   # Add specific version for dev
 
-# Install optional feature groups (installs to root .venv)
+# Install optional feature groups (installs to workspace .venv)
 make install-cv                     # Computer vision support
 make install-ocr                    # OCR capabilities
-make install-ml-heavy               # Performance optimizations
 make install-video                  # Video processing
 make install-web                    # Web scraping
 make install-full                   # All optional features
 
-# Manage packages (all modify root pyproject.toml)
-make remove PKG=outdated-package    # Remove from root
-make update                         # Update all dependencies in root
-make show PKG=torch                 # Show package info from root
+# Add to specific feature groups
+make add-cv PKG="opencv-python==4.8.0"    # Add CV package with version
+make add-ocr PKG="paddleocr==2.7.0"       # Add OCR package with version
+
+# Manage packages (modifies local pyproject.toml)
+make remove PKG=outdated-package    # Remove package
+make update                         # Update all dependencies
+make update-pkg PKG=torch           # Update specific package
+make show PKG=torch                 # Show package info
 ```
 
-**Note**: This component uses the unified monorepo environment. All dependencies are managed in the root `pyproject.toml` and installed to `/tai/.venv`. The local `pyproject.toml` serves as documentation of RAG-specific dependencies.
+**Note**: This workspace uses its own isolated virtual environment. Dependencies are managed in the local `pyproject.toml` and installed to `./rag/.venv`.
 
 ### Available Extras
 

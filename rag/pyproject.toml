@@ -74,6 +74,10 @@ moviepy = "^2.2.1"
 yt-dlp = "^2025.6.25"
 voyageai = "^0.3.2"
 cohere = "^5.15.0"
+termcolor = "^3.1.0"
+tiktoken = "^0.9.0"
+colorama = "^0.4.6"
+whisperx = "^3.4.2"
 
 [tool.poetry.group.dev.dependencies]
 # Development tools

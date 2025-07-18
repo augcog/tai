@@ -1,28 +1,28 @@
-import os
-import time
-from pathlib import Path
-
-import torch
-import whisper
-import yaml
-from moviepy.editor import AudioFileClip
-from scenedetect import SceneManager, open_video
+import whisperx
+from moviepy import AudioFileClip
+from scenedetect import open_video, SceneManager
 from scenedetect.detectors import AdaptiveDetector
 from scenedetect.scene_manager import save_images, write_scene_list
-from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline, set_seed
-
+import os
+from pathlib import Path
+from file_conversion_router.conversion.base_converter import BaseConverter
+from transformers import pipeline, set_seed, AutoTokenizer, AutoModelForCausalLM
+import torch
+import json
+import re
 from file_conversion_router.classes.page import Page
 from file_conversion_router.classes.vidpage import VidPage
 from file_conversion_router.conversion.base_converter import BaseConverter
 
 
 class VideoConverter(BaseConverter):
-    model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
+    model_id = "meta-llama/Llama-3.1-8B-Instruct"
+    # model_id = "THUDM/GLM-4-9B-0414"
     auto_tokenizer = None
     pipeline = None
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, course_name, course_id):
+        super().__init__(course_name, course_id)
         # Initialize the tokenizer and model only once when the classes is instantiated
         self.paragraphs = []
 
@@ -32,7 +32,6 @@ class VideoConverter(BaseConverter):
             VideoConverter.auto_tokenizer = AutoTokenizer.from_pretrained(
                 VideoConverter.model_id
             )
-
             VideoConverter.pipeline = pipeline(
                 "text-generation",
                 model=VideoConverter.model_id,
@@ -40,7 +39,7 @@ class VideoConverter(BaseConverter):
                 device="cuda",
             )
 
-    def title_with_chat_completion(self, text):
+    def title_with_chat_completion(self, text, input_video_name):
         VideoConverter.initialize_static_resources()
         terminators = [
             VideoConverter.pipeline.tokenizer.eos_token_id,
@@ -48,32 +47,62 @@ class VideoConverter(BaseConverter):
         ]
 
         messages = [
+            {"role": "system", "content": "You are a helpful assistant."},
             {
-                "role": "system",
-                "content": "Generate a title for the following text. Only answer one title",
+                "role": "user",
+                "content": f'Generate a short summary that serve as a title for the following transcript of a part of the lecture video named {input_video_name}. Do not over think of the meaning of the paragraph. Provide the title directly with quotation mark and "Title:", e.g. Title: "Application of recursion" \n---\n {text}',
             },
-            {"role": "user", "content": text},
         ]
         prompt = VideoConverter.pipeline.tokenizer.apply_chat_template(
             messages, tokenize=False, add_generation_prompt=True
         )
         outputs = VideoConverter.pipeline(
             prompt,
-            max_new_tokens=1000,  # Adjust based on desired title length
-            eos_token_id=terminators,
-            do_sample=True,
+            max_new_tokens=4096,  # Much shorter since we just want a title
+            # eos_token_id=terminators,
+            do_sample=False,  # Try with do_sample=False for more deterministic results
+            temperature=0.3,  # Lower temperature for less randomness
         )
-        title = outputs[0]["generated_text"][len(prompt) :].replace("\n", " ").strip()
+        title = outputs[0]["generated_text"][len(prompt) :].strip().split('"')[1]
+        # title = outputs[0]["generated_text"].split('</think>')[1].strip().split('"')[1]
         return title
 
-    def transcribe_audio_with_whisper(self, audio_file_path):
-        print("Loading Whisper model...")
-        start_time = time.time()
-        model = whisper.load_model("base")
+    def convert_mp4_to_wav(self, mp4_file_path):
+        wav_file_path = mp4_file_path.with_suffix(".wav")
+        if not wav_file_path.exists():
+            print(mp4_file_path)
+            audio_clip = AudioFileClip(
+                str(mp4_file_path)
+            )  # Load the audio track from the MP4 file
+            audio_clip.write_audiofile(
+                str(wav_file_path)
+            )  # Save the audio as a WAV file
+            audio_clip.close()  # Close the clip to free resources
+        return wav_file_path
 
-        print(f"Transcribing {audio_file_path}...")
-        result = model.transcribe(audio_file_path)
-
+    def _video_convert_whisperx(self, audio_file_path):
+        device = "cuda"
+        batch_size = 16
+        compute_type = "float16"
+        model = whisperx.load_model(
+            "large-v3-turbo", device="cuda", compute_type=compute_type
+        )
+        audio = whisperx.load_audio(audio_file_path)
+        result = model.transcribe(audio, batch_size=batch_size)
+        model_a, metadata = whisperx.load_align_model(
+            language_code=result["language"], device=device
+        )
+        result = whisperx.align(
+            result["segments"],
+            model_a,
+            metadata,
+            audio,
+            device,
+            return_char_alignments=False,
+        )
+        diarize_model = whisperx.DiarizationPipeline(use_auth_token=500, device=device)
+        diarize_segments = diarize_model(audio)
+        result = whisperx.assign_word_speakers(diarize_segments, result)
         segments = []
         if "segments" in result:
             for segment in result["segments"]:
@@ -81,21 +110,32 @@ class VideoConverter(BaseConverter):
                     "start": segment["start"],
                     "end": segment["end"],
                     "text": segment["text"],
+                    "speaker": (
+                        segment["speaker"] if "speaker" in segment else "UNKNOWN"
+                    ),
                 }
                 segments.append(segment_dict)
+        print(segments)
+        import gc
 
-        print(f"Transcription completed in {time.time() - start_time} seconds.")
+        gc.collect()
+        torch.cuda.empty_cache()
+        del model
         return segments
 
-    def convert_mp4_to_wav(self, mp4_file_path, output_path):
-        wav_file_path = mp4_file_path.with_suffix(".wav")
-        print(mp4_file_path)
-        audio_clip = AudioFileClip(
-            str(mp4_file_path)
-        )  # Load the audio track from the MP4 file
-        audio_clip.write_audiofile(str(wav_file_path))  # Save the audio as a WAV file
-        audio_clip.close()  # Close the clip to free resources
-        return wav_file_path
+    def paragraph_generator(self, transcript, seg_time):
+        paragraphs = []
+        if not seg_time:
+            return [([chunk["text"] for chunk in transcript], 0)]
+        for seg_start, seg_end in seg_time:
+            paragraph = [
+                chunk["text"]
+                for chunk in transcript
+                if seg_start <= chunk["start"] <= seg_end
+            ]
+            paragraphs.append((paragraph, seg_start))
+        self.paragraphs = paragraphs
+        return paragraphs
 
     def process_video_scenes(self, video_path, output_path):
         def setup_scene_detection(
@@ -139,7 +179,7 @@ class VideoConverter(BaseConverter):
             image_filenames = save_images(
                 scene_list=scene_list,
                 video=video,
-                num_images=3,
+                num_images=1,
                 output_dir=images_output_dir,
             )
 
@@ -165,6 +205,40 @@ class VideoConverter(BaseConverter):
         )
         return scene_times
 
+    def get_speaker_json(self, input_path, segments, output_path):
+        self.get_timestamp_and_speaker(segments, output_path)
+
+    def get_timestamp_and_speaker(self, segments, output_path):
+        segments_formatted = []
+        for segment in segments:
+            # Extract the necessary information with fallback defaults.
+            start = segment.get("start", 0)
+            end = segment.get("end", 0)
+            text = segment.get("text", "")
+            speaker = segment.get("speaker", "UNKNOWN")
+
+            # Convert time from seconds (float) to HH:MM:SS.mmm formatted string.
+            formatted_start = self.format_timestamp(start)
+            formatted_end = self.format_timestamp(end)
+            segment_dict = {
+                "start time": formatted_start,
+                "end time": formatted_end,
+                "speaker": speaker,
+                "text content": text,
+            }
+            segments_formatted.append(segment_dict)
+
+            # Write the list of dictionaries to the output file as JSON.
+        with open(output_path, "w", encoding="utf-8") as outfile:
+            json.dump(segments_formatted, outfile, indent=4)
+
+    def format_timestamp(self, seconds):
+        """Convert seconds (float) to a timestamp string HH:MM:SS.mmm"""
+        hours = int(seconds // 3600)
+        minutes = int((seconds % 3600) // 60)
+        seconds_remainder = seconds % 60
+        return f"{hours:02d}:{minutes:02d}:{seconds_remainder:06.3f}"
+
     def paragraph_generator(self, transcript, seg_time):
         paragraphs = []
         if not seg_time:
@@ -179,51 +253,108 @@ class VideoConverter(BaseConverter):
         self.paragraphs = paragraphs
         return paragraphs
 
+    def generate_summaries_of_titles(self, titles, input_video_name, chunk_size=2):
+        VideoConverter.initialize_static_resources()
+        summaries = []
+
+        chunks = [titles[i : i + chunk_size] for i in range(0, len(titles), chunk_size)]
+
+        for idx, chunk in enumerate(chunks):
+            # If the last chunk has only one title, skip generating a summary for it
+            if len(chunk) == 1 and idx == len(chunks) - 1:
+                break
+            titles_list = "\n".join(f"- {t}" for t in chunk)
+            messages = [
+                {
+                    "role": "system",
+                    "content": "You are a helpful assistant that creates concise summaries.",
+                },
+                {
+                    "role": "user",
+                    "content": (
+                        f"Generate a brief summary as a title that captures the main topics covered in this lecture video named "
+                        f"{input_video_name} based on these section titles:\n{titles_list}\n\n"
+                        "Provide your answer only in the following format (including the quotes):\n"
+                        'Title: "<summary>"'
+                    ),
+                },
+            ]
+
+            prompt = VideoConverter.pipeline.tokenizer.apply_chat_template(
+                messages, tokenize=False, add_generation_prompt=True
+            )
+
+            outputs = VideoConverter.pipeline(
+                prompt,
+                max_new_tokens=100,
+                do_sample=False,
+                temperature=0.3,
+            )
+
+            first_output = outputs[0].get("generated_text", "")
+            part = first_output.split("Title: ")[-1].strip()
+            summary = part.strip('"')
+            summaries.append(summary)
+
+        # Clean up GPU cache
+        import gc
+
+        gc.collect()
+        import torch
+
+        torch.cuda.empty_cache()
+
+        return summaries
+
     def _to_markdown(self, input_path, output_path):
-        audio = self.convert_mp4_to_wav(input_path, output_path)
+        input_video_name = os.path.basename(input_path)
+        audio = self.convert_mp4_to_wav(input_path)
         seg_time = self.process_video_scenes(input_path, output_path)
-        transcript = self.transcribe_audio_with_whisper(str(audio))
+        transcript = self._video_convert_whisperx(str(audio))
         paragraphs = self.paragraph_generator(transcript, seg_time)
-        markdown_content = ""
+
+        titles = []
+        paragraph_texts = []
+
         for i, (paragraph, time) in enumerate(paragraphs):
-            paragraph_text = "".join(paragraph)
+            paragraph_text = " ".join(paragraph)
             if paragraph_text:
-                title = self.title_with_chat_completion(paragraph_text)
-                markdown_content += f"# {title}\n\n"
-                markdown_content += f"{paragraph_text}\n\n"
+                title = self.title_with_chat_completion(
+                    paragraph_text, input_video_name
+                )
+                titles.append(title)
+                paragraph_texts.append((title, paragraph_text))
+            section_summaries = self.generate_summaries_of_titles(
+                titles, input_video_name, 2
+            )
+
+            # 3. Build markdown content
+            lines = []
+            for idx, section_title in enumerate(section_summaries):
+                lines.append(f"# {section_title}\n")
+                start = idx * 2
+                end = start + 2
+                for title, text in paragraph_texts[start:end]:
+                    lines.append(f"## {title}\n")
+                    lines.append(f"{text}\n")
+
+            markdown_content = "\n".join(lines)
+
         md_path = output_path.with_suffix(".md")
+
         with open(md_path, "w") as md_file:
             md_file.write(markdown_content)
+        # json_path = output_path.with_suffix(".json")
+        # self.get_speaker_json(input_path, transcript, json_path)
         return md_path
 
-    # USED TO BE COMMENTED OUT
-    def _to_page(self, input_path: Path, output_path: Path) -> Page:
-        """Perform mp4 to Page conversion."""
 
-        output_path.parent.mkdir(parents=False, exist_ok=True)
-
-        parent = input_path.parent
-        stem = input_path.stem
-        filetype = input_path.suffix.split(".")[1]
-        md_path = self._to_markdown(input_path, output_path)
-
-        with open(md_path, "r") as md_file:
-            md_content = md_file.read()
-
-        metadata = parent / (stem + "_metadata.yml")
-
-        try:
-            with open(metadata, "r") as metadata_file:
-                metadata_content = yaml.safe_load(metadata_file)
-                url = metadata_content["URL"]
-
-        except FileNotFoundError:
-            url = ""
-        timestamp = [i[1] for i in self.paragraphs]
-        page = VidPage(
-            pagename=stem,
-            content={"text": md_content, "timestamp": timestamp},
-            filetype=filetype,
-            page_url=url,
-        )
-        return page
+if __name__ == "__main__":
+    video_converter = VideoConverter()
+    input_path = Path(
+        "/home/bot/bot/yk/language/video/A Polyglot's Daily Linguistic Workout.mp4"
+    )
+    output_path = Path(
+        "/home/bot/bot/tai/rag/file_conversion_router/oput/A Polyglot's Daily Linguistic Workout.md"
+    )
+    video_converter._to_markdown(input_path, output_path)

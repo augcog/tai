@@ -33,6 +33,7 @@ class Settings(BaseSettings):
     llm_mode: Optional[LLMModeEnum] = Field(
         default=None,
         description="LLM mode: local, remote, or mock. Defaults based on environment if not set.",
+        alias="LLM_MODE"
     )
     remote_model_url: str = Field(description="URL for remote model API")
 
@@ -56,17 +57,23 @@ class Settings(BaseSettings):
     # Data directory settings
     DATA_DIR: str = Field(description="Directory path for file storage")
 
-    # Database configuration
-    DATABASE_URL: str = Field(description="Database connection URL. Defaults to SQLite in project root.")
-
-    # Practice Database configuration
-    PRACTICE_DATABASE_URL: str = Field(description="Practice Database connection URL. Defaults to SQLite in project root.")
-
+    # MongoDB configuration
+    MONGODB_URI: str = Field(
+        description="MongoDB connection URI"
+    )
+    MONGODB_ENABLED: bool = Field(
+        default=True, 
+        description="Whether to use MongoDB for cloud data storage"
+    )
     # Server configuration
     HOST: str = Field(default="127.0.0.1", description="Server host address")
     PORT: int = Field(default=8000, description="Server port")
     RELOAD: bool = Field(
         default=False, description="Enable auto-reload for development"
+    )
+    SERVER_URL: str = Field(
+        default="http://127.0.0.1:8000", 
+        description="Default server URL for course configuration"
     )
 
     @property

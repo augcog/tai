@@ -1,0 +1,78 @@
+{
+  "mongodb": {
+    "uri": "ENV:MONGODB_URI",
+    "databases": {
+      "courses": {
+        "collections": {
+          "courses": {
+            "source_db": "courses.db",
+            "source_table": "courses",
+            "description": "Course information including course codes, names, and metadata"
+          }
+        }
+      },
+      "metadata": {
+        "collections": {
+          "file": {
+            "source_db": "metadata.db",
+            "source_table": "file",
+            "description": "File registry with metadata for all course files"
+          },
+          "problem": {
+            "source_db": "metadata.db",
+            "source_table": "problem",
+            "description": "Problem data with questions and answers",
+            "primary_key": "uuid",
+            "export_fields": ["uuid", "file_uuid", "problem_index", "problem_id", "problem_content", "question_id", "question", "choices", "answer", "explanation"],
+            "mongodb_target": {
+              "database": "metadata",
+              "collection": "problem"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sqlite_databases": {
+    "courses.db": {
+      "path": "db/courses.db",
+      "tables": {
+        "courses": {
+          "primary_key": "id",
+          "export_fields": ["id", "course_id", "course_name", "server_url", "course_code", "semester", "enabled", "order", "access_type", "school"],
+          "mongodb_target": {
+            "database": "courses",
+            "collection": "courses"
+          }
+        }
+      }
+    },
+    "metadata.db": {
+      "path": "db/metadata.db",
+      "tables": {
+        "file": {
+          "primary_key": "uuid",
+          "export_fields": ["uuid", "file_name", "url", "sections", "relative_path", "course_code", "course_name"],
+          "mongodb_target": {
+            "database": "metadata",
+            "collection": "file"
+          }
+        },
+        "problem": {
+          "primary_key": "uuid",
+          "export_fields": ["uuid", "file_uuid", "problem_index", "problem_id", "problem_content", "question_id", "question", "choices", "answer", "explanation"],
+          "mongodb_target": {
+            "database": "metadata",
+            "collection": "problem"
+          }
+        }
+      }
+    }
+  },
+  "export_settings": {
+    "batch_size": 1000,
+    "output_directory": "exports",
+    "timestamp_format": "%Y-%m-%d %H:%M:%S",
+    "include_metadata": true
+  }
+}

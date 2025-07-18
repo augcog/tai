@@ -7,6 +7,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 from FlagEmbedding import BGEM3FlagModel
+import torch
 
 # Keep your embedding_model or pass it in, as suits your design
 embedding_model = BGEM3FlagModel("BAAI/bge-m3", use_fp16=True)
@@ -41,39 +42,23 @@ def bge_compute_score(
     if weights_for_different_modes is None:
         weights_for_different_modes = [1, 1.0, 1.0]
         weight_sum = 3
-        print("Default weights for dense, sparse, colbert are [1.0, 1.0, 1.0]")
     else:
         assert len(weights_for_different_modes) == 3
         weight_sum = sum(weights_for_different_modes)
 
-    for doc_embed in document_embeddings:
-        dense_score = query_embedding["dense_vecs"] @ doc_embed["dense_vecs"].T
-        sparse_score = embedding_model.compute_lexical_matching_score(
-            query_embedding["lexical_weights"], doc_embed["lexical_weights"]
+    scores["dense"] = query_embedding["dense_vecs"] @ document_embeddings["dense_vecs"].T
+    scores["sparse"] = embedding_model.compute_lexical_matching_score(
+        [query_embedding["lexical_weights"]], document_embeddings["lexical_weights"]
+    )[0]
+    for col in document_embeddings["colbert_vecs"]:
+        scores["colbert"].append(
+            embedding_model.colbert_score(query_embedding["colbert_vecs"], col)
         )
-        colbert_score = embedding_model.colbert_score(
-            query_embedding["colbert_vecs"], doc_embed["colbert_vecs"]
-        )
-        scores["colbert"].append(colbert_score)
-        scores["sparse"].append(sparse_score)
-        scores["dense"].append(dense_score)
-
-        sd_weight = weights_for_different_modes[1] + weights_for_different_modes[0]
-        scores["sparse+dense"].append(
-            (
-                sparse_score * weights_for_different_modes[1]
-                + dense_score * weights_for_different_modes[0]
-            )
-            / sd_weight
-        )
-        scores["colbert+sparse+dense"].append(
-            (
-                colbert_score * weights_for_different_modes[2]
-                + sparse_score * weights_for_different_modes[1]
-                + dense_score * weights_for_different_modes[0]
-            )
-            / weight_sum
-        )
+    scores["colbert+sparse+dense"]=(
+            scores["colbert"] * weights_for_different_modes[2]
+            + scores["sparse"] * weights_for_different_modes[1]
+            + scores["dense"] * weights_for_different_modes[0]
+        )/ weight_sum
     return scores
 
 
@@ -195,7 +180,8 @@ def _get_pickle_and_class(course: str) -> Tuple[str, str]:
     elif course == "INTD315":
         return "language.pkl", "Multilingual Engagement"
     elif course == "ROAR Academy":
-        return "roar_academy.pkl", "learning python and autonomous driving"
+        return "ROAR-Academy.pkl", "learning python and autonomous driving"
+        # return "roar_academy.pkl", "learning python and autonomous driving"
     else:
         return "Berkeley.pkl", "Berkeley"
 
@@ -214,7 +200,7 @@ def top_k_selector(
     if rag:
         picklefile, _ = _get_pickle_and_class(course if course else "")
         current_dir = "/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/"
-        query_embed = embedding_model.encode(
+        query_embed = embedding_model.encode_queries(
             message, return_dense=True, return_sparse=True, return_colbert_vecs=True
         )
         if SQLDB:

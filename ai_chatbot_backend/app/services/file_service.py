@@ -7,7 +7,7 @@ import mimetypes
 import os
 from datetime import datetime
 from pathlib import Path
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List, Set
 from uuid import UUID
 
 from fastapi import HTTPException, status
@@ -74,6 +74,14 @@ class FileService:
         
         if filters.get("course_code"):
             filter_conditions.append(FileModel.course_code == filters["course_code"])
+            
+        # Add path filtering for nested directory support
+        if filters.get("path"):
+            path = filters["path"].strip()
+            if path:
+                # Filter files that are in the specified path
+                path_pattern = f"{path}/%"
+                filter_conditions.append(FileModel.relative_path.like(path_pattern))
 
         if filters.get("search"):
             search_term = f"%{filters['search']}%"
@@ -184,6 +192,136 @@ class FileService:
             "courses": {code: count for code, count in course_stats},
             "last_updated": datetime.now(),
         }
+
+    def browse_directory(self, db: Session, course_name: str, path: str = "") -> Dict[str, Any]:
+        """
+        Browse directory structure for a course with support for nested folders
+        
+        Args:
+            db: Database session
+            course_name: Course name (e.g., "ROAR Academy") 
+            path: Directory path within the course (e.g., "Part One/practice")
+        
+        Returns:
+            Dict with directories, files, breadcrumbs, and current_path
+        """
+        # Get all files for this course
+        files_query = db.query(FileModel).filter(
+            and_(
+                FileModel.course_name == course_name,
+                FileModel.relative_path.like('%/%')  # Valid relative paths
+            )
+        )
+        
+        all_files = files_query.all()
+        
+        # Parse directory structure from relative paths
+        directories = self._extract_directories(all_files, path)
+        
+        # Get files in current directory only (not subdirectories)
+        current_files = self._get_files_in_current_directory(all_files, path)
+        
+        # Build breadcrumbs
+        breadcrumbs = self._build_breadcrumbs(path)
+        
+        return {
+            "directories": directories,
+            "files": current_files,
+            "current_path": path,
+            "breadcrumbs": breadcrumbs,
+            "course_name": course_name
+        }
+    
+    def _extract_directories(self, all_files: List[FileModel], current_path: str) -> List[Dict[str, Any]]:
+        """Extract immediate subdirectories from file paths"""
+        directory_paths: Set[str] = set()
+        
+        # Collect all unique directory paths
+        for file in all_files:
+            rel_path = file.relative_path
+            
+            # If we're at root, get top-level directories
+            if not current_path:
+                if '/' in rel_path:
+                    # Get first directory component
+                    first_dir = rel_path.split('/')[0]
+                    directory_paths.add(first_dir)
+            else:
+                # Check if file is in a subdirectory of current_path
+                if rel_path.startswith(current_path + '/'):
+                    # Get remaining path after current_path
+                    remaining = rel_path[len(current_path) + 1:]
+                    if '/' in remaining:
+                        # Get next directory component
+                        next_dir = remaining.split('/')[0]
+                        full_subdir_path = f"{current_path}/{next_dir}"
+                        directory_paths.add(full_subdir_path)
+        
+        # Build directory info with file counts
+        directories = []
+        for dir_path in sorted(directory_paths):
+            dir_name = dir_path.split('/')[-1]  # Get just the directory name
+            
+            # Count files in this directory and subdirectories
+            file_count = sum(1 for f in all_files if f.relative_path.startswith(dir_path + '/'))
+            
+            # Check if this directory has subdirectories
+            has_subdirs = any(
+                f.relative_path.startswith(dir_path + '/') and 
+                len(f.relative_path[len(dir_path) + 1:].split('/')) > 1
+                for f in all_files
+            )
+            
+            directories.append({
+                "name": dir_name,
+                "path": dir_path,
+                "file_count": file_count,
+                "has_subdirs": has_subdirs
+            })
+        
+        return directories
+    
+    def _get_files_in_current_directory(self, all_files: List[FileModel], current_path: str) -> List[FileModel]:
+        """Get files that are directly in the current directory (not in subdirectories)"""
+        current_dir_files = []
+        
+        for file in all_files:
+            rel_path = file.relative_path
+            
+            if not current_path:
+                # At root - files directly in root (no subdirectory)
+                if '/' in rel_path and rel_path.count('/') == 1:
+                    current_dir_files.append(file)
+            else:
+                # In a specific directory - files directly in this directory
+                if rel_path.startswith(current_path + '/'):
+                    remaining = rel_path[len(current_path) + 1:]
+                    # File is directly in current directory if no more slashes
+                    if '/' not in remaining:
+                        current_dir_files.append(file)
+        
+        return current_dir_files
+    
+    def _build_breadcrumbs(self, current_path: str) -> List[Dict[str, str]]:
+        """Build breadcrumb navigation"""
+        breadcrumbs = [{"name": "Root", "path": ""}]
+        
+        if current_path:
+            path_parts = current_path.split('/')
+            accumulated_path = ""
+            
+            for part in path_parts:
+                if accumulated_path:
+                    accumulated_path += f"/{part}"
+                else:
+                    accumulated_path = part
+                    
+                breadcrumbs.append({
+                    "name": part,
+                    "path": accumulated_path
+                })
+        
+        return breadcrumbs
 
     @staticmethod
     def get_file_metadata_by_name(db: Session, file_name: str) -> Optional[FileModel]:

@@ -189,6 +189,82 @@ class ErrorResponse(BaseModel):
         }
 
 
+class DirectoryInfo(BaseModel):
+    """Information about a directory in the file system"""
+    
+    name: str = Field(..., description="Directory name")
+    path: str = Field(..., description="Full path relative to course root")
+    file_count: int = Field(..., description="Number of files in this directory and subdirectories")
+    has_subdirs: bool = Field(..., description="Whether this directory has subdirectories")
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "name": "practice",
+                "path": "Part One/practice",
+                "file_count": 5,
+                "has_subdirs": True
+            }
+        }
+
+
+class BreadcrumbItem(BaseModel):
+    """Breadcrumb navigation item"""
+    
+    name: str = Field(..., description="Display name for breadcrumb")
+    path: str = Field(..., description="Path for navigation")
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "name": "Part One",
+                "path": "Part One"
+            }
+        }
+
+
+class DirectoryBrowserResponse(BaseModel):
+    """Response for directory browsing with hierarchical structure"""
+    
+    directories: List[DirectoryInfo] = Field(..., description="Immediate subdirectories")
+    files: List[FileMetadata] = Field(..., description="Files in current directory")
+    current_path: str = Field(..., description="Current directory path")
+    breadcrumbs: List[BreadcrumbItem] = Field(..., description="Breadcrumb navigation")
+    course_name: str = Field(..., description="Course name for context")
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "directories": [
+                    {
+                        "name": "practice",
+                        "path": "Part One/practice",
+                        "file_count": 5,
+                        "has_subdirs": False
+                    }
+                ],
+                "files": [
+                    {
+                        "uuid": "550e8400-e29b-41d4-a716-446655440000",
+                        "filename": "intro.pdf",
+                        "title": "Introduction",
+                        "relative_path": "Part One/intro.pdf",
+                        "size_bytes": 1048576,
+                        "mime_type": "application/pdf",
+                        "course": "ROAR Academy",
+                        "download_url": "/api/files/550e8400-e29b-41d4-a716-446655440000/download"
+                    }
+                ],
+                "current_path": "Part One",
+                "breadcrumbs": [
+                    {"name": "Root", "path": ""},
+                    {"name": "Part One", "path": "Part One"}
+                ],
+                "course_name": "ROAR Academy"
+            }
+        }
+
+
 # Simple query parameters
 class FileListParams(BaseModel):
     """Simple query parameters for file listing"""

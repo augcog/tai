@@ -13,6 +13,9 @@ from loguru import logger
 def get_strutured_content_for_ipynb(
         md_content: str, file_name: str, course_name: str,
 ):
+    # TODO : add all titles form index helper to the message content
+
+    get_title_list(md_content)
     load_dotenv()
     api_key = os.getenv("OPENAI_API_KEY")
     client = OpenAI(api_key=api_key)
@@ -20,6 +23,7 @@ def get_strutured_content_for_ipynb(
         raise ValueError("The content is empty or not properly formatted.")
     response = client.chat.completions.create(
         model="gpt-4.1",
+        temperature=0.1,
         messages=[
             {
                 "role": "system",
@@ -31,13 +35,14 @@ def get_strutured_content_for_ipynb(
                     Your goal is to identify and explain the key concepts in each section to help a student recap the material. 
                     For each Key Concept, provide the following information: 
                     - **Key Concept:** A descriptive phrase or sentence that clearly captures the main idea 
-                    - **Source Section:** The specific section title in the material where this concept is discussed.(Should be only one section title) 
+                    - **Source Section:** The specific section title in the material where this concept is discussed.(Should be only one section title only lines started with # can be titles) 
                     - **Content Coverage:** List only the aspects that the section actually explained with aspect and content. 
                     - Some good examples of aspect: Definition, How it works, What happened, Why is it important, etc 
                     - The content should be directly from the section.
 
                     ### Part 2: Extract and Create Problems
-                    Based on the key concepts you identified, create educational problems that test student understanding. 
+                    If you find there are some blocks named Exercise or Challenge, then based on the key concepts you identified, create educational problems that test student understanding. 
+                    If there are no such blocks, skip this part.
                     For each problem:
                     - **ID:** Identify if this relates to an existing exercise in the material (e.g., "Exercise 1", "Challenge 1")
                     - **Content:** Provide the main problem statement or scenario
@@ -57,7 +62,7 @@ def get_strutured_content_for_ipynb(
                     Format your response as a valid JSON object matching the provided schema."""
                 ),
             },
-            {"role": "user", "content": f"{md_content} "},
+            {"role": "user", "content": f"{md_content}\n title_list: {get_title_list(md_content)} "},
         ],
         response_format={
             'type': 'json_schema',
@@ -74,7 +79,7 @@ def get_strutured_content_for_ipynb(
                                 "properties": {
                                     "concepts": {"type": "string"},
                                     "source_section_title": {"type": "string",
-                                                             "description": "*Exactly* the section title as it appears in the markdown (copy‑paste—do **not** alter capitalization, spacing, or punctuation and do not include #)."},
+                                                             "description": "*Exactly* the section title as it appears in the markdown (copy‑paste—do **not** alter capitalization, spacing, or punctuation and do not include # and any *)."},
                                     "content_coverage": {
                                         "type": "array",
                                         "items": {
@@ -114,7 +119,7 @@ def get_strutured_content_for_ipynb(
                                         'properties': {
                                             'description_of_problem': {
                                                 'type': 'string',
-                                                'description': 'The description of the sub problem, it should be a multiple choice question, better contains more than 1 answer e.g. "What key concepts are related to this question?" The goal is to help students understand what concepts are involved in the main problem.'
+                                                'description': 'A multiple-choice question that better contains at least two correct options. Its purpose is to help students understand the problem statement and identify the underlying concepts. e.g. “What knowledge are involved in this problem?”'
                                             },
                                             'options': {
                                                 'type': 'array',
@@ -140,7 +145,7 @@ def get_strutured_content_for_ipynb(
                                         'properties': {
                                             'description_of_problem': {
                                                 'type': 'string',
-                                                'description': 'The description of the sub problem, it should be a multiple choice question, better contains more than 1 answer e.g. "What key concepts are related to this question?" The goal is to help students understand what concepts are involved in the main problem.'
+                                                'description': 'A multiple-choice question that better contain at least two correct options. Its purpose is to guide students in designing an approach or solution framework. e.g. “Which methods could be applied to solve this problem effectively?”'
                                             },
                                             'options': {
                                                 'type': 'array',
@@ -193,13 +198,14 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
         one section. - **Crucially, each section object must contain its own `paragraphs` array.** This 
         nested array should list all the paragraphs that belong to that section. - Each paragraph object 
         within the nested array must include its title and its **original index** from the source text (
-        starting from 1). ### Part 2: Extract Key Concepts Your goal is to identifying and explaining the key 
-        concepts in each section to help a student recap the material. For each Key Concept, provide the 
-        following information: - **Key Concept:** A descriptive phrase or sentence that clearly captures the 
-        main idea - **Source Section:** The specific section title(s) in the material where this concept is 
-        discussed - **Content Coverage:** List only the aspects that the section actually explained with 
-        aspect and content. - Some good examples of aspect: Definition, How it works, What happened, 
-        Why is it important, etc - The content also should be from the section. """
+        starting from 1). ### Part 2: Extract Key Concepts 
+        Your goal is to identify and explain the key concepts in each section to help a student recap the material. 
+        For each Key Concept, provide the following information: 
+        - **Key Concept:** A descriptive phrase or sentence that clearly captures the main idea 
+        - **Source Section:** The specific section title in the material where this concept is discussed.(Should be only one section title only lines started with # can be titles) 
+        - **Content Coverage:** List only the aspects that the section actually explained with aspect and content. 
+        - Some good examples of aspect: Definition, How it works, What happened, Why is it important, etc 
+        - The content should be directly from the section. """
         )
         json_schema = {
             "type": "json_schema",
@@ -282,13 +288,14 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
             from the file "{file_name}". The text is already divided into paragraphs. Your task is to perform the 
             following actions and format the output as a single JSON object:  1.  **Generate Titles:** - For 
             each pargraph, create a concise and descriptive title that reflects its main topic. 
-            ### Part 2: Extract Key Concepts Your goal is to identifying and explaining the key 
-            concepts in each paragraph to help a student recap the material. For each Key Concept, provide the 
-            following information: - **Key Concept:** A descriptive phrase or sentence that clearly captures the 
-            main idea - **Source Section:** The specific paragraph title(s) in the material where this concept is 
-            discussed - **Content Coverage:** List only the aspects that the paragraph actually explained with 
-            aspect and content. - Some good examples of aspect: Definition, How it works, What happened, 
-            Why is it important, etc - The content also should be from the section. """
+            ### Part 2: Extract Key Concepts 
+            Your goal is to identify and explain the key concepts in each section to help a student recap the material. 
+            For each Key Concept, provide the following information: 
+            - **Key Concept:** A descriptive phrase or sentence that clearly captures the main idea 
+            - **Source Section:** The specific section title in the material where this concept is discussed.(Should be only one section title only lines started with # can be titles) 
+            - **Content Coverage:** List only the aspects that the section actually explained with aspect and content. 
+            - Some good examples of aspect: Definition, How it works, What happened, Why is it important, etc 
+            - The content should be directly from the section. """
         )
         json_schema = {
             "type": "json_schema",
@@ -372,7 +379,7 @@ def get_structured_content_without_title(
             "role": "system",
             "content": message_content
         },
-            {"role": "user", "content": f"{md_content} "},
+            {"role": "user", "content": f"{md_content}"},
         ],
         response_format=json_schema
     )
@@ -474,17 +481,17 @@ def get_structured_content_with_one_title_level(
                 **Output Format:** In the JSON, provide the clean title text (without the '#') and the integer level 
                 you have assigned.
 
-                ### Part 2: Extract Key Concepts Your goal is to identifying and explaining the key concepts 
-                in each level 1 title to help a student recap the material. For each Key Concept, provide the 
-                following information: - **Key Concept:** A descriptive phrase or sentence that clearly 
-                captures the main idea - **Source Section:** The specific level 1 title(s) in the material 
-                where this concept is discussed - **Content Coverage:** List only the aspects that the 
-                section actually explained with aspect and content. - Some good examples of aspect: 
-                Definition, How it works, What happened, Why is it important, etc - The content also should 
-                be from the sections. """
+                ### Part 2: Extract Key Concepts 
+                Your goal is to identify and explain the key concepts in each section to help a student recap the material. 
+                For each Key Concept, provide the following information: 
+                - **Key Concept:** A descriptive phrase or sentence that clearly captures the main idea 
+                - **Source Section:** The specific section title in the material where this concept is discussed.(Should be only one section title only lines started with # can be titles) 
+                - **Content Coverage:** List only the aspects that the section actually explained with aspect and content. 
+                - Some good examples of aspect: Definition, How it works, What happened, Why is it important, etc 
+                - The content should be directly from the section. """
                 ),
             },
-            {"role": "user", "content": f"{md_content}"},
+            {"role": "user", "content": f"{md_content}\n title_list: {title_list} "},
         ],
         response_format=generate_json_schema(title_list),
     )
@@ -499,8 +506,10 @@ def get_title_list(md_content: str):
     titles = []
     for line in lines:
         if line.startswith("#"):
-            line = line[1:]
-            titles.append(line)
+            title = line[1:]
+            if line.startswith('*'):
+                title = line.lstrip('*').rstrip('*').strip()
+            titles.append(title)
     return titles
 
 
@@ -670,7 +679,7 @@ def get_only_key_concepts(md_content: str, file_name: str, course_name: str):
                     Your goal is to identifying and explaining the key concepts for each section title to help a student recap the material.
                     For each Key Concept, provide the following information:
                    - **Key Concept:** A descriptive phrase or sentence that clearly captures the main idea
-                   - **Source Section:** The exact one section title in the material which this concept is about
+                   - **Source Section:** The exact one section title in the material which this concept is about.(Only line started with # can be titles)
                    - **Content Coverage:** List only the aspects that the section actually explained with aspect and content. 
                      - Some good examples of aspect: Definition, How it works, What happened, Why is it important, etc
                      - The content also should be from the section.

@@ -79,7 +79,10 @@ def traverse_files(
                     print(file_path)
                     chunks = pickle.load(pkl_file)
                 for chunk in chunks:
-                    topic_path = " > ".join(chunk.titles)
+                    if len(chunk.titles) < 2:
+                        topic_path = " > ".join(chunk.titles)
+                    else:
+                        topic_path = chunk.titles[0] + " > " + chunk.titles[-1]
                     topic_path_list.append(topic_path)
                     print(f"topic_path: {topic_path} in {file_path}")
                     id = base_name + ' > ' + topic_path
@@ -136,7 +139,7 @@ def embedding_create(markdown_path, name, embedding_name, folder_name, model):
     # Create the folder if it does not exist
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
-
+    # TODO: do not store from working directory, it should be based on the markdown_path
     with open(f"{folder_name}/{embedding_name}.pkl", "wb") as f:
         pickle.dump(data_to_store, f)
 
@@ -187,9 +190,9 @@ def validate_data(data):
 
 if __name__ == "__main__":
     embedding_create(
-        "/home/bot/bot/yk/YK_final/ROAR-Academy-main_output",
-        "/home/bot/bot/yk/YK_final/ROAR-Academy-main_output",
-        "ROAR-Academy",
+        "/home/bot/bot/yk/YK_final/ROAR-Academy_output",
+        "/home/bot/bot/yk/YK_final/ROAR-Academy_output",
+        "ROAR Academy",
         "embedding_output",
         "BGE",
     )

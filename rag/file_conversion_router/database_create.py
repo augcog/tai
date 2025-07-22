@@ -7,9 +7,10 @@ ingest.py  —  YAML ➜ flattened SQLite
 """
 import json, uuid, yaml, sqlite3, pathlib
 from typing import List, Dict, Any
+import os
 
 # ───────────────────────── helpers ────────────────────────────────────────────
-ROOT = pathlib.Path("/home/bot/bot/yk/YK_final/courses/")
+ROOT = pathlib.Path("/home/bot/bot/yk/YK_final/ROAR-Academy/")
 DB_PATH = ROOT / "metadata.db"
 
 
@@ -42,7 +43,11 @@ def _load(path: pathlib.Path) -> List[Dict]:
 # ──────────────────── DB bootstrap (one file, two tables) ─────────────────────
 if DB_PATH.exists():              # ❶   check for an old file
     DB_PATH.unlink()              # ❷   remove it
+if not DB_PATH.parent.exists():
+    os.makedirs(DB_PATH.parent)
+
 # now create a brand-new, empty DB on next connect
+
 db = sqlite3.connect(DB_PATH)
 with db:
     db.executescript(

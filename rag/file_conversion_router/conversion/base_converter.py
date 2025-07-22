@@ -138,6 +138,7 @@ class BaseConverter(ABC):
             self._use_cached_files(cached_paths, output_folder)
             return
         # TODO: this is one file conversion, no need to use future
+        # self._convert_and_cache(input_path, output_folder, file_hash)
         future = self.cache.get_future(file_hash)
         if not future or not future.running():
             with ThreadPoolExecutor() as executor:
@@ -433,10 +434,10 @@ class BaseConverter(ABC):
             if line.startswith("#"):
                 level = line.count("#")
                 title = line.lstrip("#").strip()
+                if title == "":
+                    continue
                 if title.startswith('*'):
                     title = title.lstrip('*').rstrip('*').strip()
-                if not title:
-                    continue
                 titles_with_levels.append({"title": title, "level_of_title": level})
         content_dict["titles_with_levels"] = titles_with_levels
         return content_dict
@@ -527,6 +528,8 @@ class BaseConverter(ABC):
         for i, line in enumerate(lines):
             if line.startswith("#"):
                 title = line.strip().lstrip("#").strip()
+                if title == "":
+                    continue
                 self.index_helper.append({title: i + 1})
 
     def add_source_section_index(self, content_dict: dict):
@@ -534,6 +537,8 @@ class BaseConverter(ABC):
         if 'key_concepts' in content_dict:
             for concept in content_dict['key_concepts']:
                 source_title = concept['source_section_title'].strip()
+                source_title = source_title.strip().lstrip('*').strip().rstrip('*').strip()
+                source_title = source_title.strip('#').strip()
                 found = False
                 for titles in self.index_helper.keys():
                     if source_title in titles:
@@ -542,7 +547,9 @@ class BaseConverter(ABC):
                         found = True
                         break
                 if not found:
-                    print(f"No match found for: '{source_title}'")
+                    raise ValueError(
+                        f"Source section title '{source_title}' not found in index_helper: {self.index_helper}"
+                    )
         return content_dict
 
     def update_index_helper(self, content_dict):
@@ -553,6 +560,8 @@ class BaseConverter(ABC):
         for item, level_info in zip(self.index_helper, titles_with_levels):
             title = list(item.keys())[0].strip()
             index = list(item.values())[0]
+            if not title:
+                continue
             level_info["title"]=level_info["title"].strip()
             assert(title == level_info["title"]), (
                 f"Title mismatch: {title} != {level_info['title']}"

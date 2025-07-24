@@ -180,10 +180,12 @@ def _get_pickle_and_class(course: str) -> Tuple[str, str]:
     elif course == "INTD315":
         return "language.pkl", "Multilingual Engagement"
     elif course == "ROAR Academy":
-        return "ROAR-Academy.pkl", "learning python and autonomous driving"
+        return "ROAR Academy.pkl", "learning python and autonomous driving"
         # return "roar_academy.pkl", "learning python and autonomous driving"
-    else:
+    elif course == "general":
         return "Berkeley.pkl", "Berkeley"
+    else:
+        raise ValueError(f"Unknown course: {course}. Please provide a valid course name.")
 
 
 def top_k_selector(

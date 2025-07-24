@@ -43,6 +43,10 @@ def build_augmented_prompt(
     threshold: float,
     rag: bool,
     top_k: int = 7,
+    practice: bool = False,
+    problem_content: Optional[str] = None,
+    answer_content: Optional[str] = None,
+    file_name: Optional[str] = None
 ) -> Tuple[str, List[str], str]:
     """
     Build an augmented prompt by retrieving reference documents.
@@ -52,6 +56,12 @@ def build_augmented_prompt(
       - reference_string: formatted string for plain text references.
     TODO: reference_string can be removed in the future once the legacy code migration is completed.
     """
+    if practice:
+        user_message = (
+            f"Course problem:\n{problem_content}\n"
+            f"Answer attempted by user:\n{answer_content}\n"
+            f"Instruction: {user_message}"
+        )
     print('\n Course: \n', course, '\n')
     print("\nUser Question: \n", user_message, "\n")
     print('time of the day:', time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()), '\n')
@@ -74,7 +84,7 @@ def build_augmented_prompt(
         similarity_scores,
         top_files,
         top_topic_paths,
-    ) = _get_reference_documents(query_embed, current_dir, picklefile, top_k=7)
+    ) = _get_reference_documents(query_embed, current_dir, picklefile, top_k=top_k)
 
     insert_document = ""
     reference_list: List[str] = []
@@ -85,6 +95,10 @@ def build_augmented_prompt(
         if similarity_scores[i] > threshold:
             n += 1
             cleaned_info_path = top_ids[i]
+            if file_name:
+                chunk_file=cleaned_info_path.split('>')[0].strip()
+                if chunk_file in file_name:
+                    cleaned_info_path = '>'.join(cleaned_info_path.split('>')[1:])
             cleaned_file_path = top_files[i]
             cleaned_topic_path = top_topic_paths[i]
             if top_urls[i]:
@@ -116,20 +130,22 @@ def build_augmented_prompt(
 
     if not insert_document or n == 0:
         modified_message = (
-            f"Answer the instruction thoroughly with a well structured markdown format answer. If unsure of the answer, explain that there is no data in the knowledge base "
-            f"for the response and refuse to answer. If the instruction is not related to any topic related to {class_name}, "
+            f"Answer the instruction thoroughly with a well structured markdown format answer. Provide guidance instead of direct answers to Course problem when answer is being asked. If unsure of the answer, explain that there is no data in the knowledge base "
+            f"for the response and refuse to answer. If the instruction is not within the scope of any topic related to {class_name}, "
             f"explain and refuse to answer.\n---\n"
-            f"Instruction: {user_message}"
+
         )
     else:
-        insert_document += f"Instruction: {user_message}"
         modified_message = (
-            f"---\n{insert_document}"
             f"Understand the reference documents and pick the helpful ones to answer the instruction thoroughly with a well structured markdown format answer but no need to add '```markdown'. "
-            f"Keep your answer grounded in the facts of the references that are relevant."
-            f"Remember to refer to specific reference number inline with md *bold style*.Remember to refer to specific reference number inline with md *bold style*. Remember to refer to specific reference number inline with md *bold style*.Do not list reference at the end. Do not explain if the reference is not related to the question."
-            f"If the instruction is not related to any topic related to {class_name}, explain and refuse to answer.\n"
+            f"Keep your answer grounded in the facts of the references that are relevant. Provide guidance instead of direct answers to Course problem when answer is being asked. If unsure of the answer, explain that there is no data in the knowledge base for the response and refuse to answer. "
+            f"Remember to refer to specific reference number inline with md *bold style*. Remember to refer to specific reference number inline with md *bold style*. Remember to refer to specific reference number inline with md *bold style*.Do not list reference at the end. Do not explain if the reference is not related to the question."
+            f"If the instruction is not within the scope of any topic related to {class_name}, explain and refuse to answer.\n---\n"
         )
+    if not practice:
+        modified_message += f"Instruction: {user_message}"
+    else:
+        modified_message += user_message
     return modified_message, reference_list, reference_string
 
 
@@ -209,6 +225,35 @@ def generate_chat_response(
         response = engine(messages[-1].content, stream=stream, course=course)
         return response, reference_string
 
+def generate_practice_response(
+    messages: List[Message],
+    problem_content: str,
+    answer_content: str,
+    file_name: str,
+    stream: bool = True,
+    rag: bool = True,
+    course: Optional[str] = None,
+    embedding_dir: str = "/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/",
+    threshold: float = 0.32,
+    top_k: int = 7,
+    engine: Any = None,
+) -> Tuple[Any, str]:
+    """
+    Build an augmented message with references and run LLM inference.
+    Returns a tuple: (stream, reference_string)
+    """
+    user_message = messages[-1].content
+    modified_message, _, reference_string = build_augmented_prompt(
+        user_message, course if course else "", embedding_dir, threshold, rag, top_k,practice=True,problem_content=problem_content, answer_content=answer_content, file_name=file_name
+    )
+
+    messages[-1].content = modified_message
+    if is_local_engine(engine):
+        iterator = generate_streaming_response(messages, engine)
+        return iterator, reference_string
+    else:
+        response = engine(messages[-1].content, stream=stream, course=course)
+        return response, reference_string
 
 def rag_json_stream_generator(
     messages: List[Message],

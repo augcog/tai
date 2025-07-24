@@ -10,7 +10,7 @@ from typing import List, Dict, Any
 import os
 
 # ───────────────────────── helpers ────────────────────────────────────────────
-ROOT = pathlib.Path("/home/bot/bot/yk/YK_final/ROAR-Academy/")
+ROOT = pathlib.Path("/home/bot/bot/yk/YK_final/courses/ROAR Academy/")
 DB_PATH = ROOT / "metadata.db"
 
 

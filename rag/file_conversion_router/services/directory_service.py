@@ -1,7 +1,7 @@
 """Internal service to process a directory of files and schedule conversion tasks for each file."""
 
 import logging
-from concurrent.futures import as_completed
+# from concurrent.futures import as_completed
 from pathlib import Path
 from typing import Dict, Type, Union
 
@@ -93,7 +93,7 @@ def process_folder(
             converter_class = converter_mapping.get(input_file_path.suffix)
             if converter_class:
                 converter = converter_class(course_name, course_id)
-                converter.convert(input_file_path, output_file_path, input_dir)
+                converter.convert(input_file_path, output_file_path, input_dir.parent)
                 # future = schedule_conversion(
                 #     converter.convert, input_file_path, output_file_path, input_dir
                 # )

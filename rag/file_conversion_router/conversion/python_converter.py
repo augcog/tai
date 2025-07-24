@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 
 from file_conversion_router.classes.page import Page
@@ -18,7 +19,8 @@ class PythonConverter(BaseConverter):
         with open(input_path, "r") as input_file, open(output_path, "w") as output_file:
             content = input_file.read()
             if not content.strip():
-                raise ValueError(f"The file {input_path} is empty or contains only whitespace.")
+                logging.warning(f"File {input_path} is empty, skipping conversion.")
+                # return output_path
 
             # Write filename as a Markdown H1 title, then the code block
             markdown_content = f"# {title}\n\n```python\n{content}\n```"

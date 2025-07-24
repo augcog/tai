@@ -112,7 +112,7 @@ def get_strutured_content_for_ipynb(
                                     },
                                     'content': {
                                         'type': "string",
-                                        'description': 'The content of Exercise or Challenge.'
+                                        'description': 'The whole content of Exercise or Challenge. Do not miss or change any part of the description.'
                                     },
                                     "sub_problem_1": {
                                         'type': "object",

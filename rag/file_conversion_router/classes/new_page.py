@@ -1,3 +1,4 @@
+import logging
 import string
 import tiktoken
 import pickle
@@ -76,9 +77,13 @@ class Page:
         def flush_segment():
             if path_stack:
                 page_path = " > ".join(path_stack)
+                index = self.index_helper.get(page_path, None)
+                if not index:
+                    logging.error(f"Empty index found for page path: {page_path}")
+                    return
                 segments.append({
                     "page_path": path_stack.copy(),
-                    "index": self.index_helper.get(page_path, 0),
+                    "index": index,
                     "content": "\n".join(current_content).strip()
                 })
                 current_content.clear()
@@ -91,9 +96,9 @@ class Page:
                 hashes = hash_match.group(0) if hash_match else ""
                 title_part = stripped[len(hashes):].strip()
                 if not title_part:
-                    print(f"Warning: Empty title found in line: {raw!r}")
+                    logging.error(f"Empty header found in line: {line}")
                     continue
-                title = re.sub(r'\*+', '', title_part).strip()
+                title = re.sub(r'^[\*]+|[\*]+$', '', title_part).strip()
                 level = len(hashes)
                 path_stack = path_stack[:level - 1]
                 path_stack.append(title)

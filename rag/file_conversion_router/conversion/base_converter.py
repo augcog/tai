@@ -1,11 +1,11 @@
 """Base classes for all file type converters."""
-
+import string
 import logging
 from abc import ABC, abstractmethod
-from concurrent.futures import Future, ThreadPoolExecutor
+# from concurrent.futures import Future, ThreadPoolExecutor
 from pathlib import Path
 from shutil import copy2
-from threading import Lock
+# from threading import Lock
 from typing import Dict, List, Union
 
 import yaml
@@ -109,7 +109,7 @@ class BaseConverter(ABC):
             input_root: The root folder of the input file, used to calculate the relative path of the input file.
         """
         self.file_name=input_path.name
-        self.relatice_path = input_path.relative_to(input_root)
+        self.relative_path = input_path.relative_to(input_root)
         input_path, output_folder = ensure_path(input_path), ensure_path(output_folder)
         if not input_path.exists():
             self._logger.error(f"The file {input_path} does not exist.")
@@ -138,24 +138,25 @@ class BaseConverter(ABC):
             self._use_cached_files(cached_paths, output_folder)
             return
         # TODO: this is one file conversion, no need to use future
-        # self._convert_and_cache(input_path, output_folder, file_hash)
-        future = self.cache.get_future(file_hash)
-        if not future or not future.running():
-            with ThreadPoolExecutor() as executor:
-                future = executor.submit(
-                    self._convert_and_cache, input_path, output_folder, file_hash
-                )
-                self.cache.store_future(file_hash, future)
-                self._logger.info(
-                    "New conversion task started or previous task completed."
-                )
-                return
-
-        self._logger.info(
-            "Conversion is already in progress, waiting for it to complete."
-        )
-        # This will block until the future is completed
-        future.result()
+        self._convert_and_cache(input_path, output_folder, file_hash)
+        # future = self.cache.get_future(file_hash)
+        # if not future or not future.running():
+        #     with ThreadPoolExecutor() as executor:
+        #         future = executor.submit(
+        #             self._convert_and_cache, input_path, output_folder, file_hash
+        #         )
+        #         self.cache.store_future(file_hash, future)
+        #         self._logger.info(
+        #             "New conversion task started or previous task completed."
+        #         )
+        #         return
+        #
+        # self._logger.info(
+        #     "Conversion is already in progress, waiting for it to complete."
+        # )
+        # # This will block until the future is completed
+        # future.result()
+        cached_paths = self.cache.get_cached_paths(file_hash)
         self._logger.info(
             f"Future completed, using cached files for input path: {input_path} "
             f"in output folder: {output_folder}."
@@ -179,7 +180,7 @@ class BaseConverter(ABC):
         input_path = ensure_path(input_path)
         output_folder = ensure_path(output_folder)
         self.file_name = input_path.name
-        # self.relatice_path = input_path.relative_to(output_folder)
+        # self.relative_path = input_path.relative_to(output_folder)
         self._md_path = ensure_path(output_folder / f"{input_path.stem}.md")
         # TODO: current MarkdownParser does not support custom output paths,
         #  below paths are only used for caching purposes at the moment,
@@ -345,9 +346,13 @@ class BaseConverter(ABC):
         self.file_type = input_path.suffix.lstrip(".")
         md_path = self._to_markdown(input_path, output_path)
         metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
-        structured_md, content_dict = self.apply_markdown_structure(input_md_path=md_path, file_type=self.file_type)
-        with open(md_path, "w", encoding="utf-8") as md_file:
-            md_file.write(structured_md)
+        if md_path:
+            structured_md, content_dict = self.apply_markdown_structure(input_md_path=md_path, file_type=self.file_type)
+            with open(md_path, "w", encoding="utf-8") as md_file:
+                md_file.write(structured_md)
+        else:
+            structured_md = ""
+            content_dict = {}
         metadata_content = self._read_metadata(metadata_path)
         metadata_content={'URL': metadata_content.get('URL', '')}
         metadata = self._put_content_dict_to_metadata(
@@ -367,6 +372,12 @@ class BaseConverter(ABC):
         )
 
     def _put_content_dict_to_metadata(self, content_dict: dict, metadata_content: dict) -> dict:
+        metadata_content["file_name"] = str(self.file_name)
+        metadata_content['file_path'] = str(self.relative_path)
+        metadata_content["course_name"] = self.course_name
+        metadata_content["course_id"] = self.course_id
+        if not content_dict:
+            return metadata_content
         metadata_content["sections"] = content_dict['key_concepts']
         for section in metadata_content["sections"]:
             section["name"] = section.pop('source_section_title')
@@ -375,13 +386,18 @@ class BaseConverter(ABC):
             section["aspects"] = section.pop('content_coverage')
             for aspect in section["aspects"]:
                 aspect["type"] = aspect.pop('aspect')
-        metadata_content["file_name"] = str(self.file_name)
-        metadata_content['file_path'] = str(self.relatice_path)
-        metadata_content["course_name"] = self.course_name
-        metadata_content["course_id"] = self.course_id
         if self.file_type == "ipynb":
             metadata_content["problems"] = self.process_problems(content_dict)
         return metadata_content
+
+    def match_a_title_and_b_title(self, a_titles: str, b_titles: str, operator):
+        """
+        Match the helper titles with the levels titles.
+        This method is used to fix the index_helper with titles and their levels.
+        """
+        a_titles = a_titles.strip().translate(str.maketrans('', '', string.punctuation)).lower()
+        b_titles = b_titles.strip().translate(str.maketrans('', '', string.punctuation)).lower()
+        return operator(a_titles, b_titles)
 
     def process_problems(self, content_dict):
         # Return just the list of problems, not a dictionary
@@ -389,7 +405,7 @@ class BaseConverter(ABC):
         for problem in content_dict['problems']:
             processed_problem = {}
             for title in self.index_helper:
-                if problem['ID'] in title:
+                if self.match_a_title_and_b_title(title,problem['ID'], str.__contains__):
                     processed_problem['problem_index'] = self.index_helper[title]
                     break
             else:
@@ -443,21 +459,18 @@ class BaseConverter(ABC):
         return content_dict
 
     def fix_index_helper_with_titles_with_level(self, content_dict: dict):
-        """
-        Fix the index_helper with titles and their levels from the content_dict.
-        """
-        titles_with_levels = content_dict.get("titles_with_levels", [])
+        title_with_levels = content_dict.get("titles_with_levels", [])
         index_helper = []
         twl_index = 0
         for item in self.index_helper:
-            title = list(item.keys())[0].strip()
-            if titles_with_levels[twl_index]["title"] == title:
+            if self.match_a_title_and_b_title(list(item.keys())[0], title_with_levels[twl_index]["title"], str.__eq__):
                 index_helper.append(item)
+                title_with_levels[twl_index]["title"]=list(item.keys())[0]
                 twl_index += 1
-                if twl_index >= len(titles_with_levels):
+                if twl_index >= len(title_with_levels):
                     break
-        if len(index_helper) != len(titles_with_levels):
-            raise AssertionError(f"twl_index: {twl_index} != len(titles_with_levels): {len(titles_with_levels)}")
+        if len(index_helper) != len(title_with_levels):
+            raise AssertionError(f"twl_index: {twl_index} != len(title_with_levels): {len(title_with_levels)}")
         self.index_helper = index_helper
 
     def apply_markdown_structure(
@@ -505,7 +518,6 @@ class BaseConverter(ABC):
                 md_content=content_text, content_dict=content_dict
             )
         else:
-            # TODO base on the header levels, we can apply different key concept extraction methods if more than 5 generate section titles reflate to original paragraph index and url
             content_dict = get_only_key_concepts(
                 md_content=content_text,
                 file_name=file_name,
@@ -536,13 +548,11 @@ class BaseConverter(ABC):
         self.update_index_helper(content_dict)
         if 'key_concepts' in content_dict:
             for concept in content_dict['key_concepts']:
-                source_title = concept['source_section_title'].strip()
-                source_title = source_title.strip().lstrip('*').strip().rstrip('*').strip()
-                source_title = source_title.strip('#').strip()
+                source_title = concept['source_section_title']
                 found = False
                 for titles in self.index_helper.keys():
-                    if source_title in titles:
-                        concept['source_section_title'] = source_title
+                    if self.match_a_title_and_b_title(titles, source_title, str.__contains__):
+                        concept['source_section_title'] = titles
                         concept['source_section_index'] = self.index_helper[titles]
                         found = True
                         break
@@ -558,7 +568,7 @@ class BaseConverter(ABC):
         result = {}
         path_stack = []
         for item, level_info in zip(self.index_helper, titles_with_levels):
-            title = list(item.keys())[0].strip()
+            title = list(item.keys())[0]
             index = list(item.values())[0]
             if not title:
                 continue

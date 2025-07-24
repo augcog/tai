@@ -44,3 +44,6 @@ class CompletionCreateParams(BaseModel):
     temperature: float
     stream: bool
     rag: Optional[bool] = True
+    answer_content: Optional[str] = None
+    problem_id: Optional[str] = None
+    file_name: Optional[str] = None

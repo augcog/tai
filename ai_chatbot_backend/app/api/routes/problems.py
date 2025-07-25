@@ -3,6 +3,7 @@ Problem API routes
 """
 
 import json
+from urllib.parse import unquote
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
@@ -16,11 +17,12 @@ router = APIRouter()
 
 @router.get("/by-name/{file_name}", response_model=ProblemsByFileNameListResponse, summary="Get problems by file name")
 def get_problems_by_file_name(file_name: str, db: Session = Depends(get_metadata_db), _: bool = Depends(verify_api_token)):
-    metadata = file_service.get_file_metadata_by_name(db, file_name)
+    decoded_file_name = unquote(file_name)
+    metadata = file_service.get_file_metadata_by_name(db, decoded_file_name)
     if not metadata:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail="File metadata not found by given name " + file_name
+            detail="File metadata not found by given name " + decoded_file_name
         )
 
     # Get problems for this file using the new relationship
@@ -47,4 +49,4 @@ def get_problems_by_file_name(file_name: str, db: Session = Depends(get_metadata
             answer=answer,
             explanation=problem.explanation
         ))
-    return ProblemsByFileNameListResponse(file_name=file_name, problems=problem_details, file_uuid=metadata.uuid)
+    return ProblemsByFileNameListResponse(file_name=decoded_file_name, problems=problem_details, file_uuid=metadata.uuid)

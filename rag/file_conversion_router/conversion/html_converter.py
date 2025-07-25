@@ -51,8 +51,9 @@ content_tags_dict = {
 
 
 class HtmlConverter(BaseConverter):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, course_name: str, course_id: str):
+        super().__init__(course_name, course_id)
+        self.index_helper = [dict]
 
     # Override
     def _to_markdown(self, input_path: Path, output_path: Path) -> Path:

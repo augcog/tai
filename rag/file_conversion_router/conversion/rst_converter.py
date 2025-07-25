@@ -26,3 +26,5 @@ class RstConverter(BaseConverter):
             content = rst_to_myst(input_file.read())
             output_file.write(content.text)
         return output_path
+    def title_to_index(self, md_path: Path) -> list[dict]:
+        return []

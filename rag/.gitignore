@@ -1,6 +1,8 @@
 /documents/*
 /pickle/*
 /log/*
+/test_folder/*
+/test_folder_output/*
 
 # Remove documents scraped
 /scraper/Scrape_header/*/

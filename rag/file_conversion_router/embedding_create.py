@@ -8,6 +8,7 @@ import pickle
 from dotenv import load_dotenv
 from file_conversion_router.utils.logger import content_logger
 from tqdm import tqdm
+from FlagEmbedding import BGEM3FlagModel
 
 load_dotenv()
 
@@ -19,34 +20,34 @@ def string_subtraction(main_string, sub_string):
 
 
 def traverse_files(
-    path,
-    start_folder_name,
-    url_list,
-    id_list,
-    doc_list,
-    file_paths_list,
-    topic_path_list,
+        path,
+        start_folder_name
 ):
-    results = []
+    url_list = []
+    id_list = []
+    doc_list = []
+    file_paths_list = []
+    topic_path_list = []
+    index_list = []
     # Check if the provided path exists
     if not os.path.exists(path):
         raise ValueError(f"The provided path '{path}' does not exist.")
-    folder_tree = f"{start_folder_name} (h1)\n"
+    # folder_tree = f"{start_folder_name} (h1)\n"
 
     path = os.path.abspath(path)
 
-    for root, dir, files in os.walk(path):
-        for file in files:
-            if file.endswith(".pkl"):
-                path_list = [start_folder_name] + string_subtraction(root, path).split(
-                    "/"
-                )[1:]
-                line = (
-                    (len(path_list) - 1) * "--"
-                    + path_list[-1]
-                    + f" (L{len(path_list)})"
-                )
-                folder_tree += f"{line}\n"
+    # for root, dir, files in os.walk(path):
+    #     for file in files:
+    #         if file.endswith(".pkl"):
+    #             path_list = [start_folder_name] + string_subtraction(root, path).split(
+    #                 "/"
+    #             )[1:]
+    #             line = (
+    #                     (len(path_list) - 1) * "--"
+    #                     + path_list[-1]
+    #                     + f" (L{len(path_list)})"
+    #             )
+    #             folder_tree += f"{line}\n"
 
     for root, dir, files in os.walk(path):
         for file in files:
@@ -59,23 +60,11 @@ def traverse_files(
 
                 # Find associated file (pdf, video, or md) in the same directory
                 base_name = os.path.splitext(file)[0]
-                pdf_path = os.path.join(root, f"{base_name}.pdf")
-                video_extensions = [".mp4", ".avi", ".mov", ".mkv", ".webm"]
-                video_path = None
-                for ext in video_extensions:
-                    potential_video = os.path.join(root, f"{base_name}{ext}")
-                    if os.path.exists(potential_video):
-                        video_path = potential_video
-                        break
                 md_path = os.path.join(root, f"{base_name}.md")
 
                 # Determine which file path to use based on priority
                 File_path = None
-                if os.path.exists(pdf_path):
-                    File_path = pdf_path
-                elif video_path and os.path.exists(video_path):
-                    File_path = video_path
-                elif os.path.exists(md_path):
+                if os.path.exists(md_path):
                     File_path = md_path
 
                 # Convert absolute path to relative path including the root folder name
@@ -90,68 +79,49 @@ def traverse_files(
                     print(file_path)
                     chunks = pickle.load(pkl_file)
                 for chunk in chunks:
-                    folder_path = " > ".join(
-                        f"{item} (Level{i + 1})" for i, item in enumerate(path_list)
-                    )
-                    page_path = chunk.titles
-                    id = folder_path + " > " + page_path
+                    if len(chunk.titles) < 2:
+                        topic_path = " > ".join(chunk.titles)
+                    else:
+                        topic_path = chunk.titles[0] + " > " + chunk.titles[-1]
+                    topic_path_list.append(topic_path)
+                    print(f"topic_path: {topic_path} in {file_path}")
+                    id = base_name + ' > ' + topic_path
                     id_list.append(id)
                     doc_list.append(chunk.content)
                     url = "".join(chunk.chunk_url)
                     url_list.append(url)
-                    file_paths_list.append(
-                        relative_file_path
-                    )  # Add the relative file path with root folder
-    return url_list, id_list, doc_list, file_paths_list, topic_path_list
+                    file_paths_list.append(relative_file_path)
+                    index_list.append(chunk.index)
+    return url_list, id_list, doc_list, file_paths_list, topic_path_list, index_list
 
 
 def embedding_create(markdown_path, name, embedding_name, folder_name, model):
     """
     Traverse through files
     """
-    id_list = []
-    doc_list = []
-    embedding_list = []
-    url_list = []
     fail = []
-    file_paths_list = []
-    topic_path_list = []
     start = time.time()
     # Process each page
-    url_list, id_list, doc_list, file_paths_list, topic_path_list = traverse_files(
+    url_list, id_list, doc_list, file_paths_list, topic_path_list, index_list = traverse_files(
         markdown_path,
-        name,
-        url_list,
-        id_list,
-        doc_list,
-        file_paths_list,
-        topic_path_list,
+        name
     )
     if model == "BGE":
-        from FlagEmbedding import BGEM3FlagModel
-
         embedding_model = BGEM3FlagModel("BAAI/bge-m3", use_fp16=True)
-    for i in tqdm(range(len(doc_list))):
-        human_embedding_prompt = (
-            "document_hierarchy_path: {segment_path}\ndocument: {segment}\n"
-        )
-        hp = human_embedding_prompt.format(segment=doc_list[i], segment_path=id_list[i])
-
-        history = [{"role": "user", "content": hp.strip()}]
-        if model == "BGE":
-            # print(embedding_model.encode(hp, return_dense=True, return_sparse=True, return_colbert_vecs=True))
-            embedding_list.append(
-                embedding_model.encode(
-                    hp, return_dense=True, return_sparse=True, return_colbert_vecs=True
-                )
-            )
+    human_embedding_prompt = (
+        "document_hierarchy_path: {segment_path}\ndocument: {segment}\n"
+    )
+    hp_list = [human_embedding_prompt.format(segment=doc, segment_path=idid) for doc, idid in zip(doc_list, id_list)]
+    embedding_list = embedding_model.encode(
+        hp_list, return_dense=True, return_sparse=True, return_colbert_vecs=True
+    )
 
     id_list = np.array(id_list)
     doc_list = np.array(doc_list)
-    embedding_list = np.array(embedding_list)
     url_list = np.array(url_list)
     file_paths_list = np.array(file_paths_list)
     topic_path_list = np.array(topic_path_list)
+    index_list=np.array(index_list)
     print("create time:", time.time() - start)
     # Store the variables in a dictionary
     data_to_store = {
@@ -161,6 +131,7 @@ def embedding_create(markdown_path, name, embedding_name, folder_name, model):
         "url_list": url_list,
         "file_paths_list": file_paths_list,
         "topic_path_list": topic_path_list,
+        "index_list": index_list
     }
 
     validate_data(data_to_store)
@@ -168,7 +139,7 @@ def embedding_create(markdown_path, name, embedding_name, folder_name, model):
     # Create the folder if it does not exist
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
-
+    # TODO: do not store from working directory, it should be based on the markdown_path
     with open(f"{folder_name}/{embedding_name}.pkl", "wb") as f:
         pickle.dump(data_to_store, f)
 
@@ -219,9 +190,9 @@ def validate_data(data):
 
 if __name__ == "__main__":
     embedding_create(
-        "/Users/yyk956614/tai/rag/file_conversion_router/test_output/fl",
-        "/Users/yyk956614/tai/rag/file_conversion_router/test_output/fl",
-        "cs61a",
-        "500_md",
+        "/home/bot/bot/yk/YK_final/courses/ROAR Academy_output",
+        "/home/bot/bot/yk/YK_final/courses/ROAR Academy_output",
+        "ROAR Academy",
+        "embedding_output",
         "BGE",
     )

@@ -395,8 +395,8 @@ class BaseConverter(ABC):
         Match the helper titles with the levels titles.
         This method is used to fix the index_helper with titles and their levels.
         """
-        a_titles = a_titles.strip().translate(str.maketrans('', '', string.punctuation)).lower()
-        b_titles = b_titles.strip().translate(str.maketrans('', '', string.punctuation)).lower()
+        a_titles = a_titles.translate(str.maketrans('', '', string.punctuation)).lower().strip()
+        b_titles = b_titles.translate(str.maketrans('', '', string.punctuation)).lower().strip()
         return operator(a_titles, b_titles)
 
     def process_problems(self, content_dict):
@@ -549,6 +549,8 @@ class BaseConverter(ABC):
         if 'key_concepts' in content_dict:
             for concept in content_dict['key_concepts']:
                 source_title = concept['source_section_title']
+                # source_title = source_title.strip("#").strip()
+                # source_title = source_title.strip("*").strip()
                 found = False
                 for titles in self.index_helper.keys():
                     if self.match_a_title_and_b_title(titles, source_title, str.__contains__):

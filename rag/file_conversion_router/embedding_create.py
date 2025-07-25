@@ -190,8 +190,8 @@ def validate_data(data):
 
 if __name__ == "__main__":
     embedding_create(
-        "/home/bot/bot/yk/YK_final/ROAR-Academy_output",
-        "/home/bot/bot/yk/YK_final/ROAR-Academy_output",
+        "/home/bot/bot/yk/YK_final/courses/ROAR Academy_output",
+        "/home/bot/bot/yk/YK_final/courses/ROAR Academy_output",
         "ROAR Academy",
         "embedding_output",
         "BGE",

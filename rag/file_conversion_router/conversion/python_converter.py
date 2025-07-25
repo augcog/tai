@@ -20,7 +20,7 @@ class PythonConverter(BaseConverter):
             content = input_file.read()
             if not content.strip():
                 logging.warning(f"File {input_path} is empty, skipping conversion.")
-                # return output_path
+                return None
 
             # Write filename as a Markdown H1 title, then the code block
             markdown_content = f"# {title}\n\n```python\n{content}\n```"

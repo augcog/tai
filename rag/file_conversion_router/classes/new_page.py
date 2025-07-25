@@ -72,39 +72,31 @@ class Page:
 
     def extract_headers_and_content(self, md_content: str):
         segments = []
-        path_stack = []
-        current_content = []
-        def flush_segment():
-            if path_stack:
-                page_path = " > ".join(path_stack)
-                index = self.index_helper.get(page_path, None)
-                if not index:
-                    logging.error(f"Empty index found for page path: {page_path}")
-                    return
+        lines = md_content.splitlines()
+
+        # Sort headers by their index positions
+        sorted_headers = sorted(self.index_helper.items(), key=lambda x: x[1])
+
+        for i, (header, start_index) in enumerate(sorted_headers):
+            # Determine end index (start of next header or end of content)
+            if i + 1 < len(sorted_headers):
+                end_index = sorted_headers[i + 1][1]
+            else:
+                end_index = len(lines)
+
+            # Extract content between start_index and end_index
+            if start_index < len(lines):
+                content_lines = lines[start_index:end_index]
+                content = "\n".join(content_lines).strip()
+
                 segments.append({
-                    "page_path": path_stack.copy(),
-                    "index": index,
-                    "content": "\n".join(current_content).strip()
+                    "page_path": [header],  # Just the header as path
+                    "index": start_index,
+                    "content": content
                 })
-                current_content.clear()
-        for raw in md_content.splitlines():
-            line = raw.rstrip("\n")
-            stripped = line.strip()
-            if stripped.startswith("#"):
-                flush_segment()
-                hash_match = re.match(r"#+", stripped)
-                hashes = hash_match.group(0) if hash_match else ""
-                title_part = stripped[len(hashes):].strip()
-                if not title_part:
-                    logging.error(f"Empty header found in line: {line}")
-                    continue
-                title = re.sub(r'^[\*]+|[\*]+$', '', title_part).strip()
-                level = len(hashes)
-                path_stack = path_stack[:level - 1]
-                path_stack.append(title)
-                continue
-            current_content.append(line)
-        flush_segment()
+            else:
+                logging.error(f"Index {start_index} for header '{header}' is out of range")
+
         return segments
 
     def page_separate_to_segments(self) -> None:

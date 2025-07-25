@@ -306,17 +306,12 @@ class Page:
                         content=content_chunk,
                         titles=final_title,
                         chunk_url=urls,
-                        page_num=page_num,
                         is_split=(len(split_contents) > 1),
                     )
                 )
         # self.post_process_merge_short_chunks(400)
 
         return self.chunks
-
-    def to_file(self, output_path: str) -> None:
-        with open(output_path, "w", encoding="utf-8") as f:
-            f.write(str(self))
 
     def to_chunk(self) -> None:
         self.page_seperate_to_segments()
@@ -353,7 +348,6 @@ class Page:
                         content=merged_content,
                         titles=merged_title,
                         chunk_url=current_chunk.chunk_url,
-                        page_num=current_chunk.page_num,
                         is_split=current_chunk.is_split,
                     )
                     print(f"merged_title: {merged_title}")

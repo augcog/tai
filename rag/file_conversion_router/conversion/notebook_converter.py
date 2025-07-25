@@ -10,7 +10,7 @@ from file_conversion_router.conversion.base_converter import BaseConverter
 class NotebookConverter(BaseConverter):
     def __init__(self, course_name, course_id):
         super().__init__(course_name, course_id)
-        self.index_helper = [{}]
+        self.index_helper = None
 
     def extract_all_markdown_titles(self, content):
         """
@@ -19,11 +19,11 @@ class NotebookConverter(BaseConverter):
         """
         if not content.strip():
             return []
-
         titles = []
         header_matches = re.findall(r'^\s*(#+)\s+(.+)\s*$', content, re.MULTILINE)
         for level, title in header_matches:
             clean_title = title.strip().lstrip('*').strip().rstrip('*').strip()
+            clean_title = clean_title.strip('#').strip()
             if clean_title:
                 titles.append(clean_title)
 
@@ -44,6 +44,7 @@ class NotebookConverter(BaseConverter):
 
     # Override
     def _to_markdown(self, input_path: Path, output_path: Path) -> Path:
+        self.pre_process_notebook(input_path)
         output_path = output_path.with_suffix(".md")
 
         with open(input_path, "r") as input_file, open(output_path, "w") as output_file:
@@ -69,4 +70,63 @@ class NotebookConverter(BaseConverter):
                 processed_lines.append(f"#{line.strip()}")
             else:
                 processed_lines.append(line.strip())
-        return "\n".join(processed_lines)
+        # Fix title levels in markdown content
+        md_content = self.fix_markdown_title_levels("\n".join(processed_lines))
+        return md_content
+
+    def pre_process_notebook(self, input_path: Path):
+        """
+        Pre-process the notebook to extract metadata and titles.
+        """
+        with open(input_path, "r") as input_file:
+            content = nbformat.read(input_file, as_version=4)
+            for cell in content.cells:
+                if 'id' in cell:
+                    del cell['id']
+        # Write the cleaned notebook
+        with open(input_path, 'w') as f:
+            nbformat.write(content, f)
+
+    def fix_markdown_title_levels(self, md_content):
+        """
+        Fix title levels in markdown content to ensure they are sequential.
+        Takes markdown content as string and returns the fixed content.
+        """
+        lines = md_content.split('\n')
+        title_info = []
+
+        # Extract all title information with line numbers
+        for i, line in enumerate(lines):
+            # Match markdown headers (# ## ### etc.)
+            header_match = re.match(r'^(#+)\s*(.*)', line.strip())
+            if header_match:
+                level = len(header_match.group(1))
+                title = header_match.group(2).strip()
+                title_info.append({
+                    'line_index': i,
+                    'level_of_title': level,
+                    'title': title,
+                    'original_line': line
+                })
+
+        # Apply your fixing logic
+        last_level = 0
+        for i in range(len(title_info)):
+            current_level = title_info[i]["level_of_title"]
+
+            if current_level > last_level + 1:
+                diff = current_level - (last_level + 1)
+                j = i
+                while j < len(title_info) and title_info[j]["level_of_title"] >= current_level:
+                    title_info[j]["level_of_title"] -= diff
+                    j += 1
+
+            last_level = title_info[i]["level_of_title"]
+
+        # Reconstruct the markdown content with fixed levels
+        result_lines = lines.copy()
+        for info in title_info:
+            new_header = '#' * info['level_of_title'] + ' ' + info['title']
+            result_lines[info['line_index']] = new_header
+
+        return '\n'.join(result_lines)

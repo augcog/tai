@@ -26,8 +26,7 @@ def process_pdf(pdf_path: Path, output_dir: Path)-> Path:
     output_name = pdf_path.stem
     # Define subdirectories
     images_dir = output_dir / "images"  # Directory for storing OCR-generated images
-    markdown_dir = output_dir.parent  # Directory for storing Markdown & JSON files
-    pdf_dir = output_dir
+    markdown_dir = output_dir  # Directory for storing Markdown & JSON files
 
     # Create required directories if they do not exist
     for directory in [output_dir, images_dir, markdown_dir]:
@@ -51,13 +50,8 @@ def process_pdf(pdf_path: Path, output_dir: Path)-> Path:
     else:
         infer_result = ds.apply(doc_analyze, ocr=False)
         pipe_result = infer_result.pipe_txt_mode(image_writer)
-
-
-    # Export Markdown (stored in a separate subdirectory)
     md_content = pipe_result.get_markdown("images")
     pipe_result.dump_md(md_writer, f"{output_name}.md", "images")
-
-    # Export structured JSON data
     content_list = pipe_result.get_content_list("images")
     pipe_result.dump_content_list(
         md_writer, markdown_dir / f"{output_name}_content_list.json", "images"

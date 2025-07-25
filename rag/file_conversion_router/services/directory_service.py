@@ -1,7 +1,7 @@
 """Internal service to process a directory of files and schedule conversion tasks for each file."""
 
 import logging
-from concurrent.futures import as_completed
+# from concurrent.futures import as_completed
 from pathlib import Path
 from typing import Dict, Type, Union
 
@@ -93,10 +93,11 @@ def process_folder(
             converter_class = converter_mapping.get(input_file_path.suffix)
             if converter_class:
                 converter = converter_class(course_name, course_id)
-                future = schedule_conversion(
-                    converter.convert, input_file_path, output_file_path
-                )
-                futures.append(future)
+                converter.convert(input_file_path, output_file_path, input_dir.parent)
+                # future = schedule_conversion(
+                #     converter.convert, input_file_path, output_file_path, input_dir
+                # )
+                # futures.append(future)
                 logging.info(
                     f"Scheduled conversion for {input_file_path} to {output_file_path}"
                 )
@@ -105,14 +106,14 @@ def process_folder(
                     f"No converter available for file type {input_file_path.suffix}"
                 )
 
-    for future in as_completed(futures):
-        # try:
-        result = future.result()
-        logging.info(f"Conversion result: {result}")
-        # Handle the successful result here
-        logging.info("Task completed successfully.")
-        # except Exception as e:
-        #     logging.error(f"Conversion failed: {e}")
+    # for future in as_completed(futures):
+    #     # try:
+    #     result = future.result()
+    #     logging.info(f"Conversion result: {result}")
+    #     # Handle the successful result here
+    #     logging.info("Task completed successfully.")
+    #     # except Exception as e:
+    #     #     logging.error(f"Conversion failed: {e}")
 
     content_logger.info(f"Completed content checking for directory: {input_dir}")
     logging.info(f"Completed processing for directory: {input_dir}")

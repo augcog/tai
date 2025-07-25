@@ -29,4 +29,15 @@ def convert_directory(
         cache_path=cache_path,
     )
 
-convert_directory('/Users/yyk956614/tai/rag/test_folder', '/Users/yyk956614/tai/rag/test_folder_output', course_name='ROAR', course_id='112')
+
+# convert_directory("/home/bot/bot/yk/YK_final/courses/ROAR Academy",
+#                   "/home/bot/bot/yk/YK_final/courses/ROAR Academy_output",
+#                   course_name="ROAR Academy",
+#                   course_id="ROAR Academy",
+#                   log_dir="/home/bot/bot/yk/YK_final/courses/ROAR Academy/logs",
+#                   cache_path="/home/bot/bot/yk/YK_final/courses/ROAR Academy/logs/cache.txt")
+convert_directory("/home/bot/bot/yk/YK_final/test_folder/roar_test",
+                  "/home/bot/bot/yk/YK_final/test_folder/roar_test_output",
+                  course_name="ROAR Academy", course_id="ROAR Academy",
+                  log_dir="/home/bot/bot/yk/YK_final/test_folder/roar_test_output",
+                  cache_path="/home/bot/bot/yk/YK_final/test_folder/roar_test_output/cache.txt")

@@ -3,9 +3,9 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Path, status
 from sqlalchemy.orm import Session
-from app.core.database import get_db
+from app.core.dbs.metadata_db import get_metadata_db
 from app.api.deps import verify_api_token
-from app.schemas.files import FileMetadata, FileListResponse, FileStatsResponse
+from app.schemas.files import FileMetadata, FileListResponse, FileStatsResponse, DirectoryBrowserResponse
 from app.services.file_service import file_service
 
 router = APIRouter()
@@ -22,9 +22,10 @@ async def list_files(
         None, description="Filter by category (document, video, audio, other)"
     ),
     search: Optional[str] = Query(None, description="Search in file names and titles"),
+    path: Optional[str] = Query(None, description="Filter by directory path (e.g., 'Part One/practice')"),
     page: int = Query(1, ge=1, description="Page number"),
     limit: int = Query(100, ge=1, le=1000, description="Items per page"),
-    db: Session = Depends(get_db),
+    db: Session = Depends(get_metadata_db),
     _: bool = Depends(verify_api_token),
 ):
     """
@@ -47,6 +48,7 @@ async def list_files(
             course_code=course_code,
             category=category,
             search=search,
+            path=path,
             page=page,
             limit=limit,
         )
@@ -62,6 +64,7 @@ async def list_files(
                 "course_code": course_code,
                 "category": category,
                 "search": search,
+                "path": path,
             },
         )
 
@@ -73,11 +76,60 @@ async def list_files(
 
 
 @router.get(
+    "/browse", response_model=DirectoryBrowserResponse, summary="Browse directory structure"
+)
+async def browse_directory(
+    course_name: str = Query(..., description="Course name (e.g., 'ROAR Academy')"),
+    path: str = Query("", description="Directory path within course (e.g., 'Part One/practice')"),
+    db: Session = Depends(get_metadata_db),
+    _: bool = Depends(verify_api_token),
+):
+    """
+    Browse directory structure for a course with hierarchical navigation.
+    
+    Features:
+    - Hierarchical browsing: Navigate through nested folders
+    - Immediate children: Shows only direct subdirectories and files
+    - File counts: Number of files in each directory (including subdirectories)
+    - Breadcrumbs: Navigation trail for current location
+    - Supports unlimited nesting depth
+    
+    Example usage:
+    - GET /api/files/browse?course_name=ROAR Academy - Browse root of course
+    - GET /api/files/browse?course_name=ROAR Academy&path=Part One - Browse "Part One" folder
+    - GET /api/files/browse?course_name=ROAR Academy&path=Part One/practice - Browse nested folder
+    """
+    try:
+        result = file_service.browse_directory(
+            db=db,
+            course_name=course_name,
+            path=path.strip()
+        )
+        
+        # Convert files to schema format
+        from app.schemas.files import DirectoryInfo, BreadcrumbItem
+        
+        return DirectoryBrowserResponse(
+            directories=[DirectoryInfo(**dir_info) for dir_info in result["directories"]],
+            files=[FileMetadata.from_db_model(file) for file in result["files"]],
+            current_path=result["current_path"],
+            breadcrumbs=[BreadcrumbItem(**crumb) for crumb in result["breadcrumbs"]],
+            course_name=result["course_name"]
+        )
+        
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error browsing directory: {str(e)}"
+        )
+
+
+@router.get(
     "/{file_id}", response_model=FileMetadata, summary="Get file metadata by UUID"
 )
 async def get_file_metadata(
     file_id: UUID = Path(..., description="File UUID"),
-    db: Session = Depends(get_db),
+    db: Session = Depends(get_metadata_db),
     _: bool = Depends(verify_api_token),
 ):
     """
@@ -101,7 +153,7 @@ async def get_file_metadata(
 @router.get("/{file_id}/download", summary="Download file by UUID")
 async def download_file(
     file_id: UUID = Path(..., description="File UUID"),
-    db: Session = Depends(get_db),
+    db: Session = Depends(get_metadata_db),
     _: bool = Depends(verify_api_token),
 ):
     """
@@ -122,7 +174,7 @@ async def download_file(
     summary="Get file system statistics",
 )
 async def get_file_stats(
-    db: Session = Depends(get_db), _: bool = Depends(verify_api_token)
+    db: Session = Depends(get_metadata_db), _: bool = Depends(verify_api_token)
 ):
     """
     Get comprehensive file system statistics.
@@ -142,3 +194,4 @@ async def get_file_stats(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error getting stats: {str(e)}",
         )
+

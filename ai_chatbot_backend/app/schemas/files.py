@@ -29,21 +29,72 @@ class FileMetadata(BaseModel):
     category: Optional[str] = Field(
         None, description="File category (document, video, audio, other)"
     )
+    
+    # Download URL for frontend
+    download_url: Optional[str] = Field(None, description="Download URL for this file")
 
     @classmethod
     def from_db_model(cls, db_model):
         """Create schema from database model with proper field mapping"""
+        import mimetypes
+        import os
+        from pathlib import Path
+        
+        # Get file path for additional metadata
+        from app.config import settings
+        
+        # Use the same logic as the file service
+        if hasattr(settings, "DATA_DIR") and settings.DATA_DIR:
+            data_dir = str(settings.DATA_DIR).split("#")[0].strip().strip("\"'")
+            if os.path.isabs(data_dir):
+                base_path = Path(data_dir)
+            else:
+                # Try relative to current working directory first
+                base_path = Path(data_dir)
+                if not base_path.exists():
+                    # Fallback to project root
+                    import inspect
+                    current_file = Path(inspect.getfile(inspect.currentframe())).resolve()
+                    project_root = current_file.parent.parent.parent
+                    base_path = project_root / data_dir
+        else:
+            # Default to data directory relative to current working directory
+            base_path = Path("data")
+        
+        file_path = base_path / db_model.relative_path
+        
+        # Get file stats
+        size_bytes = 0
+        mime_type = "application/octet-stream"
+        try:
+            if file_path.exists():
+                size_bytes = file_path.stat().st_size
+                mime_type, _ = mimetypes.guess_type(str(file_path))
+                if not mime_type:
+                    mime_type = "application/octet-stream"
+        except:
+            pass
+        
+        # Generate title from filename
+        title = db_model.file_name
+        if title:
+            title = title.rsplit(".", 1)[0]  # Remove extension
+            title = title.replace("_", " ").replace("-", " ")  # Replace with spaces
+            title = " ".join(title.split())  # Normalize whitespace
+            title = title.title()  # Title case
+        
         return cls(
-            uuid=str(db_model.id),
+            uuid=str(db_model.uuid),
             filename=db_model.file_name,
-            title=db_model.title,
+            title=title,
             relative_path=db_model.relative_path,
-            size_bytes=db_model.size_bytes,
-            mime_type=db_model.mime_type,
-            created_at=db_model.created_at,
-            modified_at=db_model.modified_at,
+            size_bytes=size_bytes,
+            mime_type=mime_type,
+            created_at=None,  # Not available in metadata db
+            modified_at=None,  # Not available in metadata db
             course=db_model.course_code,
-            category=db_model.category,
+            category=None,  # Not available in metadata db
+            download_url=f"/api/files/{db_model.uuid}/download",
         )
 
     class Config:
@@ -138,6 +189,82 @@ class ErrorResponse(BaseModel):
         }
 
 
+class DirectoryInfo(BaseModel):
+    """Information about a directory in the file system"""
+    
+    name: str = Field(..., description="Directory name")
+    path: str = Field(..., description="Full path relative to course root")
+    file_count: int = Field(..., description="Number of files in this directory and subdirectories")
+    has_subdirs: bool = Field(..., description="Whether this directory has subdirectories")
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "name": "practice",
+                "path": "Part One/practice",
+                "file_count": 5,
+                "has_subdirs": True
+            }
+        }
+
+
+class BreadcrumbItem(BaseModel):
+    """Breadcrumb navigation item"""
+    
+    name: str = Field(..., description="Display name for breadcrumb")
+    path: str = Field(..., description="Path for navigation")
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "name": "Part One",
+                "path": "Part One"
+            }
+        }
+
+
+class DirectoryBrowserResponse(BaseModel):
+    """Response for directory browsing with hierarchical structure"""
+    
+    directories: List[DirectoryInfo] = Field(..., description="Immediate subdirectories")
+    files: List[FileMetadata] = Field(..., description="Files in current directory")
+    current_path: str = Field(..., description="Current directory path")
+    breadcrumbs: List[BreadcrumbItem] = Field(..., description="Breadcrumb navigation")
+    course_name: str = Field(..., description="Course name for context")
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "directories": [
+                    {
+                        "name": "practice",
+                        "path": "Part One/practice",
+                        "file_count": 5,
+                        "has_subdirs": False
+                    }
+                ],
+                "files": [
+                    {
+                        "uuid": "550e8400-e29b-41d4-a716-446655440000",
+                        "filename": "intro.pdf",
+                        "title": "Introduction",
+                        "relative_path": "Part One/intro.pdf",
+                        "size_bytes": 1048576,
+                        "mime_type": "application/pdf",
+                        "course": "ROAR Academy",
+                        "download_url": "/api/files/550e8400-e29b-41d4-a716-446655440000/download"
+                    }
+                ],
+                "current_path": "Part One",
+                "breadcrumbs": [
+                    {"name": "Root", "path": ""},
+                    {"name": "Part One", "path": "Part One"}
+                ],
+                "course_name": "ROAR Academy"
+            }
+        }
+
+
 # Simple query parameters
 class FileListParams(BaseModel):
     """Simple query parameters for file listing"""
@@ -158,3 +285,4 @@ class FileListParams(BaseModel):
                 "limit": 50,
             }
         }
+

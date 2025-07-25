@@ -1,5 +1,4 @@
 import logging
-import os
 
 # Import model pipeline initializer
 from app.dependencies.model import initialize_model_engine
@@ -8,19 +7,17 @@ initialize_model_engine()
 print("✅ Model pipeline initialization completed successfully!")
 
 import uvicorn
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
 
 from app.admin import setup_admin
 from app.api.router import api_router
 from app.config import settings  # Import the configuration
-from app.core.database import Base, engine
+from app.core.dbs.course_db import Base, engine
 
 # Import the new database initializer
-from app.core.db_initializer import initialize_database_on_startup
+from app.core.dbs.db_initializer import initialize_database_on_startup
 
 # Import to ensure table creation
 
@@ -35,9 +32,8 @@ logging.basicConfig(
 
 # Initialize database with automatic file import and migration
 print("🚀 Initializing database and importing existing files...")
-print("📚 Course loading: from course.json (only if database is empty)")
 
-if not initialize_database_on_startup("data"):
+if not initialize_database_on_startup():
     print("❌ Database initialization failed! Server may not work correctly.")
     print("💡 Check the logs above for details, or run database scripts manually.")
 else:
@@ -75,14 +71,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mount static files directory for serving test files
-curr_abs_path = os.path.dirname(os.path.abspath(__file__))
-static_dir = os.path.join(curr_abs_path, "static")
-# app.mount("/static", StaticFiles(directory="static"), name="static")
-app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
-# Setup templates for the file tester
-templates = Jinja2Templates(directory="templates")
 
 # Setup the admin interface
 setup_admin(app)
@@ -124,7 +113,6 @@ async def home():
 
             <h2>Testing Tools</h2>
             <div class="links">
-                <a href="/file-tester">File API Tester</a>
                 <a href="/course-config">Course Configuration</a>
                 <a href="/database-status">Database Status</a>
                 <a href="/health">Health Check</a>
@@ -132,18 +120,9 @@ async def home():
         </body>
     </html>
     """
-
-
-@app.get("/file-tester", response_class=HTMLResponse)
-async def file_tester(request: Request):
-    """
-    Simple HTML interface for testing the Local File Retrieval API
-    """
-    return templates.TemplateResponse("file_tester.html", {"request": request})
-
-
+  
 @app.get("/course-config", response_class=HTMLResponse)
-async def course_config(request: Request):
+async def course_config():
     """
     Admin interface for course configuration and management
     """
@@ -163,10 +142,10 @@ async def database_status():
     """
     Database status endpoint - shows database initialization status
     """
-    from app.core.db_initializer import get_initializer
+    from app.core.dbs.db_initializer import get_initializer
 
     try:
-        initializer = get_initializer("data")
+        initializer = get_initializer()
         status = initializer.get_database_status()
 
         return {

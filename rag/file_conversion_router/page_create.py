@@ -1,71 +1,17 @@
-from typing import Optional
-
 from pathlib import Path
-from file_conversion_router.classes.page import (
-    Page,
-)  # adjust import to wherever your Page class lives
 
+from rag.file_conversion_router.classes.new_page import Page
+index_helper = {'Lecture: Working with Files in Python': 1, 'Lecture: Working with Files in Python > Appending to a file': 13, 'Lecture: Working with Files in Python > Check if a path exists': 6, 'Lecture: Working with Files in Python > Computer Storage Hierarchy': 3, 'Lecture: Working with Files in Python > Convert string to bytes and update hash': 15, 'Lecture: Working with Files in Python > Create some sample data and compute its MD5 hash': 15, 'Lecture: Working with Files in Python > File Paths and the OS Module': 4, 'Lecture: Working with Files in Python > Get the absolute path of the current script': 5, 'Lecture: Working with Files in Python > Get the current working directory': 5, 'Lecture: Working with Files in Python > Get the directory containing the file': 5, 'Lecture: Working with Files in Python > Keywords': 2, 'Lecture: Working with Files in Python > List contents of current directory': 6, 'Lecture: Working with Files in Python > List contents of current directory > Path Differences Between Operating Systems': 7, 'Lecture: Working with Files in Python > Method 1: Using try-except-finally': 9, 'Lecture: Working with Files in Python > Method 2: Using with statement (recommended)': 10, 'Lecture: Working with Files in Python > Read binary data back': 16, 'Lecture: Working with Files in Python > Read to verify': 13, 'Lecture: Working with Files in Python > Reading and Writing Text Files': 8, 'Lecture: Working with Files in Python > Reading line by line': 11, 'Lecture: Working with Files in Python > Reading line by line > File Modes': 12, "Lecture: Working with Files in Python > The 'with' statement automatically closes the file": 10, 'Lecture: Working with Files in Python > Using seek to navigate in a file': 17, 'Lecture: Working with Files in Python > Working with Binary Files': 14, 'Lecture: Working with Files in Python > Write binary data to file': 16, 'Lecture: Working with Files in Python > Writing to a text file': 9, 'Read all again': 17, 'Read all again > Add some color boundaries to modify an image array': 19, 'Read all again > Best Practices for File Handling': 20, 'Read all again > Buggy code - fix this!': 33, 'Read all again > Display image information': 19, 'Read all again > Example of robust file handling': 21, 'Read all again > Exercises': 23, 'Read all again > Exercises > Exercise 1': 24, 'Read all again > Exercises > Exercise 2': 26, 'Read all again > Exercises > Exercise 3': 28, 'Read all again > Exercises > Exercise 4': 30, 'Read all again > Exercises > Exercise 5': 32, 'Read all again > Missing something important here...': 33, 'Read all again > Missing something important here... > Expanded Discussion: Working with Files in Python': 34, 'Read all again > Missing something important here... > Expanded Discussion: Working with Files in Python > Best Practices': 34, 'Read all again > Missing something important here... > Expanded Discussion: Working with Files in Python > Context Manager': 34, 'Read all again > Missing something important here... > Expanded Discussion: Working with Files in Python > File Modes': 34, 'Read all again > Missing something important here... > Expanded Discussion: Working with Files in Python > Reading Files': 34, 'Read all again > Missing something important here... > Expanded Discussion: Working with Files in Python > Writing to Files': 34, 'Read all again > Please do <pip3 install matplotlib> and <pip3 install pillow> first': 19, 'Read all again > Read an image file': 19, 'Read all again > Summary': 22, 'Read all again > Test the function': 21, 'Read all again > Working with Image Files: `lenna.bmp` Using Custom Python Script': 18, 'Read all again > Working with Image Files: `lenna.bmp` Using Custom Python Script > (c) Copyright 2020. Intelligent Racing Inc. Not permitted for commercial use': 19, 'Read all again > Working with Image Files: `lenna.bmp` Using Custom Python Script > Author: Allen Y. Yang': 19, 'Read all again > Working with Image Files: `lenna.bmp` Using Custom Python Script > Code Explanation:': 18, 'Read all again > Working with Image Files: `lenna.bmp` Using Custom Python Script > Example code: read_image.py': 19, 'Read all again > Working with Image Files: `lenna.bmp` Using Custom Python Script > This is course material for Introduction to Python Scientific Programming': 19, 'Read all again > Write the modified images': 19, 'Read all again > use pyplot to plot the image': 19, 'Read first 8 bytes': 17, 'Seek back to beginning': 17}
+file_type = 'ipynb'
+course_name = 'roar'
+stem = '1-1-introduction-to-python-programming'
+url = ''
+metadata_path = Path('/Users/yyk956614/tai/rag/test_folder/2-1-files1_metadata.yaml')
+md_path = Path('/Users/yyk956614/tai/rag/test_folder_output/2-1-files1/2-1-files1.md')
+with open(md_path, 'r', encoding='utf-8') as f:
+    content = f.read()
 
-def process_page_file(
-    input_path: str,
-    output_pkl: str = None,
-    filetype: Optional[str] = None,
-    page_url: str = "",
-    mapping_json_path: Optional[str] = None,
-) -> list:
-    """
-    Read a Markdown (or PDF-derived Markdown) file, split it into chunks via Page,
-    and optionally write those chunks to a .pkl file.
-
-    Args:
-        input_path (str): Path to the .md (or .txt) file containing your page content.
-        output_pkl (str, optional): If provided, dumps the chunks to this pickle path.
-        filetype (str, optional): 'md' or 'pdf'.  If None, inferred from input_path suffix.
-        page_url (str): Base URL to attach to each chunk.
-        mapping_json_path (str, optional): Path to the JSON header-to-page mapping (for PDFs).
-
-    Returns:
-        List[Chunk]: The list of Chunk objects produced.
-    """
-    input_path = Path(input_path)
-    # infer filetype
-    if filetype is None:
-        filetype = input_path.suffix.lstrip(".")
-    # load content
-    if filetype.lower() in ("md", "markdown", "txt"):
-        text = input_path.read_text(encoding="utf-8")
-        content = {"text": text}
-    else:
-        raise ValueError(
-            f"Unsupported filetype '{filetype}' — only Markdown-derived inputs supported here."
-        )
-
-    # prepare mapping path
-    mapping_path = Path(mapping_json_path) if mapping_json_path else None
-
-    # instantiate and run
-    page = Page(
-        pagename=input_path.stem,
-        content=content,
-        filetype=filetype,
-        page_url=page_url,
-        mapping_json_path=mapping_path,
-    )
-    page.to_chunk()
-    chunks = page.chunks
-
-    # optionally write out a pickle
-    if output_pkl:
-        page.chunks_to_pkl(output_pkl)
-
-    return chunks
-
-
-if __name__ == "__main__":
-    # Process a Markdown page and pickle the results
-    chunks = process_page_file(
-        input_path="/Users/yyk956614/tai/rag/file_conversion_router/test_output/fl/61a-fa20-mt1/61a-fa20-mt1.md",
-        output_pkl="/Users/yyk956614/tai/rag/file_conversion_router/test_output/fl/61a-fa20-mt1/61a-fa20-mt1.pkl",
-        page_url="https://example.com/lecture_notes",
-    )
-    print(f"Produced {len(chunks)} chunks.")
+content = {'text':content}
+page = Page(filetype= file_type, index_helper=index_helper, page_url=url,content=content)
+page.to_chunk()
+page.chunks_to_pkl(output_path='/Users/yyk956614/tai/rag/test_folder_output/2-1-files1/2-1-files1.pkl')

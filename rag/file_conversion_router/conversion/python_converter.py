@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 
 from file_conversion_router.classes.page import Page
@@ -17,8 +18,12 @@ class PythonConverter(BaseConverter):
 
         with open(input_path, "r") as input_file, open(output_path, "w") as output_file:
             content = input_file.read()
+            if not content.strip():
+                logging.warning(f"File {input_path} is empty, skipping conversion.")
+                return None
+
             # Write filename as a Markdown H1 title, then the code block
             markdown_content = f"# {title}\n\n```python\n{content}\n```"
             output_file.write(markdown_content)
-
+        self.generate_index_helper(markdown_content)
         return output_path

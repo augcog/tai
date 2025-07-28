@@ -47,3 +47,11 @@ class CompletionCreateParams(BaseModel):
     answer_content: Optional[str] = None
     problem_id: Optional[str] = None
     file_name: Optional[str] = None
+
+class FileChatCompletionCreateParams(BaseModel):
+    fileId: str
+    course: str
+    messages: List[Message]
+    temperature: float
+    stream: bool = True
+    rag: Optional[bool] = True

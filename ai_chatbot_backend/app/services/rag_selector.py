@@ -4,6 +4,7 @@ from typing import Any, Generator, List, Optional, Tuple
 from app.services.rag_retriever import (
     _get_reference_documents,
     _get_pickle_and_class,
+    get_docs_by_id_from_pickle,
     embedding_model,
 )
 from app.core.models.chat_completion import Message
@@ -148,6 +149,105 @@ def build_augmented_prompt(
         modified_message += user_message
     return modified_message, reference_list, reference_string
 
+def build_file_augmented_context(
+    document: str,
+    selected_text: str,
+    course: str,
+    embedding_dir: str,
+    threshold: float,
+    rag: bool,
+    top_k: int = 7,
+) -> Tuple[str, List[str], str]:
+    """
+    Build an augmented context for file-based chat by retrieving reference documents.
+    Returns:
+      - augmented_context: the augmented context for the file.
+      - reference_list: list of reference URLs for JSON output.
+      - reference_string: formatted string for plain text references.
+    """
+    augmented_context = (
+        f"Looking at a file and focused on the selected text: {selected_text}\n\n"
+        f"The file has the following content:\n\n{document}\n\n"
+    )
+
+    if not rag:
+        return augmented_context, [], ""
+
+    picklefile, class_name = _get_pickle_and_class(course)
+    current_dir = embedding_dir
+
+    # Get reference documents based on the selected text.
+    query_embed = embedding_model.encode(
+        selected_text, return_dense=True, return_sparse=True, return_colbert_vecs=True
+    )
+    (
+        top_ids,
+        top_docs,
+        top_urls,
+        similarity_scores,
+        top_files,
+        top_topic_paths,
+    ) = _get_reference_documents(query_embed, current_dir, picklefile, top_k=top_k // 2)
+
+    # Get reference documents based on the entire document.
+    query_embed_doc = embedding_model.encode(
+        document, return_dense=True, return_sparse=True, return_colbert_vecs=True
+    )
+    (
+        top_ids_doc,
+        top_docs_doc,
+        top_urls_doc,
+        similarity_scores_doc,
+        top_files_doc,
+        top_topic_paths_doc,
+    ) = _get_reference_documents(query_embed_doc, current_dir, picklefile, top_k=top_k // 2)
+
+    # Combine results from selected text and entire document
+    top_ids = top_ids + top_ids_doc
+    top_docs = top_docs + top_docs_doc
+    top_urls = top_urls + top_urls_doc
+    similarity_scores = similarity_scores + similarity_scores_doc
+    top_files = top_files + top_files_doc
+    top_topic_paths = top_topic_paths + top_topic_paths_doc
+
+    insert_document = ""
+    reference_list: List[str] = []
+    reference_string = ""
+    n = 0
+    for i in range(len(top_docs)):
+        if similarity_scores[i] > threshold:
+            n += 1
+            cleaned_info_path = top_ids[i]
+            cleaned_file_path = top_files[i]
+            cleaned_topic_path = top_topic_paths[i]
+            if top_urls[i]:
+                insert_document += (
+                    f'"""Reference Number: {n}\n'
+                    f"Directory Path to file: {cleaned_file_path}\n"
+                    f"Topic Path of chunk in file: {cleaned_topic_path}\n"
+                    f'Document: {top_docs[i]}"""\n\n'
+                )
+                reference_string += (
+                    f"Reference {n}: <|begin_of_reference_name|>{cleaned_info_path}"
+                    f"<|end_of_reference_name|><|begin_of_reference_link|>{top_urls[i]}"
+                    f"<|end_of_reference_link|>\n\n"
+                )
+                reference_list.append([cleaned_info_path, top_urls[i]])
+            else:
+                insert_document += (
+                    f'"""Reference Number: {n}\n'
+                    f"Directory Path to file: {cleaned_file_path}\n"
+                    f"Topic Path of chunk in file: {cleaned_topic_path}\n"
+                    f'Document: {top_docs[i]}"""\n\n'
+                )
+                reference_string += (
+                    f"Reference {n}: <|begin_of_reference_name|>{cleaned_info_path}"
+                    f"<|end_of_reference_name|><|begin_of_reference_link|>"
+                    f"<|end_of_reference_link|>\n\n"
+                )
+    
+    augmented_context += insert_document
+    return augmented_context, reference_list, reference_string
 
 async def local_parser(
     stream: Any, reference_string: str
@@ -248,6 +348,50 @@ def generate_practice_response(
     )
 
     messages[-1].content = modified_message
+    if is_local_engine(engine):
+        iterator = generate_streaming_response(messages, engine)
+        return iterator, reference_string
+    else:
+        response = engine(messages[-1].content, stream=stream, course=course)
+        return response, reference_string
+
+def generate_file_chat_response(
+    messages: List[Message],
+    fileId: str,
+    selected_text: str,
+    engine: Any,
+    stream: bool = True,
+    rag: bool = True,
+    course: Optional[str] = "",
+    embedding_dir: str = "/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/",
+    threshold: float = 0.32,
+    top_k: int = 7
+) -> Tuple[Any, str]:
+    """
+    Build an augmented message with references and run LLM inference for file-based chat.
+    Returns a tuple: (stream, reference_string)
+    """
+
+    # Get the file content based on fileId
+    picklefile, _ = _get_pickle_and_class(course)
+    document = get_docs_by_id_from_pickle(fileId, embedding_dir, picklefile)
+    assert document is not None, "Document not found for the given fileId." # TODO: handle this assertion in the future.
+
+    # Build the augmented context for file-based chat
+    augmented_context, _, reference_string = build_file_augmented_context(
+        document, selected_text, course, embedding_dir, threshold, rag, top_k
+    )
+
+    user_message = messages[-1].content
+    modified_message, _, reference_string = build_augmented_prompt(
+        user_message, course, embedding_dir, threshold, rag, top_k
+    )
+
+    messages[-1].content = (
+        f"{augmented_context}"
+        f"With the context of the file and related references above, you also have the following references based on the instruction:\n\n"
+        f"{modified_message}"
+    )
     if is_local_engine(engine):
         iterator = generate_streaming_response(messages, engine)
         return iterator, reference_string

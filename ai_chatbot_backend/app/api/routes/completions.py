@@ -9,6 +9,7 @@ from app.services.rag_selector import (
     format_chat_msg,
     generate_chat_response,
     generate_practice_response,
+    generate_file_chat_response,
     local_parser,
 )
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -39,6 +40,31 @@ async def create_completion(
     course = params.course
     formatter = format_chat_msg
     selector = generate_chat_response
+    parser = local_parser
+
+    response, reference_string = selector(
+        formatter(params.messages), stream=params.stream, course=course, engine=engine
+    )
+
+    if params.stream:
+        return StreamingResponse(
+            parser(response, reference_string), media_type="text/plain"
+        )
+    else:
+        return PlainTextResponse(response)
+
+@router.post("/filechat_completions")
+async def chat_with_file_completion(
+    params: FileChatCompletionCreateParams,
+    _: bool = Depends(verify_api_token)
+):
+    # Get the pre-initialized pipeline
+    engine = get_model_engine()
+
+    # select model based on params.model
+    course = params.course
+    formatter = format_chat_msg
+    selector = generate_file_chat_response
     parser = local_parser
 
     response, reference_string = selector(

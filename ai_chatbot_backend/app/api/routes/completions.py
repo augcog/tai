@@ -68,7 +68,7 @@ async def chat_with_file_completion(
     parser = local_parser
 
     response, reference_string = selector(
-        formatter(params.messages), stream=params.stream, course=course, engine=engine
+        formatter(params.messages), params.document, params.selected_text,stream=params.stream, course=course, engine=engine
     )
 
     if params.stream:

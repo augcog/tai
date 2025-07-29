@@ -357,7 +357,8 @@ def generate_practice_response(
 
 def generate_file_chat_response(
     messages: List[Message],
-    fileId: str,
+    # fileId: str,
+    document: str,
     selected_text: str,
     engine: Any,
     stream: bool = True,
@@ -373,8 +374,8 @@ def generate_file_chat_response(
     """
 
     # Get the file content based on fileId
-    picklefile, _ = _get_pickle_and_class(course)
-    document = get_docs_by_id_from_pickle(fileId, embedding_dir, picklefile)
+    # picklefile, _ = _get_pickle_and_class(course)
+    # document = get_docs_by_id_from_pickle(fileId, embedding_dir, picklefile)
     assert document is not None, "Document not found for the given fileId." # TODO: handle this assertion in the future.
 
     # Build the augmented context for file-based chat

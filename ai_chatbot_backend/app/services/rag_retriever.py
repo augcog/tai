@@ -187,29 +187,29 @@ def _get_pickle_and_class(course: str) -> Tuple[str, str]:
     else:
         raise ValueError(f"Unknown course: {course}. Please provide a valid course name.")
 
-def get_docs_by_id_from_pickle(
-    fileId: str, current_dir: str, picklefile: str,
-) -> Optional[str]:
-    """
-    Get documents by ID from a pickle file.
-    Returns None if the file or required keys are missing.
-    """
-    path_to_pickle = os.path.join(current_dir, picklefile)
-    if not os.path.exists(path_to_pickle):
-        return None
-    try:
-        with open(path_to_pickle, "rb") as f:
-            data_loaded = pickle.load(f)
-        doc_list = data_loaded.get("doc_list")
-        id_list = data_loaded.get("id_list")
-        if doc_list is None or id_list is None:
-            return None
-        if fileId in id_list:
-            idx = id_list.index(fileId)
-            return doc_list[idx]
-        return None
-    except Exception:
-        return None
+# def get_docs_by_id_from_pickle(
+#     fileId: str, current_dir: str, picklefile: str,
+# ) -> Optional[str]:
+#     """
+#     Get documents by ID from a pickle file.
+#     Returns None if the file or required keys are missing.
+#     """
+#     path_to_pickle = os.path.join(current_dir, picklefile)
+#     if not os.path.exists(path_to_pickle):
+#         return None
+#     try:
+#         with open(path_to_pickle, "rb") as f:
+#             data_loaded = pickle.load(f)
+#         doc_list = data_loaded.get("doc_list")
+#         id_list = data_loaded.get("id_list")
+#         if doc_list is None or id_list is None:
+#             return None
+#         if fileId in id_list:
+#             idx = id_list.index(fileId)
+#             return doc_list[idx]
+#         return None
+#     except Exception:
+#         return None
 
 def top_k_selector(
     message: str,

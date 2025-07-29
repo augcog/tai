@@ -49,7 +49,9 @@ class CompletionCreateParams(BaseModel):
     file_name: Optional[str] = None
 
 class FileChatCompletionCreateParams(BaseModel):
-    fileId: str
+    # fileId: str
+    document: str
+    selected_text: str
     course: str
     messages: List[Message]
     temperature: float

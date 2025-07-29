@@ -18,7 +18,7 @@ from file_conversion_router.embedding_optimization.src.pipeline.optimizer import
 from file_conversion_router.utils.logger import (
     conversion_logger,
     logger,
-    content_logger,
+    content_logger, set_log_file_path,
 )
 from file_conversion_router.utils.utils import (
     calculate_hash,
@@ -68,6 +68,7 @@ class BaseConverter(ABC):
 
         self._logger = logger
         self._content_logger = content_logger
+        self.file_name = ""
 
         self.cache = ConversionCache
 
@@ -513,6 +514,7 @@ class BaseConverter(ABC):
                 md_content=content_text,
                 file_name=file_name,
                 course_name=self.course_name,
+                index_helper=self.index_helper,
             )
             new_md = apply_structure_for_one_title(
                 md_content=content_text, content_dict=content_dict
@@ -591,7 +593,7 @@ class BaseConverter(ABC):
         """Convert the input file to Expected Markdown format. To be implemented by subclasses."""
         raise NotImplementedError("This method should be overridden by subclasses.")
 
-    @abstractmethod
-    def get_structured_content_from_gpt(self, md_content: str) -> Dict[str, Union[str, List[Dict]]]:
-        """Extract structured content from the Markdown file."""
-        raise NotImplementedError("This method should be overridden by subclasses.")
+    # @abstractmethod
+    # def get_structured_content_from_gpt(self, md_content: str, content_dic) ->str :
+    #     """Extract structured content from the Markdown file."""
+    #     raise NotImplementedError("This method should be overridden by subclasses.")

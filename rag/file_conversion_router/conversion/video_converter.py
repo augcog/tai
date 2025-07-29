@@ -8,12 +8,22 @@ import whisperx
 from scenedetect import SceneManager, AdaptiveDetector
 from scenedetect import open_video, SceneManager
 from scenedetect.scene_manager import save_images, write_scene_list
+from dotenv import load_dotenv
+import os
+from openai import OpenAI
+from pathlib import Path
+import json
+import re
+from textwrap import dedent
+
+from file_conversion_router.page_create import course_name
 
 
 class VideoConverter(BaseConverter):
     def __init__(self, course_name, course_id):
         super().__init__(course_id=course_id,course_name=course_name)
         self.section_titles = [dict]
+        self.file_name = ""
         self.paragraphs = []
         self.index_helper = None
 
@@ -233,6 +243,7 @@ class VideoConverter(BaseConverter):
         return f"{hours:02d}:{minutes:02d}:{seconds_remainder:06.3f}"
 
     def _to_markdown(self, input_path, output_path):
+        self.file_name = input_path.stem
         audio = self.convert_mp4_to_wav(input_path, output_path)
         seg_time = self.process_video_scenes(input_path, output_path)
         segments = self._video_convert_whisperx(str(audio))
@@ -271,3 +282,250 @@ class VideoConverter(BaseConverter):
 
         # Replace the helper so callers can do quick look-ups
         self.index_helper = result
+
+    def get_structured_content_for_video(self, md_content: str):
+        """
+        Extract titles and their levels from the markdown content.
+        Returns a list of dictionaries with 'title' and 'level_of_title'.
+        """
+        load_dotenv()
+        api_key = os.getenv("OPENAI_API_KEY")
+        client = OpenAI(api_key=api_key)
+
+        def paragraph_count(md_text: str) -> int:
+            md_text = md_text.strip()
+            blocks = re.split(r'\n\s*\n', md_text)
+            paragraphs = [b for b in blocks if b.strip()]
+            return len(paragraphs)
+
+        paragraph_count = paragraph_count(md_content)
+        message_content, json_schema = self.generate_json_schema_for_video(paragraph_count)
+        if not md_content.strip():
+            raise ValueError("The content is empty or not properly formatted.")
+        response = client.chat.completions.create(
+            model="gpt-4.1",
+            messages=[{
+                "role": "system",
+                "content": message_content
+            },
+                {"role": "user", "content": f"{md_content}"},
+            ],
+            response_format=json_schema
+        )
+        messages = response.choices[0].message
+        data = messages.content
+        content_dict = json.loads(data)
+        return content_dict
+
+    def generate_json_schema_for_video(self, paragraph_count: int):
+        if paragraph_count >= 5:
+            message_content = dedent(
+                f""" You are an expert AI assistant specializing in analyzing and structuring 
+            educational material. You will be given markdown content from a video in the course "{self.course_name}", 
+            from the file "{self.file_name}". The text is already divided into paragraphs. Your task is to perform the 
+            following actions and format the output as a single JSON object: 1.  **Group into Sections:** Analyze 
+            the entire text and divide it into **at most 5 logical sections**. 2.  **Generate Titles:** - For 
+            each **section**, create a concise and descriptive title. - For each **original paragraph**, 
+            create an engaging title that reflects its main topic. 3.  **Create a Nested Structure:** The JSON 
+            output must have a `sections` array. - Each element in the `sections` array is an object representing 
+            one section. - **Crucially, each section object must contain its own `paragraphs` array.** This 
+            nested array should list all the paragraphs that belong to that section. - Each paragraph object 
+            within the nested array must include its title and its **original index** from the source text (
+            starting from 1). ### Part 2: Extract Key Concepts 
+            Your goal is to identify and explain the key concepts in each section to help a student recap the material. 
+            For each Key Concept, provide the following information: 
+            - **Key Concept:** A descriptive phrase or sentence that clearly captures the main idea 
+            - **Source Section:** The specific section title in the material where this concept is discussed.(Should be only one section title only lines started with # can be titles) 
+            - **Content Coverage:** List only the aspects that the section actually explained with aspect and content. 
+            - Some good examples of aspect: Definition, How it works, What happened, Why is it important, etc 
+            - The content should be directly from the section. """
+            )
+            json_schema = {
+                "type": "json_schema",
+                "json_schema": {
+                    "name": "course_content_knowledge_sorting",
+                    "strict": True,
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "paragraphs": {
+                                "type": "array",
+
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "title": {"type": "string"},
+                                        "paragraph_index": {"type": "integer"},
+                                    },
+                                    "required": ["title", "paragraph_index"],
+                                    "additionalProperties": False,
+                                },
+                            },
+                            "sections": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "maxItem": 5,
+                                    "properties": {
+                                        "section_title": {"type": "string"},
+                                        "start_paragraph_index": {
+                                            "type": "integer",
+                                            "description": "The 1-based index from the paragraphs array where this section begins.",
+                                            "minimum": 1,
+                                            "maximum": paragraph_count,
+                                        },
+                                    },
+                                    "required": ["section_title", "start_paragraph_index"],
+                                    "additionalProperties": False,
+                                },
+                            },
+                            "key_concepts": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "concepts": {"type": "string"},
+                                        "source_section_title": {"type": "string"},
+                                        "content_coverage": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "aspect": {"type": "string"},
+                                                    "content": {"type": "string"},
+                                                },
+                                                "required": ["aspect", "content"],
+                                                "additionalProperties": False,
+                                            },
+                                        },
+                                    },
+                                    "required": [
+                                        "concepts",
+                                        "source_section_title",
+                                        "content_coverage",
+                                    ],
+                                    "additionalProperties": False,
+                                },
+                            },
+                        },
+                        "required": ["paragraphs", "sections", "key_concepts"],
+                        "additionalProperties": False,
+                    },
+                },
+            }
+
+        else:
+            message_content = dedent(
+                f""" You are an expert AI assistant specializing in analyzing and structuring 
+                educational material. You will be given markdown content from a video in the course "{self.course_name}", 
+                from the file "{self.file_name}". The text is already divided into paragraphs. Your task is to perform the 
+                following actions and format the output as a single JSON object:  1.  **Generate Titles:** - For 
+                each pargraph, create a concise and descriptive title that reflects its main topic. 
+                ### Part 2: Extract Key Concepts 
+                Your goal is to identify and explain the key concepts in each section to help a student recap the material. 
+                For each Key Concept, provide the following information: 
+                - **Key Concept:** A descriptive phrase or sentence that clearly captures the main idea 
+                - **Source Section:** The specific section title in the material where this concept is discussed.(Should be only one section title only lines started with # can be titles) 
+                - **Content Coverage:** List only the aspects that the section actually explained with aspect and content. 
+                - Some good examples of aspect: Definition, How it works, What happened, Why is it important, etc 
+                - The content should be directly from the section. """
+            )
+            json_schema = {
+                "type": "json_schema",
+                "json_schema": {
+                    "name": "course_content_knowledge_sorting",
+                    "strict": True,
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "paragraphs": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "title": {"type": "string"},
+                                        "paragraph_index": {"type": "integer",
+                                                            "description": "The 1-based index from the paragraphs array where this paragraph is located."},
+                                    },
+                                    "required": ["title", "paragraph_index"],
+                                    "additionalProperties": False,
+                                },
+                            },
+                            "key_concepts": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "concepts": {"type": "string"},
+                                        "source_section_title": {"type": "string"},
+                                        "content_coverage": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "aspect": {"type": "string"},
+                                                    "content": {"type": "string"},
+                                                },
+                                                "required": ["aspect", "content"],
+                                                "additionalProperties": False,
+                                            },
+                                        },
+                                    },
+                                    "required": [
+                                        "concepts",
+                                        "source_section_title",
+                                        "content_coverage",
+                                    ],
+                                    "additionalProperties": False,
+                                },
+                            },
+                        },
+                        "required": ["paragraphs", "key_concepts"],
+                        "additionalProperties": False,
+                    },
+                },
+            }
+        return message_content, json_schema
+
+    def get_structured_content_from_gpt(self, md_content: str, content_dict) ->str:
+        original_paragraphs = [p.strip() for p in md_content.split("\n\n") if p.strip()]
+        md_parts = []
+        content_dict['titles_with_levels'] = []
+        if 'sections' in content_dict:
+            section_starts = {
+                s["start_paragraph_index"]: s["section_title"]
+                for s in content_dict.get("sections")
+            }
+        else:
+            section_starts = {}
+
+        for paragraph in sorted(
+                content_dict["paragraphs"], key=lambda p: p["paragraph_index"]
+        ):
+            p_index = paragraph["paragraph_index"]
+            p_title = paragraph["title"].strip()
+            if p_index in section_starts:
+                section_title = section_starts[p_index].strip()
+                md_parts.append(f"# {section_title}\n\n")
+                content_dict['titles_with_levels'].append({
+                    "title": section_title,
+                    "level_of_title": 1,
+                    "paragraph_index": p_index,
+                })
+                level_of_para_title = 2
+            else:
+                level_of_para_title = 1
+            md_parts.append(f"{'#' * level_of_para_title} {p_title}\n\n")
+            content_dict['titles_with_levels'].append({
+                "title": p_title,
+                "level_of_title": level_of_para_title,
+                "paragraph_index": p_index,
+            })
+            content_index = p_index - 1
+            if 0 <= content_index < len(original_paragraphs):
+                md_parts.append(f"{original_paragraphs[content_index]}\n\n")
+            else:
+                md_parts.append(f"[Content for paragraph {p_index} not found]\n\n")
+
+        output_content = "".join(md_parts)
+        return output_content

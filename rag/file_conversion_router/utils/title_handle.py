@@ -357,7 +357,6 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
 def get_structured_content_without_title(
         md_content: str, file_name: str, course_name: str,
 ):
-    # TODO : add a check for paragraphs count if less than 5 then do not generate section
     load_dotenv()
     api_key = os.getenv("OPENAI_API_KEY")
     client = OpenAI(api_key=api_key)
@@ -389,7 +388,7 @@ def get_structured_content_without_title(
 
 
 def get_structured_content_with_one_title_level(
-        md_content: str, file_name: str, course_name: str
+        md_content: str, file_name: str, course_name: str, index_helper: dict
 ):
     load_dotenv()
     api_key = os.getenv("OPENAI_API_KEY")
@@ -397,7 +396,7 @@ def get_structured_content_with_one_title_level(
     if not md_content.strip():
         raise ValueError("The content is empty or not properly formatted.")
     md_content = remove_redundant_title(md_content, file_name)
-    title_list = get_title_list(md_content)
+    title_list = [key for d in index_helper for key in d.keys()]
 
     def generate_json_schema(title_list):
         return {

@@ -29,4 +29,9 @@ def convert_directory(
         cache_path=cache_path,
     )
 
-
+#
+convert_directory("/home/bot/bot/yk/YK_final/courses/CS 61A/course_website/exam/sp17",
+                  "/home/bot/bot/yk/YK_final/courses/CS 61A_md",
+                  course_name="Structure and Interpretation of Computer Programs",
+                  course_id="cs61a", log_dir="/home/bot/bot/yk/YK_final/courses//logs",
+                  cache_path="/home/bot/bot/yk/YK_final/test_folder_output/cs61a_cache.txt")

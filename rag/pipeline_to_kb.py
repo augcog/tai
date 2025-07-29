@@ -73,4 +73,4 @@ def convert_only(yaml):
 
 
 if __name__ == "__main__":
-    pipeline("/home/bot/bot/yk/yk_tai/rag/scraper/Scraper_master/CS61A.yaml")
+    pipeline("/home/bot/bot/yk/YK_final/course_yaml/CS 61A.yaml")

@@ -1,7 +1,6 @@
 from dotenv import load_dotenv
 import os
 from textwrap import dedent
-from openai.types.chat import ChatCompletionMessage
 from openai import OpenAI
 from pathlib import Path
 import yaml
@@ -623,7 +622,7 @@ def apply_structure_for_one_title(md_content: str, content_dict):
     mapping_list = content_dict.get("titles_with_levels")
     mapping_list = fix_title_levels(mapping_list)
     i = 0
-    lines = md_content.split("\n\n")
+    lines = md_content.split("\n")
     title_pattern = re.compile(r"^(?P<hashes>#+)\s*(?P<title>.+?)\s*$")
     new_lines = []
     for line in lines:
@@ -686,7 +685,7 @@ def get_only_key_concepts(md_content: str, file_name: str, course_name: str):
                     """
                 ),
             },
-            {"role": "user", "content": f"{md_content} "},
+            {"role": "user", "content": f"{md_content}, title_list: {get_title_list(md_content)}"},
         ],
         response_format={
             "type": "json_schema",

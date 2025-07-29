@@ -549,8 +549,6 @@ class BaseConverter(ABC):
         if 'key_concepts' in content_dict:
             for concept in content_dict['key_concepts']:
                 source_title = concept['source_section_title']
-                # source_title = source_title.strip("#").strip()
-                # source_title = source_title.strip("*").strip()
                 found = False
                 for titles in self.index_helper.keys():
                     if self.match_a_title_and_b_title(titles, source_title, str.__contains__):
@@ -591,4 +589,9 @@ class BaseConverter(ABC):
     @abstractmethod
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:
         """Convert the input file to Expected Markdown format. To be implemented by subclasses."""
+        raise NotImplementedError("This method should be overridden by subclasses.")
+
+    @abstractmethod
+    def get_structured_content_from_gpt(self, md_content: str) -> Dict[str, Union[str, List[Dict]]]:
+        """Extract structured content from the Markdown file."""
         raise NotImplementedError("This method should be overridden by subclasses.")

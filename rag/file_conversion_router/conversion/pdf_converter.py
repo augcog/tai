@@ -87,3 +87,9 @@ class PdfConverter(BaseConverter):
 
 
 
+    def get_structured_content_from_gpt(self, markdown_content):
+        """
+        Use GPT to get structured content from the markdown content.
+        """
+        # Placeholder for actual GPT call
+        # For now, just return the content as is

@@ -138,7 +138,7 @@ class FileService:
                 status_code=status.HTTP_404_NOT_FOUND, detail="File not found"
             )
 
-        file_path = self.base_dir / file_record.course_name / file_record.relative_path
+        file_path = self.base_dir / file_record.relative_path
         if not file_path.exists():
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND, detail="File not found on disk"
@@ -290,7 +290,7 @@ class FileService:
             
             if not current_path:
                 # At root - files directly in root (no subdirectory)
-                if '/' in rel_path and rel_path.count('/') == 1:
+                if '/' not in rel_path:
                     current_dir_files.append(file)
             else:
                 # In a specific directory - files directly in this directory

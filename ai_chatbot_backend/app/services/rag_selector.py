@@ -4,7 +4,7 @@ from typing import Any, Generator, List, Optional, Tuple
 from app.services.rag_retriever import (
     _get_reference_documents,
     _get_pickle_and_class,
-    get_docs_by_id_from_pickle,
+    # get_docs_by_id_from_pickle,
     embedding_model,
 )
 from app.core.models.chat_completion import Message

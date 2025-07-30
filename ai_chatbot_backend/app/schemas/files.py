@@ -7,6 +7,21 @@ from typing import Optional, List, Dict, Any
 from pydantic import BaseModel, Field
 import json
 
+
+class SectionAspect(BaseModel):
+    """Individual aspect within a section"""
+    content: str = Field(..., description="The educational content")
+    type: str = Field(..., description="Type of content (Definition, Functions, etc.)")
+
+
+class Section(BaseModel):
+    """Educational section with structured content"""
+    aspects: List[SectionAspect] = Field(..., description="List of content aspects")
+    index: int = Field(..., description="Section order/position")
+    key_concept: str = Field(..., description="Main topic of the section")
+    name: str = Field(..., description="Section title")
+
+
 class FileMetadata(BaseModel):
     """Simple, clean file metadata"""
 
@@ -319,18 +334,6 @@ class DirectoryBrowserResponse(BaseModel):
             }
         }
 
-class SectionAspect(BaseModel):
-    """Individual aspect within a section"""
-    content: str = Field(..., description="The educational content")
-    type: str = Field(..., description="Type of content (Definition, Functions, etc.)")
-
-
-class Section(BaseModel):
-    """Educational section with structured content"""
-    aspects: List[SectionAspect] = Field(..., description="List of content aspects")
-    index: int = Field(..., description="Section order/position")
-    key_concept: str = Field(..., description="Main topic of the section")
-    name: str = Field(..., description="Section title")
 
 # Simple query parameters
 class FileListParams(BaseModel):

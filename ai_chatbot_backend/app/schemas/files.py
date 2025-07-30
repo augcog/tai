@@ -106,7 +106,10 @@ class FileMetadata(BaseModel):
         if db_model.sections:
             try:
                 sections_json = json.loads(db_model.sections)
-                sections_data = [Section(**section) for section in sections_json]
+                if sections_json:
+                    sections_data = [Section(**section) for section in sections_json]
+                else:
+                    sections_data = []
             except (json.JSONDecodeError, ValueError) as e:
                 # Fallback to empty list if parsing fails
                 sections_data = []

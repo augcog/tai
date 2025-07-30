@@ -3,9 +3,9 @@ Clean, simple file schemas - no over-engineering
 """
 
 from datetime import datetime
-from typing import Optional, List
+from typing import Optional, List, Dict, Any
 from pydantic import BaseModel, Field
-
+import json
 
 class FileMetadata(BaseModel):
     """Simple, clean file metadata"""
@@ -29,6 +29,9 @@ class FileMetadata(BaseModel):
     category: Optional[str] = Field(
         None, description="File category (document, video, audio, other)"
     )
+    
+    # Advanced metadata - now as parsed JSON
+    sections: List[Section] = Field(..., description="Parsed sections of the file")
     
     # Download URL for frontend
     download_url: Optional[str] = Field(None, description="Download URL for this file")
@@ -83,6 +86,16 @@ class FileMetadata(BaseModel):
             title = " ".join(title.split())  # Normalize whitespace
             title = title.title()  # Title case
         
+        # Parse sections JSON string to list of Section objects
+        sections_data = []
+        if db_model.sections:
+            try:
+                sections_json = json.loads(db_model.sections)
+                sections_data = [Section(**section) for section in sections_json]
+            except (json.JSONDecodeError, ValueError) as e:
+                # Fallback to empty list if parsing fails
+                sections_data = []
+        
         return cls(
             uuid=str(db_model.uuid),
             filename=db_model.file_name,
@@ -94,6 +107,7 @@ class FileMetadata(BaseModel):
             modified_at=None,  # Not available in metadata db
             course=db_model.course_code,
             category=None,  # Not available in metadata db
+            sections=sections_data,
             download_url=f"/api/files/{db_model.uuid}/download",
         )
 
@@ -110,6 +124,47 @@ class FileMetadata(BaseModel):
                 "modified_at": "2023-01-01T00:00:00Z",
                 "course": "CS61A",
                 "category": "document",
+                "sections": [
+                    {
+                        "aspects": [
+                            {
+                                "content": "Computer storage is organized in four tiers: CPU Registers, Main Memory (RAM), File System, and Offline Storage.",
+                                "type": "Definition"
+                            },
+                            {
+                                "content": "Files live in the third tier - the file system. While slower than RAM, files provide the crucial ability to persist data between program runs.",
+                                "type": "Explanation of File System Tier"
+                            },
+                            {
+                                "content": "Files are essential for persistent data storage, allowing programs to save and retrieve information between sessions.",
+                                "type": "Purpose"
+                            }
+                        ],
+                        "index": 3,
+                        "key_concept": "Computer Storage Hierarchy and Role of File System",
+                        "name": "Computer Storage Hierarchy"
+                    },
+                    {
+                        "aspects": [
+                            {
+                                "content": "Python's os module provides a portable way to work with file paths across different operating systems.",
+                                "type": "Definition"
+                            },
+                            {
+                                "content": "Key functions demonstrated: os.path.abspath(), os.path.dirname(), os.getcwd(), os.path.exists(), and os.listdir().",
+                                "type": "Functions"
+                            },
+                            {
+                                "content": "The os module allows for checking and manipulating file and directory paths in a way that works across platforms.",
+                                "type": "Purpose"
+                            }
+                        ],
+                        "index": 4,
+                        "key_concept": "Python's os Module and File Paths",
+                        "name": "File Paths and the OS Module"
+                    }
+                ],
+                "download_url": "/api/files/550e8400-e29b-41d4-a716-446655440000/download"
             }
         }
 
@@ -264,6 +319,18 @@ class DirectoryBrowserResponse(BaseModel):
             }
         }
 
+class SectionAspect(BaseModel):
+    """Individual aspect within a section"""
+    content: str = Field(..., description="The educational content")
+    type: str = Field(..., description="Type of content (Definition, Functions, etc.)")
+
+
+class Section(BaseModel):
+    """Educational section with structured content"""
+    aspects: List[SectionAspect] = Field(..., description="List of content aspects")
+    index: int = Field(..., description="Section order/position")
+    key_concept: str = Field(..., description="Main topic of the section")
+    name: str = Field(..., description="Section title")
 
 # Simple query parameters
 class FileListParams(BaseModel):

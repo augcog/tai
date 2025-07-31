@@ -53,7 +53,7 @@ class FileChatCompletionCreateParams(BaseModel):
     document: str
     selected_text: str
     course: str
-    messages: List[Message]
+    messages: Optional[List[Message]]
     temperature: float
-    stream: bool = True
+    stream: bool
     rag: Optional[bool] = True

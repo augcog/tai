@@ -7,7 +7,7 @@ import re
 from file_conversion_router.classes.chunk import Chunk
 class Page:
     PAGE_LENGTH_THRESHOLD = 20
-    def __init__(self, filetype: str = "",page_name: str = "", page_url: str = "", index_helper: dict = None, content: dict = None,):
+    def __init__(self, filetype: str = "",page_name: str = "", page_url: str = "", index_helper: dict = None, content: dict = None,file_path = None):
         """"""
         self.page_name = page_name
         self.content = content
@@ -16,6 +16,7 @@ class Page:
         self.filetype = filetype
         self.index_helper = index_helper
         self.segments = []
+        self.file_path = file_path
 
     def recursive_separate(self, response: str, token_limit: int = 400) -> list:
         """
@@ -90,7 +91,8 @@ class Page:
                 content = "\n".join(content_lines).strip()
 
                 segments.append({
-                    "page_path": [header],  # Just the header as path
+                    "file_path": self.file_path,  # Include file path for context
+                    "page_path": header,  # Just the header as path
                     "index": start_index,
                     "content": content
                 })
@@ -113,7 +115,7 @@ class Page:
                         content=content_chunk,
                         titles=header,
                         chunk_url=self.page_url,
-                        index = index,
+                        index=index,
                         is_split=(len(split_contents) > 1),
                     )
                 )
@@ -128,6 +130,6 @@ class Page:
         with open(output_path, "wb") as f:
             pickle.dump(self.chunks, f)
 
-    def token_size(self,sentence: str) -> int:
+    def token_size(self, sentence: str) -> int:
         encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
         return len(encoding.encode(sentence))

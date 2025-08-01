@@ -30,8 +30,8 @@ def convert_directory(
     )
 
 #
-convert_directory("/home/bot/bot/yk/YK_final/courses/CS 61A/course_website/exam/sp17",
-                  "/home/bot/bot/yk/YK_final/courses/CS 61A_md",
+convert_directory("/home/bot/bot/yk/YK_final/test_folder/cs61a",
+                  "/home/bot/bot/yk/YK_final/test_folder_output/cs61a",
                   course_name="Structure and Interpretation of Computer Programs",
-                  course_id="cs61a", log_dir="/home/bot/bot/yk/YK_final/courses//logs",
-                  cache_path="/home/bot/bot/yk/YK_final/test_folder_output/cs61a_cache.txt")
+                  course_id="cs61a", log_dir="/home/bot/bot/yk/YK_final/courses/logs",
+                  cache_path="/home/bot/bot/yk/YK_final/courses/CS 61A/cs61a_cache.txt")

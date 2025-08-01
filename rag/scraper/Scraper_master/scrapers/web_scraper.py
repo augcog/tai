@@ -93,7 +93,8 @@ class WebScraper:
             root_config = root_configs[matching_root]
             max_depth = root_config["depth"]
             scraper_type = root_config["scraper_type"]
-
+            subtask_folder_path=root_config.get("subtask_folder_path", None)
+            target_folder = self.task_folder_path/ subtask_folder_path if subtask_folder_path else self.task_folder_path
             # Skip if we've reached max depth for this root
             if self.current_depths[current_root] > max_depth:
                 return
@@ -110,7 +111,7 @@ class WebScraper:
             )
             # Scrape the page
             try:
-                links = scraper.scrape(url, driver, self.task_folder_path)
+                links = scraper.scrape(url, driver, target_folder)
             except Exception as e:
                 self.logger.error(f"{indent}Error processing link {url}: {e}")
                 return
@@ -146,5 +147,5 @@ class WebScraper:
 
 
 if __name__ == "__main__":
-    scraper = WebScraper("../task.yaml")
+    scraper = WebScraper("/home/bot/bot/yk/YK_final/tai/rag/scraper/Scraper_master/sample_config.yaml")
     scraper.run()

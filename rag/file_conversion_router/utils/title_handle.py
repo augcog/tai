@@ -617,7 +617,7 @@ def fix_title_levels(mapping_list):
     return mapping_list
 
 
-def apply_structure_for_one_title(md_content: str, content_dict):
+def apply_structure_for_one_title(md_content: str, content_dict, index_helper: dict):
     mapping_list = content_dict.get("titles_with_levels")
     mapping_list = fix_title_levels(mapping_list)
     i = 0
@@ -627,6 +627,8 @@ def apply_structure_for_one_title(md_content: str, content_dict):
     for line in lines:
         match = title_pattern.match(line.strip())
         if match:
+            if match not in index_helper:
+                continue
             raw_title = match.group("title").strip()
             assert raw_title == mapping_list[i][
                 "title"].strip(), f"Title mismatch: {raw_title} != {mapping_list[i]['title']}"

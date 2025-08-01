@@ -1,14 +1,5 @@
-""" This is a sample config file for the scraper.
- Scraper types:
- - general_scraper: for general web pages
- - video_scraper: for video pages
- Driver types:
- - request: fast and simple to handle most websites
- - playwright: to handle websites with client side redirections
-"""
-
-root_folder: "cs61atest"
-log_folder: "cs61atest_log"
+root_folder: "/home/bot/bot/yk/YK_final/courses/CS 61A"
+log_folder: "/home/bot/bot/yk/YK_final/courses/CS 61A_log"
 course_name: "The_Structure_and_Interpretation_of_Computer_Programs"
 course_id : "CS61A"
 tasks:
@@ -18,16 +9,13 @@ tasks:
     driver_type: "request" # or "playwright"
     roots:
       - url: https://cs61a.org/
-        depth: 8
+        depth: 7
         scraper_type: general_scraper  # or "video_scraper"
       - url: https://www.youtube.com
         depth: 1
         scraper_type: video_scraper
-  - name: "textbook"
-    local: True
-    url: "https://cs61a.org/"
-    driver_type: "request" # or "playwright"
-    roots:
+        subtask_folder_path: "youtube"
       - url: https://www.composingprograms.com/
-        depth: 5
+        depth: 10
         scraper_type: general_scraper  # or "video_scraper"
+        subtask_folder_path: "textbook"

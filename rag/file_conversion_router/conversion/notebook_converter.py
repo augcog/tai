@@ -131,4 +131,3 @@ class NotebookConverter(BaseConverter):
 
         return '\n'.join(result_lines)
 
-    def get_structured_content_from_gpt(self, md_content: str, content_dic) ->str:

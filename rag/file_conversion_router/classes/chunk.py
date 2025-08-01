@@ -17,6 +17,7 @@ class Chunk:
     chunk_url: Union[str, List[str]] = ("default_no_url",)
     is_split: bool = False
     index: Any = None
+    file_path = None
 
     def __repr__(self):
         snippet = (self.content[:80] + "…") if len(self.content) > 80 else self.content
@@ -26,4 +27,5 @@ class Chunk:
             f"is_split={self.is_split}, "
             f"url={self.chunk_url!r}, "
             f"content='{snippet}')"
+            f"file_path={self.file_path!r}"
         )

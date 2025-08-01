@@ -36,18 +36,6 @@ def traverse_files(
 
     path = os.path.abspath(path)
 
-    # for root, dir, files in os.walk(path):
-    #     for file in files:
-    #         if file.endswith(".pkl"):
-    #             path_list = [start_folder_name] + string_subtraction(root, path).split(
-    #                 "/"
-    #             )[1:]
-    #             line = (
-    #                     (len(path_list) - 1) * "--"
-    #                     + path_list[-1]
-    #                     + f" (L{len(path_list)})"
-    #             )
-    #             folder_tree += f"{line}\n"
 
     for root, dir, files in os.walk(path):
         for file in files:

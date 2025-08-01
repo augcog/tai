@@ -1,25 +1,39 @@
-# from html_to_markdown import convert_to_markdown
-# with open("/home/bot/bot/yk/YK_final/test_folder/cs61a/1.2 Elements of Programming.html", "r", encoding="utf-8") as file:
-#     html = file.read()
-# result = convert_to_markdown(html)
-# print(result)
+import yt_dlp
 
-fp="/home/bot/bot/yk/YK_final/test_folder/cs61a/1.2 Elements of Programming.html"
+# Test with cookies file
+# ydl_opts = {
+#     'cookiefile': '/home/bot/bot/yk/YK_final/www.youtube.com_cookies.txt',
+#     'quiet': True,
+#     "noplaylist": True
+# }
 
-import html
-import chardet
+# ydl_opts = {
+#             "cookiefile": "/home/bot/bot/yk/YK_final/www.youtube.com_cookies.txt",
+#             # "outtmpl": os.path.join(folder, "%(title)s.%(ext)s"),
+#             "format": "best",
+#             "quiet": True,
+#             "noplaylist": False,
+#         }
+#
+# with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+#     try:
+#         ydl.download(['https://www.youtube.com/watch?v=pveIuZT0GJE&list=PL6BsET-8jgYXvcnnEX7x2_USaYug9xZFv'])
+#     except Exception as e:
+#         print("Cookies failed:", e)
+url='https://www.youtube.com/playlist?list=PLx38hZJ5RLZenHEh7hvBd76Dpsm7BhrRK'
+# url='https://www.youtube.com/watch?v=4BH-JJ1eAOk'
+ydl_opts = {"quiet": True,
+            "no_warnings": True,
+            "noplaylist": False,
+            "cookiefile": "/home/bot/bot/yk/YK_final/www.youtube.com_cookies.txt",
+            "format": "best",
+            "outtmpl": "./%(playlist_title&{}|)s/%(playlist_index&{}-|)s%(title)s.%(ext)s",
+            "ignoreerrors": True}
+# "outtmpl": "%(playlist_title)s/%(playlist_index)s-%(title)s.%(ext)s"
+# "outtmpl": "%(playlist_title&{}/|)s%(playlist_index&{}-|)s%(title)s.%(ext)s"
 
-# Detect encoding
-with open(fp, 'rb') as file:
-    raw_data = file.read()
-    encoding_info = chardet.detect(raw_data)
-    detected_encoding = encoding_info['encoding']
-
-print(f"Detected encoding: {detected_encoding}")
-
-# Open with detected encoding
-with open(fp, 'r', encoding=detected_encoding) as file:
-    content = file.read()
-
-decoded_content = html.unescape(content)
-print(decoded_content[:500])  # Print the first 500 characters to verify content
+# '[CS 61A SU24] Discussion 01/1-Race.mp4'
+# '[CS 61A SU24] Discussion 01⧸1-Race.mp4'
+with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+    a=ydl.extract_info(url, download=True)
+    print(a)

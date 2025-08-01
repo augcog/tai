@@ -16,7 +16,6 @@ import json
 import re
 from textwrap import dedent
 
-from file_conversion_router.page_create import course_name
 
 
 class VideoConverter(BaseConverter):

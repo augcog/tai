@@ -370,6 +370,7 @@ class BaseConverter(ABC):
             page_name=stem,
             page_url=url,
             index_helper=self.index_helper,
+            file_path = self.relative_path
         )
 
     def _put_content_dict_to_metadata(self, content_dict: dict, metadata_content: dict) -> dict:
@@ -517,7 +518,7 @@ class BaseConverter(ABC):
                 index_helper=self.index_helper,
             )
             new_md = apply_structure_for_one_title(
-                md_content=content_text, content_dict=content_dict
+                md_content=content_text, content_dict=content_dict, index_helper=self.index_helper
             )
         else:
             content_dict = get_only_key_concepts(
@@ -553,8 +554,9 @@ class BaseConverter(ABC):
                 source_title = concept['source_section_title']
                 found = False
                 for titles in self.index_helper.keys():
-                    if self.match_a_title_and_b_title(titles, source_title, str.__contains__):
-                        concept['source_section_title'] = titles
+                    real_title = titles[-1]
+                    if self.match_a_title_and_b_title(real_title, source_title, str.__contains__):
+                        concept['source_section_title'] = real_title
                         concept['source_section_index'] = self.index_helper[titles]
                         found = True
                         break
@@ -582,7 +584,8 @@ class BaseConverter(ABC):
             target_index = level - 1
             path_stack = path_stack[:target_index]
             path_stack.append(title)
-            path = " > ".join(path_stack)
+            # path = " > ".join(path_stack)
+            path = tuple(path_stack)
             result[path] = index
 
         self.index_helper = result

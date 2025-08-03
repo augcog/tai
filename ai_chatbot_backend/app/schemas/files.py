@@ -3,7 +3,7 @@ Clean, simple file schemas - no over-engineering
 """
 
 from datetime import datetime
-from typing import Optional, List, Dict, Any
+from typing import Optional, List
 from pydantic import BaseModel, Field
 import json
 
@@ -162,25 +162,6 @@ class FileMetadata(BaseModel):
                         "key_concept": "Computer Storage Hierarchy and Role of File System",
                         "name": "Computer Storage Hierarchy"
                     },
-                    {
-                        "aspects": [
-                            {
-                                "content": "Python's os module provides a portable way to work with file paths across different operating systems.",
-                                "type": "Definition"
-                            },
-                            {
-                                "content": "Key functions demonstrated: os.path.abspath(), os.path.dirname(), os.getcwd(), os.path.exists(), and os.listdir().",
-                                "type": "Functions"
-                            },
-                            {
-                                "content": "The os module allows for checking and manipulating file and directory paths in a way that works across platforms.",
-                                "type": "Purpose"
-                            }
-                        ],
-                        "index": 4,
-                        "key_concept": "Python's os Module and File Paths",
-                        "name": "File Paths and the OS Module"
-                    }
                 ],
                 "download_url": "/api/files/550e8400-e29b-41d4-a716-446655440000/download"
             }
@@ -217,6 +198,27 @@ class FileListResponse(BaseModel):
                         "modified_at": "2023-01-01T00:00:00Z",
                         "course": "CS61A",
                         "category": "document",
+                        "sections": [
+                            {
+                                "aspects": [
+                                    {
+                                        "content": "Computer storage is organized in four tiers: CPU Registers, Main Memory (RAM), File System, and Offline Storage.",
+                                        "type": "Definition"
+                                    },
+                                    {
+                                        "content": "Files live in the third tier - the file system. While slower than RAM, files provide the crucial ability to persist data between program runs.",
+                                        "type": "Explanation of File System Tier"
+                                    },
+                                    {
+                                        "content": "Files are essential for persistent data storage, allowing programs to save and retrieve information between sessions.",
+                                        "type": "Purpose"
+                                    }
+                                ],
+                                "index": 3,
+                                "key_concept": "Computer Storage Hierarchy and Role of File System",
+                                "name": "Computer Storage Hierarchy"
+                            },
+                        ],
                     }
                 ],
                 "total_count": 1,
@@ -325,6 +327,27 @@ class DirectoryBrowserResponse(BaseModel):
                         "size_bytes": 1048576,
                         "mime_type": "application/pdf",
                         "course": "ROAR Academy",
+                        "sections": [
+                                {
+                                    "aspects": [
+                                        {
+                                            "content": "Computer storage is organized in four tiers: CPU Registers, Main Memory (RAM), File System, and Offline Storage.",
+                                            "type": "Definition"
+                                        },
+                                        {
+                                            "content": "Files live in the third tier - the file system. While slower than RAM, files provide the crucial ability to persist data between program runs.",
+                                            "type": "Explanation of File System Tier"
+                                        },
+                                        {
+                                            "content": "Files are essential for persistent data storage, allowing programs to save and retrieve information between sessions.",
+                                            "type": "Purpose"
+                                        }
+                                    ],
+                                    "index": 3,
+                                    "key_concept": "Computer Storage Hierarchy and Role of File System",
+                                    "name": "Computer Storage Hierarchy"
+                                },
+                            ],
                         "download_url": "/api/files/550e8400-e29b-41d4-a716-446655440000/download"
                     }
                 ],

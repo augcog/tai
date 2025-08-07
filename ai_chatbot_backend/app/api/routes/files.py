@@ -79,7 +79,7 @@ async def list_files(
     "/browse", response_model=DirectoryBrowserResponse, summary="Browse directory structure"
 )
 async def browse_directory(
-    course_name: str = Query(..., description="Course name (e.g., 'ROAR Academy')"),
+    course_code: str = Query(..., description="Course code (e.g., 'CS61A')"),
     path: str = Query("", description="Directory path within course (e.g., 'Part One/practice')"),
     db: Session = Depends(get_metadata_db),
     _: bool = Depends(verify_api_token),
@@ -95,14 +95,14 @@ async def browse_directory(
     - Supports unlimited nesting depth
     
     Example usage:
-    - GET /api/files/browse?course_name=ROAR Academy - Browse root of course
-    - GET /api/files/browse?course_name=ROAR Academy&path=Part One - Browse "Part One" folder
-    - GET /api/files/browse?course_name=ROAR Academy&path=Part One/practice - Browse nested folder
+    - GET /api/files/browse?course_code=CS61A - Browse root of course
+    - GET /api/files/browse?course_code=CS61A&path=Part One - Browse "Part One" folder
+    - GET /api/files/browse?course_code=CS61A&path=Part One/practice - Browse nested folder
     """
     try:
         result = file_service.browse_directory(
             db=db,
-            course_name=course_name,
+            course_code=course_code,
             path=path.strip()
         )
         
@@ -114,7 +114,7 @@ async def browse_directory(
             files=[FileMetadata.from_db_model(file) for file in result["files"]],
             current_path=result["current_path"],
             breadcrumbs=[BreadcrumbItem(**crumb) for crumb in result["breadcrumbs"]],
-            course_name=result["course_name"]
+            course_code=result["course_code"]
         )
         
     except Exception as e:

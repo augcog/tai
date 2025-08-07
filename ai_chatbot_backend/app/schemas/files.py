@@ -305,7 +305,7 @@ class DirectoryBrowserResponse(BaseModel):
     files: List[FileMetadata] = Field(..., description="Files in current directory")
     current_path: str = Field(..., description="Current directory path")
     breadcrumbs: List[BreadcrumbItem] = Field(..., description="Breadcrumb navigation")
-    course_name: str = Field(..., description="Course name for context")
+    course_code: str = Field(..., description="Course code for context")
     
     class Config:
         json_schema_extra = {
@@ -356,7 +356,7 @@ class DirectoryBrowserResponse(BaseModel):
                     {"name": "Root", "path": ""},
                     {"name": "Part One", "path": "Part One"}
                 ],
-                "course_name": "ROAR Academy"
+                "course_code": "CS61A"
             }
         }
 

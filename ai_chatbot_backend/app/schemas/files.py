@@ -17,7 +17,7 @@ class SectionAspect(BaseModel):
 class Section(BaseModel):
     """Educational section with structured content"""
     aspects: List[SectionAspect] = Field(..., description="List of content aspects")
-    index: int = Field(..., description="Section order/position")
+    index: float = Field(..., description="Section order/position")
     key_concept: str = Field(..., description="Main topic of the section")
     name: str = Field(..., description="Section title")
 

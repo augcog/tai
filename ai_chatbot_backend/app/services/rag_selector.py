@@ -94,39 +94,26 @@ def build_augmented_prompt(
         # reference_list.append(top_urls[i] if top_urls[i] else "")
         if similarity_scores[i] > threshold:
             n += 1
-            cleaned_info_path = top_ids[i]
+            info_path = top_ids[i]
             if file_name:
-                chunk_file=cleaned_info_path.split('>')[0].strip()
+                chunk_file=info_path.split('>')[0].strip()
                 if chunk_file in file_name:
-                    cleaned_info_path = '>'.join(cleaned_info_path.split('>')[1:])
-            cleaned_file_path = top_files[i]
-            cleaned_topic_path = top_topic_paths[i]
-            if top_urls[i]:
-                insert_document += (
-                    f'"""Reference Number: {n}\n'
-                    f"Directory Path to file: {cleaned_file_path}\n"
-                    f"Topic Path of chunk in file: {cleaned_topic_path}\n"
-                    f'Document: {top_docs[i]}"""\n\n'
-                )
-                reference_string += (
-                    f"Reference {n}: <|begin_of_reference_name|>{cleaned_info_path}"
-                    f"<|end_of_reference_name|><|begin_of_reference_link|>{top_urls[i]}"
-                    f"<|end_of_reference_link|>\n\n"
-                )
-                reference_list.append([cleaned_info_path, top_urls[i]])
-            else:
-                insert_document += (
-                    f'"""Reference Number: {n}\n'
-                    f"Directory Path to file: {cleaned_file_path}\n"
-                    f"Topic Path of chunk in file: {cleaned_topic_path}\n"
-                    f'Document: {top_docs[i]}"""\n\n'
-                )
-                reference_string += (
-                    f"Reference {n}: <|begin_of_reference_name|>{cleaned_info_path}"
-                    f"<|end_of_reference_name|><|begin_of_reference_link|>"
-                    f"<|end_of_reference_link|>\n\n"
-                )
-                reference_list.append([cleaned_info_path, ""])
+                    info_path = '>'.join(info_path.split('>')[1:])
+            file_path = top_files[i]
+            topic_path = top_topic_paths[i]
+            url= top_urls[i] if top_urls[i] else ""
+            insert_document += (
+                f'Reference Number: {n}\n'
+                f"Directory Path to file: {file_path}\n"
+                f"Topic Path of chunk in file: {topic_path}\n"
+                f'Document: {top_docs[i]}\n\n'
+            )
+            reference_string += (
+                f"Reference {n}: <|begin_of_reference_name|>{info_path}<|end_of_reference_name|>"
+                f"<|begin_of_reference_link|>{url}<|end_of_reference_link|>"
+                f"<|begin_of_file_path|>{file_path}<|end_of_file_path|>\n\n"
+            )
+            reference_list.append([info_path, url,file_path])
 
     if not insert_document or n == 0:
         modified_message = (

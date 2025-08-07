@@ -169,15 +169,15 @@ def _get_pickle_and_class(course: str) -> Tuple[str, str]:
     """
     Return the pickle filename and course class name based on the course.
     """
-    if course == "EE106B":
+    if course == "EECS 106B":
         return "eecs106b.pkl", "Robotic Manipulation and Interaction"
-    elif course == "CS61A":
+    elif course == "CS 61A":
         return "cs61a.pkl", "Structure and Interpretation of Computer Programs"
-    elif course == "CS294-137":
+    elif course == "CS 294-137":
         return "cs294.pkl", "Immersive Computing and Virtual Reality"
-    elif course == "Econ140":
+    elif course == "Econ 140":
         return "econ140.pkl", "Econometrics"
-    elif course == "INTD315":
+    elif course == "INTD 315":
         return "language.pkl", "Multilingual Engagement"
     elif course == "ROAR Academy":
         return "ROAR Academy.pkl", "learning python and autonomous driving"

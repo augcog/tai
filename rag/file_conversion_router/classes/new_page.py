@@ -60,7 +60,6 @@ class Page:
                         split_pos = response.rfind(" ", start, end)
                     if split_pos == -1 or split_pos <= start:
                         split_pos = end - 1
-
                     msg_list.append(response[start:split_pos].strip())
                     start = split_pos + 1
                 else:
@@ -72,32 +71,46 @@ class Page:
         return msg_list
 
     def extract_headers_and_content(self, md_content: str):
+        """
+        Split the markdown into content segments keyed by each header path.
+
+        • self.index_helper : {path_tuple: (page_idx, line_no)}
+          └─ line_no is 1-based, for the line *containing* the header.
+        • Returns a list of dicts with the sliced content between this header
+          and the next header (exclusive), stripped and chunked by
+          self.recursive_separate().
+        """
         segments = []
         lines = md_content.splitlines()
 
-        # Sort headers by their index positions
-        sorted_headers = sorted(self.index_helper.items(), key=lambda x: x[1])
+        # Order headers by their line number, NOT by page index
+        # self.index_helper.items() is a dict_items view of (path_tuple, (page_idx, line_no))
+        sorted_headers = sorted(
+            self.index_helper.items(),
+            key=lambda item: item[1][1]  # value[1] == line_number
+        )
 
-        for i, (header, start_index) in enumerate(sorted_headers):
-            # Determine end index (start of next header or end of content)
+        for i, (path, (page_idx, line_no)) in enumerate(sorted_headers):
+            start = line_no - 1  # convert to 0-based
+            # The next header’s line OR EOF
             if i + 1 < len(sorted_headers):
-                end_index = sorted_headers[i + 1][1]
+                next_line_no = sorted_headers[i + 1][1][1]
+                end = max(start + 1, next_line_no - 1)  # exclude next header
             else:
-                end_index = len(lines)
+                end = len(lines)
 
-            # Extract content between start_index and end_index
-            if start_index < len(lines):
-                content_lines = lines[start_index:end_index]
-                content = "\n".join(content_lines).strip()
+            # Skip the header line itself; keep the body only
+            body_lines = lines[start + 1:end]
+            body = "\n".join(body_lines).strip()
 
-                segments.append({
-                    "file_path": self.file_path,  # Include file path for context
-                    "page_path": header,  # Just the header as path
-                    "index": start_index,
-                    "content": content
-                })
-            else:
-                logging.error(f"Index {start_index} for header '{header}' is out of range")
+            if body:  # ignore empty bodies
+                for chunk in self.recursive_separate(body, 400):
+                    segments.append({
+                        "file_path": self.file_path,
+                        "page_path": path,  # still the tuple
+                        "index": page_idx,  # keep page index, not line no
+                        "content": chunk
+                    })
 
         return segments
 
@@ -108,17 +121,21 @@ class Page:
         for segment in self.segments:
             header = segment["page_path"]
             index = segment["index"]
-            split_contents = self.recursive_separate(segment["content"], 400)
-            for content_chunk in split_contents:
-                self.chunks.append(
-                    Chunk(
-                        content=content_chunk,
-                        titles=header,
-                        chunk_url=self.page_url,
-                        index=index,
-                        is_split=(len(split_contents) > 1),
-                    )
+            content = segment["content"]
+            file_path = segment["file_path"]
+
+            # Since content is already split in extract_headers_and_content,
+            # we can directly create chunks
+            self.chunks.append(
+                Chunk(
+                    content=content,
+                    titles=header,
+                    chunk_url=self.page_url,
+                    index=index,
+                    is_split=False,
+                    file_path=file_path
                 )
+            )
         return self.chunks
 
 

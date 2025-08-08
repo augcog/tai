@@ -10,7 +10,7 @@ from typing import List, Dict, Any
 import os
 
 # ───────────────────────── helpers ────────────────────────────────────────────
-ROOT = pathlib.Path("/home/bot/bot/yk/YK_final/courses/ROAR Academy/")
+ROOT = pathlib.Path("/home/bot/bot/yk/YK_final/courses")
 DB_PATH = ROOT / "metadata.db"
 
 
@@ -18,8 +18,10 @@ def gen_uuid() -> str:
     return str(uuid.uuid4())
 
 
-def jdump(obj) -> str:  # compact helper
-    return json.dumps(obj, ensure_ascii=False)
+def jdump(obj, default=None) -> str:  # compact helper
+    if default is None:
+        default = []
+    return json.dumps(obj, ensure_ascii=False, default=default)
 
 
 def load_yaml_dir(dir_: str | pathlib.Path) -> List[Dict]:
@@ -55,10 +57,10 @@ with db:
         /* file-level metadata ---------------------------------------------- */
         CREATE TABLE IF NOT EXISTS file (
             uuid       TEXT PRIMARY KEY,
-            file_name  TEXT UNIQUE NOT NULL,
+            file_name  TEXT NOT NULL,
             url        TEXT,
             sections   TEXT,              -- JSON blob
-            relative_path TEXT DEFAULT '', -- relative path to the file in the course directory
+            relative_path TEXT DEFAULT '' UNIQUE NOT NULL, -- relative path to the file in the course directory
             course_code TEXT DEFAULT '', -- course code, e.g. "CS61A"
             course_name TEXT DEFAULT ''  -- course name, e.g. "CS61A: Structure and Interpretation of Computer Programs"
         );
@@ -86,8 +88,16 @@ def ingest(files: List[Dict[str, Any]]) -> None:
     Each dict may have 0..n 'problems'
     """
     for f in files:
+        if not f.get("file_name") or not(f.get('file_path').startswith(f.get('course_id')) or f.get('file_path').startswith('CS 61A')) or 'course_website' in f.get('file_path'):
+            continue
         file_uuid = gen_uuid()
-
+        section=f.get("sections")
+        if section:
+            index_list= [x['index'] for x in section]
+            # check if index order is correct
+            if index_list != sorted(index_list):
+                print(f"❌ Skipping {f['file_path']} due to incorrect section index order: {index_list}")
+                continue
         db.execute(
             """
             INSERT INTO file (uuid, file_name, url, sections, relative_path, course_code, course_name)

@@ -1,9 +1,6 @@
 import re
 from pathlib import Path
 from urllib.parse import urlparse
-import html
-import unicodedata
-
 from bs4 import BeautifulSoup
 from markdownify import markdownify as md
 
@@ -34,10 +31,10 @@ content_tags_dict = {
         )
     ],
     "https://www.svlsimulator.com/docs/": [("div", {"role": "main"})],
-    "https://cs61a.org/": [
-        ("section", {"id": "calendar", "class": "table", "cellpadding": "5px"}),
-        ("div", {"class": "col-md-9"}),
-    ],
+    # "https://cs61a.org/": [
+    #     ("section", {"id": "calendar", "class": "table", "cellpadding": "5px"}),
+    #     ("div", {"class": "col-md-9"}),
+    # ],
     "https://ucb-ee106.github.io/106b-sp23site/": [("main", {"class": "main-content"})],
     "https://en.wikipedia.org/wiki/University_of_California,_Berkeley": [
         ("main", {"id": "content", "class": "mw-body"})
@@ -77,8 +74,7 @@ class HtmlConverter(BaseConverter):
         output_path = output_path.with_suffix(".md")
         with open(input_path, "r", encoding="utf-8") as input_file:
             html_content = input_file.read()
-        stem = input_path.stem
-        metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
+        metadata_path = input_path.with_name(f"{input_path.name}_metadata.yaml")
         metadata_content = self._read_metadata(metadata_path)
         url = metadata_content.get("URL")
 
@@ -112,6 +108,6 @@ class HtmlConverter(BaseConverter):
         with open(output_path, "w") as output_file:
 
             output_file.write(final_markdown)
-            self.generate_index_helper(final_markdown)
+            self.generate_index_helper(md=final_markdown)
 
         return output_path

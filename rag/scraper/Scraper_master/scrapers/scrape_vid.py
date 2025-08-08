@@ -42,17 +42,19 @@ class VideoScraper(BaseScraper):
 
         ydl_opts = {"quiet": True,
                     "no_warnings": True,
-                    "cookiefile": "/home/bot/bot/yk/YK_final/www.youtube.com_cookies.txt",
-                    "format": "best",
+                    # "cookiefile": "/home/bot/bot/yk/YK_final/www.youtube.com_cookies.txt",
+                    "cookiesfrombrowser": ('chrome', ),
                     "outtmpl": outtmpl,
-                    "ignoreerrors": True
+                    "ignoreerrors": True,
+                    "sleep_interval": 5,
+                    "max_sleep_interval": 10,
                     }
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             video_info = ydl.extract_info(url, download=True)
         if not video_info:
             print(f"Skipping {url}, unable to retrieve info.")
             return
-        if video_info['_type'] == 'playlist':
+        if video_info.get('_type') == 'playlist':
             for entry in video_info['entries']:
                 video_url = entry.get('original_url', entry.get('url'))
                 filepath = f"{entry['requested_downloads'][0]['filepath']}"

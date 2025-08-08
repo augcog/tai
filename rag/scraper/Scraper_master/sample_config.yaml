@@ -1,9 +1,9 @@
-root_folder: "/home/bot/bot/yk/YK_final/courses/CS 61A"
-log_folder: "/home/bot/bot/yk/YK_final/courses/CS 61A_log"
-course_name: "The_Structure_and_Interpretation_of_Computer_Programs"
-course_id : "CS61A"
+root_folder: "/home/bot/bot/yk/YK_final/courese"
+log_folder: "/home/bot/bot/yk/YK_final/log"
+course_name: "The Structure and Interpretation of Computer Programs"
+course_code : "CS 61A"
 tasks:
-  - name: "course_website"
+  - name: ""
     local: True
     url: "https://cs61a.org/"
     driver_type: "request" # or "playwright"
@@ -15,7 +15,7 @@ tasks:
         depth: 1
         scraper_type: video_scraper
         subtask_folder_path: "youtube"
-      - url: https://www.composingprograms.com/
-        depth: 10
-        scraper_type: general_scraper  # or "video_scraper"
-        subtask_folder_path: "textbook"
+#      - url: https://www.composingprograms.com/
+#        depth: 10
+#        scraper_type: general_scraper  # or "video_scraper"
+#        subtask_folder_path: "textbook"

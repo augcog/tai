@@ -4,7 +4,9 @@ import logging
 # from concurrent.futures import as_completed
 from pathlib import Path
 from typing import Dict, Type, Union
-
+import os
+from typing import List, Tuple
+from pathspec import PathSpec
 from file_conversion_router.conversion.base_converter import BaseConverter
 from file_conversion_router.conversion.ed_converter import EdConverter
 from file_conversion_router.conversion.html_converter import HtmlConverter
@@ -31,6 +33,8 @@ converter_mapping: ConverterMapping = {
     ".html": HtmlConverter,
     ".ipynb": NotebookConverter,
     ".py": PythonConverter,
+    '.mkv': VideoConverter,
+    '.webm': VideoConverter,
     #     TODO: Add more file types and converters here
 }
 
@@ -43,18 +47,7 @@ def process_folder(
     log_dir: Union[str, Path] = None,
     cache_path: Union[str, Path] = None,
 ) -> None:
-    """Walk through the input directory and schedule conversion tasks for specified file types.
-
-    Args:
-        input_dir (Union[str, Path]): The directory from which to read files.
-        output_dir (Union[str, Path]): The directory where converted files will be placed.
-        log_dir (Union[str, Path], optional): The directory where log files will be placed. Defaults to None.
-        course_name (str): The name of the course.
-        course_id (str): The ID of the course.
-        cache_path (Union[str, Path], optional): The directory where cache files will be placed. Defaults to None.
-    Raises:
-        ValueError: If either input_dir or output_dir is not a directory.
-    """
+    """Walk through the input directory and schedule conversion tasks for specified file types."""
     logging.getLogger().setLevel(logging.INFO)
     output_dir = Path(output_dir)
     input_dir = Path(input_dir)
@@ -65,24 +58,34 @@ def process_folder(
     if not input_dir.is_dir():
         raise ValueError(f"Provided input path {input_dir} is not a directory.")
 
-    # Validate that output_dir is a directory; create if it does not exist
     if not output_dir.exists():
         output_dir.mkdir(parents=True, exist_ok=True)
     elif not output_dir.is_dir():
         raise ValueError(f"Provided output path {output_dir} is not a directory.")
 
-    # Predefined file extensions to look for, based on the converter mapping
     valid_extensions = tuple(converter_mapping.keys())
-    futures = []
 
     if cache_path:
         ConversionCache.set_cache_path(cache_path)
     else:
         ConversionCache.set_cache_path(None)
 
+    ignore_file = '../file_conversion_router/services/.conversionignore'
+    patterns = _load_patterns(ignore_file)
+    spec = PathSpec.from_lines("gitwildmatch", patterns)
+
+    def should_ignore(file_path: Path) -> bool:
+        """Check if the file path should be ignored based on the patterns."""
+        relative_path = str(file_path.relative_to(input_dir))
+        should_ignore= spec.match_file(relative_path)
+        if should_ignore:
+            logging.info(f"Ignoring file: {relative_path} based on ignore patterns.")
+        return should_ignore
+
+
     # Iterate over all files with specified extensions
     for input_file_path in input_dir.rglob("*"):
-        if input_file_path.suffix in valid_extensions and input_file_path.is_file():
+        if input_file_path.suffix in valid_extensions and input_file_path.is_file() and not should_ignore(input_file_path):
             # Construct the output subdirectory and file path
             output_subdir = output_dir / input_file_path.relative_to(input_dir).parent
             output_subdir.mkdir(parents=True, exist_ok=True)
@@ -120,3 +123,10 @@ def process_folder(
     logging.info(
         f"Saved conversion time [{ConversionCache.calc_total_savings()} seconds] by using cached results."
     )
+
+def _load_patterns(ignore_file= None,
+                   extra_patterns= None) -> List[str]:
+    with open(ignore_file, "r", encoding="utf-8") as f:
+        data = f.read()
+    # Keep comments/blank lines—PathSpec handles them.
+    return data.splitlines() if ignore_file else [] + (extra_patterns or [])

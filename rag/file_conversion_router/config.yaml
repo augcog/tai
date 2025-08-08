@@ -1,0 +1,13 @@
+#input_dir: "/home/bot/bot/yk/YK_final/courses/CS 61A"
+#output_dir: "/home/bot/bot/yk/YK_final/courses_out/CS 61A_output"
+#log_folder: "/home/bot/bot/yk/YK_final/courses_out/logs/CS 61A_log"
+#course_name: "The Structure and Interpretation of Computer Programs"
+#course_code : "CS 61A"
+#cache_path: "/home/bot/bot/yk/YK_final/courses_out/CS 61A_cache"
+#
+input_dir: "/home/bot/bot/yk/YK_final/ROAR-Academy"
+output_dir: "/home/bot/bot/yk/YK_final/test_folder_output/ROAR-Academy"
+log_folder: "/home/bot/bot/yk/YK_final/test_folder_output/logs"
+course_name: "ROAR Academy"
+course_code: "ROAR-Academy"
+cache_path: "/home/bot/bot/yk/YK_final/courses_out/CS 61A/cache"

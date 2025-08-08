@@ -178,9 +178,9 @@ def validate_data(data):
 
 if __name__ == "__main__":
     embedding_create(
-        "/home/bot/bot/yk/YK_final/courses/ROAR Academy_output",
-        "/home/bot/bot/yk/YK_final/courses/ROAR Academy_output",
-        "ROAR Academy",
+        "/output/CS 61A_md",
+        "/home/bot/bot/yk/YK_final/courses/CS 61A_md",
+        "Structure and Interpretation of Computer Programs",
         "embedding_output",
         "BGE",
     )

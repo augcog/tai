@@ -8,10 +8,8 @@ from shutil import copy2
 # from threading import Lock
 from typing import Dict, List, Union
 
-import yaml
 from file_conversion_router.classes.chunk import Chunk
 from file_conversion_router.classes.new_page import Page
-from file_conversion_router.classes.vidpage import VidPage
 from file_conversion_router.embedding_optimization.src.pipeline.optimizer import (
     EmbeddingOptimizer,
 )
@@ -109,7 +107,7 @@ class BaseConverter(ABC):
                 - 'path/to/output_folder/file.md.pkl'
             input_root: The root folder of the input file, used to calculate the relative path of the input file.
         """
-        self.file_name=input_path.name
+        self.file_name = input_path.name
         self.relative_path = input_path.relative_to(input_root)
         input_path, output_folder = ensure_path(input_path), ensure_path(output_folder)
         if not input_path.exists():
@@ -182,11 +180,11 @@ class BaseConverter(ABC):
         output_folder = ensure_path(output_folder)
         self.file_name = input_path.name
         # self.relative_path = input_path.relative_to(output_folder)
-        self._md_path = ensure_path(output_folder / f"{input_path.stem}.md")
+        self._md_path = ensure_path(output_folder / f"{self.file_name}.md")
         # TODO: current MarkdownParser does not support custom output paths,
         #  below paths are only used for caching purposes at the moment,
         #  since the markdown parser generates below file paths by default
-        self._pkl_path = ensure_path(output_folder / f"{input_path.stem}.pkl")
+        self._pkl_path = ensure_path(output_folder / f"{self.file_name}.pkl")
 
     def _convert_and_cache(
         self, input_path: Path, output_folder: Path, file_hash: str
@@ -277,18 +275,11 @@ class BaseConverter(ABC):
             enhanced_content = result.content
             # Combine enhanced and original content with clear headers
             """Uncomment below line after have way to deactivate optimizer"""
-            combined_content = (
-                # "# TAI Embedding Optimized Content\n\n"
-                # f"{enhanced_content}\n\n"
-                # "# Original Content\n\n"
-                f"{original_content}"
-            )
             # Update the page content with combined content
-            page.content["text"] = combined_content
-
+            page.content["text"] = original_content
             # Resave the combined Markdown content
             with open(self._md_path, "w", encoding="utf-8") as md_file:
-                md_file.write(combined_content)
+                md_file.write(original_content)
             self._logger.info(
                 f"Enhanced and original Markdown saved to {self._md_path}"
             )
@@ -303,16 +294,9 @@ class BaseConverter(ABC):
         for original_chunk, optimized_chunk in zip(original_chunks, optimized_chunks):
             # Combine enhanced and original chunk content with clear headers
             """Uncomment below line after have way to deactivate optimizer"""
-            combined_chunk_content = (
-                # "## TAI Embedding Optimized Chunk\n\n"
-                # f"{optimized_chunk.content}\n\n"
-                # "## Original Chunk\n\n"
-                f"{original_chunk.content}"
-            )
-
             # Create a new Chunk instance with combined content
             combined_chunk = Chunk(
-                content=combined_chunk_content,
+                content=original_chunk.content,
                 titles=original_chunk.titles,
                 chunk_url=original_chunk.chunk_url,
             )
@@ -343,10 +327,9 @@ class BaseConverter(ABC):
     def _to_page(self, input_path: Path, output_path: Path) -> Page:
         # Ensure the output directory exists
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        stem = input_path.stem
         self.file_type = input_path.suffix.lstrip(".")
         md_path = self._to_markdown(input_path, output_path)
-        metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
+        metadata_path = input_path.with_name(f"{self.file_name}_metadata.yaml")
         if md_path:
             structured_md, content_dict = self.apply_markdown_structure(input_md_path=md_path, file_type=self.file_type)
             with open(md_path, "w", encoding="utf-8") as md_file:
@@ -367,7 +350,7 @@ class BaseConverter(ABC):
         return Page(
             filetype=self.file_type,
             content=content,
-            page_name=stem,
+            page_name=self.file_name,
             page_url=url,
             index_helper=self.index_helper,
             file_path = self.relative_path
@@ -398,7 +381,9 @@ class BaseConverter(ABC):
         This method is used to fix the index_helper with titles and their levels.
         """
         a_titles = a_titles.translate(str.maketrans('', '', string.punctuation)).lower().strip()
+        # a_titles = a_titles.replace('"',"'").lower().strip()
         b_titles = b_titles.translate(str.maketrans('', '', string.punctuation)).lower().strip()
+        # b_titles = b_titles.replace('"',"'").lower().strip()
         return operator(a_titles, b_titles)
 
     def process_problems(self, content_dict):
@@ -407,8 +392,8 @@ class BaseConverter(ABC):
         for problem in content_dict['problems']:
             processed_problem = {}
             for title in self.index_helper:
-                if self.match_a_title_and_b_title(title,problem['ID'], str.__contains__):
-                    processed_problem['problem_index'] = self.index_helper[title]
+                if self.match_a_title_and_b_title(title[-1],problem['ID'], str.__eq__):
+                    processed_problem['problem_index'] = self.index_helper[title][0]
                     break
             else:
                 processed_problem['problem_index'] = None
@@ -475,6 +460,7 @@ class BaseConverter(ABC):
             raise AssertionError(f"twl_index: {twl_index} != len(title_with_levels): {len(title_with_levels)}")
         self.index_helper = index_helper
 
+
     def apply_markdown_structure(
         self, input_md_path: Path | None, file_type: str):
         """
@@ -489,7 +475,8 @@ class BaseConverter(ABC):
             pattern = r'^\s*#\s*ROAR ACADEMY EXERCISES\s*$'
             content_text = re.sub(pattern, '', content_text, flags=re.MULTILINE)
         header_levels = self.count_header_levels(content_text)
-        if header_levels == 0 and file_type == "mp4":
+        if header_levels == 0 and file_type == "mp4" or file_type == 'mkv' or file_type == 'webm':
+            json_path = input_md_path.with_suffix(".json")
             content_dict = get_structured_content_without_title(
                 md_content=content_text,
                 file_name=file_name,
@@ -498,11 +485,14 @@ class BaseConverter(ABC):
             new_md = apply_structure_for_no_title(
                 md_content=content_text, content_dict=content_dict
             )
+            self.update_index_helper(content_dict,new_md)
+            add_titles_to_json(index_helper=self.index_helper, json_file_path=json_path)
         elif file_type == "ipynb":
             content_dict = get_strutured_content_for_ipynb(
                 md_content=content_text,
                 file_name=file_name,
                 course_name=self.course_name,
+                index_helper=self.index_helper,
             )
             content_dict=self.update_content_dict_titles_with_levels(
                 content_dict=content_dict, content_text=content_text
@@ -510,7 +500,7 @@ class BaseConverter(ABC):
             self.fix_index_helper_with_titles_with_level(content_dict)
             new_md =content_text
 
-        elif header_levels == 1 and file_type == "pdf":
+        elif file_type == "pdf":
             content_dict = get_structured_content_with_one_title_level(
                 md_content=content_text,
                 file_name=file_name,
@@ -525,17 +515,16 @@ class BaseConverter(ABC):
                 md_content=content_text,
                 file_name=file_name,
                 course_name=self.course_name,
-            )
-            content_dict=self.update_content_dict_titles_with_levels(
-                content_dict=content_dict, content_text=content_text
-            )
+                index_helper =self.index_helper)
+            content_dict=self.update_content_dict_titles_with_levels(content_dict=content_dict, content_text=content_text)
+            self.fix_index_helper_with_titles_with_level(content_dict)
             new_md=content_text
 
-        content_dict = self.add_source_section_index(content_dict)
+        content_dict = self.add_source_section_index(content_dict= content_dict, md_content=new_md)
         return new_md, content_dict
 
 
-    def generate_index_helper(self, md):
+    def generate_index_helper(self, md: str, data = None):
         """ Generate an index helper from the Markdown content.
         """
         self.index_helper = []
@@ -547,17 +536,20 @@ class BaseConverter(ABC):
                     continue
                 self.index_helper.append({title: i + 1})
 
-    def add_source_section_index(self, content_dict: dict):
-        self.update_index_helper(content_dict)
+    def add_source_section_index(self, content_dict: dict, md_content: str = None) -> dict:
+        #If not mp4, update the index_helper with titles and their levels, else don't update it.
+        if self.file_type !="mp4" and self.file_type != 'mkv' and self.file_type != 'webm':
+            self.update_index_helper(content_dict, md_content=md_content)
+        # If there are key concepts, update their source_section_title and source_section_index
         if 'key_concepts' in content_dict:
             for concept in content_dict['key_concepts']:
                 source_title = concept['source_section_title']
                 found = False
                 for titles in self.index_helper.keys():
-                    real_title = titles[-1]
-                    if self.match_a_title_and_b_title(real_title, source_title, str.__contains__):
+                    real_title = titles[-1] if isinstance(titles, tuple) else titles
+                    if self.match_a_title_and_b_title(real_title, source_title, str.__eq__):
                         concept['source_section_title'] = real_title
-                        concept['source_section_index'] = self.index_helper[titles]
+                        concept['source_section_index'] = self.index_helper[titles][0] # page index
                         found = True
                         break
                 if not found:
@@ -566,29 +558,65 @@ class BaseConverter(ABC):
                     )
         return content_dict
 
-    def update_index_helper(self, content_dict):
+    def update_index_helper(self, content_dict, md_content=None):
         """create a helper for titles with their levels, including all sub-paths"""
         titles_with_levels = content_dict.get("titles_with_levels")
         result = {}
         path_stack = []
-        for item, level_info in zip(self.index_helper, titles_with_levels):
-            title = list(item.keys())[0]
-            index = list(item.values())[0]
-            if not title:
+        index_helper_iter = iter(self.index_helper)
+        for level_info in titles_with_levels:
+            level_info["title"] = level_info["title"].strip()
+            target_title = level_info["title"]
+            if not target_title:
                 continue
-            level_info["title"]=level_info["title"].strip()
-            assert(title == level_info["title"]), (
-                f"Title mismatch: {title} != {level_info['title']}"
-            )
             level = level_info["level_of_title"]
             target_index = level - 1
             path_stack = path_stack[:target_index]
-            path_stack.append(title)
-            # path = " > ".join(path_stack)
+            path_stack.append(target_title)
             path = tuple(path_stack)
-            result[path] = index
-
+            found_match = False
+            while True:
+                try:
+                    item = next(index_helper_iter)
+                    title = list(item.keys())[0]
+                    index = list(item.values())[0]
+                    if not title:
+                        continue
+                    if self.match_a_title_and_b_title(title, target_title, str.__eq__):
+                        result[path] = index
+                        found_match = True
+                        break
+                except StopIteration:
+                    break
+            if not found_match:
+                raise AssertionError(f"No matching index found for title: {target_title}")
         self.index_helper = result
+        self.add_line_number_to_index_helper(md_content=md_content)
+
+    def add_line_number_to_index_helper(self, md_content: str) -> dict:
+        """
+        Update self.index_helper so each value becomes (page_index, line_number).
+        - page_index is the original value stored in index_helper
+        - line_number is 1-based, counted in md_content
+        """
+
+        # Build a quick lookup: header-text → first line number (1-based)
+        header_lines = {}
+        for ln, raw in enumerate(md_content.splitlines(), start=1):
+            stripped = raw.lstrip()# ignore leading spaces
+            if stripped.startswith("#"):
+                header_text = stripped.lstrip("#").strip()
+                header_text = header_text.replace('*', "").strip()
+                header_lines[header_text] = ln
+        # Walk the existing helper and attach line numbers
+        for path, page_idx in list(self.index_helper.items()):
+            title = path[-1]
+            line_num = header_lines.get(title)
+            if line_num is None:
+                title = title.replace("'", '"').strip()
+                line_num = header_lines.get(title)
+            self.index_helper[path] = (page_idx, line_num)
+        return self.index_helper
 
 
     @abstractmethod

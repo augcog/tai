@@ -111,7 +111,8 @@ def build_augmented_prompt(
             reference_string += (
                 f"Reference {n}: <|begin_of_reference_name|>{info_path}<|end_of_reference_name|>"
                 f"<|begin_of_reference_link|>{url}<|end_of_reference_link|>"
-                f"<|begin_of_file_path|>{file_path}<|end_of_file_path|>\n\n"
+                f"<|begin_of_file_path|>{file_path}<|end_of_file_path|>"
+                f"<|begin_of_index|>1<|end_of_index|>\n\n"
             )
             reference_list.append([info_path, url,file_path])
 

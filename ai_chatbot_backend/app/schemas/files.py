@@ -22,6 +22,14 @@ class Section(BaseModel):
     name: str = Field(..., description="Section title")
 
 
+class TranscriptSegment(BaseModel):
+    """Video transcript segment"""
+    start_time: float = Field(..., description="Start time in seconds")
+    end_time: float = Field(..., description="End time in seconds") 
+    speaker: str = Field(..., description="Speaker identifier (title-1, title-2, instructor, etc.)")
+    text_content: str = Field(..., description="Transcript text content")
+
+
 class FileMetadata(BaseModel):
     """Simple, clean file metadata"""
 

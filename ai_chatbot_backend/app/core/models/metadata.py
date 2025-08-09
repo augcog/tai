@@ -14,6 +14,7 @@ class FileModel(MetadataBase):
     file_name = Column(String, nullable=False)
     url = Column(String, nullable=True)
     sections = Column(Text, nullable=True)  # JSON blob
+    extra_info = Column(Text, nullable=True)  # JSON blob for transcript, OCR, etc.
     relative_path = Column(String, default="")
     course_code = Column(String, default="")
     course_name = Column(String, default="")

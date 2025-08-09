@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Path, status
@@ -198,7 +198,7 @@ async def get_file_stats(
 
 @router.get(
     "/{file_id}/extra_info", 
-    response_model=list[TranscriptSegment], 
+    response_model=List[TranscriptSegment], 
     summary="Get extra info (transcript) for file"
 )
 async def get_file_extra_info(

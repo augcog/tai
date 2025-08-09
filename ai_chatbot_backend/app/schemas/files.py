@@ -56,8 +56,9 @@ class FileMetadata(BaseModel):
     # Advanced metadata - now as parsed JSON
     sections: List[Section] = Field(..., description="Parsed sections of the file")
     
-    # Download URL for frontend
+    # URLs
     download_url: Optional[str] = Field(None, description="Download URL for this file")
+    original_url: Optional[str] = Field(None, description="Original source URL where the file was collected from")
 
     @classmethod
     def from_db_model(cls, db_model):
@@ -135,6 +136,7 @@ class FileMetadata(BaseModel):
             category=None,  # Not available in metadata db
             sections=sections_data,
             download_url=f"/api/files/{db_model.uuid}/download",
+            original_url=db_model.url,
         )
 
     class Config:
@@ -171,7 +173,8 @@ class FileMetadata(BaseModel):
                         "name": "Computer Storage Hierarchy"
                     },
                 ],
-                "download_url": "/api/files/550e8400-e29b-41d4-a716-446655440000/download"
+                "download_url": "/api/files/550e8400-e29b-41d4-a716-446655440000/download",
+                "original_url": "https://example.com/course/cs61a/lab01.pdf"
             }
         }
 
@@ -227,6 +230,8 @@ class FileListResponse(BaseModel):
                                 "name": "Computer Storage Hierarchy"
                             },
                         ],
+                        "download_url": "/api/files/550e8400-e29b-41d4-a716-446655440000/download",
+                        "original_url": "https://example.com/course/cs61a/lab01.pdf"
                     }
                 ],
                 "total_count": 1,
@@ -356,7 +361,8 @@ class DirectoryBrowserResponse(BaseModel):
                                     "name": "Computer Storage Hierarchy"
                                 },
                             ],
-                        "download_url": "/api/files/550e8400-e29b-41d4-a716-446655440000/download"
+                        "download_url": "/api/files/550e8400-e29b-41d4-a716-446655440000/download",
+                        "original_url": "https://example.com/roar-academy/part-one/intro.pdf"
                     }
                 ],
                 "current_path": "Part One",

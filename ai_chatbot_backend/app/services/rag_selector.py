@@ -119,7 +119,7 @@ def build_augmented_prompt(
     if not insert_document or n == 0:
         modified_message = (
             f"Answer the instruction thoroughly with a well structured markdown format answer. Provide guidance instead of direct answers to Course problem when answer is being asked. If unsure of the answer, explain that there is no data in the knowledge base "
-            f"for the response and refuse to answer. If the instruction is not within the scope of any topic related to {class_name}, "
+            f"for the response and refuse to answer. If the instruction is not within the scope of any topic related to {course}: {class_name}, or not some general query, "
             f"explain and refuse to answer.\n---\n"
 
         )
@@ -128,7 +128,7 @@ def build_augmented_prompt(
             f"Understand the reference documents and pick the helpful ones to answer the instruction thoroughly with a well structured markdown format answer but no need to add '```markdown'. "
             f"Keep your answer grounded in the facts of the references that are relevant. Provide guidance instead of direct answers to Course problem when answer is being asked. If unsure of the answer, explain that there is no data in the knowledge base for the response and refuse to answer. "
             f"Remember to refer to specific reference number inline with md *bold style*. Remember to refer to specific reference number inline with md *bold style*. Remember to refer to specific reference number inline with md *bold style*.Do not list reference at the end. Do not explain if the reference is not related to the question."
-            f"If the instruction is not within the scope of any topic related to {class_name}, explain and refuse to answer.\n---\n"
+            f"If the instruction is not within the scope of any topic related to {course}: {class_name}, or not some general query, or mentioned in / related to any of the reference documents, explain and refuse to answer.\n---\n"
         )
     if not practice:
         modified_message += f"Instruction: {user_message}"
@@ -175,10 +175,10 @@ def format_chat_msg(messages: List[Message]) -> List[Message]:
     """
     response: List[Message] = []
     system_message = (
-        "You are a Teaching Assistant. You are responsible for answering questions and providing guidance to students. "
+        "You are a Teaching Assistant called TAI. You are responsible for answering questions and providing guidance to students. "
         "Do not provide direct answers to homework questions. If the question is related to a class topic, "
         "provide guidance and resources to help the student answer the question. "
-        "If the question is not related to a class topic, explain that you cannot provide an answer."
+        "If the question is not related to a class topic, reference or some general greetings, explain that you cannot provide an answer."
     )
     response.append(Message(role="system", content=system_message))
     for message in messages:

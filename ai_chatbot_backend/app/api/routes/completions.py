@@ -30,7 +30,7 @@ def generate_data():
 
 @router.post("/completions")
 async def create_completion(
-    params: CompletionCreateParams, _: bool = Depends(verify_api_token)
+    params: CompletionParams, _: bool = Depends(verify_api_token)
 ):
     # Get the pre-initialized pipeline
     engine = get_model_engine()
@@ -71,7 +71,7 @@ async def get_top_k_docs(
 
 @router.post("/practice_completion")
 async def practice_completion(
-    params: CompletionCreateParams, db: Session = Depends(get_metadata_db), _: bool = Depends(verify_api_token)
+    params: PracticeCompletionParams, db: Session = Depends(get_metadata_db), _: bool = Depends(verify_api_token)
 ):
     # check all of code_block_content problem_id file_name in params and log error if any is None
     if any(

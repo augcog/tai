@@ -38,9 +38,19 @@ class Message(BaseModel):
     tool_call_id: Optional[str] = None
 
 
-class CompletionCreateParams(BaseModel):
+class CompletionParams(BaseModel):
     course: str
-    messages: Optional[List[Message]]
+    messages: List[Message]
+    temperature: float
+    stream: bool
+    chat_type: str = "general"
+    file_uuid: Optional[str] = None
+    index: Optional[float] = None
+    rag: Optional[bool] = True
+    
+class PracticeCompletionParams(BaseModel):
+    course: str
+    messages: List[Message]
     temperature: float
     stream: bool
     rag: Optional[bool] = True

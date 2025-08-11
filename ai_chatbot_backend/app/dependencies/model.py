@@ -2,15 +2,21 @@ import json
 from app.dependencies.remote_model import RemoteModelClient
 from app.config import settings
 from vllm import AsyncLLMEngine, AsyncEngineArgs
+from faster_whisper import WhisperModel
+import os
+from sentence_transformers import SentenceTransformer
 
 # Global variable to store the loaded pipeline (singleton pattern)
 _model_engine = None
+_whisper_engine = None
+_embedding_engine = None
 
 
 def get_local_model_engine():
+    os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
     MODEL_ID = "THUDM/GLM-4-9B-0414"
     TP_SIZE = 2  # tensor_parallel_size
-    GPU_UTIL = 0.6
+    GPU_UTIL = 0.47
     engine_args = AsyncEngineArgs(
         model=MODEL_ID,
         tensor_parallel_size=TP_SIZE,
@@ -19,6 +25,15 @@ def get_local_model_engine():
     engine = AsyncLLMEngine.from_engine_args(engine_args)
     return engine
 
+def get_whisper_model_engine():
+    """Returns a Whisper model engine for audio transcription."""
+    model_size = "large-v3"
+    return WhisperModel(model_size, device="cuda",device_index=0, compute_type="float32")
+
+def get_local_embedding_engine():
+    return SentenceTransformer("Qwen/Qwen3-Embedding-4B", device="cuda:1",
+                                      model_kwargs={"torch_dtype": "auto"},
+                                      tokenizer_kwargs={"padding_side": "left"})
 
 def get_remote_model_pipeline():
     """Returns a pipeline that sends inference requests to a remote service.
@@ -67,10 +82,12 @@ def initialize_model_engine():
     This should be called once during app startup.
     """
     global _model_engine
+    global _whisper_engine
+    global _embedding_engine
     if _model_engine is not None:
         print("⚠️  Model pipeline already initialized, returning existing instance")
+        # return _model_engine, _whisper_engine
         return _model_engine
-
     print("🚀 Initializing model pipeline...")
     mode = settings.effective_llm_mode
     print(f"📦 Using LLM mode: {mode}")
@@ -79,6 +96,12 @@ def initialize_model_engine():
         print("🔧 Loading local model pipeline...")
         _model_engine = get_local_model_engine()
         print("✅ Local model pipeline loaded successfully!")
+        print("🔊 Loading Whisper model engine...")
+        _whisper_engine = get_whisper_model_engine()
+        print("✅ Whisper model engine loaded successfully!")
+        print("📚 Loading local embedding engine...")
+        _embedding_engine = get_local_embedding_engine()
+        print("✅ Local embedding engine loaded successfully!")
     elif mode == "remote":
         print("🌐 Setting up remote model pipeline...")
         _model_engine = get_remote_model_pipeline()
@@ -90,8 +113,8 @@ def initialize_model_engine():
     else:
         raise ValueError(f"Unknown effective LLM mode: {mode}")
 
+    # return _model_engine, _whisper_engine
     return _model_engine
-
 
 def get_model_engine():
     """Returns the pre-initialized model pipeline.
@@ -102,5 +125,21 @@ def get_model_engine():
     global _model_engine
     if _model_engine is None:
         print("⚠️  Model pipeline not initialized, initializing now...")
-        return initialize_model_engine()
+        _model_engine, _ = initialize_model_engine()
     return _model_engine
+
+def get_whisper_engine():
+    """Returns the pre-initialized Whisper model engine."""
+    global _whisper_engine
+    if _whisper_engine is None:
+        print("⚠️  Whisper model engine not initialized, initializing now...")
+        _, _whisper_engine = initialize_model_engine()
+    return _whisper_engine
+
+def get_embedding_engine():
+    """Returns the pre-initialized embedding engine."""
+    global _embedding_engine
+    if _embedding_engine is None:
+        print("⚠️  Embedding engine not initialized, initializing now...")
+        _, _, _embedding_engine = initialize_model_engine()
+    return _embedding_engine

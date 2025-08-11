@@ -6,11 +6,13 @@ import urllib.parse
 from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
-from FlagEmbedding import BGEM3FlagModel
-import torch
+# from FlagEmbedding import BGEM3FlagModel
+from app.dependencies.model import get_embedding_engine
+
 
 # Keep your embedding_model or pass it in, as suits your design
-embedding_model = BGEM3FlagModel("BAAI/bge-m3", use_fp16=True)
+embedding_model = get_embedding_engine()
+# embedding_model = BGEM3FlagModel("BAAI/bge-m3", use_fp16=True,devices='cuda:0')
 
 # Global configuration for SQL database usage and extension paths.
 SQLDB: bool = False
@@ -45,7 +47,6 @@ def bge_compute_score(
     else:
         assert len(weights_for_different_modes) == 3
         weight_sum = sum(weights_for_different_modes)
-
     scores["dense"] = query_embedding["dense_vecs"] @ document_embeddings["dense_vecs"].T
     scores["sparse"] = embedding_model.compute_lexical_matching_score(
         [query_embedding["lexical_weights"]], document_embeddings["lexical_weights"]
@@ -60,6 +61,11 @@ def bge_compute_score(
             + scores["dense"] * weights_for_different_modes[0]
         )/ weight_sum
     return scores
+
+def bge_compute_score_simple(query_embedding: Dict[str, Any], document_embeddings: List[Dict[str, Any]]) -> List[float]:
+    q_norm = query_embedding["dense_vecs"] / np.linalg.norm(query_embedding["dense_vecs"], keepdims=True)
+    d_norm = document_embeddings["dense_vecs"] / np.linalg.norm(document_embeddings["dense_vecs"], axis=1, keepdims=True)
+    return q_norm @ d_norm.T
 
 
 def clean_path(url_path: str) -> str:
@@ -135,10 +141,12 @@ def _get_references_from_pickle(
     url_list = data_loaded["url_list"]
     embedding_list = data_loaded["embedding_list"]
 
-    combined_scores = bge_compute_score(
-        query_embed, embedding_list, [1, 1, 1], None, None
-    )
-    score_array = np.array(combined_scores["colbert+sparse+dense"])
+    # combined_scores = bge_compute_score(
+    #     query_embed, embedding_list, [1, 1, 1], None, None
+    # )
+    # score_array = np.array(combined_scores["colbert+sparse+dense"])
+    score_simple = bge_compute_score_simple(query_embed, embedding_list)
+    score_array = np.array(score_simple)
     indices = np.argsort(score_array)[::-1]
     similarity_scores = np.sort(score_array)[-top_k:][::-1]
     top_ids = id_list[indices][:top_k]
@@ -202,9 +210,10 @@ def top_k_selector(
     if rag:
         picklefile, _ = _get_pickle_and_class(course if course else "")
         current_dir = "/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/"
-        query_embed = embedding_model.encode_queries(
-            message, return_dense=True, return_sparse=True, return_colbert_vecs=True
-        )
+        # query_embed = embedding_model.encode_queries(
+        #     message, return_dense=True, return_sparse=True, return_colbert_vecs=True
+        # )
+        query_embed = {"dense_vecs": embedding_model.encode(message, prompt_name="query")}
         if SQLDB:
             embedding_db_path = os.path.join(current_dir, "embeddings.db")
             db = sqlite3.connect(embedding_db_path)
@@ -244,10 +253,12 @@ def top_k_selector(
                 data_loaded = pickle.load(f)
             doc_list = data_loaded["doc_list"]
             embedding_list = data_loaded["embedding_list"]
-            combined_scores = bge_compute_score(
-                query_embed, embedding_list, [1, 1, 1], None, None
-            )
-            score_array = np.array(combined_scores["colbert+sparse+dense"])
+            # combined_scores = bge_compute_score(
+            #     query_embed, embedding_list, [1, 1, 1], None, None
+            # )
+            # score_array = np.array(combined_scores["colbert+sparse+dense"])
+            score_simple = bge_compute_score_simple(query_embed, embedding_list)
+            score_array = np.array(score_simple)
             indices = np.argsort(score_array)[::-1]
             top_indices = indices[:k]
             top_docs = [doc_list[i] for i in top_indices]

@@ -37,6 +37,13 @@ class Message(BaseModel):
     content: str
     tool_call_id: Optional[str] = None
 
+class VoiceMessage(BaseModel):
+    # a message that contains audio data array in content
+    role: str
+    content: List[float]  # audio data as a list of floats
+    tool_call_id: Optional[str] = None
+
+
 
 class CompletionParams(BaseModel):
     course: str
@@ -57,3 +64,14 @@ class PracticeCompletionParams(BaseModel):
     answer_content: Optional[str] = None
     problem_id: Optional[str] = None
     file_name: Optional[str] = None
+
+class VoiceCompletionParams(BaseModel):
+    course: str
+    messages: List[Message]
+    audio: VoiceMessage
+    temperature: float
+    stream: bool
+    chat_type: str = "general"
+    file_uuid: Optional[str] = None
+    index: Optional[float] = None
+    rag: Optional[bool] = True

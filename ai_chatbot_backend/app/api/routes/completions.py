@@ -3,7 +3,7 @@ import time
 
 from app.api.deps import verify_api_token
 from app.core.models.chat_completion import *
-from app.dependencies.model import get_model_engine
+from app.dependencies.model import get_model_engine, get_whisper_engine
 from app.services.rag_retriever import top_k_selector
 from app.services.rag_selector import (
     format_chat_msg,
@@ -17,6 +17,7 @@ from sqlalchemy.orm import Session
 from app.core.dbs.metadata_db import get_metadata_db
 from app.services.file_service import file_service
 from app.services.problem_service import ProblemService
+from app.services.audio_service import audio_to_text
 
 router = APIRouter()
 
@@ -41,17 +42,46 @@ async def create_completion(
     selector = generate_chat_response
     parser = local_parser
 
-    response, reference_string = selector(
+    response, reference_list = selector(
         formatter(params.messages), stream=params.stream, course=course, engine=engine
     )
 
     if params.stream:
         return StreamingResponse(
-            parser(response, reference_string), media_type="text/plain"
+            parser(response, reference_list), media_type="text/plain"
         )
     else:
         return PlainTextResponse(response)
 
+@router.post("/voice_completions")
+async def create_voice_completion(
+    params: VoiceCompletionParams, _: bool = Depends(verify_api_token)
+):
+    """
+    Endpoint for generating voice completions.
+    """
+    # Get the pre-initialized pipeline
+    engine = get_model_engine()
+    whisper_engine = get_whisper_engine()
+
+    # select model based on params.model
+    course = params.course
+    formatter = format_chat_msg
+    selector = generate_chat_response
+    parser = local_parser
+
+    audio_text = audio_to_text(params.audio, whisper_engine)
+    params.messages.append(Message(role="user", content=audio_text))
+    response, reference_list = selector(
+        formatter(params.messages), stream=params.stream, course=course, engine=engine
+    )
+
+    if params.stream:
+        return StreamingResponse(
+            parser(response, reference_list), media_type="text/plain"
+        )
+    else:
+        return PlainTextResponse(response)
 
 @router.post("/top_k_docs")
 async def get_top_k_docs(
@@ -101,13 +131,13 @@ async def practice_completion(
     selector = generate_practice_response
     parser = local_parser
 
-    response, reference_string = selector(
+    response, reference_list = selector(
         formatter(params.messages), problem_content, params.answer_content, stream=params.stream, course=course, engine=engine, file_name=params.file_name
     )
 
     if params.stream:
         return StreamingResponse(
-            parser(response, reference_string), media_type="text/plain"
+            parser(response, reference_list), media_type="text/plain"
         )
     else:
         return PlainTextResponse(response)

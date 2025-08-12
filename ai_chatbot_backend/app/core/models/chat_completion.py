@@ -98,3 +98,10 @@ class VoiceTranscriptParams(BaseModel):
     audio: VoiceMessage
     stream: bool = True
     sample_rate: int = 24000
+
+class TextToSpeechParams(BaseModel):
+    text: str
+    stream: bool = True
+    class_code: Optional[str] = None  # e.g., "CS101"
+    file: Optional[str] = None  # e.g., "output.wav"
+    file_idx: Optional[float] = None  # e.g., 0.0

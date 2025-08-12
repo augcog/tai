@@ -35,15 +35,15 @@ def generate_streaming_response(messages: List[Message], engine: Any = None) -> 
 def build_augmented_prompt(
         user_message: str,
         course: str,
-        embedding_dir: str,
         threshold: float,
         rag: bool,
         top_k: int = 7,
         practice: bool = False,
         problem_content: Optional[str] = None,
         answer_content: Optional[str] = None,
-        file_name: Optional[str] = None
-) -> Tuple[str, List[str], str]:
+        file_name: Optional[str] = None,
+        audio_response: bool = False
+) -> Tuple[str, List[str | Any]]:
     """
     Build an augmented prompt by retrieving reference documents.
     Returns:
@@ -63,17 +63,8 @@ def build_augmented_prompt(
     print('time of the day:', time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()), '\n')
 
     if not rag:
-        return user_message, [], ""
+        return user_message, []
 
-    picklefile, class_name = _get_pickle_and_class(course)
-    current_dir = embedding_dir
-    start_time = time.time()
-    # query_embed = embedding_model.encode(
-    #     user_message, return_dense=True, return_sparse=True, return_colbert_vecs=True
-    # )
-    query_embed = {"dense_vecs": embedding_model.encode(user_message, prompt_name="query")}
-    end_time = time.time()
-    print(f"Embedding time: {end_time - start_time:.2f} seconds")
     (
         top_ids,
         top_docs,
@@ -81,10 +72,10 @@ def build_augmented_prompt(
         similarity_scores,
         top_files,
         top_topic_paths,
-    ) = _get_reference_documents(query_embed, current_dir, picklefile, top_k=top_k)
+    ),class_name = _get_reference_documents(user_message, course, top_k=top_k)
 
     insert_document = ""
-    reference_list: List[str] = []
+    reference_list: List[str | Any] = []
     n = 0
     for i in range(len(top_docs)):
         # reference_list.append(top_urls[i] if top_urls[i] else "")
@@ -105,10 +96,24 @@ def build_augmented_prompt(
                 f'Document: {top_docs[i]}\n\n'
             )
             reference_list.append([info_path, url, file_path])
+    if not audio_response:
+        response_style=f"Answer the instruction thoroughly with a well-structured markdown format answer. No references at the end."
+        reference_style=f"Refer to specific reference numbers inline using [Reference: n] style. Do not list references at the end. "
+    else:
+        response_style = """
+        STYLE:
+        Use a clear, natural, speaker-friendly tone that is short and engaging. No code block or Markdown formatting. One sentence per line. No references at the end.
+
+        FORMATTING:
+        After every sentence, insert a newline character (\n).
+        Two newline characters (\n\n) indicate a new paragraph.
+        Do not join sentences in the same line.
+        """
+        reference_style = f"Mention specific reference numbers inline when that part of the answer is refer to some reference. Do not mention references at the end of the response as user cannot connect them to the answer. e.g. According to reference 1, as mention in reference 2, etc. "
 
     if not insert_document or n == 0:
         modified_message = (
-            f"Answer the instruction thoroughly with a well-structured markdown format answer. "
+            f"{response_style}"
             f"If the question is a complex question, provide hints, explanations, or step-by-step guidance instead of a direct answer. "
             f"If you are unsure after making a reasonable effort, explain that there is no data in the knowledge base for the response. "
             f"Only refuse if the question is clearly unrelated to any topic in {course}: {class_name} and is not a general, reasonable query. "
@@ -117,11 +122,12 @@ def build_augmented_prompt(
     else:
         modified_message = (
             f"{insert_document}---\n"
+            f"{response_style}"
             f"Review the reference documents, considering their Directory Path (original file location), Topic Path (section or title it belongs to), and Document content. "
             f"Select only the most relevant references to answer the instruction thoroughly in a well-structured markdown format (do not add '```markdown'). "
             f"Ground your answer in the facts from these selected references. "
             f"If the question is a complex problem, provide hints, explanations, or step-by-step guidance instead of giving the direct answer. "
-            f"Refer to specific reference numbers inline using [Reference: n] style; do not list references at the end. "
+            f"{reference_style}"
             f"Exclude and avoid explaining irrelevant references. "
             f"If, after reasonable effort, no relevant information is found, state that there is no data in the knowledge base for the response. "
             f"Refuse only if the question is clearly unrelated to any topic in {course}: {class_name}, is not a general query, and has no link to the provided references. "
@@ -150,18 +156,20 @@ async def local_parser(
         previous_text = text
         print(chunk, end="")
 
-    pattern = re.compile(r'\[Reference:\s*([\d,\s]+)\]')
+    pattern = re.compile(
+        r'(?:\[Reference:\s*([\d,\s]+)\]|\breferences?\s+(\d+(?:\s*(?:,|and)\s*\d+)*))',
+        re.IGNORECASE
+    )
+
     mentioned_references = {
         int(n)
         for m in pattern.finditer(previous_text)
-        for n in re.findall(r'\d+', m.group(1))
+        for n in re.findall(r'\d+', m.group(1) or m.group(2))
     }
+    print("\n\nMentioned references:", mentioned_references)
 
     lines = []
     max_idx = len(reference_list)
-    if not mentioned_references:
-        # put all references in the response
-        mentioned_references = set(range(1, max_idx + 1))
     for i in sorted(mentioned_references):
         if 1 <= i <= max_idx:
             info_path, url, file_path = reference_list[i - 1]
@@ -172,11 +180,11 @@ async def local_parser(
                 f"<|begin_of_file_path|>{file_path}<|end_of_file_path|>"
                 f"<|begin_of_index|>1<|end_of_index|>"
             )
-
-    reference_string = "\n\n".join(lines)
-    ref_block = f"\n\n<|begin_of_reference|>\n\n{reference_string}\n<|end_of_reference|>"
-    yield ref_block
-    print(ref_block)
+    if lines:
+        reference_string = "\n\n".join(lines)
+        ref_block = f"\n\n<|begin_of_reference|>\n\n{reference_string}\n<|end_of_reference|>"
+        yield ref_block
+        print(ref_block)
 
 
 async def parse_token_stream_for_json(stream: Any) -> Generator[str, None, None]:
@@ -199,7 +207,7 @@ def format_chat_msg(messages: List[Message]) -> List[Message]:
     system_message = (
         "You are TAI, a helpful AI assistant. Your role is to answer questions or provide guidance to the user. "
         "When responding to complex question that cannnot be answered directly by provided reference material, prefer not to give direct answers. Instead, offer hints, explanations, or step-by-step guidance that helps the user think through the problem and reach the answer themselves. "
-        "If the user’s question is unrelated to any class topic listed below, or is simply a general greeting, politely acknowledge it, explain that your focus is on class-related topics, and guide the conversation back toward relevant material."
+        "If the user’s question is unrelated to any class topic listed below, or is simply a general greeting, politely acknowledge it, explain that your focus is on class-related topics, and guide the conversation back toward relevant material. Focus on the response style, format, and reference style."
     )
     response.append(Message(role="system", content=system_message))
     for message in messages:
@@ -212,18 +220,18 @@ def generate_chat_response(
         stream: bool = True,
         rag: bool = True,
         course: Optional[str] = None,
-        embedding_dir: str = "/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/",
         threshold: float = 0.32,
         top_k: int = 7,
         engine: Any = None,
-) -> Tuple[Any, str]:
+        audio_response: bool = False,
+) -> Tuple[Any, List[str| Any]]:
     """
     Build an augmented message with references and run LLM inference.
     Returns a tuple: (stream, reference_string)
     """
     user_message = messages[-1].content
     modified_message, reference_list = build_augmented_prompt(
-        user_message, course if course else "", embedding_dir, threshold, rag, top_k
+        user_message, course if course else "", threshold, rag, top_k, audio_response=audio_response
     )
 
     messages[-1].content = modified_message
@@ -247,14 +255,14 @@ def generate_practice_response(
         threshold: float = 0.32,
         top_k: int = 7,
         engine: Any = None,
-) -> Tuple[Any, str]:
+) -> Tuple[Any, List[str | Any]]:
     """
     Build an augmented message with references and run LLM inference.
     Returns a tuple: (stream, reference_string)
     """
     user_message = messages[-1].content
     modified_message, reference_list = build_augmented_prompt(
-        user_message, course if course else "", embedding_dir, threshold, rag, top_k, practice=True,
+        user_message, course if course else "", threshold, rag, top_k, practice=True,
         problem_content=problem_content, answer_content=answer_content, file_name=file_name
     )
 

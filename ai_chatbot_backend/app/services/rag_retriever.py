@@ -8,6 +8,7 @@ from typing import Any, Dict, List, Optional, Tuple
 import numpy as np
 # from FlagEmbedding import BGEM3FlagModel
 from app.dependencies.model import get_embedding_engine
+import time
 
 
 # Keep your embedding_model or pass it in, as suits your design
@@ -79,11 +80,12 @@ def clean_path(url_path: str) -> str:
 
 
 def _get_references_from_sql(
-    query_embed: Dict[str, Any], current_dir: str, picklefile: str, top_k: int
-) -> Tuple[List[str], List[str], List[str], List[float]]:
+    query_embed: Dict[str, Any], picklefile: str, top_k: int
+) -> Tuple[List[str], List[str], List[str], List[float],List[str],List[str]]:
     """
     Retrieve top reference documents from a SQL database.
     """
+    current_dir = "/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/"
     embedding_db_path = os.path.join(current_dir, "embeddings.db")
     db = sqlite3.connect(embedding_db_path)
     db.enable_load_extension(True)
@@ -126,11 +128,12 @@ def _get_references_from_sql(
 
 
 def _get_references_from_pickle(
-    query_embed: Dict[str, Any], current_dir: str, picklefile: str, top_k: int
-) -> Tuple[List[str], List[str], List[str], List[float]]:
+    query_embed: Dict[str, Any], picklefile: str, top_k: int
+) -> Tuple[List[str], List[str], List[str], List[float],List[str],List[str]]:
     """
     Retrieve top reference documents from a pickle file.
     """
+    current_dir = "/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/"
     path_to_pickle = os.path.join(current_dir, picklefile)
     with open(path_to_pickle, "rb") as f:
         data_loaded = pickle.load(f)
@@ -141,10 +144,6 @@ def _get_references_from_pickle(
     url_list = data_loaded["url_list"]
     embedding_list = data_loaded["embedding_list"]
 
-    # combined_scores = bge_compute_score(
-    #     query_embed, embedding_list, [1, 1, 1], None, None
-    # )
-    # score_array = np.array(combined_scores["colbert+sparse+dense"])
     score_simple = bge_compute_score_simple(query_embed, embedding_list)
     score_array = np.array(score_simple)
     indices = np.argsort(score_array)[::-1]
@@ -154,23 +153,33 @@ def _get_references_from_pickle(
     top_files = file_path_list[indices][:top_k]
     top_topic_paths = topic_path_list[indices][:top_k]
     top_urls = url_list[indices][:top_k].tolist()
+    # TODO: add index after using db
     return top_ids, top_docs, top_urls, similarity_scores, top_files, top_topic_paths
 
 
 def _get_reference_documents(
-    query_embed: Dict[str, Any], current_dir: str, picklefile: str, top_k: int
-) -> Tuple[List[str], List[str], List[str], List[float]]:
+    user_message: str, course: str, top_k: int
+) -> Tuple[Tuple[List[str], List[str], List[str], List[float],List[str],List[str]], str]:
     """
     Retrieve top reference documents based on the query embedding.
     """
+    picklefile, class_name = _get_pickle_and_class(course)
+    start_time = time.time()
+    # query_embed = embedding_model.encode(
+    #     user_message, return_dense=True, return_sparse=True, return_colbert_vecs=True
+    # )
+    query_embed = {"dense_vecs": embedding_model.encode(user_message, prompt_name="query")}
+    end_time = time.time()
+    print(f"Embedding time: {end_time - start_time:.2f} seconds")
+
     if SQLDB:
         return _get_references_from_sql(
-            query_embed, current_dir, picklefile, top_k=top_k
-        )
+            query_embed, picklefile, top_k=top_k
+        ), class_name
     else:
         return _get_references_from_pickle(
-            query_embed, current_dir, picklefile, top_k=top_k
-        )
+            query_embed, picklefile, top_k=top_k
+        ), class_name
 
 
 def _get_pickle_and_class(course: str) -> Tuple[str, str]:

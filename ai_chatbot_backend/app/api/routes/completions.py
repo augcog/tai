@@ -18,7 +18,7 @@ from app.core.dbs.metadata_db import get_metadata_db
 from app.services.file_service import file_service
 from app.services.problem_service import ProblemService
 from app.services.audio_service import audio_to_text, audio_stream_parser
-from app.services.chat_service import chat_stream_parser
+from app.services.chat_service import chat_stream_parser, format_audio_text_message, audio_generator, tts_parsor
 
 router = APIRouter()
 
@@ -110,6 +110,23 @@ async def create_voice_completion(
     else:
         return JSONResponse(ResponseDelta(text=response).model_dump_json(exclude_unset=True))
 
+@router.post("/tts")
+async def text_to_speech(
+        params: TextToSpeechParams, _: bool = Depends(verify_api_token)
+):
+    """
+    Endpoint for converting text to speech.
+    """
+    # Convert text message to audio
+    audio_message = format_audio_text_message(params.text)
+    stream = audio_generator(audio_message, stream=params.stream)
+
+    if params.stream:
+        return StreamingResponse(
+            tts_parsor(stream), media_type="text/event-stream"
+        )
+    else:
+        return None
 
 @router.post("/voice_to_text")
 async def voice_to_text(

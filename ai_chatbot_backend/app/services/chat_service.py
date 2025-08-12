@@ -96,12 +96,20 @@ def convert_audio_to_base64(audio: np.ndarray,
     sf.write(audio_buffer, audio, sampling_rate, format=target_format)
     return base64.b64encode(audio_buffer.getvalue()).decode('utf-8')
 
+def format_audio_text_message(audio_text: str) -> List[Dict]:
+    """
+    Format the audio text message into the expected structure for the chat model.
+    """
+    return [{"role": "user", "content": audio_text}]
+
 async def audio_generator(messages: List[Dict], stream: bool = True
 ) -> AsyncIterator[str]:
     """
     Parse the streaming response from the audio model and yield deltas.
     """
     data_dir = '/home/bot/localgpt/tai/ai_chatbot_backend/voice_prompts'
+    # TODO: voice input by course
+    # TODO: after file chat is enabled, use the previous voice from the video with index if possible to generate audio
     audio_path = os.path.join(data_dir, "trees_54.wav")
     audio_text_path = os.path.join(data_dir, "trees_54.txt")
     with open(audio_text_path, "r") as f:
@@ -143,3 +151,16 @@ async def audio_generator(messages: List[Dict], stream: bool = True
     for chunk in chat_completion:
         if chunk.choices and hasattr(chunk.choices[0].delta, "audio") and chunk.choices[0].delta.audio:
             yield chunk.choices[0].delta.audio["data"]
+
+async def tts_parsor(
+        stream: AsyncIterator
+) -> AsyncIterator[str]:
+    """
+    Parse the streaming response from the TTS model and yield deltas.
+    """
+    seq = 0
+    async for data in stream:
+        yield sse(ResponseDelta(seq=seq, audio_b64=data, audio_spec=AudioSpec)); seq += 1
+
+    yield sse(Done())
+    yield "data: [DONE]\n\n"  # Final done message for SSE clients

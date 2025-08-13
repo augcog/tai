@@ -38,6 +38,7 @@ def build_augmented_prompt(
         threshold: float,
         rag: bool,
         top_k: int = 7,
+        query_message: str = "",
         practice: bool = False,
         problem_content: Optional[str] = None,
         answer_content: Optional[str] = None,
@@ -65,6 +66,8 @@ def build_augmented_prompt(
     if not rag:
         return user_message, []
 
+    if not query_message:
+        query_message = user_message
     (
         top_ids,
         top_docs,
@@ -72,7 +75,7 @@ def build_augmented_prompt(
         similarity_scores,
         top_files,
         top_topic_paths,
-    ),class_name = _get_reference_documents(user_message, course, top_k=top_k)
+    ),class_name = _get_reference_documents(query_message, course, top_k=top_k)
 
     insert_document = ""
     reference_list: List[str | Any] = []
@@ -175,7 +178,7 @@ async def local_parser(
             info_path, url, file_path = reference_list[i - 1]
             lines.append(
                 f"Reference {i}: "
-                f"<|begin_of_reference_name|>{info_path}<|end_of_reference_name|>"
+                f"<|begin_of_reference_name|>{i}: {info_path}<|end_of_reference_name|>"
                 f"<|begin_of_reference_link|>{url}<|end_of_reference_link|>"
                 f"<|begin_of_file_path|>{file_path}<|end_of_file_path|>"
                 f"<|begin_of_index|>1<|end_of_index|>"
@@ -214,8 +217,44 @@ def format_chat_msg(messages: List[Message]) -> List[Message]:
         response.append(Message(role=message.role, content=message.content))
     return response
 
+import asyncio
+async def generate_user_query(messages: List[Any], engine: Any) -> str:
+    """
+    Reformulate the latest user request into a single self-contained query string,
+    based on the full chat history (user + assistant messages).
+    Returns plain text with no quotes or extra formatting.
+    """
+    system_prompt = (
+        "You are a query reformulator for a RAG system. "
+        "From the full chat history, rewrite the latest user request as a single, "
+        "self-contained question for document retrieval. "
+        "Resolve pronouns and references using context, include relevant constraints "
+        "(dates, versions, scope), and avoid adding facts not in the history. "
+        "Return only the rewritten query as question in plain text—no quotes, no extra text."
+    )
+    chat = [{"role": "system", "content": system_prompt}]
+    chat.extend(
+        {
+            "role": m.role,
+            "content": m.content.split("<|begin_of_reference|>", 1)[0].strip(),
+        }
+        for m in messages
+        if m.role in ("user", "assistant")
+    )
+    prompt = tokenizer.apply_chat_template(
+        chat, tokenize=False, add_generation_prompt=True
+    )
+    text = ""
+    async for chunk in engine.generate(
+        prompt=prompt,
+        sampling_params=SAMPLING,
+        request_id=str(time.time_ns())
+    ):
+        text = chunk.outputs[0].text  # n=1 completion
+    return text
 
-def generate_chat_response(
+
+async def generate_chat_response(
         messages: List[Message],
         stream: bool = True,
         rag: bool = True,
@@ -229,9 +268,10 @@ def generate_chat_response(
     Build an augmented message with references and run LLM inference.
     Returns a tuple: (stream, reference_string)
     """
+    query_message = await generate_user_query(messages, engine) if len(messages) > 2 else messages[-1].content
     user_message = messages[-1].content
     modified_message, reference_list = build_augmented_prompt(
-        user_message, course if course else "", threshold, rag, top_k, audio_response=audio_response
+        user_message, course if course else "", threshold, rag, top_k, query_message=query_message, audio_response=audio_response
     )
 
     messages[-1].content = modified_message

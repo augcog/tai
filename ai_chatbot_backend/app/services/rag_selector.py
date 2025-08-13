@@ -1,17 +1,19 @@
+# Standard python libraries
 import json
+import time
+import re
 from typing import Any, Generator, List, Optional, Tuple
-
+# Third-party libraries
+from transformers import AutoTokenizer
+from vllm import SamplingParams
+# Local libraries
 from app.services.rag_retriever import (
     _get_reference_documents,
     _get_pickle_and_class,
     embedding_model,
 )
 from app.core.models.chat_completion import Message
-from transformers import AutoTokenizer
-from vllm import SamplingParams
-import time
-import re
-
+# Environment Variables
 SAMPLING = SamplingParams(temperature=0.3, top_p=0.95, max_tokens=4096)
 MODEL_ID = "THUDM/GLM-4-9B-0414"
 tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
@@ -22,14 +24,49 @@ def is_local_engine(engine: Any) -> bool:
 
 
 def generate_streaming_response(messages: List[Message], engine: Any = None) -> Any:
+    """
+    Generate a streaming response from the model based on the provided messages.
+    """
     chat = [
         {"role": m.role, "content": m.content, "tool_call_id": m.tool_call_id}
         for m in messages
     ]
-    prompt = tokenizer.apply_chat_template(
-        chat, tokenize=False, add_generation_prompt=True
-    )
+    prompt = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
     return engine.generate(prompt, SAMPLING, request_id=str(time.time_ns()))
+
+
+async def generate_user_query(messages: List[Any], engine: Any) -> str:
+    """
+    Reformulate the latest user request into a single self-contained query string,
+    based on the full chat history (user + assistant messages).
+    Returns plain text with no quotes or extra formatting.
+    """
+    system_prompt = (
+        "You are a query reformulator for a RAG system. "
+        "From the full chat history, rewrite the latest user request as a single, "
+        "self-contained question for document retrieval. "
+        "Resolve pronouns and references using context, include relevant constraints "
+        "(dates, versions, scope), and avoid adding facts not in the history. "
+        "Return only the rewritten query as question in plain text—no quotes, no extra text."
+    )
+    chat = [{"role": "system", "content": system_prompt}]
+    chat.extend(
+        {
+            "role": m.role,
+            "content": m.content.split("<|begin_of_reference|>", 1)[0].strip(),
+        }
+        for m in messages
+        if m.role in ("user", "assistant")
+    )
+    prompt = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
+    text = ""
+    async for chunk in engine.generate(
+        prompt=prompt,
+        sampling_params=SAMPLING,
+        request_id=str(time.time_ns())
+    ):
+        text = chunk.outputs[0].text
+    return text
 
 
 def build_augmented_prompt(
@@ -217,42 +254,6 @@ def format_chat_msg(messages: List[Message]) -> List[Message]:
         response.append(Message(role=message.role, content=message.content))
     return response
 
-import asyncio
-async def generate_user_query(messages: List[Any], engine: Any) -> str:
-    """
-    Reformulate the latest user request into a single self-contained query string,
-    based on the full chat history (user + assistant messages).
-    Returns plain text with no quotes or extra formatting.
-    """
-    system_prompt = (
-        "You are a query reformulator for a RAG system. "
-        "From the full chat history, rewrite the latest user request as a single, "
-        "self-contained question for document retrieval. "
-        "Resolve pronouns and references using context, include relevant constraints "
-        "(dates, versions, scope), and avoid adding facts not in the history. "
-        "Return only the rewritten query as question in plain text—no quotes, no extra text."
-    )
-    chat = [{"role": "system", "content": system_prompt}]
-    chat.extend(
-        {
-            "role": m.role,
-            "content": m.content.split("<|begin_of_reference|>", 1)[0].strip(),
-        }
-        for m in messages
-        if m.role in ("user", "assistant")
-    )
-    prompt = tokenizer.apply_chat_template(
-        chat, tokenize=False, add_generation_prompt=True
-    )
-    text = ""
-    async for chunk in engine.generate(
-        prompt=prompt,
-        sampling_params=SAMPLING,
-        request_id=str(time.time_ns())
-    ):
-        text = chunk.outputs[0].text  # n=1 completion
-    return text
-
 
 async def generate_chat_response(
         messages: List[Message],
@@ -271,7 +272,7 @@ async def generate_chat_response(
     query_message = await generate_user_query(messages, engine) if len(messages) > 2 else messages[-1].content
     user_message = messages[-1].content
     modified_message, reference_list = build_augmented_prompt(
-        user_message, course if course else "", threshold, rag, top_k, query_message=query_message, audio_response=audio_response
+        user_message, course if course else "", threshold, rag, top_k=top_k, query_message=query_message, audio_response=audio_response
     )
 
     messages[-1].content = modified_message
@@ -302,7 +303,7 @@ def generate_practice_response(
     """
     user_message = messages[-1].content
     modified_message, reference_list = build_augmented_prompt(
-        user_message, course if course else "", threshold, rag, top_k, practice=True,
+        user_message, course if course else "", threshold, rag, top_k=top_k, practice=True,
         problem_content=problem_content, answer_content=answer_content, file_name=file_name
     )
 
@@ -331,7 +332,7 @@ def rag_json_stream_generator(
     """
     user_message = messages[-1].content
     modified_message, reference_list, reference_string = build_augmented_prompt(
-        user_message, course if course else "", embedding_dir, threshold, rag, top_k
+        user_message, course if course else "", embedding_dir, threshold, rag, top_k=top_k
     )
     messages[-1].content = modified_message
     if is_local_engine(engine):

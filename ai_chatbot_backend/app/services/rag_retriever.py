@@ -1,130 +1,29 @@
+#############################################################################
+"""
+Last Revised: 2025-08-12
+By: Howard
+"""
+#############################################################################
+
+# Standard python libraries
 import json
 import os
 import pickle
 import sqlite3
+import time
 import urllib.parse
 from typing import Any, Dict, List, Optional, Tuple
-
+# Third-party libraries
 import numpy as np
-# from FlagEmbedding import BGEM3FlagModel
+# Local libraries; import and initialize the embedding model from app dependencies.
 from app.dependencies.model import get_embedding_engine
-import time
-
-
-# Keep your embedding_model or pass it in, as suits your design
 embedding_model = get_embedding_engine()
-# embedding_model = BGEM3FlagModel("BAAI/bge-m3", use_fp16=True,devices='cuda:0')
-
-# Global configuration for SQL database usage and extension paths.
-SQLDB: bool = False
-# TODO: Revise path design / configuration in the future for best practice.
-EXT_VECTOR_PATH: str = (
-    "ai_course_bot/ai-chatbot-backend/app/core/actions/dist/debug/vector0"
-)
-EXT_VSS_PATH: str = "ai_course_bot/ai-chatbot-backend/app/core/actions/dist/debug/vss0"
+# Environment Variables
+EMBEDDING_PICKLE_PATH = "/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/"
 
 
-def bge_compute_score(
-    query_embedding: Dict[str, Any],
-    document_embeddings: List[Dict[str, Any]],
-    weights_for_different_modes: Optional[List[float]] = None,
-    secondary_query_embedding: Optional[Dict[str, Any]] = None,
-    secondary_document_embeddings: Optional[List[Dict[str, Any]]] = None,
-) -> Dict[str, List[float]]:
-    """
-    Compute combined similarity scores (dense, sparse, colbert, and weighted combinations).
-    Returns a dictionary of lists for each scoring mode.
-    """
-    scores: Dict[str, List[float]] = {
-        "colbert": [],
-        "sparse": [],
-        "dense": [],
-        "sparse+dense": [],
-        "colbert+sparse+dense": [],
-    }
-    if weights_for_different_modes is None:
-        weights_for_different_modes = [1, 1.0, 1.0]
-        weight_sum = 3
-    else:
-        assert len(weights_for_different_modes) == 3
-        weight_sum = sum(weights_for_different_modes)
-    scores["dense"] = query_embedding["dense_vecs"] @ document_embeddings["dense_vecs"].T
-    scores["sparse"] = embedding_model.compute_lexical_matching_score(
-        [query_embedding["lexical_weights"]], document_embeddings["lexical_weights"]
-    )[0]
-    for col in document_embeddings["colbert_vecs"]:
-        scores["colbert"].append(
-            embedding_model.colbert_score(query_embedding["colbert_vecs"], col)
-        )
-    scores["colbert+sparse+dense"]=(
-            scores["colbert"] * weights_for_different_modes[2]
-            + scores["sparse"] * weights_for_different_modes[1]
-            + scores["dense"] * weights_for_different_modes[0]
-        )/ weight_sum
-    return scores
-
-def bge_compute_score_simple(query_embedding: Dict[str, Any], document_embeddings: List[Dict[str, Any]]) -> List[float]:
-    q_norm = query_embedding["dense_vecs"] / np.linalg.norm(query_embedding["dense_vecs"], keepdims=True)
-    d_norm = document_embeddings["dense_vecs"] / np.linalg.norm(document_embeddings["dense_vecs"], axis=1, keepdims=True)
-    return q_norm @ d_norm.T
-
-
-def clean_path(url_path: str) -> str:
-    """
-    Decode and clean a URL path.
-    """
-    decoded = urllib.parse.unquote(url_path)
-    cleaned = decoded.replace("%28", "(").replace("%29", ")").replace("%2B", "+")
-    cleaned = cleaned.replace(">", " > ").replace("(", " (").replace(")", ") ")
-    return " ".join(cleaned.split())
-
-
-def _get_references_from_sql(
-    query_embed: Dict[str, Any], picklefile: str, top_k: int
-) -> Tuple[List[str], List[str], List[str], List[float],List[str],List[str]]:
-    """
-    Retrieve top reference documents from a SQL database.
-    """
-    current_dir = "/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/"
-    embedding_db_path = os.path.join(current_dir, "embeddings.db")
-    db = sqlite3.connect(embedding_db_path)
-    db.enable_load_extension(True)
-    db.load_extension(EXT_VECTOR_PATH)
-    db.load_extension(EXT_VSS_PATH)
-    cur = db.cursor()
-    query_vector = query_embed["dense_vecs"].tolist()
-    query_vector_json = json.dumps(query_vector)
-    cur.execute(
-        """
-            SELECT rowid, distance
-            FROM embeddings
-            WHERE vss_search(embedding, ?)
-            LIMIT top_k;
-        """,
-        (query_vector_json,),
-    )
-    results = cur.fetchall()
-    db.commit()
-    db.close()
-
-    table_name = picklefile.replace(".pkl", "")
-    db_name = f"{table_name}.db"
-    main_db_path = os.path.join(current_dir, db_name)
-    db = sqlite3.connect(main_db_path)
-    cur = db.cursor()
-    indices = [result[0] for result in results]
-    similarity_scores = [result[1] for result in results]
-    placeholders = ",".join("?" for _ in indices)
-    query = f"SELECT id_list, doc_list, url_list FROM {table_name} WHERE rowid IN ({placeholders})"
-    cur.execute(query, indices)
-    results = cur.fetchall()
-    top_ids, top_docs, top_urls = [], [], []
-    for id_val, doc, url in results:
-        top_ids.append(id_val)
-        top_docs.append(doc)
-        top_urls.append(url)
-    db.close()
-    return top_ids, top_docs, top_urls, similarity_scores
+def bge_compute_score(query_embedding: Dict[str, Any], document_embeddings: List[Dict[str, Any]]) -> List[float]:
+    return query_embedding["dense_vecs"] @ document_embeddings["dense_vecs"].T
 
 
 def _get_references_from_pickle(
@@ -133,7 +32,8 @@ def _get_references_from_pickle(
     """
     Retrieve top reference documents from a pickle file.
     """
-    current_dir = "/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/"
+    # Load the pickle file content
+    current_dir = EMBEDDING_PICKLE_PATH
     path_to_pickle = os.path.join(current_dir, picklefile)
     with open(path_to_pickle, "rb") as f:
         data_loaded = pickle.load(f)
@@ -143,9 +43,10 @@ def _get_references_from_pickle(
     id_list = data_loaded["id_list"]
     url_list = data_loaded["url_list"]
     embedding_list = data_loaded["embedding_list"]
-
-    score_simple = bge_compute_score_simple(query_embed, embedding_list)
-    score_array = np.array(score_simple)
+    # Compute the similarity scores
+    score = bge_compute_score(query_embed, embedding_list)
+    score_array = np.array(score)
+    # Sort the scores and retrieve the top_k results
     indices = np.argsort(score_array)[::-1]
     similarity_scores = np.sort(score_array)[-top_k:][::-1]
     top_ids = id_list[indices][:top_k]
@@ -164,10 +65,8 @@ def _get_reference_documents(
     Retrieve top reference documents based on the query embedding.
     """
     picklefile, class_name = _get_pickle_and_class(course)
+    # Measure the time taken to compute the embedding
     start_time = time.time()
-    # query_embed = embedding_model.encode(
-    #     user_message, return_dense=True, return_sparse=True, return_colbert_vecs=True
-    # )
     query_embed = {"dense_vecs": embedding_model.encode(user_message, prompt_name="query")}
     end_time = time.time()
     print(f"Embedding time: {end_time - start_time:.2f} seconds")
@@ -205,6 +104,13 @@ def _get_pickle_and_class(course: str) -> Tuple[str, str]:
         raise ValueError(f"Unknown course: {course}. Please provide a valid course name.")
 
 
+#############################################################################
+############################# LEGACY OLD CODE ###############################
+#############################################################################
+"""
+LEGACY: made for endpoint testing; no longer in use.
+"""
+# TODO: Check for useage; remove if no use.
 def top_k_selector(
     message: str,
     stream: bool = True,
@@ -266,10 +172,126 @@ def top_k_selector(
             #     query_embed, embedding_list, [1, 1, 1], None, None
             # )
             # score_array = np.array(combined_scores["colbert+sparse+dense"])
-            score_simple = bge_compute_score_simple(query_embed, embedding_list)
+            score_simple = bge_compute_score(query_embed, embedding_list)
             score_array = np.array(score_simple)
             indices = np.argsort(score_array)[::-1]
             top_indices = indices[:k]
             top_docs = [doc_list[i] for i in top_indices]
     used_chunks: int = min(len(top_docs), k)
     return {"top_docs": top_docs, "used_chunks": used_chunks}
+
+
+"""
+LEGACY: old sql db no longer used; to be refactored after Yikang finish conversion database.
+"""
+# TODO: Check for useage; remove if no use.
+# Global configuration for SQL database usage and extension paths.
+SQLDB: bool = False
+# TODO: Revise path design / configuration in the future for best practice.
+EXT_VECTOR_PATH: str = (
+    "ai_course_bot/ai-chatbot-backend/app/core/actions/dist/debug/vector0"
+)
+EXT_VSS_PATH: str = "ai_course_bot/ai-chatbot-backend/app/core/actions/dist/debug/vss0"
+def clean_path(url_path: str) -> str:
+    """
+    Decode and clean a URL path.
+    """
+    decoded = urllib.parse.unquote(url_path)
+    cleaned = decoded.replace("%28", "(").replace("%29", ")").replace("%2B", "+")
+    cleaned = cleaned.replace(">", " > ").replace("(", " (").replace(")", ") ")
+    return " ".join(cleaned.split())
+def _get_references_from_sql(
+    query_embed: Dict[str, Any], picklefile: str, top_k: int
+) -> Tuple[List[str], List[str], List[str], List[float],List[str],List[str]]:
+    """
+    Retrieve top reference documents from a SQL database.
+    """
+    current_dir = "/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/"
+    embedding_db_path = os.path.join(current_dir, "embeddings.db")
+    db = sqlite3.connect(embedding_db_path)
+    db.enable_load_extension(True)
+    db.load_extension(EXT_VECTOR_PATH)
+    db.load_extension(EXT_VSS_PATH)
+    cur = db.cursor()
+    query_vector = query_embed["dense_vecs"].tolist()
+    query_vector_json = json.dumps(query_vector)
+    cur.execute(
+        """
+            SELECT rowid, distance
+            FROM embeddings
+            WHERE vss_search(embedding, ?)
+            LIMIT top_k;
+        """,
+        (query_vector_json,),
+    )
+    results = cur.fetchall()
+    db.commit()
+    db.close()
+
+    table_name = picklefile.replace(".pkl", "")
+    db_name = f"{table_name}.db"
+    main_db_path = os.path.join(current_dir, db_name)
+    db = sqlite3.connect(main_db_path)
+    cur = db.cursor()
+    indices = [result[0] for result in results]
+    similarity_scores = [result[1] for result in results]
+    placeholders = ",".join("?" for _ in indices)
+    query = f"SELECT id_list, doc_list, url_list FROM {table_name} WHERE rowid IN ({placeholders})"
+    cur.execute(query, indices)
+    results = cur.fetchall()
+    top_ids, top_docs, top_urls = [], [], []
+    for id_val, doc, url in results:
+        top_ids.append(id_val)
+        top_docs.append(doc)
+        top_urls.append(url)
+    db.close()
+    return top_ids, top_docs, top_urls, similarity_scores
+
+
+"""
+LEGACY: removed after migration into Qwen embedding models
+"""
+# TODO: Remove
+# from FlagEmbedding import BGEM3FlagModel
+# embedding_model = BGEM3FlagModel("BAAI/bge-m3", use_fp16=True,devices='cuda:0')
+# query_embed = embedding_model.encode(
+#     user_message, return_dense=True, return_sparse=True, return_colbert_vecs=True
+# )
+# def bge_compute_score(
+#     query_embedding: Dict[str, Any],
+#     document_embeddings: List[Dict[str, Any]],
+#     weights_for_different_modes: Optional[List[float]] = None,
+#     secondary_query_embedding: Optional[Dict[str, Any]] = None,
+#     secondary_document_embeddings: Optional[List[Dict[str, Any]]] = None,
+# ) -> Dict[str, List[float]]:
+#     """
+#     Compute combined similarity scores (dense, sparse, colbert, and weighted combinations).
+#     Returns a dictionary of lists for each scoring mode.
+#     """
+#     scores: Dict[str, List[float]] = {
+#         "colbert": [],
+#         "sparse": [],
+#         "dense": [],
+#         "sparse+dense": [],
+#         "colbert+sparse+dense": [],
+#     }
+#     if weights_for_different_modes is None:
+#         weights_for_different_modes = [1, 1.0, 1.0]
+#         weight_sum = 3
+#     else:
+#         assert len(weights_for_different_modes) == 3
+#         weight_sum = sum(weights_for_different_modes)
+#     scores["dense"] = query_embedding["dense_vecs"] @ document_embeddings["dense_vecs"].T
+#     scores["sparse"] = embedding_model.compute_lexical_matching_score(
+#         [query_embedding["lexical_weights"]], document_embeddings["lexical_weights"]
+#     )[0]
+#     for col in document_embeddings["colbert_vecs"]:
+#         scores["colbert"].append(
+#             embedding_model.colbert_score(query_embedding["colbert_vecs"], col)
+#         )
+#     scores["colbert+sparse+dense"]=(
+#             scores["colbert"] * weights_for_different_modes[2]
+#             + scores["sparse"] * weights_for_different_modes[1]
+#             + scores["dense"] * weights_for_different_modes[0]
+#         )/ weight_sum
+#     return scores

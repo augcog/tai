@@ -43,7 +43,7 @@ async def create_completion(
     selector = generate_chat_response
     parser = local_parser
 
-    response, reference_list = selector(
+    response, reference_list = await selector(
         formatter(params.messages), stream=params.stream, course=course, engine=engine, audio_response=params.audio_response
     )
 

@@ -5,8 +5,8 @@ from file_conversion_router.conversion.base_converter import BaseConverter
 
 
 class PythonConverter(BaseConverter):
-    def __init__(self, course_name, course_id):
-        super().__init__(course_name, course_id)
+    def __init__(self, course_name, course_id, file_uuid: str = None):
+        super().__init__(course_name, course_id, file_uuid)
 
     def _filter_pythontutor_links(self, content: str) -> str:
         """Remove lines that contain pythontutor.com links."""
@@ -26,7 +26,7 @@ class PythonConverter(BaseConverter):
     def _to_markdown(self, input_path: Path, output_path: Path) -> Path:
         """Converts a Python file to a Markdown file by formatting it as a code block."""
         output_path = output_path.with_suffix(".md")
-        title = input_path.stem
+        title = input_path.stem.replace("_", " ").title()  # Use the filename as the title
 
         with open(input_path, "r") as input_file, open(output_path, "w") as output_file:
             content = input_file.read()

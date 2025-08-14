@@ -1,7 +1,5 @@
 from file_conversion_router.conversion.base_converter import BaseConverter
 from pathlib import Path
-import json
-import re
 
 class TxtConverter(BaseConverter):
     def __init__(self, course_name, course_id):
@@ -26,6 +24,5 @@ class TxtConverter(BaseConverter):
         # Write the content to the markdown file
         with open(output_path, "w", encoding="utf-8") as md_file:
             md_file.write(content)
-        # Generate index helper if needed
         self.generate_index_helper(content)
         return output_path

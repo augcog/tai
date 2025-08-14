@@ -21,6 +21,22 @@ class Chunk:
     is_split: bool = False
     index: Any = None
     file_path: Optional[str] = None
+    file_uuid: Optional[str] = None
+    chunk_uuid: Optional[str] = None
+    reference_path: Optional[str] = None
+    course_name: Optional[str] = None
+    course_id: Optional[str] = None
+    chunk_index: Optional[int] = None
+
+
+
+    def gen_uuid(self) -> str:
+        """
+        Generates a unique identifier for the chunk.
+        This is a placeholder for actual UUID generation logic.
+        """
+        import uuid
+        return str(uuid.uuid4())
 
     def __repr__(self):
         snippet = (self.content[:80] + "…") if len(self.content) > 80 else self.content
@@ -31,4 +47,5 @@ class Chunk:
             f"url={self.chunk_url!r}, "
             f"content='{snippet}', "  # Fixed: Added missing comma
             f"file_path={self.file_path!r}"
+            f", file_uuid={self.file_uuid!r}"
         )

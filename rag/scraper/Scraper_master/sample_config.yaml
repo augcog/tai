@@ -15,7 +15,7 @@ tasks:
         depth: 1
         scraper_type: video_scraper
         subtask_folder_path: "youtube"
-#      - url: https://www.composingprograms.com/
-#        depth: 10
-#        scraper_type: general_scraper  # or "video_scraper"
-#        subtask_folder_path: "textbook"
+      - url: https://www.composingprograms.com/
+        depth: 10
+        scraper_type: general_scraper  # or "video_scraper"
+        subtask_folder_path: "textbook"

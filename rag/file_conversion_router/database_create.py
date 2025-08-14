@@ -59,10 +59,11 @@ with db:
             uuid       TEXT PRIMARY KEY,
             file_name  TEXT NOT NULL,
             url        TEXT,
-            sections   TEXT,              -- JSON blob
+            sections   TEXT,              -- JSON
             relative_path TEXT DEFAULT '' UNIQUE NOT NULL, -- relative path to the file in the course directory
             course_code TEXT DEFAULT '', -- course code, e.g. "CS61A"
-            course_name TEXT DEFAULT ''  -- course name, e.g. "CS61A: Structure and Interpretation of Computer Programs"
+            course_name TEXT DEFAULT '',  -- course name, e.g. "CS61A: Structure and Interpretation of Computer Programs"
+            extra_info TEXT DEFAULT '' -- any extra info, JSON
         );
 
         /* one row per question --------------------------------------------- */
@@ -90,7 +91,18 @@ def ingest(files: List[Dict[str, Any]]) -> None:
     for f in files:
         if not f.get("file_name") or not(f.get('file_path').startswith(f.get('course_id')) or f.get('file_path').startswith('CS 61A')) or 'course_website' in f.get('file_path'):
             continue
-        file_uuid = gen_uuid()
+        # combine ROOT with file_path and add .json extension without replacing any existing extension
+        target_json= pathlib.Path(str(ROOT / f['file_path'])+ '.json')
+        if target_json.exists():
+            infos= target_json.read_text(encoding='utf-8')
+            infos= json.loads(infos)
+            extra_info= []
+            for info in infos:
+                # replace all the space in keys in info with underscore
+                info = {k.replace(" ", "_"): v for k, v in info.items()}
+                extra_info.append(info)
+        else:
+            extra_info = None
         section=f.get("sections")
         if section:
             index_list= [x['index'] for x in section]
@@ -100,17 +112,18 @@ def ingest(files: List[Dict[str, Any]]) -> None:
                 continue
         db.execute(
             """
-            INSERT INTO file (uuid, file_name, url, sections, relative_path, course_code, course_name)
-            VALUES (?, ?, ?, ?, ?, ?,?)
+            INSERT INTO file (uuid, file_name, url, sections, relative_path, course_code, course_name, extra_info)
+            VALUES (?, ?, ?, ?, ?, ?,?,?)
             """,
             (
-                file_uuid,
+                f['file_uuid'],
                 f["file_name"],
                 f.get("URL"),
                 jdump(f.get("sections")),
                 f['file_path'],
                 f['course_id'],
                 f['course_name'],
+                jdump(extra_info, default=None)
             ),
         )
 

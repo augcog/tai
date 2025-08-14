@@ -50,8 +50,8 @@ content_tags_dict = {
 
 
 class HtmlConverter(BaseConverter):
-    def __init__(self, course_name: str, course_id: str):
-        super().__init__(course_name, course_id)
+    def __init__(self, course_name: str, course_id: str, file_uuid: str = None):
+        super().__init__(course_name, course_id,file_uuid)
         self.index_helper = None
 
     # Override
@@ -102,6 +102,7 @@ class HtmlConverter(BaseConverter):
             )
             final_markdown = re.sub(r'Â(?=\xa0)', '', final_markdown)
             final_markdown = final_markdown.replace('\xa0', ' ')
+            final_markdown = final_markdown.replace('\\_', "_")
             final_markdown = final_markdown.replace('â', '-')  # General dash replacement
             final_markdown = re.sub(r'[ \t]{2,}', ' ', final_markdown)
             final_markdown = re.sub(r'câ¬mpâ¬sing prâ¬grams', 'composing programs', final_markdown)

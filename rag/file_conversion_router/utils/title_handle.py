@@ -46,7 +46,7 @@ def get_strutured_content_for_ipynb(
                     4.  **Concise Concepts:** The key concept should be a single, descriptive sentence that captures the main idea of the entire section block.
                     For each concept you extract, provide ONLY the following information:
                     Key Concept: [A single, clear sentence summarizing the core idea of the section.]
-                    Source Section: [The single, exact title from {title_list} that this concept is derived from.]
+                    Source Section: [The single, exact title from title_list that this concept is derived from.]
 
                     ### Part 2: Extract and Create Problems
                     If you find there are some blocks named Exercise or Challenge, then based on the key concepts you identified, create educational problems that test student understanding. 
@@ -88,7 +88,7 @@ def get_strutured_content_for_ipynb(
                                     "concepts": {"type": "string"},
                                     "source_section_title": {"type": "string",
                                                              "enum": title_list,
-                                                             "description": "*Exactly* the section title as it appears in the markdown (copy‑paste—do **not** alter capitalization, spacing, or punctuation and do not include # and any *)."},
+                                                             "description": f"Exactly the section title as it appears in the {title_list}, only one title from the list, only start with # can be used, do not include # and any *."},
                                     "content_coverage": {
                                         "type": "array",
                                         "description": "List only the aspects that the section actually explained with aspect and content.",

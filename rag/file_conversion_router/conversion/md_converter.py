@@ -3,8 +3,8 @@ from file_conversion_router.conversion.base_converter import BaseConverter
 
 
 class MarkdownConverter(BaseConverter):
-    def __init__(self, course_name, course_id):
-        super().__init__(course_name, course_id)
+    def __init__(self, course_name, course_id, file_uuid: str = None):
+        super().__init__(course_name, course_id,file_uuid)
 
     def _to_markdown(self, input_path: Path, output_path: Path) -> Path:
         """Perform reStructuredText to Markdown conversion."""

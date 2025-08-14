@@ -14,8 +14,8 @@ from textwrap import dedent
 
 
 class VideoConverter(BaseConverter):
-    def __init__(self, course_name, course_id):
-        super().__init__(course_id=course_id,course_name=course_name)
+    def __init__(self, course_name, course_id, file_uuid: str = None):
+        super().__init__(course_id=course_id,course_name=course_name, file_uuid=file_uuid)
         self.section_titles = [dict]
         self.file_name = ""
         self.paragraphs = []
@@ -302,8 +302,7 @@ class VideoConverter(BaseConverter):
             paragraph_idx = t['paragraph_index']
 
             # Get the time for this specific paragraph index
-            current_time = self.index_helper.get(paragraph_idx, 0.0)
-
+            current_time = self.index_helper.get(paragraph_idx)
             # Update the path stack based on the level
             path_stack = path_stack[:level - 1]
             path_stack.append(title)
@@ -312,6 +311,5 @@ class VideoConverter(BaseConverter):
             # Map the title path to its time
             result[path] = current_time
 
-        # Replace the helper so callers can do quick look-ups
         self.index_helper = result
         self.add_line_number_to_index_helper(md_content)

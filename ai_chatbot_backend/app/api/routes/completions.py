@@ -56,7 +56,7 @@ async def create_completion(
 
 
 @router.post("/text_completions")
-async def create_completion(
+async def create_text_completion(
         params: CompletionParams, _: bool = Depends(verify_api_token)
 ):
     # Get the pre-initialized pipeline

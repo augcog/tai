@@ -4,6 +4,9 @@ import time
 import re
 from typing import Any, Generator, List, Optional, Tuple
 # Third-party libraries
+import ast
+from typing import List, Union
+
 from transformers import AutoTokenizer
 from vllm import SamplingParams
 # Local libraries
@@ -111,7 +114,8 @@ def build_augmented_prompt(
         top_urls,
         similarity_scores,
         top_files,
-        top_topic_paths,
+        top_refs,
+        top_titles
     ),class_name = _get_reference_documents(query_message, course, top_k=top_k)
 
     insert_document = ""
@@ -121,13 +125,8 @@ def build_augmented_prompt(
         # reference_list.append(top_urls[i] if top_urls[i] else "")
         if similarity_scores[i] > threshold:
             n += 1
-            info_path = top_ids[i]
-            if file_name:
-                chunk_file = info_path.split('>')[0].strip()
-                if chunk_file in file_name:
-                    info_path = '>'.join(info_path.split('>')[1:])
             file_path = top_files[i]
-            topic_path = top_topic_paths[i]
+            topic_path = top_refs[i]
             url = top_urls[i] if top_urls[i] else ""
             insert_document += (
                 f'Reference Number: {n}\n'
@@ -135,7 +134,7 @@ def build_augmented_prompt(
                 f"Topic Path of chunk in file to tell the topic of chunk: {topic_path}\n"
                 f'Document: {top_docs[i]}\n\n'
             )
-            reference_list.append([info_path, url, file_path])
+            reference_list.append([topic_path, url, file_path])
     if not audio_response:
         response_style=f"Answer the instruction thoroughly with a well-structured markdown format answer. No references at the end."
         reference_style=f"Refer to specific reference numbers inline using [Reference: n] style. Do not list references at the end. "
@@ -353,3 +352,30 @@ def rag_json_stream_generator(
             yield json.dumps({"type": "final", "references": reference_list}) + "\n"
 
         return stream_json_response()
+
+def _to_str_list(x: Union[str, List], *, trim=True) -> List[str]:
+    if isinstance(x, list):
+        items = x
+    elif isinstance(x, str):
+        try:
+            parsed = json.loads(x)
+            items = parsed if isinstance(parsed, list) else [str(parsed)]
+        except Exception:
+            try:
+                parsed = ast.literal_eval(x)
+                items = parsed if isinstance(parsed, list) else [str(parsed)]
+            except Exception:
+                parts = re.findall(r'"([^"]+)"|\'([^\']+)\'', x)
+                items = [a or b for a, b in parts]
+    else:
+        items = [str(x)]
+
+    items = ["" if i is None else str(i) for i in items]
+    if trim:
+        items = [i.strip() for i in items]
+    return [i for i in items if i != ""]
+def join_titles(info_path: Union[str, List], *, sep=" > ", start=0) -> str:
+
+    items = _to_str_list(info_path)
+    items = items[start:]
+    return sep.join(items)

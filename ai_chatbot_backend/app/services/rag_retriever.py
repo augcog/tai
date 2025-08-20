@@ -175,7 +175,7 @@ def get_conn() -> sqlite3.Connection:
     if conn is None:
         # Per-thread connection; do NOT share across threads
         conn = sqlite3.connect(DB_URI_RO, uri=True)  # keep check_same_thread=True (default)
-        _init_conn(conn, read_only=True)
+        _init_conn(conn)
         _local.conn = conn
     return conn
 

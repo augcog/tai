@@ -1,11 +1,11 @@
-from typing import Optional
+from typing import Optional, List
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Path, status
 from sqlalchemy.orm import Session
 from app.core.dbs.metadata_db import get_metadata_db
 from app.api.deps import verify_api_token
-from app.schemas.files import FileMetadata, FileListResponse, FileStatsResponse, DirectoryBrowserResponse
+from app.schemas.files import FileMetadata, FileListResponse, FileStatsResponse, DirectoryBrowserResponse, TranscriptSegment
 from app.services.file_service import file_service
 
 router = APIRouter()
@@ -79,7 +79,7 @@ async def list_files(
     "/browse", response_model=DirectoryBrowserResponse, summary="Browse directory structure"
 )
 async def browse_directory(
-    course_name: str = Query(..., description="Course name (e.g., 'ROAR Academy')"),
+    course_code: str = Query(..., description="Course code (e.g., 'CS61A')"),
     path: str = Query("", description="Directory path within course (e.g., 'Part One/practice')"),
     db: Session = Depends(get_metadata_db),
     _: bool = Depends(verify_api_token),
@@ -95,14 +95,14 @@ async def browse_directory(
     - Supports unlimited nesting depth
     
     Example usage:
-    - GET /api/files/browse?course_name=ROAR Academy - Browse root of course
-    - GET /api/files/browse?course_name=ROAR Academy&path=Part One - Browse "Part One" folder
-    - GET /api/files/browse?course_name=ROAR Academy&path=Part One/practice - Browse nested folder
+    - GET /api/files/browse?course_code=CS61A - Browse root of course
+    - GET /api/files/browse?course_code=CS61A&path=Part One - Browse "Part One" folder
+    - GET /api/files/browse?course_code=CS61A&path=Part One/practice - Browse nested folder
     """
     try:
         result = file_service.browse_directory(
             db=db,
-            course_name=course_name,
+            course_code=course_code,
             path=path.strip()
         )
         
@@ -114,7 +114,7 @@ async def browse_directory(
             files=[FileMetadata.from_db_model(file) for file in result["files"]],
             current_path=result["current_path"],
             breadcrumbs=[BreadcrumbItem(**crumb) for crumb in result["breadcrumbs"]],
-            course_name=result["course_name"]
+            course_code=result["course_code"]
         )
         
     except Exception as e:
@@ -194,4 +194,50 @@ async def get_file_stats(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error getting stats: {str(e)}",
         )
+
+
+@router.get(
+    "/{file_id}/extra_info", 
+    response_model=List[TranscriptSegment], 
+    summary="Get extra info (transcript) for file"
+)
+async def get_file_extra_info(
+    file_id: UUID = Path(..., description="File UUID"),
+    db: Session = Depends(get_metadata_db),
+    _: bool = Depends(verify_api_token),
+):
+    """
+    Get extra info for a specific file by its UUID.
+    
+    Currently supports video transcript data stored in extra_info field.
+    Returns empty array if no extra info is available.
+    """
+    file_record = file_service.get_file_by_id(db, file_id)
+    if not file_record:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"File with ID {file_id} not found",
+        )
+    
+    # Parse extra_info JSON if it exists
+    if not file_record.extra_info:
+        return []
+    
+    try:
+        import json
+        extra_info_data = json.loads(file_record.extra_info)
+        
+        # Validate and convert to TranscriptSegment objects
+        if isinstance(extra_info_data, list):
+            transcript_segments = []
+            for segment in extra_info_data:
+                if all(key in segment for key in ["start_time", "end_time", "speaker", "text_content"]):
+                    transcript_segments.append(TranscriptSegment(**segment))
+            return transcript_segments
+        else:
+            return []
+            
+    except (json.JSONDecodeError, ValueError, TypeError):
+        # Return empty array if parsing fails
+        return []
 

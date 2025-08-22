@@ -138,7 +138,7 @@ class FileService:
                 status_code=status.HTTP_404_NOT_FOUND, detail="File not found"
             )
 
-        file_path = self.base_dir / file_record.course_name / file_record.relative_path
+        file_path = self.base_dir / file_record.relative_path
         if not file_path.exists():
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND, detail="File not found on disk"
@@ -193,13 +193,13 @@ class FileService:
             "last_updated": datetime.now(),
         }
 
-    def browse_directory(self, db: Session, course_name: str, path: str = "") -> Dict[str, Any]:
+    def browse_directory(self, db: Session, course_code: str, path: str = "") -> Dict[str, Any]:
         """
         Browse directory structure for a course with support for nested folders
         
         Args:
             db: Database session
-            course_name: Course name (e.g., "ROAR Academy") 
+            course_code: Course code (e.g., "CS61A") 
             path: Directory path within the course (e.g., "Part One/practice")
         
         Returns:
@@ -208,7 +208,7 @@ class FileService:
         # Get all files for this course
         files_query = db.query(FileModel).filter(
             and_(
-                FileModel.course_name == course_name,
+                FileModel.course_code == course_code,
                 FileModel.relative_path.like('%/%')  # Valid relative paths
             )
         )
@@ -229,7 +229,7 @@ class FileService:
             "files": current_files,
             "current_path": path,
             "breadcrumbs": breadcrumbs,
-            "course_name": course_name
+            "course_code": course_code
         }
     
     def _extract_directories(self, all_files: List[FileModel], current_path: str) -> List[Dict[str, Any]]:
@@ -290,7 +290,7 @@ class FileService:
             
             if not current_path:
                 # At root - files directly in root (no subdirectory)
-                if '/' in rel_path and rel_path.count('/') == 1:
+                if '/' not in rel_path:
                     current_dir_files.append(file)
             else:
                 # In a specific directory - files directly in this directory

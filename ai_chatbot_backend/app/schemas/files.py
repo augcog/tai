@@ -5,6 +5,29 @@ Clean, simple file schemas - no over-engineering
 from datetime import datetime
 from typing import Optional, List
 from pydantic import BaseModel, Field
+import json
+
+
+class SectionAspect(BaseModel):
+    """Individual aspect within a section"""
+    content: str = Field(..., description="The educational content")
+    type: str = Field(..., description="Type of content (Definition, Functions, etc.)")
+
+
+class Section(BaseModel):
+    """Educational section with structured content"""
+    aspects: List[SectionAspect] = Field(..., description="List of content aspects")
+    index: float = Field(..., description="Section order/position")
+    key_concept: str = Field(..., description="Main topic of the section")
+    name: str = Field(..., description="Section title")
+
+
+class TranscriptSegment(BaseModel):
+    """Video transcript segment"""
+    start_time: float = Field(..., description="Start time in seconds")
+    end_time: float = Field(..., description="End time in seconds") 
+    speaker: str = Field(..., description="Speaker identifier (title-1, title-2, instructor, etc.)")
+    text_content: str = Field(..., description="Transcript text content")
 
 
 class FileMetadata(BaseModel):
@@ -30,8 +53,12 @@ class FileMetadata(BaseModel):
         None, description="File category (document, video, audio, other)"
     )
     
-    # Download URL for frontend
+    # Advanced metadata - now as parsed JSON
+    sections: List[Section] = Field(..., description="Parsed sections of the file")
+    
+    # URLs
     download_url: Optional[str] = Field(None, description="Download URL for this file")
+    original_url: Optional[str] = Field(None, description="Original source URL where the file was collected from")
 
     @classmethod
     def from_db_model(cls, db_model):
@@ -83,6 +110,19 @@ class FileMetadata(BaseModel):
             title = " ".join(title.split())  # Normalize whitespace
             title = title.title()  # Title case
         
+        # Parse sections JSON string to list of Section objects
+        sections_data = []
+        if db_model.sections:
+            try:
+                sections_json = json.loads(db_model.sections)
+                if sections_json:
+                    sections_data = [Section(**section) for section in sections_json]
+                else:
+                    sections_data = []
+            except (json.JSONDecodeError, ValueError) as e:
+                # Fallback to empty list if parsing fails
+                sections_data = []
+        
         return cls(
             uuid=str(db_model.uuid),
             filename=db_model.file_name,
@@ -94,7 +134,9 @@ class FileMetadata(BaseModel):
             modified_at=None,  # Not available in metadata db
             course=db_model.course_code,
             category=None,  # Not available in metadata db
+            sections=sections_data,
             download_url=f"/api/files/{db_model.uuid}/download",
+            original_url=db_model.url,
         )
 
     class Config:
@@ -110,6 +152,29 @@ class FileMetadata(BaseModel):
                 "modified_at": "2023-01-01T00:00:00Z",
                 "course": "CS61A",
                 "category": "document",
+                "sections": [
+                    {
+                        "aspects": [
+                            {
+                                "content": "Computer storage is organized in four tiers: CPU Registers, Main Memory (RAM), File System, and Offline Storage.",
+                                "type": "Definition"
+                            },
+                            {
+                                "content": "Files live in the third tier - the file system. While slower than RAM, files provide the crucial ability to persist data between program runs.",
+                                "type": "Explanation of File System Tier"
+                            },
+                            {
+                                "content": "Files are essential for persistent data storage, allowing programs to save and retrieve information between sessions.",
+                                "type": "Purpose"
+                            }
+                        ],
+                        "index": 3,
+                        "key_concept": "Computer Storage Hierarchy and Role of File System",
+                        "name": "Computer Storage Hierarchy"
+                    },
+                ],
+                "download_url": "/api/files/550e8400-e29b-41d4-a716-446655440000/download",
+                "original_url": "https://example.com/course/cs61a/lab01.pdf"
             }
         }
 
@@ -144,6 +209,29 @@ class FileListResponse(BaseModel):
                         "modified_at": "2023-01-01T00:00:00Z",
                         "course": "CS61A",
                         "category": "document",
+                        "sections": [
+                            {
+                                "aspects": [
+                                    {
+                                        "content": "Computer storage is organized in four tiers: CPU Registers, Main Memory (RAM), File System, and Offline Storage.",
+                                        "type": "Definition"
+                                    },
+                                    {
+                                        "content": "Files live in the third tier - the file system. While slower than RAM, files provide the crucial ability to persist data between program runs.",
+                                        "type": "Explanation of File System Tier"
+                                    },
+                                    {
+                                        "content": "Files are essential for persistent data storage, allowing programs to save and retrieve information between sessions.",
+                                        "type": "Purpose"
+                                    }
+                                ],
+                                "index": 3,
+                                "key_concept": "Computer Storage Hierarchy and Role of File System",
+                                "name": "Computer Storage Hierarchy"
+                            },
+                        ],
+                        "download_url": "/api/files/550e8400-e29b-41d4-a716-446655440000/download",
+                        "original_url": "https://example.com/course/cs61a/lab01.pdf"
                     }
                 ],
                 "total_count": 1,
@@ -230,7 +318,7 @@ class DirectoryBrowserResponse(BaseModel):
     files: List[FileMetadata] = Field(..., description="Files in current directory")
     current_path: str = Field(..., description="Current directory path")
     breadcrumbs: List[BreadcrumbItem] = Field(..., description="Breadcrumb navigation")
-    course_name: str = Field(..., description="Course name for context")
+    course_code: str = Field(..., description="Course code for context")
     
     class Config:
         json_schema_extra = {
@@ -252,7 +340,29 @@ class DirectoryBrowserResponse(BaseModel):
                         "size_bytes": 1048576,
                         "mime_type": "application/pdf",
                         "course": "ROAR Academy",
-                        "download_url": "/api/files/550e8400-e29b-41d4-a716-446655440000/download"
+                        "sections": [
+                                {
+                                    "aspects": [
+                                        {
+                                            "content": "Computer storage is organized in four tiers: CPU Registers, Main Memory (RAM), File System, and Offline Storage.",
+                                            "type": "Definition"
+                                        },
+                                        {
+                                            "content": "Files live in the third tier - the file system. While slower than RAM, files provide the crucial ability to persist data between program runs.",
+                                            "type": "Explanation of File System Tier"
+                                        },
+                                        {
+                                            "content": "Files are essential for persistent data storage, allowing programs to save and retrieve information between sessions.",
+                                            "type": "Purpose"
+                                        }
+                                    ],
+                                    "index": 3,
+                                    "key_concept": "Computer Storage Hierarchy and Role of File System",
+                                    "name": "Computer Storage Hierarchy"
+                                },
+                            ],
+                        "download_url": "/api/files/550e8400-e29b-41d4-a716-446655440000/download",
+                        "original_url": "https://example.com/roar-academy/part-one/intro.pdf"
                     }
                 ],
                 "current_path": "Part One",
@@ -260,7 +370,7 @@ class DirectoryBrowserResponse(BaseModel):
                     {"name": "Root", "path": ""},
                     {"name": "Part One", "path": "Part One"}
                 ],
-                "course_name": "ROAR Academy"
+                "course_code": "CS61A"
             }
         }
 

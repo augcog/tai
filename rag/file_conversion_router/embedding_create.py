@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 from file_conversion_router.utils.logger import content_logger
 from tqdm import tqdm
 from FlagEmbedding import BGEM3FlagModel
+from sentence_transformers import SentenceTransformer
 
 load_dotenv()
 
@@ -32,22 +33,9 @@ def traverse_files(
     # Check if the provided path exists
     if not os.path.exists(path):
         raise ValueError(f"The provided path '{path}' does not exist.")
-    # folder_tree = f"{start_folder_name} (h1)\n"
 
     path = os.path.abspath(path)
 
-    # for root, dir, files in os.walk(path):
-    #     for file in files:
-    #         if file.endswith(".pkl"):
-    #             path_list = [start_folder_name] + string_subtraction(root, path).split(
-    #                 "/"
-    #             )[1:]
-    #             line = (
-    #                     (len(path_list) - 1) * "--"
-    #                     + path_list[-1]
-    #                     + f" (L{len(path_list)})"
-    #             )
-    #             folder_tree += f"{line}\n"
 
     for root, dir, files in os.walk(path):
         for file in files:
@@ -106,15 +94,28 @@ def embedding_create(markdown_path, name, embedding_name, folder_name, model):
         markdown_path,
         name
     )
-    if model == "BGE":
-        embedding_model = BGEM3FlagModel("BAAI/bge-m3", use_fp16=True)
+
+    print(id_list)
+
     human_embedding_prompt = (
         "document_hierarchy_path: {segment_path}\ndocument: {segment}\n"
     )
     hp_list = [human_embedding_prompt.format(segment=doc, segment_path=idid) for doc, idid in zip(doc_list, id_list)]
-    embedding_list = embedding_model.encode(
-        hp_list, return_dense=True, return_sparse=True, return_colbert_vecs=True
-    )
+
+    if model == "BGE":
+        embedding_model = BGEM3FlagModel("BAAI/bge-m3", use_fp16=True)
+        embedding_list = embedding_model.encode(
+            hp_list, return_dense=True, return_sparse=True, return_colbert_vecs=True
+        )
+    elif model == "Qwen":
+        embedding_model = SentenceTransformer("Qwen/Qwen3-Embedding-4B",
+                                    model_kwargs={
+                                        "attn_implementation": "flash_attention_2",
+                                        "torch_dtype": "auto",
+                                        "device_map": "auto"
+                                    },
+                                    tokenizer_kwargs={"padding_side": "left"})
+        embedding_list = {"dense_vecs": embedding_model.encode(hp_list)}
 
     id_list = np.array(id_list)
     doc_list = np.array(doc_list)
@@ -190,9 +191,9 @@ def validate_data(data):
 
 if __name__ == "__main__":
     embedding_create(
-        "/home/bot/bot/yk/YK_final/courses/ROAR Academy_output",
-        "/home/bot/bot/yk/YK_final/courses/ROAR Academy_output",
-        "ROAR Academy",
+        "/courses_out1/CS 61A_output",
+        "/home/bot/bot/yk/YK_final/courses_out/CS 61A_output",
+        "The Structure and Interpretation of Computer Programs",
         "embedding_output",
-        "BGE",
+        "Qwen",
     )

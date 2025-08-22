@@ -56,6 +56,8 @@ def get_strutured_content_for_ipynb(
                     'properties': {
                         'problems': {
                             "type": "array",
+                            "minItems" : len(get_title_list(md_content)),
+                            "maxItems": len(get_title_list(md_content)),
                             'items': {
                                 "type": "object",
                                 "properties": {
@@ -176,10 +178,10 @@ def process_problems(content_dict):
     return problems_list
 
 if __name__ == "__main__":
-    md_path = Path("/home/bot/bot/yk/YK_final/test_folder/ROAR Week two/Week Two Exercises.md")
+    md_path = Path("/home/bot/bot/yk/YK_final/courses_out/ROAR Academy_output/Part Two/Week Two Exercises/Week Two Exercises.pdf.md")
     md_content = md_path.read_text(encoding="utf-8")
     file_name = md_path.stem
-    course_name = "ROAR Week Two"
+    course_name = "ROAR Academy"
     content_dict = get_strutured_content_for_ipynb(md_content, file_name, course_name)
     output_path = md_path.with_suffix('.yaml')
     save_content_dict(content_dict, output_path)

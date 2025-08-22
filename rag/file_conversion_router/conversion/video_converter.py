@@ -1,19 +1,23 @@
-
 from file_conversion_router.conversion.base_converter import BaseConverter
-import os
-import json
-import re
-from moviepy import AudioFileClip, VideoFileClip
+from moviepy import AudioFileClip
 import whisperx
-from scenedetect import SceneManager, AdaptiveDetector
+from scenedetect import AdaptiveDetector
 from scenedetect import open_video, SceneManager
 from scenedetect.scene_manager import save_images, write_scene_list
+from scenedetect import FrameTimecode
+from dotenv import load_dotenv
+import os
+from openai import OpenAI
+import json
+import re
+from textwrap import dedent
 
 
 class VideoConverter(BaseConverter):
-    def __init__(self, course_name, course_id):
-        super().__init__(course_id=course_id,course_name=course_name)
+    def __init__(self, course_name, course_code, file_uuid: str = None):
+        super().__init__(course_code=course_code,course_name=course_name, file_uuid=file_uuid)
         self.section_titles = [dict]
+        self.file_name = ""
         self.paragraphs = []
         self.index_helper = None
 
@@ -57,8 +61,6 @@ class VideoConverter(BaseConverter):
         """
         structured_paragraphs = []
         if not seg_time:
-            # This case is less likely to be used with Markdown, but we'll handle it.
-            # It will create one paragraph with one utterance.
             all_text = " ".join([chunk['text'].strip() for chunk in transcript])
             speaker = transcript[0].get('speaker', 'UNKNOWN') if transcript else 'UNKNOWN'
             return [{'start_time': 0, 'utterances': [{'speaker': speaker, 'text': all_text}]}]
@@ -130,7 +132,6 @@ class VideoConverter(BaseConverter):
             paragraph_index = i + 1  # 1-based index
             self.index_helper[paragraph_index] = start_time
 
-
     def write_to_markdown(self, paragraphs):
         """
         Writes the structured paragraphs to a Markdown file, ensuring speakers
@@ -138,13 +139,19 @@ class VideoConverter(BaseConverter):
         """
         markdown_lines = []
         for i, paragraph in enumerate(paragraphs, 1):
+            paragraph_lines = []
             for utterance in paragraph['utterances']:
                 speaker = utterance['speaker']
                 text = utterance['text'].strip()
                 if text:
-                    markdown_lines.append(f"{speaker}: {text} \n")
-            markdown_lines.append("\n")
-        return "\n".join(markdown_lines)
+                    paragraph_lines.append(f"{speaker}: {text}")
+
+            # Join all speakers in the same paragraph with single \n
+            if paragraph_lines:
+                markdown_lines.append("\n".join(paragraph_lines))
+
+        # Join paragraphs with double \n to separate them
+        return "\n\n".join(markdown_lines)
 
     def process_video_scenes(self, video_path, output_path):
         def setup_scene_detection(video_path, custom_window_width=50, custom_weights=None):
@@ -154,17 +161,24 @@ class VideoConverter(BaseConverter):
             images_folder_name = os.path.splitext(os.path.basename(video_path))[0] + "_images"
             images_output_dir = os.path.join(output_folder, images_folder_name)
             os.makedirs(images_output_dir, exist_ok=True)
+
             if custom_weights is None:
-                custom_weights = AdaptiveDetector.Components(delta_hue=0.1, delta_sat=1.0, delta_lum=1.0,
-                                                             delta_edges=1.0)
+                custom_weights = AdaptiveDetector.Components(
+                    delta_hue=0.1,
+                    delta_sat=1.0,
+                    delta_lum=1.0,
+                    delta_edges=1.0
+                )
+
             # min_scene_len = 1000  # Minimum scene length in seconds
             min_scene_len = 25 * 30  # 150 frames
             # adaptive_threshold = 3.0  # Adaptive threshold for scene detection
             adaptive_threshold = 7.0
+
             adaptive_detector = AdaptiveDetector(
                 window_width=custom_window_width,
                 weights=custom_weights,
-                min_scene_len= min_scene_len,
+                min_scene_len=min_scene_len,
                 adaptive_threshold=adaptive_threshold
             )
 
@@ -174,33 +188,62 @@ class VideoConverter(BaseConverter):
         def detect_scenes_and_save_images(video, scene_manager, images_output_dir):
             scene_manager.detect_scenes(video, show_progress=True)
             scene_list = scene_manager.get_scene_list()
+
+            # Check if scene detection found any scenes
+            if not scene_list or len(scene_list) == 0:
+                print("No scenes detected. Creating fallback scene using entire video duration.")
+
+                # Create a fallback scene that spans the entire video
+                start_time = video.start_time if hasattr(video, 'start_time') else FrameTimecode('00:00:00.000',
+                                                                                                 fps=video.frame_rate)
+                end_time = video.duration if hasattr(video, 'duration') else FrameTimecode(
+                    video.frame_count / video.frame_rate, fps=video.frame_rate)
+
+                # Create scene list with single scene covering entire video
+                scene_list = [(start_time, end_time)]
+                print(f"Fallback scene created: {start_time} to {end_time}")
+
+            # Save scene list to CSV
             csv_file_path = os.path.join(images_output_dir, "detected_scenes.csv")
             with open(csv_file_path, 'w', newline='') as csv_file:
                 write_scene_list(csv_file, scene_list)
             print(f"Scene list saved to {csv_file_path}")
-            image_filenames = save_images(
-                scene_list=scene_list,
-                video=video,
-                num_images=1,
-                output_dir=images_output_dir,
-            )
+
+            # Save images for detected/fallback scenes
+            try:
+                image_filenames = save_images(
+                    scene_list=scene_list,
+                    video=video,
+                    num_images=1,
+                    output_dir=images_output_dir,
+                )
+            except Exception as e:
+                print(f"Warning: Could not save images: {e}")
+                image_filenames = {}
+
+            # Convert scene times to seconds for return value
             scene_times = [(start_time.get_seconds(), end_time.get_seconds()) for start_time, end_time in scene_list]
 
-            for i, ((start_time, end_time), images) in enumerate(zip(scene_list, image_filenames.values()), start=1):
-                print(f"Scene {i}: Start Time: {start_time.get_seconds()}, End Time: {end_time.get_seconds()}")
+            # Print scene information
+            for i, ((start_time, end_time), images) in enumerate(
+                    zip(scene_list, image_filenames.values() if image_filenames else [[] for _ in scene_list]),
+                    start=1):
+                print(
+                    f"Scene {i}: Start Time: {start_time.get_seconds():.3f}s ({start_time}), End Time: {end_time.get_seconds():.3f}s ({end_time})")
                 for image_path in images:
                     print(f"  - {image_path}")
+
             return scene_times
 
+        # Main execution
         video, scene_manager, images_output_dir = setup_scene_detection(str(video_path))
         scene_times = detect_scenes_and_save_images(video, scene_manager, images_output_dir)
         print(f"Scene times: {scene_times}")
         return scene_times
+    def get_speaker_json(self, segments, json_output_path):
+        self.get_timestamp_and_speaker(segments, json_output_path)
 
-    def get_speaker_json(self, input_path, segments, output_path):
-        self.get_timestamp_and_speaker(segments, output_path)
-
-    def get_timestamp_and_speaker(self, segments, output_path):
+    def get_timestamp_and_speaker(self, segments, json_output_path):
         segments_formatted = []
         for segment in segments:
             # Extract the necessary information with fallback defaults.
@@ -208,34 +251,24 @@ class VideoConverter(BaseConverter):
             end = segment.get("end", 0)
             text = segment.get("text", "")
             speaker = segment.get("speaker", "UNKNOWN")
-
-            # Convert time from seconds (float) to HH:MM:SS.mmm formatted string.
-            formatted_start = self.format_timestamp(start)
-            formatted_end = self.format_timestamp(end)
-            # TODO add end time into self.paragraphs
             segment_dict = {
-                "start time": formatted_start,
-                "end time": formatted_end,
+                "start time": start,
+                "end time": end,
                 "speaker": speaker,
                 "text content": text
             }
             segments_formatted.append(segment_dict)
 
             # Write the list of dictionaries to the output file as JSON.
-        with open(output_path, 'w', encoding='utf-8') as outfile:
+        with open(json_output_path, 'w', encoding='utf-8') as outfile:
             json.dump(segments_formatted, outfile, indent=4)
 
-    def format_timestamp(self, seconds):
-        """Convert seconds (float) to a timestamp string HH:MM:SS.mmm"""
-        hours = int(seconds // 3600)
-        minutes = int((seconds % 3600) // 60)
-        seconds_remainder = seconds % 60
-        return f"{hours:02d}:{minutes:02d}:{seconds_remainder:06.3f}"
-
     def _to_markdown(self, input_path, output_path):
+        self.file_name = input_path.name
         audio = self.convert_mp4_to_wav(input_path, output_path)
         seg_time = self.process_video_scenes(input_path, output_path)
         segments = self._video_convert_whisperx(str(audio))
+        self.get_speaker_json(segments, output_path.with_suffix(".json"))
         paragraphs = self.paragraph_generator(segments, seg_time)
         md_path = output_path.with_suffix(".md")
         text = self.write_to_markdown(paragraphs)
@@ -243,31 +276,40 @@ class VideoConverter(BaseConverter):
             f.write(text)
         return md_path
 
-    def update_index_helper(self, content_dict) -> None:
+    def update_index_helper(self, content_dict,md_content: str = None) -> None:
         """
-        Convert:
-            self.index_helper      : {paragraph_index → start_time}
-            content_dict['titles_with_levels'] : list[{"title", "level_of_title", …}]
+        Update the index helper with titles and their corresponding times.
+        This method assumes that content_dict contains a list of titles with their levels,
+        and that self.index_helper is a dictionary mapping paragraph indices to their start times.
+        The titles are expected to be in a structure like:
+        {
+            "titles_with_levels": [
+                {"title": "Title 1", "level_of_title": "1"},
+                {"title": "Title 2", "level_of_title": "2"},
+                ...
+            ]
+        }
 
-        into a new mapping stored back in self.index_helper:
-            "Section>Subsection>…"  →  start_time
+        The index_helper will be updated to map each title path (as a tuple of titles) to its corresponding start time.
+        This is useful for quickly looking up the start time of a title in the video.
         """
-        idx_time_pairs = sorted(self.index_helper.items())  # ascending paragraph order
-        idx_iter = iter(idx_time_pairs)  # we'll step through as we consume titles
-        current_para_idx, current_time = next(idx_iter, (None, None))
-        result: dict[str, float] = {}
+        result: dict[tuple, float] = {}
         path_stack: list[str] = []
 
         for t in content_dict.get("titles_with_levels", []):
             title = t["title"].strip()
             level = int(t["level_of_title"])
+            paragraph_idx = t['paragraph_index']
+
+            # Get the time for this specific paragraph index
+            current_time = self.index_helper.get(paragraph_idx)
+            # Update the path stack based on the level
             path_stack = path_stack[:level - 1]
             path_stack.append(title)
-            full_path = ">".join(path_stack)
-            result[full_path] = current_time
+            path = tuple(path_stack)
 
-            if level >= 2:  # tweak if your hierarchy is deeper
-                current_para_idx, current_time = next(idx_iter, (current_para_idx, current_time))
+            # Map the title path to its time
+            result[path] = current_time
 
-        # Replace the helper so callers can do quick look-ups
         self.index_helper = result
+        self.add_line_number_to_index_helper(md_content)

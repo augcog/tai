@@ -1,7 +1,6 @@
 from dotenv import load_dotenv
 import os
 from textwrap import dedent
-from openai.types.chat import ChatCompletionMessage
 from openai import OpenAI
 from pathlib import Path
 import yaml
@@ -11,16 +10,23 @@ from loguru import logger
 
 
 def get_strutured_content_for_ipynb(
-        md_content: str, file_name: str, course_name: str,
+        md_content: str, file_name: str, course_name: str,index_helper: dict = None
 ):
-    # TODO : add all titles form index helper to the message content
-
+    """
+    This function processes markdown content from ipynb to extract key concepts and problems for educational material.
+    It uses the OpenAI API to analyze the content and generate a structured JSON output.
+    Args:
+        md_content (str): The markdown content to be processed.
+        file_name (str): The name of the file containing the markdown content.
+        course_name (str): The name of the course related to the content.
+    """
     get_title_list(md_content)
     load_dotenv()
     api_key = os.getenv("OPENAI_API_KEY")
     client = OpenAI(api_key=api_key)
     if not md_content.strip():
         raise ValueError("The content is empty or not properly formatted.")
+    title_list = [key.replace('"',"'") for d in index_helper for key in d.keys()]
     response = client.chat.completions.create(
         model="gpt-4.1",
         temperature=0.1,
@@ -32,13 +38,15 @@ def get_strutured_content_for_ipynb(
                     You will be given markdown content from a video in the course "{course_name}", from the file "{file_name}". 
                     Your task is to perform the following actions and format the output as a single JSON object: 
                     ### Part 1: Extract Key Concepts 
-                    Your goal is to identify and explain the key concepts in each section to help a student recap the material. 
-                    For each Key Concept, provide the following information: 
-                    - **Key Concept:** A descriptive phrase or sentence that clearly captures the main idea 
-                    - **Source Section:** The specific section title in the material where this concept is discussed.(Should be only one section title only lines started with # can be titles) 
-                    - **Content Coverage:** List only the aspects that the section actually explained with aspect and content. 
-                    - Some good examples of aspect: Definition, How it works, What happened, Why is it important, etc 
-                    - The content should be directly from the section.
+                    Your goal is to create a high-level summary of the entire document by identifying a small, curated set of its most important concepts. This should serve as a "big picture" overview for a student.
+                    CRITICAL CONSTRAINTS - YOU MUST FOLLOW:
+                    1.  **Strict One-to-One Mapping (Most Important):** The relationship between a Source Section and a Key Concept must be strictly one-to-one. Each chosen Source Section title MUST map to exactly ONE Key Concept. It is forbidden to generate multiple Key Concepts from the same single Source Section.
+                    2.  **Limited Quantity:** Your most important task is to aggressively merge and consolidate topics. Actively seek to unify related ideas under a single, overarching key concept. Before creating a new concept, you must first determine if its core idea can be logically absorbed by another. The final output must represent the absolute minimum number of concepts possible, and the count must always be less than 5.
+                    3.  **No Hierarchical Overlap:** If you choose a main section title (e.g., "Chapter 1"), you cannot also choose one of its sub-sections (e.g., "Section 1.1").
+                    4.  **Concise Concepts:** The key concept should be a single, descriptive sentence that captures the main idea of the entire section block.
+                    For each concept you extract, provide ONLY the following information:
+                    Key Concept: [A single, clear sentence summarizing the core idea of the section.]
+                    Source Section: [The single, exact title from title_list that this concept is derived from.]
 
                     ### Part 2: Extract and Create Problems
                     If you find there are some blocks named Exercise or Challenge, then based on the key concepts you identified, create educational problems that test student understanding. 
@@ -62,7 +70,7 @@ def get_strutured_content_for_ipynb(
                     Format your response as a valid JSON object matching the provided schema."""
                 ),
             },
-            {"role": "user", "content": f"{md_content}\n title_list: {get_title_list(md_content)} "},
+            {"role": "user", "content": f"{md_content}"},
         ],
         response_format={
             'type': 'json_schema',
@@ -79,13 +87,16 @@ def get_strutured_content_for_ipynb(
                                 "properties": {
                                     "concepts": {"type": "string"},
                                     "source_section_title": {"type": "string",
-                                                             "description": "*Exactly* the section title as it appears in the markdown (copy‑paste—do **not** alter capitalization, spacing, or punctuation and do not include # and any *)."},
+                                                             "enum": title_list,
+                                                             "description": f"Exactly the section title as it appears in the {title_list}, only one title from the list, only start with # can be used, do not include # and any *. Do not treat the line start with * as a title, it is not a title."},
                                     "content_coverage": {
                                         "type": "array",
+                                        "description": "List only the aspects that the section actually explained with aspect and content.",
                                         "items": {
                                             "type": "object",
                                             "properties": {
-                                                "aspect": {"type": "string"},
+                                                "aspect": {"type": "string",
+                                                           'minLength': 1,},
                                                 "content": {"type": "string"},
                                             },
                                             "required": ["aspect", "content"],
@@ -185,29 +196,31 @@ def get_strutured_content_for_ipynb(
 
 
 def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, file_name: str):
-    if paragraph_count >= 5:
+    if paragraph_count > 5:
         message_content = dedent(
             f""" You are an expert AI assistant specializing in analyzing and structuring 
         educational material. You will be given markdown content from a video in the course "{course_name}", 
         from the file "{file_name}". The text is already divided into paragraphs. Your task is to perform the 
         following actions and format the output as a single JSON object: 1.  **Group into Sections:** Analyze 
-        the entire text and divide it into **at most 5 logical sections**. 2.  **Generate Titles:** - For 
+        the entire text and divide it into 3-5 logical sections. 2.  **Generate Titles:** - For 
         each **section**, create a concise and descriptive title. - For each **original paragraph**, 
         create an engaging title that reflects its main topic. 3.  **Create a Nested Structure:** The JSON 
         output must have a `sections` array. - Each element in the `sections` array is an object representing 
         one section. - **Crucially, each section object must contain its own `paragraphs` array.** This 
         nested array should list all the paragraphs that belong to that section. - Each paragraph object 
         within the nested array must include its title and its **original index** from the source text (
-        starting from 1). ### Part 2: Extract Key Concepts 
-        Your goal is to identify and explain the key concepts in each section to help a student recap the material. 
-        For each Key Concept, provide the following information: 
-        - **Key Concept:** A descriptive phrase or sentence that clearly captures the main idea 
-        - **Source Section:** The specific section title in the material where this concept is discussed.(Should be only one section title only lines started with # can be titles) 
-        - **Content Coverage:** List only the aspects that the section actually explained with aspect and content. 
-        - Some good examples of aspect: Definition, How it works, What happened, Why is it important, etc 
-        - The content should be directly from the section. """
-        )
-        json_schema = {
+        starting from 1). 
+        Part 2: Extract Key Concepts
+        Now, based on the sections you have just defined in Part 1, your next task is to distill the core learning points from each section for a student.
+        1.  **Strict One-to-One Mapping (Most Important):** The relationship between a Source Section and a Key Concept must be strictly one-to-one. Each chosen Source Section title MUST map to exactly ONE Key Concept. It is forbidden to generate multiple Key Concepts from the same single Source Section.
+        2.  **Limited Quantity:** Your most important task is to aggressively merge and consolidate topics. Actively seek to unify related ideas under a single, overarching key concept. Before creating a new concept, you must first determine if its core idea can be logically absorbed by another. The final output must represent the absolute minimum number of concepts possible, and the count must always be less than 5.
+        3.  **No Hierarchical Overlap:** If you choose a main section title (e.g., "Chapter 1"), you cannot also choose one of its sub-sections (e.g., "Section 1.1").
+        4.  **Concise Concepts:** The key concept should be a single, descriptive sentence that captures the main idea of the entire section block.                        
+        5.  **Preserve Original Order** Key Concepts must appear in the same order as their corresponding Source Sections appear in the original markdown.Do not reorder, merge across, or reshuffle the sequence.
+        For each concept you extract, provide ONLY the following information:
+        Key Concept: [A single, clear sentence summarizing the core idea of the section.]
+        Source Section: [The single, exact title from section title that this concept is derived from.]""")
+        response_format = {
             "type": "json_schema",
             "json_schema": {
                 "name": "course_content_knowledge_sorting",
@@ -217,12 +230,14 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                     "properties": {
                         "paragraphs": {
                             "type": "array",
-
+                            "minItems": paragraph_count,
+                            "maxItems": paragraph_count,
                             "items": {
                                 "type": "object",
                                 "properties": {
                                     "title": {"type": "string"},
-                                    "paragraph_index": {"type": "integer"},
+                                    "paragraph_index": {"type": "integer",
+                                                        "description": "The 1-based index from the paragraphs array where this paragraph is located."},
                                 },
                                 "required": ["title", "paragraph_index"],
                                 "additionalProperties": False,
@@ -232,7 +247,7 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                             "type": "array",
                             "items": {
                                 "type": "object",
-                                "maxItem": 5,
+                                "maxItems": 5,
                                 "properties": {
                                     "section_title": {"type": "string"},
                                     "start_paragraph_index": {
@@ -248,17 +263,20 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                         },
                         "key_concepts": {
                             "type": "array",
+                            "description": "A list of key concepts extracted from the sections.",
                             "items": {
                                 "type": "object",
                                 "properties": {
                                     "concepts": {"type": "string"},
-                                    "source_section_title": {"type": "string"},
+                                    "source_section_title": {"type": "string",},
                                     "content_coverage": {
                                         "type": "array",
+                                        'description': 'List only the aspects that the section actually explained with aspect and content.',
                                         "items": {
                                             "type": "object",
                                             "properties": {
-                                                "aspect": {"type": "string"},
+                                                "aspect": {"type": "string",
+                                                           'minLength': 1,},
                                                 "content": {"type": "string"},
                                             },
                                             "required": ["aspect", "content"],
@@ -287,17 +305,18 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
             educational material. You will be given markdown content from a video in the course "{course_name}", 
             from the file "{file_name}". The text is already divided into paragraphs. Your task is to perform the 
             following actions and format the output as a single JSON object:  1.  **Generate Titles:** - For 
-            each pargraph, create a concise and descriptive title that reflects its main topic. 
-            ### Part 2: Extract Key Concepts 
-            Your goal is to identify and explain the key concepts in each section to help a student recap the material. 
-            For each Key Concept, provide the following information: 
-            - **Key Concept:** A descriptive phrase or sentence that clearly captures the main idea 
-            - **Source Section:** The specific section title in the material where this concept is discussed.(Should be only one section title only lines started with # can be titles) 
-            - **Content Coverage:** List only the aspects that the section actually explained with aspect and content. 
-            - Some good examples of aspect: Definition, How it works, What happened, Why is it important, etc 
-            - The content should be directly from the section. """
-        )
-        json_schema = {
+            each pargraph, create only one concise and descriptive title that reflects its main topic. 
+            Part 2: Extract Key Concepts
+            Now, based on the sections you have just defined in Part 1, your next task is to distill the core learning points from each section for a student.
+            1.  **Strict One-to-One Mapping (Most Important):** The relationship between a Source Section and a Key Concept must be strictly one-to-one. Each chosen Source Section title MUST map to exactly ONE Key Concept. It is forbidden to generate multiple Key Concepts from the same single Source Section.
+            2.  **Limited Quantity:** Your most important task is to aggressively merge and consolidate topics. Actively seek to unify related ideas under a single, overarching key concept. Before creating a new concept, you must first determine if its core idea can be logically absorbed by another. The final output must represent the absolute minimum number of concepts possible, and the count must always be less than 5.
+            3.  **No Hierarchical Overlap:** If you choose a main section title (e.g., "Chapter 1"), you cannot also choose one of its sub-sections (e.g., "Section 1.1").
+            4.  **Concise Concepts:** The key concept should be a single, descriptive sentence that captures the main idea of the entire section block.                           
+            5.  **Preserve Original Order** Key Concepts must appear in the same order as their corresponding Source Sections appear in the original markdown.Do not reorder, merge across, or reshuffle the sequence.
+            For each concept you extract, provide ONLY the following information:
+            Key Concept: [A single, clear sentence summarizing the core idea of the section.]
+            Source Section: [The single, exact title from section title that this concept is derived from.]""")
+        response_format = {
             "type": "json_schema",
             "json_schema": {
                 "name": "course_content_knowledge_sorting",
@@ -307,12 +326,17 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                     "properties": {
                         "paragraphs": {
                             "type": "array",
+                            "minItems": paragraph_count,
+                            "maxItems": paragraph_count,
                             "items": {
                                 "type": "object",
                                 "properties": {
-                                    "title": {"type": "string"},
+                                    "title": {"type": "string",
+                                              "description": "The title of the paragraph, reflecting its main topic.(each paragraph should have only one title)"},
                                     "paragraph_index": {"type": "integer",
-                                                        "description": "The 1-based index from the paragraphs array where this paragraph is located."},
+                                                        "description": "The 1-based index from the paragraphs array where this paragraph is located.",
+                                                        "maximum": paragraph_count
+                                                        },
                                 },
                                 "required": ["title", "paragraph_index"],
                                 "additionalProperties": False,
@@ -320,17 +344,21 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                         },
                         "key_concepts": {
                             "type": "array",
+                            "description": "A list of key concepts extracted from the sections.",
                             "items": {
                                 "type": "object",
                                 "properties": {
                                     "concepts": {"type": "string"},
-                                    "source_section_title": {"type": "string"},
+                                    "source_section_title": {"type": "string",},
                                     "content_coverage": {
                                         "type": "array",
+                                        'description': 'List only the aspects that the section actually explained with aspect and content.',
                                         "items": {
                                             "type": "object",
                                             "properties": {
-                                                "aspect": {"type": "string"},
+                                                "aspect": {"type": "string",
+                                                            'minLength': 1,
+                                                           "description": "The type of information (e.g., Definition, Core Principle, Example, Significance, Mechanism)."},
                                                 "content": {"type": "string"},
                                             },
                                             "required": ["aspect", "content"],
@@ -352,13 +380,12 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                 },
             },
         }
-    return message_content, json_schema
+    return message_content, response_format
 
 
 def get_structured_content_without_title(
         md_content: str, file_name: str, course_name: str,
 ):
-    # TODO : add a check for paragraphs count if less than 5 then do not generate section
     load_dotenv()
     api_key = os.getenv("OPENAI_API_KEY")
     client = OpenAI(api_key=api_key)
@@ -370,18 +397,18 @@ def get_structured_content_without_title(
         return len(paragraphs)
 
     paragraph_count = paragraph_count(md_content)
-    message_content, json_schema = generate_json_schema_for_no_title(paragraph_count, course_name, file_name)
+    message_content, response_format = generate_json_schema_for_no_title(paragraph_count, course_name, file_name)
     if not md_content.strip():
         raise ValueError("The content is empty or not properly formatted.")
     response = client.chat.completions.create(
         model="gpt-4.1",
         messages=[{
             "role": "system",
-            "content": message_content
+            "content": dedent(message_content)
         },
             {"role": "user", "content": f"{md_content}"},
         ],
-        response_format=json_schema
+        response_format=response_format
     )
     messages = response.choices[0].message
     data = messages.content
@@ -390,7 +417,7 @@ def get_structured_content_without_title(
 
 
 def get_structured_content_with_one_title_level(
-        md_content: str, file_name: str, course_name: str
+        md_content: str, file_name: str, course_name: str, index_helper: dict
 ):
     load_dotenv()
     api_key = os.getenv("OPENAI_API_KEY")
@@ -398,14 +425,28 @@ def get_structured_content_with_one_title_level(
     if not md_content.strip():
         raise ValueError("The content is empty or not properly formatted.")
     md_content = remove_redundant_title(md_content, file_name)
-    title_list = get_title_list(md_content)
-
-    def generate_json_schema(title_list):
+    title_list = [key.replace('"',"'") for d in index_helper for key in d.keys()]
+    def paragraph_count(md_text: str) -> int:
+        md_text = md_text.strip()
+        blocks = re.split(r'\n\s*\n', md_text)
+        paragraphs = [b for b in blocks if b.strip()]
+        return len(paragraphs)
+    if len(title_list) == 1 and paragraph_count(md_content) == 1:
         return {
+            "titles_with_levels": [
+                {
+                    "title": title_list[0],
+                    "level_of_title": 1,
+                    "paragraph_index": 1
+                }
+            ],
+            "key_concepts": []
+        }
+    response_format = {
             "type": "json_schema",
             "json_schema": {
                 "name": "course_content_knowledge_sorting",
-                "strict": False,
+                "strict": True,
                 "schema": {
                     "type": "object",
                     "properties": {
@@ -415,7 +456,11 @@ def get_structured_content_with_one_title_level(
                             "items": {
                                 "type": "object",
                                 "properties": {
-                                    "title": {"type": "string", "enum": title_list},
+                                    "title": {
+                                        "type": "string",
+                                        "enum": title_list,
+                                        "description": "MUST be exactly one of the titles from the provided list, without any # symbols and leading/trailing spaces."
+                                    },
                                     "level_of_title": {
                                         "type": "integer",
                                         "description": "The inferred hierarchy level (e.g., 1, 2, 3).",
@@ -427,17 +472,25 @@ def get_structured_content_with_one_title_level(
                         },
                         "key_concepts": {
                             "type": "array",
+                            "description": "A list of key concepts extracted from the sections.",
                             "items": {
                                 "type": "object",
                                 "properties": {
                                     "concepts": {"type": "string"},
-                                    "source_section_title": {"type": "string"},
+                                    "source_section_title": {
+                                        "type": "string",
+                                        "enum": title_list,
+                                        "description": "*Exactly* the section title as it appears in the markdown (copy‑paste—do **not** alter capitalization, spacing, or punctuation and do not include # and any *)."
+                                    },
                                     "content_coverage": {
                                         "type": "array",
+                                        'description': 'List only the aspects that the section actually explained with aspect and content.',
                                         "items": {
                                             "type": "object",
                                             "properties": {
-                                                "aspect": {"type": "string"},
+                                                "aspect": {"type": "string",
+                                                            'minLength': 1,
+                                                           "description": "The type of information (e.g., Definition, Core Principle, Example, Significance, Mechanism)."},
                                                 "content": {"type": "string"},
                                             },
                                             "required": ["aspect", "content"],
@@ -459,7 +512,6 @@ def get_structured_content_with_one_title_level(
                 },
             },
         }
-
     response = client.chat.completions.create(
         model="gpt-4.1",
         messages=[
@@ -469,31 +521,35 @@ def get_structured_content_with_one_title_level(
                     f""" You are an expert AI assistant for structuring educational material. You will 
                 be given markdown content from the file "{file_name}" for the course "{course_name}". Your task is to 
                 analyze this content and produce a structured JSON output. The task has two parts: title structuring 
-                and key concept extraction. ### Part 1: Correct Title Hierarchy **Your Goal:** The markdown's title 
-                hierarchy is likely flat (e.g., every title starts with a single '#'). Your job is to determine the 
-                correct semantic level for each of these titles. **Crucial Rule:** - A line is considered a title if, 
-                and only if, it begins with one or more '#' characters in the provided text. Do NOT invent new titles 
-                or treat any other text as a title. **How to Determine the Correct Level (1, 2, 3, etc.):** 1.  
-                **Analyze Logical Structure:** Read the titles in sequence to understand the flow of the document. A 
-                title that introduces a new, major section is a high level (e.g., level 1). A title that discusses a 
-                sub-point of the previous title is a lower level (e.g., level 2 or 3). 2.  **Preserve Order:** The 
-                titles in your JSON output must be in the exact same order they appear in the source text. 3.  
-                **Output Format:** In the JSON, provide the clean title text (without the '#') and the integer level 
-                you have assigned.
-
-                ### Part 2: Extract Key Concepts 
-                Your goal is to identify and explain the key concepts in each section to help a student recap the material. 
-                For each Key Concept, provide the following information: 
-                - **Key Concept:** A descriptive phrase or sentence that clearly captures the main idea 
-                - **Source Section:** The specific section title in the material where this concept is discussed.(Should be only one section title only lines started with # can be titles) 
-                - **Content Coverage:** List only the aspects that the section actually explained with aspect and content. 
-                - Some good examples of aspect: Definition, How it works, What happened, Why is it important, etc 
-                - The content should be directly from the section. """
-                ),
+                and key concept extraction. 
+                ### Part 1: Adjust Title Hierarchy Levels
+                **Your Goal:** Given the title list, determine the correct semantic hierarchy level for each title based on their logical relationship and content structure.
+                **CRITICAL CONSTRAINTS - MUST FOLLOW:**
+                - Use EXACTLY the titles from title_list - no additions, no modifications
+                - Output title text WITHOUT any '#' symbols 
+                - If a title in the list has '#' symbols, remove them completely
+                - Do NOT create any new titles that aren't in the provided list
+                - Do NOT include any text that doesn't appear in {title_list}
+                **FORBIDDEN - Do NOT do these:**
+                ❌ Adding titles not in the list
+                ❌ Including # symbols
+                ❌ Modifying title text in any way
+                **Maintain Logical Flow:** Each title's level should make sense relative to the titles before and after it
+                ### Part 2: Extract High-Level Key Concepts for Overview
+                Your goal is to create a high-level summary of the entire document by identifying a small, curated set of its most important concepts. This should serve as a "big picture" overview for a student.
+                CRITICAL CONSTRAINTS - YOU MUST FOLLOW:
+                1.  **Strict One-to-One Mapping (Most Important):** The relationship between a Source Section and a Key Concept must be strictly one-to-one. Each chosen Source Section title MUST map to exactly ONE Key Concept. It is forbidden to generate multiple Key Concepts from the same single Source Section.
+                2.  **Limited Quantity:** Your most important task is to aggressively merge and consolidate topics. Actively seek to unify related ideas under a single, overarching key concept. Before creating a new concept, you must first determine if its core idea can be logically absorbed by another. The final output must represent the absolute minimum number of concepts possible, and the count must always be less than 5.
+                3.  **No Hierarchical Overlap:** If you choose a main section title (e.g., "Chapter 1"), you cannot also choose one of its sub-sections (e.g., "Section 1.1").
+                4.  **Concise Concepts:** The key concept should be a single, descriptive sentence that captures the main idea of the entire section block.
+                5.  **Preserve Original Order** Key Concepts must appear in the same order as their corresponding Source Sections appear in the original markdown.Do not reorder, merge across, or reshuffle the sequence.
+                For each concept you extract, provide ONLY the following information:
+                Key Concept: [A single, clear sentence summarizing the core idea of the section.]
+                Source Section: [The single, exact title from {title_list} that this concept is derived from.]"""),
             },
-            {"role": "user", "content": f"{md_content}\n title_list: {title_list} "},
+            {"role": "user", "content": f"{md_content} "},
         ],
-        response_format=generate_json_schema(title_list),
+        response_format=response_format,
     )
     messages = response.choices[0].message
     data = messages.content
@@ -556,11 +612,11 @@ def remove_redundant_title(md_content: str, file_name: str):
     final_lines = md_content
     return final_lines
 
-
 def apply_structure_for_no_title(md_content: str, content_dict):
     original_paragraphs = [p.strip() for p in md_content.split("\n\n") if p.strip()]
     md_parts = []
     content_dict['titles_with_levels'] = []
+
     if 'sections' in content_dict:
         section_starts = {
             s["start_paragraph_index"]: s["section_title"]
@@ -574,32 +630,38 @@ def apply_structure_for_no_title(md_content: str, content_dict):
     ):
         p_index = paragraph["paragraph_index"]
         p_title = paragraph["title"].strip()
+        level = 1
+
+        # Add section title if this paragraph starts a new section
         if p_index in section_starts:
-            section_title = section_starts[p_index].strip()
-            md_parts.append(f"# {section_title}\n\n")
+            title = section_starts[p_index].strip()
+            md_parts.append(f"# {title}\n\n")
             content_dict['titles_with_levels'].append({
-                "title": section_title,
-                "level_of_title": 1,
+                "title": title,
+                "level_of_title": level,
                 "paragraph_index": p_index,
             })
-            level_of_para_title = 2
-        else:
-            level_of_para_title = 1
-        md_parts.append(f"{'#' * level_of_para_title} {p_title}\n\n")
+
+        # Add paragraph title
+        title = p_title
+        # Check if section_starts not empty to determine heading level
+        if section_starts:
+            level = 2
+
+        md_parts.append(f"{'#' * level} {title}\n\n")
         content_dict['titles_with_levels'].append({
-            "title": p_title,
-            "level_of_title": level_of_para_title,
+            "title": title,
+            "level_of_title": level,
             "paragraph_index": p_index,
         })
-        content_index = p_index - 1
-        if 0 <= content_index < len(original_paragraphs):
-            md_parts.append(f"{original_paragraphs[content_index]}\n\n")
-        else:
-            md_parts.append(f"[Content for paragraph {p_index} not found]\n\n")
+
+        # Find the correct paragraph content by matching title
+        content_index =p_index - 1  # Convert to 0-based index
+
+        md_parts.append(f"{original_paragraphs[content_index]}\n\n")
 
     output_content = "".join(md_parts)
     return output_content
-
 
 def fix_title_levels(mapping_list):
     """
@@ -623,22 +685,22 @@ def apply_structure_for_one_title(md_content: str, content_dict):
     mapping_list = content_dict.get("titles_with_levels")
     mapping_list = fix_title_levels(mapping_list)
     i = 0
-    lines = md_content.split("\n\n")
-    title_pattern = re.compile(r"^(?P<hashes>#+)\s*(?P<title>.+?)\s*$")
+    lines = md_content.split("\n")
+    title_pattern = re.compile(r"^(?P<hashes>#{1,6})\s+(?P<title>\S.*?)$")
     new_lines = []
     for line in lines:
         match = title_pattern.match(line.strip())
         if match:
             raw_title = match.group("title").strip()
-            assert raw_title == mapping_list[i][
-                "title"].strip(), f"Title mismatch: {raw_title} != {mapping_list[i]['title']}"
+            if raw_title.replace('"',"'") not in [d['title'] for d in mapping_list] and raw_title not in [d['title'] for d in mapping_list]:
+                logger.warning(f"Title '{raw_title}' not found in mapping list, skipping. Maybe it is not a redundant title.")
+                continue
             new_level = mapping_list[i]["level_of_title"]
             new_lines.append(f"{'#' * new_level} {raw_title}")
             i += 1
         else:
             new_lines.append(line)
-        md_content = "\n\n".join(new_lines)
-
+        md_content = "\n".join(new_lines)
     return md_content
 
 
@@ -663,75 +725,152 @@ def save_key_concept_to_metadata(json_dict, metadata_path: Path):
         yaml.safe_dump(data, metadata_file, default_flow_style=False)
 
 
-def get_only_key_concepts(md_content: str, file_name: str, course_name: str):
+def get_only_key_concepts(md_content: str, index_helper: dict):
     load_dotenv()
     api_key = os.getenv("OPENAI_API_KEY")
     client = OpenAI(api_key=api_key)
+    title_list = [key.replace('"',"'") for d in index_helper for key in d.keys()] if index_helper else get_title_list(md_content)
+    response_format = {
+        "type": "json_schema",
+        "json_schema": {
+            "name": "course_content_knowledge_sorting",
+            "strict": True,
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "key_concepts": {
+                        "type": "array",
+                        'description': 'A list of key concepts extracted from the content.',
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "concepts": {"type": "string",
+                                             "description": "A single, clear phrase summarizing the core idea of the section."},
+                                "source_section_title": {"type": "string",
+                                                         "enum": title_list,
+                                                         "description": "MUST be exactly one of the titles from the provided list."},
+                                "content_coverage": {
+                                    "type": "array",
+                                    "description": "A list of key aspects explained within that section block.",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "aspect": {"type": "string",
+                                                        "minLength": 1,
+                                                       "description": "The type of information (e.g., Definition, Core Principle, Example, Significance, Mechanism)."},
+                                            "content": {"type": "string"},
+                                        },
+                                        "required": ["aspect", "content"],
+                                        "additionalProperties": False,
+                                    },
+                                },
+                            },
+                            "required": [
+                                "concepts",
+                                "source_section_title",
+                                "content_coverage",
+                            ],
+                            "additionalProperties": False,
+                        },
+                    }
+                },
+                "required": ["key_concepts"],
+                "additionalProperties": False,
+            },
+        },
+    }
+
     response = client.chat.completions.create(
         model="gpt-4.1",
         messages=[
             {
                 "role": "system",
                 "content": dedent(
-                    f"""
-                    You are an expert AI assistant specializing in analyzing educational material. You will be given markdown content from a course "{course_name}", from the file "{file_name}".
-                    Your task is to perform the following actions and format the output as a single JSON object:
-                    Your goal is to identifying and explaining the key concepts for each section title to help a student recap the material.
-                    For each Key Concept, provide the following information:
-                   - **Key Concept:** A descriptive phrase or sentence that clearly captures the main idea
-                   - **Source Section:** The exact one section title in the material which this concept is about.(Only line started with # can be titles)
-                   - **Content Coverage:** List only the aspects that the section actually explained with aspect and content. 
-                     - Some good examples of aspect: Definition, How it works, What happened, Why is it important, etc
-                     - The content also should be from the section.
-                    """
-                ),
+                f"""Extract High-Level Key Concepts for Overview
+            Your goal is to create a high-level summary of the entire document by identifying a small, curated set of its most important concepts. This should serve as a "big picture" overview for a student.
+            CRITICAL CONSTRAINTS - YOU MUST FOLLOW:
+            1.  **Strict One-to-One Mapping (Most Important):** The relationship between a Source Section and a Key Concept must be strictly one-to-one. Each chosen Source Section title MUST map to exactly ONE Key Concept. It is forbidden to generate multiple Key Concepts from the same single Source Section.
+            2.  **Limited Quantity:** Your most important task is to aggressively merge and consolidate topics. Actively seek to unify related ideas under a single, overarching key concept. Before creating a new concept, you must first determine if its core idea can be logically absorbed by another. The final output must represent the absolute minimum number of concepts possible, and the count must always be less than 5.
+            3.  **No Hierarchical Overlap:** If you choose a main section title (e.g., "Chapter 1"), you cannot also choose one of its sub-sections (e.g., "Section 1.1").
+            4.  **Concise Concepts:** The key concept should be a single, descriptive sentence that captures the main idea of the entire section block.                
+            5.  **Preserve Original Order** Key Concepts must appear in the same order as their corresponding Source Sections appear in the original markdown.Do not reorder, merge across, or reshuffle the sequence.
+            For each concept you extract, provide ONLY the following information:
+            Key Concept: [A single, clear sentence summarizing the core idea of the section.]
+            Source Section: [The single, exact title from {title_list} that this concept is derived from.]"""),
             },
-            {"role": "user", "content": f"{md_content} "},
+            {"role": "user", "content": f"{md_content}"},
         ],
-        response_format={
-            "type": "json_schema",
-            "json_schema": {
-                "name": "course_content_knowledge_sorting",
-                "strict": True,
-                "schema": {
-                    "type": "object",
-                    "properties": {
-                        "key_concepts": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "concepts": {"type": "string"},
-                                    "source_section_title": {"type": "string"},
-                                    "content_coverage": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "object",
-                                            "properties": {
-                                                "aspect": {"type": "string"},
-                                                "content": {"type": "string"},
-                                            },
-                                            "required": ["aspect", "content"],
-                                            "additionalProperties": False,
-                                        },
-                                    },
-                                },
-                                "required": [
-                                    "concepts",
-                                    "source_section_title",
-                                    "content_coverage",
-                                ],
-                                "additionalProperties": False,
-                            },
-                        }
-                    },
-                    "required": ["key_concepts"],
-                    "additionalProperties": False,
-                },
-            },
-        },
+        response_format=response_format
     )
     messages = response.choices[0].message
     data = messages.content
     content_dict = json.loads(data)
     return content_dict
+
+
+def add_titles_to_json(index_helper, json_file_path):
+    """
+    Insert title entries into a transcript list based on timing information.
+
+    Args:
+        json_file_path: Path to the JSON file containing the transcript data.
+        index_helper: Dictionary with title as key and start time as value
+
+    Returns:
+        New list with title entries inserted at appropriate positions
+    """
+
+    with open(json_file_path, "r") as json_file:
+        transcript_list = json.load(json_file)
+
+    # Convert index_helper to a list of tuples for easier processing
+    # Each tuple contains (title, start_time)
+    titles_to_insert = [(title, start_time[0]) for title, start_time in index_helper.items()]
+    titles_to_insert.sort(key=lambda x: float(x[1]))
+
+    current_index = 0
+    for title, start_time in titles_to_insert:
+        while current_index < len(transcript_list) and float(transcript_list[current_index]["start time"]) < float(start_time):
+            current_index += 1
+
+        # Create the title entry
+        title_entry = {
+            "start time": get_previous_end_time(transcript_list, current_index),
+            "end time": get_next_start_time(transcript_list, current_index),
+            "speaker": f"title-{len(title)}",
+            "text content": f"{title[-1]}",
+        }
+
+        # Insert the title entry
+        transcript_list.insert(current_index, title_entry)
+        # Update the current index to the next position
+        current_index += 1
+
+    with open(json_file_path, "w") as json_file:
+        json.dump(transcript_list, json_file, indent=4)
+
+
+def find_insertion_position(transcript_list, target_time):
+    """Find where to insert a title based on its start time."""
+    target_seconds = float(target_time)
+
+    for i, entry in enumerate(transcript_list):
+        entry_start_seconds = float(entry["start time"])
+        if entry_start_seconds >= target_seconds:
+            return i
+
+    # If no position found, insert at the end
+    return len(transcript_list)
+
+
+def get_previous_end_time(transcript_list, position):
+    """Get the end time of the previous entry, or '0.000' if at the beginning."""
+    if position == 0:
+        return 0.0
+    return transcript_list[position - 1]["end time"]
+
+def get_next_start_time(transcript_list, position):
+    """Get the start time of the next entry, or '0.000' if at the end."""
+    if position >= len(transcript_list) - 1:
+        return get_previous_end_time(transcript_list, position)
+    return transcript_list[position]["start time"]

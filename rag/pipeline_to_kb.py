@@ -2,7 +2,7 @@ import os
 
 import yaml
 
-from file_conversion_router.api import convert_directory
+from file_conversion_router.services.directory_service import process_folder
 from file_conversion_router.embedding_create import embedding_create
 from scraper.Scraper_master.scrapers.web_scraper import WebScraper
 
@@ -42,14 +42,13 @@ def pipeline(yaml):
     # print("MDPATH", markdown_path)
     scraper = WebScraper(yaml)
     scraper.run()
-
-    convert_directory(
+    process_folder(
         root,
         markdown_path,
+        course_name,
+        course_id,
         log_dir=log_path,
         cache_path=cache_path,
-        course_name=course_name,
-        course_id=course_id,
     )
 
     folder_name = "embedding"
@@ -73,4 +72,4 @@ def convert_only(yaml):
 
 
 if __name__ == "__main__":
-    pipeline("/home/bot/bot/yk/yk_tai/rag/scraper/Scraper_master/CS61A.yaml")
+    pipeline("/home/bot/bot/yk/YK_final/course_yaml/CS 61A.yaml")

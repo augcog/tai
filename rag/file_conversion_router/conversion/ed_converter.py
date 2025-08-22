@@ -6,8 +6,8 @@ from file_conversion_router.conversion.base_converter import BaseConverter
 
 
 class EdConverter(BaseConverter):
-    def __init__(self, course_name, course_id, file_uuid: str = None):
-        super().__init__(course_name, course_id, file_uuid)
+    def __init__(self, course_name, course_code, file_uuid: str = None):
+        super().__init__(course_name, course_code, file_uuid)
 
 
     def title_to_index(self, md_path: Path) -> [dict]:

@@ -116,7 +116,7 @@ def ingest(files: List[Dict[str, Any]]) -> None:
             VALUES (?, ?, ?, ?, ?, ?,?,?)
             """,
             (
-                f['file_uuid'],
+                uuid := gen_uuid(),
                 f["file_name"],
                 f.get("URL"),
                 jdump(f.get("sections")),
@@ -146,7 +146,7 @@ def ingest(files: List[Dict[str, Any]]) -> None:
                     """,
                     (
                         question_uuid,
-                        file_uuid,
+                        uuid,
                         p_index,
                         p_id,
                         p_content,

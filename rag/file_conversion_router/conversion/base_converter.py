@@ -48,11 +48,11 @@ class BaseConverter(ABC):
     )
 
     def __init__(
-        self, course_name, course_id, file_uuid, optimizer_config_path: Union[str, Path] = None
+        self, course_name, course_code, file_uuid, optimizer_config_path: Union[str, Path] = None
     ):
         self.index_helper = None
         self.course_name = course_name
-        self.course_id = course_id
+        self.course_code = course_code
         self._md_parser = None
 
         self._md_path = None
@@ -199,7 +199,7 @@ class BaseConverter(ABC):
         content = {"text": structured_md}
         return Page(
             course_name=self.course_name,
-            course_id=self.course_id,
+            course_code=self.course_code,
             filetype=self.file_type,
             content=content,
             page_name=self.file_name,
@@ -215,7 +215,7 @@ class BaseConverter(ABC):
         metadata_content["file_name"] = str(self.file_name)
         metadata_content['file_path'] = str(self.relative_path)
         metadata_content["course_name"] = self.course_name
-        metadata_content["course_id"] = self.course_id
+        metadata_content["course_code"] = self.course_code
         if not content_dict:
             return metadata_content
         metadata_content["sections"] = content_dict['key_concepts']
@@ -326,6 +326,7 @@ class BaseConverter(ABC):
             content_text = input_file.read()
             pattern = r'^\s*#\s*ROAR ACADEMY EXERCISES\s*$'
             content_text = re.sub(pattern, '', content_text, flags=re.MULTILINE)
+            content_text = re.sub(r'\n{3,}', '\n\n', content_text)
         header_levels = self.count_header_levels(content_text)
         if header_levels == 0 and file_type == "mp4" or file_type == 'mkv' or file_type == 'webm':
             json_path = input_md_path.with_suffix(".json")

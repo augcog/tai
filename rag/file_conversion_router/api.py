@@ -22,9 +22,7 @@ def convert_directory(input_config) -> None:
     course_name = data["course_name"]
     course_id = data["course_code"]
     log_dir = data.get("log_folder", None)
-    cache_path = data.get("cache_path", None)
     chunk_db_path = data.get("chunk_db_path", None)
-    metadata_db_path = data.get("metadata_db_path", None)
     process_folder(
         input_dir,
         output_dir,
@@ -32,6 +30,7 @@ def convert_directory(input_config) -> None:
         course_id,
         log_dir=log_dir,
         chunk_db_path=chunk_db_path,
-        metadata_db_path=metadata_db_path
     )
-convert_directory("/home/bot/bot/yk/YK_final/course_yaml/test.yaml")
+# convert_directory("/home/bot/bot/yk/YK_final/course_yaml/Roar Academy_config.yaml")
+# convert_directory("/home/bot/bot/yk/YK_final/course_yaml/test.yaml")
+convert_directory("/home/bot/bot/yk/YK_final/course_yaml/CS 61A_config.yaml")

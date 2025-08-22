@@ -6,8 +6,8 @@ import re
 
 
 class PdfConverter(BaseConverter):
-    def __init__(self, course_name, course_id, file_uuid: str = None):
-        super().__init__(course_name, course_id, file_uuid)
+    def __init__(self, course_name, course_code, file_uuid: str = None):
+        super().__init__(course_name, course_code, file_uuid)
         self.available_tools = ["MinerU"]
         self.index_helper = None
         self.file_name = ""

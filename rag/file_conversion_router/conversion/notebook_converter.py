@@ -7,8 +7,8 @@ from nbformat.validator import normalize
 import uuid
 
 class NotebookConverter(BaseConverter):
-    def __init__(self, course_name, course_id, file_uuid: str = None):
-        super().__init__(course_name, course_id, file_uuid)
+    def __init__(self, course_name, course_code, file_uuid: str = None):
+        super().__init__(course_name, course_code, file_uuid)
         self.index_helper = None
 
     def extract_all_markdown_titles(self, content):

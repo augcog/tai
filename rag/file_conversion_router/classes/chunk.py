@@ -25,7 +25,7 @@ class Chunk:
     chunk_uuid: Optional[str] = None
     reference_path: Optional[str] = None
     course_name: Optional[str] = None
-    course_id: Optional[str] = None
+    course_code: Optional[str] = None
     chunk_index: Optional[int] = None
 
 

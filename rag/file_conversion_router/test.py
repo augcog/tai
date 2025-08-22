@@ -155,6 +155,6 @@ def embedding_create(db_path,embedding_name, model):
 
 
 if __name__ == "__main__":
-    embedding_create("/home/bot/bot/yk/YK_final/courses_out/ROAR Academy_output/ROAR Academy_chunk.db",
+    embedding_create("/courses_out1/ROAR Academy_output/ROAR Academy_chunk.db",
                      "ROAR Academy",
                      "QWEN")

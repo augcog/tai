@@ -191,7 +191,7 @@ def validate_data(data):
 
 if __name__ == "__main__":
     embedding_create(
-        "/home/bot/bot/yk/YK_final/courses_out/CS 61A_output",
+        "/courses_out1/CS 61A_output",
         "/home/bot/bot/yk/YK_final/courses_out/CS 61A_output",
         "The Structure and Interpretation of Computer Programs",
         "embedding_output",

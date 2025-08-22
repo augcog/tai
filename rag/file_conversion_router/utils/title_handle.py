@@ -88,7 +88,7 @@ def get_strutured_content_for_ipynb(
                                     "concepts": {"type": "string"},
                                     "source_section_title": {"type": "string",
                                                              "enum": title_list,
-                                                             "description": f"Exactly the section title as it appears in the {title_list}, only one title from the list, only start with # can be used, do not include # and any *."},
+                                                             "description": f"Exactly the section title as it appears in the {title_list}, only one title from the list, only start with # can be used, do not include # and any *. Do not treat the line start with * as a title, it is not a title."},
                                     "content_coverage": {
                                         "type": "array",
                                         "description": "List only the aspects that the section actually explained with aspect and content.",
@@ -681,7 +681,7 @@ def fix_title_levels(mapping_list):
     return mapping_list
 
 
-def apply_structure_for_one_title(md_content: str, content_dict, index_helper: dict):
+def apply_structure_for_one_title(md_content: str, content_dict):
     mapping_list = content_dict.get("titles_with_levels")
     mapping_list = fix_title_levels(mapping_list)
     i = 0
@@ -692,7 +692,7 @@ def apply_structure_for_one_title(md_content: str, content_dict, index_helper: d
         match = title_pattern.match(line.strip())
         if match:
             raw_title = match.group("title").strip()
-            if raw_title.replace('"',"'") not in [d['title'] for d in mapping_list] or raw_title not in [d['title'] for d in mapping_list]:
+            if raw_title.replace('"',"'") not in [d['title'] for d in mapping_list] and raw_title not in [d['title'] for d in mapping_list]:
                 logger.warning(f"Title '{raw_title}' not found in mapping list, skipping. Maybe it is not a redundant title.")
                 continue
             new_level = mapping_list[i]["level_of_title"]
@@ -725,7 +725,7 @@ def save_key_concept_to_metadata(json_dict, metadata_path: Path):
         yaml.safe_dump(data, metadata_file, default_flow_style=False)
 
 
-def get_only_key_concepts(md_content: str, file_name: str, course_name: str, index_helper: dict):
+def get_only_key_concepts(md_content: str, index_helper: dict):
     load_dotenv()
     api_key = os.getenv("OPENAI_API_KEY")
     client = OpenAI(api_key=api_key)

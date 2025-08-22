@@ -14,8 +14,8 @@ from textwrap import dedent
 
 
 class VideoConverter(BaseConverter):
-    def __init__(self, course_name, course_id, file_uuid: str = None):
-        super().__init__(course_id=course_id,course_name=course_name, file_uuid=file_uuid)
+    def __init__(self, course_name, course_code, file_uuid: str = None):
+        super().__init__(course_code=course_code,course_name=course_name, file_uuid=file_uuid)
         self.section_titles = [dict]
         self.file_name = ""
         self.paragraphs = []

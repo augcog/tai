@@ -50,8 +50,8 @@ content_tags_dict = {
 
 
 class HtmlConverter(BaseConverter):
-    def __init__(self, course_name: str, course_id: str, file_uuid: str = None):
-        super().__init__(course_name, course_id,file_uuid)
+    def __init__(self, course_name: str, course_code: str, file_uuid: str = None):
+        super().__init__(course_name, course_code,file_uuid)
         self.index_helper = None
 
     # Override

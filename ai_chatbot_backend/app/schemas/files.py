@@ -5,6 +5,29 @@ Clean, simple file schemas - no over-engineering
 from datetime import datetime
 from typing import Optional, List
 from pydantic import BaseModel, Field
+import json
+
+
+class SectionAspect(BaseModel):
+    """Individual aspect within a section"""
+    content: str = Field(..., description="The educational content")
+    type: str = Field(..., description="Type of content (Definition, Functions, etc.)")
+
+
+class Section(BaseModel):
+    """Educational section with structured content"""
+    aspects: List[SectionAspect] = Field(..., description="List of content aspects")
+    index: float = Field(..., description="Section order/position")
+    key_concept: str = Field(..., description="Main topic of the section")
+    name: str = Field(..., description="Section title")
+
+
+class TranscriptSegment(BaseModel):
+    """Video transcript segment"""
+    start_time: float = Field(..., description="Start time in seconds")
+    end_time: float = Field(..., description="End time in seconds") 
+    speaker: str = Field(..., description="Speaker identifier (title-1, title-2, instructor, etc.)")
+    text_content: str = Field(..., description="Transcript text content")
 
 
 class FileMetadata(BaseModel):
@@ -29,21 +52,91 @@ class FileMetadata(BaseModel):
     category: Optional[str] = Field(
         None, description="File category (document, video, audio, other)"
     )
+    
+    # Advanced metadata - now as parsed JSON
+    sections: List[Section] = Field(..., description="Parsed sections of the file")
+    
+    # URLs
+    download_url: Optional[str] = Field(None, description="Download URL for this file")
+    original_url: Optional[str] = Field(None, description="Original source URL where the file was collected from")
 
     @classmethod
     def from_db_model(cls, db_model):
         """Create schema from database model with proper field mapping"""
+        import mimetypes
+        import os
+        from pathlib import Path
+        
+        # Get file path for additional metadata
+        from app.config import settings
+        
+        # Use the same logic as the file service
+        if hasattr(settings, "DATA_DIR") and settings.DATA_DIR:
+            data_dir = str(settings.DATA_DIR).split("#")[0].strip().strip("\"'")
+            if os.path.isabs(data_dir):
+                base_path = Path(data_dir)
+            else:
+                # Try relative to current working directory first
+                base_path = Path(data_dir)
+                if not base_path.exists():
+                    # Fallback to project root
+                    import inspect
+                    current_file = Path(inspect.getfile(inspect.currentframe())).resolve()
+                    project_root = current_file.parent.parent.parent
+                    base_path = project_root / data_dir
+        else:
+            # Default to data directory relative to current working directory
+            base_path = Path("data")
+        
+        file_path = base_path / db_model.relative_path
+        
+        # Get file stats
+        size_bytes = 0
+        mime_type = "application/octet-stream"
+        try:
+            if file_path.exists():
+                size_bytes = file_path.stat().st_size
+                mime_type, _ = mimetypes.guess_type(str(file_path))
+                if not mime_type:
+                    mime_type = "application/octet-stream"
+        except:
+            pass
+        
+        # Generate title from filename
+        title = db_model.file_name
+        if title:
+            title = title.rsplit(".", 1)[0]  # Remove extension
+            title = title.replace("_", " ").replace("-", " ")  # Replace with spaces
+            title = " ".join(title.split())  # Normalize whitespace
+            title = title.title()  # Title case
+        
+        # Parse sections JSON string to list of Section objects
+        sections_data = []
+        if db_model.sections:
+            try:
+                sections_json = json.loads(db_model.sections)
+                if sections_json:
+                    sections_data = [Section(**section) for section in sections_json]
+                else:
+                    sections_data = []
+            except (json.JSONDecodeError, ValueError) as e:
+                # Fallback to empty list if parsing fails
+                sections_data = []
+        
         return cls(
-            uuid=str(db_model.id),
+            uuid=str(db_model.uuid),
             filename=db_model.file_name,
-            title=db_model.title,
+            title=title,
             relative_path=db_model.relative_path,
-            size_bytes=db_model.size_bytes,
-            mime_type=db_model.mime_type,
-            created_at=db_model.created_at,
-            modified_at=db_model.modified_at,
+            size_bytes=size_bytes,
+            mime_type=mime_type,
+            created_at=None,  # Not available in metadata db
+            modified_at=None,  # Not available in metadata db
             course=db_model.course_code,
-            category=db_model.category,
+            category=None,  # Not available in metadata db
+            sections=sections_data,
+            download_url=f"/api/files/{db_model.uuid}/download",
+            original_url=db_model.url,
         )
 
     class Config:
@@ -59,6 +152,29 @@ class FileMetadata(BaseModel):
                 "modified_at": "2023-01-01T00:00:00Z",
                 "course": "CS61A",
                 "category": "document",
+                "sections": [
+                    {
+                        "aspects": [
+                            {
+                                "content": "Computer storage is organized in four tiers: CPU Registers, Main Memory (RAM), File System, and Offline Storage.",
+                                "type": "Definition"
+                            },
+                            {
+                                "content": "Files live in the third tier - the file system. While slower than RAM, files provide the crucial ability to persist data between program runs.",
+                                "type": "Explanation of File System Tier"
+                            },
+                            {
+                                "content": "Files are essential for persistent data storage, allowing programs to save and retrieve information between sessions.",
+                                "type": "Purpose"
+                            }
+                        ],
+                        "index": 3,
+                        "key_concept": "Computer Storage Hierarchy and Role of File System",
+                        "name": "Computer Storage Hierarchy"
+                    },
+                ],
+                "download_url": "/api/files/550e8400-e29b-41d4-a716-446655440000/download",
+                "original_url": "https://example.com/course/cs61a/lab01.pdf"
             }
         }
 
@@ -93,6 +209,29 @@ class FileListResponse(BaseModel):
                         "modified_at": "2023-01-01T00:00:00Z",
                         "course": "CS61A",
                         "category": "document",
+                        "sections": [
+                            {
+                                "aspects": [
+                                    {
+                                        "content": "Computer storage is organized in four tiers: CPU Registers, Main Memory (RAM), File System, and Offline Storage.",
+                                        "type": "Definition"
+                                    },
+                                    {
+                                        "content": "Files live in the third tier - the file system. While slower than RAM, files provide the crucial ability to persist data between program runs.",
+                                        "type": "Explanation of File System Tier"
+                                    },
+                                    {
+                                        "content": "Files are essential for persistent data storage, allowing programs to save and retrieve information between sessions.",
+                                        "type": "Purpose"
+                                    }
+                                ],
+                                "index": 3,
+                                "key_concept": "Computer Storage Hierarchy and Role of File System",
+                                "name": "Computer Storage Hierarchy"
+                            },
+                        ],
+                        "download_url": "/api/files/550e8400-e29b-41d4-a716-446655440000/download",
+                        "original_url": "https://example.com/course/cs61a/lab01.pdf"
                     }
                 ],
                 "total_count": 1,
@@ -138,6 +277,104 @@ class ErrorResponse(BaseModel):
         }
 
 
+class DirectoryInfo(BaseModel):
+    """Information about a directory in the file system"""
+    
+    name: str = Field(..., description="Directory name")
+    path: str = Field(..., description="Full path relative to course root")
+    file_count: int = Field(..., description="Number of files in this directory and subdirectories")
+    has_subdirs: bool = Field(..., description="Whether this directory has subdirectories")
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "name": "practice",
+                "path": "Part One/practice",
+                "file_count": 5,
+                "has_subdirs": True
+            }
+        }
+
+
+class BreadcrumbItem(BaseModel):
+    """Breadcrumb navigation item"""
+    
+    name: str = Field(..., description="Display name for breadcrumb")
+    path: str = Field(..., description="Path for navigation")
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "name": "Part One",
+                "path": "Part One"
+            }
+        }
+
+
+class DirectoryBrowserResponse(BaseModel):
+    """Response for directory browsing with hierarchical structure"""
+    
+    directories: List[DirectoryInfo] = Field(..., description="Immediate subdirectories")
+    files: List[FileMetadata] = Field(..., description="Files in current directory")
+    current_path: str = Field(..., description="Current directory path")
+    breadcrumbs: List[BreadcrumbItem] = Field(..., description="Breadcrumb navigation")
+    course_code: str = Field(..., description="Course code for context")
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "directories": [
+                    {
+                        "name": "practice",
+                        "path": "Part One/practice",
+                        "file_count": 5,
+                        "has_subdirs": False
+                    }
+                ],
+                "files": [
+                    {
+                        "uuid": "550e8400-e29b-41d4-a716-446655440000",
+                        "filename": "intro.pdf",
+                        "title": "Introduction",
+                        "relative_path": "Part One/intro.pdf",
+                        "size_bytes": 1048576,
+                        "mime_type": "application/pdf",
+                        "course": "ROAR Academy",
+                        "sections": [
+                                {
+                                    "aspects": [
+                                        {
+                                            "content": "Computer storage is organized in four tiers: CPU Registers, Main Memory (RAM), File System, and Offline Storage.",
+                                            "type": "Definition"
+                                        },
+                                        {
+                                            "content": "Files live in the third tier - the file system. While slower than RAM, files provide the crucial ability to persist data between program runs.",
+                                            "type": "Explanation of File System Tier"
+                                        },
+                                        {
+                                            "content": "Files are essential for persistent data storage, allowing programs to save and retrieve information between sessions.",
+                                            "type": "Purpose"
+                                        }
+                                    ],
+                                    "index": 3,
+                                    "key_concept": "Computer Storage Hierarchy and Role of File System",
+                                    "name": "Computer Storage Hierarchy"
+                                },
+                            ],
+                        "download_url": "/api/files/550e8400-e29b-41d4-a716-446655440000/download",
+                        "original_url": "https://example.com/roar-academy/part-one/intro.pdf"
+                    }
+                ],
+                "current_path": "Part One",
+                "breadcrumbs": [
+                    {"name": "Root", "path": ""},
+                    {"name": "Part One", "path": "Part One"}
+                ],
+                "course_code": "CS61A"
+            }
+        }
+
+
 # Simple query parameters
 class FileListParams(BaseModel):
     """Simple query parameters for file listing"""
@@ -158,3 +395,4 @@ class FileListParams(BaseModel):
                 "limit": 50,
             }
         }
+

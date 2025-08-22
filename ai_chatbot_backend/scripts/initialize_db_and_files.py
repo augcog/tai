@@ -1,18 +1,17 @@
 #!/usr/bin/env python3
 """
-Database and File Initialization Script
+Database Initialization Script
 
-This script provides a command-line interface for database initialization and file importing.
+This script provides a command-line interface for database initialization.
 It can be run manually or automatically called by the server on startup.
 
 Usage:
     python scripts/initialize_db_and_files.py              # Full initialization
     python scripts/initialize_db_and_files.py --check      # Check database status only
-    python scripts/initialize_db_and_files.py --force      # Force reimport of all files
-    python scripts/initialize_db_and_files.py --data-dir custom_data  # Use custom data directory
+    python scripts/initialize_db_and_files.py --force      # Force clear and reinitialize from MongoDB
 """
 
-from app.core.db_initializer import get_initializer
+from app.core.dbs.db_initializer import get_initializer
 import sys
 import argparse
 from pathlib import Path
@@ -24,23 +23,16 @@ sys.path.append(str(Path(__file__).parent.parent))
 def main():
     """Main CLI function"""
     parser = argparse.ArgumentParser(
-        description="Initialize database and import files from data directory",
+        description="Initialize database and load data from MongoDB",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
   %(prog)s                          # Full initialization
   %(prog)s --check                  # Check database status
-  %(prog)s --force                  # Force reimport all files
-  %(prog)s --data-dir /path/to/data # Use custom data directory
+  %(prog)s --force                  # Force clear and reinitialize
         """,
     )
 
-    parser.add_argument(
-        "--data-dir",
-        type=str,
-        default="data",
-        help="Data directory path (default: data)",
-    )
 
     parser.add_argument(
         "--check",
@@ -51,7 +43,7 @@ Examples:
     parser.add_argument(
         "--force",
         action="store_true",
-        help="Force reimport of all files (clears existing file registry first)",
+        help="Force clear and reinitialize databases from MongoDB",
     )
 
     parser.add_argument("--verbose", action="store_true", help="Enable verbose logging")
@@ -70,7 +62,7 @@ Examples:
     print("=" * 50)
 
     # Initialize the database initializer
-    initializer = get_initializer(args.data_dir)
+    initializer = get_initializer()
 
     if args.check:
         # Check database status
@@ -86,59 +78,48 @@ Examples:
             f"  Database exists: {'✅ Yes' if status['database_exists'] else '❌ No'}"
         )
         print(f"  Database size: {status['database_size_bytes']:,} bytes")
-        print(f"  Files in registry: {status['file_count']:,}")
         print(f"  Registered courses: {status['course_count']:,}")
-        print(
-            f"  Data directory exists: {'✅ Yes' if status['data_directory_exists'] else '❌ No'}"
-        )
-
-        if status["data_directory_exists"]:
-            # Count files in data directory
-            data_path = Path(args.data_dir)
-            file_count = len(
-                [
-                    f
-                    for f in data_path.rglob("*")
-                    if f.is_file() and not f.name.startswith(".")
-                ]
-            )
-            print(f"  Files in data directory: {file_count:,}")
 
         return 0
 
     elif args.force:
-        # Force reimport - clear existing file registry first
-        print("⚠️  Force mode: This will clear the existing file registry!")
+        # Force clear and reinitialize from MongoDB
+        print("⚠️  Force mode: This will clear and reinitialize databases from MongoDB!")
         confirm = input("Are you sure you want to continue? (y/N): ")
 
         if confirm.lower() != "y":
             print("❌ Operation cancelled.")
             return 0
 
-        print("🗑️  Clearing existing file registry...")
-        session = initializer.SessionLocal()
+        print("🗑️  Clearing existing databases...")
         try:
-            from app.core.models.files import FileRegistry
-
-            session.query(FileRegistry).delete()
-            session.commit()
-            print("✅ File registry cleared.")
+            # Remove database files
+            from app.core.dbs.course_db import COURSE_DATABASE_URL
+            from app.core.dbs.metadata_db import METADATA_DATABASE_URL
+            
+            courses_db_path = Path(COURSE_DATABASE_URL.replace("sqlite:///", ""))
+            metadata_db_path = Path(METADATA_DATABASE_URL.replace("sqlite:///", ""))
+            
+            if courses_db_path.exists():
+                courses_db_path.unlink()
+                print("✅ Courses database cleared.")
+            
+            if metadata_db_path.exists():
+                metadata_db_path.unlink()
+                print("✅ Metadata database cleared.")
+                
         except Exception as e:
-            session.rollback()
-            print(f"❌ Failed to clear file registry: {e}")
+            print(f"❌ Failed to clear databases: {e}")
             return 1
-        finally:
-            session.close()
 
         # Now run full initialization
-        print("🔄 Running full initialization...")
+        print("🔄 Running full initialization from MongoDB...")
         success = initializer.initialize_database()
 
         if success:
             print("\n🎉 Force initialization completed successfully!")
             # Show final status
             status = initializer.get_database_status()
-            print(f"📊 Files imported: {status['file_count']:,}")
             print(f"📚 Courses registered: {status['course_count']:,}")
         else:
             print("\n❌ Force initialization failed!")
@@ -155,7 +136,6 @@ Examples:
             # Show final status
             status = initializer.get_database_status()
             print("\n📊 Final Status:")
-            print(f"  Files in registry: {status['file_count']:,}")
             print(f"  Registered courses: {status['course_count']:,}")
             print(f"  Database size: {status['database_size_bytes']:,} bytes")
 

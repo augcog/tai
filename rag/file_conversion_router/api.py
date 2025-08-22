@@ -29,4 +29,4 @@ def convert_directory(
         cache_path=cache_path,
     )
 
-convert_directory('/Users/yyk956614/tai/rag/test_folder', '/Users/yyk956614/tai/rag/test_folder_output', course_name='ROAR', course_id='112')
+

@@ -5,11 +5,10 @@ Best practices with easy user flow and auto-discovery
 
 import mimetypes
 import os
-import re
 from datetime import datetime
 from pathlib import Path
-from typing import Optional, Dict, Any
-from uuid import UUID, uuid4
+from typing import Optional, Dict, Any, List, Set
+from uuid import UUID
 
 from fastapi import HTTPException, status
 from fastapi.responses import FileResponse
@@ -17,7 +16,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import and_
 
 from app.config import settings
-from app.core.models.files import FileRegistry
+from app.core.models.metadata import FileModel
 
 
 class FileService:
@@ -25,7 +24,7 @@ class FileService:
     Unified file service with clean design and best practices
 
     Features:
-    - Auto-discovery: Files found automatically, no manual rescans
+    - MongoDB-based: Files loaded from MongoDB database only
     - UUID-based: Secure access without exposing file paths
     - Clean API: Simple, intuitive interface
     - Best practices: Proper error handling, validation, security
@@ -33,7 +32,6 @@ class FileService:
 
     def __init__(self):
         self.base_dir = self._get_base_directory()
-        self._cache = {}  # Simple cache for performance
         mimetypes.init()
 
     def _get_base_directory(self) -> Path:
@@ -53,151 +51,42 @@ class FileService:
         base_path.mkdir(parents=True, exist_ok=True)
         return base_path
 
-    def _extract_metadata(self, relative_path: str) -> Dict[str, Any]:
-        """Extract simple, essential metadata from file path"""
-        parts = relative_path.split("/")
-        metadata = {}
 
-        # Extract course code (first directory)
-        if len(parts) >= 1:
-            metadata["course_code"] = parts[0]
 
-        # Extract category (second directory) - simplified
-        if len(parts) >= 2:
-            category_map = {
-                "documents": "document",
-                "videos": "video",
-                "audios": "audio",
-                "others": "other",
-            }
-            metadata["category"] = category_map.get(parts[1], "other")
-
-        # Generate clean title from filename
-        filename = parts[-1] if parts else ""
-        if filename:
-            title = filename.rsplit(".", 1)[0]  # Remove extension
-            title = re.sub(r"[_-]", " ", title)  # Replace with spaces
-            title = re.sub(r"\s+", " ", title).strip()  # Normalize
-            title = title.title()  # Title case
-            metadata["title"] = title
-
-        return metadata
-
-    def _discover_and_register_file(
-        self, db: Session, file_path: Path, relative_path: str
-    ) -> Optional[FileRegistry]:
-        """Discover and register a single file with proper error handling"""
-        try:
-            # Check if already registered
-            existing = (
-                db.query(FileRegistry)
-                .filter(FileRegistry.relative_path == relative_path)
-                .first()
-            )
-
-            # Get file stats
-            file_stat = file_path.stat()
-            mime_type, _ = mimetypes.guess_type(str(file_path))
-            if not mime_type:
-                mime_type = "application/octet-stream"
-
-            if existing:
-                # Update if file changed
-                if existing.size_bytes != file_stat.st_size:
-                    existing.size_bytes = file_stat.st_size
-                    existing.mime_type = mime_type
-                    existing.modified_at = datetime.now()
-                    db.commit()
-
-                return existing
-            else:
-                # Create new record
-                metadata = self._extract_metadata(relative_path)
-
-                file_record = FileRegistry(
-                    id=uuid4(),
-                    file_name=file_path.name,
-                    relative_path=relative_path,
-                    mime_type=mime_type,
-                    size_bytes=file_stat.st_size,
-                    is_active=True,
-                    **metadata,
-                )
-
-                db.add(file_record)
-                db.commit()
-                return file_record
-
-        except Exception as e:
-            print(f"Error registering file {file_path}: {e}")
-            return None
-
-    def _auto_discover_files(self, db: Session, limit: int = 50):
-        """Auto-discover new files efficiently"""
-        if not self.base_dir.exists():
-            return
-
-        try:
-            discovered = 0
-            for file_path in self.base_dir.rglob("*"):
-                if discovered >= limit:  # Limit to keep API responsive
-                    break
-
-                if not file_path.is_file():
-                    continue
-
-                # Skip hidden files and system files
-                if any(part.startswith(".") for part in file_path.parts):
-                    continue
-
-                relative_path = str(file_path.relative_to(self.base_dir))
-
-                # Check cache to avoid repeated processing
-                if relative_path in self._cache:
-                    continue
-
-                # Check if already in database
-                exists = (
-                    db.query(FileRegistry)
-                    .filter(FileRegistry.relative_path == relative_path)
-                    .first()
-                )
-
-                if not exists:
-                    self._discover_and_register_file(db, file_path, relative_path)
-                    discovered += 1
-
-                # Cache to avoid repeated checks
-                self._cache[relative_path] = True
-
-        except Exception as e:
-            print(f"Auto-discovery error: {e}")
 
     def list_files(self, db: Session, **filters) -> Dict[str, Any]:
         """
-        List files with auto-discovery and comprehensive filtering
+        List files with comprehensive filtering
 
         Returns both files and pagination info in a clean format
         """
-        # Auto-discover new files first
-        self._auto_discover_files(db)
+        # Removed auto-discovery - only rely on MongoDB data
 
         # Build query
-        query = db.query(FileRegistry).filter(FileRegistry.is_active == True)
+        query = db.query(FileModel)
 
         # Apply simple, essential filters only
         filter_conditions = []
+        
+        # Only include files with valid relative paths
+        # Format should be: COURSE/file.ext or COURSE/subfolder/file.ext
+        filter_conditions.append(FileModel.relative_path.like('%/%'))
+        
         if filters.get("course_code"):
-            filter_conditions.append(FileRegistry.course_code == filters["course_code"])
-
-        if filters.get("category"):
-            filter_conditions.append(FileRegistry.category == filters["category"])
+            filter_conditions.append(FileModel.course_code == filters["course_code"])
+            
+        # Add path filtering for nested directory support
+        if filters.get("path"):
+            path = filters["path"].strip()
+            if path:
+                # Filter files that are in the specified path
+                path_pattern = f"{path}/%"
+                filter_conditions.append(FileModel.relative_path.like(path_pattern))
 
         if filters.get("search"):
             search_term = f"%{filters['search']}%"
             filter_conditions.append(
-                FileRegistry.file_name.ilike(search_term)
-                | FileRegistry.title.ilike(search_term)
+                FileModel.file_name.ilike(search_term)
             )
 
         # Apply all filters
@@ -207,11 +96,11 @@ class FileService:
         # Get total count
         total_count = query.count()
 
-        # Apply sorting
-        sort_by = filters.get("sort_by", "created_at")
-        sort_order = filters.get("sort_order", "desc")
+        # Apply sorting by file_name for now (metadata.db doesn't have created_at)
+        sort_by = filters.get("sort_by", "file_name")
+        sort_order = filters.get("sort_order", "asc")
 
-        sort_column = getattr(FileRegistry, sort_by, FileRegistry.created_at)
+        sort_column = getattr(FileModel, sort_by, FileModel.file_name)
         if sort_order.lower() == "asc":
             query = query.order_by(sort_column.asc())
         else:
@@ -233,11 +122,11 @@ class FileService:
             "has_prev": page > 1,
         }
 
-    def get_file_by_id(self, db: Session, file_id: UUID) -> Optional[FileRegistry]:
+    def get_file_by_id(self, db: Session, file_id: UUID) -> Optional[FileModel]:
         """Get file by UUID with validation"""
         return (
-            db.query(FileRegistry)
-            .filter(and_(FileRegistry.id == file_id, FileRegistry.is_active == True))
+            db.query(FileModel)
+            .filter(FileModel.uuid == str(file_id))
             .first()
         )
 
@@ -266,9 +155,14 @@ class FileService:
         # Note: Access tracking removed for simplicity
         # Could be added back if needed
 
+        # Get mime type since it's not in metadata db
+        mime_type, _ = mimetypes.guess_type(str(file_path))
+        if not mime_type:
+            mime_type = "application/octet-stream"
+
         return FileResponse(
             path=str(file_path),
-            media_type=file_record.mime_type,
+            media_type=mime_type,
             filename=file_record.file_name,
         )
 
@@ -277,21 +171,17 @@ class FileService:
         # Auto-discover before stats
         self._auto_discover_files(db)
 
-        total_files = (
-            db.query(FileRegistry).filter(FileRegistry.is_active == True).count()
-        )
+        total_files = db.query(FileModel).count()
 
         # Get course breakdown
         from sqlalchemy import func
 
         course_stats = (
             db.query(
-                FileRegistry.course_code, func.count(FileRegistry.id).label("count")
+                FileModel.course_code, func.count(FileModel.uuid).label("count")
             )
-            .filter(
-                FileRegistry.is_active == True, FileRegistry.course_code.isnot(None)
-            )
-            .group_by(FileRegistry.course_code)
+            .filter(FileModel.course_code.isnot(None))
+            .group_by(FileModel.course_code)
             .all()
         )
 
@@ -302,6 +192,141 @@ class FileService:
             "courses": {code: count for code, count in course_stats},
             "last_updated": datetime.now(),
         }
+
+    def browse_directory(self, db: Session, course_code: str, path: str = "") -> Dict[str, Any]:
+        """
+        Browse directory structure for a course with support for nested folders
+        
+        Args:
+            db: Database session
+            course_code: Course code (e.g., "CS61A") 
+            path: Directory path within the course (e.g., "Part One/practice")
+        
+        Returns:
+            Dict with directories, files, breadcrumbs, and current_path
+        """
+        # Get all files for this course
+        files_query = db.query(FileModel).filter(
+            and_(
+                FileModel.course_code == course_code,
+                FileModel.relative_path.like('%/%')  # Valid relative paths
+            )
+        )
+        
+        all_files = files_query.all()
+        
+        # Parse directory structure from relative paths
+        directories = self._extract_directories(all_files, path)
+        
+        # Get files in current directory only (not subdirectories)
+        current_files = self._get_files_in_current_directory(all_files, path)
+        
+        # Build breadcrumbs
+        breadcrumbs = self._build_breadcrumbs(path)
+        
+        return {
+            "directories": directories,
+            "files": current_files,
+            "current_path": path,
+            "breadcrumbs": breadcrumbs,
+            "course_code": course_code
+        }
+    
+    def _extract_directories(self, all_files: List[FileModel], current_path: str) -> List[Dict[str, Any]]:
+        """Extract immediate subdirectories from file paths"""
+        directory_paths: Set[str] = set()
+        
+        # Collect all unique directory paths
+        for file in all_files:
+            rel_path = file.relative_path
+            
+            # If we're at root, get top-level directories
+            if not current_path:
+                if '/' in rel_path:
+                    # Get first directory component
+                    first_dir = rel_path.split('/')[0]
+                    directory_paths.add(first_dir)
+            else:
+                # Check if file is in a subdirectory of current_path
+                if rel_path.startswith(current_path + '/'):
+                    # Get remaining path after current_path
+                    remaining = rel_path[len(current_path) + 1:]
+                    if '/' in remaining:
+                        # Get next directory component
+                        next_dir = remaining.split('/')[0]
+                        full_subdir_path = f"{current_path}/{next_dir}"
+                        directory_paths.add(full_subdir_path)
+        
+        # Build directory info with file counts
+        directories = []
+        for dir_path in sorted(directory_paths):
+            dir_name = dir_path.split('/')[-1]  # Get just the directory name
+            
+            # Count files in this directory and subdirectories
+            file_count = sum(1 for f in all_files if f.relative_path.startswith(dir_path + '/'))
+            
+            # Check if this directory has subdirectories
+            has_subdirs = any(
+                f.relative_path.startswith(dir_path + '/') and 
+                len(f.relative_path[len(dir_path) + 1:].split('/')) > 1
+                for f in all_files
+            )
+            
+            directories.append({
+                "name": dir_name,
+                "path": dir_path,
+                "file_count": file_count,
+                "has_subdirs": has_subdirs
+            })
+        
+        return directories
+    
+    def _get_files_in_current_directory(self, all_files: List[FileModel], current_path: str) -> List[FileModel]:
+        """Get files that are directly in the current directory (not in subdirectories)"""
+        current_dir_files = []
+        
+        for file in all_files:
+            rel_path = file.relative_path
+            
+            if not current_path:
+                # At root - files directly in root (no subdirectory)
+                if '/' not in rel_path:
+                    current_dir_files.append(file)
+            else:
+                # In a specific directory - files directly in this directory
+                if rel_path.startswith(current_path + '/'):
+                    remaining = rel_path[len(current_path) + 1:]
+                    # File is directly in current directory if no more slashes
+                    if '/' not in remaining:
+                        current_dir_files.append(file)
+        
+        return current_dir_files
+    
+    def _build_breadcrumbs(self, current_path: str) -> List[Dict[str, str]]:
+        """Build breadcrumb navigation"""
+        breadcrumbs = [{"name": "Root", "path": ""}]
+        
+        if current_path:
+            path_parts = current_path.split('/')
+            accumulated_path = ""
+            
+            for part in path_parts:
+                if accumulated_path:
+                    accumulated_path += f"/{part}"
+                else:
+                    accumulated_path = part
+                    
+                breadcrumbs.append({
+                    "name": part,
+                    "path": accumulated_path
+                })
+        
+        return breadcrumbs
+
+    @staticmethod
+    def get_file_metadata_by_name(db: Session, file_name: str) -> Optional[FileModel]:
+        """Get file metadata by file name"""
+        return db.query(FileModel).filter(FileModel.file_name == file_name).first()
 
 
 # Global service instance

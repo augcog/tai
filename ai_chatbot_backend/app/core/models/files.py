@@ -9,7 +9,7 @@ from sqlalchemy import Column, String, Integer, DateTime, Boolean, Index
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql import func
 
-from app.core.database import Base
+from app.core.dbs.course_db import Base
 
 
 class FileRegistry(Base):

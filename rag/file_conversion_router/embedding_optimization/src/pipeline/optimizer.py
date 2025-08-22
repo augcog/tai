@@ -59,11 +59,6 @@ class ChunkProcessor(ContentProcessor):
                     content=chunk.content,
                     titles=chunk.titles,
                     chunk_url=chunk.chunk_url,
-                    metadata={
-                        **(chunk.metadata or {}),
-                        "processing_status": "error",
-                        "error_message": error,
-                    },
                 ),
                 success=False,
                 error=error,
@@ -85,11 +80,6 @@ class ChunkProcessor(ContentProcessor):
                     content=processed_content,
                     titles=chunk.titles,
                     chunk_url=chunk.chunk_url,
-                    metadata={
-                        **(chunk.metadata or {}),
-                        "task_results": context.results,
-                        "processing_status": "success",
-                    },
                 ),
                 success=True,
             )
@@ -102,11 +92,6 @@ class ChunkProcessor(ContentProcessor):
                     content=chunk.content,
                     titles=chunk.titles,
                     chunk_url=chunk.chunk_url,
-                    metadata={
-                        **(chunk.metadata or {}),
-                        "processing_status": "error",
-                        "error_message": error_msg,
-                    },
                 ),
                 success=False,
                 error=error_msg,
@@ -229,11 +214,8 @@ class EmbeddingOptimizer:
 
             results.append(result.content)
 
-        successful = sum(
-            1 for r in results if r.metadata.get("processing_status") == "success"
-        )
         logger.info(
-            f"Completed processing: {successful}/{len(chunks)} chunks successful"
+            f"Completed processing: {len(chunks)} chunks successful"
         )
 
         return results

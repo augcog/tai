@@ -16,11 +16,7 @@ TOKENIZER_MODEL_ID = "THUDM/GLM-4-9B-0414"
 # RAG-Pipeline Shared Resources
 SAMPLING = SamplingParams(temperature=0.3, top_p=0.95, max_tokens=4096)
 TOKENIZER = AutoTokenizer.from_pretrained(TOKENIZER_MODEL_ID)
-
-
-LOCAL_MEMORY_SYNOPSIS = None
-async def summaize_chat(messages: List[Message], engine: Any) -> Any:
-    await build_memory_synopsis(messages, TOKENIZER, engine,  LOCAL_MEMORY_SYNOPSIS)
+LOCAL_MEMORY_SYNOPSIS = {}
 
 
 async def generate_chat_response(
@@ -32,6 +28,7 @@ async def generate_chat_response(
         top_k: int = 7,
         engine: Any = None,
         audio_response: bool = False,
+        sid: Optional[str] = None
 ) -> Tuple[Any, List[str | Any]]:
     """
     Build an augmented message with references and run LLM inference.
@@ -40,7 +37,7 @@ async def generate_chat_response(
     # Build the query message based on the chat history
     t0 = time.time()
     user_message = messages[-1].content
-    query_message = await build_retrieval_query(user_message, LOCAL_MEMORY_SYNOPSIS, engine, TOKENIZER, SAMPLING) if len(messages) > 2 else user_message
+    query_message = await build_retrieval_query(user_message, LOCAL_MEMORY_SYNOPSIS.get(sid, None), engine, TOKENIZER, SAMPLING) if len(messages) > 2 else user_message
     print(f"[INFO] Preprocessing time: {time.time() - t0:.2f} seconds")
 
     # Build modified prompt with references
@@ -87,7 +84,8 @@ async def local_parser(
         stream: Any,
         reference_list: List[str],
         messages: Optional[List[Message]] = None,
-        engine: Optional[Any] = None
+        engine: Optional[Any] = None,
+        old_sid: Optional[str] = None
 ) -> Generator[str, None, None]:
     """
     Yield tokens from a text stream and append the reference block at the end.
@@ -132,11 +130,28 @@ async def local_parser(
         print(ref_block)
 
     # Call to build memory after finish output.
-    if messages and engine:
-        global LOCAL_MEMORY_SYNOPSIS
+    if messages and engine and old_sid:
         messages.append(Message(role="assistant", content=previous_text + ref_block))
-        LOCAL_MEMORY_SYNOPSIS = await build_memory_synopsis(messages, TOKENIZER, engine, LOCAL_MEMORY_SYNOPSIS)
-        print(f"\n\n---LOCAL_MEMORY_SYNOPSIS---\n\n{LOCAL_MEMORY_SYNOPSIS}\n\n")
+        sid = sid_from_history(messages)
+        print(f"[INFO] Generated SID: {sid}")
+        LOCAL_MEMORY_SYNOPSIS[sid] = await build_memory_synopsis(messages, TOKENIZER, engine, LOCAL_MEMORY_SYNOPSIS.get(old_sid, None))
+        if old_sid in LOCAL_MEMORY_SYNOPSIS:
+            LOCAL_MEMORY_SYNOPSIS.pop(old_sid, None)
+            print(f"[INFO] Removed SID: {old_sid}")
+        print(f"\n\n---LOCAL_MEMORY_SYNOPSIS---\n\n{LOCAL_MEMORY_SYNOPSIS[sid]}\n\n")
+
+
+import json, base64, hashlib, secrets
+def sid_from_history(messages):
+    hist = [{"r": getattr(m, "role", "user"),
+             "c": (getattr(m, "content", "") or "").split("<|begin_of_reference|>", 1)[0]}
+            for m in messages]
+    # print(f"[INFO] History for SID generation: {hist}")
+    digest = hashlib.blake2b(
+        json.dumps(hist, separators=(",", ":"), ensure_ascii=False).encode(),
+        digest_size=12
+    ).digest()
+    return base64.urlsafe_b64encode(digest).decode().rstrip("=")
 
 
 def format_chat_msg(messages: List[Message]) -> List[Message]:

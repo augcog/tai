@@ -5,40 +5,46 @@ from typing import Any, Optional, Tuple, List
 from app.services.rag_retriever import get_reference_documents
 
 
-async def build_retrieval_query(messages: List[Any], engine: Any) -> str:
+async def build_retrieval_query(user_message: str, memory_synopsis: Any, engine: Any, tokenizer: Any, sampling: Any) -> str:
     """
     Reformulate the latest user request into a single self-contained query string,
     based on the full chat history (user + assistant messages).
     Returns plain text with no quotes or extra formatting.
     """
-    from app.services.rag_generation import TOKENIZER, SAMPLING
     # Prepare the chat history for the model
     system_prompt = (
         "You are a query reformulator for a RAG system. "
-        "From the full chat history, rewrite the latest user request as a single, "
+        "Given the user message and the memory synopsis of the current conversation, "
+        "rewrite the latest user request as a single, "
         "self-contained question for document retrieval. "
         "Resolve pronouns and references using context, include relevant constraints "
         "(dates, versions, scope), and avoid adding facts not in the history. "
         "Return only the rewritten query as question in plain text—no quotes, no extra text."
     )
-    chat = [{"role": "system", "content": system_prompt}]
-    chat.extend(
-        {
-            "role": m.role,
-            "content": m.content.split("<|begin_of_reference|>", 1)[0].strip(),
-        }
-        for m in messages
-        if m.role in ("user", "assistant")
-    )
-    prompt = TOKENIZER.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
+
+    request_template = """Memory Synopsis:
+    {memory_synopsis}
+
+    User Message:
+    {user_message}
+    """
+
+    chat = [{"role": "system", "content": system_prompt}, {
+        "role": "user",
+        "content": request_template.format(
+            memory_synopsis=memory_synopsis.to_json(), user_message=user_message
+        )
+    }]
+    prompt = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
     # Generate the query using the engine
     text = ""
     async for chunk in engine.generate(
             prompt=prompt,
-            sampling_params=SAMPLING,
+            sampling_params=sampling,
             request_id=str(time.time_ns())
     ):
         text = chunk.outputs[0].text
+    print(f"[INFO] Generated RAG-Query: {text.strip()}")
     return text
 
 

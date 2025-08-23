@@ -5,7 +5,6 @@ import pickle
 import sqlite3
 import threading
 import time
-import urllib.parse
 from typing import Any, Dict, List, Optional, Tuple
 # Third-party libraries
 import numpy as np
@@ -25,15 +24,15 @@ _course_cache = {}
 _course_lock = threading.Lock()
 
 
-def _get_reference_documents(
-    user_message: str, course: str, top_k: int
-) -> Tuple[Tuple[List[str], List[str], List[str], List[float], List[str], List[str]], str]:
+def get_reference_documents(
+    query: str, course: str, top_k: int
+) -> Tuple[Tuple[List[str], List[str], List[str], List[float], List[str], List[str], List[str]], str]:
     """
     Retrieve top reference documents based on the query embedding and choice of DB-type.
     """
     picklefile, class_name = _get_pickle_and_class(course)
     t0 = time.time()
-    query_embed = {"dense_vecs": embedding_model.encode(user_message, prompt_name="query")}
+    query_embed = {"dense_vecs": embedding_model.encode(query, prompt_name="query")}
     print(f"[INFO] Embedding time: {time.time() - t0:.2f} seconds")
     t1 = time.time()
     if SQLDB:
@@ -59,9 +58,9 @@ def _get_references_from_sql(
     if not idx.get("M") is not None:
         return [], [], [], [], [], [], []
     # Compute the scores for each document in the index
-    M = idx["M"]
-    scores = M @ qv
-    k = min(top_k, M.shape[0])
+    document_matrix = idx["M"]
+    scores = document_matrix @ qv
+    k = min(top_k, document_matrix.shape[0])
     top_idx = np.argpartition(scores, -k)[-k:]
     top_idx = top_idx[np.argsort(scores[top_idx])[::-1]]
     # Extract the top-k results
@@ -82,7 +81,7 @@ def _get_course_index(course: str):
     with _course_lock:
         idx = _course_cache.get(course)
     # check staleness
-    with get_cursor() as cur:
+    with _get_cursor() as cur:
         dv_now = cur.execute("PRAGMA data_version").fetchone()[0]
     if idx is None or idx["dv"] != dv_now or idx.get("M") is None:
         idx = _build_course_index(course)
@@ -102,7 +101,7 @@ def _build_course_index(course: str):
         where += " AND course_code = ?"
         params.append(course)
     # Use a context manager to get SQL-DB cursor to ensure the connection is closed properly
-    with get_cursor() as cur:
+    with _get_cursor() as cur:
         dv = cur.execute("PRAGMA data_version").fetchone()[0]
         rows = cur.execute(f"""
             SELECT chunk_uuid, file_path, reference_path, vector, title, text, url
@@ -130,10 +129,10 @@ def _build_course_index(course: str):
     if not vecs:
         return {"dv": dv, "M": None}
     # Stack the vectors to compute scores later
-    M = np.vstack(vecs)  # shape: [N, D]
+    document_matrix = np.vstack(vecs)  # shape: [N, D]
     return {
         "dv": dv, "ids": ids, "files": files, "refs": refs,
-        "titles": titles, "texts": texts, "urls": urls, "M": M
+        "titles": titles, "texts": texts, "urls": urls, "M": document_matrix
     }
 
 
@@ -148,7 +147,7 @@ def _decode_vec_from_db(x) -> Optional[np.ndarray]:
     elif isinstance(x, str):
         try:
             return np.asarray(json.loads(x), dtype=np.float32)
-        except Exception:
+        except (json.JSONDecodeError, TypeError, ValueError):
             return None
     else:
         return None
@@ -167,7 +166,7 @@ def _init_conn(conn: sqlite3.Connection) -> None:
     conn.text_factory = str
 
 
-def get_conn() -> sqlite3.Connection:
+def _get_conn() -> sqlite3.Connection:
     """
     Get a per-thread SQLite connection.
     """
@@ -181,11 +180,11 @@ def get_conn() -> sqlite3.Connection:
 
 
 @contextmanager
-def get_cursor():
+def _get_cursor():
     """
     Get a cursor from the SQLite connection.
     """
-    cur = get_conn().cursor()
+    cur = _get_conn().cursor()
     try:
         yield cur
     finally:
@@ -193,13 +192,13 @@ def get_cursor():
 
 
 def _get_references_from_pickle(
-    query_embed: Dict[str, Any], picklefile: str, top_k: int
-) -> Tuple[List[str], List[str], List[str], List[float],List[str],List[str]]:
+    query_embed: Dict[str, Any], pickle_file: str, top_k: int
+) -> Tuple[List[str], List[str], List[str], List[float], List[str], List[str], List[str]]:
     """
     Retrieve top reference documents from a pickle file.
     """
     # Load the pickle file content
-    path_to_pickle = EMBEDDING_PICKLE_PATH / picklefile
+    path_to_pickle = EMBEDDING_PICKLE_PATH / pickle_file
     with open(path_to_pickle, "rb") as f:
         data_loaded = pickle.load(f)
     doc_list = data_loaded["doc_list"]
@@ -251,6 +250,48 @@ def _get_pickle_and_class(course: str) -> Tuple[str, str]:
 ########################### DEVELOP-USEAGE ONLY #############################
 #############################################################################
 # TODO: REMOVE this code. Deprecated Soon.
+def top_k_selector(
+    message: str,
+    stream: bool = True,
+    rag: bool = True,
+    course: Optional[str] = None,
+    k: int = 3,
+) -> Dict[str, Any]:
+    if not rag or k <= 0:
+        return {"top_docs": [], "top_reference_paths": [], "used_chunks": 0}
+
+    t0 = time.time()
+    query_embed = {"dense_vecs": embedding_model.encode(message, prompt_name="query")}
+    print(f"Embedding time: {time.time() - t0:.2f} seconds")
+
+    if SQLDB:
+        top_docs, top_reference_paths = _sql_top_k_docs(query_embed, course, k)
+        return {
+            "top_docs": top_docs,
+            "top_reference_paths": top_reference_paths,
+            "used_chunks": min(len(top_docs), k),
+        }
+
+    current_dir = "/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/"
+    picklefile, _ = _get_pickle_and_class(course if course else "")
+    path_to_pickle = os.path.join(current_dir, picklefile)
+    with open(path_to_pickle, "rb") as f:
+        data_loaded = pickle.load(f)
+    doc_list = data_loaded["doc_list"]
+    embedding_list = data_loaded["embedding_list"]
+    score_simple = query_embed["dense_vecs"] @ embedding_list["dense_vecs"].T
+    score_array = np.array(score_simple)
+    indices = np.argsort(score_array)[::-1]
+    top_indices = indices[:k]
+    top_docs = [doc_list[i] for i in top_indices]
+    return {
+        "top_docs": top_docs,
+        "top_reference_paths": [],
+        "used_chunks": min(len(top_docs), k),
+    }
+
+
+# TODO: REMOVE this code. Deprecated Soon.
 def _sql_top_k_docs(
     query_embed: Dict[str, Any],
     course: Optional[str],
@@ -274,7 +315,7 @@ def _sql_top_k_docs(
     if course and course != "general":
         where += " AND course_name = ?"
         params.append(course)
-    with get_cursor() as cur:
+    with _get_cursor() as cur:
         rows = cur.execute(
             f"""
             SELECT chunk_uuid, reference_path, vector
@@ -317,7 +358,7 @@ def _sql_top_k_docs(
     top_refs = [refs[i] for i in top_idx]
 
     placeholders = ",".join("?" for _ in top_ids)
-    with get_cursor() as cur:
+    with _get_cursor() as cur:
         detail_rows = cur.execute(
             f"SELECT chunk_uuid, text FROM chunks WHERE chunk_uuid IN ({placeholders});",
             top_ids
@@ -326,48 +367,6 @@ def _sql_top_k_docs(
 
     top_docs = [det.get(cid, "") for cid in top_ids]
     return top_docs, top_refs
-
-
-# TODO: REMOVE this code. Deprecated Soon.
-def top_k_selector(
-    message: str,
-    stream: bool = True,
-    rag: bool = True,
-    course: Optional[str] = None,
-    k: int = 3,
-) -> Dict[str, Any]:
-    if not rag or k <= 0:
-        return {"top_docs": [], "top_reference_paths": [], "used_chunks": 0}
-
-    t0 = time.time()
-    query_embed = {"dense_vecs": embedding_model.encode(message, prompt_name="query")}
-    print(f"Embedding time: {time.time() - t0:.2f} seconds")
-
-    if SQLDB:
-        top_docs, top_reference_paths = _sql_top_k_docs(query_embed, course, k)
-        return {
-            "top_docs": top_docs,
-            "top_reference_paths": top_reference_paths,
-            "used_chunks": min(len(top_docs), k),
-        }
-
-    current_dir = "/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/"
-    picklefile, _ = _get_pickle_and_class(course if course else "")
-    path_to_pickle = os.path.join(current_dir, picklefile)
-    with open(path_to_pickle, "rb") as f:
-        data_loaded = pickle.load(f)
-    doc_list = data_loaded["doc_list"]
-    embedding_list = data_loaded["embedding_list"]
-    score_simple = query_embed["dense_vecs"] @ embedding_list["dense_vecs"].T
-    score_array = np.array(score_simple)
-    indices = np.argsort(score_array)[::-1]
-    top_indices = indices[:k]
-    top_docs = [doc_list[i] for i in top_indices]
-    return {
-        "top_docs": top_docs,
-        "top_reference_paths": [],
-        "used_chunks": min(len(top_docs), k),
-    }
 
 
 #############################################################################

@@ -30,6 +30,19 @@ def generate_data():
         time.sleep(0.1)
 
 
+import json, base64, hashlib, secrets
+def sid_from_history(messages):
+    hist = [{"r": getattr(m, "role", "user"),
+             "c": (getattr(m, "content", "") or "").split("<|begin_of_reference|>", 1)[0]}
+            for m in messages[:-1]]
+    # print(f"[INFO] History for SID generation: {hist}")
+    digest = hashlib.blake2b(
+        json.dumps(hist, separators=(",", ":"), ensure_ascii=False).encode(),
+        digest_size=12
+    ).digest()
+    return base64.urlsafe_b64encode(digest).decode().rstrip("=")
+
+
 @router.post("/completions")
 async def create_completion(
         params: CompletionParams, _: bool = Depends(verify_api_token)
@@ -43,13 +56,16 @@ async def create_completion(
     selector = generate_chat_response
     parser = local_parser
 
+    sid = sid_from_history(formatter(params.messages))
+    print(f"[INFO] Generated SID: {sid}")
+
     response, reference_list = await selector(
-        formatter(params.messages), stream=params.stream, course=course, engine=engine, audio_response=params.audio_response
+        formatter(params.messages), stream=params.stream, course=course, engine=engine, audio_response=params.audio_response, sid=sid
     )
 
     if params.stream:
         return StreamingResponse(
-            parser(response, reference_list, messages=formatter(params.messages), engine=engine), media_type="text/plain"
+            parser(response, reference_list, messages=formatter(params.messages), engine=engine, old_sid=sid), media_type="text/plain"
         )
     else:
         return PlainTextResponse(response)

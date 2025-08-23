@@ -29,12 +29,16 @@ async def build_retrieval_query(user_message: str, memory_synopsis: Any, engine:
     {user_message}
     """
 
-    chat = [{"role": "system", "content": system_prompt}, {
-        "role": "user",
-        "content": request_template.format(
-            memory_synopsis=memory_synopsis.to_json(), user_message=user_message
-        )
-    }]
+    chat = [
+        {"role": "system", "content": system_prompt},
+        {
+            "role": "user",
+            "content": request_template.format(
+                memory_synopsis=memory_synopsis.to_json() if memory_synopsis else "",
+                user_message=user_message
+            )
+        }
+    ]
     prompt = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
     # Generate the query using the engine
     text = ""

@@ -4,7 +4,7 @@ from app.api.deps import verify_api_token
 from app.core.actions.model_selector import course_selection
 from app.dependencies.model import get_model_engine
 from app.schemas.completion import ChatCompletionChunk, CompletionCreateParams
-from app.services.rag_selector import format_chat_msg, rag_json_stream_generator
+from app.services.rag_generation import format_chat_msg, rag_json_stream_generator
 from app.utils.stream_processing import (
     extract_text_and_references_from_openai_format,
     openai_format_stream,

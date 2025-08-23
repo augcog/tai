@@ -5,7 +5,7 @@ from app.api.deps import verify_api_token
 from app.core.models.chat_completion import *
 from app.dependencies.model import get_model_engine, get_whisper_engine
 from app.services.rag_retriever import top_k_selector
-from app.services.rag_selector import (
+from app.services.rag_generation import (
     format_chat_msg,
     generate_chat_response,
     generate_practice_response,

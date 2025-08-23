@@ -49,7 +49,7 @@ async def create_completion(
 
     if params.stream:
         return StreamingResponse(
-            parser(response, reference_list), media_type="text/plain"
+            parser(response, reference_list, messages=formatter(params.messages), engine=engine), media_type="text/plain"
         )
     else:
         return PlainTextResponse(response)

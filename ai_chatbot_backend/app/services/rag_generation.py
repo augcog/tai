@@ -10,11 +10,17 @@ from vllm import SamplingParams
 # Local libraries
 from app.core.models.chat_completion import Message
 from app.services.rag_preprocess import build_retrieval_query, build_augmented_prompt
+from app.services.rag_postprocess import build_memory_synopsis
 # Environment Variables
 TOKENIZER_MODEL_ID = "THUDM/GLM-4-9B-0414"
 # RAG-Pipeline Shared Resources
 SAMPLING = SamplingParams(temperature=0.3, top_p=0.95, max_tokens=4096)
 TOKENIZER = AutoTokenizer.from_pretrained(TOKENIZER_MODEL_ID)
+
+
+LOCAL_MEMORY_SYNOPSIS = None
+async def summaize_chat(messages: List[Message], engine: Any) -> Any:
+    await build_memory_synopsis(messages, TOKENIZER, engine,  LOCAL_MEMORY_SYNOPSIS)
 
 
 async def generate_chat_response(
@@ -33,9 +39,10 @@ async def generate_chat_response(
     """
     # Build the query message based on the chat history
     t0 = time.time()
-    query_message = await build_retrieval_query(messages, engine) if len(messages) > 2 else messages[-1].content
-    print(f"[INFO] Preprocessing time: {time.time() - t0:.2f} seconds")
     user_message = messages[-1].content
+    query_message = await build_retrieval_query(user_message, LOCAL_MEMORY_SYNOPSIS, engine, TOKENIZER, SAMPLING) if len(messages) > 2 else user_message
+    print(f"[INFO] Preprocessing time: {time.time() - t0:.2f} seconds")
+
     # Build modified prompt with references
     modified_message, reference_list = build_augmented_prompt(
         user_message,
@@ -77,7 +84,10 @@ def _generate_streaming_response(messages: List[Message], engine: Any = None) ->
 
 
 async def local_parser(
-        stream: Any, reference_list: List[str]
+        stream: Any,
+        reference_list: List[str],
+        messages: Optional[List[Message]] = None,
+        engine: Optional[Any] = None
 ) -> Generator[str, None, None]:
     """
     Yield tokens from a text stream and append the reference block at the end.
@@ -120,6 +130,13 @@ async def local_parser(
         ref_block = f"\n\n<|begin_of_reference|>\n\n{reference_string}\n<|end_of_reference|>"
         yield ref_block
         print(ref_block)
+
+    # Call to build memory after finish output.
+    if messages and engine:
+        global LOCAL_MEMORY_SYNOPSIS
+        messages.append(Message(role="assistant", content=previous_text + ref_block))
+        LOCAL_MEMORY_SYNOPSIS = await build_memory_synopsis(messages, TOKENIZER, engine, LOCAL_MEMORY_SYNOPSIS)
+        print(f"\n\n---LOCAL_MEMORY_SYNOPSIS---\n\n{LOCAL_MEMORY_SYNOPSIS}\n\n")
 
 
 def format_chat_msg(messages: List[Message]) -> List[Message]:

@@ -84,7 +84,7 @@ async def create_text_completion(
     selector = generate_chat_response
     parser = chat_stream_parser
 
-    response, reference_list = selector(
+    response, reference_list = await selector(
         formatter(params.messages), stream=params.stream, course=course, engine=engine, audio_response=params.audio_response
     )
 
@@ -115,7 +115,7 @@ async def create_voice_completion(
 
     audio_text = audio_to_text(params.audio, whisper_engine, stream=False)
     params.messages.append(Message(role="user", content=audio_text))
-    response, reference_list = selector(
+    response, reference_list = await selector(
         formatter(params.messages), stream=params.stream, course=course, engine=engine
     )
 
@@ -135,7 +135,7 @@ async def text_to_speech(
     """
     # Convert text message to audio
     audio_message = format_audio_text_message(params.text)
-    stream = audio_generator(audio_message, stream=params.stream)
+    stream = await audio_generator(audio_message, stream=params.stream)
 
     if params.stream:
         return StreamingResponse(
@@ -156,7 +156,7 @@ async def voice_to_text(
 
     # Convert audio message to text
     if params.stream:
-        stream = audio_to_text(params.audio, whisper_engine, stream=params.stream, sample_rate=24000)
+        stream = await audio_to_text(params.audio, whisper_engine, stream=params.stream, sample_rate=24000)
         return StreamingResponse(
             audio_stream_parser(stream), media_type="text/event-stream"
         )

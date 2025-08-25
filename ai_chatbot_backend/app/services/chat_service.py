@@ -21,6 +21,8 @@ async def chat_stream_parser(
     async for output in stream:
         text = output.outputs[0].text
         chunk = text[len(previous_text):]
+        if not chunk:
+            continue
         yield sse(ResponseDelta(seq=seq, text=chunk));seq += 1
         print(chunk, end="")
         if audio:

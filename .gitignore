@@ -133,4 +133,7 @@ cython_debug/
 #csv
 *.csv
 
-.claude/
+.claude/settings.local.json
+
+# Claude Code session reports (private development session information)
+.claude/jobs/

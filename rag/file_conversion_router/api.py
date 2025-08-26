@@ -32,5 +32,5 @@ def convert_directory(input_config) -> None:
         chunk_db_path=chunk_db_path,
     )
 # convert_directory("/home/bot/bot/yk/YK_final/course_yaml/Roar Academy_config.yaml")
-# convert_directory("/home/bot/bot/yk/YK_final/course_yaml/test.yaml")
-convert_directory("/home/bot/bot/yk/YK_final/course_yaml/CS 61A_config.yaml")
+convert_directory("/home/bot/bot/yk/YK_final/course_yaml/test.yaml")
+# convert_directory("/home/bot/bot/yk/YK_final/course_yaml/CS 61A_config.yaml")

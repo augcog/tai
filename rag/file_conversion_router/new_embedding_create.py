@@ -50,11 +50,11 @@ def embedding_create(db_path, embedding_name=None, ):
     params: List[str] = []
     where = []
     if embedding_name and str(embedding_name).strip():
-        where.append("(course_name = ? OR course_id = ?)")
+        where.append("(course_name = ? OR course_code = ?)")
         params.extend([embedding_name, embedding_name])
     sql = """
     SELECT
-      chunk_uuid, text, title, reference_path, file_path, course_name, course_id, file_uuid, idx
+      chunk_uuid, text, title, reference_path, file_path, course_name, course_code, file_uuid, idx
     FROM chunks
     """
     if where:
@@ -112,6 +112,6 @@ def embedding_create(db_path, embedding_name=None, ):
 
 if __name__ == "__main__":
     embedding_create(
-        "/home/bot/bot/yk/YK_final/courses2/course.db",
-        "CS 61A",
+        "/home/bot/bot/yk/YK_final/courses_out/course.db",
+        "ROAR Academy",
     )

@@ -44,9 +44,19 @@ def get_strutured_content_for_ipynb(
                     2.  **Limited Quantity:** Your most important task is to aggressively merge and consolidate topics. Actively seek to unify related ideas under a single, overarching key concept. Before creating a new concept, you must first determine if its core idea can be logically absorbed by another. The final output must represent the absolute minimum number of concepts possible, and the count must always be less than 5.
                     3.  **No Hierarchical Overlap:** If you choose a main section title (e.g., "Chapter 1"), you cannot also choose one of its sub-sections (e.g., "Section 1.1").
                     4.  **Concise Concepts:** The key concept should be a single, descriptive sentence that captures the main idea of the entire section block.
+                    5.  **Preserve Original Order:** The Key Concept objects must appear in the same order as their corresponding Source Sections appear in the original markdown. Do not reorder, merge across, or reshuffle the sequence.
+                    6.  **Generate Follow-up Assessment Question:** For each key concept, you must create an `assessment_question` object. This object is designed to test a student's deep understanding of the concept.
+                        -   **Challenging Nature:** The question must be difficult. It should require **application, analysis, or synthesis** of the information from the section, not just simple recall.
+                        -   **Plausible Distractors:** The incorrect options should be plausible and target common student misconceptions related to the topic.
+                        -   **Structure:** The `assessment_question` object must contain the following four fields:
+                            -   `question_text`: (String) The full text of the multiple-choice question.
+                            -   `options`: (Array of Strings) An array containing exactly four possible answers.
+                            -   `correct_answer`: (Array of Integers) The indices of the correct options in the options array, e.g. [0,1] for the first and second options.
+                            -   `explanation`: (String) A detailed explanation describing why the correct answer is right and why the other options are incorrect.
                     For each concept you extract, provide ONLY the following information:
                     Key Concept: [A single, clear sentence summarizing the core idea of the section.]
                     Source Section: [The single, exact title from title_list that this concept is derived from.]
+                    Assessment Question: The structured question object as defined above.
 
                     ### Part 2: Extract and Create Problems
                     If you find there are some blocks named Exercise or Challenge, then based on the key concepts you identified, create educational problems that test student understanding. 
@@ -89,6 +99,17 @@ def get_strutured_content_for_ipynb(
                                     "source_section_title": {"type": "string",
                                                              "enum": title_list,
                                                              "description": f"Exactly the section title as it appears in the {title_list}, only one title from the list, only start with # can be used, do not include # and any *. Do not treat the line start with * as a title, it is not a title."},
+                                    "assessment_question": {
+                                        "type": "object",
+                                        "properties": {
+                                            "question_text": {"type": "string", "description": "The full text of the multiple-choice question."},
+                                            "options": {"type": "array", "items": {"type": "string"}, "description": "An array containing exactly four possible answers."},
+                                            "correct_answer": {"type": "array", "items": {"type": "integer"}, "description": "The indices of the correct options in the options array, e.g. [0,1] for the first and second options."},
+                                            "explanation": {"type": "string", "description": "A detailed explanation describing why the correct answer is right and why the other options are incorrect."}
+                                        },
+                                        "required": ["question_text", "options", "correct_answer", "explanation"],
+                                        "additionalProperties": False
+                                    },
                                     "content_coverage": {
                                         "type": "array",
                                         "description": "List only the aspects that the section actually explained with aspect and content.",
@@ -107,6 +128,7 @@ def get_strutured_content_for_ipynb(
                                 "required": [
                                     "concepts",
                                     "source_section_title",
+                                    "assessment_question",
                                     "content_coverage",
                                 ],
                                 "additionalProperties": False,
@@ -519,6 +541,17 @@ def get_structured_content_with_one_title_level(
                                         "enum": title_list,
                                         "description": "*Exactly* the section title as it appears in the markdown (copy‑paste—do **not** alter capitalization, spacing, or punctuation and do not include # and any *)."
                                     },
+                                    "assessment_question": {
+                                        "type": "object",
+                                        "properties": {
+                                            "question_text": {"type": "string", "description": "The full text of the multiple-choice question."},
+                                            "options": {"type": "array", "items": {"type": "string"}, "description": "An array containing exactly four possible answers."},
+                                            "correct_answer": {"type": "array", "items": {"type": "integer"}, "description": "The indices of the correct options in the options array, e.g. [0,1] for the first and second options."},
+                                            "explanation": {"type": "string", "description": "A detailed explanation describing why the correct answer is right and why the other options are incorrect."}
+                                        },
+                                        "required": ["question_text", "options", "correct_answer", "explanation"],
+                                        "additionalProperties": False
+                                    },
                                     "content_coverage": {
                                         "type": "array",
                                         'description': 'List only the aspects that the section actually explained with aspect and content.',
@@ -538,6 +571,7 @@ def get_structured_content_with_one_title_level(
                                 "required": [
                                     "concepts",
                                     "source_section_title",
+                                    "assessment_question",
                                     "content_coverage",
                                 ],
                                 "additionalProperties": False,
@@ -580,9 +614,18 @@ def get_structured_content_with_one_title_level(
                 3.  **No Hierarchical Overlap:** If you choose a main section title (e.g., "Chapter 1"), you cannot also choose one of its sub-sections (e.g., "Section 1.1").
                 4.  **Concise Concepts:** The key concept should be a single, descriptive sentence that captures the main idea of the entire section block.
                 5.  **Preserve Original Order** Key Concepts must appear in the same order as their corresponding Source Sections appear in the original markdown.Do not reorder, merge across, or reshuffle the sequence.
+                6.  **Generate Follow-up Assessment Question:** For each key concept, you must create an `assessment_question` object. This object is designed to test a student's deep understanding of the concept.
+                    -   **Challenging Nature:** The question must be difficult. It should require **application, analysis, or synthesis** of the information from the section, not just simple recall.
+                    -   **Plausible Distractors:** The incorrect options should be plausible and target common student misconceptions related to the topic.
+                    -   **Structure:** The `assessment_question` object must contain the following four fields:
+                        -   `question_text`: (String) The full text of the multiple-choice question.
+                        -   `options`: (Array of Strings) An array containing exactly four possible answers.
+                        -   `correct_answer`: (Array of Integers) The indices of the correct options in the options array, e.g. [0,1] for the first and second options.
+                        -   `explanation`: (String) A detailed explanation describing why the correct answer is right and why the other options are incorrect.
                 For each concept you extract, provide ONLY the following information:
                 Key Concept: [A single, clear sentence summarizing the core idea of the section.]
-                Source Section: [The single, exact title from {title_list} that this concept is derived from.]"""),
+                Source Section: [The single, exact title from {title_list} that this concept is derived from.]
+                Assessment Question: The structured question object as defined above."""),
             },
             {"role": "user", "content": f"{md_content} "},
         ],
@@ -786,6 +829,17 @@ def get_only_key_concepts(md_content: str, index_helper: dict):
                                 "source_section_title": {"type": "string",
                                                          "enum": title_list,
                                                          "description": "MUST be exactly one of the titles from the provided list."},
+                                "assessment_question": {
+                                    "type": "object",
+                                    "properties": {
+                                        "question_text": {"type": "string", "description": "The full text of the multiple-choice question."},
+                                        "options": {"type": "array", "items": {"type": "string"}, "description": "An array containing exactly four possible answers."},
+                                        "correct_answer": {"type": "array", "items": {"type": "integer"}, "description": "The indices of the correct options in the options array, e.g. [0,1] for the first and second options."},
+                                        "explanation": {"type": "string", "description": "A detailed explanation describing why the correct answer is right and why the other options are incorrect."}
+                                    },
+                                    "required": ["question_text", "options", "correct_answer", "explanation"],
+                                    "additionalProperties": False
+                                },
                                 "content_coverage": {
                                     "type": "array",
                                     "description": "A list of key aspects explained within that section block.",
@@ -805,6 +859,7 @@ def get_only_key_concepts(md_content: str, index_helper: dict):
                             "required": [
                                 "concepts",
                                 "source_section_title",
+                                "assessment_question",
                                 "content_coverage",
                             ],
                             "additionalProperties": False,
@@ -831,9 +886,18 @@ def get_only_key_concepts(md_content: str, index_helper: dict):
             3.  **No Hierarchical Overlap:** If you choose a main section title (e.g., "Chapter 1"), you cannot also choose one of its sub-sections (e.g., "Section 1.1").
             4.  **Concise Concepts:** The key concept should be a single, descriptive sentence that captures the main idea of the entire section block.                
             5.  **Preserve Original Order** Key Concepts must appear in the same order as their corresponding Source Sections appear in the original markdown.Do not reorder, merge across, or reshuffle the sequence.
+            6.  **Generate Follow-up Assessment Question:** For each key concept, you must create an `assessment_question` object. This object is designed to test a student's deep understanding of the concept.
+                -   **Challenging Nature:** The question must be difficult. It should require **application, analysis, or synthesis** of the information from the section, not just simple recall.
+                -   **Plausible Distractors:** The incorrect options should be plausible and target common student misconceptions related to the topic.
+                -   **Structure:** The `assessment_question` object must contain the following four fields:
+                    -   `question_text`: (String) The full text of the multiple-choice question.
+                    -   `options`: (Array of Strings) An array containing exactly four possible answers.
+                    -   `correct_answer`: (Array of Integers) The indices of the correct options in the options array, e.g. [0,1] for the first and second options.
+                    -   `explanation`: (String) A detailed explanation describing why the correct answer is right and why the other options are incorrect.
             For each concept you extract, provide ONLY the following information:
             Key Concept: [A single, clear sentence summarizing the core idea of the section.]
-            Source Section: [The single, exact title from {title_list} that this concept is derived from.]"""),
+            Source Section: [The single, exact title from {title_list} that this concept is derived from.]
+            Assessment Question: The structured question object as defined above."""),
             },
             {"role": "user", "content": f"{md_content}"},
         ],

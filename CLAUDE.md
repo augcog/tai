@@ -2,6 +2,18 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## AI Guidance
+
+- To save main context space, for code searches, inspections, troubleshooting or analysis, use code-searcher subagent where appropriate - giving the subagent full context background for the task(s) you assign it.
+- For maximum efficiency, whenever you need to perform multiple independent operations, invoke all relevant tools simultaneously rather than sequentially.
+- Before you finish, please verify your solution
+- Do what has been asked; nothing more, nothing less.
+- NEVER create files unless they're absolutely necessary for achieving your goal.
+- ALWAYS prefer editing an existing file to creating a new one.
+- NEVER proactively create documentation files (\*.md) or README files. Only create documentation files if explicitly requested by the User.
+- When you update or modify memory bank files, also update related documentation
+- **Session Accomplishment Tracking**: Only ask user for explicit approval to use the session-accomplishment-tracker agent when user has completed the full workflow: plan mode → approve plan → all TodoWrite tasks completed. In this specific scenario, ask: "Would you like me to use the session accomplishment tracker agent to document what we accomplished in this session?"
+
 ## Navigation & Component Routing
 
 **TAI uses a modular monorepo structure. Use the appropriate specialized documentation based on your current working context:**
@@ -14,9 +26,12 @@ When working with files in specific directories, consult the corresponding speci
 - **Working in `/evaluation/`** → Use `.claude/memory/claude-evaluation.md`
 
 ### Component-Specific Documentation
+Existing specialized memory files located in `.claude/memory/`:
 - **[Backend Documentation](.claude/memory/claude-backend.md)** - FastAPI service, database management, RAG integration
 - **[RAG Documentation](.claude/memory/claude-rag.md)** - Document processing, embedding generation, file conversion
 - **[Evaluation Documentation](.claude/memory/claude-evaluation.md)** - Dataset generation, performance testing, bias analysis
+
+**Memory Bank System**: If additional Core Context Files are needed (CLAUDE-activeContext.md, CLAUDE-patterns.md, CLAUDE-decisions.md, CLAUDE-troubleshooting.md, CLAUDE-config-variables.md, CLAUDE-temp.md), generate them in `.claude/memory/` directory using the memory-bank-synchronizer agent.
 
 ### Specialized Agents
 - **[Session Accomplishment Tracker](.claude/agents/session-accomplishment-tracker.md)** - Documents session outcomes, progress, and technical decisions
@@ -162,39 +177,8 @@ The system uses a **hybrid database approach**:
 5. Start development server: `make dev`
 6. Run tests: `make test`
 7. Check code quality: `make lint` and `make format`
-8. **Document session outcomes**: Use [session-accomplishment-tracker](.claude/agents/session-accomplishment-tracker.md) to create comprehensive session reports
+8. **Session reports available**: Session accomplishment tracking available when appropriate (see AI Guidance for conditions)
 
-### Session Documentation Workflow
-1. **Session Start**: Begin with clear objectives, optionally use TodoWrite for complex tasks
-2. **During Development**: Track progress and maintain TodoWrite task list
-3. **Session End**: Generate accomplishment report using session-accomplishment-tracker agent
-4. **Report Storage**: Session reports automatically saved to `.claude/jobs/` directory
-5. **Follow-up Sessions**: Reference previous session reports when resuming related work
-
-### TodoWrite Integration with Session Tracking
-
-**When to Generate Session Reports:**
-- **After TodoWrite Completion**: Always generate when all TodoWrite tasks are completed
-- **Complex Multi-Step Tasks**: For sessions with 3+ distinct development steps
-- **Technical Decision Sessions**: When significant architectural choices were made
-- **Debugging Sessions**: When multiple problems were solved with reusable solutions
-- **File-Heavy Sessions**: When multiple files were created/modified
-- **Setup/Configuration Work**: When system or environment changes were made
-
-**IMPORTANT - Automatic User Prompting:**
-When a TodoWrite task list is fully completed (all tasks marked as "completed"), Claude should **automatically ask the user** if they would like to generate a session accomplishment report:
-
-> *"We've successfully completed all the tasks in our todo list! Would you like me to create a session accomplishment report to document what we achieved? This will help track our progress and serve as a reference for future development work."*
-
-**TodoWrite → Session Tracker Workflow:**
-```
-1. Create TodoWrite task list for complex work
-2. Work through tasks, updating status to completed
-3. When ALL tasks are completed → AUTOMATICALLY ask user about session report
-4. If user agrees: Use session-accomplishment-tracker agent
-5. Generate comprehensive report in .claude/jobs/
-6. Report includes TodoWrite task completion summary and technical outcomes
-```
 
 ### Database Operations
 ```bash

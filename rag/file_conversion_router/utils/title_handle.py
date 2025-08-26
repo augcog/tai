@@ -198,28 +198,35 @@ def get_strutured_content_for_ipynb(
 def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, file_name: str):
     if paragraph_count > 5:
         message_content = dedent(
-            f""" You are an expert AI assistant specializing in analyzing and structuring 
-        educational material. You will be given markdown content from a video in the course "{course_name}", 
-        from the file "{file_name}". The text is already divided into paragraphs. Your task is to perform the 
-        following actions and format the output as a single JSON object: 1.  **Group into Sections:** Analyze 
-        the entire text and divide it into 3-5 logical sections. 2.  **Generate Titles:** - For 
-        each **section**, create a concise and descriptive title. - For each **original paragraph**, 
-        create an engaging title that reflects its main topic. 3.  **Create a Nested Structure:** The JSON 
-        output must have a `sections` array. - Each element in the `sections` array is an object representing 
-        one section. - **Crucially, each section object must contain its own `paragraphs` array.** This 
-        nested array should list all the paragraphs that belong to that section. - Each paragraph object 
-        within the nested array must include its title and its **original index** from the source text (
-        starting from 1). 
-        Part 2: Extract Key Concepts
-        Now, based on the sections you have just defined in Part 1, your next task is to distill the core learning points from each section for a student.
-        1.  **Strict One-to-One Mapping (Most Important):** The relationship between a Source Section and a Key Concept must be strictly one-to-one. Each chosen Source Section title MUST map to exactly ONE Key Concept. It is forbidden to generate multiple Key Concepts from the same single Source Section.
-        2.  **Limited Quantity:** Your most important task is to aggressively merge and consolidate topics. Actively seek to unify related ideas under a single, overarching key concept. Before creating a new concept, you must first determine if its core idea can be logically absorbed by another. The final output must represent the absolute minimum number of concepts possible, and the count must always be less than 5.
-        3.  **No Hierarchical Overlap:** If you choose a main section title (e.g., "Chapter 1"), you cannot also choose one of its sub-sections (e.g., "Section 1.1").
-        4.  **Concise Concepts:** The key concept should be a single, descriptive sentence that captures the main idea of the entire section block.                        
-        5.  **Preserve Original Order** Key Concepts must appear in the same order as their corresponding Source Sections appear in the original markdown.Do not reorder, merge across, or reshuffle the sequence.
-        For each concept you extract, provide ONLY the following information:
-        Key Concept: [A single, clear sentence summarizing the core idea of the section.]
-        Source Section: [The single, exact title from section title that this concept is derived from.]""")
+        f""" You are an expert AI assistant specializing in analyzing and structuring educational material. You will be given markdown content from a video in the course "{course_name}", from the file "{file_name}". The text is already divided into paragraphs. Your task is to perform the following actions and format the output as a single JSON object.
+        The final JSON object must contain two top-level keys: `sections` and `key_concepts`.
+        ### Part 1: Structure the Content
+        Analyze the entire text and structure it within the `sections` key.
+        1.  **Group into Sections:** Divide the entire text into 3-5 logical sections.
+        2.  **Generate Titles:**
+            -   For each **section**, create a concise and descriptive title.
+            -   For each **original paragraph**, create an engaging title that reflects its main topic.
+        3.  **Create a Nested Structure:** The `sections` key must contain an array of section objects.
+            -   Each section object must contain a `title` and a nested `paragraphs` array.
+            -   Each paragraph object within the nested array must include its `title` and its `original_index` from the source text (starting from 1).
+        ### Part 2: Extract Key Concepts and Create Assessments
+        Based on the sections you defined in Part 1, distill the core learning points and create a corresponding assessment question for each. This will be structured under the `key_concepts` key.
+        1.  **Strict One-to-One Mapping (Most Important):** The relationship between a Source Section and a Key Concept object must be strictly one-to-one. Each Source Section title from Part 1 MUST map to exactly ONE object in the `key_concepts` array.
+        2.  **Limited Quantity:** Aggressively merge and consolidate topics. The final output must represent the absolute minimum number of concepts possible, and the count must always be less than 5.
+        3.  **Concise Concepts:** The `key_concept` value should be a single, descriptive sentence that captures the main idea of the entire section.
+        4.  **Preserve Original Order:** The Key Concept objects must appear in the same order as their corresponding Source Sections appear in Part 1.
+        5.  **Generate Follow-up Assessment Question:** For each key concept, you must create an `assessment_question` object. This object is designed to test a student's deep understanding of the concept.
+            -   **Challenging Nature:** The question must be difficult. It should require **application, analysis, or synthesis** of the information from the section, not just simple recall.
+            -   **Plausible Distractors:** The incorrect options should be plausible and target common student misconceptions related to the topic.
+            -   **Structure:** The `assessment_question` object must contain the following four fields:
+                -   `question_text`: (String) The full text of the multiple-choice question.
+                -   `options`: (Array of Strings) An array containing exactly four possible answers.
+                -   `correct_answer`: (String) The exact text of the correct option.
+                -   `explanation`: (String) A detailed explanation describing why the correct answer is right and why the other options are incorrect.
+        For each concept you extract, provide an object in the `key_concepts` array with the following structure:
+        -   `key_concept`: [A single, clear sentence summarizing the core idea of the section.]
+        -   `source_section`: [The single, exact title from the section that this concept is derived from.]
+        -   `assessment_question`:The structured question object as defined above.""")
         response_format = {
             "type": "json_schema",
             "json_schema": {
@@ -268,7 +275,15 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                 "type": "object",
                                 "properties": {
                                     "concepts": {"type": "string"},
-                                    "source_section_title": {"type": "string",},
+                                    "source_section_title": {"type": "string"},
+                                    "assessment_question": {"type": "object",
+                                        "properties": {
+                                            "question_text": {"type": "string","description": "(String) The full text of the multiple-choice question."},
+                                            "options": {"type": "array", "items": {"type": "string"}, "description": "(Array of Strings) An array containing exactly four possible answers."},
+                                            "correct_answer": {"type": "array", "items": {"type": "integer"}, "description": "The index of the option in the options array, e.g. [0,1] for the first and second options"},
+                                            "explanation": {"type": "string","description": "The explanation of why this option is the answer, it should be a key_concept in the md_content"},
+                                        },
+                                    },
                                     "content_coverage": {
                                         "type": "array",
                                         'description': 'List only the aspects that the section actually explained with aspect and content.',
@@ -287,6 +302,7 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                 "required": [
                                     "concepts",
                                     "source_section_title",
+                                    "assessment_question",
                                     "content_coverage",
                                 ],
                                 "additionalProperties": False,
@@ -304,18 +320,27 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
             f""" You are an expert AI assistant specializing in analyzing and structuring 
             educational material. You will be given markdown content from a video in the course "{course_name}", 
             from the file "{file_name}". The text is already divided into paragraphs. Your task is to perform the 
-            following actions and format the output as a single JSON object:  1.  **Generate Titles:** - For 
-            each pargraph, create only one concise and descriptive title that reflects its main topic. 
-            Part 2: Extract Key Concepts
-            Now, based on the sections you have just defined in Part 1, your next task is to distill the core learning points from each section for a student.
-            1.  **Strict One-to-One Mapping (Most Important):** The relationship between a Source Section and a Key Concept must be strictly one-to-one. Each chosen Source Section title MUST map to exactly ONE Key Concept. It is forbidden to generate multiple Key Concepts from the same single Source Section.
-            2.  **Limited Quantity:** Your most important task is to aggressively merge and consolidate topics. Actively seek to unify related ideas under a single, overarching key concept. Before creating a new concept, you must first determine if its core idea can be logically absorbed by another. The final output must represent the absolute minimum number of concepts possible, and the count must always be less than 5.
-            3.  **No Hierarchical Overlap:** If you choose a main section title (e.g., "Chapter 1"), you cannot also choose one of its sub-sections (e.g., "Section 1.1").
-            4.  **Concise Concepts:** The key concept should be a single, descriptive sentence that captures the main idea of the entire section block.                           
-            5.  **Preserve Original Order** Key Concepts must appear in the same order as their corresponding Source Sections appear in the original markdown.Do not reorder, merge across, or reshuffle the sequence.
-            For each concept you extract, provide ONLY the following information:
-            Key Concept: [A single, clear sentence summarizing the core idea of the section.]
-            Source Section: [The single, exact title from section title that this concept is derived from.]""")
+            following actions and format the output as a single JSON object: 
+            ### Part 1: Structure the Content
+            **Generate Titles:** - For each pargraph, create only one concise and descriptive title that reflects its main topic. 
+            ### Part 2: Extract Key Concepts and Create Assessments
+            Based on the paragraphs you defined in Part 1, distill the core learning points and create a corresponding assessment question for each. This will be structured under the `key_concepts` key.
+            1.  **Strict One-to-One Mapping (Most Important):** The relationship between a Source Section and a Key Concept object must be strictly one-to-one. Each Source Section title from Part 1 MUST map to exactly ONE object in the `key_concepts` array.
+            2.  **Limited Quantity:** Aggressively merge and consolidate topics. The final output must represent the absolute minimum number of concepts possible, and the count must always be less than 5.
+            3.  **Concise Concepts:** The `key_concept` value should be a single, descriptive sentence that captures the main idea of the entire section.
+            4.  **Preserve Original Order:** The Key Concept objects must appear in the same order as their corresponding Source Sections appear in Part 1.
+            5.  **Generate Follow-up Assessment Question:** For each key concept, you must create an `assessment_question` object. This object is designed to test a student's deep understanding of the concept.
+                -   **Challenging Nature:** The question must be difficult. It should require **application, analysis, or synthesis** of the information from the section, not just simple recall.
+                -   **Plausible Distractors:** The incorrect options should be plausible and target common student misconceptions related to the topic.
+                -   **Structure:** The `assessment_question` object must contain the following four fields:
+                    -   `question_text`: (String) The full text of the multiple-choice question.
+                    -   `options`: (Array of Strings) An array containing exactly four possible answers.
+                    -   `correct_answer`: The index of the option in the options array, e.g. [0,1] for the first and second options
+                    -   `explanation`: (String) A detailed explanation describing why the correct answer is right and why the other options are incorrect.
+            For each concept you extract, provide an object in the `key_concepts` array with the following structure:
+            -   `key_concept`: [A single, clear sentence summarizing the core idea of the section.]
+            -   `source_section`: [The single, exact title from the section that this concept is derived from.]
+            -   `assessment_question`:The structured question object as defined above.""")
         response_format = {
             "type": "json_schema",
             "json_schema": {
@@ -349,7 +374,18 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                 "type": "object",
                                 "properties": {
                                     "concepts": {"type": "string"},
-                                    "source_section_title": {"type": "string",},
+                                    "source_section_title": {"type": "string","description": "Exactly the section title as it appears in the paragraphs, only one title from the list, only start with # can be used, do not include # and any *. Do not treat the line start with * as a title, it is not a title."},
+                                    "assessment_question": {
+                                    "type": "object",
+                                    "properties": {
+                                        "question_text": {"type": "string", "description": "(String) The full text of the multiple-choice question."},
+                                        "options": {"type": "array", "items": {"type": "string"}, "description": "(Array of Strings) An array containing exactly four possible answers."},
+                                        "correct_answer": {"type": "array", "items": {"type": "integer"}, "description": "The index of the option in the options array, e.g. [0,1] for the first and second options"},
+                                        "explanation": {"type": "string", "description": "The explanation of why this option is the answer, it should be a key_concept in the md_content"},
+                                        },
+                                        "required": ["question_text", "options", "correct_answer", "explanation"],
+                                        "additionalProperties": False
+                                    },
                                     "content_coverage": {
                                         "type": "array",
                                         'description': 'List only the aspects that the section actually explained with aspect and content.',
@@ -369,6 +405,7 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                 "required": [
                                     "concepts",
                                     "source_section_title",
+                                    "assessment_question",
                                     "content_coverage",
                                 ],
                                 "additionalProperties": False,

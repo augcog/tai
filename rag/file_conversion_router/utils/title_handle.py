@@ -248,7 +248,13 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
         For each concept you extract, provide an object in the `key_concepts` array with the following structure:
         -   `key_concept`: [A single, clear sentence summarizing the core idea of the section.]
         -   `source_section`: [The single, exact title from the section that this concept is derived from.]
-        -   `assessment_question`:The structured question object as defined above.""")
+        -   `assessment_question`:The structured question object as defined above.
+        ### Part 3: Identify Speaker Role
+        Analyze the language, tone, and context of the content to infer the most likely role of the speaker:
+        - Possible values: "Professor", "Teaching Assistant", "Student", or "Unknown".
+        - Use contextual clues like authoritative tone, use of 'I' or 'we', references to grading, assignments, or peer interaction.
+        Include this value in the final JSON under the key `speaker_role`.
+        """)
         response_format = {
             "type": "json_schema",
             "json_schema": {
@@ -330,8 +336,26 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                 "additionalProperties": False,
                             },
                         },
+                        "speakers": {
+                            "type": "array",
+                            "description": "A list of speakers identified in the content along with their inferred roles.",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "speaker_id": {"type": "string",
+                                                   "description": "The unique identifier for the speaker, e.g., 'Speaker_00'."},
+                                    "role": {
+                                        "type": "string",
+                                        "description": "The inferred role of the speaker based on their content.",
+                                        "enum": ["Professor", "Teaching Assistant", "Student", "Unknown"]
+                                    },
+                                },
+                                "required": ["speaker_id", "role"],
+                                "additionalProperties": False,
+                            },
+                        },
                     },
-                    "required": ["paragraphs", "sections", "key_concepts"],
+                    "required": ["paragraphs", "sections", "key_concepts", "speakers"],
                     "additionalProperties": False,
                 },
             },
@@ -362,7 +386,17 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
             For each concept you extract, provide an object in the `key_concepts` array with the following structure:
             -   `key_concept`: [A single, clear sentence summarizing the core idea of the section.]
             -   `source_section`: [The single, exact title from the section that this concept is derived from.]
-            -   `assessment_question`:The structured question object as defined above.""")
+            -   `assessment_question`:The structured question object as defined above.
+             ### Part 3: Identify and Classify Speakers
+            The markdown includes speaker tags like Speaker_00, Speaker_01, etc. For each unique speaker:
+            - Analyze their content and determine the most likely role:
+                - "Professor" (teaching and explaining concepts, authoritative tone)
+                - "Teaching Assistant" (supporting explanations, grading references, guiding students)
+                - "Student" (asking questions, expressing confusion, providing opinions)
+                - "Unknown" (insufficient information)
+            Include these mappings in the JSON under a top-level key `speakers`. Each speaker must have:
+            - `speaker_id` (e.g., "Speaker_00")
+            - `role` (one of the above values)""")
         response_format = {
             "type": "json_schema",
             "json_schema": {
@@ -433,8 +467,25 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                 "additionalProperties": False,
                             },
                         },
+                        "speakers": {
+                            "type": "array",
+                            "description": "A list of speakers identified in the content along with their inferred roles.",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "speaker_id": {"type": "string", "description": "The unique identifier for the speaker, e.g., 'Speaker_00'."},
+                                    "role": {
+                                        "type": "string",
+                                        "description": "The inferred role of the speaker based on their content.",
+                                        "enum": ["Professor", "Teaching Assistant", "Student", "Unknown"]
+                                    },
+                                },
+                                "required": ["speaker_id", "role"],
+                                "additionalProperties": False,
+                            },
+                        },
                     },
-                    "required": ["paragraphs", "key_concepts"],
+                    "required": ["paragraphs", "key_concepts", "speakers"],
                     "additionalProperties": False,
                 },
             },

@@ -216,6 +216,8 @@ class BaseConverter(ABC):
         metadata_content['file_path'] = str(self.relative_path)
         metadata_content["course_name"] = self.course_name
         metadata_content["course_code"] = self.course_code
+        if content_dict['speakers']:
+            metadata_content["speakers"] = content_dict['speakers']
         if not content_dict:
             return metadata_content
         metadata_content["sections"] = content_dict['key_concepts']

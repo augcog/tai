@@ -178,7 +178,7 @@ def process_problems(content_dict):
     return problems_list
 
 if __name__ == "__main__":
-    md_path = Path("/home/bot/bot/yk/YK_final/courses_out/ROAR Academy_output/Part Two/Week Two Exercises/Week Two Exercises.pdf.md")
+    md_path = Path("/home/bot/bot/yk/YK_final/courses_out1/ROAR Academy_output/Part Two/Week Two Exercises/Week Two Exercises.pdf.md")
     md_content = md_path.read_text(encoding="utf-8")
     file_name = md_path.stem
     course_name = "ROAR Academy"

@@ -216,7 +216,7 @@ class BaseConverter(ABC):
         metadata_content['file_path'] = str(self.relative_path)
         metadata_content["course_name"] = self.course_name
         metadata_content["course_code"] = self.course_code
-        if content_dict['speakers']:
+        if content_dict.get('speakers'):
             metadata_content["speakers"] = content_dict['speakers']
         if not content_dict:
             return metadata_content
@@ -363,13 +363,11 @@ class BaseConverter(ABC):
                 index_helper=self.index_helper,
             )
             new_md = apply_structure_for_one_title(
-                md_content=content_text, content_dict=content_dict, index_helper=self.index_helper
+                md_content=content_text, content_dict=content_dict
             )
         else:
             content_dict = get_only_key_concepts(
                 md_content=content_text,
-                file_name=file_name,
-                course_name=self.course_name,
                 index_helper =self.index_helper)
             content_dict=self.update_content_dict_titles_with_levels(content_dict=content_dict, content_text=content_text)
             self.fix_index_helper_with_titles_with_level(content_dict)

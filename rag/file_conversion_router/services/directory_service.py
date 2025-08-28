@@ -11,6 +11,7 @@ import os
 import sqlite3
 from typing import List, Tuple
 from pathspec import PathSpec
+import yaml
 from file_conversion_router.conversion.base_converter import BaseConverter
 from file_conversion_router.conversion.ed_converter import EdConverter
 from file_conversion_router.conversion.html_converter import HtmlConverter
@@ -151,7 +152,7 @@ def process_folder(
         if problems:
             conn.execute("BEGIN IMMEDIATE")
             for pr in problems:
-                q_container = pr.get("questions") or pr.get("question_set") or []
+                q_container = pr.get("questions")
                 for q_id, q in _iter_questions_local(q_container):
                     upsert_problem_meta(conn, file_uuid_written, pr, q_id, q)
             conn.commit()
@@ -452,3 +453,107 @@ ON CONFLICT(uuid) DO UPDATE SET
   explanation     = excluded.explanation;
 """
 SQL_SELECT_FILE_UUID_BY_HASH = "SELECT file_uuid FROM file WHERE file_hash=?;"
+
+
+def update_problem_table_from_metadata_files(folder_path: Union[str, Path], chunk_db_path: Union[str, Path]) -> None:
+    """
+    Iterate through all .yaml files in a folder, extract file_uuid from metadata,
+    check if it exists in the database, and add problems if the file is not already processed.
+    
+    Args:
+        folder_path: Path to folder containing metadata.yaml files
+        chunk_db_path: Path to the SQLite database
+    """
+    folder_path = Path(folder_path)
+    if not folder_path.is_dir():
+        raise ValueError(f"Provided folder path {folder_path} is not a directory.")
+    
+    conn = ensure_chunk_db(Path(chunk_db_path))
+    
+    try:
+        # Find all .yaml files in the folder
+        yaml_files = list(folder_path.rglob("*.yaml"))
+        logging.info(f"Found {len(yaml_files)} yaml files to process")
+        
+        for yaml_file in yaml_files:
+            try:
+                # Load and parse the YAML file
+                with yaml_file.open("r", encoding="utf-8") as f:
+                    metadata = yaml.safe_load(f)
+                
+                if not isinstance(metadata, dict):
+                    logging.warning(f"Skipping {yaml_file}: invalid metadata structure")
+                    continue
+                
+                # Extract file information to generate file_uuid
+                file_name = metadata.get("file_name")
+                file_path = metadata.get("file_path")
+                
+                if not file_name or not file_path:
+                    logging.warning(f"Skipping {yaml_file}: missing file_name or file_path")
+                    continue
+                
+                # Try to find the actual file to generate hash and uuid
+                # First try relative to yaml file location
+                actual_file_path = yaml_file.parent / file_name
+                if not actual_file_path.exists():
+                    # Try using file_path from metadata
+                    actual_file_path = yaml_file.parent / file_path
+                    if not actual_file_path.exists():
+                        logging.warning(f"Skipping {yaml_file}: cannot find actual file {file_name} or {file_path}")
+                        continue
+                
+                # Generate file hash and uuid
+                file_hash = file_hash_for_cache(actual_file_path, yaml_file.parent)
+                file_uuid = deterministic_file_uuid(file_hash)
+                
+                # Check if file_uuid already exists in database
+                existing_uuid = is_file_cached(conn, file_hash)
+                if existing_uuid:
+                    logging.info(f"Skipping {yaml_file}: file already exists in database with uuid {existing_uuid}")
+                    continue
+                
+                # Extract problems from metadata
+                problems = metadata.get("problems", [])
+                if not problems:
+                    logging.info(f"Skipping {yaml_file}: no problems found in metadata")
+                    continue
+                
+                # First, ensure the file record exists in the database
+                course_code = metadata.get("course_id", "")
+                course_name = metadata.get("course_name", "")
+                sections = metadata.get("sections", [])
+                
+                upsert_file_meta(conn, {
+                    "file_uuid": file_uuid,
+                    "file_hash": file_hash,
+                    "sections": sections,
+                    "file_path": str(actual_file_path.relative_to(yaml_file.parent)),
+                    "course_code": course_code,
+                    "course_name": course_name,
+                    "file_name": file_name,
+                    "extra_info": {},
+                })
+                
+                # Insert problems into the database
+                try:
+                    for pr in problems:
+                        q_container = pr.get("questions")
+                        for q_id, q in _iter_questions_local(q_container):
+                            upsert_problem_meta(conn, file_uuid, pr, q_id, q)
+                    conn.commit()
+                    logging.info(f"Successfully processed {yaml_file}: added {len(problems)} problems for file {file_name}")
+                except Exception as e:
+                    conn.rollback()
+                    logging.error(f"Error inserting problems from {yaml_file}: {e}")
+                    raise
+                
+            except yaml.YAMLError as e:
+                logging.error(f"Error parsing YAML file {yaml_file}: {e}")
+            except Exception as e:
+                logging.error(f"Error processing {yaml_file}: {e}")
+    
+    finally:
+        conn.close()
+    
+    logging.info("Completed updating problem table from metadata files")

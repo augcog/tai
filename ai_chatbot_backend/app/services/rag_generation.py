@@ -82,7 +82,7 @@ async def generate_file_chat_response(
     """
     # Build the augmented context for file-based chat
     augmented_context, reference_list = build_file_augmented_context(
-        file_uuid, selected_text, index, course, threshold, rag, top_k
+        file_uuid, course, threshold, rag, selected_text, index, top_k
     )
 
     t0 = time.time()
@@ -91,6 +91,7 @@ async def generate_file_chat_response(
     print(f"[INFO] Preprocessing time: {time.time() - t0:.2f} seconds")
     modified_message, reference_list = build_augmented_prompt(
         user_message,
+        course,
         threshold,
         rag,
         top_k=top_k,

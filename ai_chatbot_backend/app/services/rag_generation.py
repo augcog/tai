@@ -64,7 +64,7 @@ async def generate_chat_response(
 
 async def generate_file_chat_response(
         messages: List[Message],
-        file_id: UUID,
+        file_uuid: UUID,
         # document: str,
         selected_text: Optional[str] = None,
         index: Optional[int] = None,
@@ -83,7 +83,7 @@ async def generate_file_chat_response(
     """
     # Build the augmented context for file-based chat
     augmented_context, reference_list = build_file_augmented_context(
-        file_id, selected_text, index, course, threshold, rag, top_k
+        file_uuid, selected_text, index, course, threshold, rag, top_k
     )
 
     t0 = time.time()

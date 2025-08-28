@@ -225,7 +225,7 @@ def build_file_augmented_context(
         top_files,
         top_refs,
         top_titles
-    ), _ = get_reference_documents(selected_text, course, top_k=top_k // 2)
+    ), _ = get_reference_documents(selected_text, course, top_k=top_k // 2) if selected_text else ([], [], [], [], [], [], [])
 
     # Get reference documents based on the entire document.
     (
@@ -236,7 +236,7 @@ def build_file_augmented_context(
         top_files_doc,
         top_refs_doc,
         top_titles_doc
-    ), _ = get_reference_documents(file_content, course, top_k=top_k)
+    ), _ = get_reference_documents(file_content, course, top_k=top_k // 2)
 
     # Combine results from selected text and entire document
     top_ids_combined = top_ids + top_ids_doc

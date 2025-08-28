@@ -44,17 +44,17 @@ def get_reference_documents(
     return output, class_name
 
 # TODO: Move to new file_service
-def get_chunks_by_file_id(file_id: UUID) -> List[Dict[int, Any]]:
+def get_chunks_by_file_uuid(file_uuid: UUID) -> List[Dict[int, Any]]:
     """
-    Get all chunks associated with a specific file ID.
+    Get all chunks associated with a specific file UUID.
     """
     with _get_cursor() as cur:
         rows = cur.execute("""
             SELECT `index`, chunk
             FROM chunk
-            WHERE file_id = ?
+            WHERE file_uuid = ?
             ORDER BY `chunk_index`;
-        """, (file_id,)).fetchall()
+        """, (file_uuid,)).fetchall()
     return [{"index": row["index"], "chunk": row["chunk"]} for row in rows]
 
 def _get_references_from_sql(

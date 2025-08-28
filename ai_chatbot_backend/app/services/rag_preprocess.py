@@ -3,7 +3,7 @@ import time
 from typing import Any, Optional, Tuple, List
 from uuid import UUID
 # Local libraries
-from app.services.rag_retriever import get_reference_documents, get_chunks_by_file_id
+from app.services.rag_retriever import get_reference_documents, get_chunks_by_file_uuid
 
 
 async def build_retrieval_query(user_message: str, memory_synopsis: Any, engine: Any, tokenizer: Any, sampling: Any) -> str:
@@ -182,7 +182,7 @@ def build_augmented_prompt(
 
 
 def build_file_augmented_context(
-    file_id: UUID,
+    file_uuid: UUID,
     course: str,
     embedding_dir: str,
     threshold: float,
@@ -198,8 +198,8 @@ def build_file_augmented_context(
     - augmented_context: the augmented context for the file.
     - reference_list: list of reference URLs for JSON output.
     """
-    # Get file content by file ID
-    chunks = get_chunks_by_file_id(file_id)
+    # Get file content by file UUID
+    chunks = get_chunks_by_file_uuid(file_uuid)
     file_content = " ".join(chunk["chunk"] for chunk in chunks)
 
     augmented_context = (

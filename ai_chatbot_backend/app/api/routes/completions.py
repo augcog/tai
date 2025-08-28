@@ -89,7 +89,7 @@ async def create_file_chat_completion(
     print(f"[INFO] Generated SID: {sid}")
 
     response, reference_list = await selector(
-        formatter(params.messages), file_id=params.file_id, selected_text=params.selected_text, index=params.index, stream=params.stream, course=course, engine=engine
+        formatter(params.messages), file_uuid=params.file_uuid, selected_text=params.selected_text, index=params.index, stream=params.stream, course=course, engine=engine
     )
 
     if params.stream:

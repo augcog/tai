@@ -207,7 +207,8 @@ def build_file_augmented_context(
     )
 
     if index:
-        augmented_context += f"The user is focused on the following part of the file: {" ".join(chunk["chunk"] for chunk in chunks if chunk["index"] == index)}\n\n"
+        focused_chunk = ' '.join(chunk['chunk'] for chunk in chunks if chunk['index'] == index)
+        augmented_context += f"The user is focused on the following part of the file: {focused_chunk}\n\n"
     
     if selected_text:
         augmented_context += f"The user has selected the following text in the file:\n\n{selected_text}\n\n"

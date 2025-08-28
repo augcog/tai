@@ -188,7 +188,7 @@ def build_file_augmented_context(
     threshold: float,
     rag: bool,
     selected_text: Optional[str] = None,
-    index: Optional[int] = None,
+    index: Optional[float] = None,
     top_k: int = 7,
     reference_list: List[str | Any] = [],
 ) -> Tuple[str, List[str], str]:
@@ -207,7 +207,7 @@ def build_file_augmented_context(
     )
 
     if index:
-        focused_chunk = ' '.join(chunk['chunk'] for chunk in chunks if chunk['index'] == index)
+        focused_chunk = ' '.join(chunk['chunk'] for chunk in chunks if abs(chunk['index'] - index) <= 1)
         augmented_context += f"The user is focused on the following part of the file: {focused_chunk}\n\n"
     
     if selected_text:

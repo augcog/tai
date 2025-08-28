@@ -67,7 +67,7 @@ async def generate_file_chat_response(
         file_uuid: UUID,
         # document: str,
         selected_text: Optional[str] = None,
-        index: Optional[int] = None,
+        index: Optional[float] = None,
         stream: bool = True,
         rag: bool = True,
         course: Optional[str] = "",

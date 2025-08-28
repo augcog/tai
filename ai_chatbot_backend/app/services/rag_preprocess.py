@@ -184,7 +184,6 @@ def build_augmented_prompt(
 def build_file_augmented_context(
     file_uuid: UUID,
     course: str,
-    embedding_dir: str,
     threshold: float,
     rag: bool,
     selected_text: Optional[str] = None,

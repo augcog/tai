@@ -3,12 +3,13 @@ import re
 import ast
 import time
 from typing import Any, Optional, Tuple, List, Union, Generator
+from uuid import UUID
 # Third-party libraries
 from transformers import AutoTokenizer
 from vllm import SamplingParams
 # Local libraries
 from app.core.models.chat_completion import Message
-from app.services.rag_preprocess import build_retrieval_query, build_augmented_prompt
+from app.services.rag_preprocess import build_retrieval_query, build_augmented_prompt, build_file_augmented_context
 from app.services.rag_postprocess import build_memory_synopsis
 # Environment Variables
 TOKENIZER_MODEL_ID = "THUDM/GLM-4-9B-0414"
@@ -51,6 +52,58 @@ async def generate_chat_response(
     )
     # Update the last message with the modified content
     messages[-1].content = modified_message
+    # Generate the response using the engine
+    if _is_local_engine(engine):
+        iterator = _generate_streaming_response(messages, engine)
+        return iterator, reference_list
+    else:
+        response = engine(messages[-1].content, stream=stream, course=course)
+        return response, reference_list
+
+
+async def generate_file_chat_response(
+        messages: List[Message],
+        file_id: UUID,
+        # document: str,
+        selected_text: Optional[str] = None,
+        index: Optional[int] = None,
+        stream: bool = True,
+        rag: bool = True,
+        course: Optional[str] = "",
+        threshold: float = 0.32,
+        top_k: int = 7,
+        engine: Any = None,
+        audio_response: bool = False,   # Not supported yet
+        sid: Optional[str] = None
+) -> Tuple[Any, str]:
+    """
+    Build an augmented message with references and run LLM inference for file-based chat.
+    Returns a tuple: (stream, reference_string)
+    """
+    # Build the augmented context for file-based chat
+    augmented_context, reference_list = build_file_augmented_context(
+        file_id, selected_text, index, course, threshold, rag, top_k
+    )
+
+    t0 = time.time()
+    user_message = messages[-1].content
+    query_message = await build_retrieval_query(user_message, LOCAL_MEMORY_SYNOPSIS.get(sid, None), engine, TOKENIZER, SAMPLING) if len(messages) > 2 else user_message
+    print(f"[INFO] Preprocessing time: {time.time() - t0:.2f} seconds")
+    modified_message, reference_list = build_augmented_prompt(
+        user_message,
+        threshold,
+        rag,
+        top_k=top_k,
+        query_message=query_message,
+        reference_list=reference_list
+    )
+
+    messages[-1].content = (
+        f"{augmented_context}"
+        f"Besides the context of the file and related references above, you also have the following references based on the chat history:\n\n"
+        f"{modified_message}"
+    )
+
     # Generate the response using the engine
     if _is_local_engine(engine):
         iterator = _generate_streaming_response(messages, engine)

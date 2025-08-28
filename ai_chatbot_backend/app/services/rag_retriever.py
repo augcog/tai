@@ -54,7 +54,7 @@ def get_chunks_by_file_uuid(file_uuid: UUID) -> List[Dict[int, Any]]:
             FROM chunks
             WHERE file_uuid = ?
             ORDER BY `chunk_index`;
-        """, (file_uuid,)).fetchall()
+        """, (str(file_uuid),)).fetchall()
     return [{"index": row["idx"], "chunk": row["text"]} for row in rows]
 
 def _get_references_from_sql(

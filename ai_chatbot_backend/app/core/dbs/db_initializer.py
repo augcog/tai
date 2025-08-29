@@ -21,6 +21,11 @@ from app.core.dbs.metadata_db import (
     metadata_engine,
     MetadataSessionLocal,
 )
+from app.core.dbs.content_db import (
+    ContentBase,
+    content_engine,
+    ContentSessionLocal,
+)
 from app.core.models.courses import CourseModel
 from app.core.models.metadata import FileModel, ProblemModel
 from app.core.mongodb_client import get_mongodb_client, load_database_mapping
@@ -84,6 +89,8 @@ class DatabaseInitializer:
             # Create metadata database tables (FileModel, ProblemModel)
             MetadataBase.metadata.create_all(bind=metadata_engine)
 
+            ContentBase.metadata.create_all(bind=content_engine)
+
             # Verify tables were created
             inspector = inspect(self.engine)
             courses_tables = inspector.get_table_names()
@@ -92,6 +99,10 @@ class DatabaseInitializer:
             metadata_inspector = inspect(metadata_engine)
             metadata_tables = metadata_inspector.get_table_names()
             logger.info(f"📊 Metadata database tables: {metadata_tables}")
+
+            content_inspector = inspect(content_engine)
+            content_tables = content_inspector.get_table_names()
+            logger.info(f"📊 Content database tables: {content_tables}")
 
             return True
         except Exception as e:
@@ -140,6 +151,11 @@ class DatabaseInitializer:
             metadata_session = MetadataSessionLocal()
             file_count = metadata_session.query(FileModel).count()
             metadata_session.close()
+
+            # Check content database
+            content_session = ContentSessionLocal()
+            content_count = content_session.query(FileModel).count()
+            content_session.close()
 
             is_empty = course_count == 0 and file_count == 0
             logger.info(

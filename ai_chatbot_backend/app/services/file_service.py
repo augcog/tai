@@ -17,6 +17,7 @@ from sqlalchemy import and_
 
 from app.config import settings
 from app.core.models.metadata import FileModel
+from app.core.models.content import ContentFileModel
 
 
 class FileService:
@@ -327,6 +328,11 @@ class FileService:
     def get_file_metadata_by_name(db: Session, file_name: str) -> Optional[FileModel]:
         """Get file metadata by file name"""
         return db.query(FileModel).filter(FileModel.file_name == file_name).first()
+
+    @staticmethod
+    def get_file_metadata_by_file_path(db: Session, file_path: str) -> Optional[ContentFileModel]:
+        """Get file metadata by file path"""
+        return db.query(ContentFileModel).filter(ContentFileModel.file_path == file_path).first()
 
 
 # Global service instance

@@ -74,7 +74,8 @@ def get_file_related_documents(
     if not file_embedding:
         raise ValueError(f"File with UUID {file_uuid} not found or has no embedding.")
 
-    return _get_references_from_sql(_decode_vec_from_db(file_embedding), course, top_k)
+    query_embed = {"dense_vecs": _decode_vec_from_db(file_embedding)}
+    return _get_references_from_sql(query_embed, course, top_k)
 
 def _get_references_from_sql(
     query_embed: Dict[str, Any], course: str, top_k: int

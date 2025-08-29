@@ -103,7 +103,7 @@ def get_strutured_content_for_ipynb(
                                         "type": "object",
                                         "properties": {
                                             "question_text": {"type": "string", "description": "The full text of the multiple-choice question."},
-                                            "options": {"type": "array", "items": {"type": "string"}, "description": "An array containing exactly four possible answers."},
+                                            "options": {"type": "array", "items": {"type": "string"}, 'minItems': 4, "description": "An array containing exactly four possible answers."},
                                             "correct_answer": {"type": "array", "items": {"type": "integer"}, "description": "The indices of the correct options in the options array, e.g. [0,1] for the first and second options."},
                                             "explanation": {"type": "string", "description": "A detailed explanation describing why the correct answer is right and why the other options are incorrect."}
                                         },
@@ -157,6 +157,7 @@ def get_strutured_content_for_ipynb(
                                             'options': {
                                                 'type': 'array',
                                                 'items': {'type': 'string'},
+                                                'minItems': 2,
                                                 'description': 'The options for the sub problem, they should be key_concepts in the md_content'
                                             },
                                             'answers_options': {
@@ -183,6 +184,7 @@ def get_strutured_content_for_ipynb(
                                             'options': {
                                                 'type': 'array',
                                                 'items': {'type': 'string'},
+                                                "minItems": 2,
                                                 'description': 'The options for the sub problem, they should be key_concepts in the md_content'
                                             },
                                             'answers_options': {
@@ -307,7 +309,7 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                     "assessment_question": {"type": "object",
                                         "properties": {
                                             "question_text": {"type": "string","description": "(String) The full text of the multiple-choice question."},
-                                            "options": {"type": "array", "items": {"type": "string"}, "description": "(Array of Strings) An array containing exactly four possible answers."},
+                                            "options": {"type": "array", "items": {"type": "string"}, 'minItems': 2, "description": "(Array of Strings) An array containing exactly four possible answers."},
                                             "correct_answer": {"type": "array", "items": {"type": "integer"}, "description": "The index of the option in the options array, e.g. [0,1] for the first and second options"},
                                             "explanation": {"type": "string","description": "The explanation of why this option is the answer, it should be a key_concept in the md_content"},
                                         },
@@ -435,7 +437,7 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                     "type": "object",
                                     "properties": {
                                         "question_text": {"type": "string", "description": "(String) The full text of the multiple-choice question."},
-                                        "options": {"type": "array", "items": {"type": "string"}, "description": "(Array of Strings) An array containing exactly four possible answers."},
+                                        "options": {"type": "array", "items": {"type": "string"}, 'minItems': 4, "description": "(Array of Strings) An array containing exactly four possible answers."},
                                         "correct_answer": {"type": "array", "items": {"type": "integer"}, "description": "The index of the option in the options array, e.g. [0,1] for the first and second options"},
                                         "explanation": {"type": "string", "description": "The explanation of why this option is the answer, it should be a key_concept in the md_content"},
                                         },
@@ -596,7 +598,7 @@ def get_structured_content_with_one_title_level(
                                         "type": "object",
                                         "properties": {
                                             "question_text": {"type": "string", "description": "The full text of the multiple-choice question."},
-                                            "options": {"type": "array", "items": {"type": "string"}, "description": "An array containing exactly four possible answers."},
+                                            "options": {"type": "array", "items": {"type": "string"}, 'minItems': 4, "description": "An array containing exactly four possible answers."},
                                             "correct_answer": {"type": "array", "items": {"type": "integer"}, "description": "The indices of the correct options in the options array, e.g. [0,1] for the first and second options."},
                                             "explanation": {"type": "string", "description": "A detailed explanation describing why the correct answer is right and why the other options are incorrect."}
                                         },
@@ -884,7 +886,7 @@ def get_only_key_concepts(md_content: str, index_helper: dict):
                                     "type": "object",
                                     "properties": {
                                         "question_text": {"type": "string", "description": "The full text of the multiple-choice question."},
-                                        "options": {"type": "array", "items": {"type": "string"}, "description": "An array containing exactly four possible answers."},
+                                        "options": {"type": "array", "items": {"type": "string"}, 'minItems': 4, "description": "An array containing exactly four possible answers."},
                                         "correct_answer": {"type": "array", "items": {"type": "integer"}, "description": "The indices of the correct options in the options array, e.g. [0,1] for the first and second options."},
                                         "explanation": {"type": "string", "description": "A detailed explanation describing why the correct answer is right and why the other options are incorrect."}
                                     },

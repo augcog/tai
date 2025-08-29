@@ -71,10 +71,10 @@ def get_file_related_documents(
             WHERE uuid = ?
         """, (str(file_uuid),)).fetchone()
     file_embedding = row["vector"] if row else None
-    if file_embedding is None:
+    if not file_embedding:
         raise ValueError(f"File with UUID {file_uuid} not found or has no embedding.")
 
-    return _get_references_from_sql(file_embedding, course, top_k)
+    return _get_references_from_sql(_decode_vec_from_db(file_embedding), course, top_k)
 
 def _get_references_from_sql(
     query_embed: Dict[str, Any], course: str, top_k: int

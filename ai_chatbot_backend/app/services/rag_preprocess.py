@@ -3,7 +3,7 @@ import time
 from typing import Any, Optional, Tuple, List
 from uuid import UUID
 # Local libraries
-from app.services.rag_retriever import get_reference_documents, get_chunks_by_file_uuid
+from app.services.rag_retriever import get_reference_documents, get_chunks_by_file_uuid, get_file_related_documents
 
 
 async def build_retrieval_query(user_message: str, memory_synopsis: Any, engine: Any, tokenizer: Any, sampling: Any) -> str:
@@ -224,7 +224,7 @@ def build_file_augmented_context(
         top_files,
         top_refs,
         top_titles
-    ), _ = get_reference_documents(selected_text, course, top_k=top_k // 2) if selected_text else ([], [], [], [], [], [], [])
+    ), _ = get_reference_documents(selected_text, course, top_k=top_k // 2) if selected_text else ([], [], [], [], [], [], []), ""
 
     # Get reference documents based on the entire document.
     (
@@ -235,7 +235,7 @@ def build_file_augmented_context(
         top_files_doc,
         top_refs_doc,
         top_titles_doc
-    ), _ = get_reference_documents(file_content, course, top_k=top_k // 2)
+    ) = get_file_related_documents(file_content, course, top_k=top_k // 2)
 
     # Combine results from selected text and entire document
     top_ids_combined = top_ids + top_ids_doc

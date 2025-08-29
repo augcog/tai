@@ -57,6 +57,25 @@ def get_chunks_by_file_uuid(file_uuid: UUID) -> List[Dict[int, Any]]:
         """, (str(file_uuid),)).fetchall()
     return [{"index": row["idx"], "chunk": row["text"]} for row in rows]
 
+def get_file_related_documents(
+    file_uuid: UUID, course: str, top_k: int
+) -> Tuple[Tuple[List[str], List[str], List[str], List[float], List[str], List[str], List[str]], str]:
+    """
+    Retrieve top related documents for a specific file UUID.
+    """
+    # Get the file embedding by file uuid
+    with _get_cursor() as cur:
+        row = cur.execute("""
+            SELECT `uuid`, `vector`
+            FROM files
+            WHERE uuid = ?
+        """, (str(file_uuid),)).fetchone()
+    file_embedding = row["vector"] if row else None
+    if file_embedding is None:
+        raise ValueError(f"File with UUID {file_uuid} not found or has no embedding.")
+
+    return _get_references_from_sql(file_embedding, course, top_k)
+
 def _get_references_from_sql(
     query_embed: Dict[str, Any], course: str, top_k: int
 ) -> Tuple[List[str], List[str], List[str], List[float], List[str], List[str], List[str]]:

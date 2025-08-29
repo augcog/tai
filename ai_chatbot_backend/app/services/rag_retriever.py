@@ -67,7 +67,7 @@ def get_file_related_documents(
     with _get_cursor() as cur:
         row = cur.execute("""
             SELECT `uuid`, `vector`
-            FROM files
+            FROM file
             WHERE uuid = ?
         """, (str(file_uuid),)).fetchone()
     file_embedding = row["vector"] if row else None

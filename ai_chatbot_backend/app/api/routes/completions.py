@@ -33,7 +33,7 @@ def generate_data():
 import json, base64, hashlib, secrets
 def sid_from_history(messages):
     hist = [{"r": getattr(m, "role", "user"),
-             "c": (getattr(m, "content", "") or "").split("<|begin_of_reference|>", 1)[0]}
+             "c": (getattr(m, "content", "") or "").split("\n<!--REFERENCES:", 1)[0]}
             for m in messages[:-1]]
     # print(f"[INFO] History for SID generation: {hist}")
     digest = hashlib.blake2b(
@@ -84,13 +84,16 @@ async def create_text_completion(
     selector = generate_chat_response
     parser = chat_stream_parser
 
+    sid = sid_from_history(formatter(params.messages))
+    print(f"[INFO] Generated SID: {sid}")
+
     response, reference_list = await selector(
-        formatter(params.messages), stream=params.stream, course=course, engine=engine, audio_response=params.audio_response
+        formatter(params.messages), stream=params.stream, course=course, engine=engine, audio_response=params.audio_response, sid=sid
     )
 
     if params.stream:
         return StreamingResponse(
-            parser(response, reference_list, params.audio_response), media_type="text/event-stream"
+            parser(response, reference_list, params.audio_response, messages=formatter(params.messages), engine=engine, old_sid=sid), media_type="text/event-stream"
         )
     else:
         return JSONResponse(ResponseDelta(text=response).model_dump_json(exclude_unset=True))
@@ -135,7 +138,7 @@ async def text_to_speech(
     """
     # Convert text message to audio
     audio_message = format_audio_text_message(params.text)
-    stream = await audio_generator(audio_message, stream=params.stream)
+    stream = audio_generator(audio_message, stream=params.stream)
 
     if params.stream:
         return StreamingResponse(

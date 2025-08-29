@@ -1,5 +1,4 @@
 # Standard python libraries
-import json
 import re
 import ast
 import time
@@ -129,9 +128,16 @@ async def local_parser(
         yield ref_block
         print(ref_block)
 
+async def build_memory_after_response(
+        messages: List[Message],
+        previous_text: str,
+        references: List[Any],
+        engine: Optional[Any] = None,
+        old_sid: Optional[str] = None
+) -> Any:
     # Call to build memory after finish output.
     if messages and engine and old_sid:
-        messages.append(Message(role="assistant", content=previous_text + ref_block))
+        messages.append(Message(role="assistant", content=previous_text + "\n<!--REFERENCES:" + "\n\n".join([str(ref) for ref in references]) + "-->"))
         sid = sid_from_history(messages)
         print(f"[INFO] Generated SID: {sid}")
         LOCAL_MEMORY_SYNOPSIS[sid] = await build_memory_synopsis(messages, TOKENIZER, engine, LOCAL_MEMORY_SYNOPSIS.get(old_sid, None))
@@ -144,7 +150,7 @@ async def local_parser(
 import json, base64, hashlib, secrets
 def sid_from_history(messages):
     hist = [{"r": getattr(m, "role", "user"),
-             "c": (getattr(m, "content", "") or "").split("<|begin_of_reference|>", 1)[0]}
+             "c": (getattr(m, "content", "") or "").split("\n<!--REFERENCES:", 1)[0]}
             for m in messages]
     # print(f"[INFO] History for SID generation: {hist}")
     digest = hashlib.blake2b(

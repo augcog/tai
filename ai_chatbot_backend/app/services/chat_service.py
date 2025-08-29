@@ -1,4 +1,5 @@
 from app.core.models.chat_completion import *
+from app.services.rag_generation import build_memory_after_response
 from typing import Union, AsyncIterator, List, Any, Dict
 import re
 import os
@@ -10,7 +11,7 @@ from openai import OpenAI
 
 
 async def chat_stream_parser(
-        stream: AsyncIterator, reference_list: List[str], audio: bool = False
+        stream: AsyncIterator, reference_list: List[str], audio: bool = False, messages: List[Dict] = [], engine: Any = None, old_sid: str = ""
 ) -> AsyncIterator[str]:
     """
     Parse the streaming response from the chat model and yield deltas.
@@ -84,6 +85,8 @@ async def chat_stream_parser(
     yield sse(Done())
     yield "data: [DONE]\n\n"  # Final done message for SSE clients
 
+    await build_memory_after_response(messages, previous_text, references, engine, old_sid)
+
 def encode_base64_content_from_file(file_path: str) -> str:
     """Encode a content from a local file to base64 format."""
     # Read the MP3 file as binary and encode it directly to Base64
@@ -136,7 +139,7 @@ async def audio_generator(messages: List[Dict], stream: bool = True
     audio_bytes_io = io.BytesIO()
     if len(messages) > 7:
         messages = messages[:2] + messages[-5:]
-    client = OpenAI(base_url='http://128.32.43.216:8000/v1')
+    client = OpenAI(base_url='http://128.32.43.216:8000/v1',api_key='EMPTY')
     models = client.models.list()
     model = models.data[0].id
     chat_completion = client.chat.completions.create(
@@ -162,7 +165,7 @@ async def tts_parsor(
     """
     seq = 0
     async for data in stream:
-        yield sse(ResponseDelta(seq=seq, audio_b64=data, audio_spec=AudioSpec)); seq += 1
+        yield sse(ResponseDelta(seq=seq, audio_b64=data, audio_spec=AudioSpec())); seq += 1
 
     yield sse(Done())
     yield "data: [DONE]\n\n"  # Final done message for SSE clients

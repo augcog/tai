@@ -67,22 +67,12 @@ class CompletionParams(BaseModel):
     messages: List[Message]
     temperature: float  # TODO: Not in use. Remove?
     stream: bool
-    chat_type: str = "general"
+    chat_type: str = "general"  # e.g., "general", "file"
     file_uuid: Optional[UUID] = None
-    index: Optional[float] = None
-    rag: Optional[bool] = True
-    audio_response: Optional[bool] = False
-
-class FileChatCompletionParams(BaseModel):
-    file_uuid: UUID
-    course: str
-    messages: List[Message]
-    temperature: Optional[float] = 0.0  # TODO: Not in use. Remove?
-    stream: bool
     selected_text: Optional[str] = None
     index: Optional[float] = None
     rag: Optional[bool] = True
-    audio_response: Optional[bool] = False  # Not supported yet
+    audio_response: Optional[bool] = False
 
 class PracticeCompletionParams(BaseModel):
     course: str

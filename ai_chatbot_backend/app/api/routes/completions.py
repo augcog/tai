@@ -72,33 +72,6 @@ async def create_completion(
         return PlainTextResponse(response)
 
 
-@router.post("/filechat_completions")
-async def create_file_chat_completion(
-        params: FileChatCompletionParams, _: bool = Depends(verify_api_token)
-):
-    # Get the pre-initialized pipeline
-    engine = get_model_engine()
-
-    # select model based on params.model
-    course = params.course
-    formatter = format_chat_msg
-    selector = generate_file_chat_response
-    parser = local_parser
-
-    sid = sid_from_history(formatter(params.messages))
-    print(f"[INFO] Generated SID: {sid}")
-
-    response, reference_list = await selector(
-        formatter(params.messages), file_uuid=params.file_uuid, selected_text=params.selected_text, index=params.index, stream=params.stream, course=course, engine=engine
-    )
-
-    if params.stream:
-        return StreamingResponse(
-            parser(response, reference_list, messages=formatter(params.messages), engine=engine), media_type="text/plain"
-        )
-    else:
-        return PlainTextResponse(response)
-
 @router.post("/text_completions")
 async def create_text_completion(
         params: CompletionParams, _: bool = Depends(verify_api_token)

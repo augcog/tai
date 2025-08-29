@@ -235,7 +235,7 @@ def build_file_augmented_context(
         top_files_doc,
         top_refs_doc,
         top_titles_doc
-    ) = get_file_related_documents(file_content, course, top_k=top_k // 2)
+    ) = get_file_related_documents(file_uuid, course, top_k=top_k // 2)
 
     # Combine results from selected text and entire document
     top_ids_combined = top_ids + top_ids_doc

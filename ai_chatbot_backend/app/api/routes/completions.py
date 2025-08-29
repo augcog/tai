@@ -83,33 +83,38 @@ async def create_text_completion(
     course = params.course
     formatter = format_chat_msg
 
+    sid = sid_from_history(formatter(params.messages))
+    print(f"[INFO] Generated SID: {sid}")
+    
     if params.chat_type == 'file':  # filechat
-        selector = generate_file_chat_response
         if not params.file_uuid:
             # Handle case where file_uuid is not provided
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="file_uuid must be provided"
             )
-    else:
-        selector = generate_chat_response  # general case
+        response, reference_list = await generate_file_chat_response(
+            formatter(params.messages), 
+            file_uuid=params.file_uuid, 
+            selected_text=params.selected_text, 
+            index=params.index, 
+            stream=params.stream, 
+            course=course, 
+            engine=engine, 
+            audio_response=params.audio_response, 
+            sid=sid
+        )
+    else:   # general case
+        response, reference_list = await generate_chat_response(
+            formatter(params.messages), 
+            stream=params.stream, 
+            course=course, 
+            engine=engine, 
+            audio_response=params.audio_response, 
+            sid=sid
+        )
     
     parser = chat_stream_parser
-
-    sid = sid_from_history(formatter(params.messages))
-    print(f"[INFO] Generated SID: {sid}")
-
-    response, reference_list = await selector(
-        formatter(params.messages), 
-        file_uuid=params.file_uuid, 
-        selected_text=params.selected_text, 
-        index=params.index, 
-        stream=params.stream, 
-        course=course, 
-        engine=engine, 
-        audio_response=params.audio_response, 
-        sid=sid
-    )
 
     if params.stream:
         return StreamingResponse(

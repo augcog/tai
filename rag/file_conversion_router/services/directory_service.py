@@ -52,14 +52,14 @@ def process_folder(
         course_name: str,
         course_code: str,
         log_dir: Union[str, Path] = None,
-        chunk_db_path: Union[str, Path] = None,
+        db_path: Union[str, Path] = None,
 ) -> None:
     """Walk through the input directory and schedule conversion tasks for specified file types."""
     logging.getLogger().setLevel(logging.INFO)
     output_dir = Path(output_dir)
     input_dir = Path(input_dir)
 
-    conn = ensure_chunk_db(Path(chunk_db_path))
+    conn = ensure_chunk_db(Path(db_path))
 
     if log_dir:
         set_log_file_path(content_logger, log_dir)
@@ -112,7 +112,7 @@ def process_folder(
         if not chunks:
             chunks = []
 
-        fp = chunks[0].file_path if chunks and getattr(chunks[0], "file_path", None) else input_file_path.relative_to(input_dir)
+        fp = chunks[0].file_path if chunks and getattr(chunks[0], "file_path", None) else input_file_path.relative_to(input_dir.parent)
         relative_path = str(fp)
 
         # sections from metadata if provided
@@ -183,18 +183,19 @@ def ensure_chunk_db(database_path) -> sqlite3.Connection:
 
 def upsert_file_meta(conn: sqlite3.Connection, f: dict):
     """
-    Upsert into `file` using file_uuid as the conflict key.
-    Expects keys: file_uuid, file_hash, sections, file_path, course_code, course_name, file_name
+    Upsert into `file` using uuid as the conflict key.
+    Expects keys: uuid, file_hash, sections, relative_path, course_code, course_name, file_name
     """
     args = (
-        f["file_uuid"],
+        f["uuid"],
         f["file_hash"],
         json.dumps(f.get("sections", []), ensure_ascii=False) if not isinstance(f.get("sections"), str) else f["sections"],
-        str(f.get("file_path")),
+        str(f.get("relative_path", f.get("file_path", ""))),
         f.get("course_code", ""),
         f.get("course_name"),
         f.get("file_name"),
         json.dumps(f.get("extra_info", {}), ensure_ascii=False) if f.get("extra_info") else None,
+        f.get("url"),
     )
     conn.execute(SQL_UPSERT_FILE, args)
 
@@ -278,10 +279,10 @@ def write_chunks_to_db(conn: sqlite3.Connection,
                 f"but chunks carry file_uuid {file_uuid}"
             )
     upsert_file_meta(conn, {
-        "file_uuid": file_uuid,
+        "uuid": file_uuid,
         "file_hash": file_hash,
         "sections": sections or [],
-        "file_path": relative_path,
+        "relative_path": relative_path,
         "course_code": course_code or "",
         "course_name": course_name or "",
         "file_name": file_name,
@@ -367,19 +368,20 @@ PRAGMA journal_mode=WAL;
 PRAGMA synchronous=NORMAL;
 
 CREATE TABLE IF NOT EXISTS file (
-  file_uuid    TEXT PRIMARY KEY,
+  uuid         TEXT PRIMARY KEY,
   file_hash    TEXT NOT NULL UNIQUE,
   sections     TEXT,
-  file_path    TEXT,
+  relative_path TEXT,
   course_code  TEXT,
   course_name  TEXT,
   file_name    TEXT,
-  extra_info   TEXT              -- ✅ 同步新增
+  extra_info   TEXT,
+  url          TEXT
 );
 
 CREATE TABLE IF NOT EXISTS chunks (
   chunk_uuid     TEXT PRIMARY KEY,
-  file_uuid      TEXT NOT NULL,
+  uuid           TEXT NOT NULL,
   idx            INTEGER NOT NULL,
   text           TEXT NOT NULL,
   title          TEXT,
@@ -387,8 +389,9 @@ CREATE TABLE IF NOT EXISTS chunks (
   file_path      TEXT,
   reference_path TEXT,
   course_name    TEXT,
-  course_code      TEXT,
-  chunk_index    INTEGER
+  course_code    TEXT,
+  chunk_index    INTEGER,
+  FOREIGN KEY (uuid) REFERENCES file(uuid) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS problem (
@@ -402,29 +405,31 @@ CREATE TABLE IF NOT EXISTS problem (
   choices         TEXT,
   answer          TEXT,
   explanation     TEXT,
-  FOREIGN KEY (file_uuid) REFERENCES file(file_uuid) ON DELETE CASCADE
+  FOREIGN KEY (file_uuid) REFERENCES file(uuid) ON DELETE CASCADE
 );
 """
 SQL_UPSERT_FILE = """
-INSERT INTO file (file_uuid, file_hash, sections, file_path, course_code, course_name, file_name, extra_info)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-ON CONFLICT(file_uuid) DO UPDATE SET
-  file_hash   = excluded.file_hash,
-  sections    = excluded.sections,
-  file_path   = excluded.file_path,
+INSERT INTO file (uuid, file_hash, sections, relative_path, course_code, course_name, file_name, extra_info, url)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+ON CONFLICT(uuid) DO UPDATE SET
+  file_hash     = excluded.file_hash,
+  sections      = excluded.sections,
+  relative_path = excluded.relative_path,
   course_code   = excluded.course_code,
-  course_name = excluded.course_name,
-  file_name   = excluded.file_name,
-  extra_info  = excluded.extra_info;
+  course_name   = excluded.course_name,
+  file_name     = excluded.file_name,
+  extra_info    = excluded.extra_info,
+  url           = excluded.url;
 """
+
 
 SQL_UPSERT_CHUNK = """
 INSERT INTO chunks (
-  chunk_uuid, file_uuid, idx, text, title, url, file_path, reference_path,
+  chunk_uuid, uuid, idx, text, title, url, file_path, reference_path,
   course_name, course_code, chunk_index
 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 ON CONFLICT(chunk_uuid) DO UPDATE SET
-  file_uuid      = excluded.file_uuid,
+  uuid           = excluded.uuid,
   idx            = excluded.idx,
   text           = excluded.text,
   title          = excluded.title,
@@ -432,7 +437,7 @@ ON CONFLICT(chunk_uuid) DO UPDATE SET
   file_path      = excluded.file_path,
   reference_path = excluded.reference_path,
   course_name    = excluded.course_name,
-  course_code      = excluded.course_code,
+  course_code    = excluded.course_code,
   chunk_index    = excluded.chunk_index;
 """
 
@@ -452,12 +457,12 @@ ON CONFLICT(uuid) DO UPDATE SET
   answer          = excluded.answer,
   explanation     = excluded.explanation;
 """
-SQL_SELECT_FILE_UUID_BY_HASH = "SELECT file_uuid FROM file WHERE file_hash=?;"
+SQL_SELECT_FILE_UUID_BY_HASH = "SELECT uuid FROM file WHERE file_hash=?;"
 
 
 def update_problem_table_from_metadata_files(folder_path: Union[str, Path], chunk_db_path: Union[str, Path]) -> None:
     """
-    Iterate through all .yaml files in a folder, extract file_uuid from metadata,
+    Iterate through all .yaml files in a folder, extract uuid from metadata,
     check if it exists in the database, and add problems if the file is not already processed.
 
     Args:
@@ -525,10 +530,10 @@ def update_problem_table_from_metadata_files(folder_path: Union[str, Path], chun
                 sections = metadata.get("sections", [])
 
                 upsert_file_meta(conn, {
-                    "file_uuid": file_uuid,
+                    "uuid": file_uuid,
                     "file_hash": file_hash,
                     "sections": sections,
-                    "file_path": str(actual_file_path.relative_to(yaml_file.parent)),
+                    "relative_path": str(actual_file_path.relative_to(yaml_file.parent)),
                     "course_code": course_code,
                     "course_name": course_name,
                     "file_name": file_name,
@@ -558,3 +563,98 @@ def update_problem_table_from_metadata_files(folder_path: Union[str, Path], chun
         conn.close()
 
     logging.info("Completed updating problem table from metadata files")
+
+
+def update_file_urls_from_metadata_files(folder_path: Union[str, Path], db_path: Union[str, Path]) -> None:
+    """
+    Iterate through all .yaml files in a folder, extract URL from metadata,
+    and update the url column in the file table for existing files.
+
+    Args:
+        folder_path: Path to folder containing metadata.yaml files
+        chunk_db_path: Path to the SQLite database
+    """
+    folder_path = Path(folder_path)
+    if not folder_path.is_dir():
+        raise ValueError(f"Provided folder path {folder_path} is not a directory.")
+
+    conn = ensure_chunk_db(Path(db_path))
+
+    try:
+        # Find all .yaml files in the folder
+        yaml_files = list(folder_path.rglob("*.yaml"))
+        logging.info(f"Found {len(yaml_files)} yaml files to process for URL updates")
+
+        updated_count = 0
+        skipped_count = 0
+
+        for yaml_file in yaml_files:
+            try:
+                # Load and parse the YAML file
+                with yaml_file.open("r", encoding="utf-8") as f:
+                    metadata = yaml.safe_load(f)
+
+                if not isinstance(metadata, dict):
+                    logging.warning(f"Skipping {yaml_file}: invalid metadata structure")
+                    skipped_count += 1
+                    continue
+
+                # Extract URL from metadata
+                url = metadata.get("URL")
+                if not url:
+                    logging.info(f"Skipping {yaml_file}: no URL found in metadata")
+                    skipped_count += 1
+                    continue
+
+                # Extract file information to generate file_uuid
+                file_name = metadata.get("file_name")
+                file_path = metadata.get("file_path")
+
+                if not file_name or not file_path:
+                    logging.warning(f"Skipping {yaml_file}: missing file_name or file_path")
+                    skipped_count += 1
+                    continue
+
+                # Try to find the actual file to generate hash and uuid
+                # First try relative to yaml file location
+                actual_file_path = yaml_file.parent / file_name
+                if not actual_file_path.exists():
+                    actual_file_path = yaml_file.parent / file_path
+                    if not actual_file_path.exists():
+                        logging.warning(f"Skipping {yaml_file}: cannot find actual file {file_name} or {file_path}")
+                        skipped_count += 1
+                        continue
+
+                # Generate file hash and uuid
+                file_hash = file_hash_for_cache(actual_file_path, yaml_file.parent)
+
+                # Check if file exists in database
+                existing_uuid = is_file_cached(conn, file_hash)
+                if not existing_uuid:
+                    logging.info(f"Skipping {yaml_file}: file not found in database")
+                    skipped_count += 1
+                    continue
+
+                # Update the URL in the file table
+                conn.execute("UPDATE file SET url = ? WHERE uuid = ?", (url, existing_uuid))
+                conn.commit()
+                
+                updated_count += 1
+                logging.info(f"Updated URL for file {file_name} (uuid: {existing_uuid}) to: {url}")
+
+            except yaml.YAMLError as e:
+                logging.error(f"Error parsing YAML file {yaml_file}: {e}")
+                skipped_count += 1
+            except Exception as e:
+                logging.error(f"Error processing {yaml_file}: {e}")
+                skipped_count += 1
+
+        logging.info(f"Completed updating file URLs: {updated_count} updated, {skipped_count} skipped")
+
+    finally:
+        conn.close()
+
+    logging.info("Completed updating file URLs from metadata files")
+
+if __name__ == "__main__":
+    update_file_urls_from_metadata_files(folder_path="/home/bot/bot/yk/YK_final/courses", db_path="/home/bot/bot/yk/YK_final/courses_out/metadata.db")

@@ -123,7 +123,7 @@ def embed_files_from_markdown(
         
         # Process each file
         for file_record in tqdm(files, desc="Processing files"):
-            file_uuid = file_record["uuid"]
+            uuid = file_record["uuid"]
             file_name = file_record["file_name"]
             relative_path = file_record["relative_path"]
             course_name = file_record["course_name"] or ""
@@ -133,8 +133,8 @@ def embed_files_from_markdown(
             # Assuming the markdown file has the same name but with .md extension
             # and is in the same relative directory structure
             original_path = Path(relative_path)
-            markdown_file_name = original_path.stem + ".md"
-            markdown_relative_path = original_path.parent / markdown_file_name
+            markdown_file_name = original_path.name + ".md"
+            markdown_relative_path = original_path.parent /original_path.stem / markdown_file_name
             markdown_full_path = data_dir / markdown_relative_path
             
             # Try alternative markdown paths if the direct one doesn't exist
@@ -159,7 +159,7 @@ def embed_files_from_markdown(
                     print(f"Markdown file not found for {file_name}. Tried: {markdown_full_path}")
                     error_files += 1
                     results.append({
-                        "file_uuid": file_uuid,
+                        "uuid": uuid,
                         "file_name": file_name,
                         "status": "error",
                         "error": "Markdown file not found"
@@ -173,7 +173,7 @@ def embed_files_from_markdown(
                 print(f"Empty or unreadable markdown file: {markdown_full_path}")
                 error_files += 1
                 results.append({
-                    "file_uuid": file_uuid,
+                    "uuid": uuid,
                     "file_name": file_name,
                     "status": "error",
                     "error": "Empty or unreadable markdown file"
@@ -191,12 +191,12 @@ def embed_files_from_markdown(
                 # Update file table with embedding
                 conn.execute(
                     "UPDATE file SET vector = ? WHERE uuid = ?",
-                    (embedding_blob, file_uuid)
+                    (embedding_blob, uuid)
                 )
                 
                 processed_files += 1
                 results.append({
-                    "file_uuid": file_uuid,
+                    "uuid": uuid,
                     "file_name": file_name,
                     "markdown_path": str(markdown_full_path.relative_to(data_dir)),
                     "content_length": len(markdown_content),
@@ -207,7 +207,7 @@ def embed_files_from_markdown(
                 print(f"Error processing file {file_name}: {e}")
                 error_files += 1
                 results.append({
-                    "file_uuid": file_uuid,
+                    "uuid": uuid,
                     "file_name": file_name,
                     "status": "error",
                     "error": str(e)
@@ -230,13 +230,13 @@ def embed_files_from_markdown(
         conn.close()
 
 
-def get_file_vector(db_path: str, file_uuid: str) -> Optional[np.ndarray]:
+def get_file_vector(db_path: str, uuid: str) -> Optional[np.ndarray]:
     """
     Retrieve file embedding vector by UUID
     
     Args:
         db_path: Path to SQLite database
-        file_uuid: File UUID to lookup
+        uuid: File UUID to lookup
         
     Returns:
         Numpy array of embedding or None if not found
@@ -245,7 +245,7 @@ def get_file_vector(db_path: str, file_uuid: str) -> Optional[np.ndarray]:
     try:
         result = conn.execute(
             "SELECT vector FROM file WHERE uuid = ?",
-            (file_uuid,)
+            (uuid,)
         ).fetchone()
         
         if result and result[0]:
@@ -303,8 +303,8 @@ def check_embedding_status(db_path: str, course_filter: Optional[str] = None) ->
 
 if __name__ == "__main__":
     # Example usage
-    db_path = "/path/to/your/database.db"
-    data_dir = "/path/to/your/markdown/files"
+    db_path = "/home/bot/bot/yk/YK_final/courses_out/metadata.db"
+    data_dir = "/home/bot/bot/yk/YK_final/courses_out"
     
     # Check current status
     status = check_embedding_status(db_path, course_filter="ROAR Academy")
@@ -314,7 +314,7 @@ if __name__ == "__main__":
     results = embed_files_from_markdown(
         db_path=db_path,
         data_dir=data_dir,
-        course_filter="ROAR Academy",  # Optional: filter by course
+        course_filter="CS 61A",  # Optional: filter by course
         force_recompute=False  # Set to True to recompute existing embeddings
     )
     

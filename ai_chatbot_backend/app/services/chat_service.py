@@ -38,7 +38,7 @@ async def chat_stream_parser(
                 audio_iterator = audio_generator(audio_messages, stream=True)
                 audio_bytes_io = io.BytesIO()
                 async for data in audio_iterator:
-                    yield sse(ResponseDelta(seq=seq, audio_b64=data, audio_spec=AudioSpec)); seq += 1
+                    yield sse(ResponseDelta(seq=seq, audio_b64=data, audio_spec=AudioSpec())); seq += 1
                     audio_bytes = base64.b64decode(data)
                     audio_bytes_io.write(audio_bytes)
                 audio_data = np.frombuffer(audio_bytes_io.getvalue(), dtype=np.int16)

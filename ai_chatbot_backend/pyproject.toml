@@ -50,7 +50,6 @@ python-dotenv = "*"
 jsonschema = "*"
 watchdog = "*"
 requests = "*"
-vllm = "^0.9.1"
 ruff = "*"
 
 # Development tools
@@ -61,6 +60,15 @@ pytest-mock = "*"
 pytest-xdist = "*"
 httpx = "*"
 ipython = "*"
+
+# Optional GPU dependencies for production servers
+soundfile = "^0.13.1"
+faster-whisper = "^1.2.0"
+[tool.poetry.group.gpu]
+optional = true
+
+[tool.poetry.group.gpu.dependencies]
+vllm = "^0.9.1"
 
 [tool.poetry.scripts]
 # Entry point

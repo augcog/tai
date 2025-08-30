@@ -1,4 +1,5 @@
 from typing import List, Optional, Literal
+from uuid import UUID
 import time
 from pydantic import BaseModel, Field, ConfigDict
 
@@ -64,14 +65,15 @@ class VoiceMessage(BaseModel):
 class CompletionParams(BaseModel):
     course: str
     messages: List[Message]
-    temperature: float
+    temperature: float  # TODO: Not in use. Remove?
     stream: bool
-    chat_type: str = "general"
-    file_uuid: Optional[str] = None
+    chat_type: str = "general"  # e.g., "general", "file"
+    file_uuid: Optional[UUID] = None
+    selected_text: Optional[str] = None
     index: Optional[float] = None
     rag: Optional[bool] = True
     audio_response: Optional[bool] = False
-    
+
 class PracticeCompletionParams(BaseModel):
     course: str
     messages: List[Message]

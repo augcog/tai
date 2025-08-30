@@ -15,7 +15,7 @@ help: ## Show this help message
 	@echo "=========================================="
 	@echo ""
 	@echo "🚀 Quick Start:"
-	@echo "  make install     # Install dependencies with Poetry"
+	@echo "  make install     # Install dependencies (macOS compatible)"
 	@echo "  make dev         # Start development server"
 	@echo ""
 	@echo "📦 Setup Commands:"
@@ -35,10 +35,14 @@ help: ## Show this help message
 	@echo "  make add-dev PKG=pytest         # Add development dependency"
 	@echo "  make remove PKG=outdated-pkg    # Remove dependency"
 	@echo ""
+	@echo "🖥️  Platform-Specific:"
+	@echo "  make install     # macOS/Windows development (no GPU)"
+	@echo "  make install-gpu # Linux production (with vLLM/CUDA)"
+	@echo ""
 
 # Installation and setup
-install: ## Install all dependencies with Poetry in local .venv
-	@echo "📦 Installing dependencies with Poetry..."
+install: ## Install all dependencies with Poetry in local .venv (macOS compatible)
+	@echo "📦 Installing dependencies with Poetry (without GPU dependencies)..."
 	@echo "🔧 Configuring Poetry to use local virtual environment..."
 	$(POETRY) config virtualenvs.in-project true
 	$(POETRY) config virtualenvs.create true
@@ -46,13 +50,34 @@ install: ## Install all dependencies with Poetry in local .venv
 	$(POETRY) install
 	@echo "✅ Dependencies installed in $(shell pwd)/.venv"
 	@echo "📍 Virtual environment: $(shell $(POETRY) env info --path)"
+	@echo "💡 For GPU support on production servers, use: make install-gpu"
 
-install-dev: ## Install with development dependencies
-	@echo "📦 Installing with development dependencies..."
+install-dev: ## Install with development dependencies (without GPU)
+	@echo "📦 Installing with development dependencies (without GPU dependencies)..."
 	$(POETRY) config virtualenvs.in-project true
 	$(POETRY) config virtualenvs.create true
 	$(POETRY) install --with dev
 	@echo "✅ Development environment ready!"
+
+install-gpu: ## Install with GPU dependencies for production servers
+	@echo "📦 Installing with GPU dependencies (Linux/CUDA required)..."
+	@echo "🔧 Configuring Poetry to use local virtual environment..."
+	$(POETRY) config virtualenvs.in-project true
+	$(POETRY) config virtualenvs.create true
+	@echo "📦 Installing all dependencies including GPU support..."
+	$(POETRY) install --with gpu
+	@echo "✅ GPU dependencies installed in $(shell pwd)/.venv"
+	@echo "📍 Virtual environment: $(shell $(POETRY) env info --path)"
+	@echo "⚠️  Note: GPU dependencies require Linux with NVIDIA CUDA support"
+
+install-full: ## Install all dependencies including GPU (production deployment)
+	@echo "📦 Installing all dependencies for production deployment..."
+	@echo "🔧 Configuring Poetry to use local virtual environment..."
+	$(POETRY) config virtualenvs.in-project true
+	$(POETRY) config virtualenvs.create true
+	@echo "📦 Installing all dependencies..."
+	$(POETRY) install --with dev --with gpu
+	@echo "✅ Full environment ready with GPU support!"
 
 # Development server
 dev: server ## Start development server (alias for server)

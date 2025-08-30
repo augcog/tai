@@ -1,5 +1,7 @@
 # Consolidated completions router
-import time
+import hashlib
+import base64
+import json
 
 from app.api.deps import verify_api_token
 from app.core.models.chat_completion import *
@@ -24,14 +26,6 @@ from app.services.chat_service import chat_stream_parser, format_audio_text_mess
 router = APIRouter()
 
 
-def generate_data():
-    for number in range(1, 51):  # Generating numbers from 1 to 100
-        yield f"Number: {number}\n".encode("utf-8")  # Yields data as bytes
-        # Simulate a delay, can be removed or replaced with real data fetching
-        time.sleep(0.1)
-
-
-import json, base64, hashlib, secrets
 def sid_from_history(messages):
     hist = [{"r": getattr(m, "role", "user"),
              "c": (getattr(m, "content", "") or "").split("\n<!--REFERENCES:", 1)[0]}
@@ -42,34 +36,6 @@ def sid_from_history(messages):
         digest_size=12
     ).digest()
     return base64.urlsafe_b64encode(digest).decode().rstrip("=")
-
-
-@router.post("/completions")
-async def create_completion(
-        params: CompletionParams, _: bool = Depends(verify_api_token)
-):
-    # Get the pre-initialized pipeline
-    engine = get_model_engine()
-
-    # select model based on params.model
-    course = params.course
-    formatter = format_chat_msg
-    selector = generate_chat_response
-    parser = local_parser
-
-    sid = sid_from_history(formatter(params.messages))
-    print(f"[INFO] Generated SID: {sid}")
-
-    response, reference_list = await selector(
-        formatter(params.messages), stream=params.stream, course=course, engine=engine, audio_response=params.audio_response, sid=sid
-    )
-
-    if params.stream:
-        return StreamingResponse(
-            parser(response, reference_list, messages=formatter(params.messages), engine=engine, old_sid=sid), media_type="text/plain"
-        )
-    else:
-        return PlainTextResponse(response)
 
 
 @router.post("/text_completions")
@@ -85,7 +51,7 @@ async def create_text_completion(
 
     sid = sid_from_history(formatter(params.messages))
     print(f"[INFO] Generated SID: {sid}")
-    
+
     if params.chat_type == 'file':  # filechat
         if not params.file_uuid:
             # Handle case where file_uuid is not provided
@@ -94,26 +60,26 @@ async def create_text_completion(
                 detail="file_uuid must be provided"
             )
         response, reference_list = await generate_file_chat_response(
-            formatter(params.messages), 
-            file_uuid=params.file_uuid, 
-            selected_text=params.selected_text, 
-            index=params.index, 
-            stream=params.stream, 
-            course=course, 
-            engine=engine, 
-            audio_response=params.audio_response, 
+            formatter(params.messages),
+            file_uuid=params.file_uuid,
+            selected_text=params.selected_text,
+            index=params.index,
+            stream=params.stream,
+            course=course,
+            engine=engine,
+            audio_response=params.audio_response,
             sid=sid
         )
     else:   # general case
         response, reference_list = await generate_chat_response(
-            formatter(params.messages), 
-            stream=params.stream, 
-            course=course, 
-            engine=engine, 
-            audio_response=params.audio_response, 
+            formatter(params.messages),
+            stream=params.stream,
+            course=course,
+            engine=engine,
+            audio_response=params.audio_response,
             sid=sid
         )
-    
+
     parser = chat_stream_parser
 
     if params.stream:
@@ -149,10 +115,11 @@ async def create_voice_completion(
 
     if params.stream:
         return StreamingResponse(
-            parser(response, reference_list,params.audio_response), media_type="text/event-stream"
+            parser(response, reference_list, params.audio_response), media_type="text/event-stream"
         )
     else:
         return JSONResponse(ResponseDelta(text=response).model_dump_json(exclude_unset=True))
+
 
 @router.post("/tts")
 async def text_to_speech(
@@ -172,6 +139,7 @@ async def text_to_speech(
     else:
         return None
 
+
 @router.post("/voice_to_text")
 async def voice_to_text(
         params: VoiceTranscriptParams, _: bool = Depends(verify_api_token)
@@ -189,7 +157,8 @@ async def voice_to_text(
             audio_stream_parser(stream), media_type="text/event-stream"
         )
     else:
-        transcription = audio_to_text(params.audio, whisper_engine, stream=params.stream, sample_rate=24000)
+        transcription = audio_to_text(
+            params.audio, whisper_engine, stream=params.stream, sample_rate=24000)
         return JSONResponse(AudioTranscript(text=transcription).model_dump_json(exclude_unset=True))
 
 

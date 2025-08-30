@@ -22,6 +22,8 @@ def audio_to_text(
     # Convert List[float] directly to numpy array (no base64 decoding needed)
     audio_array = np.array(audio_message.content, dtype=np.float32)
     sf.write(audio_buffer, audio_array, sample_rate, format='WAV')
+    # CRITICAL: Seek back to beginning after writing
+    audio_buffer.seek(0)
     segments, _ = engine.transcribe(audio_buffer, beam_size=5)
     if stream:
         return segments

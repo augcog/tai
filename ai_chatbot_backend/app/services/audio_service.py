@@ -5,6 +5,8 @@ import io
 import soundfile as sf
 from app.core.models.chat_completion import *
 from typing import Union, AsyncIterator
+import base64
+import numpy as np
 
 
 def audio_to_text(
@@ -18,7 +20,9 @@ def audio_to_text(
     """
 
     audio_buffer = io.BytesIO()
-    sf.write(audio_buffer, audio_message.content, sample_rate, format='WAV')
+    audio_bytes = base64.b64decode(audio_message.content)
+    audio_array=np.array(audio_bytes, dtype=np.float16)
+    sf.write(audio_buffer, audio_array, sample_rate, format='WAV')
     segments, _ = engine.transcribe(audio_buffer, beam_size=5)
     if stream:
         return segments

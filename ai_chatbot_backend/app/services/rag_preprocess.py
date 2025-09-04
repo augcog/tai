@@ -1,8 +1,9 @@
 # Standard python libraries
 import time
 from typing import Any, Optional, Tuple, List
+from uuid import UUID
 # Local libraries
-from app.services.rag_retriever import get_reference_documents
+from app.services.rag_retriever import get_reference_documents, get_chunks_by_file_uuid, get_file_related_documents
 
 
 async def build_retrieval_query(user_message: str, memory_synopsis: Any, engine: Any, tokenizer: Any, sampling: Any) -> str:
@@ -59,6 +60,7 @@ def build_augmented_prompt(
         rag: bool,
         top_k: int = 7,
         query_message: str = "",
+        reference_list: List[str | Any] = [],
         practice: bool = False,
         problem_content: Optional[str] = None,
         answer_content: Optional[str] = None,
@@ -99,8 +101,7 @@ def build_augmented_prompt(
     ), class_name = get_reference_documents(query_message, course, top_k=top_k)
     # Prepare the insert document and reference list
     insert_document = ""
-    reference_list: List[str | Any] = []
-    n = 0
+    n = len(reference_list)
     for i in range(len(top_docs)):
         if similarity_scores[i] > threshold:
             n += 1
@@ -178,3 +179,88 @@ def build_augmented_prompt(
         modified_message += user_message
     # Return the final modified message and reference list
     return modified_message, reference_list
+
+
+def build_file_augmented_context(
+    file_uuid: UUID,
+    course: str,
+    threshold: float,
+    rag: bool,
+    selected_text: Optional[str] = None,
+    index: Optional[float] = None,
+    top_k: int = 7,
+    reference_list: List[str | Any] = [],
+) -> Tuple[str, List[str], str]:
+    """
+    Build an augmented context for file-based chat by retrieving reference documents.
+    Returns:
+    - augmented_context: the augmented context for the file.
+    - reference_list: list of reference URLs for JSON output.
+    """
+    # Get file content by file UUID
+    chunks = get_chunks_by_file_uuid(file_uuid)
+    file_content = " ".join(chunk["chunk"] for chunk in chunks)
+
+    augmented_context = (
+        f"The user is looking at a file which has the following content: {file_content}\n\n"
+    )
+
+    if index:
+        focused_chunk = ' '.join(chunk['chunk'] for chunk in chunks if abs(chunk['index'] - index) <= 1)
+        augmented_context += f"The user is focused on the following part of the file: {focused_chunk}\n\n"
+    
+    if selected_text:
+        augmented_context += f"The user has selected the following text in the file:\n\n{selected_text}\n\n"
+
+    if not rag:
+        return augmented_context, []
+    
+    # Get reference documents based on the selected text.
+    (
+        top_ids,
+        top_docs,
+        top_urls,
+        similarity_scores,
+        top_files,
+        top_refs,
+        top_titles
+    ), _ = get_reference_documents(selected_text, course, top_k=top_k // 2) if selected_text else ([], [], [], [], [], [], []), ""
+
+    # Get reference documents based on the entire document.
+    (
+        top_ids_doc,
+        top_docs_doc,
+        top_urls_doc,
+        similarity_scores_doc,
+        top_files_doc,
+        top_refs_doc,
+        top_titles_doc
+    ) = get_file_related_documents(file_uuid, course, top_k=top_k // 2)
+
+    # Combine results from selected text and entire document
+    top_ids_combined = top_ids + top_ids_doc
+    top_docs_combined = top_docs + top_docs_doc
+    top_urls_combined = top_urls + top_urls_doc
+    similarity_scores_combined = similarity_scores + similarity_scores_doc
+    top_files_combined = top_files + top_files_doc
+    top_refs_combined = top_refs + top_refs_doc
+    top_titles_combined = top_titles + top_titles_doc
+
+    insert_document = ""
+    n = len(reference_list)
+    for i in range(len(top_docs_combined)):
+        if similarity_scores_combined[i] > threshold:
+            n += 1
+            file_path = top_files_combined[i]
+            topic_path = top_refs_combined[i]
+            url = top_urls_combined[i] if top_urls_combined[i] else ""
+            insert_document += (
+                f'Reference Number: {n}\n'
+                f"Directory Path to reference file to tell what file is about: {file_path}\n"
+                f"Topic Path of chunk in file to tell the topic of chunk: {topic_path}\n"
+                f'Document: {top_docs_combined[i]}\n\n'
+            )
+            reference_list.append([topic_path, url, file_path])
+
+    augmented_context += insert_document + "---\n"
+    return augmented_context, reference_list

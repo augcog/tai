@@ -6,6 +6,7 @@ import sqlite3
 import threading
 import time
 from typing import Any, Dict, List, Optional, Tuple
+from uuid import UUID
 # Third-party libraries
 import numpy as np
 from pathlib import Path
@@ -16,7 +17,7 @@ from app.dependencies.model import get_embedding_engine
 embedding_model = get_embedding_engine()
 # Environment Variables
 EMBEDDING_PICKLE_PATH = Path("/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/")
-DB_URI_RO = f"file:{quote('/home/bot/localgpt/tai/ai_chatbot_backend/courses/content.db')}?mode=ro&cache=shared"
+DB_URI_RO = f"file:{quote('/home/bot/localgpt/tai/ai_chatbot_backend/db/metadata.db')}?mode=ro&cache=shared"
 _local = threading.local()
 # SQLDB: whether to use SQL database or Pickle for retrieval.
 SQLDB = True
@@ -42,6 +43,39 @@ def get_reference_documents(
     print(f"[INFO] Retrieval time: {time.time() - t1:.2f} seconds")
     return output, class_name
 
+# TODO: Move to new file_service
+def get_chunks_by_file_uuid(file_uuid: UUID) -> List[Dict[int, Any]]:
+    """
+    Get all chunks associated with a specific file UUID.
+    """
+    with _get_cursor() as cur:
+        rows = cur.execute("""
+            SELECT `idx`, `text`
+            FROM chunks
+            WHERE file_uuid = ?
+            ORDER BY `chunk_index`;
+        """, (str(file_uuid),)).fetchall()
+    return [{"index": row["idx"], "chunk": row["text"]} for row in rows]
+
+def get_file_related_documents(
+    file_uuid: UUID, course: str, top_k: int
+) -> Tuple[Tuple[List[str], List[str], List[str], List[float], List[str], List[str], List[str]], str]:
+    """
+    Retrieve top related documents for a specific file UUID.
+    """
+    # Get the file embedding by file uuid
+    with _get_cursor() as cur:
+        row = cur.execute("""
+            SELECT `uuid`, `vector`
+            FROM file
+            WHERE uuid = ?
+        """, (str(file_uuid),)).fetchone()
+    file_embedding = row["vector"] if row else None
+    if not file_embedding:
+        raise ValueError(f"File with UUID {file_uuid} not found or has no embedding.")
+
+    query_embed = {"dense_vecs": _decode_vec_from_db(file_embedding)}
+    return _get_references_from_sql(query_embed, course, top_k)
 
 def _get_references_from_sql(
     query_embed: Dict[str, Any], course: str, top_k: int

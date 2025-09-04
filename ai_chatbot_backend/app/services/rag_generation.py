@@ -1,15 +1,15 @@
 # Standard python libraries
-import json
 import re
 import ast
 import time
 from typing import Any, Optional, Tuple, List, Union, Generator
+from uuid import UUID
 # Third-party libraries
 from transformers import AutoTokenizer
 from vllm import SamplingParams
 # Local libraries
 from app.core.models.chat_completion import Message
-from app.services.rag_preprocess import build_retrieval_query, build_augmented_prompt
+from app.services.rag_preprocess import build_retrieval_query, build_augmented_prompt, build_file_augmented_context
 from app.services.rag_postprocess import build_memory_synopsis
 # Environment Variables
 TOKENIZER_MODEL_ID = "THUDM/GLM-4-9B-0414"
@@ -52,6 +52,59 @@ async def generate_chat_response(
     )
     # Update the last message with the modified content
     messages[-1].content = modified_message
+    # Generate the response using the engine
+    if _is_local_engine(engine):
+        iterator = _generate_streaming_response(messages, engine)
+        return iterator, reference_list
+    else:
+        response = engine(messages[-1].content, stream=stream, course=course)
+        return response, reference_list
+
+
+async def generate_file_chat_response(
+        messages: List[Message],
+        file_uuid: UUID,
+        # document: str,
+        selected_text: Optional[str] = None,
+        index: Optional[float] = None,
+        stream: bool = True,
+        rag: bool = True,
+        course: Optional[str] = "",
+        threshold: float = 0.32,
+        top_k: int = 7,
+        engine: Any = None,
+        audio_response: bool = False,   # Not supported yet
+        sid: Optional[str] = None
+) -> Tuple[Any, str]:
+    """
+    Build an augmented message with references and run LLM inference for file-based chat.
+    Returns a tuple: (stream, reference_string)
+    """
+    # Build the augmented context for file-based chat
+    augmented_context, reference_list = build_file_augmented_context(
+        file_uuid, course, threshold, rag, selected_text, index, top_k
+    )
+
+    t0 = time.time()
+    user_message = messages[-1].content
+    query_message = await build_retrieval_query(user_message, LOCAL_MEMORY_SYNOPSIS.get(sid, None), engine, TOKENIZER, SAMPLING) if len(messages) > 2 else user_message
+    print(f"[INFO] Preprocessing time: {time.time() - t0:.2f} seconds")
+    modified_message, reference_list = build_augmented_prompt(
+        user_message,
+        course,
+        threshold,
+        rag,
+        top_k=top_k,
+        query_message=query_message,
+        reference_list=reference_list
+    )
+
+    messages[-1].content = (
+        f"{augmented_context}"
+        f"Besides the context of the file and related references above, you also have the following references based on the chat history:\n\n"
+        f"{modified_message}"
+    )
+
     # Generate the response using the engine
     if _is_local_engine(engine):
         iterator = _generate_streaming_response(messages, engine)
@@ -129,9 +182,16 @@ async def local_parser(
         yield ref_block
         print(ref_block)
 
+async def build_memory_after_response(
+        messages: List[Message],
+        previous_text: str,
+        references: List[Any],
+        engine: Optional[Any] = None,
+        old_sid: Optional[str] = None
+) -> Any:
     # Call to build memory after finish output.
     if messages and engine and old_sid:
-        messages.append(Message(role="assistant", content=previous_text + ref_block))
+        messages.append(Message(role="assistant", content=previous_text + "\n<!--REFERENCES:" + "\n\n".join([str(ref) for ref in references]) + "-->"))
         sid = sid_from_history(messages)
         print(f"[INFO] Generated SID: {sid}")
         LOCAL_MEMORY_SYNOPSIS[sid] = await build_memory_synopsis(messages, TOKENIZER, engine, LOCAL_MEMORY_SYNOPSIS.get(old_sid, None))
@@ -144,7 +204,7 @@ async def local_parser(
 import json, base64, hashlib, secrets
 def sid_from_history(messages):
     hist = [{"r": getattr(m, "role", "user"),
-             "c": (getattr(m, "content", "") or "").split("<|begin_of_reference|>", 1)[0]}
+             "c": (getattr(m, "content", "") or "").split("\n<!--REFERENCES:", 1)[0]}
             for m in messages]
     # print(f"[INFO] History for SID generation: {hist}")
     digest = hashlib.blake2b(

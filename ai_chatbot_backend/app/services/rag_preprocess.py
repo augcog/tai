@@ -1,6 +1,6 @@
 # Standard python libraries
 import time
-from typing import Any, Optional, Tuple, List
+from typing import Any, Optional, Tuple, List, Dict
 from uuid import UUID
 # Local libraries
 from app.services.rag_retriever import get_reference_documents, get_chunks_by_file_uuid, get_file_related_documents
@@ -60,12 +60,12 @@ def build_augmented_prompt(
         rag: bool,
         top_k: int = 7,
         query_message: str = "",
-        reference_list: List[str | Any] = [],
+        reference_list: List[Dict] = None,
         practice: bool = False,
         problem_content: Optional[str] = None,
         answer_content: Optional[str] = None,
         audio_response: bool = False
-) -> Tuple[str, List[str | Any]]:
+) -> Tuple[str, List[Dict]]:
     """
     Build an augmented prompt by retrieving reference documents.
     Returns:
@@ -101,6 +101,7 @@ def build_augmented_prompt(
     ), class_name = get_reference_documents(query_message, course, top_k=top_k)
     # Prepare the insert document and reference list
     insert_document = ""
+    reference_list = reference_list or []
     n = len(reference_list)
     for i in range(len(top_docs)):
         if similarity_scores[i] > threshold:
@@ -128,13 +129,8 @@ def build_augmented_prompt(
     else:
         response_style = """
         STYLE:
-        Use a clear, natural, speaker-friendly tone that is short and engaging. No code block or Markdown formatting. 
-        One sentence per line. No references at the end.
-
-        FORMATTING:
-        After every sentence, insert a newline character (\n).
-        Two newline characters (\n\n) indicate a new paragraph.
-        Do not join sentences in the same line.
+        Use a clear, natural, speaker-friendly tone that is short and engaging. Try to end every sentence with a period '.'. Always remember: Avoid code block, Markdown formatting or math equation!!! Avoid code block, Markdown formatting or math equation!!! Avoid code block, Markdown formatting or math equation!!! No references at the end or listed withou telling usage.
+        Make the first sentence short and engaging. If no instruction is given, explain that you did not hear any instruction.
         """
         reference_style = (
             f"Mention specific reference numbers inline when that part of the answer is refer to some reference. "
@@ -189,8 +185,8 @@ def build_file_augmented_context(
     selected_text: Optional[str] = None,
     index: Optional[float] = None,
     top_k: int = 7,
-    reference_list: List[str | Any] = [],
-) -> Tuple[str, List[str], str]:
+    reference_list: List[Dict] = None,
+) -> Tuple[str, List[Dict]]:
     """
     Build an augmented context for file-based chat by retrieving reference documents.
     Returns:
@@ -247,6 +243,7 @@ def build_file_augmented_context(
     top_titles_combined = top_titles + top_titles_doc
 
     insert_document = ""
+    reference_list = reference_list or []
     n = len(reference_list)
     for i in range(len(top_docs_combined)):
         if similarity_scores_combined[i] > threshold:

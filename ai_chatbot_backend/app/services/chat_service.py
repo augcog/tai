@@ -11,54 +11,94 @@ from openai import OpenAI
 
 
 async def chat_stream_parser(
-        stream: AsyncIterator, reference_list: List[str], audio: bool = False, messages: List[Dict] = [], engine: Any = None, old_sid: str = ""
+        stream: AsyncIterator, reference_list: List[str], audio: bool = False, messages: List[Dict] = [],audio_text: str=None, engine: Any = None, old_sid: str = "", debug: bool = False
 ) -> AsyncIterator[str]:
     """
     Parse the streaming response from the chat model and yield deltas.
     """
+    if audio_text:
+        yield sse(AudioTranscript(text=audio_text))
     previous_text = ""
-    seq = 0
+    text_seq = 0
+    voice_seq=0
     audio_messages = []
     async for output in stream:
         text = output.outputs[0].text
         chunk = text[len(previous_text):]
         if not chunk:
             continue
-        yield sse(ResponseDelta(seq=seq, text=chunk));seq += 1
+
+        yield sse(ResponseDelta(seq=text_seq, text=chunk)); text_seq += 1
         print(chunk, end="")
         if audio:
-            if '\n' in chunk:
-                # Find the last newline in text before chunk and get the text to be converted to audio after that
-                last_newline_index = previous_text.rfind('\n')
-                if last_newline_index != -1:
-                    audio_text = previous_text[last_newline_index + 1:] + chunk[chunk.rfind('\n') + 1:]
-                else:
-                    audio_text = chunk[chunk.rfind('\n') + 1:]
-                audio_messages.append({"role": "user", "content": audio_text})
-                audio_iterator = audio_generator(audio_messages, stream=True)
-                audio_bytes_io = io.BytesIO()
-                async for data in audio_iterator:
-                    yield sse(ResponseDelta(seq=seq, audio_b64=data, audio_spec=AudioSpec())); seq += 1
-                    audio_bytes = base64.b64decode(data)
-                    audio_bytes_io.write(audio_bytes)
-                audio_data = np.frombuffer(audio_bytes_io.getvalue(), dtype=np.int16)
-                audio2_base64 = convert_audio_to_base64(audio_data, 24000, target_format="wav")
-                audio_messages.append({
-                    "role": "assistant",
-                    "content": [
-                        {
-                            "type": "input_audio",
-                            "input_audio": {
-                                "data": audio2_base64,
-                                "format": "wav",
-                            },
-                        }
-                    ],
-                })
-        previous_text = text
+            if '.' in chunk:
 
+                # Find the last newline in text before chunk and get the text to be converted to audio after that
+                last_newline_index = previous_text.rfind('.')
+                audio_text = previous_text[last_newline_index + 1:] + chunk[:chunk.rfind('.') + 1]
+                #replace all the consecutive \n with space no matter how many \n
+                audio_text = re.sub(r'\n+', ' ', audio_text)
+                # yield sse(ResponseDelta(seq=text_seq, text=audio_text)); text_seq += 1
+                # print(audio_text, end="")
+                if audio_text.strip()== "":
+                    previous_text = text
+                    continue
+                messages_to_send= audio_text.split('.')
+                for msg in messages_to_send:
+                    if msg.strip():
+                        audio_messages.append({"role": "user", "content": msg + '.'})
+                        audio_iterator = audio_generator(audio_messages, stream=True)
+                        audio_bytes_io = io.BytesIO()
+                        async for data in audio_iterator:
+                            yield sse(ResponseDelta(seq=voice_seq, audio_b64=data, audio_spec=AudioSpec())); voice_seq += 1
+                            audio_bytes = base64.b64decode(data)
+                            audio_bytes_io.write(audio_bytes)
+                        audio_data = np.frombuffer(audio_bytes_io.getvalue(), dtype=np.int16)
+                        audio2_base64 = convert_audio_to_base64(audio_data, 24000, target_format="wav")
+                        audio_messages.append({
+                            "role": "assistant",
+                            "content": [
+                                {
+                                    "type": "input_audio",
+                                    "input_audio": {
+                                        "data": audio2_base64,
+                                        "format": "wav",
+                                    },
+                                }
+                            ],
+                        })
+        previous_text = text
+    else:
+        audio_text = previous_text[previous_text.rfind('.') + 1:]
+        # replace all the consecutive \n with space no matter how many \n
+        # yield sse(ResponseDelta(seq=text_seq, text=audio_text)); text_seq += 1
+        if audio_text.strip():
+            print("\n[INFO] Final audio text:")
+            print(audio_text, end="")
+            audio_messages.append({"role": "user", "content": audio_text})
+            audio_iterator = audio_generator(audio_messages, stream=True)
+            audio_bytes_io = io.BytesIO()
+            async for data in audio_iterator:
+                yield sse(ResponseDelta(seq=voice_seq, audio_b64=data, audio_spec=AudioSpec())); voice_seq += 1
+                audio_bytes = base64.b64decode(data)
+                audio_bytes_io.write(audio_bytes)
+            audio_data = np.frombuffer(audio_bytes_io.getvalue(), dtype=np.int16)
+            audio2_base64 = convert_audio_to_base64(audio_data, 24000, target_format="wav")
+            audio_messages.append({
+                "role": "assistant",
+                "content": [
+                    {
+                        "type": "input_audio",
+                        "input_audio": {
+                            "data": audio2_base64,
+                            "format": "wav",
+                        },
+                    }
+                ],
+            })
     pattern = re.compile(
-        r'(?:\[Reference:\s*([\d,\s]+)\]|\breference\s+(\d+(?:\s*,\s*\d+)*))',
+        r'(?:\[Reference:\s*([\d,\s]+)\]'
+        r'|\breference\s+(\d+(?:(?:\s*,\s*|\s*(?:and|&)\s*)\d+)*))',
         re.IGNORECASE
     )
 
@@ -67,7 +107,7 @@ async def chat_stream_parser(
         for m in pattern.finditer(previous_text)
         for n in re.findall(r'\d+', m.group(1) or m.group(2))
     }
-
+    print(f"\n[INFO] Mentioned references: {mentioned_references}")
     references = []
     max_idx = len(reference_list)
     for i in sorted(mentioned_references):
@@ -105,6 +145,9 @@ def format_audio_text_message(audio_text: str) -> List[Dict]:
     """
     Format the audio text message into the expected structure for the chat model.
     """
+    # remove all the [] in text
+    audio_text = re.sub(r'\[.*?\]', '', audio_text).replace('\n',' ').strip()
+    print(f"[INFO] Audio text after cleaning: {audio_text}")
     return [{"role": "user", "content": audio_text}]
 
 async def audio_generator(messages: List[Dict], stream: bool = True
@@ -137,8 +180,8 @@ async def audio_generator(messages: List[Dict], stream: bool = True
     ]
     messages = messages_add_to_begining + messages
     audio_bytes_io = io.BytesIO()
-    if len(messages) > 7:
-        messages = messages[:2] + messages[-5:]
+    if len(messages) > 3:
+        messages = messages[:2] + messages[-1:]
     client = OpenAI(base_url='http://128.32.43.216:8000/v1',api_key='EMPTY')
     models = client.models.list()
     model = models.data[0].id

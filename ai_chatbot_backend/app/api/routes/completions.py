@@ -52,6 +52,7 @@ async def create_text_completion(
     sid = sid_from_history(formatter(params.messages))
     print(f"[INFO] Generated SID: {sid}")
 
+    print(f"[INFO] Chat Type: {params.chat_type}")
     if params.chat_type == 'file':  # filechat
         if not params.file_uuid:
             # Handle case where file_uuid is not provided
@@ -110,12 +111,12 @@ async def create_voice_completion(
     audio_text = audio_to_text(params.audio, whisper_engine, stream=False)
     params.messages.append(Message(role="user", content=audio_text))
     response, reference_list = await selector(
-        formatter(params.messages), stream=params.stream, course=course, engine=engine
+        formatter(params.messages), stream=params.stream, course=course, engine=engine,audio_response=params.audio_response,
     )
 
     if params.stream:
         return StreamingResponse(
-            parser(response, reference_list, params.audio_response), media_type="text/event-stream"
+            parser(response, reference_list, params.audio_response,audio_text=audio_text), media_type="text/event-stream"
         )
     else:
         return JSONResponse(ResponseDelta(text=response).model_dump_json(exclude_unset=True))

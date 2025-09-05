@@ -313,6 +313,8 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                             "correct_answer": {"type": "array", "items": {"type": "integer"}, "description": "The index of the option in the options array, e.g. [0,1] for the first and second options"},
                                             "explanation": {"type": "string","description": "The explanation of why this option is the answer, it should be a key_concept in the md_content"},
                                         },
+                                        "required": ["question_text", "options", "correct_answer", "explanation"],
+                                        "additionalProperties": False
                                     },
                                     "content_coverage": {
                                         "type": "array",
@@ -999,7 +1001,7 @@ def add_titles_to_json(index_helper, json_file_path):
         transcript_list.insert(current_index, title_entry)
         # Update the current index to the next position
         current_index += 1
-
+    transcript_list = group_sentences_by_time_and_speaker(transcript_list)
     with open(json_file_path, "w") as json_file:
         json.dump(transcript_list, json_file, indent=4)
 
@@ -1028,3 +1030,99 @@ def get_next_start_time(transcript_list, position):
     if position >= len(transcript_list) - 1:
         return get_previous_end_time(transcript_list, position)
     return transcript_list[position]["start time"]
+
+
+def group_sentences_by_time_and_speaker(transcript_list, time_threshold=5.0, max_words=200):
+    """
+    Group sentences based on time intervals, speaker changes, and word count limits.
+
+    Args:
+        transcript_list: List of transcript sentences with 'start time', 'end time', 'speaker', and 'text content'
+        time_threshold: Maximum time gap in seconds between sentences in the same group (default: 5.0)
+        max_words: Maximum number of words allowed in a single group (default: 200)
+
+    Returns:
+        List of grouped sentences with start and end times for each group
+    """
+
+    def count_words(text):
+        """Count words in a text string"""
+        return len(text.split())
+
+    grouped_sentences = []
+    current_group = []
+
+    for i, sentence in enumerate(transcript_list):
+        current_speaker = sentence['speaker']
+        current_start_time = float(sentence['start time'])
+        current_end_time = float(sentence['end time'])
+        current_text = sentence.get('text content', '')
+
+        # Check if this sentence should start a new group
+        should_start_new_group = False
+
+        if not current_group:
+            # First sentence always starts a new group
+            should_start_new_group = False
+        else:
+            # Get the last sentence in the current group
+            last_sentence = current_group[-1]
+            last_end_time = float(last_sentence['end time'])
+            last_speaker = last_sentence['speaker']
+
+            # Calculate current group word count
+            current_group_text = " ".join([s.get("text content", "") for s in current_group])
+            current_word_count = count_words(current_group_text)
+
+            # Calculate word count if we add the current sentence
+            potential_word_count = current_word_count + count_words(current_text)
+
+            # Start new group if:
+            # 1. Speaker has changed (mandatory condition)
+            # 2. Time gap is larger than threshold
+            # 3. Adding current sentence would exceed max_words limit
+            time_gap = current_start_time - last_end_time
+
+            if (current_speaker != last_speaker or
+                    time_gap > time_threshold or
+                    potential_word_count > max_words):
+                should_start_new_group = True
+
+        if should_start_new_group and current_group:
+            # Finalize the current group
+            group_start_time = float(current_group[0]['start time'])
+            group_end_time = float(current_group[-1]['end time'])
+            group_speaker = current_group[0]['speaker']
+
+            # Combine all text content in the group
+            group_text = " ".join([s.get("text content", "") for s in current_group])
+
+            grouped_sentences.append({
+                "start time": round(group_start_time, 2),
+                "end time": round(group_end_time, 2),
+                "speaker": group_speaker,
+                "text content": group_text,
+            })
+
+            # Start new group with current sentence
+            current_group = [sentence]
+        else:
+            # Add to current group
+            current_group.append(sentence)
+
+    # Don't forget the last group
+    if current_group:
+        group_start_time = float(current_group[0].get("start time", 0))
+        group_end_time = float(current_group[-1].get("end time", 0))
+        group_speaker = current_group[0].get("speaker", "")
+
+        group_text = " ".join([s.get("text content", "") for s in current_group])
+
+        grouped_sentences.append({
+            "start time": round(group_start_time, 2),
+            "end time": round(group_end_time, 2),
+            "speaker": group_speaker,
+            "text content": group_text,
+        })
+
+    return grouped_sentences

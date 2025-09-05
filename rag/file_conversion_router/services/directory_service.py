@@ -125,8 +125,13 @@ def process_folder(
         extra_info_file = output_file_path / f"{input_file_path.name}.json"
         if extra_info_file.exists():
             try:
-                with extra_info_file.open("r", encoding="utf-8") as f:
-                    extra_info = json.load(f)
+                infos = extra_info_file.read_text(encoding='utf-8')
+                infos = json.loads(infos)
+                extra_info = []
+                for info in infos:
+                    # replace all the space in keys in info with underscore
+                    info = {k.replace(" ", "_"): v for k, v in info.items()}
+                    extra_info.append(info)
             except json.JSONDecodeError as e:
                 logging.error(f"Failed to read extra info from {extra_info_file}: {e}")
                 extra_info = []
@@ -381,7 +386,7 @@ CREATE TABLE IF NOT EXISTS file (
 
 CREATE TABLE IF NOT EXISTS chunks (
   chunk_uuid     TEXT PRIMARY KEY,
-  uuid           TEXT NOT NULL,
+  file_uuid           TEXT NOT NULL,
   idx            INTEGER NOT NULL,
   text           TEXT NOT NULL,
   title          TEXT,
@@ -391,7 +396,7 @@ CREATE TABLE IF NOT EXISTS chunks (
   course_name    TEXT,
   course_code    TEXT,
   chunk_index    INTEGER,
-  FOREIGN KEY (uuid) REFERENCES file(uuid) ON DELETE CASCADE
+  FOREIGN KEY (file_uuid) REFERENCES file(uuid) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS problem (
@@ -425,11 +430,11 @@ ON CONFLICT(uuid) DO UPDATE SET
 
 SQL_UPSERT_CHUNK = """
 INSERT INTO chunks (
-  chunk_uuid, uuid, idx, text, title, url, file_path, reference_path,
+  chunk_uuid, file_uuid, idx, text, title, url, file_path, reference_path,
   course_name, course_code, chunk_index
 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 ON CONFLICT(chunk_uuid) DO UPDATE SET
-  uuid           = excluded.uuid,
+  file_uuid           = excluded.file_uuid,
   idx            = excluded.idx,
   text           = excluded.text,
   title          = excluded.title,

@@ -1,5 +1,5 @@
 from file_conversion_router.conversion.base_converter import BaseConverter
-from moviepy import AudioFileClip
+from moviepy import AudioFileClip, concatenate_audioclips
 import whisperx
 from scenedetect import AdaptiveDetector
 from scenedetect import open_video, SceneManager
@@ -11,6 +11,10 @@ from openai import OpenAI
 import json
 import re
 from textwrap import dedent
+import yaml
+from pathlib import Path
+import tempfile
+import shutil
 
 
 class VideoConverter(BaseConverter):
@@ -20,6 +24,19 @@ class VideoConverter(BaseConverter):
         self.file_name = ""
         self.paragraphs = []
         self.index_helper = None
+        self.course_code = course_code
+        self.professor_audio_config = self.load_professor_audio_config()
+
+    def load_professor_audio_config(self):
+        """
+        Load professor audio configuration from YAML file.
+        Returns a dict mapping course_code to professor audio file path.
+        """
+        config_path = Path(__file__).parent.parent / "professor_audio_config.yaml"
+        if config_path.exists():
+            with open(config_path, 'r') as f:
+                return yaml.safe_load(f) or {}
+        return {}
 
     def convert_mp4_to_wav(self, mp4_file_path,output_path):
         wav_file_path = output_path.with_suffix(".wav")
@@ -29,7 +46,76 @@ class VideoConverter(BaseConverter):
             audio_clip.close()  # Close the clip to free resources
         return wav_file_path
 
-    def _video_convert_whisperx(self, audio_file_path):
+    def prepend_professor_audio(self, target_wav_path, segment_duration=20):
+        """
+        Prepend professor's reference audio to the target WAV file, overwriting the original.
+        
+        Args:
+            target_wav_path: Path to the WAV file to be modified
+            segment_duration: Duration in seconds of the professor segment to prepend (default: 20)
+        
+        Returns:
+            Tuple of (modified_wav_path, prepended_duration) where prepended_duration is the actual duration added
+        """
+        target_path = Path(target_wav_path)
+        
+        # Check if professor audio exists for this course
+        if self.course_code not in self.professor_audio_config:
+            print(f"No professor audio configured for course {self.course_code}")
+            return target_path, 0
+        
+        professor_audio_path = Path(self.professor_audio_config[self.course_code])
+        
+        if not professor_audio_path.exists():
+            print(f"Professor audio file not found: {professor_audio_path}")
+            return target_path, 0
+        
+        # Create a temporary file for the combined audio
+        with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as tmp_file:
+            temp_path = Path(tmp_file.name)
+        
+        try:
+            # Load the professor's reference audio
+            professor_clip = AudioFileClip(str(professor_audio_path))
+            
+            # Calculate actual duration to prepend
+            actual_duration = min(segment_duration, professor_clip.duration)
+            
+            # Extract the first segment_duration seconds
+            reference_segment = professor_clip.subclipped(0, actual_duration)
+            
+            # Load the target audio
+            target_clip = AudioFileClip(str(target_path))
+            
+            # Concatenate reference segment at the beginning of target audio
+            combined_audio = concatenate_audioclips([reference_segment, target_clip])
+            
+            # Write the combined audio to temp file
+            combined_audio.write_audiofile(str(temp_path))
+            
+            # Clean up clips
+            professor_clip.close()
+            target_clip.close()
+            reference_segment.close()
+            combined_audio.close()
+            
+            # Replace the original file with the combined audio
+            shutil.move(str(temp_path), str(target_path))
+            
+            print(f"Successfully prepended {actual_duration}s of professor audio to {target_path}")
+            
+            return target_path, actual_duration
+            
+        except Exception as e:
+            print(f"Error prepending professor audio: {e}")
+            # Clean up temp file if it exists
+            if temp_path.exists():
+                temp_path.unlink()
+            return target_path, 0
+        
+        return target_path, 0
+
+    def _video_convert_whisperx(self, audio_file_path, prepended_duration=0):
         device = "cuda"
         batch_size = 16
         compute_type = "float16"
@@ -42,17 +128,30 @@ class VideoConverter(BaseConverter):
         diarize_segments = diarize_model(audio)
         result = whisperx.assign_word_speakers(diarize_segments, result)
         segments = []
+        speaker_mapping = {}  # Track speakers from prepended audio
+        
         if "segments" in result:
             for segment in result["segments"]:
+                speaker = segment["speaker"] if "speaker" in segment else "UNKNOWN"
                 segment_dict = {
                     "start": segment["start"],
                     "end": segment["end"],
                     "text": segment["text"],
-                    "speaker": segment["speaker"] if "speaker" in segment else "UNKNOWN"
+                    "speaker": speaker
                 }
+                
+                # If this segment is in the prepended audio, track the speaker but don't include text
+                if prepended_duration > 0 and segment["start"] < prepended_duration:
+                    # Track speaker from reference audio
+                    if speaker not in speaker_mapping:
+                        speaker_mapping[speaker] = "Professor (identified from reference)"
+                    # Skip adding this segment to keep transcription clean
+                    continue
+                    
                 segments.append(segment_dict)
-        print(segments)
-        return segments
+                
+        print(f"Speaker mapping from reference audio: {speaker_mapping}")
+        return segments, speaker_mapping
 
     def paragraph_generator(self, transcript, seg_time):
         """
@@ -132,19 +231,41 @@ class VideoConverter(BaseConverter):
             paragraph_index = i + 1  # 1-based index
             self.index_helper[paragraph_index] = start_time
 
-    def write_to_markdown(self, paragraphs):
+    def write_to_markdown(self, paragraphs, prepended_duration=0, speaker_mapping=None):
         """
         Writes the structured paragraphs to a Markdown file, ensuring speakers
         in the same paragraph appear on new lines, not in new paragraphs.
         """
         markdown_lines = []
+        
+        # Add speaker identification section if we have speaker mapping from reference audio
+        if speaker_mapping:
+            markdown_lines.append("## [SPEAKER IDENTIFICATION FROM REFERENCE AUDIO]")
+            markdown_lines.append("*Based on the professor reference audio (first 20s), the following speakers were identified:*")
+            markdown_lines.append("")
+            for speaker, role in speaker_mapping.items():
+                markdown_lines.append(f"- **{speaker}**: {role}")
+            markdown_lines.append("")
+            markdown_lines.append("---")
+            markdown_lines.append("")
+        
+        # Add main content header
+        if prepended_duration > 0:
+            markdown_lines.append("## [MAIN LECTURE CONTENT]")
+            markdown_lines.append("*Transcription starts after the professor reference audio*")
+            markdown_lines.append("")
+        
         for i, paragraph in enumerate(paragraphs, 1):
             paragraph_lines = []
             for utterance in paragraph['utterances']:
                 speaker = utterance['speaker']
                 text = utterance['text'].strip()
                 if text:
-                    paragraph_lines.append(f"{speaker}: {text}")
+                    # Add role annotation if we know this speaker
+                    if speaker_mapping and speaker in speaker_mapping:
+                        paragraph_lines.append(f"{speaker} (Professor): {text}")
+                    else:
+                        paragraph_lines.append(f"{speaker}: {text}")
 
             # Join all speakers in the same paragraph with single \n
             if paragraph_lines:
@@ -265,13 +386,38 @@ class VideoConverter(BaseConverter):
 
     def _to_markdown(self, input_path, output_path):
         self.file_name = input_path.name
-        audio = self.convert_mp4_to_wav(input_path, output_path)
+        audio_origin = self.convert_mp4_to_wav(input_path, output_path)
+        audio, prepended_duration = self.prepend_professor_audio(audio_origin, segment_duration=20)
+        
+        # Process video scenes from the original video
         seg_time = self.process_video_scenes(input_path, output_path)
-        segments = self._video_convert_whisperx(str(audio))
+        
+        # Adjust scene times to account for prepended audio
+        if prepended_duration > 0 and seg_time:
+            # Add the reference segment as the first scene (0 to prepended_duration)
+            # Then shift all other scenes by prepended_duration
+            adjusted_seg_time = [(0, prepended_duration)]  # Professor reference segment
+            for start, end in seg_time:
+                adjusted_seg_time.append((start + prepended_duration, end + prepended_duration))
+            seg_time = adjusted_seg_time
+        elif prepended_duration > 0:
+            # If no scenes were detected, create one for the professor segment
+            seg_time = [(0, prepended_duration)]
+        
+        segments, speaker_mapping = self._video_convert_whisperx(str(audio), prepended_duration)
+        
+        # Adjust scene times to remove the prepended segment
+        if prepended_duration > 0 and seg_time:
+            # Remove the first segment (professor reference) and adjust times
+            adjusted_seg_time = []
+            for start, end in seg_time[1:] if len(seg_time) > 1 else seg_time:
+                adjusted_seg_time.append((start - prepended_duration, end - prepended_duration))
+            seg_time = adjusted_seg_time if adjusted_seg_time else [(0, 1)]  # Fallback if empty
+        
         self.get_speaker_json(segments, output_path.with_suffix(".json"))
         paragraphs = self.paragraph_generator(segments, seg_time)
         md_path = output_path.with_suffix(".md")
-        text = self.write_to_markdown(paragraphs)
+        text = self.write_to_markdown(paragraphs, prepended_duration, speaker_mapping)
         with open(md_path, "w", encoding="utf-8") as f:
             f.write(text)
         return md_path

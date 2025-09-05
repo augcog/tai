@@ -20,16 +20,16 @@ class ProblemDetail(BaseModel):
     explanation: Optional[str] = Field(None, description="Answer explanation")
 
 
-class ProblemsByFileNameListResponse(BaseModel):
-    """Response for problems by file name query"""
-    file_name: str = Field(..., description="File name")
+class ProblemsByFilePathListResponse(BaseModel):
+    """Response for problems by file path query"""
+    file_path: str = Field(..., description="File path")
     problems: List[ProblemDetail] = Field(..., description="List of problems for this file")
     file_uuid: UUID = Field(..., description="File UUID")
 
     class Config:
         json_schema_extra = {
             "example": {
-                "file_name": "test_file.py",
+                "file_path": "CS 61A/test_file.py",
                 "problems": [
                     {
                         "uuid": "550e8400-e29b-41d4-a716-446655440001",

@@ -54,38 +54,3 @@ class ProblemsByFilePathListResponse(BaseModel):
                 ]
             }
         }
-
-class ProblemsByFilePathListResponse(BaseModel):
-    """Response for problems by file path query"""
-    file_path: str = Field(..., description="File path")
-    problems: List[ProblemDetail] = Field(..., description="List of problems for this file")
-    file_uuid: UUID = Field(..., description="File UUID")
-
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "file_path": "CS 61A/test_file.py",
-                "problems": [
-                    {
-                        "uuid": "550e8400-e29b-41d4-a716-446655440001",
-                        "file_uuid": "550e8400-e29b-41d4-a716-446655440000",
-                        "problem_index": "1.1",
-                        "problem_id": "PROB001",
-                        "question": "What is the capital of France?",
-                        "choices": ["Berlin", "Paris", "London"],
-                        "answer": 1,
-                        "explanation": "Paris is the capital of France."
-                    },
-                    {
-                        "uuid": "550e8400-e29b-41d4-a716-446655440002",
-                        "file_uuid": "550e8400-e29b-41d4-a716-446655440000",
-                        "problem_index": "1.2",
-                        "problem_id": "PROB002",
-                        "question": "What is 2 + 2?",
-                        "choices": ["3", "4", "5"],
-                        "answer": 1,
-                        "explanation": "2 + 2 = 4."
-                    }
-                ]
-            }
-        }

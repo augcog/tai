@@ -183,20 +183,20 @@ async def get_top_k_docs(
 async def practice_completion(
         params: PracticeCompletionParams, db: Session = Depends(get_metadata_db), _: bool = Depends(verify_api_token)
 ):
-    # check all of code_block_content problem_id file_name in params and log error if any is None
+    # check all of code_block_content problem_id file_path in params and log error if any is None
     if any(
             param is None for param in [params.problem_id, params.file_path, params.answer_content]
     ):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="problem_id, file_name, and answer_content must be provided"
+            detail="problem_id, file_path, and answer_content must be provided"
         )
 
-    metadata = file_service.get_file_metadata_by_name(db, params.file_path)
+    metadata = file_service.get_file_metadata_by_path(db, params.file_path)
     if not metadata:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail="File metadata not found by given name " + params.file_path
+            detail="File metadata not found by given path " + params.file_path
         )
 
     # Get problems for this file using the new relationship

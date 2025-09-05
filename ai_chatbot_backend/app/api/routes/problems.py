@@ -15,9 +15,6 @@ from app.api.deps import verify_api_token
 
 router = APIRouter()
 
-"""
-TODO: will be deprecated in the future, use /by-path/{file-path} instead
-"""
 @router.get("/by-path/{file_path}", response_model=ProblemsByFilePathListResponse, summary="Get problems by file path")
 def get_problems_by_file_path(file_path: str, db: Session = Depends(get_metadata_db), _: bool = Depends(verify_api_token)):
     decoded_file_path = unquote(file_path)

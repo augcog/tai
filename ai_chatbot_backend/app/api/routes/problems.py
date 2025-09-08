@@ -15,7 +15,7 @@ from app.api.deps import verify_api_token
 
 router = APIRouter()
 
-@router.get("/by-path/{file_path}", response_model=ProblemsByFilePathListResponse, summary="Get problems by file path")
+@router.get("/by-path", response_model=ProblemsByFilePathListResponse, summary="Get problems by file path")
 def get_problems_by_file_path(file_path: str, db: Session = Depends(get_metadata_db), _: bool = Depends(verify_api_token)):
     decoded_file_path = unquote(file_path)
     metadata = file_service.get_file_metadata_by_path(db, decoded_file_path)
@@ -49,4 +49,4 @@ def get_problems_by_file_path(file_path: str, db: Session = Depends(get_metadata
             answer=answer,
             explanation=problem.explanation
         ))
-    return ProblemsByFilePathListResponse(file_name=decoded_file_path, problems=problem_details, file_uuid=metadata.uuid)
+    return ProblemsByFilePathListResponse(file_path=decoded_file_path, problems=problem_details, file_uuid=metadata.uuid)

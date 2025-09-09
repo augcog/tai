@@ -303,8 +303,8 @@ def check_embedding_status(db_path: str, course_filter: Optional[str] = None) ->
 
 if __name__ == "__main__":
     # Example usage
-    db_path = "/home/bot/bot/yk/YK_final/courses_out/metadata.db"
-    data_dir = "/home/bot/bot/yk/YK_final/courses_out"
+    db_path = "/courses_out1/metadata.db"
+    data_dir = "/courses_out1"
     
     # Check current status
     status = check_embedding_status(db_path, course_filter="ROAR Academy")

@@ -112,6 +112,6 @@ def embedding_create(db_path, embedding_name=None, ):
 
 if __name__ == "__main__":
     embedding_create(
-        "/home/bot/bot/yk/YK_final/courses_out/course.db",
+        "/courses_out1/course.db",
         "ROAR Academy",
     )

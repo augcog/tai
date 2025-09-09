@@ -1,7 +1,10 @@
 """Base classes for all file type converters."""
 import string
 import logging
+import yaml
+import re
 from abc import ABC, abstractmethod
+from pathlib import Path
 # from concurrent.futures import Future, ThreadPoolExecutor
 from shutil import copy2
 # from threading import Lock
@@ -195,7 +198,7 @@ class BaseConverter(ABC):
         )
         with open(metadata_path, "w", encoding="utf-8") as yaml_file:
             yaml.safe_dump(metadata, yaml_file, allow_unicode=True)
-        url = metadata_content.get("URL")
+        url = metadata.get("URL")
         content = {"text": structured_md}
         return Page(
             course_name=self.course_name,
@@ -210,12 +213,13 @@ class BaseConverter(ABC):
         ), metadata
 
     def _put_content_dict_to_metadata(self, content_dict: dict, metadata_content: dict) -> dict:
-
+        url = metadata_content.get('URL', '')
         metadata_content['file_uuid'] = self.file_uuid
         metadata_content["file_name"] = str(self.file_name)
         metadata_content['file_path'] = str(self.relative_path)
         metadata_content["course_name"] = self.course_name
         metadata_content["course_code"] = self.course_code
+        metadata_content['URL'] = url
         if content_dict.get('speakers'):
             metadata_content["speakers"] = content_dict['speakers']
         if not content_dict:
@@ -228,6 +232,8 @@ class BaseConverter(ABC):
             section["aspects"] = section.pop('content_coverage')
             for aspect in section["aspects"]:
                 aspect["type"] = aspect.pop('aspect')
+        if content_dict.get('comprehensive_questions'):
+            metadata_content["comprehensive_questions"] = content_dict['comprehensive_questions']
         if self.file_type == "ipynb":
             metadata_content["problems"] = self.process_problems(content_dict)
         return metadata_content
@@ -340,8 +346,13 @@ class BaseConverter(ABC):
             new_md = apply_structure_for_no_title(
                 md_content=content_text, content_dict=content_dict
             )
+            # Apply speaker role assignment
+            new_md = extract_and_assign_speakers(content_dict, new_md, str(json_path))
+            # Update index helper and add titles BEFORE grouping
             self.update_index_helper(content_dict,new_md)
             add_titles_to_json(index_helper=self.index_helper, json_file_path=json_path)
+            # Group sentences in transcript to reduce list length (after adding titles)
+            group_sentences_in_transcript(str(json_path), max_time_gap=5.0, max_words=200)
         elif file_type == "ipynb":
             content_dict = get_strutured_content_for_ipynb(
                 md_content=content_text,

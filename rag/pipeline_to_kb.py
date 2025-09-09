@@ -1,75 +1,210 @@
+"""
+Pipeline to KB: Complete pipeline from scraping to Knowledge Base with embeddings.
+
+This pipeline includes all three steps:
+1. Web scraping using WebScraper(yaml)
+2. File conversion using process_folder from api.py
+3. Embedding creation using new_embedding_create.py
+"""
+
+import logging
+import argparse
+from pathlib import Path
+from typing import Union, Optional
+import yaml
+import sys
 import os
 
-import yaml
 
-from file_conversion_router.services.directory_service import process_folder
-from file_conversion_router.embedding_create import embedding_create
 from scraper.Scraper_master.scrapers.web_scraper import WebScraper
+from file_conversion_router.services.directory_service import process_folder
+from file_conversion_router.new_embedding_create import embedding_create
 
+def load_scraper_config(config_path: Union[str, Path]) -> dict:
+    """Load configuration from scraper YAML file."""
+    config_path = Path(config_path)
+    if not config_path.exists():
+        raise FileNotFoundError(f"Configuration file not found: {config_path}")
+    
+    with open(config_path, "r") as file:
+        config = yaml.safe_load(file)
+    
+    # Validate required fields for KB pipeline
+    required_fields = ["root_folder", "course_name", "course_code", "db_path"]
+    missing_fields = [field for field in required_fields if field not in config]
+    if missing_fields:
+        raise ValueError(f"Missing required configuration fields: {missing_fields}")
+    
+    return config
 
-def load_yaml(file_path):
-    with open(file_path, "r") as file:
-        return yaml.safe_load(file)
-
-
-def pipeline(yaml):
-    """A pipeline to scrape, chunk and embedd websites into a knowledge base.
-    A YAML file is used to specify the tasks to be performed. The YAML should be structured as follows:
-    root_folder : "path/to/root/folder"
-    tasks :
-      - name : "Local Folder"
-        local: True
-        url : "https://website.url"
-        root: "/root folder"
-      - name : "/root folder"
-        local: False
-        url : "https://website.url"
-        root: "https://website.url"
-
+def create_full_kb_pipeline(config_path: Union[str, Path], 
+                           output_dir: Optional[Union[str, Path]] = None,
+                           embedding_filter: Optional[str] = None,
+                           skip_scraping: bool = False) -> None:
     """
-    data = load_yaml(yaml)
-    root1 = data["root_folder"]
-    print("ROOT1:", root1)
-    root = os.path.abspath(root1)
-    _, n = os.path.split(root)
-    embedding_name = os.path.basename(os.path.normpath(root))
-    markdown_path = root + "_md"
-    cache_path = root + "_cache"
-    course_name = data["course_name"]
-    course_id = data["course_id"]
-    log_path = os.path.abspath(data.get("log_path", f'{root}_log"'))
+    Create a complete knowledge base from scraper configuration file.
+    
+    Args:
+        config_path: Path to scraper YAML configuration file
+        output_dir: Optional output directory. If not provided, uses root_folder + "_output"
+        embedding_filter: Optional course filter for embeddings (course_name or course_code)
+        skip_scraping: If True, skip the scraping step
+    """
+    config = load_scraper_config(config_path)
+    
+    # Extract configuration
+    input_dir = config["root_folder"]
+    course_name = config["course_name"]
+    course_code = config["course_code"]
+    db_path = config["db_path"]
+    log_dir = config.get("log_folder", None)
+    
+    # Set output directory
+    if output_dir is None:
+        output_dir = str(Path(input_dir).parent / f"{Path(input_dir).name}_output")
+    
+    # Use embedding_filter if provided, otherwise use course_name from config
+    embedding_course_filter = embedding_filter or course_name
+    
+    logging.info(f"Starting full KB pipeline for course: {course_name} ({course_code})")
+    logging.info(f"Input directory: {input_dir}")
+    logging.info(f"Output directory: {output_dir}")
+    logging.info(f"Database path: {db_path}")
+    
+    # Step 1: Web scraping
+    if not skip_scraping:
+        logging.info("=== Step 1: Web scraping ===")
+        try:
+            scraper = WebScraper(str(config_path))
+            scraper.run()
+            logging.info("✓ Web scraping completed successfully")
+        except Exception as e:
+            logging.error(f"✗ Web scraping failed: {e}")
+            raise
+    else:
+        logging.info("=== Step 1: Skipping web scraping ===")
+    
+    # Step 2: Convert files and populate database
+    logging.info("=== Step 2: Converting files and populating database ===")
+    try:
+        process_folder(
+            input_dir=input_dir,
+            output_dir=output_dir,
+            course_name=course_name,
+            course_code=course_code,
+            log_dir=log_dir,
+            db_path=db_path,
+        )
+        logging.info("✓ File conversion completed successfully")
+    except Exception as e:
+        logging.error(f"✗ File conversion failed: {e}")
+        raise
+    
+    # Step 3: Create embeddings
+    logging.info("=== Step 3: Creating embeddings ===")
+    try:
+        embedding_create(
+            db_path=db_path,
+            embedding_name=embedding_course_filter,
+        )
+        logging.info("✓ Embedding creation completed successfully")
+    except Exception as e:
+        logging.error(f"✗ Embedding creation failed: {e}")
+        raise
+    
+    logging.info("🎉 Full Knowledge Base pipeline completed successfully!")
+    logging.info(f"KB is ready at: {db_path}")
 
-    # print("MDPATH", markdown_path)
-    scraper = WebScraper(yaml)
-    scraper.run()
-    process_folder(
-        root,
-        markdown_path,
-        course_name,
-        course_id,
-        log_dir=log_path,
-        cache_path=cache_path,
-    )
+def scrape_only(config_path: Union[str, Path]) -> None:
+    """
+    Run web scraping only.
+    
+    Args:
+        config_path: Path to scraper YAML configuration file
+    """
+    config = load_scraper_config(config_path)
+    course_name = config["course_name"]
+    course_code = config["course_code"]
+    
+    logging.info(f"Starting scraping only for course: {course_name} ({course_code})")
+    
+    logging.info("=== Web scraping ===")
+    try:
+        scraper = WebScraper(str(config_path))
+        scraper.run()
+        logging.info("✓ Web scraping completed successfully")
+    except Exception as e:
+        logging.error(f"✗ Web scraping failed: {e}")
+        raise
+    
+    logging.info("✅ Scraping pipeline completed successfully!")
 
-    folder_name = "embedding"
-    model = "BGE"
-    embedding_create(markdown_path, n, embedding_name, folder_name, model)
+def convert_only(config_path: Union[str, Path], 
+                output_dir: Optional[Union[str, Path]] = None) -> None:
+    """
+    Convert files only without scraping or creating embeddings.
+    
+    Args:
+        config_path: Path to scraper YAML configuration file
+        output_dir: Optional output directory. If not provided, uses root_folder + "_output"
+    """
+    config = load_scraper_config(config_path)
+    
+    # Extract configuration
+    input_dir = config["root_folder"]
+    course_name = config["course_name"]
+    course_code = config["course_code"]
+    db_path = config["db_path"]
+    log_dir = config.get("log_folder", None)
+    
+    # Set output directory
+    if output_dir is None:
+        output_dir = str(Path(input_dir).parent / f"{Path(input_dir).name}_output")
+    
+    logging.info(f"Starting conversion only for course: {course_name} ({course_code})")
+    logging.info(f"Input directory: {input_dir}")
+    logging.info(f"Output directory: {output_dir}")
+    
+    # Convert files using process_folder
+    logging.info("=== Converting files and populating database ===")
+    try:
+        process_folder(
+            input_dir=input_dir,
+            output_dir=output_dir,
+            course_name=course_name,
+            course_code=course_code,
+            log_dir=log_dir,
+            db_path=db_path,
+        )
+        logging.info("✓ File conversion completed successfully")
+    except Exception as e:
+        logging.error(f"✗ File conversion failed: {e}")
+        raise
+    
+    logging.info("✅ Conversion pipeline completed successfully!")
 
-
-def convert_only(yaml):
-    data = load_yaml(yaml)
-    root1 = data["root_folder"]
-    print("ROOT1:", root1)
-    root = os.path.abspath(root1)
-    _, n = os.path.split(root)
-    embedding_name = os.path.basename(os.path.normpath(root))
-    markdown_path = root + "_md"
-    # print("MDPATH", markdown_path)
-    # convert_directory(root, markdown_path)
-    folder_name = "embedding"
-    model = "BGE"
-    embedding_create(markdown_path, n, embedding_name, folder_name, model)
+def embed_only(db_path: Union[str, Path], 
+               embedding_filter: Optional[str] = None) -> None:
+    """
+    Create embeddings only for an existing KB.
+    
+    Args:
+        db_path: Path to existing SQLite database
+        embedding_filter: Optional course filter for embeddings (course_name or course_code)
+    """
+    logging.info("=== Creating embeddings only ===")
+    logging.info(f"Database path: {db_path}")
+    
+    try:
+        embedding_create(
+            db_path=db_path,
+            embedding_name=embedding_filter,
+        )
+        logging.info("✓ Embedding creation completed successfully")
+    except Exception as e:
+        logging.error(f"✗ Embedding creation failed: {e}")
+        raise
 
 
 if __name__ == "__main__":
-    pipeline("/home/bot/bot/yk/YK_final/course_yaml/CS 61A.yaml")
+    create_full_kb_pipeline("/home/bot/bot/yk/YK_final/tai/rag/scraper/Scraper_master/sample_config.yaml")

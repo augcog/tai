@@ -117,8 +117,18 @@ def process_folder(
 
         # sections from metadata if provided
         sections = []
+        url = ""
         if isinstance(metadata, dict):
             sections = metadata.get("sections", []) or []
+            comprehensive_questions = metadata.get("comprehensive_questions", []) or []
+            # Combine sections and comprehensive_questions into a single structure
+            if comprehensive_questions:
+                sections_data = {
+                    "sections": sections,
+                    "comprehensive_questions": comprehensive_questions
+                }
+                sections = sections_data
+            url = metadata.get("URL", "")
 
         # read extra info from json file if present
         extra_info = []
@@ -141,6 +151,7 @@ def process_folder(
             course_name=course_name,
             sections=sections,
             extra_info=extra_info,
+            url=url,
         )
 
         # upsert problems if present
@@ -216,6 +227,7 @@ def upsert_problem_meta(conn: sqlite3.Connection, file_uuid: str, pr: dict, q_id
             q.get("explanation"),
         )
     )
+
 def file_content_hash(p: Path) -> str:
     h = hashlib.blake2b(digest_size=32)
     with p.open("rb") as f:
@@ -251,7 +263,8 @@ def write_chunks_to_db(conn: sqlite3.Connection,
                        course_code: str | None = None,
                        course_name: str | None = None,
                        sections: list | str | None = None,
-                       extra_info: list = None) -> str:
+                       extra_info: list = None,
+                       url: str = None) -> str:
     """
     Write chunks and bind file row. Returns file_uuid.
     """
@@ -287,6 +300,7 @@ def write_chunks_to_db(conn: sqlite3.Connection,
         "course_name": course_name or "",
         "file_name": file_name,
         "extra_info": extra_info,
+        "url": url or "",
     })
 
     # Upsert chunks
@@ -381,7 +395,7 @@ CREATE TABLE IF NOT EXISTS file (
 
 CREATE TABLE IF NOT EXISTS chunks (
   chunk_uuid     TEXT PRIMARY KEY,
-  uuid           TEXT NOT NULL,
+  file_uuid      TEXT NOT NULL,
   idx            INTEGER NOT NULL,
   text           TEXT NOT NULL,
   title          TEXT,
@@ -391,7 +405,7 @@ CREATE TABLE IF NOT EXISTS chunks (
   course_name    TEXT,
   course_code    TEXT,
   chunk_index    INTEGER,
-  FOREIGN KEY (uuid) REFERENCES file(uuid) ON DELETE CASCADE
+  FOREIGN KEY (file_uuid) REFERENCES file(uuid) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS problem (
@@ -425,11 +439,11 @@ ON CONFLICT(uuid) DO UPDATE SET
 
 SQL_UPSERT_CHUNK = """
 INSERT INTO chunks (
-  chunk_uuid, uuid, idx, text, title, url, file_path, reference_path,
+  chunk_uuid, file_uuid, idx, text, title, url, file_path, reference_path,
   course_name, course_code, chunk_index
 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 ON CONFLICT(chunk_uuid) DO UPDATE SET
-  uuid           = excluded.uuid,
+  file_uuid      = excluded.file_uuid,
   idx            = excluded.idx,
   text           = excluded.text,
   title          = excluded.title,
@@ -457,6 +471,7 @@ ON CONFLICT(uuid) DO UPDATE SET
   answer          = excluded.answer,
   explanation     = excluded.explanation;
 """
+
 SQL_SELECT_FILE_UUID_BY_HASH = "SELECT uuid FROM file WHERE file_hash=?;"
 
 
@@ -528,6 +543,15 @@ def update_problem_table_from_metadata_files(folder_path: Union[str, Path], chun
                 course_code = metadata.get("course_id", "")
                 course_name = metadata.get("course_name", "")
                 sections = metadata.get("sections", [])
+                comprehensive_questions = metadata.get("comprehensive_questions", []) or []
+                # Combine sections and comprehensive_questions into a single structure
+                if comprehensive_questions:
+                    sections_data = {
+                        "sections": sections,
+                        "comprehensive_questions": comprehensive_questions
+                    }
+                    sections = sections_data
+                url = metadata.get("URL", "")
 
                 upsert_file_meta(conn, {
                     "uuid": file_uuid,
@@ -538,6 +562,7 @@ def update_problem_table_from_metadata_files(folder_path: Union[str, Path], chun
                     "course_name": course_name,
                     "file_name": file_name,
                     "extra_info": {},
+                    "url": url,
                 })
 
                 # Insert problems into the database
@@ -551,7 +576,7 @@ def update_problem_table_from_metadata_files(folder_path: Union[str, Path], chun
                     logging.info(f"Successfully processed {yaml_file}: added {len(problems)} problems for file {file_name}")
                 except Exception as e:
                     conn.rollback()
-                    logging.error(f"Error inserting problems from {yaml_file}: {e}")
+                    logging.error(f"Error inserting problems/comprehensive questions from {yaml_file}: {e}")
                     raise
 
             except yaml.YAMLError as e:
@@ -657,4 +682,4 @@ def update_file_urls_from_metadata_files(folder_path: Union[str, Path], db_path:
     logging.info("Completed updating file URLs from metadata files")
 
 if __name__ == "__main__":
-    update_file_urls_from_metadata_files(folder_path="/home/bot/bot/yk/YK_final/courses", db_path="/home/bot/bot/yk/YK_final/courses_out/metadata.db")
+    update_file_urls_from_metadata_files(folder_path="/home/bot/bot/yk/YK_final/courses", db_path="/courses_out1/metadata.db")

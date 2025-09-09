@@ -45,10 +45,10 @@ def get_strutured_content_for_ipynb(
                     3.  **No Hierarchical Overlap:** If you choose a main section title (e.g., "Chapter 1"), you cannot also choose one of its sub-sections (e.g., "Section 1.1").
                     4.  **Concise Concepts:** The key concept should be a single, descriptive sentence that captures the main idea of the entire section block.
                     5.  **Preserve Original Order:** The Key Concept objects must appear in the same order as their corresponding Source Sections appear in the original markdown. Do not reorder, merge across, or reshuffle the sequence.
-                    6.  **Generate Follow-up Assessment Question:** For each key concept, you must create an `assessment_question` object. This object is designed to test a student's deep understanding of the concept.
+                    6.  **Generate Follow-up Check-in Question:** For each key concept, you must create an `check_in_question` object. This object is designed to test a student's deep understanding of the concept.
                         -   **Challenging Nature:** The question must be difficult. It should require **application, analysis, or synthesis** of the information from the section, not just simple recall.
                         -   **Plausible Distractors:** The incorrect options should be plausible and target common student misconceptions related to the topic.
-                        -   **Structure:** The `assessment_question` object must contain the following four fields:
+                        -   **Structure:** The `check_in_question` object must contain the following four fields:
                             -   `question_text`: (String) The full text of the multiple-choice question.
                             -   `options`: (Array of Strings) An array containing exactly four possible answers.
                             -   `correct_answer`: (Array of Integers) The indices of the correct options in the options array, e.g. [0,1] for the first and second options.
@@ -56,7 +56,7 @@ def get_strutured_content_for_ipynb(
                     For each concept you extract, provide ONLY the following information:
                     Key Concept: [A single, clear sentence summarizing the core idea of the section.]
                     Source Section: [The single, exact title from title_list that this concept is derived from.]
-                    Assessment Question: The structured question object as defined above.
+                    Check-in Question: The structured question object as defined above.
 
                     ### Part 2: Extract and Create Problems
                     If you find there are some blocks named Exercise or Challenge, then based on the key concepts you identified, create educational problems that test student understanding. 
@@ -69,6 +69,20 @@ def get_strutured_content_for_ipynb(
                       - Options should include relevant key concepts from the material
                       - Provide clear explanations for correct answers
                       - Sub-problems should test different aspects or depths of understanding of the main concept
+
+                    ### Part 3: Generate Comprehensive Summary Questions
+                    Create 3-5 comprehensive summary questions that test understanding of the entire document's key knowledge points.
+                    These questions should:
+                    - **Synthesize Knowledge:** Connect multiple concepts from different parts of the document
+                    - **Test Deep Understanding:** Go beyond simple recall to test application, analysis, and evaluation
+                    - **Cover Main Themes:** Collectively address the most important learning objectives
+                    - **Progressive Difficulty:** Build from foundational understanding to advanced synthesis
+                    
+                    For each comprehensive question:
+                    - **Question Type:** Classify as synthesis, application, analysis, or evaluation
+                    - **Multiple Choice:** Provide exactly 4 options with 1-2 correct answers
+                    - **Clear Explanation:** Detail why correct answers are right and others wrong
+                    - **Knowledge Areas:** List the key knowledge areas being tested
 
                     ### Guidelines:
                     - Focus on the most important concepts that students need to understand
@@ -99,7 +113,7 @@ def get_strutured_content_for_ipynb(
                                     "source_section_title": {"type": "string",
                                                              "enum": title_list,
                                                              "description": f"Exactly the section title as it appears in the {title_list}, only one title from the list, only start with # can be used, do not include # and any *. Do not treat the line start with * as a title, it is not a title."},
-                                    "assessment_question": {
+                                    "check_in_question": {
                                         "type": "object",
                                         "properties": {
                                             "question_text": {"type": "string", "description": "The full text of the multiple-choice question."},
@@ -128,7 +142,7 @@ def get_strutured_content_for_ipynb(
                                 "required": [
                                     "concepts",
                                     "source_section_title",
-                                    "assessment_question",
+                                    "check_in_question",
                                     "content_coverage",
                                 ],
                                 "additionalProperties": False,
@@ -152,7 +166,7 @@ def get_strutured_content_for_ipynb(
                                         'properties': {
                                             'description_of_problem': {
                                                 'type': 'string',
-                                                'description': 'A multiple-choice question that better contains at least two correct options. Its purpose is to help students understand the problem statement and identify the underlying concepts. e.g. “What knowledge are involved in this problem?”'
+                                                'description': 'A multiple-choice question that better contains at least two correct options. Its purpose is to help students understand the problem statement and identify the underlying concepts. e.g. "What knowledge are involved in this problem?"'
                                             },
                                             'options': {
                                                 'type': 'array',
@@ -179,7 +193,7 @@ def get_strutured_content_for_ipynb(
                                         'properties': {
                                             'description_of_problem': {
                                                 'type': 'string',
-                                                'description': 'A multiple-choice question that better contain at least two correct options. Its purpose is to guide students in designing an approach or solution framework. e.g. “Which methods could be applied to solve this problem effectively?”'
+                                                'description': 'A multiple-choice question that better contain at least two correct options. Its purpose is to guide students in designing an approach or solution framework. e.g. "Which methods could be applied to solve this problem effectively?"'
                                             },
                                             'options': {
                                                 'type': 'array',
@@ -205,9 +219,55 @@ def get_strutured_content_for_ipynb(
                                 'required': ['ID', 'content', 'sub_problem_1', 'sub_problem_2'],
                                 'additionalProperties': False,
                             }
+                        },
+                        'comprehensive_questions': {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "question_id": {"type": "integer", "description": "Sequential number starting from 1"},
+                                    "question_type": {
+                                        "type": "string",
+                                        "enum": ["synthesis", "application", "analysis", "evaluation"],
+                                        "description": "Type of cognitive skill being tested"
+                                    },
+                                    "question_text": {
+                                        "type": "string",
+                                        "description": "The complete text of the multiple-choice question"
+                                    },
+                                    "options": {
+                                        "type": "array",
+                                        "items": {"type": "string"},
+                                        "minItems": 4,
+                                        "maxItems": 4,
+                                        "description": "Exactly four possible answers"
+                                    },
+                                    "correct_answers": {
+                                        "type": "array",
+                                        "items": {"type": "integer"},
+                                        "minItems": 1,
+                                        "maxItems": 2,
+                                        "description": "Indices of correct options (0-3), minimum 1, maximum 2"
+                                    },
+                                    "explanation": {
+                                        "type": "string",
+                                        "description": "Detailed explanation of why the correct answers are right and others are wrong"
+                                    },
+                                    "knowledge_areas": {
+                                        "type": "array",
+                                        "items": {"type": "string"},
+                                        "description": "Key knowledge areas this question tests"
+                                    }
+                                },
+                                "required": ["question_id", "question_type", "question_text", "options", "correct_answers", "explanation", "knowledge_areas"],
+                                "additionalProperties": False
+                            },
+                            "minItems": 3,
+                            "maxItems": 5,
+                            "description": "3-5 comprehensive summary questions covering the entire document"
                         }
                     },
-                    'required': ['key_concepts', 'problems'],
+                    'required': ['key_concepts', 'problems', 'comprehensive_questions'],
                     'additionalProperties': False,
                 }
             }
@@ -239,10 +299,10 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
         2.  **Limited Quantity:** Aggressively merge and consolidate topics. The final output must represent the absolute minimum number of concepts possible, and the count must always be less than 5.
         3.  **Concise Concepts:** The `key_concept` value should be a single, descriptive sentence that captures the main idea of the entire section.
         4.  **Preserve Original Order:** The Key Concept objects must appear in the same order as their corresponding Source Sections appear in Part 1.
-        5.  **Generate Follow-up Assessment Question:** For each key concept, you must create an `assessment_question` object. This object is designed to test a student's deep understanding of the concept.
+        5.  **Generate Follow-up Check-in Question:** For each key concept, you must create an `check_in_question` object. This object is designed to test a student's deep understanding of the concept.
             -   **Challenging Nature:** The question must be difficult. It should require **application, analysis, or synthesis** of the information from the section, not just simple recall.
             -   **Plausible Distractors:** The incorrect options should be plausible and target common student misconceptions related to the topic.
-            -   **Structure:** The `assessment_question` object must contain the following four fields:
+            -   **Structure:** The `check_in_question` object must contain the following four fields:
                 -   `question_text`: (String) The full text of the multiple-choice question.
                 -   `options`: (Array of Strings) An array containing exactly four possible answers.
                 -   `correct_answer`: (String) The exact text of the correct option.
@@ -250,8 +310,22 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
         For each concept you extract, provide an object in the `key_concepts` array with the following structure:
         -   `key_concept`: [A single, clear sentence summarizing the core idea of the section.]
         -   `source_section`: [The single, exact title from the section that this concept is derived from.]
-        -   `assessment_question`:The structured question object as defined above.
-        ### Part 3: Identify Speaker Role
+        -   `check_in_question`:The structured question object as defined above.
+        ### Part 3: Generate Comprehensive Summary Questions
+        Create 3-5 comprehensive summary questions that test understanding of the entire document's key knowledge points.
+        These questions should:
+        - **Synthesize Knowledge:** Connect multiple concepts from different parts of the document
+        - **Test Deep Understanding:** Go beyond simple recall to test application, analysis, and evaluation
+        - **Cover Main Themes:** Collectively address the most important learning objectives
+        - **Progressive Difficulty:** Build from foundational understanding to advanced synthesis
+        
+        For each comprehensive question:
+        - **Question Type:** Classify as synthesis, application, analysis, or evaluation
+        - **Multiple Choice:** Provide exactly 4 options with 1-2 correct answers
+        - **Clear Explanation:** Detail why correct answers are right and others wrong
+        - **Knowledge Areas:** List the key knowledge areas being tested
+        
+        ### Part 4: Identify Speaker Role
         Analyze the language, tone, and context of the content to infer the most likely role of the speaker:
         - Possible values: "Professor", "Teaching Assistant", "Student", or "Unknown".
         - Use contextual clues like authoritative tone, use of 'I' or 'we', references to grading, assignments, or peer interaction.
@@ -306,13 +380,15 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                 "properties": {
                                     "concepts": {"type": "string"},
                                     "source_section_title": {"type": "string"},
-                                    "assessment_question": {"type": "object",
+                                    "check_in_question": {"type": "object",
                                         "properties": {
                                             "question_text": {"type": "string","description": "(String) The full text of the multiple-choice question."},
                                             "options": {"type": "array", "items": {"type": "string"}, 'minItems': 2, "description": "(Array of Strings) An array containing exactly four possible answers."},
                                             "correct_answer": {"type": "array", "items": {"type": "integer"}, "description": "The index of the option in the options array, e.g. [0,1] for the first and second options"},
                                             "explanation": {"type": "string","description": "The explanation of why this option is the answer, it should be a key_concept in the md_content"},
                                         },
+                                        "required": ["question_text", "options", "correct_answer", "explanation"],
+                                        "additionalProperties": False
                                     },
                                     "content_coverage": {
                                         "type": "array",
@@ -332,11 +408,57 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                 "required": [
                                     "concepts",
                                     "source_section_title",
-                                    "assessment_question",
+                                    "check_in_question",
                                     "content_coverage",
                                 ],
                                 "additionalProperties": False,
                             },
+                        },
+                        'comprehensive_questions': {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "question_id": {"type": "integer", "description": "Sequential number starting from 1"},
+                                    "question_type": {
+                                        "type": "string",
+                                        "enum": ["synthesis", "application", "analysis", "evaluation"],
+                                        "description": "Type of cognitive skill being tested"
+                                    },
+                                    "question_text": {
+                                        "type": "string",
+                                        "description": "The complete text of the multiple-choice question"
+                                    },
+                                    "options": {
+                                        "type": "array",
+                                        "items": {"type": "string"},
+                                        "minItems": 4,
+                                        "maxItems": 4,
+                                        "description": "Exactly four possible answers"
+                                    },
+                                    "correct_answers": {
+                                        "type": "array",
+                                        "items": {"type": "integer"},
+                                        "minItems": 1,
+                                        "maxItems": 2,
+                                        "description": "Indices of correct options (0-3), minimum 1, maximum 2"
+                                    },
+                                    "explanation": {
+                                        "type": "string",
+                                        "description": "Detailed explanation of why the correct answers are right and others are wrong"
+                                    },
+                                    "knowledge_areas": {
+                                        "type": "array",
+                                        "items": {"type": "string"},
+                                        "description": "Key knowledge areas this question tests"
+                                    }
+                                },
+                                "required": ["question_id", "question_type", "question_text", "options", "correct_answers", "explanation", "knowledge_areas"],
+                                "additionalProperties": False
+                            },
+                            "minItems": 3,
+                            "maxItems": 5,
+                            "description": "3-5 comprehensive summary questions covering the entire document"
                         },
                         "speakers": {
                             "type": "array",
@@ -357,7 +479,7 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                             },
                         },
                     },
-                    "required": ["paragraphs", "sections", "key_concepts", "speakers"],
+                    "required": ["paragraphs", "sections", "key_concepts", "comprehensive_questions", "speakers"],
                     "additionalProperties": False,
                 },
             },
@@ -377,10 +499,10 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
             2.  **Limited Quantity:** Aggressively merge and consolidate topics. The final output must represent the absolute minimum number of concepts possible, and the count must always be less than 5.
             3.  **Concise Concepts:** The `key_concept` value should be a single, descriptive sentence that captures the main idea of the entire section.
             4.  **Preserve Original Order:** The Key Concept objects must appear in the same order as their corresponding Source Sections appear in Part 1.
-            5.  **Generate Follow-up Assessment Question:** For each key concept, you must create an `assessment_question` object. This object is designed to test a student's deep understanding of the concept.
+            5.  **Generate Follow-up Check-in Question:** For each key concept, you must create an `check_in_question` object. This object is designed to test a student's deep understanding of the concept.
                 -   **Challenging Nature:** The question must be difficult. It should require **application, analysis, or synthesis** of the information from the section, not just simple recall.
                 -   **Plausible Distractors:** The incorrect options should be plausible and target common student misconceptions related to the topic.
-                -   **Structure:** The `assessment_question` object must contain the following four fields:
+                -   **Structure:** The `check_in_question` object must contain the following four fields:
                     -   `question_text`: (String) The full text of the multiple-choice question.
                     -   `options`: (Array of Strings) An array containing exactly four possible answers.
                     -   `correct_answer`: The index of the option in the options array, e.g. [0,1] for the first and second options
@@ -388,8 +510,22 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
             For each concept you extract, provide an object in the `key_concepts` array with the following structure:
             -   `key_concept`: [A single, clear sentence summarizing the core idea of the section.]
             -   `source_section`: [The single, exact title from the section that this concept is derived from.]
-            -   `assessment_question`:The structured question object as defined above.
-             ### Part 3: Identify and Classify Speakers
+            -   `check_in_question`:The structured question object as defined above.
+            ### Part 3: Generate Comprehensive Summary Questions
+            Create 3-5 comprehensive summary questions that test understanding of the entire document's key knowledge points.
+            These questions should:
+            - **Synthesize Knowledge:** Connect multiple concepts from different parts of the document
+            - **Test Deep Understanding:** Go beyond simple recall to test application, analysis, and evaluation
+            - **Cover Main Themes:** Collectively address the most important learning objectives
+            - **Progressive Difficulty:** Build from foundational understanding to advanced synthesis
+            
+            For each comprehensive question:
+            - **Question Type:** Classify as synthesis, application, analysis, or evaluation
+            - **Multiple Choice:** Provide exactly 4 options with 1-2 correct answers
+            - **Clear Explanation:** Detail why correct answers are right and others wrong
+            - **Knowledge Areas:** List the key knowledge areas being tested
+            
+             ### Part 4: Identify and Classify Speakers
             The markdown includes speaker tags like Speaker_00, Speaker_01, etc. For each unique speaker:
             - Analyze their content and determine the most likely role:
                 - "Professor" (teaching and explaining concepts, authoritative tone)
@@ -433,7 +569,7 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                 "properties": {
                                     "concepts": {"type": "string"},
                                     "source_section_title": {"type": "string","description": "Exactly the section title as it appears in the paragraphs, only one title from the list, only start with # can be used, do not include # and any *. Do not treat the line start with * as a title, it is not a title."},
-                                    "assessment_question": {
+                                    "check_in_question": {
                                     "type": "object",
                                     "properties": {
                                         "question_text": {"type": "string", "description": "(String) The full text of the multiple-choice question."},
@@ -463,11 +599,57 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                 "required": [
                                     "concepts",
                                     "source_section_title",
-                                    "assessment_question",
+                                    "check_in_question",
                                     "content_coverage",
                                 ],
                                 "additionalProperties": False,
                             },
+                        },
+                        'comprehensive_questions': {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "question_id": {"type": "integer", "description": "Sequential number starting from 1"},
+                                    "question_type": {
+                                        "type": "string",
+                                        "enum": ["synthesis", "application", "analysis", "evaluation"],
+                                        "description": "Type of cognitive skill being tested"
+                                    },
+                                    "question_text": {
+                                        "type": "string",
+                                        "description": "The complete text of the multiple-choice question"
+                                    },
+                                    "options": {
+                                        "type": "array",
+                                        "items": {"type": "string"},
+                                        "minItems": 4,
+                                        "maxItems": 4,
+                                        "description": "Exactly four possible answers"
+                                    },
+                                    "correct_answers": {
+                                        "type": "array",
+                                        "items": {"type": "integer"},
+                                        "minItems": 1,
+                                        "maxItems": 2,
+                                        "description": "Indices of correct options (0-3), minimum 1, maximum 2"
+                                    },
+                                    "explanation": {
+                                        "type": "string",
+                                        "description": "Detailed explanation of why the correct answers are right and others are wrong"
+                                    },
+                                    "knowledge_areas": {
+                                        "type": "array",
+                                        "items": {"type": "string"},
+                                        "description": "Key knowledge areas this question tests"
+                                    }
+                                },
+                                "required": ["question_id", "question_type", "question_text", "options", "correct_answers", "explanation", "knowledge_areas"],
+                                "additionalProperties": False
+                            },
+                            "minItems": 3,
+                            "maxItems": 5,
+                            "description": "3-5 comprehensive summary questions covering the entire document"
                         },
                         "speakers": {
                             "type": "array",
@@ -487,7 +669,7 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                             },
                         },
                     },
-                    "required": ["paragraphs", "key_concepts", "speakers"],
+                    "required": ["paragraphs", "key_concepts", "comprehensive_questions", "speakers"],
                     "additionalProperties": False,
                 },
             },
@@ -594,7 +776,7 @@ def get_structured_content_with_one_title_level(
                                         "enum": title_list,
                                         "description": "*Exactly* the section title as it appears in the markdown (copy‑paste—do **not** alter capitalization, spacing, or punctuation and do not include # and any *)."
                                     },
-                                    "assessment_question": {
+                                    "check_in_question": {
                                         "type": "object",
                                         "properties": {
                                             "question_text": {"type": "string", "description": "The full text of the multiple-choice question."},
@@ -624,14 +806,60 @@ def get_structured_content_with_one_title_level(
                                 "required": [
                                     "concepts",
                                     "source_section_title",
-                                    "assessment_question",
+                                    "check_in_question",
                                     "content_coverage",
                                 ],
                                 "additionalProperties": False,
                             },
                         },
+                        'comprehensive_questions': {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "question_id": {"type": "integer", "description": "Sequential number starting from 1"},
+                                    "question_type": {
+                                        "type": "string",
+                                        "enum": ["synthesis", "application", "analysis", "evaluation"],
+                                        "description": "Type of cognitive skill being tested"
+                                    },
+                                    "question_text": {
+                                        "type": "string",
+                                        "description": "The complete text of the multiple-choice question"
+                                    },
+                                    "options": {
+                                        "type": "array",
+                                        "items": {"type": "string"},
+                                        "minItems": 4,
+                                        "maxItems": 4,
+                                        "description": "Exactly four possible answers"
+                                    },
+                                    "correct_answers": {
+                                        "type": "array",
+                                        "items": {"type": "integer"},
+                                        "minItems": 1,
+                                        "maxItems": 2,
+                                        "description": "Indices of correct options (0-3), minimum 1, maximum 2"
+                                    },
+                                    "explanation": {
+                                        "type": "string",
+                                        "description": "Detailed explanation of why the correct answers are right and others are wrong"
+                                    },
+                                    "knowledge_areas": {
+                                        "type": "array",
+                                        "items": {"type": "string"},
+                                        "description": "Key knowledge areas this question tests"
+                                    }
+                                },
+                                "required": ["question_id", "question_type", "question_text", "options", "correct_answers", "explanation", "knowledge_areas"],
+                                "additionalProperties": False
+                            },
+                            "minItems": 3,
+                            "maxItems": 5,
+                            "description": "3-5 comprehensive summary questions covering the entire document"
+                        }
                     },
-                    "required": ["titles_with_levels", "key_concepts"],
+                    "required": ["titles_with_levels", "key_concepts", "comprehensive_questions"],
                     "additionalProperties": False,
                 },
             },
@@ -667,10 +895,10 @@ def get_structured_content_with_one_title_level(
                 3.  **No Hierarchical Overlap:** If you choose a main section title (e.g., "Chapter 1"), you cannot also choose one of its sub-sections (e.g., "Section 1.1").
                 4.  **Concise Concepts:** The key concept should be a single, descriptive sentence that captures the main idea of the entire section block.
                 5.  **Preserve Original Order** Key Concepts must appear in the same order as their corresponding Source Sections appear in the original markdown.Do not reorder, merge across, or reshuffle the sequence.
-                6.  **Generate Follow-up Assessment Question:** For each key concept, you must create an `assessment_question` object. This object is designed to test a student's deep understanding of the concept.
+                6.  **Generate Follow-up Check-in Question:** For each key concept, you must create an `check_in_question` object. This object is designed to test a student's deep understanding of the concept.
                     -   **Challenging Nature:** The question must be difficult. It should require **application, analysis, or synthesis** of the information from the section, not just simple recall.
                     -   **Plausible Distractors:** The incorrect options should be plausible and target common student misconceptions related to the topic.
-                    -   **Structure:** The `assessment_question` object must contain the following four fields:
+                    -   **Structure:** The `check_in_question` object must contain the following four fields:
                         -   `question_text`: (String) The full text of the multiple-choice question.
                         -   `options`: (Array of Strings) An array containing exactly four possible answers.
                         -   `correct_answer`: (Array of Integers) The indices of the correct options in the options array, e.g. [0,1] for the first and second options.
@@ -678,7 +906,21 @@ def get_structured_content_with_one_title_level(
                 For each concept you extract, provide ONLY the following information:
                 Key Concept: [A single, clear sentence summarizing the core idea of the section.]
                 Source Section: [The single, exact title from {title_list} that this concept is derived from.]
-                Assessment Question: The structured question object as defined above."""),
+                Check-in Question: The structured question object as defined above.
+                
+                ### Part 3: Generate Comprehensive Summary Questions
+                Create 3-5 comprehensive summary questions that test understanding of the entire document's key knowledge points.
+                These questions should:
+                - **Synthesize Knowledge:** Connect multiple concepts from different parts of the document
+                - **Test Deep Understanding:** Go beyond simple recall to test application, analysis, and evaluation
+                - **Cover Main Themes:** Collectively address the most important learning objectives
+                - **Progressive Difficulty:** Build from foundational understanding to advanced synthesis
+                
+                For each comprehensive question:
+                - **Question Type:** Classify as synthesis, application, analysis, or evaluation
+                - **Multiple Choice:** Provide exactly 4 options with 1-2 correct answers
+                - **Clear Explanation:** Detail why correct answers are right and others wrong
+                - **Knowledge Areas:** List the key knowledge areas being tested""")
             },
             {"role": "user", "content": f"{md_content} "},
         ],
@@ -882,7 +1124,7 @@ def get_only_key_concepts(md_content: str, index_helper: dict):
                                 "source_section_title": {"type": "string",
                                                          "enum": title_list,
                                                          "description": "MUST be exactly one of the titles from the provided list."},
-                                "assessment_question": {
+                                "check_in_question": {
                                     "type": "object",
                                     "properties": {
                                         "question_text": {"type": "string", "description": "The full text of the multiple-choice question."},
@@ -912,14 +1154,60 @@ def get_only_key_concepts(md_content: str, index_helper: dict):
                             "required": [
                                 "concepts",
                                 "source_section_title",
-                                "assessment_question",
+                                "check_in_question",
                                 "content_coverage",
                             ],
                             "additionalProperties": False,
                         },
+                    },
+                    'comprehensive_questions': {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "question_id": {"type": "integer", "description": "Sequential number starting from 1"},
+                                "question_type": {
+                                    "type": "string",
+                                    "enum": ["synthesis", "application", "analysis", "evaluation"],
+                                    "description": "Type of cognitive skill being tested"
+                                },
+                                "question_text": {
+                                    "type": "string",
+                                    "description": "The complete text of the multiple-choice question"
+                                },
+                                "options": {
+                                    "type": "array",
+                                    "items": {"type": "string"},
+                                    "minItems": 4,
+                                    "maxItems": 4,
+                                    "description": "Exactly four possible answers"
+                                },
+                                "correct_answers": {
+                                    "type": "array",
+                                    "items": {"type": "integer"},
+                                    "minItems": 1,
+                                    "maxItems": 2,
+                                    "description": "Indices of correct options (0-3), minimum 1, maximum 2"
+                                },
+                                "explanation": {
+                                    "type": "string",
+                                    "description": "Detailed explanation of why the correct answers are right and others are wrong"
+                                },
+                                "knowledge_areas": {
+                                    "type": "array",
+                                    "items": {"type": "string"},
+                                    "description": "Key knowledge areas this question tests"
+                                }
+                            },
+                            "required": ["question_id", "question_type", "question_text", "options", "correct_answers", "explanation", "knowledge_areas"],
+                            "additionalProperties": False
+                        },
+                        "minItems": 3,
+                        "maxItems": 5,
+                        "description": "3-5 comprehensive summary questions covering the entire document"
                     }
                 },
-                "required": ["key_concepts"],
+                "required": ["key_concepts", "comprehensive_questions"],
                 "additionalProperties": False,
             },
         },
@@ -939,10 +1227,10 @@ def get_only_key_concepts(md_content: str, index_helper: dict):
             3.  **No Hierarchical Overlap:** If you choose a main section title (e.g., "Chapter 1"), you cannot also choose one of its sub-sections (e.g., "Section 1.1").
             4.  **Concise Concepts:** The key concept should be a single, descriptive sentence that captures the main idea of the entire section block.                
             5.  **Preserve Original Order** Key Concepts must appear in the same order as their corresponding Source Sections appear in the original markdown.Do not reorder, merge across, or reshuffle the sequence.
-            6.  **Generate Follow-up Assessment Question:** For each key concept, you must create an `assessment_question` object. This object is designed to test a student's deep understanding of the concept.
+            6.  **Generate Follow-up Check-in Question:** For each key concept, you must create an `check_in_question` object. This object is designed to test a student's deep understanding of the concept.
                 -   **Challenging Nature:** The question must be difficult. It should require **application, analysis, or synthesis** of the information from the section, not just simple recall.
                 -   **Plausible Distractors:** The incorrect options should be plausible and target common student misconceptions related to the topic.
-                -   **Structure:** The `assessment_question` object must contain the following four fields:
+                -   **Structure:** The `check_in_question` object must contain the following four fields:
                     -   `question_text`: (String) The full text of the multiple-choice question.
                     -   `options`: (Array of Strings) An array containing exactly four possible answers.
                     -   `correct_answer`: (Array of Integers) The indices of the correct options in the options array, e.g. [0,1] for the first and second options.
@@ -950,7 +1238,21 @@ def get_only_key_concepts(md_content: str, index_helper: dict):
             For each concept you extract, provide ONLY the following information:
             Key Concept: [A single, clear sentence summarizing the core idea of the section.]
             Source Section: [The single, exact title from {title_list} that this concept is derived from.]
-            Assessment Question: The structured question object as defined above."""),
+            Check-in Question: The structured question object as defined above.
+            
+            ### Generate Comprehensive Summary Questions
+            Create 3-5 comprehensive summary questions that test understanding of the entire document's key knowledge points.
+            These questions should:
+            - **Synthesize Knowledge:** Connect multiple concepts from different parts of the document
+            - **Test Deep Understanding:** Go beyond simple recall to test application, analysis, and evaluation
+            - **Cover Main Themes:** Collectively address the most important learning objectives
+            - **Progressive Difficulty:** Build from foundational understanding to advanced synthesis
+            
+            For each comprehensive question:
+            - **Question Type:** Classify as synthesis, application, analysis, or evaluation
+            - **Multiple Choice:** Provide exactly 4 options with 1-2 correct answers
+            - **Clear Explanation:** Detail why correct answers are right and others wrong
+            - **Knowledge Areas:** List the key knowledge areas being tested""")
             },
             {"role": "user", "content": f"{md_content}"},
         ],
@@ -987,10 +1289,19 @@ def add_titles_to_json(index_helper, json_file_path):
         while current_index < len(transcript_list) and float(transcript_list[current_index]["start time"]) < float(start_time):
             current_index += 1
 
+        # Calculate appropriate timestamps for the title
+        prev_end_time = get_previous_end_time(transcript_list, current_index)
+        next_start_time = get_next_start_time(transcript_list, current_index)
+        
+        # For titles, we want them to appear as close as possible to their actual time
+        # but avoid conflicts with existing timestamps
+        title_start_time = float(start_time)  # Use the original title time
+        title_end_time = title_start_time  # Titles have no duration, use same time
+        
         # Create the title entry
         title_entry = {
-            "start time": get_previous_end_time(transcript_list, current_index),
-            "end time": get_next_start_time(transcript_list, current_index),
+            "start time": title_start_time,
+            "end time": title_end_time,
             "speaker": f"title-{len(title)}",
             "text content": f"{title[-1]}",
         }
@@ -1024,7 +1335,225 @@ def get_previous_end_time(transcript_list, position):
     return transcript_list[position - 1]["end time"]
 
 def get_next_start_time(transcript_list, position):
-    """Get the start time of the next entry, or '0.000' if at the end."""
-    if position >= len(transcript_list) - 1:
+    """Get the start time of the next entry, or the previous end time if at the end."""
+    if position >= len(transcript_list):
         return get_previous_end_time(transcript_list, position)
     return transcript_list[position]["start time"]
+
+
+def assign_speaker_roles_to_content(md_content: str, speakers_mapping: list, json_file_path: str = None):
+    """
+    Replace speaker IDs (Speaker_00, Speaker_01, etc.) with their assigned roles in both MD content and JSON file.
+    
+    Args:
+        md_content (str): The markdown content with speaker tags
+        speakers_mapping (list): List of speaker mappings from ChatGPT analysis, e.g. 
+                               [{"speaker_id": "Speaker_00", "role": "Professor"}, ...]
+        json_file_path (str, optional): Path to JSON transcript file to also update
+    
+    Returns:
+        str: Updated markdown content with speaker roles replaced
+    """
+    if not speakers_mapping:
+        logger.warning("No speakers mapping provided, returning original content")
+        return md_content
+    
+    # Create mapping dictionary from speaker_id to role
+    speaker_role_map = {speaker["speaker_id"]: speaker["role"] for speaker in speakers_mapping}
+    
+    updated_md_content = md_content
+    
+    # Replace speaker IDs in markdown content
+    for speaker_id, role in speaker_role_map.items():
+        # Replace patterns like "Speaker_00:" with "Professor:"
+        pattern = rf'\b{re.escape(speaker_id)}:'
+        replacement = f'{role}:'
+        updated_md_content = re.sub(pattern, replacement, updated_md_content)
+        
+        # Also replace patterns like "**Speaker_00:**" with "**Professor:**"
+        pattern_bold = rf'\*\*{re.escape(speaker_id)}:\*\*'
+        replacement_bold = f'**{role}:**'
+        updated_md_content = re.sub(pattern_bold, replacement_bold, updated_md_content)
+    
+    # Update JSON file if provided
+    if json_file_path and os.path.exists(json_file_path):
+        update_speakers_in_json_file(json_file_path, speaker_role_map)
+    
+    logger.info(f"Updated speakers: {', '.join([f'{k} -> {v}' for k, v in speaker_role_map.items()])}")
+    return updated_md_content
+
+
+def update_speakers_in_json_file(json_file_path: str, speaker_role_map: dict):
+    """
+    Update speaker IDs in JSON transcript file with their assigned roles.
+    
+    Args:
+        json_file_path (str): Path to the JSON file containing transcript data
+        speaker_role_map (dict): Mapping from speaker_id to role
+    """
+    try:
+        with open(json_file_path, "r") as json_file:
+            transcript_data = json.load(json_file)
+        
+        # Update speaker field in each transcript entry
+        updated_count = 0
+        for entry in transcript_data:
+            if "speaker" in entry and entry["speaker"] in speaker_role_map:
+                old_speaker = entry["speaker"]
+                entry["speaker"] = speaker_role_map[old_speaker]
+                updated_count += 1
+        
+        # Write back to file
+        with open(json_file_path, "w") as json_file:
+            json.dump(transcript_data, json_file, indent=4)
+        
+        logger.info(f"Updated {updated_count} speaker entries in JSON file: {json_file_path}")
+        
+    except Exception as e:
+        logger.error(f"Error updating speakers in JSON file {json_file_path}: {str(e)}")
+
+
+def extract_and_assign_speakers(content_dict: dict, md_content: str, json_file_path: str = None):
+    """
+    Extract speakers from ChatGPT analysis and assign roles to both MD content and JSON file.
+    This is a convenience function that combines speaker extraction and assignment.
+    
+    Args:
+        content_dict (dict): The structured content dictionary returned by ChatGPT analysis
+        md_content (str): The original markdown content
+        json_file_path (str, optional): Path to JSON transcript file to also update
+    
+    Returns:
+        str: Updated markdown content with speaker roles assigned
+    """
+    speakers_mapping = content_dict.get("speakers", [])
+    
+    if not speakers_mapping:
+        logger.warning("No speakers found in content analysis")
+        return md_content
+    
+    return assign_speaker_roles_to_content(md_content, speakers_mapping, json_file_path)
+
+
+def group_sentences_in_transcript(json_file_path: str, max_time_gap: float = 5.0, max_words: int = 200, output_path: str = None):
+    """
+    Group sentences in transcript JSON file based on speaker, time interval, and word count rules.
+    
+    Rules:
+    1. Don't group sentences from different speakers
+    2. Don't group sentences if time gap > max_time_gap seconds
+    3. Don't create groups with more than max_words words
+    4. Maintain correct start and end times for grouped sentences
+    
+    Args:
+        json_file_path (str): Path to the JSON transcript file
+        max_time_gap (float): Maximum time gap in seconds between sentences to group (default: 5.0)
+        max_words (int): Maximum number of words per group (default: 200)
+        output_path (str, optional): Output path for grouped JSON. If None, overwrites original file
+    
+    Returns:
+        str: Path to the output file
+    """
+    try:
+        # Read the transcript data
+        with open(json_file_path, "r") as json_file:
+            transcript_data = json.load(json_file)
+        
+        if not transcript_data:
+            logger.warning(f"Empty transcript data in {json_file_path}")
+            return json_file_path
+        
+        grouped_transcript = []
+        current_group = None
+        
+        for entry in transcript_data:
+            # Extract entry data with type conversion
+            start_time = float(entry.get("start time", 0))
+            end_time = float(entry.get("end time", 0))
+            speaker = entry.get("speaker", "")
+            text_content = entry.get("text content", "").strip()
+            
+            # Skip empty text content
+            if not text_content:
+                continue
+            
+            # Special handling for titles - they should never be grouped with other content
+            is_title = speaker.startswith("title-")
+            
+            # Check if we can add to current group using if-else
+            if current_group is None:
+                # Start new group - first entry
+                current_group = {
+                    "start time": start_time,
+                    "end time": end_time,
+                    "speaker": speaker,
+                    "text content": text_content
+                }
+            elif is_title or current_group.get("speaker", "").startswith("title-"):
+                # If current entry is a title or current group is a title, 
+                # save current group and start new one (titles should not be grouped)
+                grouped_transcript.append(current_group)
+                current_group = {
+                    "start time": start_time,
+                    "end time": end_time,
+                    "speaker": speaker,
+                    "text content": text_content
+                }
+            elif current_group["speaker"] != speaker:
+                # Different speaker - save current group and start new one
+                grouped_transcript.append(current_group)
+                current_group = {
+                    "start time": start_time,
+                    "end time": end_time,
+                    "speaker": speaker,
+                    "text content": text_content
+                }
+            elif (start_time - float(current_group["end time"])) > max_time_gap:
+                # Time gap too large - save current group and start new one
+                grouped_transcript.append(current_group)
+                current_group = {
+                    "start time": start_time,
+                    "end time": end_time,
+                    "speaker": speaker,
+                    "text content": text_content
+                }
+            else:
+                # Same speaker and within time gap - check word count limit
+                combined_text = current_group["text content"] + " " + text_content
+                word_count = len(combined_text.split())
+                
+                if word_count > max_words:
+                    # Word limit exceeded - save current group and start new one
+                    grouped_transcript.append(current_group)
+                    current_group = {
+                        "start time": start_time,
+                        "end time": end_time,
+                        "speaker": speaker,
+                        "text content": text_content
+                    }
+                else:
+                    # Within word limit - add to current group
+                    current_group["text content"] = combined_text
+                    current_group["end time"] = end_time
+        
+        # Add the last group if exists
+        if current_group is not None:
+            grouped_transcript.append(current_group)
+        
+        # Write to output file
+        output_file_path = output_path if output_path else json_file_path
+        with open(output_file_path, "w") as json_file:
+            json.dump(grouped_transcript, json_file, indent=4)
+        
+        original_count = len(transcript_data)
+        grouped_count = len(grouped_transcript)
+        reduction_percent = ((original_count - grouped_count) / original_count * 100) if original_count > 0 else 0
+        
+        logger.info(f"Grouped transcript sentences: {original_count} -> {grouped_count} "
+                   f"({reduction_percent:.1f}% reduction) in {output_file_path}")
+        
+        return output_file_path
+        
+    except Exception as e:
+        logger.error(f"Error grouping sentences in transcript {json_file_path}: {str(e)}")
+        return json_file_path

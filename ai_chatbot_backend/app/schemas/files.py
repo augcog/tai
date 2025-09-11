@@ -6,6 +6,9 @@ from datetime import datetime
 from typing import Optional, List
 from pydantic import BaseModel, Field
 import json
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class SectionAspect(BaseModel):
@@ -14,12 +17,16 @@ class SectionAspect(BaseModel):
     type: str = Field(..., description="Type of content (Definition, Functions, etc.)")
 
 
+
 class Section(BaseModel):
     """Educational section with structured content"""
     aspects: List[SectionAspect] = Field(..., description="List of content aspects")
     index: float = Field(..., description="Section order/position")
     key_concept: str = Field(..., description="Main topic of the section")
     name: str = Field(..., description="Section title")
+    checking_questions: Optional[List[str]] = Field(None, description="List of checking questions")
+    comprehensive_questions: Optional[List[str]] = Field(None, description="List of comprehensive questions")
+
 
 
 class TranscriptSegment(BaseModel):
@@ -115,11 +122,34 @@ class FileMetadata(BaseModel):
         if db_model.sections:
             try:
                 sections_json = json.loads(db_model.sections)
-                if sections_json:
-                    sections_data = [Section(**section) for section in sections_json]
+                
+                # Handle case where sections is wrapped in {"sections": [...]}
+                if isinstance(sections_json, dict) and "sections" in sections_json:
+                    logger.debug(f"Unwrapping nested sections structure for file {db_model.file_name}")
+                    sections_json = sections_json["sections"]
+                
+                # Ensure sections_json is a list
+                if sections_json and isinstance(sections_json, list):
+                    logger.debug(f"Parsing {len(sections_json)} sections for file {db_model.file_name}")
+                    for i, section in enumerate(sections_json):
+                        try:
+                            # Log the keys to understand the structure
+                            if isinstance(section, dict):
+                                logger.debug(f"Section #{i} keys: {list(section.keys())[:10]}")
+                            sections_data.append(Section(**section))
+                        except Exception as e:
+                            logger.error(f"Failed to parse section #{i} for file {db_model.file_name}: {e}")
+                            logger.error(f"Section data: {json.dumps(section, indent=2) if isinstance(section, dict) else section}")
+                            raise
+                elif sections_json and isinstance(sections_json, dict):
+                    # If it's still a dict, log it for debugging
+                    logger.warning(f"Sections is a dict, not a list for file {db_model.file_name}: {list(sections_json.keys())}")
+                    sections_data = []
                 else:
                     sections_data = []
             except (json.JSONDecodeError, ValueError) as e:
+                logger.error(f"Failed to parse sections JSON for file {db_model.file_name}: {e}")
+                logger.error(f"Raw sections data: {db_model.sections[:500] if db_model.sections else None}")
                 # Fallback to empty list if parsing fails
                 sections_data = []
         

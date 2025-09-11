@@ -14,7 +14,8 @@ _embedding_engine = None
 
 def get_local_model_engine():
     os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
-    MODEL_ID = "THUDM/GLM-4-9B-0414"
+    # MODEL_ID = "THUDM/GLM-4-9B-0414"
+    MODEL_ID = "openai/gpt-oss-20b"
     TP_SIZE = 2  # tensor_parallel_size
     GPU_UTIL = 0.47
     engine_args = AsyncEngineArgs(

@@ -12,9 +12,10 @@ from app.core.models.chat_completion import Message
 from app.services.rag_preprocess import build_retrieval_query, build_augmented_prompt, build_file_augmented_context
 from app.services.rag_postprocess import build_memory_synopsis
 # Environment Variables
-TOKENIZER_MODEL_ID = "THUDM/GLM-4-9B-0414"
+# TOKENIZER_MODEL_ID = "THUDM/GLM-4-9B-0414"
+TOKENIZER_MODEL_ID = "openai/gpt-oss-20b"
 # RAG-Pipeline Shared Resources
-SAMPLING = SamplingParams(temperature=0.3, top_p=0.95, max_tokens=4096)
+SAMPLING = SamplingParams(temperature=0.3, top_p=0.95, max_tokens=4096,skip_special_tokens=False)
 TOKENIZER = AutoTokenizer.from_pretrained(TOKENIZER_MODEL_ID)
 LOCAL_MEMORY_SYNOPSIS = {}
 

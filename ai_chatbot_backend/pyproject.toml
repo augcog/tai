@@ -64,11 +64,13 @@ ipython = "*"
 # Optional GPU dependencies for production servers
 soundfile = "^0.13.1"
 faster-whisper = "^1.2.0"
+vllm = "^0.10.1.1"
+openai-harmony = "^0.0.4"
 [tool.poetry.group.gpu]
 optional = true
 
 [tool.poetry.group.gpu.dependencies]
-vllm = "^0.9.1"
+vllm = "*"
 
 [tool.poetry.scripts]
 # Entry point

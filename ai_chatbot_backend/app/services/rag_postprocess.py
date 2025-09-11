@@ -8,6 +8,26 @@ from vllm import SamplingParams
 from vllm.sampling_params import GuidedDecodingParams
 # Local libraries
 from app.core.models.chat_completion import Message
+import re
+
+def extract_channels(text: str) -> dict:
+    # 1) Remove the special marker wherever it appears
+    cleaned = re.sub(r"<\|start\|\>assistant\s*", "", text)
+
+    # 2) Capture channel/message pairs; message ends at next channel, <|end|>, or end-of-text
+    pattern = re.compile(
+        r"<\|channel\|\>(?P<channel>[A-Za-z0-9_]+)\s*"
+        r"<\|message\|\>(?P<message>.*?)(?=(?:<\|channel\|\>|<\|end\|\>|\Z))",
+        re.DOTALL
+    )
+
+    result = {}
+    for m in pattern.finditer(cleaned):
+        ch = m.group("channel").strip()
+        msg = m.group("message").strip()
+        result[ch] = msg  # if duplicate channels appear, the last one wins
+    return result
+
 # Environment variables
 MEMORY_SYNOPSIS_JSON_SCHEMA = {
     "type": "object",
@@ -27,7 +47,7 @@ MEMORY_SYNOPSIS_JSON_SCHEMA = {
 }
 GUIDED = GuidedDecodingParams(json=MEMORY_SYNOPSIS_JSON_SCHEMA)
 SAMPLING_JSON = SamplingParams(
-    temperature=0.0, top_p=1.0, max_tokens=800, guided_decoding=GUIDED
+    temperature=0.0, top_p=1.0, max_tokens=800, guided_decoding=GUIDED, skip_special_tokens=False
 )
 
 
@@ -142,7 +162,13 @@ async def _llm_synopsis_from_transcript(
             request_id=str(time.time_ns())
     ):
         text = chunk.outputs[0].text
-    data = json.loads(text.strip())
+    text = extract_channels(text).get('final', "{}")
+    print('Generated MemorySynopsis JSON:', text)
+    try:
+        data = json.loads(text.strip())
+    except json.JSONDecodeError:
+        print('Failed to parse merged MemorySynopsis JSON:', text)
+        return MemorySynopsis()
     return MemorySynopsis(**data)
 
 
@@ -232,6 +258,12 @@ async def _llm_merge_synopses(
             request_id=str(time.time_ns())
     ):
         text = chunk.outputs[0].text
-    data = json.loads(text.strip())
+    text = extract_channels(text).get('final', "{}")
+    # try to parse JSON, if fails return empty MemorySynopsis
+    try:
+        data = json.loads(text.strip())
+    except json.JSONDecodeError:
+        print('Failed to parse merged MemorySynopsis JSON:', text)
+        return MemorySynopsis()
     return MemorySynopsis(**data)
 

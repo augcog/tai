@@ -61,7 +61,7 @@ async def create_text_completion(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="file_uuid must be provided"
             )
-        response, reference_list = await generate_file_chat_response(
+        response, reference_list = await generate_chat_response(
             formatter(params.messages),
             file_uuid=params.file_uuid,
             selected_text=params.selected_text,

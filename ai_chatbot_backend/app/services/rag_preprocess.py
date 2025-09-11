@@ -3,7 +3,7 @@ import time
 from typing import Any, Optional, Tuple, List, Dict
 from uuid import UUID
 # Local libraries
-from app.services.rag_retriever import get_reference_documents, get_chunks_by_file_uuid, get_file_related_documents
+from app.services.rag_retriever import get_reference_documents, get_chunks_by_file_uuid, get_file_related_documents, get_sections_by_file_uuid
 
 
 async def build_retrieval_query(user_message: str, memory_synopsis: Any, engine: Any, tokenizer: Any, sampling: Any) -> str:
@@ -198,10 +198,10 @@ def build_file_augmented_context(
     """
     # Get file content by file UUID
     chunks = get_chunks_by_file_uuid(file_uuid)
-    file_content = " ".join(chunk["chunk"] for chunk in chunks)
+    sections = get_sections_by_file_uuid(file_uuid)
 
     augmented_context = (
-        f"The user is looking at a file which has the following content: {file_content}\n\n"
+        f"The user is looking at a file. To understand what is the file about, read its section titles and keywords: {sections}\n\n"
     )
 
     if index:
@@ -214,17 +214,6 @@ def build_file_augmented_context(
     if not rag:
         return augmented_context, []
     
-    # Get reference documents based on the selected text.
-    (
-        top_ids,
-        top_docs,
-        top_urls,
-        similarity_scores,
-        top_files,
-        top_refs,
-        top_titles
-    ), _ = get_reference_documents(selected_text, course, top_k=top_k // 2) if selected_text else ([], [], [], [], [], [], []), ""
-
     # Get reference documents based on the entire document.
     (
         top_ids_doc,
@@ -236,29 +225,21 @@ def build_file_augmented_context(
         top_titles_doc
     ) = get_file_related_documents(file_uuid, course, top_k=top_k // 2)
 
-    # Combine results from selected text and entire document
-    top_ids_combined = top_ids + top_ids_doc
-    top_docs_combined = top_docs + top_docs_doc
-    top_urls_combined = top_urls + top_urls_doc
-    similarity_scores_combined = similarity_scores + similarity_scores_doc
-    top_files_combined = top_files + top_files_doc
-    top_refs_combined = top_refs + top_refs_doc
-    top_titles_combined = top_titles + top_titles_doc
 
     insert_document = ""
     reference_list = reference_list or []
     n = len(reference_list)
-    for i in range(len(top_docs_combined)):
-        if similarity_scores_combined[i] > threshold:
+    for i in range(len(top_docs_doc)):
+        if similarity_scores_doc[i] > threshold:
             n += 1
-            file_path = top_files_combined[i]
-            topic_path = top_refs_combined[i]
-            url = top_urls_combined[i] if top_urls_combined[i] else ""
+            file_path = top_files_doc[i]
+            topic_path = top_refs_doc[i]
+            url = top_urls_doc[i] if top_urls_doc[i] else ""
             insert_document += (
                 f'Reference Number: {n}\n'
                 f"Directory Path to reference file to tell what file is about: {file_path}\n"
                 f"Topic Path of chunk in file to tell the topic of chunk: {topic_path}\n"
-                f'Document: {top_docs_combined[i]}\n\n'
+                f'Document: {top_docs_doc[i]}\n\n'
             )
             reference_list.append([topic_path, url, file_path])
 

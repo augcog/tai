@@ -22,6 +22,9 @@ LOCAL_MEMORY_SYNOPSIS = {}
 
 async def generate_chat_response(
         messages: List[Message],
+        file_uuid: UUID = None,
+        selected_text: Optional[str] = None,
+        index: Optional[float] = None,
         stream: bool = True,
         rag: bool = True,
         course: Optional[str] = None,
@@ -41,18 +44,38 @@ async def generate_chat_response(
     query_message = await build_retrieval_query(user_message, LOCAL_MEMORY_SYNOPSIS.get(sid, None), engine, TOKENIZER, SAMPLING) if len(messages) > 2 else user_message
     print(f"[INFO] Preprocessing time: {time.time() - t0:.2f} seconds")
 
-    # Build modified prompt with references
-    modified_message, reference_list = build_augmented_prompt(
-        user_message,
-        course if course else "",
-        threshold,
-        rag,
-        top_k=top_k,
-        query_message=query_message,
-        audio_response=audio_response
-    )
-    # Update the last message with the modified content
-    messages[-1].content = modified_message
+    if file_uuid:
+        augmented_context, reference_list = build_file_augmented_context(
+            file_uuid, course, threshold, rag, selected_text, index, top_k
+        )
+        modified_message, reference_list = build_augmented_prompt(
+            user_message,
+            course,
+            threshold,
+            rag,
+            top_k=top_k,
+            query_message=query_message,
+            reference_list=reference_list
+        )
+        messages[-1].content = (
+            f"{augmented_context}"
+            f"Besides the context of the file and related references above, you also have the following references based on the chat history:\n\n"
+            f"{modified_message}"
+        )
+    else:
+        # Build modified prompt with references
+        modified_message, reference_list = build_augmented_prompt(
+            user_message,
+            course if course else "",
+            threshold,
+            rag,
+            top_k=top_k,
+            query_message=query_message,
+            audio_response=audio_response
+        )
+        # Update the last message with the modified content
+        messages[-1].content = modified_message
+
     # Generate the response using the engine
     if _is_local_engine(engine):
         iterator = _generate_streaming_response(messages, engine)

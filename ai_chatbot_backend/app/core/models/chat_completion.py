@@ -39,7 +39,7 @@ class ResponseReference(BaseEvt):
 
 class AudioTranscript(BaseEvt):
     model_config = ConfigDict(extra="forbid")
-    type: Literal["audio.transcript"] = "response.transcript"
+    type: Literal["response.transcript"] = "response.transcript"
     text: str = Field(min_length=1)
 
 class Done(BaseEvt):

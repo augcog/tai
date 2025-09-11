@@ -15,12 +15,15 @@ async def build_retrieval_query(user_message: str, memory_synopsis: Any, engine:
     # Prepare the chat history for the model
     system_prompt = (
         "You are a query reformulator for a RAG system. "
+        "\nReasoning: low\n"
         "Given the user message and the memory synopsis of the current conversation, "
         "rewrite the latest user request as a single, "
         "self-contained question for document retrieval. "
         "Resolve pronouns and references using context, include relevant constraints "
         "(dates, versions, scope), and avoid adding facts not in the history. "
         "Return only the rewritten query as question in plain text—no quotes, no extra text."
+        "# Valid channels: analysis, commentary, final. Channel must be included for every message."
+        "Calls to these tools must go to the commentary channel: 'functions'.<|end|>"
     )
 
     request_template = """Memory Synopsis:
@@ -129,13 +132,13 @@ def build_augmented_prompt(
     else:
         response_style = """
         STYLE:
-        Use a clear, natural, speaker-friendly tone that is short and engaging. Try to end every sentence with a period '.'. Always remember: Avoid code block, Markdown formatting or math equation!!! Avoid code block, Markdown formatting or math equation!!! Avoid code block, Markdown formatting or math equation!!! No references at the end or listed withou telling usage.
+        Use a clear, natural, speaker-friendly tone that is short and engaging. Try to end every sentence with a period '.'. ALWAYS: Avoid code block, Markdown formatting or math equation!!! No references at the end or listed withou telling usage.
         Make the first sentence short and engaging. If no instruction is given, explain that you did not hear any instruction.
         """
         reference_style = (
             f"Mention specific reference numbers inline when that part of the answer is refer to some reference. "
-            f"Do not mention references at the end of the response as user cannot connect them to the answer. "
-            f"e.g. According to reference 1, as mention in reference 2, etc. "
+            f"ALWAYS: Do not mention references in a unreadable format like (reference n) as that is not understandable since the output is going to be converted to speech. "
+            f"Good example: According to reference 1, as mention in reference 2, etc. "
         )
     # Create modified message based on whether documents were inserted
     if not insert_document or n == 0:

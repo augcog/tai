@@ -20,6 +20,7 @@ class AudioSpec(BaseModel):
 class ResponseDelta(BaseEvt):
     type: Literal["response.delta"] = "response.delta"
     seq: int = Field(ge=0)
+    text_channel: str = None
     text: Optional[str] = Field(default=None, min_length=1)
     audio_b64: Optional[str] = Field(default=None, min_length=1)  # base64 of raw PCM chunk
     audio_spec: Optional[AudioSpec] = None

@@ -277,7 +277,6 @@ def generate_practice_response(
         messages: List[Message],
         problem_content: str,
         answer_content: str,
-        file_name: str,
         stream: bool = True,
         rag: bool = True,
         course: Optional[str] = None,

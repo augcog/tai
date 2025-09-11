@@ -324,9 +324,9 @@ class FileService:
         return breadcrumbs
 
     @staticmethod
-    def get_file_metadata_by_name(db: Session, file_name: str) -> Optional[FileModel]:
+    def get_file_metadata_by_path(db: Session, file_path: str) -> Optional[FileModel]:
         """Get file metadata by file name"""
-        return db.query(FileModel).filter(FileModel.file_name == file_name).first()
+        return db.query(FileModel).filter(FileModel.relative_path == file_path).first()
 
 
 # Global service instance

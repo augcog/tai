@@ -83,7 +83,7 @@ class PracticeCompletionParams(BaseModel):
     rag: Optional[bool] = True
     answer_content: Optional[str] = None
     problem_id: Optional[str] = None
-    file_name: Optional[str] = None
+    file_path: Optional[str] = None
 
 class VoiceCompletionParams(BaseModel):
     course: str

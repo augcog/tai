@@ -1,5 +1,6 @@
 from typing import Optional, List
 from uuid import UUID
+import logging
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Path, status
 from sqlalchemy.orm import Session
@@ -9,6 +10,7 @@ from app.schemas.files import FileMetadata, FileListResponse, FileStatsResponse,
 from app.services.file_service import file_service
 
 router = APIRouter()
+logger = logging.getLogger(__name__)
 
 
 @router.get(
@@ -99,6 +101,8 @@ async def browse_directory(
     - GET /api/files/browse?course_code=CS61A&path=Part One - Browse "Part One" folder
     - GET /api/files/browse?course_code=CS61A&path=Part One/practice - Browse nested folder
     """
+    logger.info(f"Browse request: course_code={course_code}, path='{path}'")
+    
     try:
         result = file_service.browse_directory(
             db=db,
@@ -106,18 +110,32 @@ async def browse_directory(
             path=path.strip()
         )
         
+        logger.debug(f"Got {len(result.get('files', []))} files from service")
+        
         # Convert files to schema format
         from app.schemas.files import DirectoryInfo, BreadcrumbItem
         
+        files = []
+        for idx, file in enumerate(result["files"]):
+            try:
+                files.append(FileMetadata.from_db_model(file))
+            except Exception as e:
+                logger.error(f"Failed to convert file #{idx} '{file.file_name}': {e}")
+                # Log the problematic sections data
+                if hasattr(file, 'sections'):
+                    logger.error(f"Sections data type: {type(file.sections)}, value: {file.sections[:200] if file.sections else None}")
+                raise
+        
         return DirectoryBrowserResponse(
             directories=[DirectoryInfo(**dir_info) for dir_info in result["directories"]],
-            files=[FileMetadata.from_db_model(file) for file in result["files"]],
+            files=files,
             current_path=result["current_path"],
             breadcrumbs=[BreadcrumbItem(**crumb) for crumb in result["breadcrumbs"]],
             course_code=result["course_code"]
         )
         
     except Exception as e:
+        logger.error(f"Browse directory error: {str(e)}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error browsing directory: {str(e)}"
@@ -212,6 +230,8 @@ async def get_file_extra_info(
     Currently supports video transcript data stored in extra_info field.
     Returns empty array if no extra info is available.
     """
+    logger.info(f"Getting extra_info for file_id: {file_id}")
+    
     file_record = file_service.get_file_by_id(db, file_id)
     if not file_record:
         raise HTTPException(
@@ -221,23 +241,66 @@ async def get_file_extra_info(
     
     # Parse extra_info JSON if it exists
     if not file_record.extra_info:
+        logger.debug(f"No extra_info for file {file_id}")
         return []
     
     try:
         import json
         extra_info_data = json.loads(file_record.extra_info)
+        logger.debug(f"Parsed extra_info type: {type(extra_info_data)}")
+        
+        # Handle case where extra_info might be wrapped in an object
+        if isinstance(extra_info_data, dict):
+            # Check if it has a transcript or segments key
+            if "transcript" in extra_info_data:
+                logger.debug("Found 'transcript' key in extra_info")
+                extra_info_data = extra_info_data["transcript"]
+            elif "segments" in extra_info_data:
+                logger.debug("Found 'segments' key in extra_info")
+                extra_info_data = extra_info_data["segments"]
+            elif "extra_info" in extra_info_data:
+                logger.debug("Found nested 'extra_info' key")
+                extra_info_data = extra_info_data["extra_info"]
         
         # Validate and convert to TranscriptSegment objects
         if isinstance(extra_info_data, list):
             transcript_segments = []
-            for segment in extra_info_data:
-                if all(key in segment for key in ["start_time", "end_time", "speaker", "text_content"]):
-                    transcript_segments.append(TranscriptSegment(**segment))
+            for i, segment in enumerate(extra_info_data):
+                # Normalize key names (handle both "start time" and "start_time" formats)
+                normalized_segment = {}
+                
+                # Map various key formats to the expected format
+                key_mappings = {
+                    "start time": "start_time",
+                    "start_time": "start_time",
+                    "end time": "end_time", 
+                    "end_time": "end_time",
+                    "text content": "text_content",
+                    "text_content": "text_content",
+                    "speaker": "speaker"
+                }
+                
+                for old_key, new_key in key_mappings.items():
+                    if old_key in segment:
+                        normalized_segment[new_key] = segment[old_key]
+                
+                # Check if all required keys are present after normalization
+                required_keys = ["start_time", "end_time", "speaker", "text_content"]
+                if all(key in normalized_segment for key in required_keys):
+                    transcript_segments.append(TranscriptSegment(**normalized_segment))
+                else:
+                    missing_keys = [key for key in required_keys if key not in normalized_segment]
+                    logger.warning(f"Segment {i} missing keys after normalization: {missing_keys}. Original keys: {list(segment.keys())}")
+            
+            logger.info(f"Returning {len(transcript_segments)} transcript segments")
             return transcript_segments
         else:
+            logger.warning(f"extra_info is not a list after parsing: {type(extra_info_data)}")
             return []
             
-    except (json.JSONDecodeError, ValueError, TypeError):
+    except (json.JSONDecodeError, ValueError, TypeError) as e:
+        logger.error(f"Error parsing extra_info: {e}")
+        logger.error(f"Raw extra_info: {file_record.extra_info[:500] if file_record.extra_info else None}")
         # Return empty array if parsing fails
         return []
 

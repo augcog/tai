@@ -126,7 +126,7 @@ def build_augmented_prompt(
             f"No references at the end."
         )
         reference_style = (
-            f"Refer to specific reference numbers inline using [Reference: n] style. "
+            f"ALWAYS: Refer to specific reference numbers inline using [Reference: n] style!!! Do not use other style like refs, 【】 or (reference n)!!!"
             f"Do not list references at the end. "
         )
     else:
@@ -137,7 +137,7 @@ def build_augmented_prompt(
         """
         reference_style = (
             f"Mention specific reference numbers inline when that part of the answer is refer to some reference. "
-            f"ALWAYS: Do not mention references in a unreadable format like (reference n) as that is not understandable since the output is going to be converted to speech. "
+            f"ALWAYS: Do not mention references in a unreadable format like refs, 【】 or (reference n)!!! Those are not understandable since the output is going to be converted to speech. "
             f"Good example: According to reference 1, as mention in reference 2, etc. "
         )
     # Create modified message based on whether documents were inserted

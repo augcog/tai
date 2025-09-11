@@ -22,6 +22,7 @@ from app.services.file_service import file_service
 from app.services.problem_service import ProblemService
 from app.services.audio_service import audio_to_text, audio_stream_parser
 from app.services.chat_service import chat_stream_parser, format_audio_text_message, audio_generator, tts_parsor
+import re
 
 router = APIRouter()
 
@@ -116,7 +117,7 @@ async def create_voice_completion(
 
     if params.stream:
         return StreamingResponse(
-            parser(response, reference_list, params.audio_response,audio_text=audio_text), media_type="text/event-stream"
+            parser(response, reference_list, params.audio_response,audio_text=audio_text, course_code=course), media_type="text/event-stream"
         )
     else:
         return JSONResponse(ResponseDelta(text=response).model_dump_json(exclude_unset=True))
@@ -130,8 +131,18 @@ async def text_to_speech(
     Endpoint for converting text to speech.
     """
     # Convert text message to audio
-    audio_message = format_audio_text_message(params.text)
-    stream = audio_generator(audio_message, stream=params.stream)
+
+    print("tts")
+    print("text:", params.text)
+    print("class_code:", params.class_code)
+
+    pattern = r'(?s)(?<!!)--\s*(.*?)\s*!-{2,}REFERENCES\b'
+    m = re.search(pattern, params.text)
+    answer = m.group(1).strip() if m else None
+
+    audio_message = format_audio_text_message(answer)
+    print("answer:", answer)
+    stream = audio_generator(audio_message, stream=params.stream, course_code=params.class_code)
 
     if params.stream:
         return StreamingResponse(

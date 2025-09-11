@@ -47,7 +47,7 @@ class Done(BaseEvt):
     type: Literal["done"] = "done"
 
 def sse(payload: BaseEvt) -> str:
-    return f"data: {payload.model_dump_json(exclude_unset=True)}\n\n"
+    return f"data: {payload.model_dump_json(exclude_unset=False)}\n\n"
 
 
 class Message(BaseModel):

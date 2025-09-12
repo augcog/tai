@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sqlite3:*)",
+      "Bash(python:*)",
+      "Read(//home/bot/bot/yk/YK_final/courses/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

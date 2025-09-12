@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(/home/bot/bot/yk/YK_final/test_folder_output/1-Multiple Environments/**)",
+      "Read(/home/bot/bot/yk/YK_final/course_yaml/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

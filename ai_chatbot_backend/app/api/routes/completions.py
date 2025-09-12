@@ -5,7 +5,7 @@ from app.api.deps import verify_api_token
 from app.core.models.chat_completion import *
 from app.dependencies.model import get_model_engine, get_whisper_engine
 from app.services.rag_retriever import top_k_selector
-from app.services.rag_selector import (
+from app.services.rag_generation import (
     format_chat_msg,
     generate_chat_response,
     generate_practice_response,
@@ -30,6 +30,19 @@ def generate_data():
         time.sleep(0.1)
 
 
+import json, base64, hashlib, secrets
+def sid_from_history(messages):
+    hist = [{"r": getattr(m, "role", "user"),
+             "c": (getattr(m, "content", "") or "").split("<|begin_of_reference|>", 1)[0]}
+            for m in messages[:-1]]
+    # print(f"[INFO] History for SID generation: {hist}")
+    digest = hashlib.blake2b(
+        json.dumps(hist, separators=(",", ":"), ensure_ascii=False).encode(),
+        digest_size=12
+    ).digest()
+    return base64.urlsafe_b64encode(digest).decode().rstrip("=")
+
+
 @router.post("/completions")
 async def create_completion(
         params: CompletionParams, _: bool = Depends(verify_api_token)
@@ -43,13 +56,16 @@ async def create_completion(
     selector = generate_chat_response
     parser = local_parser
 
+    sid = sid_from_history(formatter(params.messages))
+    print(f"[INFO] Generated SID: {sid}")
+
     response, reference_list = await selector(
-        formatter(params.messages), stream=params.stream, course=course, engine=engine, audio_response=params.audio_response
+        formatter(params.messages), stream=params.stream, course=course, engine=engine, audio_response=params.audio_response, sid=sid
     )
 
     if params.stream:
         return StreamingResponse(
-            parser(response, reference_list), media_type="text/plain"
+            parser(response, reference_list, messages=formatter(params.messages), engine=engine, old_sid=sid), media_type="text/plain"
         )
     else:
         return PlainTextResponse(response)
@@ -68,7 +84,7 @@ async def create_text_completion(
     selector = generate_chat_response
     parser = chat_stream_parser
 
-    response, reference_list = selector(
+    response, reference_list = await selector(
         formatter(params.messages), stream=params.stream, course=course, engine=engine, audio_response=params.audio_response
     )
 
@@ -99,7 +115,7 @@ async def create_voice_completion(
 
     audio_text = audio_to_text(params.audio, whisper_engine, stream=False)
     params.messages.append(Message(role="user", content=audio_text))
-    response, reference_list = selector(
+    response, reference_list = await selector(
         formatter(params.messages), stream=params.stream, course=course, engine=engine
     )
 
@@ -119,7 +135,7 @@ async def text_to_speech(
     """
     # Convert text message to audio
     audio_message = format_audio_text_message(params.text)
-    stream = audio_generator(audio_message, stream=params.stream)
+    stream = await audio_generator(audio_message, stream=params.stream)
 
     if params.stream:
         return StreamingResponse(
@@ -140,7 +156,7 @@ async def voice_to_text(
 
     # Convert audio message to text
     if params.stream:
-        stream = audio_to_text(params.audio, whisper_engine, stream=params.stream, sample_rate=24000)
+        stream = await audio_to_text(params.audio, whisper_engine, stream=params.stream, sample_rate=24000)
         return StreamingResponse(
             audio_stream_parser(stream), media_type="text/event-stream"
         )

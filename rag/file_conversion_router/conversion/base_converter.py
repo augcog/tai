@@ -191,7 +191,7 @@ class BaseConverter(ABC):
             structured_md = ""
             content_dict = {}
         metadata_content = self._read_metadata(metadata_path)
-        metadata_content = {'URL': metadata_content.get('URL', '')}
+        metadata_content = {'URL': ''} if not metadata_content else {'URL': metadata_content.get('URL', '')}
         metadata = self._put_content_dict_to_metadata(
             content_dict=content_dict,
             metadata_content=metadata_content,
@@ -242,11 +242,12 @@ class BaseConverter(ABC):
         """
         Match the helper titles with the levels titles.
         This method is used to fix the index_helper with titles and their levels.
+        Handles quote variations by trying multiple normalization approaches.
         """
         a_titles = a_titles.translate(str.maketrans('', '', string.punctuation)).lower().strip()
-        # a_titles = a_titles.replace('"',"'").lower().strip()
+        a_titles = a_titles.replace('\\','').lower().strip()
         b_titles = b_titles.translate(str.maketrans('', '', string.punctuation)).lower().strip()
-        # b_titles = b_titles.replace('"',"'").lower().strip()
+        b_titles = b_titles.replace('\\','').lower().strip()
         return operator(a_titles, b_titles)
 
     def process_problems(self, content_dict):
@@ -310,7 +311,7 @@ class BaseConverter(ABC):
         index_helper = []
         twl_index = 0
         for item in self.index_helper:
-            if self.match_a_title_and_b_title(list(item.keys())[0], title_with_levels[twl_index]["title"], str.__eq__):
+            if self.match_a_title_and_b_title(list(item.keys())[0], title_with_levels[twl_index]["title"], str.__contains__):
                 index_helper.append(item)
                 title_with_levels[twl_index]["title"]=list(item.keys())[0]
                 twl_index += 1
@@ -332,6 +333,9 @@ class BaseConverter(ABC):
         file_name = input_md_path.stem
         with open(input_md_path, "r", encoding="UTF-8") as input_file:
             content_text = input_file.read()
+            if not content_text.strip():
+                logging.warning(f"The file {input_md_path} is empty.")
+                return "", {}
             pattern = r'^\s*#\s*ROAR ACADEMY EXERCISES\s*$'
             content_text = re.sub(pattern, '', content_text, flags=re.MULTILINE)
             content_text = re.sub(r'\n{3,}', '\n\n', content_text)
@@ -376,6 +380,25 @@ class BaseConverter(ABC):
             new_md = apply_structure_for_one_title(
                 md_content=content_text, content_dict=content_dict
             )
+        elif file_type in ["mp4", "mkv", "webm"]:
+            # Handle video files with headers
+            json_path = input_md_path.with_suffix(".json")
+            content_dict = get_structured_content_with_one_title_level(
+                md_content=content_text,
+                file_name=file_name,
+                course_name=self.course_name,
+                index_helper=self.index_helper,
+            )
+            new_md = apply_structure_for_one_title(
+                md_content=content_text, content_dict=content_dict
+            )
+            # Apply speaker role assignment for video files
+            new_md = extract_and_assign_speakers(content_dict, new_md, str(json_path))
+            # Update index helper and add titles BEFORE grouping
+            self.update_index_helper(content_dict, new_md)
+            add_titles_to_json(index_helper=self.index_helper, json_file_path=json_path)
+            # Group sentences in transcript to reduce list length (after adding titles)
+            group_sentences_in_transcript(str(json_path), max_time_gap=5.0, max_words=200)
         else:
             content_dict = get_only_key_concepts(
                 md_content=content_text,
@@ -445,7 +468,7 @@ class BaseConverter(ABC):
                     index = list(item.values())[0]
                     if not title:
                         continue
-                    if self.match_a_title_and_b_title(title, target_title, str.__eq__):
+                    if self.match_a_title_and_b_title(title, target_title, str.__contains__):
                         result[path] = index
                         found_match = True
                         break
@@ -479,7 +502,53 @@ class BaseConverter(ABC):
                 title = title.replace("'", '"').strip()
                 line_num = header_lines.get(title)
             self.index_helper[path] = (page_idx, line_num)
+        
         return self.index_helper
+    
+    def count_lines_accurately(self, text: str) -> int:
+        """
+        Accurately count the number of lines in a text string.
+        Returns the total number of lines (1-based counting).
+        """
+        if not text:
+            return 0
+        lines = text.splitlines()
+        return len(lines)
+    
+    def find_line_number_for_text(self, text: str, search_text: str) -> int:
+        """
+        Find the line number (1-based) where a specific text appears in the content.
+        Returns the line number or None if not found.
+        """
+        if not text or not search_text:
+            return None
+        
+        lines = text.splitlines()
+        search_normalized = search_text.strip().lower()
+        
+        for i, line in enumerate(lines, start=1):
+            if search_normalized in line.strip().lower():
+                return i
+        
+        return None
+    
+    def get_sorted_headers_with_valid_line_numbers(self) -> list:
+        """
+        Get sorted headers from index_helper, filtering out entries where line number is None.
+        Returns a list of (path, (page_index, line_number)) tuples sorted by line number.
+        
+        Usage:
+            all_headers = self.get_sorted_headers_with_valid_line_numbers()
+        """
+        # Filter and collect only entries with valid line numbers
+        valid_headers = [
+            (path, value) 
+            for path, value in self.index_helper.items() 
+            if isinstance(value, tuple) and len(value) >= 2 and value[1] is not None
+        ]
+        
+        # Sort by line number (second element of the value tuple)
+        return sorted(valid_headers, key=lambda kv: kv[1][1])
 
     @abstractmethod
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:

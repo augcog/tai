@@ -1,199 +1,117 @@
-from datetime import datetime
-import os
-import time
-from datetime import datetime
+import sqlite3, json, numpy as np
+from pathlib import Path
+from typing import Optional, List
 
-import numpy as np
-import pickle
-from dotenv import load_dotenv
-from file_conversion_router.utils.logger import content_logger
-from tqdm import tqdm
-from FlagEmbedding import BGEM3FlagModel
 from sentence_transformers import SentenceTransformer
 
-load_dotenv()
+# ---------- tiny helpers ----------
+def _title_path_from_json(title_json: Optional[str]) -> str:
+    if not title_json:
+        return ""
+    try:
+        arr = json.loads(title_json)
+        if not isinstance(arr, (list, tuple)):
+            arr = [str(arr)]
+        parts = [str(x).strip() for x in arr if x is not None and str(x).strip()]
+        return " > ".join(parts)
+    except Exception:
+        return str(title_json).strip()
 
+def _to_blob(vec: np.ndarray) -> bytes:
+    return np.asarray(vec, dtype=np.float32).tobytes()
 
-def string_subtraction(main_string, sub_string):
-    return main_string.replace(
-        sub_string, "", 1
-    )  # The '1' ensures only the first occurrence is removed
+def _ensure_vector_column(conn: sqlite3.Connection):
+    # Add chunks.vector if missing
+    cols = {row[1] for row in conn.execute("PRAGMA table_info(chunks)")}
+    if "vector" not in cols:
+        conn.execute("ALTER TABLE chunks ADD COLUMN vector BLOB")
 
-
-def traverse_files(
-        path,
-        start_folder_name
-):
-    url_list = []
-    id_list = []
-    doc_list = []
-    file_paths_list = []
-    topic_path_list = []
-    index_list = []
-    # Check if the provided path exists
-    if not os.path.exists(path):
-        raise ValueError(f"The provided path '{path}' does not exist.")
-
-    path = os.path.abspath(path)
-
-
-    for root, dir, files in os.walk(path):
-        for file in files:
-            if file.endswith(".pkl"):
-                # file path
-                file_path = os.path.join(root, file)
-                path_list = [start_folder_name] + string_subtraction(root, path).split(
-                    "/"
-                )[1:]
-
-                # Find associated file (pdf, video, or md) in the same directory
-                base_name = os.path.splitext(file)[0]
-                md_path = os.path.join(root, f"{base_name}.md")
-
-                # Determine which file path to use based on priority
-                File_path = None
-                if os.path.exists(md_path):
-                    File_path = md_path
-
-                # Convert absolute path to relative path including the root folder name
-                if File_path:
-                    # Get path relative to the parent directory of the root folder
-                    parent_dir = os.path.dirname(path)
-                    relative_file_path = os.path.relpath(File_path, parent_dir)
-                else:
-                    relative_file_path = None
-
-                with open(file_path, "rb") as pkl_file:
-                    print(file_path)
-                    chunks = pickle.load(pkl_file)
-                for chunk in chunks:
-                    if len(chunk.titles) < 2:
-                        topic_path = " > ".join(chunk.titles)
-                    else:
-                        topic_path = chunk.titles[0] + " > " + chunk.titles[-1]
-                    topic_path_list.append(topic_path)
-                    print(f"topic_path: {topic_path} in {file_path}")
-                    id = base_name + ' > ' + topic_path
-                    id_list.append(id)
-                    doc_list.append(chunk.content)
-                    url = "".join(chunk.chunk_url)
-                    url_list.append(url)
-                    file_paths_list.append(relative_file_path)
-                    index_list.append(chunk.index)
-    return url_list, id_list, doc_list, file_paths_list, topic_path_list, index_list
-
-
-def embedding_create(markdown_path, name, embedding_name, folder_name, model):
+# ---------- MVP: write embeddings into chunks.vector ----------
+def embedding_create(db_path, embedding_name=None, ):
     """
-    Traverse through files
-    """
-    fail = []
-    start = time.time()
-    # Process each page
-    url_list, id_list, doc_list, file_paths_list, topic_path_list, index_list = traverse_files(
-        markdown_path,
-        name
-    )
+    Compute embeddings and save into chunks.vector (BLOB, float32 bytes).
 
-    print(id_list)
-
-    human_embedding_prompt = (
-        "document_hierarchy_path: {segment_path}\ndocument: {segment}\n"
-    )
-    hp_list = [human_embedding_prompt.format(segment=doc, segment_path=idid) for doc, idid in zip(doc_list, id_list)]
-
-    if model == "BGE":
-        embedding_model = BGEM3FlagModel("BAAI/bge-m3", use_fp16=True)
-        embedding_list = embedding_model.encode(
-            hp_list, return_dense=True, return_sparse=True, return_colbert_vecs=True
-        )
-    elif model == "Qwen":
-        embedding_model = SentenceTransformer("Qwen/Qwen3-Embedding-4B",
-                                    model_kwargs={
-                                        "attn_implementation": "flash_attention_2",
-                                        "torch_dtype": "auto",
-                                        "device_map": "auto"
-                                    },
-                                    tokenizer_kwargs={"padding_side": "left"})
-        embedding_list = {"dense_vecs": embedding_model.encode(hp_list)}
-
-    id_list = np.array(id_list)
-    doc_list = np.array(doc_list)
-    url_list = np.array(url_list)
-    file_paths_list = np.array(file_paths_list)
-    topic_path_list = np.array(topic_path_list)
-    index_list=np.array(index_list)
-    print("create time:", time.time() - start)
-    # Store the variables in a dictionary
-    data_to_store = {
-        "id_list": id_list,
-        "doc_list": doc_list,
-        "embedding_list": embedding_list,
-        "url_list": url_list,
-        "file_paths_list": file_paths_list,
-        "topic_path_list": topic_path_list,
-        "index_list": index_list
-    }
-
-    validate_data(data_to_store)
-
-    # Create the folder if it does not exist
-    if not os.path.exists(folder_name):
-        os.makedirs(folder_name)
-    # TODO: do not store from working directory, it should be based on the markdown_path
-    with open(f"{folder_name}/{embedding_name}.pkl", "wb") as f:
-        pickle.dump(data_to_store, f)
-
-    for i in fail:
-        print("Failed Embeddings: ", i)
-
-
-def validate_data(data):
-    """
-    Check if the content of the data is valid.
     Args:
-        data (dict): The data dictionary to check.
+      db_path: path to SQLite DB.
+      embedding_name: optional course filter; matches course_name OR course_id.
+      only_missing: if True, only embed rows where vector is NULL/empty.
     """
+    db_path = Path(db_path)
+    if not db_path.exists():
+        raise FileNotFoundError(f"DB not found: {db_path}")
 
-    content_logger.info("Validating embedding data...")
-    lengths = []
-    # Assume 'data' is your dictionary and 'content_logger' is your logger
-    expected_length = None
-    lengths = []
+    conn = sqlite3.connect(str(db_path))
+    conn.row_factory = sqlite3.Row
 
-    for key, value in data.items():
-        # Check if value is empty
-        if len(value) == 0:
-            content_logger.error(f"{key} is empty.")
-            continue  # Skip further checks if empty
+    # 0) Ensure schema has 'vector' column
+    _ensure_vector_column(conn)
 
-        # Check if the value is a numpy array
-        if not isinstance(value, np.ndarray):
-            content_logger.error(f"{key} is not a numpy array.")
+    # 1) Select target chunks
+    params: List[str] = []
+    where = []
+    if embedding_name and str(embedding_name).strip():
+        where.append("(course_name = ? OR course_code = ?)")
+        params.extend([embedding_name, embedding_name])
+    sql = """
+    SELECT
+      chunk_uuid, text, title, reference_path, file_path, course_name, course_code, file_uuid, idx
+    FROM chunks
+    """
+    if where:
+        sql += " WHERE " + " AND ".join(where)
+    sql += " ORDER BY file_uuid, idx, chunk_uuid"
 
-        # Establish the expected length from the first non-empty value
-        if expected_length is None:
-            expected_length = len(value)
+    rows = conn.execute(sql, params).fetchall()
+    if not rows:
+        conn.close()
+        print("[embed] no chunks matched the current filter")
+        return
 
-        # Check if the current value's length matches the expected length
-        if len(value) != expected_length:
-            content_logger.error(
-                f"{key} length {len(value)} is not equal to expected length {expected_length}."
-            )
+    chunk_uuids  = [r["chunk_uuid"] for r in rows]
+    texts        = [r["text"] or "" for r in rows]
+    titles_json  = [r["title"] for r in rows]
+    title_paths  = [_title_path_from_json(tj) for tj in titles_json]
 
-        lengths.append(len(value))
+    # 2) Build prompts
+    hp_list = [
+        f"document_hierarchy_path: {tp}\ndocument: {txt}\n"
+        for tp, txt in zip(title_paths, texts)
+    ]
 
-    if len(set(lengths)) > 1:
-        content_logger.error("Lists are of inconsistent lengths.")
+    # 3) Encode
+    model = SentenceTransformer(
+        "Qwen/Qwen3-Embedding-4B",
+        model_kwargs={
+            "attn_implementation": "flash_attention_2",
+            "torch_dtype": "auto",
+            "device_map": "auto",
+        },
+        tokenizer_kwargs={"padding_side": "left"},
+    )
+    dense = np.asarray(model.encode(hp_list))
+    if dense.ndim != 2 or dense.shape[0] != len(chunk_uuids):
+        conn.close()
+        raise ValueError(f"Embeddings shape mismatch: {dense.shape} vs {len(chunk_uuids)} chunks")
 
-    content_logger.info("Data validation complete.")
+    # 4) Write back into chunks.vector (transactional)
+    try:
+        conn.execute("BEGIN IMMEDIATE")
+        cur = conn.cursor()
+        cur.executemany(
+            "UPDATE chunks SET vector=? WHERE chunk_uuid=?",
+            [( _to_blob(dense[i]), chunk_uuids[i]) for i in range(len(chunk_uuids))]
+        )
+        conn.commit()
+    except Exception:
+        conn.rollback()
+        raise
+    finally:
+        conn.close()
 
+    print(f"[embed] wrote {len(chunk_uuids)} vectors into chunks.vector @ {db_path}")
 
 if __name__ == "__main__":
     embedding_create(
-        "/courses_out1/CS 61A_output",
-        "/home/bot/bot/yk/YK_final/courses_out/CS 61A_output",
-        "The Structure and Interpretation of Computer Programs",
-        "embedding_output",
-        "Qwen",
+        "/home/bot/bot/yk/YK_final/courses_out/metadata.db",
+        "CS 294-137",
     )

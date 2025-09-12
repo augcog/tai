@@ -59,8 +59,9 @@ class WebScraper:
             # Track visited URLs
             visited = set()
 
-            # Start DFS from the initial URL
-            self.dfs_crawl(task["url"], visited, root_configs, driver)
+            # Start DFS from each root URL directly instead of the initial URL
+            for root_url in root_configs.keys():
+                self.dfs_crawl(root_url, visited, root_configs, driver)
 
         finally:
             driver.close()
@@ -153,7 +154,7 @@ class WebScraper:
         # Determine which root this URL belongs to
         matching_root = None
         for root_url in root_configs:
-            if root_url in url:
+            if url.startswith(root_url) or url == root_url:
                 matching_root = root_url
                 break
 
@@ -200,5 +201,5 @@ class WebScraper:
 
 
 if __name__ == "__main__":
-    scraper = WebScraper("/home/bot/bot/yk/YK_final/tai/rag/scraper/Scraper_master/sample_config.yaml")
+    scraper = WebScraper("/home/bot/bot/yk/YK_final/tai/rag/scraper/config.yaml")
     scraper.run()

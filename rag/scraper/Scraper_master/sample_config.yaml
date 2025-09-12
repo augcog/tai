@@ -1,6 +1,7 @@
-root_folder: "/home/bot/bot/yk/YK_final/courese"
+root_folder: "/home/bot/bot/yk/YK_final/courses"
 log_folder: "/home/bot/bot/yk/YK_final/log"
 course_name: "The Structure and Interpretation of Computer Programs"
+db_path: "/home/bot/bot/yk/YK_final/courses_out/metadata.db"
 course_code : "CS 61A"
 tasks:
   - name: ""

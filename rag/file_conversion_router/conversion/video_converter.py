@@ -11,12 +11,6 @@ from openai import OpenAI
 import json
 import re
 from textwrap import dedent
-import torch
-
-# Enable TensorFloat-32 for better performance (suppresses reproducibility warnings)
-torch.backends.cuda.matmul.allow_tf32 = True
-torch.backends.cudnn.allow_tf32 = True
-
 
 class VideoConverter(BaseConverter):
     def __init__(self, course_name, course_code, file_uuid: str = None):
@@ -318,3 +312,10 @@ class VideoConverter(BaseConverter):
 
         self.index_helper = result
         self.add_line_number_to_index_helper(md_content)
+
+if __name__ == "__main__":
+    load_dotenv()
+    converter = VideoConverter(course_name="Test Course", course_code="TEST101")
+    input_path = "/home/bot/bot/yk/YK_final/test_folder/Allen Yang AR_VR System Part 2_segment.mov"
+    output_path = "/home/bot/bot/yk/YK_final/test_folder/"
+    converter._to_markdown(input_path, output_path)

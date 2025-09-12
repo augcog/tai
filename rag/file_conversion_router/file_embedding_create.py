@@ -281,14 +281,24 @@ def check_embedding_status(db_path: str, course_filter: Optional[str] = None) ->
         total_query = f"SELECT COUNT(*) FROM file {where_clause}"
         total_files = conn.execute(total_query, params).fetchone()[0]
         
-        # Count files with embeddings
-        embedded_query = f"SELECT COUNT(*) FROM file {where_clause}"
-        if where_clause:
-            embedded_query += " AND vector IS NOT NULL"
+        # Count files with embeddings (check in chunks table)
+        if course_filter:
+            embedded_query = """
+                SELECT COUNT(DISTINCT f.uuid) 
+                FROM file f
+                INNER JOIN chunks c ON f.uuid = c.file_uuid
+                WHERE (f.course_name = ? OR f.course_code = ?)
+                AND c.vector IS NOT NULL
+            """
+            embedded_files = conn.execute(embedded_query, params).fetchone()[0]
         else:
-            embedded_query += " WHERE vector IS NOT NULL"
-        
-        embedded_files = conn.execute(embedded_query, params).fetchone()[0]
+            embedded_query = """
+                SELECT COUNT(DISTINCT f.uuid) 
+                FROM file f
+                INNER JOIN chunks c ON f.uuid = c.file_uuid
+                WHERE c.vector IS NOT NULL
+            """
+            embedded_files = conn.execute(embedded_query).fetchone()[0]
         
         return {
             "total_files": total_files,
@@ -303,18 +313,18 @@ def check_embedding_status(db_path: str, course_filter: Optional[str] = None) ->
 
 if __name__ == "__main__":
     # Example usage
-    db_path = "/courses_out1/metadata.db"
-    data_dir = "/courses_out1"
+    db_path = "/home/bot/bot/yk/YK_final/courses_out/metadata.db"
+    data_dir = "/home/bot/bot/yk/YK_final/courses_out"
     
     # Check current status
-    status = check_embedding_status(db_path, course_filter="ROAR Academy")
+    status = check_embedding_status(db_path, course_filter="CS 294-137")
     print("Current embedding status:", status)
     
     # Run embedding process
     results = embed_files_from_markdown(
         db_path=db_path,
         data_dir=data_dir,
-        course_filter="CS 61A",  # Optional: filter by course
+        course_filter="CS 294-137",
         force_recompute=False  # Set to True to recompute existing embeddings
     )
     

@@ -1,0 +1,46 @@
+root_folder: "/home/bot/bot/yk/YK_final/unity_xr"
+log_folder: "/home/bot/bot/yk/YK_final/log"
+course_name: "Unity XR Development with 2022.3.46f1"
+db_path: "/home/bot/bot/yk/YK_final/unity_xr_out/metadata.db"
+course_code: "Unity XR 2022.3.46f1"
+tasks:
+  - name: "ARFoundation_5.1"
+    local: False
+    url: "https://docs.unity3d.com/Packages/com.unity.xr.arfoundation@5.1/manual"
+    driver_type: "request"
+    roots:
+      - url: https://docs.unity3d.com/Packages/com.unity.xr.arfoundation@5.1/manual
+        depth: 3
+        scraper_type: general_scraper
+  - name: "XR_Interaction_Toolkit_2.6"
+    local: False
+    url: "https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.6/manual"
+    driver_type: "request"
+    roots:
+      - url: https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.6/manual
+        depth: 3
+        scraper_type: general_scraper
+  - name: "XR_Plugin_Management_4.4"
+    local: False
+    url: "https://docs.unity3d.com/Packages/com.unity.xr.management@4.4/manual"
+    driver_type: "request"
+    roots:
+      - url: https://docs.unity3d.com/Packages/com.unity.xr.management@4.4/manual
+        depth: 3
+        scraper_type: general_scraper
+  - name: "XR_Hands_1.4"
+    local: False
+    url: "https://docs.unity3d.com/Packages/com.unity.xr.hands@1.4/manual"
+    driver_type: "request"
+    roots:
+      - url: https://docs.unity3d.com/Packages/com.unity.xr.hands@1.4/manual
+        depth: 3
+        scraper_type: general_scraper
+  - name: "Unity_2022.3_XR_General"
+    local: False
+    url: "https://docs.unity3d.com/2022.3/Documentation/Manual/"
+    driver_type: "request"
+    roots:
+      - url: https://docs.unity3d.com/2022.3/Documentation/Manual/
+        depth: 1
+        scraper_type: general_scraper

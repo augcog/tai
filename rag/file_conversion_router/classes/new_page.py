@@ -270,7 +270,18 @@ class Page:
             break
         return lines[i:]
 
-    # ---------- main: segment extraction ----------
+    def get_sorted_headers_with_valid_line_numbers(self) -> list:
+        """
+        Get sorted headers from index_helper, filtering out entries where line number is None.
+          Returns a list of (path, (page_index, line_number)) tuples sorted by line number.
+
+        Usage:
+             all_headers = self.get_sorted_headers_with_valid_line_numbers()
+         """
+        valid_headers = [(path, value)
+        for path, value in self.index_helper.items()if isinstance(value, tuple) and len(value) >= 2 and value[1] is not None]
+        return sorted(valid_headers, key=lambda kv: kv[1][1])
+
     def extract_headers_and_content(self, md_content: str) -> List[Dict[str, Any]]:
         segments: List[Dict[str, Any]] = []
         if not self.index_helper:
@@ -284,7 +295,7 @@ class Page:
         code_spans = self._compute_code_fence_spans(md_content)
         safe_spans = [(a, b) for (a, b) in code_spans if (b - a + 1) / max(1, total_lines) <= 0.7]
 
-        all_headers = sorted(self.index_helper.items(), key=lambda kv: kv[1][1])
+        all_headers = self.get_sorted_headers_with_valid_line_numbers()
         sorted_headers = (fh := [
             (p, (i, ln)) for (p, (i, ln)) in all_headers
             if not self._line_in_spans(ln, safe_spans)
@@ -326,7 +337,6 @@ class Page:
 
         return segments
 
-    # ---------- post-process: merge & finalize ----------
     def merge_short_segments(
         self,
         segments: List[Dict[str, Any]],

@@ -42,6 +42,7 @@ converter_mapping: ConverterMapping = {
     ".py": PythonConverter,
     '.mkv': VideoConverter,
     '.webm': VideoConverter,
+    '.mov': VideoConverter,
     #     TODO: Add more file types and converters here
 }
 
@@ -529,9 +530,9 @@ def update_problem_table_from_metadata_files(folder_path: Union[str, Path], chun
 
                 # Check if file_uuid already exists in database
                 existing_uuid = is_file_cached(conn, file_hash)
-                if existing_uuid:
-                    logging.info(f"Skipping {yaml_file}: file already exists in database with uuid {existing_uuid}")
-                    continue
+                # if existing_uuid:
+                #     logging.info(f"Skipping {yaml_file}: file already exists in database with uuid {existing_uuid}")
+                #     continue
 
                 # Extract problems from metadata
                 problems = metadata.get("problems", [])
@@ -682,4 +683,4 @@ def update_file_urls_from_metadata_files(folder_path: Union[str, Path], db_path:
     logging.info("Completed updating file URLs from metadata files")
 
 if __name__ == "__main__":
-    update_file_urls_from_metadata_files(folder_path="/home/bot/bot/yk/YK_final/courses", db_path="/courses_out1/metadata.db")
+    update_problem_table_from_metadata_files(folder_path="/home/bot/bot/yk/YK_final/courses/ROAR Academy", chunk_db_path="/home/bot/bot/yk/YK_final/courses_out/metadata.db")

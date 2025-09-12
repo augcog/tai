@@ -325,11 +325,24 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
         - **Clear Explanation:** Detail why correct answers are right and others wrong
         - **Knowledge Areas:** List the key knowledge areas being tested
         
-        ### Part 4: Identify Speaker Role
-        Analyze the language, tone, and context of the content to infer the most likely role of the speaker:
-        - Possible values: "Professor", "Teaching Assistant", "Student", or "Unknown".
-        - Use contextual clues like authoritative tone, use of 'I' or 'we', references to grading, assignments, or peer interaction.
-        Include this value in the final JSON under the key `speaker_role`.
+        ### Part 4: Identify and Classify Speakers
+        The markdown includes speaker tags like Speaker_00, Speaker_01, etc. For each unique speaker:
+        - Analyze their content and determine the most likely role:
+            - "Professor" (teaching and explaining concepts, authoritative tone) - ONLY ONE ALLOWED
+            - "Teaching Assistant" (supporting explanations, grading references, guiding students) 
+            - "Student" (asking questions, expressing confusion, providing opinions)
+            - "Unknown" (insufficient information)
+        
+        IMPORTANT NUMBERING RULES:
+        - Only ONE speaker can be "Professor" (the main instructor)
+        - Teaching Assistants should be numbered: "TA_1", "TA_2", "TA_3", etc.
+        - Students should be numbered: "Student_1", "Student_2", "Student_3", etc.
+        - Unknown speakers should be numbered: "Unknown_1", "Unknown_2", etc.
+        - If there are multiple speakers who seem like professors, designate the most authoritative one as "Professor" and others as "TA_1", "TA_2", etc.
+        
+        Include these mappings in the JSON under a top-level key `speakers`. Each speaker must have:
+        - `speaker_id` (e.g., "Speaker_00")
+        - `role` (properly numbered according to rules above)
         """)
         response_format = {
             "type": "json_schema",
@@ -470,8 +483,8 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                                    "description": "The unique identifier for the speaker, e.g., 'Speaker_00'."},
                                     "role": {
                                         "type": "string",
-                                        "description": "The inferred role of the speaker based on their content.",
-                                        "enum": ["Professor", "Teaching Assistant", "Student", "Unknown"]
+                                        "description": "The inferred role of the speaker based on their content. Must follow numbering rules: Professor (only one), TA_1, TA_2, etc., Student_1, Student_2, etc., Unknown_1, Unknown_2, etc.",
+                                        "pattern": "^(Professor|TA_[1-9][0-9]*|Student_[1-9][0-9]*|Unknown_[1-9][0-9]*)$"
                                     },
                                 },
                                 "required": ["speaker_id", "role"],
@@ -528,13 +541,21 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
              ### Part 4: Identify and Classify Speakers
             The markdown includes speaker tags like Speaker_00, Speaker_01, etc. For each unique speaker:
             - Analyze their content and determine the most likely role:
-                - "Professor" (teaching and explaining concepts, authoritative tone)
-                - "Teaching Assistant" (supporting explanations, grading references, guiding students)
+                - "Professor" (teaching and explaining concepts, authoritative tone) - ONLY ONE ALLOWED
+                - "Teaching Assistant" (supporting explanations, grading references, guiding students) 
                 - "Student" (asking questions, expressing confusion, providing opinions)
                 - "Unknown" (insufficient information)
+            
+            IMPORTANT NUMBERING RULES:
+            - Only ONE speaker can be "Professor" (the main instructor)
+            - Teaching Assistants should be numbered: "TA_1", "TA_2", "TA_3", etc.
+            - Students should be numbered: "Student_1", "Student_2", "Student_3", etc.
+            - Unknown speakers should be numbered: "Unknown_1", "Unknown_2", etc.
+            - If there are multiple speakers who seem like professors, designate the most authoritative one as "Professor" and others as "TA_1", "TA_2", etc.
+            
             Include these mappings in the JSON under a top-level key `speakers`. Each speaker must have:
             - `speaker_id` (e.g., "Speaker_00")
-            - `role` (one of the above values)""")
+            - `role` (properly numbered according to rules above)""")
         response_format = {
             "type": "json_schema",
             "json_schema": {
@@ -660,8 +681,8 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                     "speaker_id": {"type": "string", "description": "The unique identifier for the speaker, e.g., 'Speaker_00'."},
                                     "role": {
                                         "type": "string",
-                                        "description": "The inferred role of the speaker based on their content.",
-                                        "enum": ["Professor", "Teaching Assistant", "Student", "Unknown"]
+                                        "description": "The inferred role of the speaker based on their content. Must follow numbering rules: Professor (only one), TA_1, TA_2, etc., Student_1, Student_2, etc., Unknown_1, Unknown_2, etc.",
+                                        "pattern": "^(Professor|TA_[1-9][0-9]*|Student_[1-9][0-9]*|Unknown_[1-9][0-9]*)$"
                                     },
                                 },
                                 "required": ["speaker_id", "role"],
@@ -1348,11 +1369,15 @@ def assign_speaker_roles_to_content(md_content: str, speakers_mapping: list, jso
     Args:
         md_content (str): The markdown content with speaker tags
         speakers_mapping (list): List of speaker mappings from ChatGPT analysis, e.g. 
-                               [{"speaker_id": "Speaker_00", "role": "Professor"}, ...]
+                               [{"speaker_id": "Speaker_00", "role": "Professor"}, 
+                                {"speaker_id": "Speaker_01", "role": "TA_1"},
+                                {"speaker_id": "Speaker_02", "role": "Student_1"}, ...]
         json_file_path (str, optional): Path to JSON transcript file to also update
     
     Returns:
         str: Updated markdown content with speaker roles replaced
+        
+    Note: Now supports numbered roles like TA_1, TA_2, Student_1, Student_2, etc.
     """
     if not speakers_mapping:
         logger.warning("No speakers mapping provided, returning original content")
@@ -1425,6 +1450,12 @@ def extract_and_assign_speakers(content_dict: dict, md_content: str, json_file_p
     
     Returns:
         str: Updated markdown content with speaker roles assigned
+        
+    Note: Now supports numbered speaker roles:
+    - Professor (only one allowed)
+    - TA_1, TA_2, TA_3, etc. (for multiple teaching assistants)
+    - Student_1, Student_2, Student_3, etc. (for multiple students)
+    - Unknown_1, Unknown_2, etc. (for unidentified speakers)
     """
     speakers_mapping = content_dict.get("speakers", [])
     

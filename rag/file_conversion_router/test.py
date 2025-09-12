@@ -1,3 +1,8 @@
-from file_conversion_router.services.directory_service import update_file_urls_from_metadata_files
+a = 'Estimation of $( \\'
+a=a.replace('\\', '').strip()
+b = ' Estimation of $( \mathrm { R } , \mathrm { T } )$'
+b=b.replace('\\', '').strip()
 
-update_file_urls_from_metadata_files(folder_path = "/home/bot/bot/yk/YK_final/courses", chunk_db_path = "/home/bot/bot/yk/YK_final/courses_out/metadata.db")
+print(a)
+print(b)
+print(a in b)

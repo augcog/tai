@@ -43,8 +43,6 @@ async def chat_stream_parser(
     audio_messages = []
     async for output in stream:
         text = output.outputs[0].text
-        # token=output.outputs[0].token_ids
-        # print(output)
         channels= extract_channels(text)
         if not channels:
             continue
@@ -57,23 +55,11 @@ async def chat_stream_parser(
                 continue
             yield sse(ResponseDelta(seq=text_seq, text_channel=channel, text=chunk)); text_seq += 1
             print(chunk, end="")
-        if audio and 'final' in chunks:
-            if 'final' not in previous_channels:
-                last_newline_index = -2
-            else:
-                last_newline_index = previous_channels['final'].rfind('. ')
-            final_index=chunks['final'].rfind('. ')
-            if final_index!=-1 or last_newline_index >previous_index+2:
-                if final_index!=-1:
-                    print('[INFO] Found a full stop in the new chunk.')
-                    audio_text = previous_channels['final'][previous_index + 2:] + chunks['final'][:final_index + 2]
-                    previous_index = len(previous_channels['final']) + final_index
-                else:
-                    print('[INFO] No full stop in the new chunk, but there is a full stop in the previous text.')
-                    audio_text = previous_channels['final'][previous_index + 2:last_newline_index+2]
-                    previous_index = last_newline_index
-                # # Find the last newline in text before chunk and get the text to be converted to audio after that
-                # audio_text = previous_channels['final'][previous_index + 2:] + chunks['final'][:chunks['final'].rfind('. ') + 1]
+        if audio and 'final' in channels:
+            last_newline_index = channels['final'].rfind('. ')
+            if last_newline_index >previous_index+2:
+                audio_text = channels['final'][previous_index + 2:last_newline_index+2]
+                previous_index = last_newline_index
                 #replace all the consecutive \n with space no matter how many \n
                 # audio_text = re.sub(r'\n+', ' ', audio_text)
                 if audio_text.strip()== "":
@@ -108,8 +94,8 @@ async def chat_stream_parser(
         previous_channels = channels
 
     else:
-        if audio and 'final' in previous_channels:
-            audio_text = previous_channels['final'][previous_index + 2:]
+        if audio and 'final' in channels:
+            audio_text = channels['final'][previous_index + 2:]
             # replace all the consecutive \n with space no matter how many \n
             # yield sse(ResponseDelta(seq=text_seq, text=audio_text)); text_seq += 1
             if audio_text.strip():
@@ -158,7 +144,7 @@ async def chat_stream_parser(
 
     mentioned_references = {
         int(n)
-        for m in pattern.finditer(previous_channels['final'])
+        for m in pattern.finditer(channels['final'])
         for n in re.findall(r'\d+', m.group(1) or m.group(2))
     }
     print(f"\n[INFO] Mentioned references: {mentioned_references}")
@@ -179,7 +165,7 @@ async def chat_stream_parser(
     yield sse(Done())
     yield "data: [DONE]\n\n"  # Final done message for SSE clients
 
-    await build_memory_after_response(messages, previous_channels['final'], references, engine, old_sid)
+    await build_memory_after_response(messages, channels['final'], references, engine, old_sid)
 
 def encode_base64_content_from_file(file_path: str) -> str:
     """Encode a content from a local file to base64 format."""

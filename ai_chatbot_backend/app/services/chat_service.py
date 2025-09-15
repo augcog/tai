@@ -71,7 +71,8 @@ async def chat_stream_parser(
                         audio_messages.append({"role": "user", "content": msg + '. '})
                         print("\n[INFO] Audio text:")
                         print(msg + '. ')
-                        audio_iterator = audio_generator(audio_messages, stream=True, course_code=course_code)
+                        speaker_name = get_speaker_name(course_code)
+                        audio_iterator = audio_generator(audio_messages, stream=True, speaker_name=speaker_name)
                         audio_bytes_io = io.BytesIO()
                         async for data in audio_iterator:
                             yield sse(ResponseDelta(seq=voice_seq, audio_b64=data, audio_spec=AudioSpec())); voice_seq += 1
@@ -105,10 +106,11 @@ async def chat_stream_parser(
                         audio_messages.append({"role": "user", "content": msg + '. '})
                         print("\n[INFO] Audio text:")
                         print(msg + '. ')
-                        audio_iterator = audio_generator(audio_messages, stream=True, course_code=course_code)
+                        speaker_name= get_speaker_name(course_code)
+                        audio_iterator = audio_generator(audio_messages, stream=True, speaker_name=speaker_name)
                         audio_bytes_io = io.BytesIO()
                         async for data in audio_iterator:
-                            yield sse(ResponseDelta(seq=voice_seq, audio_b64=data, audio_spec=AudioSpec()));
+                            yield sse(ResponseDelta(seq=voice_seq, audio_b64=data, audio_spec=AudioSpec(),speaker_name=speaker_name));
                             voice_seq += 1
                             audio_bytes = base64.b64decode(data)
                             audio_bytes_io.write(audio_bytes)
@@ -190,7 +192,15 @@ def format_audio_text_message(audio_text: str) -> List[Dict]:
     print(f"[INFO] Audio text after cleaning: {audio_text}")
     return [{"role": "user", "content": audio_text}]
 
-async def audio_generator(messages: List[Dict], stream: bool = True, course_code: str = None
+def get_speaker_name(course_code: str) -> str:
+    if course_code == "CS 61A":
+        return "Professor John DeNero"
+    elif course_code in ["ROAR Academy", "CS 294-137"]:
+        return "Professor Allen Yang"
+    else:
+        return "Professor Allen Yang"  # Default speaker name
+
+async def audio_generator(messages: List[Dict], stream: bool = True, speaker_name: str = None
 ) -> AsyncIterator[str]:
     """
     Parse the streaming response from the audio model and yield deltas.
@@ -198,14 +208,13 @@ async def audio_generator(messages: List[Dict], stream: bool = True, course_code
     data_dir = '/home/bot/localgpt/tai/ai_chatbot_backend/voice_prompts'
     
     # Select voice prompt based on course_code
-    if course_code == "CS 61A":
+    if speaker_name == "Professor John DeNero":
         audio_file = "trees_54.wav"
         text_file = "trees_54.txt"
-    elif course_code in ["ROAR Academy", "CS 294-137"]:
+    elif speaker_name == "Professor Allen Yang":
         audio_file = "Allen_yang_voice.wav"
         text_file = "Allen_yang_voice.txt"
     else:
-        # Default voice prompt
         audio_file = "Allen_yang_voice.wav"
         text_file = "Allen_yang_voice.txt"
     

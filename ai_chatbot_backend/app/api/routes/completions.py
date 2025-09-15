@@ -38,10 +38,65 @@ def sid_from_history(messages):
     ).digest()
     return base64.urlsafe_b64encode(digest).decode().rstrip("=")
 
+@router.post("/completions")
+async def create_text_completion(
+        params: CompletionParams, _: bool = Depends(verify_api_token)
+):
+    # Get the pre-initialized pipeline
+    llm_engine = get_model_engine()
+    audio_text = None
+    if params.audio:
+        whisper_engine = get_whisper_engine()
+        audio_text = audio_to_text(params.audio, whisper_engine, stream=False)
+        params.messages.append(Message(role="user", content=audio_text))
+
+    # Select chat pipeline based on chat_type
+    formatter = format_chat_msg
+
+    sid = sid_from_history(formatter(params.messages))
+    print(f"[INFO] Generated SID: {sid}")
+
+    print(f"[INFO] Chat Type: {params.chat_type}")
+    if params.chat_type == 'file':  # filechat
+        if not params.file_uuid:
+            # Handle case where file_uuid is not provided
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="file_uuid must be provided"
+            )
+        response, reference_list = await generate_file_chat_response(
+            formatter(params.messages),
+            file_uuid=params.file_uuid,
+            selected_text=params.user_focus.selected_text,
+            index=params.user_focus.chunk_index,
+            stream=params.stream,
+            course=params.course_code,
+            engine=llm_engine,
+            audio_response=params.audio_response,
+            sid=sid
+        )
+    else:   # general case
+        response, reference_list = await generate_chat_response(
+            formatter(params.messages),
+            stream=params.stream,
+            course=params.course_code,
+            engine=llm_engine,
+            audio_response=params.audio_response,
+            sid=sid
+        )
+
+    parser = chat_stream_parser
+
+    if params.stream:
+        return StreamingResponse(
+            parser(response, reference_list, params.audio_response,audio_text=audio_text, messages=formatter(params.messages), engine=llm_engine, old_sid=sid), media_type="text/event-stream"
+        )
+    else:
+        return JSONResponse(ResponseDelta(text=response).model_dump_json(exclude_unset=True))
 
 @router.post("/text_completions")
 async def create_text_completion(
-        params: CompletionParams, _: bool = Depends(verify_api_token)
+        params: TextCompletionParams, _: bool = Depends(verify_api_token)
 ):
     # Get the pre-initialized pipeline
     engine = get_model_engine()

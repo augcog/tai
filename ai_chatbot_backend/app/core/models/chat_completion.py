@@ -24,6 +24,7 @@ class ResponseDelta(BaseEvt):
     text: Optional[str] = Field(default=None, min_length=1)
     audio_b64: Optional[str] = Field(default=None, min_length=1)  # base64 of raw PCM chunk
     audio_spec: Optional[AudioSpec] = None
+    speaker_name: Optional[str] = None
 
 class Reference(BaseModel):
     model_config = ConfigDict(extra="forbid")

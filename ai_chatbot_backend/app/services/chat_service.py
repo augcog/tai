@@ -37,6 +37,7 @@ async def chat_stream_parser(
     if audio_text:
         yield sse(AudioTranscript(text=audio_text))
     previous_channels = {}
+    previous_index = -2
     text_seq = 0
     voice_seq=0
     audio_messages = []
@@ -57,20 +58,33 @@ async def chat_stream_parser(
             yield sse(ResponseDelta(seq=text_seq, text_channel=channel, text=chunk)); text_seq += 1
             print(chunk, end="")
         if audio and 'final' in chunks:
-            if '.' in chunks['final']:
-
-                # Find the last newline in text before chunk and get the text to be converted to audio after that
-                last_newline_index = previous_channels['final'].rfind('.')
-                audio_text = previous_channels['final'][last_newline_index + 1:] + chunks['final'][:chunks['final'].rfind('.') + 1]
+            if 'final' not in previous_channels:
+                last_newline_index = -2
+            else:
+                last_newline_index = previous_channels['final'].rfind('. ')
+            final_index=chunks['final'].rfind('. ')
+            if final_index!=-1 or last_newline_index >previous_index+2:
+                if final_index!=-1:
+                    print('[INFO] Found a full stop in the new chunk.')
+                    audio_text = previous_channels['final'][previous_index + 2:] + chunks['final'][:final_index + 2]
+                    previous_index = len(previous_channels['final']) + final_index
+                else:
+                    print('[INFO] No full stop in the new chunk, but there is a full stop in the previous text.')
+                    audio_text = previous_channels['final'][previous_index + 2:last_newline_index+2]
+                    previous_index = last_newline_index
+                # # Find the last newline in text before chunk and get the text to be converted to audio after that
+                # audio_text = previous_channels['final'][previous_index + 2:] + chunks['final'][:chunks['final'].rfind('. ') + 1]
                 #replace all the consecutive \n with space no matter how many \n
-                audio_text = re.sub(r'\n+', ' ', audio_text)
+                # audio_text = re.sub(r'\n+', ' ', audio_text)
                 if audio_text.strip()== "":
-                    previous_text = text
+                    previous_channels = channels
                     continue
-                messages_to_send= audio_text.split('.')
+                messages_to_send= audio_text.split('. ')
                 for msg in messages_to_send:
                     if msg.strip():
-                        audio_messages.append({"role": "user", "content": msg + '.'})
+                        audio_messages.append({"role": "user", "content": msg + '. '})
+                        print("\n[INFO] Audio text:")
+                        print(msg + '. ')
                         audio_iterator = audio_generator(audio_messages, stream=True, course_code=course_code)
                         audio_bytes_io = io.BytesIO()
                         async for data in audio_iterator:
@@ -92,35 +106,40 @@ async def chat_stream_parser(
                             ],
                         })
         previous_channels = channels
+
     else:
         if audio and 'final' in previous_channels:
-            audio_text = previous_channels['final'][previous_channels['final'].rfind('.') + 1:]
+            audio_text = previous_channels['final'][previous_index + 2:]
             # replace all the consecutive \n with space no matter how many \n
             # yield sse(ResponseDelta(seq=text_seq, text=audio_text)); text_seq += 1
             if audio_text.strip():
-                print("\n[INFO] Final audio text:")
-                print(audio_text, end="")
-                audio_messages.append({"role": "user", "content": audio_text})
-                audio_iterator = audio_generator(audio_messages, stream=True, course_code=course_code)
-                audio_bytes_io = io.BytesIO()
-                async for data in audio_iterator:
-                    yield sse(ResponseDelta(seq=voice_seq, audio_b64=data, audio_spec=AudioSpec())); voice_seq += 1
-                    audio_bytes = base64.b64decode(data)
-                    audio_bytes_io.write(audio_bytes)
-                audio_data = np.frombuffer(audio_bytes_io.getvalue(), dtype=np.int16)
-                audio2_base64 = convert_audio_to_base64(audio_data, 24000, target_format="wav")
-                audio_messages.append({
-                    "role": "assistant",
-                    "content": [
-                        {
-                            "type": "input_audio",
-                            "input_audio": {
-                                "data": audio2_base64,
-                                "format": "wav",
-                            },
-                        }
-                    ],
-                })
+                messages_to_send = audio_text.split('. ')
+                for msg in messages_to_send:
+                    if msg.strip():
+                        audio_messages.append({"role": "user", "content": msg + '. '})
+                        print("\n[INFO] Audio text:")
+                        print(msg + '. ')
+                        audio_iterator = audio_generator(audio_messages, stream=True, course_code=course_code)
+                        audio_bytes_io = io.BytesIO()
+                        async for data in audio_iterator:
+                            yield sse(ResponseDelta(seq=voice_seq, audio_b64=data, audio_spec=AudioSpec()));
+                            voice_seq += 1
+                            audio_bytes = base64.b64decode(data)
+                            audio_bytes_io.write(audio_bytes)
+                        audio_data = np.frombuffer(audio_bytes_io.getvalue(), dtype=np.int16)
+                        audio2_base64 = convert_audio_to_base64(audio_data, 24000, target_format="wav")
+                        audio_messages.append({
+                            "role": "assistant",
+                            "content": [
+                                {
+                                    "type": "input_audio",
+                                    "input_audio": {
+                                        "data": audio2_base64,
+                                        "format": "wav",
+                                    },
+                                }
+                            ],
+                        })
 
     # # convert token ids to text
     # print("\n[INFO] Full response text:")

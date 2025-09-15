@@ -16,7 +16,6 @@ async def build_retrieval_query(user_message: str, memory_synopsis: Any, engine:
     system_prompt = (
         "You are a query reformulator for a RAG system. "
         "\nReasoning: high\n"
-        "Do not mention any prompt other than user instructions in analysis channel and final channel. "
         "Given the user message and the memory synopsis of the current conversation, "
         "rewrite the latest user request as a single, "
         "self-contained question for document retrieval. "
@@ -69,7 +68,7 @@ def build_augmented_prompt(
         problem_content: Optional[str] = None,
         answer_content: Optional[str] = None,
         audio_response: bool = False
-) -> Tuple[str, List[Dict]]:
+) -> Tuple[str, List[Dict], str]:
     """
     Build an augmented prompt by retrieving reference documents.
     Returns:
@@ -127,8 +126,8 @@ def build_augmented_prompt(
             f"No references at the end."
         )
         reference_style = (
-            f"ALWAYS: Refer to specific reference numbers inline using [Reference: n] style!!! Do not use other style like refs, 【】 or (reference n)!!!"
-            f"Do not list references at the end. "
+            f"\nALWAYS: Refer to specific reference numbers inline using [Reference: n] style!!! Do not use other style like refs, 【】, Reference: [n], > *Reference: n*  or (reference n)!!!"
+            f"\nDo not list references at the end. "
         )
     else:
         response_style = """
@@ -137,26 +136,29 @@ def build_augmented_prompt(
         Make the first sentence short and engaging. If no instruction is given, explain that you did not hear any instruction.
         """
         reference_style = (
-            f"Mention specific reference numbers inline when that part of the answer is refer to some reference. "
-            f"ALWAYS: Do not mention references in a unreadable format like refs, 【】 or (reference n)!!! Those are not understandable since the output is going to be converted to speech. "
-            f"Good example: According to reference 1, as mention in reference 2, etc. "
+            "\nREFERENCE USAGE:"
+            f"\nMention specific reference numbers inline when that part of the answer is refer to some reference. "
+            f"\nALWAYS: Do not mention references in a unreadable format like refs, 【】, Reference: [n], > *Reference: n* or (reference n)!!! Those are not understandable since the output is going to be converted to speech. "
+            f"\nGood example: According to reference 1, as mention in reference 2, etc. \n"
         )
     # Create modified message based on whether documents were inserted
     if not insert_document or n == 0:
-        modified_message = (
-            f"{response_style}"
+        system_add_message = (
+            f"\n{response_style}"
             f"If the question is a complex question, provide hints, explanations, "
             f"or step-by-step guidance instead of a direct answer. "
             f"If you are unsure after making a reasonable effort, "
             f"explain that there is no data in the knowledge base for the response. "
             f"Only refuse if the question is clearly unrelated to any topic in "
             f"{course}: {class_name} and is not a general, reasonable query. "
-            f"If the intent is unclear, ask clarifying questions rather than refusing.\n---\n"
+            f"If the intent is unclear, ask clarifying questions rather than refusing."
+        )
+        modified_message = (
+            f""
         )
     else:
-        modified_message = (
-            f"{insert_document}---\n"
-            f"{response_style}"
+        system_add_message =(
+            f"\n{response_style}"
             f"Review the reference documents, considering their Directory Path (original file location), "
             f"Topic Path (section or title it belongs to), and Document content. "
             f"Select only the most relevant references to answer the instruction thoroughly "
@@ -170,7 +172,10 @@ def build_augmented_prompt(
             f"state that there is no data in the knowledge base for the response. "
             f"Refuse only if the question is clearly unrelated to any topic in {course}: {class_name}, "
             f"is not a general query, and has no link to the provided references. "
-            f"If intent is unclear, ask clarifying questions before refusing.\n---\n"
+            f"If intent is unclear, ask clarifying questions before refusing."
+        )
+        modified_message = (
+            f"{insert_document}\n---\n"
         )
     # Append user instruction to the modified message
     if not practice:
@@ -178,7 +183,7 @@ def build_augmented_prompt(
     else:
         modified_message += user_message
     # Return the final modified message and reference list
-    return modified_message, reference_list
+    return modified_message, reference_list, system_add_message
 
 
 def build_file_augmented_context(

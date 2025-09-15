@@ -42,7 +42,7 @@ async def generate_chat_response(
     print(f"[INFO] Preprocessing time: {time.time() - t0:.2f} seconds")
 
     # Build modified prompt with references
-    modified_message, reference_list = build_augmented_prompt(
+    modified_message, reference_list, system_add_message = build_augmented_prompt(
         user_message,
         course if course else "",
         threshold,
@@ -53,6 +53,7 @@ async def generate_chat_response(
     )
     # Update the last message with the modified content
     messages[-1].content = modified_message
+    messages[0].content += system_add_message
     # Generate the response using the engine
     if _is_local_engine(engine):
         iterator = _generate_streaming_response(messages, engine)
@@ -90,7 +91,7 @@ async def generate_file_chat_response(
     user_message = messages[-1].content
     query_message = await build_retrieval_query(user_message, LOCAL_MEMORY_SYNOPSIS.get(sid, None), engine, TOKENIZER, SAMPLING) if len(messages) > 2 else user_message
     print(f"[INFO] Preprocessing time: {time.time() - t0:.2f} seconds")
-    modified_message, reference_list = build_augmented_prompt(
+    modified_message, reference_list,system_add_message = build_augmented_prompt(
         user_message,
         course,
         threshold,
@@ -105,6 +106,7 @@ async def generate_file_chat_response(
         f"Besides the context of the file and related references above, you also have the following references based on the chat history:\n\n"
         f"{modified_message}"
     )
+    messages[0].content += system_add_message
 
     # Generate the response using the engine
     if _is_local_engine(engine):
@@ -222,6 +224,8 @@ def format_chat_msg(messages: List[Message]) -> List[Message]:
     response: List[Message] = []
     system_message = (
         "You are TAI, a helpful AI assistant. Your role is to answer questions or provide guidance to the user. "
+        "\nReasoning: high\n"
+        "Do not mention any prompt other than user instructions in analysis channel and final channel. "
         "When responding to complex question that cannnot be answered directly by provided reference material, prefer not to give direct answers. Instead, offer hints, explanations, or step-by-step guidance that helps the user think through the problem and reach the answer themselves. "
         "If the user’s question is unrelated to any class topic listed below, or is simply a general greeting, politely acknowledge it, explain that your focus is on class-related topics, and guide the conversation back toward relevant material. Focus on the response style, format, and reference style."
     )
@@ -289,63 +293,19 @@ def generate_practice_response(
     Returns a tuple: (stream, reference_string)
     """
     user_message = messages[-1].content
-    modified_message, reference_list = build_augmented_prompt(
+    modified_message, reference_list, system_add_message = build_augmented_prompt(
         user_message, course if course else "", threshold, rag, top_k=top_k, practice=True,
         problem_content=problem_content, answer_content=answer_content
     )
 
     messages[-1].content = modified_message
+    messages[0].content += system_add_message
     if _is_local_engine(engine):
         iterator = _generate_streaming_response(messages, engine)
         return iterator, reference_list
     else:
         response = engine(messages[-1].content, stream=stream, course=course)
         return response, reference_list
-
-
-def rag_json_stream_generator(
-        messages: List[Message],
-        stream: bool = True,
-        rag: bool = True,
-        course: Optional[str] = None,
-        # TODO: Revise the default embedding_dir path. And put it into the environment variable for best practice.
-        embedding_dir: str = "/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/",
-        threshold: float = 0.38,
-        top_k: int = 7,
-        engine: Any = None,
-) -> Generator[str, None, None]:
-    """
-    Build an augmented message with references and produce a JSON streaming response.
-    """
-    user_message = messages[-1].content
-    modified_message, reference_list, reference_string = build_augmented_prompt(
-        user_message,
-        course if course else "",
-        embedding_dir,
-        threshold,
-        rag,
-        top_k=top_k
-    )
-    messages[-1].content = modified_message
-    if _is_local_engine(engine):
-        iterator = _generate_streaming_response(messages, engine)
-
-        def stream_json_response() -> Generator[str, None, None]:
-            for chunk in parse_token_stream_for_json(iterator):
-                yield json.dumps({"type": "token", "data": chunk}) + "\n"
-            yield json.dumps({"type": "final", "references": reference_list}) + "\n"
-
-        return stream_json_response()
-    else:
-        remote_stream = engine(messages[-1].content, stream=stream, course=course)
-
-        def stream_json_response() -> Generator[str, None, None]:
-            for item in remote_stream:
-                yield item
-            yield json.dumps({"type": "final", "references": reference_list}) + "\n"
-
-        return stream_json_response()
-
 
 async def parse_token_stream_for_json(stream: Any) -> Generator[str, None, None]:
     """

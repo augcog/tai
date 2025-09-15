@@ -225,7 +225,7 @@ async def build_memory_after_response(
         print(f"\n\n---LOCAL_MEMORY_SYNOPSIS---\n\n{LOCAL_MEMORY_SYNOPSIS[sid]}\n\n")
 
 
-import json, base64, hashlib, secrets
+import json, base64, hashlib
 def sid_from_history(messages):
     hist = [{"r": getattr(m, "role", "user"),
              "c": (getattr(m, "content", "") or "").split("\n<!--REFERENCES:", 1)[0]}

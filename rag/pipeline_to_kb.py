@@ -18,8 +18,7 @@ import os
 
 from scraper.Scraper_master.scrapers.web_scraper import WebScraper
 from file_conversion_router.services.directory_service import process_folder
-from file_conversion_router.new_embedding_create import embedding_create
-
+from file_conversion_router.embedding.embedding_create import embedding_create
 def load_scraper_config(config_path: Union[str, Path]) -> dict:
     """Load configuration from scraper YAML file."""
     config_path = Path(config_path)

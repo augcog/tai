@@ -18,7 +18,7 @@ tasks:
     driver_type: "request"
     roots:
       - url: https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.6/manual
-        depth: 3
+        depth: 5
         scraper_type: general_scraper
   - name: "XR_Plugin_Management_4.4"
     local: False
@@ -26,7 +26,7 @@ tasks:
     driver_type: "request"
     roots:
       - url: https://docs.unity3d.com/Packages/com.unity.xr.management@4.4/manual
-        depth: 3
+        depth: 5
         scraper_type: general_scraper
   - name: "XR_Hands_1.4"
     local: False
@@ -42,5 +42,5 @@ tasks:
     driver_type: "request"
     roots:
       - url: https://docs.unity3d.com/2022.3/Documentation/Manual/
-        depth: 1
+        depth: 3
         scraper_type: general_scraper

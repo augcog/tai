@@ -340,7 +340,7 @@ class BaseConverter(ABC):
             content_text = re.sub(pattern, '', content_text, flags=re.MULTILINE)
             content_text = re.sub(r'\n{3,}', '\n\n', content_text)
         header_levels = self.count_header_levels(content_text)
-        if header_levels == 0 and file_type == "mp4" or file_type == 'mkv' or file_type == 'webm':
+        if header_levels == 0 and file_type in ["mp4", "mkv", "webm", "mov"]:
             json_path = input_md_path.with_suffix(".json")
             content_dict = get_structured_content_without_title(
                 md_content=content_text,
@@ -380,25 +380,6 @@ class BaseConverter(ABC):
             new_md = apply_structure_for_one_title(
                 md_content=content_text, content_dict=content_dict
             )
-        elif file_type in ["mp4", "mkv", "webm"]:
-            # Handle video files with headers
-            json_path = input_md_path.with_suffix(".json")
-            content_dict = get_structured_content_with_one_title_level(
-                md_content=content_text,
-                file_name=file_name,
-                course_name=self.course_name,
-                index_helper=self.index_helper,
-            )
-            new_md = apply_structure_for_one_title(
-                md_content=content_text, content_dict=content_dict
-            )
-            # Apply speaker role assignment for video files
-            new_md = extract_and_assign_speakers(content_dict, new_md, str(json_path))
-            # Update index helper and add titles BEFORE grouping
-            self.update_index_helper(content_dict, new_md)
-            add_titles_to_json(index_helper=self.index_helper, json_file_path=json_path)
-            # Group sentences in transcript to reduce list length (after adding titles)
-            group_sentences_in_transcript(str(json_path), max_time_gap=5.0, max_words=200)
         else:
             content_dict = get_only_key_concepts(
                 md_content=content_text,
@@ -423,8 +404,7 @@ class BaseConverter(ABC):
                 self.index_helper.append({title: i + 1})
 
     def add_source_section_index(self, content_dict: dict, md_content: str = None) -> dict:
-        #If not mp4, update the index_helper with titles and their levels, else don't update it.
-        if self.file_type !="mp4" and self.file_type != 'mkv' and self.file_type != 'webm':
+        if self.file_type not in ["mp4", "mkv", "webm", "mov"]:
             self.update_index_helper(content_dict, md_content=md_content)
         # If there are key concepts, update their source_section_title and source_section_index
         if 'key_concepts' in content_dict:

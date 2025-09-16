@@ -46,9 +46,9 @@ def embedding_create(db_path, embedding_name=None, ):
     # 0) Ensure schema has 'vector' column
     _ensure_vector_column(conn)
 
-    # 1) Select target chunks
+    # 1) Select target chunks (only those without embeddings)
     params: List[str] = []
-    where = []
+    where = ["(vector IS NULL OR vector = '')"]
     if embedding_name and str(embedding_name).strip():
         where.append("(course_name = ? OR course_code = ?)")
         params.extend([embedding_name, embedding_name])
@@ -64,7 +64,7 @@ def embedding_create(db_path, embedding_name=None, ):
     rows = conn.execute(sql, params).fetchall()
     if not rows:
         conn.close()
-        print("[embed] no chunks matched the current filter")
+        print("[embed] no chunks found that need embedding")
         return
 
     chunk_uuids  = [r["chunk_uuid"] for r in rows]
@@ -112,6 +112,6 @@ def embedding_create(db_path, embedding_name=None, ):
 
 if __name__ == "__main__":
     embedding_create(
-        "/home/bot/bot/yk/YK_final/courses_out/metadata.db",
+        "/courses_out/metadata.db",
         "CS 294-137",
     )

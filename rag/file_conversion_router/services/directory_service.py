@@ -92,10 +92,19 @@ def process_folder(
         if should_ignore(input_file_path):
             continue
 
-        fhash = file_hash_for_cache(input_file_path, input_dir)
-        file_uuid_cached = is_file_cached(conn, fhash)
-        if file_uuid_cached:
-            logging.info(f"[SKIP cache-hit] {input_file_path}  already ingested as file_uuid={file_uuid_cached}")
+        fhash = file_hash_for_cache(input_file_path)
+        file_record = get_file_record_by_hash(conn, fhash)
+
+        if file_record:
+            file_uuid_cached = file_record["uuid"]
+            current_relative_path = str(input_file_path.relative_to(input_dir.parent))
+
+            # Update file path if it has changed
+            path_updated = update_file_path_if_changed(conn, file_uuid_cached, current_relative_path)
+            if path_updated:
+                conn.commit()
+
+            logging.info(f"[SKIP cache-hit] {input_file_path} already ingested as file_uuid={file_uuid_cached}")
             continue
 
         output_subdir = output_dir / input_file_path.relative_to(input_dir).parent
@@ -119,16 +128,10 @@ def process_folder(
         # sections from metadata if provided
         sections = []
         url = ""
+        comprehensive_questions = []
         if isinstance(metadata, dict):
             sections = metadata.get("sections", []) or []
             comprehensive_questions = metadata.get("comprehensive_questions", []) or []
-            # Combine sections and comprehensive_questions into a single structure
-            if comprehensive_questions:
-                sections_data = {
-                    "sections": sections,
-                    "comprehensive_questions": comprehensive_questions
-                }
-                sections = sections_data
             url = metadata.get("URL", "")
 
         # read extra info from json file if present
@@ -167,6 +170,34 @@ def process_folder(
                 q_container = pr.get("questions") or pr.get("question_set") or []
                 for q_id, q in _iter_questions_local(q_container):
                     upsert_problem_meta(conn, file_uuid_written, pr, q_id, q)
+            conn.commit()
+        
+        # upsert comprehensive questions if present
+        if comprehensive_questions:
+            conn.execute("BEGIN IMMEDIATE")
+            for idx, cq in enumerate(comprehensive_questions, start=1):
+                # Create a problem entry for each comprehensive question
+                # Treat it as a special type of problem with comprehensive question data
+                problem_data = {
+                    "problem_index": idx,
+                    "problem_id": f"comprehensive_{idx}",
+                    "problem_content": cq.get("context", "") or cq.get("description", "") or cq.get("prompt", "")
+                }
+                
+                # Handle questions within comprehensive questions
+                q_container = cq.get("questions") or cq.get("question_set") or []
+                if q_container:
+                    for q_id, q in _iter_questions_local(q_container):
+                        upsert_problem_meta(conn, file_uuid_written, problem_data, q_id, q)
+                else:
+                    # If no nested questions, store the comprehensive question itself
+                    question_data = {
+                        "question": cq.get("question", "") or cq.get("text", ""),
+                        "choices": cq.get("choices"),
+                        "answer": cq.get("answer"),
+                        "explanation": cq.get("explanation")
+                    }
+                    upsert_problem_meta(conn, file_uuid_written, problem_data, idx, question_data)
             conn.commit()
 
         logging.info(f"[OK] {input_file_path} → {output_file_path} ({len(chunks)} chunks)")
@@ -242,18 +273,25 @@ def _blake2b_hex(s: str) -> str:
     h.update(s.encode("utf-8"))
     return h.hexdigest()
 
-def file_hash_for_cache(p: Path, root: Path) -> str:
-    """ Generate a stable hash for a file, using its content if non-empty,
-    or its relative path if empty.
+def file_hash_for_cache(p: Path) -> str:
+    """ Generate a stable hash for a file using content + file extension.
+    For empty files, includes filename for individual tracking.
+    This is location-independent, so moving files won't cause reprocessing.
     """
+    extension = p.suffix.lower()
+    filename = p.name
+
     try:
         if p.stat().st_size == 0:
-            rel = p.relative_to(root).as_posix()
-            return _blake2b_hex(f"EMPTY|{rel}")
-    except Exception:
-        return _blake2b_hex(f"EMPTY|{p.resolve().as_posix()}")
-
-    return file_content_hash(p)
+            # For empty files, use extension + filename for individual tracking
+            return _blake2b_hex(f"EMPTY|{extension}")
+        else:
+            # For non-empty files, combine content hash with extension
+            content_hash = file_content_hash(p)
+            return _blake2b_hex(f"{content_hash}|{extension}")
+    except Exception as e:
+        # Fallback for files that can't be read
+        return _blake2b_hex(f"ERROR|{extension}|{filename}|{str(e)}")
 
 
 def write_chunks_to_db(conn: sqlite3.Connection,
@@ -354,6 +392,26 @@ def gen_uuid() -> str:
 def is_file_cached(conn: sqlite3.Connection, file_hash: str) -> str | None:
     row = conn.execute(SQL_SELECT_FILE_UUID_BY_HASH, (file_hash,)).fetchone()
     return row[0] if row else None
+
+def get_file_record_by_hash(conn: sqlite3.Connection, file_hash: str) -> dict | None:
+    """Get full file record by hash."""
+    row = conn.execute("SELECT uuid, relative_path, file_name FROM file WHERE file_hash=?", (file_hash,)).fetchone()
+    if row:
+        return {
+            "uuid": row[0],
+            "relative_path": row[1],
+            "file_name": row[2]
+        }
+    return None
+
+def update_file_path_if_changed(conn: sqlite3.Connection, file_uuid: str, current_relative_path: str) -> bool:
+    """Update file path in database if it has changed. Returns True if updated."""
+    row = conn.execute("SELECT relative_path FROM file WHERE uuid=?", (file_uuid,)).fetchone()
+    if row and row[0] != current_relative_path:
+        conn.execute("UPDATE file SET relative_path=? WHERE uuid=?", (current_relative_path, file_uuid))
+        logging.info(f"Updated file path for {file_uuid}: {row[0]} → {current_relative_path}")
+        return True
+    return False
 
 def deterministic_chunk_uuid(file_uuid: str, idx: int, text: str = "") -> str:
     # stable across runs; include text if you want identity to change when content changes
@@ -525,7 +583,7 @@ def update_problem_table_from_metadata_files(folder_path: Union[str, Path], chun
                         continue
 
                 # Generate file hash and uuid
-                file_hash = file_hash_for_cache(actual_file_path, yaml_file.parent)
+                file_hash = file_hash_for_cache(actual_file_path)
                 file_uuid = deterministic_file_uuid(file_hash)
 
                 # Check if file_uuid already exists in database
@@ -534,24 +592,18 @@ def update_problem_table_from_metadata_files(folder_path: Union[str, Path], chun
                 #     logging.info(f"Skipping {yaml_file}: file already exists in database with uuid {existing_uuid}")
                 #     continue
 
-                # Extract problems from metadata
+                # Extract problems and comprehensive questions from metadata
                 problems = metadata.get("problems", [])
-                if not problems:
-                    logging.info(f"Skipping {yaml_file}: no problems found in metadata")
+                comprehensive_questions = metadata.get("comprehensive_questions", []) or []
+                
+                if not problems and not comprehensive_questions:
+                    logging.info(f"Skipping {yaml_file}: no problems or comprehensive questions found in metadata")
                     continue
 
                 # First, ensure the file record exists in the database
                 course_code = metadata.get("course_id", "")
                 course_name = metadata.get("course_name", "")
                 sections = metadata.get("sections", [])
-                comprehensive_questions = metadata.get("comprehensive_questions", []) or []
-                # Combine sections and comprehensive_questions into a single structure
-                if comprehensive_questions:
-                    sections_data = {
-                        "sections": sections,
-                        "comprehensive_questions": comprehensive_questions
-                    }
-                    sections = sections_data
                 url = metadata.get("URL", "")
 
                 upsert_file_meta(conn, {
@@ -566,15 +618,38 @@ def update_problem_table_from_metadata_files(folder_path: Union[str, Path], chun
                     "url": url,
                 })
 
-                # Insert problems into the database
+                # Insert problems and comprehensive questions into the database
                 conn.execute("BEGIN IMMEDIATE")
                 try:
+                    # Insert regular problems
                     for pr in problems:
                         q_container = pr.get("questions") or pr.get("question_set") or []
                         for q_id, q in _iter_questions_local(q_container):
                             upsert_problem_meta(conn, file_uuid, pr, q_id, q)
+                    
+                    # Insert comprehensive questions
+                    for idx, cq in enumerate(comprehensive_questions, start=1):
+                        problem_data = {
+                            "problem_index": idx,
+                            "problem_id": f"comprehensive_{idx}",
+                            "problem_content": cq.get("context", "") or cq.get("description", "") or cq.get("prompt", "")
+                        }
+                        
+                        q_container = cq.get("questions") or cq.get("question_set") or []
+                        if q_container:
+                            for q_id, q in _iter_questions_local(q_container):
+                                upsert_problem_meta(conn, file_uuid, problem_data, q_id, q)
+                        else:
+                            question_data = {
+                                "question": cq.get("question", "") or cq.get("text", ""),
+                                "choices": cq.get("choices"),
+                                "answer": cq.get("answer"),
+                                "explanation": cq.get("explanation")
+                            }
+                            upsert_problem_meta(conn, file_uuid, problem_data, idx, question_data)
+                    
                     conn.commit()
-                    logging.info(f"Successfully processed {yaml_file}: added {len(problems)} problems for file {file_name}")
+                    logging.info(f"Successfully processed {yaml_file}: added {len(problems)} problems and {len(comprehensive_questions)} comprehensive questions for file {file_name}")
                 except Exception as e:
                     conn.rollback()
                     logging.error(f"Error inserting problems/comprehensive questions from {yaml_file}: {e}")
@@ -652,7 +727,7 @@ def update_file_urls_from_metadata_files(folder_path: Union[str, Path], db_path:
                         continue
 
                 # Generate file hash and uuid
-                file_hash = file_hash_for_cache(actual_file_path, yaml_file.parent)
+                file_hash = file_hash_for_cache(actual_file_path)
 
                 # Check if file exists in database
                 existing_uuid = is_file_cached(conn, file_hash)
@@ -664,7 +739,7 @@ def update_file_urls_from_metadata_files(folder_path: Union[str, Path], db_path:
                 # Update the URL in the file table
                 conn.execute("UPDATE file SET url = ? WHERE uuid = ?", (url, existing_uuid))
                 conn.commit()
-                
+
                 updated_count += 1
                 logging.info(f"Updated URL for file {file_name} (uuid: {existing_uuid}) to: {url}")
 
@@ -682,5 +757,191 @@ def update_file_urls_from_metadata_files(folder_path: Union[str, Path], db_path:
 
     logging.info("Completed updating file URLs from metadata files")
 
-if __name__ == "__main__":
-    update_problem_table_from_metadata_files(folder_path="/home/bot/bot/yk/YK_final/courses/ROAR Academy", chunk_db_path="/home/bot/bot/yk/YK_final/courses_out/metadata.db")
+
+def migrate_file_hashes_to_new_format(db_path: Union[str, Path], root_path: Union[str, Path] = None) -> None:
+    """
+    Migrate all existing file hashes in database to the new location-independent format.
+
+    Args:
+        db_path: Path to the SQLite database
+        root_path: Root path to resolve relative file paths (optional)
+    """
+    db_path = Path(db_path)
+    if root_path:
+        root_path = Path(root_path)
+
+    conn = ensure_chunk_db(db_path)
+
+    try:
+        # Get all files from database
+        rows = conn.execute("SELECT uuid, relative_path, file_name, file_hash FROM file").fetchall()
+        logging.info(f"Found {len(rows)} files to migrate")
+
+        updated_count = 0
+        skipped_count = 0
+        error_count = 0
+
+        conn.execute("BEGIN IMMEDIATE")
+
+        for row in rows:
+            file_uuid, relative_path, file_name, old_hash = row
+
+            try:
+                # Try to find the actual file
+                actual_file_path = None
+
+                # Strategy 1: Use root_path + relative_path
+                if root_path and relative_path:
+                    candidate = root_path / relative_path
+                    if candidate.exists():
+                        actual_file_path = candidate
+
+                # Strategy 2: Try to find file by searching in common locations
+                if not actual_file_path and file_name:
+                    search_paths = []
+                    if root_path:
+                        search_paths.extend([
+                            root_path,
+                            root_path.parent if root_path.parent != root_path else None
+                        ])
+
+                    # Add some common base directories
+                    search_paths.extend([
+                        Path("/home/bot/bot/yk/YK_final/courses"),
+                        Path("/home/bot/bot/yk/YK_final/courses_out"),
+                        db_path.parent
+                    ])
+
+                    for search_path in search_paths:
+                        if not search_path or not search_path.exists():
+                            continue
+
+                        # Find files with matching name
+                        matches = list(search_path.rglob(file_name))
+                        if matches:
+                            # Use the first match (could be improved with more logic)
+                            actual_file_path = matches[0]
+                            break
+
+                if actual_file_path and actual_file_path.exists():
+                    # Generate new hash using the new format
+                    new_hash = file_hash_for_cache(actual_file_path)
+
+                    # Check if this new hash already exists for a different file
+                    existing_file = conn.execute("SELECT uuid, relative_path FROM file WHERE file_hash = ? AND uuid != ?", (new_hash, file_uuid)).fetchone()
+
+                    if existing_file:
+                        existing_uuid, existing_relative_path = existing_file
+
+                        # Check if the existing file still exists at its recorded location
+                        if root_path and existing_relative_path:
+                            existing_file_path = root_path / existing_relative_path
+                        else:
+                            existing_file_path = None
+
+                        if existing_file_path and existing_file_path.exists():
+                            # Both files exist - this is a true duplicate
+                            # Copy markdown content from existing to new location and keep both records
+                            logging.info(f"True duplicate detected: {file_name}. Copying content from existing file.")
+
+                            # Find and copy markdown content if it exists
+                            try:
+                                # Look for markdown files associated with the existing file
+                                existing_md_pattern = existing_file_path.parent / f"{existing_file_path.stem}*.md"
+                                import glob
+                                existing_md_files = glob.glob(str(existing_md_pattern))
+
+                                if existing_md_files:
+                                    # Copy markdown files to the new location
+                                    new_md_dir = actual_file_path.parent / actual_file_path.stem
+                                    new_md_dir.mkdir(parents=True, exist_ok=True)
+
+                                    import shutil
+                                    for md_file in existing_md_files:
+                                        md_path = Path(md_file)
+                                        new_md_path = new_md_dir / md_path.name
+                                        shutil.copy2(md_file, new_md_path)
+                                        logging.info(f"Copied markdown: {md_file} → {new_md_path}")
+
+                            except Exception as copy_error:
+                                logging.warning(f"Failed to copy markdown content: {copy_error}")
+
+                            # Generate a unique hash by including the file UUID to guarantee uniqueness
+                            content_hash = file_content_hash(actual_file_path)
+                            extension = actual_file_path.suffix.lower()
+                            unique_new_hash = _blake2b_hex(f"{content_hash}|{extension}|{file_uuid}")
+
+                            # Double-check uniqueness and add counter if needed
+                            counter = 0
+                            final_hash = unique_new_hash
+                            while conn.execute("SELECT uuid FROM file WHERE file_hash = ? AND uuid != ?", (final_hash, file_uuid)).fetchone():
+                                counter += 1
+                                final_hash = _blake2b_hex(f"{content_hash}|{extension}|{file_uuid}|{counter}")
+
+                            # Update with guaranteed unique hash
+                            conn.execute(
+                                "UPDATE file SET file_hash = ?, relative_path = ? WHERE uuid = ?",
+                                (final_hash, str(actual_file_path.relative_to(root_path)) if root_path else relative_path, file_uuid)
+                            )
+
+                        else:
+                            # Existing file doesn't exist at its location - this is a moved file
+                            logging.info(f"File moved detected: {file_name}. Updating existing record to new location.")
+
+                            # Update the existing record to point to the new location
+                            conn.execute(
+                                "UPDATE file SET relative_path = ? WHERE uuid = ?",
+                                (str(actual_file_path.relative_to(root_path)) if root_path else relative_path, existing_uuid)
+                            )
+
+                            # Delete the current record since it's the same file
+                            conn.execute("DELETE FROM chunks WHERE file_uuid = ?", (file_uuid,))
+                            conn.execute("DELETE FROM problem WHERE file_uuid = ?", (file_uuid,))
+                            conn.execute("DELETE FROM file WHERE uuid = ?", (file_uuid,))
+
+                            logging.info(f"Updated existing record {existing_uuid} and removed duplicate {file_uuid}")
+                            updated_count += 1
+                            continue
+
+                    # Update the database record
+                    conn.execute(
+                        "UPDATE file SET file_hash = ?, relative_path = ? WHERE uuid = ?",
+                        (new_hash, str(actual_file_path.relative_to(root_path)) if root_path else relative_path, file_uuid)
+                    )
+
+                    updated_count += 1
+                    logging.debug(f"Updated {file_name}: {old_hash[:16]}... → {new_hash[:16]}...")
+
+                else:
+                    # File not found - generate hash from extension only
+                    if file_name:
+                        extension = Path(file_name).suffix.lower()
+                        new_hash = _blake2b_hex(f"MISSING|{extension}|{file_uuid}")  # Include uuid to avoid collisions
+
+                        # Check for collision
+                        existing_file = conn.execute("SELECT uuid FROM file WHERE file_hash = ? AND uuid != ?", (new_hash, file_uuid)).fetchone()
+                        if not existing_file:
+                            conn.execute("UPDATE file SET file_hash = ? WHERE uuid = ?", (new_hash, file_uuid))
+                            skipped_count += 1
+                            logging.warning(f"File not found, using extension-only hash for: {file_name}")
+                        else:
+                            error_count += 1
+                            logging.error(f"Cannot generate unique hash for missing file: {file_name}")
+                    else:
+                        error_count += 1
+                        logging.error(f"Cannot generate new hash for file with uuid {file_uuid} - no filename")
+
+            except Exception as e:
+                error_count += 1
+                logging.error(f"Error processing file {file_name} (uuid: {file_uuid}): {e}")
+                continue
+
+        conn.commit()
+        logging.info(f"Migration completed: {updated_count} updated, {skipped_count} missing files, {error_count} errors")
+
+    except Exception as e:
+        conn.rollback()
+        logging.error(f"Migration failed: {e}")
+        raise
+    finally:
+        conn.close()

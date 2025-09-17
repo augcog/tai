@@ -152,11 +152,12 @@ async def chat_stream_parser(
     max_idx = len(reference_list)
     for i in sorted(mentioned_references):
         if 1 <= i <= max_idx:
-            info_path, url, file_uuid,chunk_index = reference_list[i - 1]
+            info_path, url, file_path, file_uuid,chunk_index = reference_list[i - 1]
             references.append(Reference(
                 reference_idx=i,
                 info_path=info_path,
                 url=url,
+                file_path=file_path,
                 file_uuid=file_uuid,
                 chunk_index=chunk_index
             ))

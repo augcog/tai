@@ -31,6 +31,7 @@ class Reference(BaseModel):
     reference_idx: int = Field(ge=0)
     info_path: Optional[str] = None
     url: Optional[str] = None
+    file_path: Optional[str] = None
     file_uuid: Optional[str] = None
     chunk_index: Optional[float] = None
 
@@ -75,7 +76,6 @@ class CompletionParams(BaseModel):
     temperature: float  # TODO: Not in use. Remove?
     stream: bool
     chat_type: str = "general"  # e.g., "general", "file"
-    file_uuid: Optional[UUID] = None
     user_focus: Optional[UserFocus] = None
     rag: Optional[bool] = True
     audio_response: Optional[bool] = False

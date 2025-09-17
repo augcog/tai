@@ -58,15 +58,18 @@ async def create_text_completion(
 
     print(f"[INFO] Chat Type: {params.chat_type}")
     if params.chat_type == 'file':  # filechat
-        if not params.file_uuid:
+        if not params.user_focus.file_uuid:
             # Handle case where file_uuid is not provided
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="file_uuid must be provided"
             )
+        print("file_uuid:", params.user_focus.file_uuid)
+        print("selected_text:", params.user_focus.selected_text)
+        print("chunk_index:", params.user_focus.chunk_index)
         response, reference_list = await generate_file_chat_response(
             formatter(params.messages),
-            file_uuid=params.file_uuid,
+            file_uuid=params.user_focus.file_uuid,
             selected_text=params.user_focus.selected_text,
             index=params.user_focus.chunk_index,
             stream=params.stream,

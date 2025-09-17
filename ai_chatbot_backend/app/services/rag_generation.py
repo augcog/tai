@@ -103,8 +103,8 @@ async def generate_file_chat_response(
 
     messages[-1].content = (
         f"{augmented_context}"
-        f"Besides the context of the file and related references above, you also have the following references based on the chat history:\n\n"
-        f"{modified_message}"
+        f"\nBesides the context of the file and related references above, you also have the following references based on the chat history:\n\n"
+        f"\n{modified_message}"
     )
     messages[0].content += system_add_message
 

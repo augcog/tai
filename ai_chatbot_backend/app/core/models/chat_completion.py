@@ -31,7 +31,8 @@ class Reference(BaseModel):
     reference_idx: int = Field(ge=0)
     info_path: Optional[str] = None
     url: Optional[str] = None
-    file_path: Optional[str] = None
+    file_uuid: Optional[str] = None
+    chunk_index: Optional[float] = None
 
 class ResponseReference(BaseEvt):
     model_config = ConfigDict(extra="forbid")

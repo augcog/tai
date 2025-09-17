@@ -94,13 +94,8 @@ def build_augmented_prompt(
         query_message = user_message
     # Retrieve reference documents based on the query
     (
-        top_ids,
-        top_docs,
-        top_urls,
-        similarity_scores,
-        top_files,
-        top_refs,
-        top_titles
+        top_chunk_uuids, top_docs, top_urls, similarity_scores, top_files, top_refs, top_titles,
+        top_file_uuids, top_chunk_idxs
     ), class_name = get_reference_documents(query_message, course, top_k=top_k)
     # Prepare the insert document and reference list
     insert_document = ""
@@ -110,6 +105,8 @@ def build_augmented_prompt(
         if similarity_scores[i] > threshold:
             n += 1
             file_path = top_files[i]
+            file_uuid = top_file_uuids[i]
+            chunk_index = top_chunk_idxs[i]
             topic_path = top_refs[i]
             url = top_urls[i] if top_urls[i] else ""
             insert_document += (
@@ -118,7 +115,7 @@ def build_augmented_prompt(
                 f"Topic Path of chunk in file to tell the topic of chunk: {topic_path}\n"
                 f'Document: {top_docs[i]}\n\n'
             )
-            reference_list.append([topic_path, url, file_path])
+            reference_list.append([topic_path, url, file_uuid,chunk_index])
     # Create response and reference styles based on audio mode.
     if not audio_response:
         response_style = (
@@ -222,34 +219,26 @@ def build_file_augmented_context(
     
     # Get reference documents based on the selected text.
     (
-        top_ids,
-        top_docs,
-        top_urls,
-        similarity_scores,
-        top_files,
-        top_refs,
-        top_titles
-    ), _ = get_reference_documents(selected_text, course, top_k=top_k // 2) if selected_text else ([], [], [], [], [], [], []), ""
+        top_chunk_uuids, top_docs, top_urls, similarity_scores, top_files, top_refs, top_titles,
+        top_file_uuids, top_chunk_idxs
+    ), _ = get_reference_documents(selected_text, course, top_k=top_k // 2) if selected_text else ([], [], [], [], [], [], [],[], []), ""
 
     # Get reference documents based on the entire document.
     (
-        top_ids_doc,
-        top_docs_doc,
-        top_urls_doc,
-        similarity_scores_doc,
-        top_files_doc,
-        top_refs_doc,
-        top_titles_doc
-    ) = get_file_related_documents(file_uuid, course, top_k=top_k // 2)
+        top_chunk_uuids_doc, top_docs_doc, top_urls_doc, similarity_scores_doc, top_files_doc, top_refs_doc, top_titles_doc,
+        top_file_uuids_doc, top_chunk_idxs_doc
+    ) = get_file_related_documents(file_uuid, course, top_k=top_k // 2 if selected_text else top_k)
 
     # Combine results from selected text and entire document
-    top_ids_combined = top_ids + top_ids_doc
+    top_ids_combined = top_chunk_uuids + top_chunk_uuids_doc
     top_docs_combined = top_docs + top_docs_doc
     top_urls_combined = top_urls + top_urls_doc
     similarity_scores_combined = similarity_scores + similarity_scores_doc
     top_files_combined = top_files + top_files_doc
     top_refs_combined = top_refs + top_refs_doc
     top_titles_combined = top_titles + top_titles_doc
+    top_file_uuids_combined = top_file_uuids + top_file_uuids_doc
+    top_chunk_idxs_combined = top_chunk_idxs + top_chunk_idxs_doc
 
     insert_document = ""
     reference_list = reference_list or []
@@ -258,6 +247,8 @@ def build_file_augmented_context(
         if similarity_scores_combined[i] > threshold:
             n += 1
             file_path = top_files_combined[i]
+            file_uuid = top_file_uuids_combined[i]
+            chunk_index = top_chunk_idxs_combined[i]
             topic_path = top_refs_combined[i]
             url = top_urls_combined[i] if top_urls_combined[i] else ""
             insert_document += (
@@ -266,7 +257,7 @@ def build_file_augmented_context(
                 f"Topic Path of chunk in file to tell the topic of chunk: {topic_path}\n"
                 f'Document: {top_docs_combined[i]}\n\n'
             )
-            reference_list.append([topic_path, url, file_path])
+            reference_list.append([topic_path, url, file_uuid, chunk_index])
 
     augmented_context += insert_document + "---\n"
     return augmented_context, reference_list

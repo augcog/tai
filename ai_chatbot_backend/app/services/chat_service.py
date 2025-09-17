@@ -55,6 +55,7 @@ async def chat_stream_parser(
                 continue
             yield sse(ResponseDelta(seq=text_seq, text_channel=channel, text=chunk)); text_seq += 1
             print(chunk, end="")
+        previous_channels = channels
         if audio and 'final' in channels:
             last_newline_index = channels['final'].rfind('. ')
             if last_newline_index >previous_index+2:
@@ -63,7 +64,6 @@ async def chat_stream_parser(
                 #replace all the consecutive \n with space no matter how many \n
                 # audio_text = re.sub(r'\n+', ' ', audio_text)
                 if audio_text.strip()== "":
-                    previous_channels = channels
                     continue
                 messages_to_send= audio_text.split('. ')
                 for msg in messages_to_send:
@@ -92,8 +92,6 @@ async def chat_stream_parser(
                                 }
                             ],
                         })
-        previous_channels = channels
-
     else:
         if audio and 'final' in channels:
             audio_text = channels['final'][previous_index + 2:]
@@ -154,12 +152,13 @@ async def chat_stream_parser(
     max_idx = len(reference_list)
     for i in sorted(mentioned_references):
         if 1 <= i <= max_idx:
-            info_path, url, file_path = reference_list[i - 1]
+            info_path, url, file_uuid,chunk_index = reference_list[i - 1]
             references.append(Reference(
                 reference_idx=i,
                 info_path=info_path,
                 url=url,
-                file_path=file_path
+                file_uuid=file_uuid,
+                chunk_index=chunk_index
             ))
     if references:
         yield sse(ResponseReference(references=references))

@@ -115,7 +115,7 @@ def build_augmented_prompt(
                 f"Topic Path of chunk in file to tell the topic of chunk: {topic_path}\n"
                 f'Document: {top_docs[i]}\n\n'
             )
-            reference_list.append([topic_path, url, file_uuid,chunk_index])
+            reference_list.append([topic_path, url, file_path, file_uuid,chunk_index])
     # Create response and reference styles based on audio mode.
     if not audio_response:
         response_style = (
@@ -204,10 +204,11 @@ def build_file_augmented_context(
     file_content = " ".join(chunk["chunk"] for chunk in chunks)
 
     augmented_context = (
-        f"The user is looking at a file which has the following content: {file_content}\n\n"
+        f"The user is looking at this file to give the instruction: \n{file_content}\n---\n"
     )
-
+    print(augmented_context)
     if index:
+        # TODO: abs(chunk['index'] - index) <= 1 is not a good approach for finding focused chunk
         focused_chunk = ' '.join(chunk['chunk'] for chunk in chunks if abs(chunk['index'] - index) <= 1)
         augmented_context += f"The user is focused on the following part of the file: {focused_chunk}\n\n"
     
@@ -257,7 +258,7 @@ def build_file_augmented_context(
                 f"Topic Path of chunk in file to tell the topic of chunk: {topic_path}\n"
                 f'Document: {top_docs_combined[i]}\n\n'
             )
-            reference_list.append([topic_path, url, file_uuid, chunk_index])
+            reference_list.append([topic_path, url, file_path, file_uuid, chunk_index])
 
     augmented_context += insert_document + "---\n"
     return augmented_context, reference_list

@@ -1,5 +1,7 @@
 # Consolidated completions router
-import time
+import hashlib
+import base64
+import json
 
 from app.api.deps import verify_api_token
 from app.core.models.chat_completion import *
@@ -8,6 +10,7 @@ from app.services.rag_retriever import top_k_selector
 from app.services.rag_generation import (
     format_chat_msg,
     generate_chat_response,
+    generate_file_chat_response,
     generate_practice_response,
     local_parser,
 )
@@ -19,21 +22,14 @@ from app.services.file_service import file_service
 from app.services.problem_service import ProblemService
 from app.services.audio_service import audio_to_text, audio_stream_parser
 from app.services.chat_service import chat_stream_parser, format_audio_text_message, audio_generator, tts_parsor
+import re
 
 router = APIRouter()
 
 
-def generate_data():
-    for number in range(1, 51):  # Generating numbers from 1 to 100
-        yield f"Number: {number}\n".encode("utf-8")  # Yields data as bytes
-        # Simulate a delay, can be removed or replaced with real data fetching
-        time.sleep(0.1)
-
-
-import json, base64, hashlib, secrets
 def sid_from_history(messages):
     hist = [{"r": getattr(m, "role", "user"),
-             "c": (getattr(m, "content", "") or "").split("<|begin_of_reference|>", 1)[0]}
+             "c": (getattr(m, "content", "") or "").split("\n<!--REFERENCES:", 1)[0]}
             for m in messages[:-1]]
     # print(f"[INFO] History for SID generation: {hist}")
     digest = hashlib.blake2b(
@@ -42,55 +38,113 @@ def sid_from_history(messages):
     ).digest()
     return base64.urlsafe_b64encode(digest).decode().rstrip("=")
 
-
 @router.post("/completions")
-async def create_completion(
-        params: CompletionParams, _: bool = Depends(verify_api_token)
-):
-    # Get the pre-initialized pipeline
-    engine = get_model_engine()
-
-    # select model based on params.model
-    course = params.course
-    formatter = format_chat_msg
-    selector = generate_chat_response
-    parser = local_parser
-
-    sid = sid_from_history(formatter(params.messages))
-    print(f"[INFO] Generated SID: {sid}")
-
-    response, reference_list = await selector(
-        formatter(params.messages), stream=params.stream, course=course, engine=engine, audio_response=params.audio_response, sid=sid
-    )
-
-    if params.stream:
-        return StreamingResponse(
-            parser(response, reference_list, messages=formatter(params.messages), engine=engine, old_sid=sid), media_type="text/plain"
-        )
-    else:
-        return PlainTextResponse(response)
-
-
-@router.post("/text_completions")
 async def create_text_completion(
         params: CompletionParams, _: bool = Depends(verify_api_token)
 ):
     # Get the pre-initialized pipeline
-    engine = get_model_engine()
+    llm_engine = get_model_engine()
+    audio_text = None
+    if params.audio:
+        whisper_engine = get_whisper_engine()
+        audio_text = audio_to_text(params.audio, whisper_engine, stream=False)
+        params.messages.append(Message(role="user", content=audio_text))
 
-    # select model based on params.model
-    course = params.course
+    # Select chat pipeline based on chat_type
     formatter = format_chat_msg
-    selector = generate_chat_response
-    parser = chat_stream_parser
 
-    response, reference_list = await selector(
-        formatter(params.messages), stream=params.stream, course=course, engine=engine, audio_response=params.audio_response
-    )
+    sid = sid_from_history(formatter(params.messages))
+    print(f"[INFO] Generated SID: {sid}")
+
+    print(f"[INFO] Chat Type: {params.chat_type}")
+    if params.chat_type == 'file':  # filechat
+        if not params.user_focus.file_uuid:
+            # Handle case where file_uuid is not provided
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="file_uuid must be provided"
+            )
+        print("file_uuid:", params.user_focus.file_uuid)
+        print("selected_text:", params.user_focus.selected_text)
+        print("chunk_index:", params.user_focus.chunk_index)
+        response, reference_list = await generate_file_chat_response(
+            formatter(params.messages),
+            file_uuid=params.user_focus.file_uuid,
+            selected_text=params.user_focus.selected_text,
+            index=params.user_focus.chunk_index,
+            stream=params.stream,
+            course=params.course_code,
+            engine=llm_engine,
+            audio_response=params.audio_response,
+            sid=sid
+        )
+    else:   # general case
+        response, reference_list = await generate_chat_response(
+            formatter(params.messages),
+            stream=params.stream,
+            course=params.course_code,
+            engine=llm_engine,
+            audio_response=params.audio_response,
+            sid=sid
+        )
+
+    parser = chat_stream_parser
 
     if params.stream:
         return StreamingResponse(
-            parser(response, reference_list, params.audio_response), media_type="text/event-stream"
+            parser(response, reference_list, params.audio_response,audio_text=audio_text, messages=formatter(params.messages), engine=llm_engine, old_sid=sid), media_type="text/event-stream"
+        )
+    else:
+        return JSONResponse(ResponseDelta(text=response).model_dump_json(exclude_unset=True))
+
+@router.post("/text_completions")
+async def create_text_completion(
+        params: TextCompletionParams, _: bool = Depends(verify_api_token)
+):
+    # Get the pre-initialized pipeline
+    engine = get_model_engine()
+
+    # Select chat pipeline based on chat_type
+    course = params.course
+    formatter = format_chat_msg
+
+    sid = sid_from_history(formatter(params.messages))
+    print(f"[INFO] Generated SID: {sid}")
+
+    print(f"[INFO] Chat Type: {params.chat_type}")
+    if params.chat_type == 'file':  # filechat
+        if not params.file_uuid:
+            # Handle case where file_uuid is not provided
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="file_uuid must be provided"
+            )
+        response, reference_list = await generate_file_chat_response(
+            formatter(params.messages),
+            file_uuid=params.file_uuid,
+            selected_text=params.selected_text,
+            index=params.index,
+            stream=params.stream,
+            course=course,
+            engine=engine,
+            audio_response=params.audio_response,
+            sid=sid
+        )
+    else:   # general case
+        response, reference_list = await generate_chat_response(
+            formatter(params.messages),
+            stream=params.stream,
+            course=course,
+            engine=engine,
+            audio_response=params.audio_response,
+            sid=sid
+        )
+
+    parser = chat_stream_parser
+
+    if params.stream:
+        return StreamingResponse(
+            parser(response, reference_list, params.audio_response, messages=formatter(params.messages), engine=engine, old_sid=sid), media_type="text/event-stream"
         )
     else:
         return JSONResponse(ResponseDelta(text=response).model_dump_json(exclude_unset=True))
@@ -116,15 +170,16 @@ async def create_voice_completion(
     audio_text = audio_to_text(params.audio, whisper_engine, stream=False)
     params.messages.append(Message(role="user", content=audio_text))
     response, reference_list = await selector(
-        formatter(params.messages), stream=params.stream, course=course, engine=engine
+        formatter(params.messages), stream=params.stream, course=course, engine=engine,audio_response=params.audio_response,
     )
 
     if params.stream:
         return StreamingResponse(
-            parser(response, reference_list,params.audio_response), media_type="text/event-stream"
+            parser(response, reference_list, params.audio_response,audio_text=audio_text, course_code=course), media_type="text/event-stream"
         )
     else:
         return JSONResponse(ResponseDelta(text=response).model_dump_json(exclude_unset=True))
+
 
 @router.post("/tts")
 async def text_to_speech(
@@ -134,8 +189,18 @@ async def text_to_speech(
     Endpoint for converting text to speech.
     """
     # Convert text message to audio
-    audio_message = format_audio_text_message(params.text)
-    stream = await audio_generator(audio_message, stream=params.stream)
+
+    print("tts")
+    print("text:", params.text)
+    print("class_code:", params.class_code)
+
+    pattern = r'(?s)(?<!!)--\s*(.*?)\s*!-{2,}REFERENCES\b'
+    m = re.search(pattern, params.text)
+    answer = m.group(1).strip() if m else None
+
+    audio_message = format_audio_text_message(answer)
+    print("answer:", answer)
+    stream = audio_generator(audio_message, stream=params.stream, course_code=params.class_code)
 
     if params.stream:
         return StreamingResponse(
@@ -143,6 +208,7 @@ async def text_to_speech(
         )
     else:
         return None
+
 
 @router.post("/voice_to_text")
 async def voice_to_text(
@@ -161,7 +227,8 @@ async def voice_to_text(
             audio_stream_parser(stream), media_type="text/event-stream"
         )
     else:
-        transcription = audio_to_text(params.audio, whisper_engine, stream=params.stream, sample_rate=24000)
+        transcription = audio_to_text(
+            params.audio, whisper_engine, stream=params.stream, sample_rate=24000)
         return JSONResponse(AudioTranscript(text=transcription).model_dump_json(exclude_unset=True))
 
 
@@ -186,20 +253,20 @@ async def get_top_k_docs(
 async def practice_completion(
         params: PracticeCompletionParams, db: Session = Depends(get_metadata_db), _: bool = Depends(verify_api_token)
 ):
-    # check all of code_block_content problem_id file_name in params and log error if any is None
+    # check all of code_block_content problem_id file_path in params and log error if any is None
     if any(
-            param is None for param in [params.problem_id, params.file_name, params.answer_content]
+            param is None for param in [params.problem_id, params.file_path, params.answer_content]
     ):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="problem_id, file_name, and answer_content must be provided"
+            detail="problem_id, file_path, and answer_content must be provided"
         )
 
-    metadata = file_service.get_file_metadata_by_name(db, params.file_name)
+    metadata = file_service.get_file_metadata_by_path(db, params.file_path)
     if not metadata:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail="File metadata not found by given name " + params.file_name
+            detail="File metadata not found by given path " + params.file_path
         )
 
     # Get problems for this file using the new relationship
@@ -217,7 +284,7 @@ async def practice_completion(
 
     response, reference_list = selector(
         formatter(params.messages), problem_content, params.answer_content, stream=params.stream, course=course,
-        engine=engine, file_name=params.file_name
+        engine=engine
     )
 
     if params.stream:

@@ -1,4 +1,5 @@
 from typing import List, Optional, Literal
+from uuid import UUID
 import time
 from pydantic import BaseModel, Field, ConfigDict
 
@@ -19,9 +20,11 @@ class AudioSpec(BaseModel):
 class ResponseDelta(BaseEvt):
     type: Literal["response.delta"] = "response.delta"
     seq: int = Field(ge=0)
+    text_channel: str = None
     text: Optional[str] = Field(default=None, min_length=1)
     audio_b64: Optional[str] = Field(default=None, min_length=1)  # base64 of raw PCM chunk
     audio_spec: Optional[AudioSpec] = None
+    speaker_name: Optional[str] = None
 
 class Reference(BaseModel):
     model_config = ConfigDict(extra="forbid")
@@ -29,6 +32,8 @@ class Reference(BaseModel):
     info_path: Optional[str] = None
     url: Optional[str] = None
     file_path: Optional[str] = None
+    file_uuid: Optional[str] = None
+    chunk_index: Optional[float] = None
 
 class ResponseReference(BaseEvt):
     model_config = ConfigDict(extra="forbid")
@@ -37,7 +42,7 @@ class ResponseReference(BaseEvt):
 
 class AudioTranscript(BaseEvt):
     model_config = ConfigDict(extra="forbid")
-    type: Literal["audio.transcript"] = "audio.transcript"
+    type: Literal["response.transcript"] = "response.transcript"
     text: str = Field(min_length=1)
 
 class Done(BaseEvt):
@@ -45,7 +50,7 @@ class Done(BaseEvt):
     type: Literal["done"] = "done"
 
 def sse(payload: BaseEvt) -> str:
-    return f"data: {payload.model_dump_json(exclude_unset=True)}\n\n"
+    return f"data: {payload.model_dump_json(exclude_unset=False)}\n\n"
 
 
 class Message(BaseModel):
@@ -59,19 +64,34 @@ class VoiceMessage(BaseModel):
     content: List[float]  # audio data as a list of floats
     tool_call_id: Optional[str] = None
 
-
+class UserFocus(BaseModel):
+    file_uuid: UUID
+    selected_text: str = None
+    chunk_index: float = None
 
 class CompletionParams(BaseModel):
+    course_code: str
+    audio: VoiceMessage = None
+    messages: List[Message]
+    temperature: float  # TODO: Not in use. Remove?
+    stream: bool
+    chat_type: str = "general"  # e.g., "general", "file"
+    user_focus: Optional[UserFocus] = None
+    rag: Optional[bool] = True
+    audio_response: Optional[bool] = False
+
+class TextCompletionParams(BaseModel):
     course: str
     messages: List[Message]
-    temperature: float
+    temperature: float  # TODO: Not in use. Remove?
     stream: bool
-    chat_type: str = "general"
-    file_uuid: Optional[str] = None
+    chat_type: str = "general"  # e.g., "general", "file"
+    file_uuid: Optional[UUID] = None
+    selected_text: Optional[str] = None
     index: Optional[float] = None
     rag: Optional[bool] = True
     audio_response: Optional[bool] = False
-    
+
 class PracticeCompletionParams(BaseModel):
     course: str
     messages: List[Message]
@@ -80,7 +100,7 @@ class PracticeCompletionParams(BaseModel):
     rag: Optional[bool] = True
     answer_content: Optional[str] = None
     problem_id: Optional[str] = None
-    file_name: Optional[str] = None
+    file_path: Optional[str] = None
 
 class VoiceCompletionParams(BaseModel):
     course: str
@@ -90,6 +110,7 @@ class VoiceCompletionParams(BaseModel):
     stream: bool
     chat_type: str = "general"
     file_uuid: Optional[str] = None
+    selected_text: Optional[str] = None
     index: Optional[float] = None
     rag: Optional[bool] = True
     audio_response: Optional[bool] = False

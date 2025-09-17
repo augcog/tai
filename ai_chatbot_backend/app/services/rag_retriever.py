@@ -6,6 +6,7 @@ import sqlite3
 import threading
 import time
 from typing import Any, Dict, List, Optional, Tuple
+from uuid import UUID
 # Third-party libraries
 import numpy as np
 from pathlib import Path
@@ -16,7 +17,7 @@ from app.dependencies.model import get_embedding_engine
 embedding_model = get_embedding_engine()
 # Environment Variables
 EMBEDDING_PICKLE_PATH = Path("/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/")
-DB_URI_RO = f"file:{quote('/home/bot/localgpt/tai/ai_chatbot_backend/courses/content.db')}?mode=ro&cache=shared"
+DB_URI_RO = f"file:{quote('/home/bot/localgpt/tai/ai_chatbot_backend/db/metadata.db')}?mode=ro&cache=shared"
 _local = threading.local()
 # SQLDB: whether to use SQL database or Pickle for retrieval.
 SQLDB = True
@@ -42,10 +43,43 @@ def get_reference_documents(
     print(f"[INFO] Retrieval time: {time.time() - t1:.2f} seconds")
     return output, class_name
 
+# TODO: Move to new file_service
+def get_chunks_by_file_uuid(file_uuid: UUID) -> List[Dict[int, Any]]:
+    """
+    Get all chunks associated with a specific file UUID.
+    """
+    with _get_cursor() as cur:
+        rows = cur.execute("""
+            SELECT `idx`, `text`
+            FROM chunks
+            WHERE file_uuid = ?
+            ORDER BY `chunk_index`;
+        """, (str(file_uuid),)).fetchall()
+    return [{"index": row["idx"], "chunk": row["text"]} for row in rows]
+
+def get_file_related_documents(
+    file_uuid: UUID, course: str, top_k: int
+) -> Tuple[List[str], List[str], List[str], List[float], List[str], List[str], List[str], List[str], List[float]]:
+    """
+    Retrieve top related documents for a specific file UUID.
+    """
+    # Get the file embedding by file uuid
+    with _get_cursor() as cur:
+        row = cur.execute("""
+            SELECT `uuid`, `vector`
+            FROM file
+            WHERE uuid = ?
+        """, (str(file_uuid),)).fetchone()
+    file_embedding = row["vector"] if row else None
+    if not file_embedding:
+        raise ValueError(f"File with UUID {file_uuid} not found or has no embedding.")
+
+    query_embed = {"dense_vecs": _decode_vec_from_db(file_embedding)}
+    return _get_references_from_sql(query_embed, course, top_k)
 
 def _get_references_from_sql(
     query_embed: Dict[str, Any], course: str, top_k: int
-) -> Tuple[List[str], List[str], List[str], List[float], List[str], List[str], List[str]]:
+) -> Tuple[List[str], List[str], List[str], List[float], List[str], List[str], List[str], List[str], List[float]]:
     """
     Retrieve top reference documents from a SQL database.
     """
@@ -64,14 +98,16 @@ def _get_references_from_sql(
     top_idx = np.argpartition(scores, -k)[-k:]
     top_idx = top_idx[np.argsort(scores[top_idx])[::-1]]
     # Extract the top-k results
-    top_ids = [idx["ids"][i] for i in top_idx]
-    top_docs = [idx["texts"][i] for i in top_idx]
+    top_chunk_uuids = [idx["chunk_uuids"][i] for i in top_idx]
+    top_texts = [idx["texts"][i] for i in top_idx]
     top_urls = [idx["urls"][i] for i in top_idx]
     top_scores = [float(scores[i]) for i in top_idx]
-    top_files = [idx["files"][i] for i in top_idx]
-    top_refs = [idx["refs"][i] for i in top_idx]
+    top_file_paths = [idx["file_paths"][i] for i in top_idx]
+    top_reference_paths = [idx["reference_paths"][i] for i in top_idx]
     top_titles = [idx["titles"][i] for i in top_idx]
-    return top_ids, top_docs, top_urls, top_scores, top_files, top_refs, top_titles
+    top_file_uuids = [idx["file_uuids"][i] for i in top_idx]
+    top_chunk_idxs = [idx["chunk_idxs"][i] for i in top_idx]
+    return top_chunk_uuids, top_texts, top_urls, top_scores, top_file_paths, top_reference_paths, top_titles, top_file_uuids, top_chunk_idxs
 
 
 def _get_course_index(course: str):
@@ -104,12 +140,12 @@ def _build_course_index(course: str):
     with _get_cursor() as cur:
         dv = cur.execute("PRAGMA data_version").fetchone()[0]
         rows = cur.execute(f"""
-            SELECT chunk_uuid, file_path, reference_path, vector, title, text, url
+            SELECT chunk_uuid, file_path, reference_path, vector, title, text, url, file_uuid, idx
             FROM chunks
             {where};
         """, params).fetchall()
     # Process the rows fetched from the database
-    ids, files, refs, titles, texts, urls, vecs = [], [], [], [], [], [], []
+    chunk_uuids, file_paths, reference_paths, titles, texts, urls, vectors, file_uuids, chunk_idxs = [], [], [], [], [], [], [], [], []
     dim = None
     for r in rows:
         v = _decode_vec_from_db(r["vector"])
@@ -119,20 +155,22 @@ def _build_course_index(course: str):
             dim = v.size
         if v.size != dim:
             continue
-        ids.append(r["chunk_uuid"])
-        files.append(r["file_path"] or "")
-        refs.append(r["reference_path"] or "")
+        chunk_uuids.append(r["chunk_uuid"])
+        file_paths.append(r["file_path"] or "")
+        reference_paths.append(r["reference_path"] or "")
         titles.append(r["title"] or "")
         texts.append(r["text"] or "")
         urls.append(r["url"] or "")
-        vecs.append(v.astype(np.float32, copy=False))
-    if not vecs:
+        vectors.append(v.astype(np.float32, copy=False))
+        file_uuids.append(r["file_uuid"] or "")
+        chunk_idxs.append(r["idx"] if r["idx"] is not None else 0)
+    if not vectors:
         return {"dv": dv, "M": None}
     # Stack the vectors to compute scores later
-    document_matrix = np.vstack(vecs)  # shape: [N, D]
+    document_matrix = np.vstack(vectors)  # shape: [N, D]
     return {
-        "dv": dv, "ids": ids, "files": files, "refs": refs,
-        "titles": titles, "texts": texts, "urls": urls, "M": document_matrix
+        "dv": dv, "chunk_uuids": chunk_uuids, "file_paths": file_paths, "reference_paths": reference_paths,
+        "titles": titles, "texts": texts, "urls": urls, "M": document_matrix, "file_uuids": file_uuids, "chunk_idxs": chunk_idxs
     }
 
 

@@ -131,6 +131,7 @@ def build_augmented_prompt(
         STYLE:
         Use a clear, natural, speaker-friendly tone that is short and engaging. Try to end every sentence with a period '.'. ALWAYS: Avoid code block, Markdown formatting or math equation!!! No references at the end or listed withou telling usage.
         Make the first sentence short and engaging. If no instruction is given, explain that you did not hear any instruction.
+        Do not use symbols that are not readable in speech, such as (, ), [, ], {, }, <, >, *, #, -, !, $, %, ^, &, =, +, \, /, ~, `, etc. In this way, avoid code, Markdown formatting or math equation!!!
         """
         reference_style = (
             "\nREFERENCE USAGE:"
@@ -206,7 +207,6 @@ def build_file_augmented_context(
     augmented_context = (
         f"The user is looking at this file to give the instruction: \n{file_content}\n---\n"
     )
-    print(augmented_context)
     if index:
         # TODO: abs(chunk['index'] - index) <= 1 is not a good approach for finding focused chunk
         focused_chunk = ' '.join(chunk['chunk'] for chunk in chunks if abs(chunk['index'] - index) <= 1)

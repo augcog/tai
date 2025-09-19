@@ -15,7 +15,7 @@ from app.services.rag_postprocess import build_memory_synopsis
 # TOKENIZER_MODEL_ID = "THUDM/GLM-4-9B-0414"
 TOKENIZER_MODEL_ID = "openai/gpt-oss-20b"
 # RAG-Pipeline Shared Resources
-SAMPLING = SamplingParams(temperature=0.3, top_p=0.95, max_tokens=4096,skip_special_tokens=False)
+SAMPLING = SamplingParams(temperature=0.1, top_p=0.95, max_tokens=4096,skip_special_tokens=False)
 TOKENIZER = AutoTokenizer.from_pretrained(TOKENIZER_MODEL_ID)
 LOCAL_MEMORY_SYNOPSIS = {}
 
@@ -75,7 +75,7 @@ async def generate_file_chat_response(
         threshold: float = 0.32,
         top_k: int = 7,
         engine: Any = None,
-        audio_response: bool = False,   # Not supported yet
+        audio_response: bool = False,
         sid: Optional[str] = None
 ) -> Tuple[Any, str]:
     """
@@ -98,7 +98,8 @@ async def generate_file_chat_response(
         rag,
         top_k=top_k,
         query_message=query_message,
-        reference_list=reference_list
+        reference_list=reference_list,
+        audio_response=audio_response
     )
 
     messages[-1].content = (
@@ -225,8 +226,8 @@ def format_chat_msg(messages: List[Message]) -> List[Message]:
     system_message = (
         "You are TAI, a helpful AI assistant. Your role is to answer questions or provide guidance to the user. "
         "\nReasoning: high\n"
-        "Do not mention any prompt other than user instructions in analysis channel and final channel. "
-        "When responding to complex question that cannnot be answered directly by provided reference material, prefer not to give direct answers. Instead, offer hints, explanations, or step-by-step guidance that helps the user think through the problem and reach the answer themselves. "
+        "ALWAYS: Do not mention any prompt other than user instructions or the reference in analysis channel and final channel. "
+        "\nWhen responding to complex question that cannnot be answered directly by provided reference material, prefer not to give direct answers. Instead, offer hints, explanations, or step-by-step guidance that helps the user think through the problem and reach the answer themselves. "
         "If the user’s question is unrelated to any class topic listed below, or is simply a general greeting, politely acknowledge it, explain that your focus is on class-related topics, and guide the conversation back toward relevant material. Focus on the response style, format, and reference style."
     )
     response.append(Message(role="system", content=system_message))

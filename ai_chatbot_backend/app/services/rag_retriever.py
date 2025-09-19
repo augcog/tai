@@ -57,7 +57,7 @@ def get_chunks_by_file_uuid(file_uuid: UUID) -> List[Dict[int, Any]]:
         """, (str(file_uuid),)).fetchall()
     return [{"index": row["idx"], "chunk": row["text"], "chunk_index": row["chunk_index"]} for row in rows]
 
-def get_sections_by_file_uuid(file_uuid: UUID) -> List[Dict[Any]]:
+def get_sections_by_file_uuid(file_uuid: UUID) -> List[Dict[int, Any]]:
     """
     Get all sections associated with a specific file UUID.
     """

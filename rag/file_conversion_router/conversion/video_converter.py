@@ -50,7 +50,6 @@ class VideoConverter(BaseConverter):
                     "speaker": segment["speaker"] if "speaker" in segment else "UNKNOWN"
                 }
                 segments.append(segment_dict)
-        print(segments)
         return segments
 
     def paragraph_generator(self, transcript, seg_time):
@@ -222,15 +221,6 @@ class VideoConverter(BaseConverter):
 
             # Convert scene times to seconds for return value
             scene_times = [(start_time.get_seconds(), end_time.get_seconds()) for start_time, end_time in scene_list]
-
-            # Print scene information
-            for i, ((start_time, end_time), images) in enumerate(
-                    zip(scene_list, image_filenames.values() if image_filenames else [[] for _ in scene_list]),
-                    start=1):
-                print(
-                    f"Scene {i}: Start Time: {start_time.get_seconds():.3f}s ({start_time}), End Time: {end_time.get_seconds():.3f}s ({end_time})")
-                for image_path in images:
-                    print(f"  - {image_path}")
 
             return scene_times
 

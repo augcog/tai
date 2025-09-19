@@ -201,5 +201,5 @@ class WebScraper:
 
 
 if __name__ == "__main__":
-    scraper = WebScraper("/home/bot/bot/yk/YK_final/tai/rag/scraper/config.yaml")
+    scraper = WebScraper("/home/bot/bot/yk/YK_final/course_yaml/CS 294-137_config.yaml")
     scraper.run()

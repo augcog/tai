@@ -13,23 +13,23 @@ class NotebookConverter(BaseConverter):
 
     def extract_all_markdown_titles(self, content):
         """
-        Extract ALL possible titles from markdown content
+        Extract titles from markdown content that start with #
         Returns a list of all found titles
         """
         if not content.strip():
             return []
         titles = []
-        header_matches = re.findall(r'^\s*(#+)\s+(.+)\s*$', content, re.MULTILINE)
-        for level, title in header_matches:
-            clean_title = title.strip().lstrip('*').strip().rstrip('*').strip()
-            clean_title = clean_title.strip('#').strip()
-            if clean_title:
-                titles.append(clean_title)
-        star_matches = re.findall(r'^\s*\*+(.+)\*+\s*$', content, re.MULTILINE)
-        for title in star_matches:
-            clean_title = title.strip(' #*')
-            if clean_title:
-                titles.append(clean_title)
+        # Process line by line to match BaseConverter logic
+        for line in content.splitlines():
+            line = line.strip()
+            if line.startswith("#"):
+                title = line.lstrip("#").strip()
+                if title == "":
+                    continue
+                # Remove * characters from title
+                title = title.replace('*', '')
+                if title.strip():
+                    titles.append(title.strip())
         return titles
 
 

@@ -79,7 +79,7 @@ def get_strutured_content_for_ipynb(
                     - **Progressive Difficulty:** Build from foundational understanding to advanced synthesis
                     
                     For each comprehensive question:
-                    - **Question Type:** Classify as synthesis, application, analysis, or evaluation
+                    - **Question Type:** Classify as comprehensive
                     - **Multiple Choice:** Provide exactly 4 options with 1-2 correct answers
                     - **Clear Explanation:** Detail why correct answers are right and others wrong
                     - **Knowledge Areas:** List the key knowledge areas being tested
@@ -112,7 +112,8 @@ def get_strutured_content_for_ipynb(
                                     "concepts": {"type": "string"},
                                     "source_section_title": {"type": "string",
                                                              "enum": title_list,
-                                                             "description": f"Exactly the section title as it appears in the {title_list}, only one title from the list, only start with # can be used, do not include # and any *. Do not treat the line start with * as a title, it is not a title."},
+                                                                'description': 'The single, exact title from title_list that this concept is derived from.'
+                                                             },
                                     "check_in_question": {
                                         "type": "object",
                                         "properties": {
@@ -228,8 +229,7 @@ def get_strutured_content_for_ipynb(
                                     "question_id": {"type": "integer", "description": "Sequential number starting from 1"},
                                     "question_type": {
                                         "type": "string",
-                                        "enum": ["synthesis", "application", "analysis", "evaluation"],
-                                        "description": "Type of cognitive skill being tested"
+                                        "enum": ["comprehensive"],
                                     },
                                     "question_text": {
                                         "type": "string",
@@ -276,7 +276,32 @@ def get_strutured_content_for_ipynb(
     messages = response.choices[0].message
     data = messages.content
     content_dict = json.loads(data)
+    content_dict = remove_invalid_concepts(content_dict, title_list)
     return content_dict
+
+
+def remove_invalid_concepts(content_dict, title_list):
+    """Remove key concepts that don't have valid source_section_titles and clean up title_with_levels"""
+    valid_concepts = []
+    removed_concepts = []
+
+    # Clean up key_concepts
+    for concept in content_dict.get('key_concepts', []):
+        source_title = concept.get('source_section_title', '')
+        if source_title in title_list:
+            valid_concepts.append(concept)
+        else:
+            removed_concepts.append(source_title)
+            print(f"Removed invalid concept with title: '{source_title}'")
+
+    content_dict['key_concepts'] = valid_concepts
+
+    if removed_concepts:
+        print(f"Total removed concepts: {len(removed_concepts)}")
+    return content_dict
+
+
+# Add this after getting the response
 
 
 def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, file_name: str):
@@ -435,8 +460,7 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                     "question_id": {"type": "integer", "description": "Sequential number starting from 1"},
                                     "question_type": {
                                         "type": "string",
-                                        "enum": ["synthesis", "application", "analysis", "evaluation"],
-                                        "description": "Type of cognitive skill being tested"
+                                        "enum": ["comprehensive"],
                                     },
                                     "question_text": {
                                         "type": "string",
@@ -483,8 +507,7 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                                    "description": "The unique identifier for the speaker, e.g., 'Speaker_00'."},
                                     "role": {
                                         "type": "string",
-                                        "description": "The inferred role of the speaker based on their content. Must follow numbering rules: Professor (only one), TA_1, TA_2, etc., Student_1, Student_2, etc., Unknown_1, Unknown_2, etc.",
-                                        "pattern": "^(Professor|TA_[1-9][0-9]*|Student_[1-9][0-9]*|Unknown_[1-9][0-9]*)$"
+                                        "description": "The speaker identifier. PRIORITY: Use actual name if speaker introduces themselves (e.g., 'I am John', 'My name is Sarah'). FALLBACK: Use numbered roles (Professor, TA_1, TA_2, Student_1, Student_2, Unknown_1, etc.) only if no name is detected."
                                     },
                                 },
                                 "required": ["speaker_id", "role"],
@@ -533,29 +556,38 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
             - **Progressive Difficulty:** Build from foundational understanding to advanced synthesis
             
             For each comprehensive question:
-            - **Question Type:** Classify as synthesis, application, analysis, or evaluation
+            - **Question Type:** Classify as comprehensive
             - **Multiple Choice:** Provide exactly 4 options with 1-2 correct answers
             - **Clear Explanation:** Detail why correct answers are right and others wrong
             - **Knowledge Areas:** List the key knowledge areas being tested
             
              ### Part 4: Identify and Classify Speakers
             The markdown includes speaker tags like Speaker_00, Speaker_01, etc. For each unique speaker:
-            - Analyze their content and determine the most likely role:
+            - FIRST: Look for name introductions in their speech (e.g., "I am John", "My name is Sarah", "I'm Professor Smith")
+            - If a name is found, use the actual name as the speaker identifier
+            - If no name is found, analyze their content and determine the most likely role:
                 - "Professor" (teaching and explaining concepts, authoritative tone) - ONLY ONE ALLOWED
-                - "Teaching Assistant" (supporting explanations, grading references, guiding students) 
+                - "Teaching Assistant" (supporting explanations, grading references, guiding students)
                 - "Student" (asking questions, expressing confusion, providing opinions)
                 - "Unknown" (insufficient information)
-            
-            IMPORTANT NUMBERING RULES:
+
+            NAME DETECTION PATTERNS (prioritize these):
+            - "I am [Name]" or "I'm [Name]"
+            - "My name is [Name]"
+            - "This is [Name]"
+            - "I'm Professor/Dr. [Name]"
+            - "[Name] speaking" or "[Name] here"
+
+            FALLBACK NUMBERING RULES (only if no names found):
             - Only ONE speaker can be "Professor" (the main instructor)
             - Teaching Assistants should be numbered: "TA_1", "TA_2", "TA_3", etc.
             - Students should be numbered: "Student_1", "Student_2", "Student_3", etc.
             - Unknown speakers should be numbered: "Unknown_1", "Unknown_2", etc.
             - If there are multiple speakers who seem like professors, designate the most authoritative one as "Professor" and others as "TA_1", "TA_2", etc.
-            
+
             Include these mappings in the JSON under a top-level key `speakers`. Each speaker must have:
             - `speaker_id` (e.g., "Speaker_00")
-            - `role` (properly numbered according to rules above)""")
+            - `role` (actual name if detected, otherwise properly numbered role according to rules above)""")
         response_format = {
             "type": "json_schema",
             "json_schema": {
@@ -634,8 +666,7 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                     "question_id": {"type": "integer", "description": "Sequential number starting from 1"},
                                     "question_type": {
                                         "type": "string",
-                                        "enum": ["synthesis", "application", "analysis", "evaluation"],
-                                        "description": "Type of cognitive skill being tested"
+                                        "enum": ["comprehensive"],
                                     },
                                     "question_text": {
                                         "type": "string",
@@ -681,8 +712,7 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                     "speaker_id": {"type": "string", "description": "The unique identifier for the speaker, e.g., 'Speaker_00'."},
                                     "role": {
                                         "type": "string",
-                                        "description": "The inferred role of the speaker based on their content. Must follow numbering rules: Professor (only one), TA_1, TA_2, etc., Student_1, Student_2, etc., Unknown_1, Unknown_2, etc.",
-                                        "pattern": "^(Professor|TA_[1-9][0-9]*|Student_[1-9][0-9]*|Unknown_[1-9][0-9]*)$"
+                                        "description": "The speaker identifier. PRIORITY: Use actual name if speaker introduces themselves (e.g., 'I am John', 'My name is Sarah'). FALLBACK: Use numbered roles (Professor, TA_1, TA_2, Student_1, Student_2, Unknown_1, etc.) only if no name is detected."
                                     },
                                 },
                                 "required": ["speaker_id", "role"],
@@ -841,8 +871,7 @@ def get_structured_content_with_one_title_level(
                                     "question_id": {"type": "integer", "description": "Sequential number starting from 1"},
                                     "question_type": {
                                         "type": "string",
-                                        "enum": ["synthesis", "application", "analysis", "evaluation"],
-                                        "description": "Type of cognitive skill being tested"
+                                        "enum": ["comprehensive"],
                                     },
                                     "question_text": {
                                         "type": "string",
@@ -938,7 +967,7 @@ def get_structured_content_with_one_title_level(
                 - **Progressive Difficulty:** Build from foundational understanding to advanced synthesis
                 
                 For each comprehensive question:
-                - **Question Type:** Classify as synthesis, application, analysis, or evaluation
+                - **Question Type:** Classify as comprehensive
                 - **Multiple Choice:** Provide exactly 4 options with 1-2 correct answers
                 - **Clear Explanation:** Detail why correct answers are right and others wrong
                 - **Knowledge Areas:** List the key knowledge areas being tested""")
@@ -958,9 +987,7 @@ def get_title_list(md_content: str):
     titles = []
     for line in lines:
         if line.startswith("#"):
-            title = line[1:]
-            if line.startswith('*'):
-                title = line.lstrip('*').rstrip('*').strip()
+            title = line.lstrip("#").strip()
             titles.append(title)
     return titles
 
@@ -1241,39 +1268,39 @@ def get_only_key_concepts(md_content: str, index_helper: dict):
                 "role": "system",
                 "content": dedent(
                 f"""Extract High-Level Key Concepts for Overview
-            Your goal is to create a high-level summary of the entire document by identifying a small, curated set of its most important concepts. This should serve as a "big picture" overview for a student.
-            CRITICAL CONSTRAINTS - YOU MUST FOLLOW:
-            1.  **Strict One-to-One Mapping (Most Important):** The relationship between a Source Section and a Key Concept must be strictly one-to-one. Each chosen Source Section title MUST map to exactly ONE Key Concept. It is forbidden to generate multiple Key Concepts from the same single Source Section.
-            2.  **Limited Quantity:** Your most important task is to aggressively merge and consolidate topics. Actively seek to unify related ideas under a single, overarching key concept. Before creating a new concept, you must first determine if its core idea can be logically absorbed by another. The final output must represent the absolute minimum number of concepts possible, and the count must always be less than 5.
-            3.  **No Hierarchical Overlap:** If you choose a main section title (e.g., "Chapter 1"), you cannot also choose one of its sub-sections (e.g., "Section 1.1").
-            4.  **Concise Concepts:** The key concept should be a single, descriptive sentence that captures the main idea of the entire section block.                
-            5.  **Preserve Original Order** Key Concepts must appear in the same order as their corresponding Source Sections appear in the original markdown.Do not reorder, merge across, or reshuffle the sequence.
-            6.  **Generate Follow-up Check-in Question:** For each key concept, you must create an `check_in_question` object. This object is designed to test a student's deep understanding of the concept.
-                -   **Challenging Nature:** The question must be difficult. It should require **application, analysis, or synthesis** of the information from the section, not just simple recall.
-                -   **Plausible Distractors:** The incorrect options should be plausible and target common student misconceptions related to the topic.
-                -   **Structure:** The `check_in_question` object must contain the following four fields:
-                    -   `question_text`: (String) The full text of the multiple-choice question.
-                    -   `options`: (Array of Strings) An array containing exactly four possible answers.
-                    -   `correct_answer`: (Array of Integers) The indices of the correct options in the options array, e.g. [0,1] for the first and second options.
-                    -   `explanation`: (String) A detailed explanation describing why the correct answer is right and why the other options are incorrect.
-            For each concept you extract, provide ONLY the following information:
-            Key Concept: [A single, clear sentence summarizing the core idea of the section.]
-            Source Section: [The single, exact title from {title_list} that this concept is derived from.]
-            Check-in Question: The structured question object as defined above.
-            
-            ### Generate Comprehensive Summary Questions
-            Create 3-5 comprehensive summary questions that test understanding of the entire document's key knowledge points.
-            These questions should:
-            - **Synthesize Knowledge:** Connect multiple concepts from different parts of the document
-            - **Test Deep Understanding:** Go beyond simple recall to test application, analysis, and evaluation
-            - **Cover Main Themes:** Collectively address the most important learning objectives
-            - **Progressive Difficulty:** Build from foundational understanding to advanced synthesis
-            
-            For each comprehensive question:
-            - **Question Type:** Classify as synthesis, application, analysis, or evaluation
-            - **Multiple Choice:** Provide exactly 4 options with 1-2 correct answers
-            - **Clear Explanation:** Detail why correct answers are right and others wrong
-            - **Knowledge Areas:** List the key knowledge areas being tested""")
+                Your goal is to create a high-level summary of the entire document by identifying a small, curated set of its most important concepts. This should serve as a "big picture" overview for a student.
+                CRITICAL CONSTRAINTS - YOU MUST FOLLOW:
+                1.  **Strict One-to-One Mapping (Most Important):** The relationship between a Source Section and a Key Concept must be strictly one-to-one. Each chosen Source Section title MUST map to exactly ONE Key Concept. It is forbidden to generate multiple Key Concepts from the same single Source Section.
+                2.  **Limited Quantity:** Your most important task is to aggressively merge and consolidate topics. Actively seek to unify related ideas under a single, overarching key concept. Before creating a new concept, you must first determine if its core idea can be logically absorbed by another. The final output must represent the absolute minimum number of concepts possible, and the count must always be less than 5.
+                3.  **No Hierarchical Overlap:** If you choose a main section title (e.g., "Chapter 1"), you cannot also choose one of its sub-sections (e.g., "Section 1.1").
+                4.  **Concise Concepts:** The key concept should be a single, descriptive sentence that captures the main idea of the entire section block.                
+                5.  **Preserve Original Order** Key Concepts must appear in the same order as their corresponding Source Sections appear in the original markdown.Do not reorder, merge across, or reshuffle the sequence.
+                6.  **Generate Follow-up Check-in Question:** For each key concept, you must create an `check_in_question` object. This object is designed to test a student's deep understanding of the concept.
+                    -   **Challenging Nature:** The question must be difficult. It should require **application, analysis, or synthesis** of the information from the section, not just simple recall.
+                    -   **Plausible Distractors:** The incorrect options should be plausible and target common student misconceptions related to the topic.
+                    -   **Structure:** The `check_in_question` object must contain the following four fields:
+                        -   `question_text`: (String) The full text of the multiple-choice question.
+                        -   `options`: (Array of Strings) An array containing exactly four possible answers.
+                        -   `correct_answer`: (Array of Integers) The indices of the correct options in the options array, e.g. [0,1] for the first and second options.
+                        -   `explanation`: (String) A detailed explanation describing why the correct answer is right and why the other options are incorrect.
+                For each concept you extract, provide ONLY the following information:
+                Key Concept: [A single, clear sentence summarizing the core idea of the section.]
+                Source Section: [The single, exact title from {title_list} that this concept is derived from.]
+                Check-in Question: The structured question object as defined above.
+                
+                ### Generate Comprehensive Summary Questions
+                Create 3-5 comprehensive summary questions that test understanding of the entire document's key knowledge points.
+                These questions should:
+                - **Synthesize Knowledge:** Connect multiple concepts from different parts of the document
+                - **Test Deep Understanding:** Go beyond simple recall to test application, analysis, and evaluation
+                - **Cover Main Themes:** Collectively address the most important learning objectives
+                - **Progressive Difficulty:** Build from foundational understanding to advanced synthesis
+                
+                For each comprehensive question:
+                - **Question Type:** Classify as comprehensive
+                - **Multiple Choice:** Provide exactly 4 options with 1-2 correct answers
+                - **Clear Explanation:** Detail why correct answers are right and others wrong
+                - **Knowledge Areas:** List the key knowledge areas being tested""")
             },
             {"role": "user", "content": f"{md_content}"},
         ],

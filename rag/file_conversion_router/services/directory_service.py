@@ -99,8 +99,8 @@ def process_folder(
             file_uuid_cached = file_record["uuid"]
             current_relative_path = str(input_file_path.relative_to(input_dir.parent))
 
-            # Update file path if it has changed
-            path_updated = update_file_path_if_changed(conn, file_uuid_cached, current_relative_path)
+            # Update file path if it has changed and old file no longer exists
+            path_updated = update_file_path_if_changed(conn, file_uuid_cached, current_relative_path, input_dir.parent)
             if path_updated:
                 conn.commit()
 
@@ -188,16 +188,16 @@ def process_folder(
                 q_container = cq.get("questions") or cq.get("question_set") or []
                 if q_container:
                     for q_id, q in _iter_questions_local(q_container):
-                        upsert_problem_meta(conn, file_uuid_written, problem_data, q_id, q)
+                        upsert_problem_meta(conn, file_uuid_written, problem_data, q_id, q, "comprehensive")
                 else:
                     # If no nested questions, store the comprehensive question itself
                     question_data = {
                         "question": cq.get("question", "") or cq.get("text", ""),
-                        "choices": cq.get("choices"),
-                        "answer": cq.get("answer"),
+                        "choices": cq.get("options"),
+                        "answer": cq.get("correct_answers"),
                         "explanation": cq.get("explanation")
                     }
-                    upsert_problem_meta(conn, file_uuid_written, problem_data, idx, question_data)
+                    upsert_problem_meta(conn, file_uuid_written, problem_data, idx, question_data, "comprehensive")
             conn.commit()
 
         logging.info(f"[OK] {input_file_path} → {output_file_path} ({len(chunks)} chunks)")
@@ -243,7 +243,7 @@ def upsert_file_meta(conn: sqlite3.Connection, f: dict):
     conn.execute(SQL_UPSERT_FILE, args)
 
 
-def upsert_problem_meta(conn: sqlite3.Connection, file_uuid: str, pr: dict, q_id: int | str, q: dict):
+def upsert_problem_meta(conn: sqlite3.Connection, file_uuid: str, pr: dict, q_id: int | str, q: dict, question_type: str = "regular"):
     conn.execute(
         SQL_UPSERT_PROBLEM,
         (
@@ -257,6 +257,7 @@ def upsert_problem_meta(conn: sqlite3.Connection, file_uuid: str, pr: dict, q_id
             json.dumps(q.get("choices"), ensure_ascii=False),
             json.dumps(q.get("answer"), ensure_ascii=False),
             q.get("explanation"),
+            question_type,
         )
     )
 
@@ -284,7 +285,7 @@ def file_hash_for_cache(p: Path) -> str:
     try:
         if p.stat().st_size == 0:
             # For empty files, use extension + filename for individual tracking
-            return _blake2b_hex(f"EMPTY|{extension}")
+            return _blake2b_hex(f"EMPTY|{extension}|{filename}")
         else:
             # For non-empty files, combine content hash with extension
             content_hash = file_content_hash(p)
@@ -404,13 +405,22 @@ def get_file_record_by_hash(conn: sqlite3.Connection, file_hash: str) -> dict | 
         }
     return None
 
-def update_file_path_if_changed(conn: sqlite3.Connection, file_uuid: str, current_relative_path: str) -> bool:
-    """Update file path in database if it has changed. Returns True if updated."""
+def update_file_path_if_changed(conn: sqlite3.Connection, file_uuid: str, current_relative_path: str, input_dir_parent: Path) -> bool:
+    """Update file path in database if it has changed and old file no longer exists. Returns True if updated."""
     row = conn.execute("SELECT relative_path FROM file WHERE uuid=?", (file_uuid,)).fetchone()
     if row and row[0] != current_relative_path:
-        conn.execute("UPDATE file SET relative_path=? WHERE uuid=?", (current_relative_path, file_uuid))
-        logging.info(f"Updated file path for {file_uuid}: {row[0]} → {current_relative_path}")
-        return True
+        old_relative_path = row[0]
+        old_file_path = input_dir_parent / old_relative_path
+
+        # Only update if the old file no longer exists at its original location
+        if not old_file_path.exists():
+            conn.execute("UPDATE file SET relative_path=? WHERE uuid=?", (current_relative_path, file_uuid))
+            logging.info(f"Updated file path for {file_uuid}: {old_relative_path} → {current_relative_path} (old file no longer exists)")
+            return True
+        else:
+            # Old file still exists, this is a different file with same hash - should not happen normally
+            logging.warning(f"File with same hash found at different path, but old file still exists: {old_relative_path} vs {current_relative_path}")
+            return False
     return False
 
 def deterministic_chunk_uuid(file_uuid: str, idx: int, text: str = "") -> str:
@@ -478,6 +488,7 @@ CREATE TABLE IF NOT EXISTS problem (
   choices         TEXT,
   answer          TEXT,
   explanation     TEXT,
+  question_type   TEXT DEFAULT 'regular',
   FOREIGN KEY (file_uuid) REFERENCES file(uuid) ON DELETE CASCADE
 );
 """
@@ -517,8 +528,8 @@ ON CONFLICT(chunk_uuid) DO UPDATE SET
 SQL_UPSERT_PROBLEM = """
 INSERT INTO problem (
   uuid, file_uuid, problem_index, problem_id, problem_content,
-  question_id, question, choices, answer, explanation
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  question_id, question, choices, answer, explanation, question_type
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 ON CONFLICT(uuid) DO UPDATE SET
   file_uuid       = excluded.file_uuid,
   problem_index   = excluded.problem_index,
@@ -528,7 +539,8 @@ ON CONFLICT(uuid) DO UPDATE SET
   question        = excluded.question,
   choices         = excluded.choices,
   answer          = excluded.answer,
-  explanation     = excluded.explanation;
+  explanation     = excluded.explanation,
+  question_type   = excluded.question_type;
 """
 
 SQL_SELECT_FILE_UUID_BY_HASH = "SELECT uuid FROM file WHERE file_hash=?;"
@@ -638,15 +650,15 @@ def update_problem_table_from_metadata_files(folder_path: Union[str, Path], chun
                         q_container = cq.get("questions") or cq.get("question_set") or []
                         if q_container:
                             for q_id, q in _iter_questions_local(q_container):
-                                upsert_problem_meta(conn, file_uuid, problem_data, q_id, q)
+                                upsert_problem_meta(conn, file_uuid, problem_data, q_id, q, "comprehensive")
                         else:
                             question_data = {
                                 "question": cq.get("question", "") or cq.get("text", ""),
-                                "choices": cq.get("choices"),
-                                "answer": cq.get("answer"),
+                                "choices": cq.get("options"),
+                                "answer": cq.get("correct_answers"),
                                 "explanation": cq.get("explanation")
                             }
-                            upsert_problem_meta(conn, file_uuid, problem_data, idx, question_data)
+                            upsert_problem_meta(conn, file_uuid, problem_data, idx, question_data, "comprehensive")
                     
                     conn.commit()
                     logging.info(f"Successfully processed {yaml_file}: added {len(problems)} problems and {len(comprehensive_questions)} comprehensive questions for file {file_name}")

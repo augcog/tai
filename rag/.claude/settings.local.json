@@ -3,7 +3,8 @@
     "allow": [
       "Read(/home/bot/bot/yk/YK_final/test_folder_output/1-Multiple Environments/**)",
       "Read(/home/bot/bot/yk/YK_final/course_yaml/**)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(sqlite3:*)"
     ],
     "deny": [],
     "ask": []

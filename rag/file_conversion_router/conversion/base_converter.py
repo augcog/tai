@@ -292,33 +292,50 @@ class BaseConverter(ABC):
     def update_content_dict_titles_with_levels(self, content_dict: dict,content_text: str) -> dict:
         """
         Update the content_dict with titles and their levels from the markdown content.
+        Only includes titles that exist in index_helper if available.
         """
         titles_with_levels = []
+
+        # Get valid titles from index_helper if available
+        valid_titles = set()
+        if hasattr(self, 'index_helper') and self.index_helper:
+            for item in self.index_helper:
+                for title in item.keys():
+                    valid_titles.add(title)
+
         for line in content_text.splitlines():
             if line.startswith("#"):
                 level = line.count("#")
                 title = line.lstrip("#").strip()
                 if title == "":
                     continue
-                if title.startswith('*'):
-                    title = title.lstrip('*').rstrip('*').strip()
-                titles_with_levels.append({"title": title, "level_of_title": level})
+                # Remove * characters from title to match NotebookConverter logic
+                title = title.replace('*', '')
+                if title.strip():
+                    title = title.strip()
+                    # Only include titles that are in index_helper (if index_helper exists)
+                    if valid_titles and title not in valid_titles:
+                        print(f"Skipping title not in index_helper: '{title}'")
+                        continue
+                    titles_with_levels.append({"title": title, "level_of_title": level})
         content_dict["titles_with_levels"] = titles_with_levels
         return content_dict
 
     def fix_index_helper_with_titles_with_level(self, content_dict: dict):
         title_with_levels = content_dict.get("titles_with_levels", [])
         index_helper = []
-        twl_index = 0
-        for item in self.index_helper:
-            if self.match_a_title_and_b_title(list(item.keys())[0], title_with_levels[twl_index]["title"], str.__contains__):
-                index_helper.append(item)
-                title_with_levels[twl_index]["title"]=list(item.keys())[0]
-                twl_index += 1
-                if twl_index >= len(title_with_levels):
+
+        for twl_item in title_with_levels:
+            found = False
+            for item in self.index_helper:
+                if self.match_a_title_and_b_title(list(item.keys())[0], twl_item["title"], str.__contains__):
+                    index_helper.append(item)
+                    twl_item["title"] = list(item.keys())[0]
+                    found = True
                     break
-        if len(index_helper) != len(title_with_levels):
-            raise AssertionError(f"twl_index: {twl_index} != len(title_with_levels): {len(title_with_levels)}")
+
+            if not found:
+                raise AssertionError(f"No match found for: {twl_item['title']}")
         self.index_helper = index_helper
 
 

@@ -37,6 +37,7 @@ class ProblemModel(MetadataBase):
     choices = Column(Text, nullable=True)  # JSON list[str]
     answer = Column(Text, nullable=True)   # JSON list[int]
     explanation = Column(Text, nullable=True)
+    question_type = Column(String, nullable=True)
 
     def __repr__(self):
         return f"<Problem(uuid={self.uuid}, file_uuid={self.file_uuid}, question_id={self.question_id})>"

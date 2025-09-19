@@ -211,7 +211,15 @@ def build_file_augmented_context(
     )
 
     if index:
-        focused_chunk = ' '.join(chunk['chunk'] for chunk in chunks if abs(chunk['index'] - index) <= 1)
+        # Find chunks closest to the given index
+        closest_chunks = []
+        if chunks:
+            # Calculate distances and find minimum distance
+            min_distance = min(abs(chunk['index'] - index) for chunk in chunks)
+            # Get all chunks with minimum distance
+            closest_chunks = [chunk for chunk in chunks if abs(chunk['index'] - index) == min_distance]
+            # Already sorted by chunk_index, so closest_chunks are in order
+        focused_chunk = ' '.join(chunk['chunk'] for chunk in closest_chunks)
         augmented_context += f"The user is focused on the following part of the file: {focused_chunk}\n\n"
     
     if selected_text:

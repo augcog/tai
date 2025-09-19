@@ -50,12 +50,12 @@ def get_chunks_by_file_uuid(file_uuid: UUID) -> List[Dict[int, Any]]:
     """
     with _get_cursor() as cur:
         rows = cur.execute("""
-            SELECT `idx`, `text`
+            SELECT `idx`, `text`, `chunk_index`
             FROM chunks
             WHERE file_uuid = ?
             ORDER BY `chunk_index`;
         """, (str(file_uuid),)).fetchall()
-    return [{"index": row["idx"], "chunk": row["text"]} for row in rows]
+    return [{"index": row["idx"], "chunk": row["text"], "chunk_index": row["chunk_index"]} for row in rows]
 
 def get_sections_by_file_uuid(file_uuid: UUID) -> List[Dict[Any]]:
     """

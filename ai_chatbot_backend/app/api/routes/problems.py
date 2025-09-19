@@ -47,6 +47,7 @@ def get_problems_by_file_path(file_path: str, db: Session = Depends(get_metadata
             question=problem.question or "",
             choices=choices,
             answer=answer,
-            explanation=problem.explanation
+            explanation=problem.explanation,
+            question_type=problem.question_type,
         ))
     return ProblemsByFilePathListResponse(file_path=decoded_file_path, problems=problem_details, file_uuid=metadata.uuid)

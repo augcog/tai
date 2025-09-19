@@ -13,11 +13,12 @@ class ProblemDetail(BaseModel):
     problem_index: Optional[Union[str, float]] = Field(None, description="Problem index")
     problem_id: Optional[str] = Field(None, description="Problem ID")
     problem_content: Optional[str] = Field(None, description="Problem content")
-    question_id: Optional[int] = Field(None, description="Question ID")
+    question_id: Optional[str] = Field(None, description="Question ID")
     question: str = Field(..., description="Question text")
     choices: List[str] = Field(..., description="List of choices")
     answer: List[int] = Field(..., description="Correct answer indices (multi-select)")
     explanation: Optional[str] = Field(None, description="Answer explanation")
+    question_type: Optional[str] = Field(None, description="Question type")
 
 
 class ProblemsByFilePathListResponse(BaseModel):
@@ -36,20 +37,26 @@ class ProblemsByFilePathListResponse(BaseModel):
                         "file_uuid": "550e8400-e29b-41d4-a716-446655440000",
                         "problem_index": "1.1",
                         "problem_id": "PROB001",
+                        "problem_content": "content of problem",
+                        "question_id": "question_1",
                         "question": "What is the capital of France?",
                         "choices": ["Berlin", "Paris", "London"],
-                        "answer": 1,
-                        "explanation": "Paris is the capital of France."
+                        "answer": [0, 2],
+                        "explanation": "Paris is the capital of France.",
+                        "question_type": "regular"
                     },
                     {
                         "uuid": "550e8400-e29b-41d4-a716-446655440002",
                         "file_uuid": "550e8400-e29b-41d4-a716-446655440000",
                         "problem_index": "1.2",
                         "problem_id": "PROB002",
+                        "problem_content": "content of problem",
+                        "question_id": "question_2",
                         "question": "What is 2 + 2?",
                         "choices": ["3", "4", "5"],
-                        "answer": 1,
-                        "explanation": "2 + 2 = 4."
+                        "answer": [0, 1],
+                        "explanation": "2 + 2 = 4.",
+                        "question_type": "regular"
                     }
                 ]
             }

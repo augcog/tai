@@ -1,8 +1,4 @@
 # Consolidated completions router
-import hashlib
-import base64
-import json
-
 from app.api.deps import verify_api_token
 from app.core.models.chat_completion import *
 from app.dependencies.model import get_model_engine, get_whisper_engine
@@ -22,6 +18,7 @@ from app.services.file_service import file_service
 from app.services.problem_service import ProblemService
 from app.services.audio_service import audio_to_text, audio_stream_parser
 from app.services.chat_service import chat_stream_parser, format_audio_text_message, audio_generator, tts_parsor, get_speaker_name
+from app.services.memory_synopsis_service import MemorySynopsisService
 import re
 
 router = APIRouter()
@@ -42,17 +39,6 @@ def parse_assistant_message(content):
     print("Parsed assistant content:", content)
     return content
 
-def sid_from_history(messages):
-    hist = [{"r": getattr(m, "role", "user"),
-             "c": (getattr(m, "content", "") or "").split("\n<!--REFERENCES:", 1)[0]}
-            for m in messages[:-1]]
-    # print(f"[INFO] History for SID generation: {hist}")
-    digest = hashlib.blake2b(
-        json.dumps(hist, separators=(",", ":"), ensure_ascii=False).encode(),
-        digest_size=12
-    ).digest()
-    return base64.urlsafe_b64encode(digest).decode().rstrip("=")
-
 @router.post("/completions")
 async def create_text_completion(
         params: CompletionParams, _: bool = Depends(verify_api_token)
@@ -71,8 +57,8 @@ async def create_text_completion(
     # Select chat pipeline based on chat_type
     formatter = format_chat_msg
 
-    sid = sid_from_history(formatter(params.messages))
-    print(f"[INFO] Generated SID: {sid}")
+    sid = params.sid  # Use chat_history_sid from frontend
+    print(f"[INFO] Using SID: {sid}")
 
     print(f"[INFO] Chat Type: {params.chat_type}")
     if params.chat_type == 'file':  # filechat
@@ -126,8 +112,8 @@ async def create_text_completion(
     course = params.course
     formatter = format_chat_msg
 
-    sid = sid_from_history(formatter(params.messages))
-    print(f"[INFO] Generated SID: {sid}")
+    sid = params.sid  # Use chat_history_sid from frontend
+    print(f"[INFO] Using SID: {sid}")
 
     print(f"[INFO] Chat Type: {params.chat_type}")
     if params.chat_type == 'file':  # filechat
@@ -188,7 +174,7 @@ async def create_voice_completion(
     audio_text = audio_to_text(params.audio, whisper_engine, stream=False)
     params.messages.append(Message(role="user", content=audio_text))
     response, reference_list = await selector(
-        formatter(params.messages), stream=params.stream, course=course, engine=engine,audio_response=params.audio_response,
+        formatter(params.messages), stream=params.stream, course=course, engine=engine,audio_response=params.audio_response, sid=params.sid
     )
 
     if params.stream:
@@ -310,3 +296,54 @@ async def practice_completion(
         )
     else:
         return PlainTextResponse(response)
+
+
+@router.post("/memory-synopsis")
+async def create_or_update_memory_synopsis(
+        sid: str,
+        messages: List[Message],
+        course_code: str,
+        _: bool = Depends(verify_api_token)
+):
+    """
+    Create or update memory synopsis for a chat history.
+
+    Args:
+        sid: chat_history_sid from frontend
+        messages: List of chat messages
+        course_code: Course code for context
+
+    Returns:
+        JSON response with memory_synopsis_sid if successful, error message if failed
+    """
+    try:
+        # Get the pre-initialized pipeline
+        engine = get_model_engine()
+
+        # Import TOKENIZER from rag_generation
+        from app.services.rag_generation import TOKENIZER
+
+        # Initialize memory synopsis service
+        service = MemorySynopsisService()
+
+        # Create or update memory synopsis
+        memory_synopsis_sid = await service.create_or_update_memory(sid, messages, engine, TOKENIZER)
+
+        if memory_synopsis_sid:
+            return JSONResponse({
+                "memory_synopsis_sid": memory_synopsis_sid,
+                "status": "success",
+                "message": "Memory synopsis created/updated successfully"
+            })
+        else:
+            return JSONResponse({
+                "status": "failed",
+                "message": "Memory generation failed, will retry next round"
+            })
+
+    except Exception as e:
+        print(f"[INFO] Memory synopsis endpoint failed: {e}")
+        return JSONResponse({
+            "status": "failed",
+            "message": "Memory generation failed, will retry next round"
+        })

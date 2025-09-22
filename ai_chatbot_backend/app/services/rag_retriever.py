@@ -17,7 +17,7 @@ from app.dependencies.model import get_embedding_engine
 embedding_model = get_embedding_engine()
 # Environment Variables
 EMBEDDING_PICKLE_PATH = Path("/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/")
-DB_URI_RO = f"file:{quote('/home/bot/localgpt/tai/ai_chatbot_backend/db/metadata.db')}?mode=ro&cache=shared"
+DB_URI_RO = f"file:{quote('/home/bot/localgpt/tai/ai_chatbot_backend/temp/metadata.db')}?mode=ro&cache=shared"
 _local = threading.local()
 # SQLDB: whether to use SQL database or Pickle for retrieval.
 SQLDB = True
@@ -86,11 +86,11 @@ def _get_references_from_sql(
     # Convert the query embedding to a numpy array
     qv = np.array(query_embed["dense_vecs"], dtype=np.float32).reshape(-1)
     if qv.size == 0:
-        return [], [], [], [], [], [], []
+        return [], [], [], [], [], [], [],[], []
     # Get the course index from the cache or build it if not present or stale
     idx = _get_course_index(course)
     if not idx.get("M") is not None:
-        return [], [], [], [], [], [], []
+        return [], [], [], [], [], [], [],[], []
     # Compute the scores for each document in the index
     document_matrix = idx["M"]
     scores = document_matrix @ qv

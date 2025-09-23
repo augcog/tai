@@ -7,6 +7,7 @@ import pathlib
 # from concurrent.futures import as_completed
 from pathlib import Path
 from typing import Dict, Type, Union
+import yaml
 import os
 import sqlite3
 from typing import List, Tuple
@@ -41,6 +42,7 @@ converter_mapping: ConverterMapping = {
     ".py": PythonConverter,
     '.mkv': VideoConverter,
     '.webm': VideoConverter,
+    '.mov': VideoConverter,
     #     TODO: Add more file types and converters here
 }
 
@@ -51,14 +53,14 @@ def process_folder(
         course_name: str,
         course_code: str,
         log_dir: Union[str, Path] = None,
-        chunk_db_path: Union[str, Path] = None,
+        db_path: Union[str, Path] = None,
 ) -> None:
     """Walk through the input directory and schedule conversion tasks for specified file types."""
     logging.getLogger().setLevel(logging.INFO)
     output_dir = Path(output_dir)
     input_dir = Path(input_dir)
 
-    conn = ensure_chunk_db(Path(chunk_db_path))
+    conn = ensure_chunk_db(Path(db_path))
 
     if log_dir:
         set_log_file_path(content_logger, log_dir)
@@ -90,10 +92,19 @@ def process_folder(
         if should_ignore(input_file_path):
             continue
 
-        fhash = file_hash_for_cache(input_file_path, input_dir)
-        file_uuid_cached = is_file_cached(conn, fhash)
-        if file_uuid_cached:
-            logging.info(f"[SKIP cache-hit] {input_file_path}  already ingested as file_uuid={file_uuid_cached}")
+        fhash = file_hash_for_cache(input_file_path)
+        file_record = get_file_record_by_hash(conn, fhash)
+
+        if file_record:
+            file_uuid_cached = file_record["uuid"]
+            current_relative_path = str(input_file_path.relative_to(input_dir.parent))
+
+            # Update file path if it has changed and old file no longer exists
+            path_updated = update_file_path_if_changed(conn, file_uuid_cached, current_relative_path, input_dir.parent)
+            if path_updated:
+                conn.commit()
+
+            logging.info(f"[SKIP cache-hit] {input_file_path} already ingested as file_uuid={file_uuid_cached}")
             continue
 
         output_subdir = output_dir / input_file_path.relative_to(input_dir).parent
@@ -111,13 +122,17 @@ def process_folder(
         if not chunks:
             chunks = []
 
-        fp = chunks[0].file_path if chunks and getattr(chunks[0], "file_path", None) else input_file_path.relative_to(input_dir)
+        fp = chunks[0].file_path if chunks and getattr(chunks[0], "file_path", None) else input_file_path.relative_to(input_dir.parent)
         relative_path = str(fp)
 
         # sections from metadata if provided
         sections = []
+        url = ""
+        comprehensive_questions = []
         if isinstance(metadata, dict):
             sections = metadata.get("sections", []) or []
+            comprehensive_questions = metadata.get("comprehensive_questions", []) or []
+            url = metadata.get("URL", "")
 
         # read extra info from json file if present
         extra_info = []
@@ -140,6 +155,7 @@ def process_folder(
             course_name=course_name,
             sections=sections,
             extra_info=extra_info,
+            url=url,
         )
 
         # upsert problems if present
@@ -155,13 +171,76 @@ def process_folder(
                 for q_id, q in _iter_questions_local(q_container):
                     upsert_problem_meta(conn, file_uuid_written, pr, q_id, q)
             conn.commit()
+        
+        # upsert comprehensive questions if present
+        if comprehensive_questions:
+            conn.execute("BEGIN IMMEDIATE")
+            for idx, cq in enumerate(comprehensive_questions, start=1):
+                # Create a problem entry for each comprehensive question
+                # Treat it as a special type of problem with comprehensive question data
+                problem_data = {
+                    "problem_index": idx,
+                    "problem_id": f"comprehensive_{idx}",
+                    "problem_content": cq.get("question_text", "")
+                }
+                
+                # Handle questions within comprehensive questions
+                q_container = cq.get("questions") or cq.get("question_set") or []
+                if q_container:
+                    for q_id, q in _iter_questions_local(q_container):
+                        upsert_problem_meta(conn, file_uuid_written, problem_data, q_id, q, "comprehensive")
+                else:
+                    # If no nested questions, store the comprehensive question itself
+                    question_data = {
+                        "question": cq.get("question", "") or cq.get("text", ""),
+                        "choices": cq.get("options"),
+                        "answer": cq.get("correct_answers"),
+                        "explanation": cq.get("explanation")
+                    }
+                    upsert_problem_meta(conn, file_uuid_written, problem_data, idx, question_data, "comprehensive")
+            conn.commit()
 
         logging.info(f"[OK] {input_file_path} → {output_file_path} ({len(chunks)} chunks)")
         logging.info(f"Scheduled conversion for {input_file_path} to {output_file_path}")
 
+    # Cleanup deleted files from database
+    deleted_count = cleanup_deleted_files(conn, course_code, input_dir.parent)
+    if deleted_count > 0:
+        logging.info(f"Database cleanup completed: {deleted_count} deleted file(s) removed")
+
     conn.close()
     content_logger.info(f"Completed content checking for directory: {input_dir}")
     logging.info(f"Completed processing for directory: {input_dir}")
+
+
+def cleanup_deleted_files(conn: sqlite3.Connection, course_code: str, input_dir_parent: Path) -> int:
+    """
+    Remove database entries for files that no longer exist on disk.
+    Returns the number of files cleaned up.
+    """
+    deleted_count = 0
+
+    # Get all files for this course from database
+    rows = conn.execute(SQL_SELECT_FILES_BY_COURSE, (course_code,)).fetchall()
+
+    for row in rows:
+        file_uuid, relative_path, file_name = row
+        file_path = input_dir_parent / relative_path
+
+        # Check if file still exists on disk
+        if not file_path.exists():
+            # File has been deleted, remove from database
+            conn.execute("BEGIN IMMEDIATE")
+            conn.execute(SQL_DELETE_FILE_CASCADE, (file_uuid,))
+            conn.commit()
+
+            deleted_count += 1
+            logging.info(f"[CLEANUP] Removed deleted file from database: {relative_path} (uuid={file_uuid})")
+
+    if deleted_count > 0:
+        logging.info(f"[CLEANUP] Removed {deleted_count} deleted file(s) from database")
+
+    return deleted_count
 
 
 def _load_patterns(ignore_file=None,
@@ -182,23 +261,24 @@ def ensure_chunk_db(database_path) -> sqlite3.Connection:
 
 def upsert_file_meta(conn: sqlite3.Connection, f: dict):
     """
-    Upsert into `file` using file_uuid as the conflict key.
-    Expects keys: file_uuid, file_hash, sections, file_path, course_code, course_name, file_name
+    Upsert into `file` using uuid as the conflict key.
+    Expects keys: uuid, file_hash, sections, relative_path, course_code, course_name, file_name
     """
     args = (
-        f["file_uuid"],
+        f["uuid"],
         f["file_hash"],
         json.dumps(f.get("sections", []), ensure_ascii=False) if not isinstance(f.get("sections"), str) else f["sections"],
-        str(f.get("file_path")),
+        str(f.get("relative_path", f.get("file_path", ""))),
         f.get("course_code", ""),
         f.get("course_name"),
         f.get("file_name"),
         json.dumps(f.get("extra_info", {}), ensure_ascii=False) if f.get("extra_info") else None,
+        f.get("url"),
     )
     conn.execute(SQL_UPSERT_FILE, args)
 
 
-def upsert_problem_meta(conn: sqlite3.Connection, file_uuid: str, pr: dict, q_id: int | str, q: dict):
+def upsert_problem_meta(conn: sqlite3.Connection, file_uuid: str, pr: dict, q_id: int | str, q: dict, question_type: str = "regular"):
     conn.execute(
         SQL_UPSERT_PROBLEM,
         (
@@ -212,8 +292,10 @@ def upsert_problem_meta(conn: sqlite3.Connection, file_uuid: str, pr: dict, q_id
             json.dumps(q.get("choices"), ensure_ascii=False),
             json.dumps(q.get("answer"), ensure_ascii=False),
             q.get("explanation"),
+            question_type,
         )
     )
+
 def file_content_hash(p: Path) -> str:
     h = hashlib.blake2b(digest_size=32)
     with p.open("rb") as f:
@@ -227,18 +309,25 @@ def _blake2b_hex(s: str) -> str:
     h.update(s.encode("utf-8"))
     return h.hexdigest()
 
-def file_hash_for_cache(p: Path, root: Path) -> str:
-    """ Generate a stable hash for a file, using its content if non-empty,
-    or its relative path if empty.
+def file_hash_for_cache(p: Path) -> str:
+    """ Generate a stable hash for a file using content + file extension.
+    For empty files, includes filename for individual tracking.
+    This is location-independent, so moving files won't cause reprocessing.
     """
+    extension = p.suffix.lower()
+    filename = p.name
+
     try:
         if p.stat().st_size == 0:
-            rel = p.relative_to(root).as_posix()
-            return _blake2b_hex(f"EMPTY|{rel}")
-    except Exception:
-        return _blake2b_hex(f"EMPTY|{p.resolve().as_posix()}")
-
-    return file_content_hash(p)
+            # For empty files, use extension + filename for individual tracking
+            return _blake2b_hex(f"EMPTY|{extension}|{filename}")
+        else:
+            # For non-empty files, combine content hash with extension
+            content_hash = file_content_hash(p)
+            return _blake2b_hex(f"{content_hash}|{extension}")
+    except Exception as e:
+        # Fallback for files that can't be read
+        return _blake2b_hex(f"ERROR|{extension}|{filename}|{str(e)}")
 
 
 def write_chunks_to_db(conn: sqlite3.Connection,
@@ -249,7 +338,8 @@ def write_chunks_to_db(conn: sqlite3.Connection,
                        course_code: str | None = None,
                        course_name: str | None = None,
                        sections: list | str | None = None,
-                       extra_info: list = None) -> str:
+                       extra_info: list = None,
+                       url: str = None) -> str:
     """
     Write chunks and bind file row. Returns file_uuid.
     """
@@ -277,14 +367,15 @@ def write_chunks_to_db(conn: sqlite3.Connection,
                 f"but chunks carry file_uuid {file_uuid}"
             )
     upsert_file_meta(conn, {
-        "file_uuid": file_uuid,
+        "uuid": file_uuid,
         "file_hash": file_hash,
         "sections": sections or [],
-        "file_path": relative_path,
+        "relative_path": relative_path,
         "course_code": course_code or "",
         "course_name": course_name or "",
         "file_name": file_name,
         "extra_info": extra_info,
+        "url": url or "",
     })
 
     # Upsert chunks
@@ -312,7 +403,6 @@ def write_chunks_to_db(conn: sqlite3.Connection,
     conn.commit()
     return file_uuid
 
-
 def dump_title_list(titles):
     if isinstance(titles, tuple):
         titles = list(titles)
@@ -328,21 +418,34 @@ def deterministic_file_uuid(file_hash: str) -> str:
     """
     return str(uuid.uuid5(uuid.NAMESPACE_URL, f"file:{file_hash}"))
 
-def gen_uuid() -> str:
-    """
-    Generate a new UUID.
-    """
-    return str(uuid.uuid4())
+def get_file_record_by_hash(conn: sqlite3.Connection, file_hash: str) -> dict | None:
+    """Get full file record by hash."""
+    row = conn.execute("SELECT uuid, relative_path, file_name FROM file WHERE file_hash=?", (file_hash,)).fetchone()
+    if row:
+        return {
+            "uuid": row[0],
+            "relative_path": row[1],
+            "file_name": row[2]
+        }
+    return None
 
-def is_file_cached(conn: sqlite3.Connection, file_hash: str) -> str | None:
-    row = conn.execute(SQL_SELECT_FILE_UUID_BY_HASH, (file_hash,)).fetchone()
-    return row[0] if row else None
+def update_file_path_if_changed(conn: sqlite3.Connection, file_uuid: str, current_relative_path: str, input_dir_parent: Path) -> bool:
+    """Update file path in database if it has changed and old file no longer exists. Returns True if updated."""
+    row = conn.execute("SELECT relative_path FROM file WHERE uuid=?", (file_uuid,)).fetchone()
+    if row and row[0] != current_relative_path:
+        old_relative_path = row[0]
+        old_file_path = input_dir_parent / old_relative_path
 
-def deterministic_chunk_uuid(file_uuid: str, idx: int, text: str = "") -> str:
-    # stable across runs; include text if you want identity to change when content changes
-    ns = uuid.UUID(file_uuid)
-    name = f"{idx}:{hashlib.sha256(text.encode('utf-8')).hexdigest()[:16]}"
-    return str(uuid.uuid5(ns, name))
+        # Only update if the old file no longer exists at its original location
+        if not old_file_path.exists():
+            conn.execute("UPDATE file SET relative_path=? WHERE uuid=?", (current_relative_path, file_uuid))
+            logging.info(f"Updated file path for {file_uuid}: {old_relative_path} → {current_relative_path} (old file no longer exists)")
+            return True
+        else:
+            # Old file still exists, this is a different file with same hash - should not happen normally
+            logging.warning(f"File with same hash found at different path, but old file still exists: {old_relative_path} vs {current_relative_path}")
+            return False
+    return False
 
 def _iter_questions_local(questions) -> list[tuple[int, dict]]:
     out = []
@@ -366,14 +469,15 @@ PRAGMA journal_mode=WAL;
 PRAGMA synchronous=NORMAL;
 
 CREATE TABLE IF NOT EXISTS file (
-  file_uuid    TEXT PRIMARY KEY,
+  uuid         TEXT PRIMARY KEY,
   file_hash    TEXT NOT NULL UNIQUE,
   sections     TEXT,
-  file_path    TEXT,
+  relative_path TEXT,
   course_code  TEXT,
   course_name  TEXT,
   file_name    TEXT,
-  extra_info   TEXT              -- ✅ 同步新增
+  extra_info   TEXT,
+  url          TEXT
 );
 
 CREATE TABLE IF NOT EXISTS chunks (
@@ -386,8 +490,9 @@ CREATE TABLE IF NOT EXISTS chunks (
   file_path      TEXT,
   reference_path TEXT,
   course_name    TEXT,
-  course_code      TEXT,
-  chunk_index    INTEGER
+  course_code    TEXT,
+  chunk_index    INTEGER,
+  FOREIGN KEY (file_uuid) REFERENCES file(uuid) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS problem (
@@ -401,21 +506,24 @@ CREATE TABLE IF NOT EXISTS problem (
   choices         TEXT,
   answer          TEXT,
   explanation     TEXT,
-  FOREIGN KEY (file_uuid) REFERENCES file(file_uuid) ON DELETE CASCADE
+  question_type   TEXT DEFAULT 'regular',
+  FOREIGN KEY (file_uuid) REFERENCES file(uuid) ON DELETE CASCADE
 );
 """
 SQL_UPSERT_FILE = """
-INSERT INTO file (file_uuid, file_hash, sections, file_path, course_code, course_name, file_name, extra_info)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-ON CONFLICT(file_uuid) DO UPDATE SET
-  file_hash   = excluded.file_hash,
-  sections    = excluded.sections,
-  file_path   = excluded.file_path,
+INSERT INTO file (uuid, file_hash, sections, relative_path, course_code, course_name, file_name, extra_info, url)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+ON CONFLICT(uuid) DO UPDATE SET
+  file_hash     = excluded.file_hash,
+  sections      = excluded.sections,
+  relative_path = excluded.relative_path,
   course_code   = excluded.course_code,
-  course_name = excluded.course_name,
-  file_name   = excluded.file_name,
-  extra_info  = excluded.extra_info;
+  course_name   = excluded.course_name,
+  file_name     = excluded.file_name,
+  extra_info    = excluded.extra_info,
+  url           = excluded.url;
 """
+
 
 SQL_UPSERT_CHUNK = """
 INSERT INTO chunks (
@@ -431,15 +539,15 @@ ON CONFLICT(chunk_uuid) DO UPDATE SET
   file_path      = excluded.file_path,
   reference_path = excluded.reference_path,
   course_name    = excluded.course_name,
-  course_code      = excluded.course_code,
+  course_code    = excluded.course_code,
   chunk_index    = excluded.chunk_index;
 """
 
 SQL_UPSERT_PROBLEM = """
 INSERT INTO problem (
   uuid, file_uuid, problem_index, problem_id, problem_content,
-  question_id, question, choices, answer, explanation
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  question_id, question, choices, answer, explanation, question_type
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 ON CONFLICT(uuid) DO UPDATE SET
   file_uuid       = excluded.file_uuid,
   problem_index   = excluded.problem_index,
@@ -449,6 +557,12 @@ ON CONFLICT(uuid) DO UPDATE SET
   question        = excluded.question,
   choices         = excluded.choices,
   answer          = excluded.answer,
-  explanation     = excluded.explanation;
+  explanation     = excluded.explanation,
+  question_type   = excluded.question_type;
 """
-SQL_SELECT_FILE_UUID_BY_HASH = "SELECT file_uuid FROM file WHERE file_hash=?;"
+
+SQL_SELECT_FILE_UUID_BY_HASH = "SELECT uuid FROM file WHERE file_hash=?;"
+
+SQL_SELECT_FILES_BY_COURSE = "SELECT uuid, relative_path, file_name FROM file WHERE course_code=?;"
+
+SQL_DELETE_FILE_CASCADE = "DELETE FROM file WHERE uuid=?;"

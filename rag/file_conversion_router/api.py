@@ -1,36 +1,59 @@
 """Public API for the file conversion router module."""
 
-from pathlib import Path
-from typing import Union
-import yaml
+import logging
 
-from file_conversion_router.services.directory_service import process_folder
+# Import from utility modules
+from file_conversion_router.utils.yaml_utils import load_yaml, save_yaml
+from file_conversion_router.utils.course_processor import (
+    convert_directory,
+    process_courses_from_master_config,
+    update_master_config_status,
+    get_courses_needing_update,
+    mark_course_for_update
+)
+from file_conversion_router.utils.database_merger import (
+    merge_course_databases_into_collective,
+    merge_all_course_databases_in_directory
+)
 
-def load_yaml(file_path):
-    with open(file_path, "r") as file:
-        return yaml.safe_load(file)
-def convert_directory(input_config) -> None:
-    """Convert all supported files in the given directory to Markdown format, to the specified output directory.
+# Re-export main functions for backward compatibility
+__all__ = [
+    'load_yaml',
+    'save_yaml',
+    'convert_directory',
+    'process_courses_from_master_config',
+    'update_master_config_status',
+    'get_courses_needing_update',
+    'mark_course_for_update',
+    'merge_course_databases_into_collective',
+    'merge_all_course_databases_in_directory'
+]
 
-    Current supported file types:
-    1. PDF
-    2. Markdown (To clarify, this markdown includes additional tree structure of original markdown file)
-    """
-    data = load_yaml(input_config)
-    input_dir = data["input_dir"]
-    output_dir = data["output_dir"]
-    course_name = data["course_name"]
-    course_id = data["course_code"]
-    log_dir = data.get("log_folder", None)
-    chunk_db_path = data.get("chunk_db_path", None)
-    process_folder(
-        input_dir,
-        output_dir,
-        course_name,
-        course_id,
-        log_dir=log_dir,
-        chunk_db_path=chunk_db_path,
-    )
-# convert_directory("/home/bot/bot/yk/YK_final/course_yaml/Roar Academy_config.yaml")
-# convert_directory("/home/bot/bot/yk/YK_final/course_yaml/test.yaml")
-convert_directory("/home/bot/bot/yk/YK_final/course_yaml/CS 61A_config.yaml")
+
+# Example usage (commented out by default)
+if __name__ == "__main__":
+    # Configure logging
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+    # Process all courses marked for update
+    process_courses_from_master_config()
+
+    # Example: Merge course databases after processing
+    # After processing individual courses, you can merge them into a collective database:
+    #
+    # merge_stats = merge_all_course_databases_in_directory(
+    #     course_db_directory="/path/to/course/databases",
+    #     collective_db_path="/path/to/collective_metadata.db",
+    #     db_pattern="*_metadata.db"  # Match files like CS61A_metadata.db
+    # )
+    # print(f"Merge completed: {merge_stats}")
+    #
+    # Or merge specific databases:
+    # merge_stats = merge_course_databases_into_collective(
+    #     course_db_paths=[
+    #         "/home/bot/bot/yk/YK_final/courses_out/CS_294-137/CS_294-137_metadata.db",
+    #         "/path/to/CS294_metadata.db"
+    #     ],
+    #     collective_db_path="/home/bot/bot/yk/YK_final/course_yaml/metadata.db"
+    # )
+    # print(f"Merge completed: {merge_stats}")

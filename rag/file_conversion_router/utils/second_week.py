@@ -7,7 +7,7 @@ import os
 def get_strutured_content_for_ipynb(
         md_content: str, file_name: str, course_name: str,
 ):
-    get_title_list(md_content)
+    title_list = get_title_list(md_content)
     load_dotenv()
     api_key = os.getenv("OPENAI_API_KEY")
     client = OpenAI(api_key=api_key)
@@ -44,7 +44,7 @@ def get_strutured_content_for_ipynb(
                     Format your response as a valid JSON object matching the provided schema."""
                 ),
             },
-            {"role": "user", "content": f"{md_content}\n title_list: {get_title_list(md_content)} "},
+            {"role": "user", "content": f"{md_content}\n title_list: {title_list} "},
         ],
         response_format={
             'type': 'json_schema',
@@ -56,8 +56,8 @@ def get_strutured_content_for_ipynb(
                     'properties': {
                         'problems': {
                             "type": "array",
-                            "minItems" : len(get_title_list(md_content)),
-                            "maxItems": len(get_title_list(md_content)),
+                            "minItems" : len(title_list),
+                            "maxItems": len(title_list),
                             'items': {
                                 "type": "object",
                                 "properties": {
@@ -178,7 +178,7 @@ def process_problems(content_dict):
     return problems_list
 
 if __name__ == "__main__":
-    md_path = Path("/home/bot/bot/yk/YK_final/courses_out/ROAR Academy_output/Part Two/Week Two Exercises/Week Two Exercises.pdf.md")
+    md_path = Path("/home/bot/bot/yk/YK_final/courses_out/ROAR Academy/Part Two/Week Two Exercises/Week Two Exercises.pdf.md")
     md_content = md_path.read_text(encoding="utf-8")
     file_name = md_path.stem
     course_name = "ROAR Academy"

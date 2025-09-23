@@ -178,8 +178,9 @@ STRATEGIES = {
 ```
 
 ### Generate Embeddings
+
 ```python
-from file_conversion_router.embedding_create import create_embeddings
+from file_conversion_router.embedding.embedding_create import create_embeddings
 
 embeddings = create_embeddings(
     documents_path="/path/to/processed",

@@ -12,7 +12,6 @@ import json
 import re
 from textwrap import dedent
 
-
 class VideoConverter(BaseConverter):
     def __init__(self, course_name, course_code, file_uuid: str = None):
         super().__init__(course_code=course_code,course_name=course_name, file_uuid=file_uuid)
@@ -38,7 +37,7 @@ class VideoConverter(BaseConverter):
         result = model.transcribe(audio, batch_size=batch_size)
         model_a, metadata = whisperx.load_align_model(language_code="en", device=device)
         result = whisperx.align(result["segments"], model_a, metadata, audio, device, return_char_alignments=False)
-        diarize_model = whisperx.DiarizationPipeline(use_auth_token=True, device=device)
+        diarize_model = whisperx.diarize.DiarizationPipeline(use_auth_token=True, device=device)
         diarize_segments = diarize_model(audio)
         result = whisperx.assign_word_speakers(diarize_segments, result)
         segments = []
@@ -51,7 +50,6 @@ class VideoConverter(BaseConverter):
                     "speaker": segment["speaker"] if "speaker" in segment else "UNKNOWN"
                 }
                 segments.append(segment_dict)
-        print(segments)
         return segments
 
     def paragraph_generator(self, transcript, seg_time):
@@ -224,15 +222,6 @@ class VideoConverter(BaseConverter):
             # Convert scene times to seconds for return value
             scene_times = [(start_time.get_seconds(), end_time.get_seconds()) for start_time, end_time in scene_list]
 
-            # Print scene information
-            for i, ((start_time, end_time), images) in enumerate(
-                    zip(scene_list, image_filenames.values() if image_filenames else [[] for _ in scene_list]),
-                    start=1):
-                print(
-                    f"Scene {i}: Start Time: {start_time.get_seconds():.3f}s ({start_time}), End Time: {end_time.get_seconds():.3f}s ({end_time})")
-                for image_path in images:
-                    print(f"  - {image_path}")
-
             return scene_times
 
         # Main execution
@@ -313,3 +302,10 @@ class VideoConverter(BaseConverter):
 
         self.index_helper = result
         self.add_line_number_to_index_helper(md_content)
+
+if __name__ == "__main__":
+    load_dotenv()
+    converter = VideoConverter(course_name="Test Course", course_code="TEST101")
+    input_path = "/home/bot/bot/yk/YK_final/test_folder/Allen Yang AR_VR System Part 2_segment.mov"
+    output_path = "/home/bot/bot/yk/YK_final/test_folder/"
+    converter._to_markdown(input_path, output_path)

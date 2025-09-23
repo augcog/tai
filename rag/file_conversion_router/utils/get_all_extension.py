@@ -19,6 +19,6 @@ def get_all_extension_under_dir(directory: str) -> set:
 
 if __name__ == "__main__":
     # Example usage
-    dir_path = "/home/bot/bot/yk/YK_final/courses/CS 61A/youtube"
+    dir_path = "/home/bot/bot/yk/YK_final/courses"
     extensions = get_all_extension_under_dir(dir_path)
     print(f"Unique file extensions in '{dir_path}': {extensions}")

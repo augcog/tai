@@ -10,7 +10,7 @@ from typing import List, Dict, Any
 import os
 
 # ───────────────────────── helpers ────────────────────────────────────────────
-ROOT = pathlib.Path("/home/bot/bot/yk/YK_final/courses")
+ROOT = pathlib.Path("/home/bot/bot/yk/YK_final/courses/CS 61A")
 DB_PATH = ROOT / "metadata.db"
 
 
@@ -89,7 +89,7 @@ def ingest(files: List[Dict[str, Any]]) -> None:
     Each dict may have 0..n 'problems'
     """
     for f in files:
-        if not f.get("file_name") or not(f.get('file_path').startswith(f.get('course_id')) or f.get('file_path').startswith('CS 61A')) or 'course_website' in f.get('file_path'):
+        if not f.get("file_name") or not(f.get('file_path').startswith(f.get('course_id') or f.get('course_code')) or f.get('file_path').startswith('CS 61A')) or 'course_website' in f.get('file_path'):
             continue
         # combine ROOT with file_path and add .json extension without replacing any existing extension
         target_json= pathlib.Path(str(ROOT / f['file_path'])+ '.json')
@@ -121,7 +121,7 @@ def ingest(files: List[Dict[str, Any]]) -> None:
                 f.get("URL"),
                 jdump(f.get("sections")),
                 f['file_path'],
-                f['course_id'],
+                f.get('course_id') or f.get('course_code') or '',
                 f['course_name'],
                 jdump(extra_info, default=None)
             ),

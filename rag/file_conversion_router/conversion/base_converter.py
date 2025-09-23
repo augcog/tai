@@ -1,7 +1,10 @@
 """Base classes for all file type converters."""
 import string
 import logging
+import yaml
+import re
 from abc import ABC, abstractmethod
+from pathlib import Path
 # from concurrent.futures import Future, ThreadPoolExecutor
 from shutil import copy2
 # from threading import Lock
@@ -188,14 +191,14 @@ class BaseConverter(ABC):
             structured_md = ""
             content_dict = {}
         metadata_content = self._read_metadata(metadata_path)
-        metadata_content = {'URL': metadata_content.get('URL', '')}
+        metadata_content = {'URL': ''} if not metadata_content else {'URL': metadata_content.get('URL', '')}
         metadata = self._put_content_dict_to_metadata(
             content_dict=content_dict,
             metadata_content=metadata_content,
         )
         with open(metadata_path, "w", encoding="utf-8") as yaml_file:
             yaml.safe_dump(metadata, yaml_file, allow_unicode=True)
-        url = metadata_content.get("URL")
+        url = metadata.get("URL")
         content = {"text": structured_md}
         return Page(
             course_name=self.course_name,
@@ -210,12 +213,15 @@ class BaseConverter(ABC):
         ), metadata
 
     def _put_content_dict_to_metadata(self, content_dict: dict, metadata_content: dict) -> dict:
-
+        url = metadata_content.get('URL', '')
         metadata_content['file_uuid'] = self.file_uuid
         metadata_content["file_name"] = str(self.file_name)
         metadata_content['file_path'] = str(self.relative_path)
         metadata_content["course_name"] = self.course_name
         metadata_content["course_code"] = self.course_code
+        metadata_content['URL'] = url
+        if content_dict.get('speakers'):
+            metadata_content["speakers"] = content_dict['speakers']
         if not content_dict:
             return metadata_content
         metadata_content["sections"] = content_dict['key_concepts']
@@ -226,6 +232,8 @@ class BaseConverter(ABC):
             section["aspects"] = section.pop('content_coverage')
             for aspect in section["aspects"]:
                 aspect["type"] = aspect.pop('aspect')
+        if content_dict.get('comprehensive_questions'):
+            metadata_content["comprehensive_questions"] = content_dict['comprehensive_questions']
         if self.file_type == "ipynb":
             metadata_content["problems"] = self.process_problems(content_dict)
         return metadata_content
@@ -234,11 +242,12 @@ class BaseConverter(ABC):
         """
         Match the helper titles with the levels titles.
         This method is used to fix the index_helper with titles and their levels.
+        Handles quote variations by trying multiple normalization approaches.
         """
         a_titles = a_titles.translate(str.maketrans('', '', string.punctuation)).lower().strip()
-        # a_titles = a_titles.replace('"',"'").lower().strip()
+        a_titles = a_titles.replace('\\','').lower().strip()
         b_titles = b_titles.translate(str.maketrans('', '', string.punctuation)).lower().strip()
-        # b_titles = b_titles.replace('"',"'").lower().strip()
+        b_titles = b_titles.replace('\\','').lower().strip()
         return operator(a_titles, b_titles)
 
     def process_problems(self, content_dict):
@@ -283,33 +292,50 @@ class BaseConverter(ABC):
     def update_content_dict_titles_with_levels(self, content_dict: dict,content_text: str) -> dict:
         """
         Update the content_dict with titles and their levels from the markdown content.
+        Only includes titles that exist in index_helper if available.
         """
         titles_with_levels = []
+
+        # Get valid titles from index_helper if available
+        valid_titles = set()
+        if hasattr(self, 'index_helper') and self.index_helper:
+            for item in self.index_helper:
+                for title in item.keys():
+                    valid_titles.add(title)
+
         for line in content_text.splitlines():
             if line.startswith("#"):
                 level = line.count("#")
                 title = line.lstrip("#").strip()
                 if title == "":
                     continue
-                if title.startswith('*'):
-                    title = title.lstrip('*').rstrip('*').strip()
-                titles_with_levels.append({"title": title, "level_of_title": level})
+                # Remove * characters from title to match NotebookConverter logic
+                title = title.replace('*', '')
+                if title.strip():
+                    title = title.strip()
+                    # Only include titles that are in index_helper (if index_helper exists)
+                    if valid_titles and title not in valid_titles:
+                        print(f"Skipping title not in index_helper: '{title}'")
+                        continue
+                    titles_with_levels.append({"title": title, "level_of_title": level})
         content_dict["titles_with_levels"] = titles_with_levels
         return content_dict
 
     def fix_index_helper_with_titles_with_level(self, content_dict: dict):
         title_with_levels = content_dict.get("titles_with_levels", [])
         index_helper = []
-        twl_index = 0
-        for item in self.index_helper:
-            if self.match_a_title_and_b_title(list(item.keys())[0], title_with_levels[twl_index]["title"], str.__eq__):
-                index_helper.append(item)
-                title_with_levels[twl_index]["title"]=list(item.keys())[0]
-                twl_index += 1
-                if twl_index >= len(title_with_levels):
+
+        for twl_item in title_with_levels:
+            found = False
+            for item in self.index_helper:
+                if self.match_a_title_and_b_title(list(item.keys())[0], twl_item["title"], str.__contains__):
+                    index_helper.append(item)
+                    twl_item["title"] = list(item.keys())[0]
+                    found = True
                     break
-        if len(index_helper) != len(title_with_levels):
-            raise AssertionError(f"twl_index: {twl_index} != len(title_with_levels): {len(title_with_levels)}")
+
+            if not found:
+                raise AssertionError(f"No match found for: {twl_item['title']}")
         self.index_helper = index_helper
 
 
@@ -324,11 +350,14 @@ class BaseConverter(ABC):
         file_name = input_md_path.stem
         with open(input_md_path, "r", encoding="UTF-8") as input_file:
             content_text = input_file.read()
+            if not content_text.strip():
+                logging.warning(f"The file {input_md_path} is empty.")
+                return "", {}
             pattern = r'^\s*#\s*ROAR ACADEMY EXERCISES\s*$'
             content_text = re.sub(pattern, '', content_text, flags=re.MULTILINE)
             content_text = re.sub(r'\n{3,}', '\n\n', content_text)
         header_levels = self.count_header_levels(content_text)
-        if header_levels == 0 and file_type == "mp4" or file_type == 'mkv' or file_type == 'webm':
+        if header_levels == 0 and file_type in ["mp4", "mkv", "webm", "mov"]:
             json_path = input_md_path.with_suffix(".json")
             content_dict = get_structured_content_without_title(
                 md_content=content_text,
@@ -338,8 +367,13 @@ class BaseConverter(ABC):
             new_md = apply_structure_for_no_title(
                 md_content=content_text, content_dict=content_dict
             )
+            # Apply speaker role assignment
+            new_md = extract_and_assign_speakers(content_dict, new_md, str(json_path))
+            # Update index helper and add titles BEFORE grouping
             self.update_index_helper(content_dict,new_md)
             add_titles_to_json(index_helper=self.index_helper, json_file_path=json_path)
+            # Group sentences in transcript to reduce list length (after adding titles)
+            group_sentences_in_transcript(str(json_path), max_time_gap=5.0, max_words=200)
         elif file_type == "ipynb":
             content_dict = get_strutured_content_for_ipynb(
                 md_content=content_text,
@@ -361,13 +395,11 @@ class BaseConverter(ABC):
                 index_helper=self.index_helper,
             )
             new_md = apply_structure_for_one_title(
-                md_content=content_text, content_dict=content_dict, index_helper=self.index_helper
+                md_content=content_text, content_dict=content_dict
             )
         else:
             content_dict = get_only_key_concepts(
                 md_content=content_text,
-                file_name=file_name,
-                course_name=self.course_name,
                 index_helper =self.index_helper)
             content_dict=self.update_content_dict_titles_with_levels(content_dict=content_dict, content_text=content_text)
             self.fix_index_helper_with_titles_with_level(content_dict)
@@ -389,8 +421,7 @@ class BaseConverter(ABC):
                 self.index_helper.append({title: i + 1})
 
     def add_source_section_index(self, content_dict: dict, md_content: str = None) -> dict:
-        #If not mp4, update the index_helper with titles and their levels, else don't update it.
-        if self.file_type !="mp4" and self.file_type != 'mkv' and self.file_type != 'webm':
+        if self.file_type not in ["mp4", "mkv", "webm", "mov"]:
             self.update_index_helper(content_dict, md_content=md_content)
         # If there are key concepts, update their source_section_title and source_section_index
         if 'key_concepts' in content_dict:
@@ -434,7 +465,7 @@ class BaseConverter(ABC):
                     index = list(item.values())[0]
                     if not title:
                         continue
-                    if self.match_a_title_and_b_title(title, target_title, str.__eq__):
+                    if self.match_a_title_and_b_title(title, target_title, str.__contains__):
                         result[path] = index
                         found_match = True
                         break
@@ -468,7 +499,10 @@ class BaseConverter(ABC):
                 title = title.replace("'", '"').strip()
                 line_num = header_lines.get(title)
             self.index_helper[path] = (page_idx, line_num)
+        
         return self.index_helper
+
+
 
     @abstractmethod
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:

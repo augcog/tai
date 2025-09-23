@@ -21,11 +21,26 @@ from app.core.dbs.metadata_db import get_metadata_db
 from app.services.file_service import file_service
 from app.services.problem_service import ProblemService
 from app.services.audio_service import audio_to_text, audio_stream_parser
-from app.services.chat_service import chat_stream_parser, format_audio_text_message, audio_generator, tts_parsor
+from app.services.chat_service import chat_stream_parser, format_audio_text_message, audio_generator, tts_parsor, get_speaker_name
 import re
 
 router = APIRouter()
 
+
+def parse_assistant_message(content):
+    print("Original assistant content:", content)
+    # Remove THINKING-BLOCK if present
+    if '<!--THINKING-BLOCK:' in content:
+        thinking_end = content.find('-->')
+        if thinking_end != -1:
+            content = content[thinking_end + 3:].strip()
+
+    # Remove REFERENCES if present
+    references_start = content.rfind('<!--REFERENCES:')
+    if references_start != -1:
+        content = content[:references_start].strip()
+    print("Parsed assistant content:", content)
+    return content
 
 def sid_from_history(messages):
     hist = [{"r": getattr(m, "role", "user"),
@@ -50,6 +65,9 @@ async def create_text_completion(
         audio_text = audio_to_text(params.audio, whisper_engine, stream=False)
         params.messages.append(Message(role="user", content=audio_text))
 
+    for message in params.messages:
+        if message.role == "assistant":
+            message.content = parse_assistant_message(message.content)
     # Select chat pipeline based on chat_type
     formatter = format_chat_msg
 
@@ -92,7 +110,7 @@ async def create_text_completion(
 
     if params.stream:
         return StreamingResponse(
-            parser(response, reference_list, params.audio_response,audio_text=audio_text, messages=formatter(params.messages), engine=llm_engine, old_sid=sid), media_type="text/event-stream"
+            parser(response, reference_list, params.audio_response,audio_text=audio_text, messages=formatter(params.messages), engine=llm_engine, old_sid=sid,course_code=params.course_code), media_type="text/event-stream"
         )
     else:
         return JSONResponse(ResponseDelta(text=response).model_dump_json(exclude_unset=True))
@@ -194,13 +212,12 @@ async def text_to_speech(
     print("text:", params.text)
     print("class_code:", params.class_code)
 
-    pattern = r'(?s)(?<!!)--\s*(.*?)\s*!-{2,}REFERENCES\b'
-    m = re.search(pattern, params.text)
-    answer = m.group(1).strip() if m else None
+    answer = parse_assistant_message(params.text)
 
     audio_message = format_audio_text_message(answer)
     print("answer:", answer)
-    stream = audio_generator(audio_message, stream=params.stream, course_code=params.class_code)
+    speaker_name= get_speaker_name(params.class_code)
+    stream = audio_generator(audio_message, stream=params.stream, speaker_name=speaker_name)
 
     if params.stream:
         return StreamingResponse(
@@ -272,24 +289,28 @@ async def practice_completion(
     # Get problems for this file using the new relationship
     problem_content = ProblemService.get_problem_content_by_file_uuid_and_problem_id(db, str(metadata.uuid),
                                                                                      params.problem_id)
-
+    formatter = format_chat_msg
+    sid = sid_from_history(formatter(params.messages))
+    print(f"[INFO] Generated SID: {sid}")
     # Get the pre-initialized pipeline
-    engine = get_model_engine()
+    llm_engine = get_model_engine()
 
     # select model based on params.model
     course = params.course
     formatter = format_chat_msg
     selector = generate_practice_response
-    parser = local_parser
+    parser = chat_stream_parser
+
 
     response, reference_list = selector(
         formatter(params.messages), problem_content, params.answer_content, stream=params.stream, course=course,
-        engine=engine
+        engine=llm_engine
     )
+
 
     if params.stream:
         return StreamingResponse(
-            parser(response, reference_list), media_type="text/plain"
+            parser(response, reference_list, messages=formatter(params.messages), engine=engine, old_sid=sid), media_type="text/event-stream"
         )
     else:
-        return PlainTextResponse(response)
+        return JSONResponse(ResponseDelta(text=response).model_dump_json(exclude_unset=True))

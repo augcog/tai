@@ -41,6 +41,22 @@ async def chat_stream_parser(
     text_seq = 0
     voice_seq=0
     audio_messages = []
+    PARTIAL_TAIL_GUARD = re.compile(r"""
+    (?ix)
+    (?:                                     # 只要还没到“完整终止”的形态，都算未完成；匹配到结尾
+        \[\s*ref(?:erence)?\s*:?\s*         # [Reference: / [Ref / [reference
+        (?:\d+(?:\s*(?:,|\band\b|&)\s*\d+)*)?   # 可有部分数字序列
+        \s*(?:,|\band\b|&)?                 # 允许以分隔符结尾（说明还没写完下一个数字）
+        \s*\Z
+      |
+        (?<![A-Za-z])(?:references?|ref)\s* # 行文式开头：reference / references / ref
+        (?:\d+(?:\s*(?:,|\band\b|&)\s*\d+)*)?
+        \s*(?:,|\band\b|&)?                 # 允许以分隔符结尾
+        \s*\Z
+      |
+        \[\s*\Z                              # 只有一个 '[' 到结尾
+    )
+    """, re.VERBOSE)
     async for output in stream:
         text = output.outputs[0].text
         channels= extract_channels(text)
@@ -49,12 +65,20 @@ async def chat_stream_parser(
         chunks= {c: channels[c][len(previous_channels.get(c,"")):] for c in channels if channels[c] != previous_channels.get(c,"")}
         if not chunks:
             continue
+        continue_flag = False
         for channel in chunks:
             chunk = chunks[channel]
             if not chunk.strip():
                 continue
+            if PARTIAL_TAIL_GUARD.search(channels[channel][-100:]):
+                # if PARTIAL_TAIL_GUARD.search(channels[channel][-50:]):
+                #     print("[DEBUG] Skipping partial reference chunk:" + repr(channels[channel][-50:]))
+                continue_flag = True
+                break
             yield sse(ResponseDelta(seq=text_seq, text_channel=channel, text=chunk)); text_seq += 1
-            print(chunk, end="")
+            print(chunk, end="_")
+        if continue_flag:
+            continue
         previous_channels = channels
         if audio and 'final' in channels:
             last_newline_index = channels['final'].rfind('. ')
@@ -93,6 +117,15 @@ async def chat_stream_parser(
                             ],
                         })
     else:
+        chunks = {c: channels[c][len(previous_channels.get(c, "")):] for c in channels if
+                  channels[c] != previous_channels.get(c, "")}
+        for channel in chunks:
+            chunk = chunks[channel]
+            if not chunk.strip():
+                continue
+            yield sse(ResponseDelta(seq=text_seq, text_channel=channel, text=chunk));
+            text_seq += 1
+            print(chunk, end="")
         if audio and 'final' in channels:
             audio_text = channels['final'][previous_index + 2:]
             # replace all the consecutive \n with space no matter how many \n

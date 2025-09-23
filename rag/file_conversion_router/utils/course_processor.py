@@ -95,8 +95,7 @@ def update_master_config_status(master_config_path: str, processed_courses: List
         processed_courses: List of course names that were successfully processed
     """
     master_config = load_yaml(master_config_path)
-    current_time = datetime.now().minute
-
+    current_time = datetime.now().isoformat()
     for course_name in processed_courses:
         if course_name in master_config.get("courses", {}):
             master_config["courses"][course_name]["needs_update"] = False

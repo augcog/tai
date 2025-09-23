@@ -71,15 +71,6 @@ For each processed file, the system generates:
    - Clean, structured markdown content
    - Preserved formatting and hierarchy
 
-2. **Tree Structure** (`file.md.tree.txt`)
-   - Hierarchical representation of content structure
-   - Used for navigation and context understanding
-
-3. **Page Chunks** (`file.pkl`)
-   - Serialized Page objects with chunks
-   - Token-aware splitting (optimized for ~400 tokens)
-   - Maintains semantic coherence
-
 4. **Database Entries**
    - File metadata in SQLite database
    - Chunk records with embeddings

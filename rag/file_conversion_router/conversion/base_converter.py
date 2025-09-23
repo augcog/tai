@@ -501,51 +501,8 @@ class BaseConverter(ABC):
             self.index_helper[path] = (page_idx, line_num)
         
         return self.index_helper
-    
-    def count_lines_accurately(self, text: str) -> int:
-        """
-        Accurately count the number of lines in a text string.
-        Returns the total number of lines (1-based counting).
-        """
-        if not text:
-            return 0
-        lines = text.splitlines()
-        return len(lines)
-    
-    def find_line_number_for_text(self, text: str, search_text: str) -> int:
-        """
-        Find the line number (1-based) where a specific text appears in the content.
-        Returns the line number or None if not found.
-        """
-        if not text or not search_text:
-            return None
-        
-        lines = text.splitlines()
-        search_normalized = search_text.strip().lower()
-        
-        for i, line in enumerate(lines, start=1):
-            if search_normalized in line.strip().lower():
-                return i
-        
-        return None
-    
-    def get_sorted_headers_with_valid_line_numbers(self) -> list:
-        """
-        Get sorted headers from index_helper, filtering out entries where line number is None.
-        Returns a list of (path, (page_index, line_number)) tuples sorted by line number.
-        
-        Usage:
-            all_headers = self.get_sorted_headers_with_valid_line_numbers()
-        """
-        # Filter and collect only entries with valid line numbers
-        valid_headers = [
-            (path, value) 
-            for path, value in self.index_helper.items() 
-            if isinstance(value, tuple) and len(value) >= 2 and value[1] is not None
-        ]
-        
-        # Sort by line number (second element of the value tuple)
-        return sorted(valid_headers, key=lambda kv: kv[1][1])
+
+
 
     @abstractmethod
     def _to_markdown(self, input_path: Path, output_path: Path) -> None:

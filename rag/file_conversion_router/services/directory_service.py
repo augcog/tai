@@ -181,7 +181,7 @@ def process_folder(
                 problem_data = {
                     "problem_index": idx,
                     "problem_id": f"comprehensive_{idx}",
-                    "problem_content": cq.get("context", "") or cq.get("description", "") or cq.get("prompt", "")
+                    "problem_content": cq.get("question_text", "")
                 }
                 
                 # Handle questions within comprehensive questions
@@ -203,9 +203,44 @@ def process_folder(
         logging.info(f"[OK] {input_file_path} → {output_file_path} ({len(chunks)} chunks)")
         logging.info(f"Scheduled conversion for {input_file_path} to {output_file_path}")
 
+    # Cleanup deleted files from database
+    deleted_count = cleanup_deleted_files(conn, course_code, input_dir.parent)
+    if deleted_count > 0:
+        logging.info(f"Database cleanup completed: {deleted_count} deleted file(s) removed")
+
     conn.close()
     content_logger.info(f"Completed content checking for directory: {input_dir}")
     logging.info(f"Completed processing for directory: {input_dir}")
+
+
+def cleanup_deleted_files(conn: sqlite3.Connection, course_code: str, input_dir_parent: Path) -> int:
+    """
+    Remove database entries for files that no longer exist on disk.
+    Returns the number of files cleaned up.
+    """
+    deleted_count = 0
+
+    # Get all files for this course from database
+    rows = conn.execute(SQL_SELECT_FILES_BY_COURSE, (course_code,)).fetchall()
+
+    for row in rows:
+        file_uuid, relative_path, file_name = row
+        file_path = input_dir_parent / relative_path
+
+        # Check if file still exists on disk
+        if not file_path.exists():
+            # File has been deleted, remove from database
+            conn.execute("BEGIN IMMEDIATE")
+            conn.execute(SQL_DELETE_FILE_CASCADE, (file_uuid,))
+            conn.commit()
+
+            deleted_count += 1
+            logging.info(f"[CLEANUP] Removed deleted file from database: {relative_path} (uuid={file_uuid})")
+
+    if deleted_count > 0:
+        logging.info(f"[CLEANUP] Removed {deleted_count} deleted file(s) from database")
+
+    return deleted_count
 
 
 def _load_patterns(ignore_file=None,
@@ -368,7 +403,6 @@ def write_chunks_to_db(conn: sqlite3.Connection,
     conn.commit()
     return file_uuid
 
-
 def dump_title_list(titles):
     if isinstance(titles, tuple):
         titles = list(titles)
@@ -383,16 +417,6 @@ def deterministic_file_uuid(file_hash: str) -> str:
     Idempotent across runs/machines as long as file_hash is the same.
     """
     return str(uuid.uuid5(uuid.NAMESPACE_URL, f"file:{file_hash}"))
-
-def gen_uuid() -> str:
-    """
-    Generate a new UUID.
-    """
-    return str(uuid.uuid4())
-
-def is_file_cached(conn: sqlite3.Connection, file_hash: str) -> str | None:
-    row = conn.execute(SQL_SELECT_FILE_UUID_BY_HASH, (file_hash,)).fetchone()
-    return row[0] if row else None
 
 def get_file_record_by_hash(conn: sqlite3.Connection, file_hash: str) -> dict | None:
     """Get full file record by hash."""
@@ -422,12 +446,6 @@ def update_file_path_if_changed(conn: sqlite3.Connection, file_uuid: str, curren
             logging.warning(f"File with same hash found at different path, but old file still exists: {old_relative_path} vs {current_relative_path}")
             return False
     return False
-
-def deterministic_chunk_uuid(file_uuid: str, idx: int, text: str = "") -> str:
-    # stable across runs; include text if you want identity to change when content changes
-    ns = uuid.UUID(file_uuid)
-    name = f"{idx}:{hashlib.sha256(text.encode('utf-8')).hexdigest()[:16]}"
-    return str(uuid.uuid5(ns, name))
 
 def _iter_questions_local(questions) -> list[tuple[int, dict]]:
     out = []
@@ -545,415 +563,6 @@ ON CONFLICT(uuid) DO UPDATE SET
 
 SQL_SELECT_FILE_UUID_BY_HASH = "SELECT uuid FROM file WHERE file_hash=?;"
 
+SQL_SELECT_FILES_BY_COURSE = "SELECT uuid, relative_path, file_name FROM file WHERE course_code=?;"
 
-def update_problem_table_from_metadata_files(folder_path: Union[str, Path], chunk_db_path: Union[str, Path]) -> None:
-    """
-    Iterate through all .yaml files in a folder, extract uuid from metadata,
-    check if it exists in the database, and add problems if the file is not already processed.
-
-    Args:
-        folder_path: Path to folder containing metadata.yaml files
-        chunk_db_path: Path to the SQLite database
-    """
-    folder_path = Path(folder_path)
-    if not folder_path.is_dir():
-        raise ValueError(f"Provided folder path {folder_path} is not a directory.")
-
-    conn = ensure_chunk_db(Path(chunk_db_path))
-
-    try:
-        # Find all .yaml files in the folder
-        yaml_files = list(folder_path.rglob("*.yaml"))
-        logging.info(f"Found {len(yaml_files)} yaml files to process")
-
-        for yaml_file in yaml_files:
-            try:
-                # Load and parse the YAML file
-                with yaml_file.open("r", encoding="utf-8") as f:
-                    metadata = yaml.safe_load(f)
-
-                if not isinstance(metadata, dict):
-                    logging.warning(f"Skipping {yaml_file}: invalid metadata structure")
-                    continue
-
-                # Extract file information to generate file_uuid
-                file_name = metadata.get("file_name")
-                file_path = metadata.get("file_path")
-
-                if not file_name or not file_path:
-                    logging.warning(f"Skipping {yaml_file}: missing file_name or file_path")
-                    continue
-
-                # Try to find the actual file to generate hash and uuid
-                # First try relative to yaml file location
-                actual_file_path = yaml_file.parent / file_name
-                if not actual_file_path.exists():
-                    # Try using file_path from metadata
-                    actual_file_path = yaml_file.parent / file_path
-                    if not actual_file_path.exists():
-                        logging.warning(f"Skipping {yaml_file}: cannot find actual file {file_name} or {file_path}")
-                        continue
-
-                # Generate file hash and uuid
-                file_hash = file_hash_for_cache(actual_file_path)
-                file_uuid = deterministic_file_uuid(file_hash)
-
-                # Check if file_uuid already exists in database
-                existing_uuid = is_file_cached(conn, file_hash)
-                # if existing_uuid:
-                #     logging.info(f"Skipping {yaml_file}: file already exists in database with uuid {existing_uuid}")
-                #     continue
-
-                # Extract problems and comprehensive questions from metadata
-                problems = metadata.get("problems", [])
-                comprehensive_questions = metadata.get("comprehensive_questions", []) or []
-                
-                if not problems and not comprehensive_questions:
-                    logging.info(f"Skipping {yaml_file}: no problems or comprehensive questions found in metadata")
-                    continue
-
-                # First, ensure the file record exists in the database
-                course_code = metadata.get("course_id", "")
-                course_name = metadata.get("course_name", "")
-                sections = metadata.get("sections", [])
-                url = metadata.get("URL", "")
-
-                upsert_file_meta(conn, {
-                    "uuid": file_uuid,
-                    "file_hash": file_hash,
-                    "sections": sections,
-                    "relative_path": str(actual_file_path.relative_to(yaml_file.parent)),
-                    "course_code": course_code,
-                    "course_name": course_name,
-                    "file_name": file_name,
-                    "extra_info": {},
-                    "url": url,
-                })
-
-                # Insert problems and comprehensive questions into the database
-                conn.execute("BEGIN IMMEDIATE")
-                try:
-                    # Insert regular problems
-                    for pr in problems:
-                        q_container = pr.get("questions") or pr.get("question_set") or []
-                        for q_id, q in _iter_questions_local(q_container):
-                            upsert_problem_meta(conn, file_uuid, pr, q_id, q)
-                    
-                    # Insert comprehensive questions
-                    for idx, cq in enumerate(comprehensive_questions, start=1):
-                        problem_data = {
-                            "problem_index": idx,
-                            "problem_id": f"comprehensive_{idx}",
-                            "problem_content": cq.get("context", "") or cq.get("description", "") or cq.get("prompt", "")
-                        }
-                        
-                        q_container = cq.get("questions") or cq.get("question_set") or []
-                        if q_container:
-                            for q_id, q in _iter_questions_local(q_container):
-                                upsert_problem_meta(conn, file_uuid, problem_data, q_id, q, "comprehensive")
-                        else:
-                            question_data = {
-                                "question": cq.get("question", "") or cq.get("text", ""),
-                                "choices": cq.get("options"),
-                                "answer": cq.get("correct_answers"),
-                                "explanation": cq.get("explanation")
-                            }
-                            upsert_problem_meta(conn, file_uuid, problem_data, idx, question_data, "comprehensive")
-                    
-                    conn.commit()
-                    logging.info(f"Successfully processed {yaml_file}: added {len(problems)} problems and {len(comprehensive_questions)} comprehensive questions for file {file_name}")
-                except Exception as e:
-                    conn.rollback()
-                    logging.error(f"Error inserting problems/comprehensive questions from {yaml_file}: {e}")
-                    raise
-
-            except yaml.YAMLError as e:
-                logging.error(f"Error parsing YAML file {yaml_file}: {e}")
-            except Exception as e:
-                logging.error(f"Error processing {yaml_file}: {e}")
-
-    finally:
-        conn.close()
-
-    logging.info("Completed updating problem table from metadata files")
-
-
-def update_file_urls_from_metadata_files(folder_path: Union[str, Path], db_path: Union[str, Path]) -> None:
-    """
-    Iterate through all .yaml files in a folder, extract URL from metadata,
-    and update the url column in the file table for existing files.
-
-    Args:
-        folder_path: Path to folder containing metadata.yaml files
-        chunk_db_path: Path to the SQLite database
-    """
-    folder_path = Path(folder_path)
-    if not folder_path.is_dir():
-        raise ValueError(f"Provided folder path {folder_path} is not a directory.")
-
-    conn = ensure_chunk_db(Path(db_path))
-
-    try:
-        # Find all .yaml files in the folder
-        yaml_files = list(folder_path.rglob("*.yaml"))
-        logging.info(f"Found {len(yaml_files)} yaml files to process for URL updates")
-
-        updated_count = 0
-        skipped_count = 0
-
-        for yaml_file in yaml_files:
-            try:
-                # Load and parse the YAML file
-                with yaml_file.open("r", encoding="utf-8") as f:
-                    metadata = yaml.safe_load(f)
-
-                if not isinstance(metadata, dict):
-                    logging.warning(f"Skipping {yaml_file}: invalid metadata structure")
-                    skipped_count += 1
-                    continue
-
-                # Extract URL from metadata
-                url = metadata.get("URL")
-                if not url:
-                    logging.info(f"Skipping {yaml_file}: no URL found in metadata")
-                    skipped_count += 1
-                    continue
-
-                # Extract file information to generate file_uuid
-                file_name = metadata.get("file_name")
-                file_path = metadata.get("file_path")
-
-                if not file_name or not file_path:
-                    logging.warning(f"Skipping {yaml_file}: missing file_name or file_path")
-                    skipped_count += 1
-                    continue
-
-                # Try to find the actual file to generate hash and uuid
-                # First try relative to yaml file location
-                actual_file_path = yaml_file.parent / file_name
-                if not actual_file_path.exists():
-                    actual_file_path = yaml_file.parent / file_path
-                    if not actual_file_path.exists():
-                        logging.warning(f"Skipping {yaml_file}: cannot find actual file {file_name} or {file_path}")
-                        skipped_count += 1
-                        continue
-
-                # Generate file hash and uuid
-                file_hash = file_hash_for_cache(actual_file_path)
-
-                # Check if file exists in database
-                existing_uuid = is_file_cached(conn, file_hash)
-                if not existing_uuid:
-                    logging.info(f"Skipping {yaml_file}: file not found in database")
-                    skipped_count += 1
-                    continue
-
-                # Update the URL in the file table
-                conn.execute("UPDATE file SET url = ? WHERE uuid = ?", (url, existing_uuid))
-                conn.commit()
-
-                updated_count += 1
-                logging.info(f"Updated URL for file {file_name} (uuid: {existing_uuid}) to: {url}")
-
-            except yaml.YAMLError as e:
-                logging.error(f"Error parsing YAML file {yaml_file}: {e}")
-                skipped_count += 1
-            except Exception as e:
-                logging.error(f"Error processing {yaml_file}: {e}")
-                skipped_count += 1
-
-        logging.info(f"Completed updating file URLs: {updated_count} updated, {skipped_count} skipped")
-
-    finally:
-        conn.close()
-
-    logging.info("Completed updating file URLs from metadata files")
-
-
-def migrate_file_hashes_to_new_format(db_path: Union[str, Path], root_path: Union[str, Path] = None) -> None:
-    """
-    Migrate all existing file hashes in database to the new location-independent format.
-
-    Args:
-        db_path: Path to the SQLite database
-        root_path: Root path to resolve relative file paths (optional)
-    """
-    db_path = Path(db_path)
-    if root_path:
-        root_path = Path(root_path)
-
-    conn = ensure_chunk_db(db_path)
-
-    try:
-        # Get all files from database
-        rows = conn.execute("SELECT uuid, relative_path, file_name, file_hash FROM file").fetchall()
-        logging.info(f"Found {len(rows)} files to migrate")
-
-        updated_count = 0
-        skipped_count = 0
-        error_count = 0
-
-        conn.execute("BEGIN IMMEDIATE")
-
-        for row in rows:
-            file_uuid, relative_path, file_name, old_hash = row
-
-            try:
-                # Try to find the actual file
-                actual_file_path = None
-
-                # Strategy 1: Use root_path + relative_path
-                if root_path and relative_path:
-                    candidate = root_path / relative_path
-                    if candidate.exists():
-                        actual_file_path = candidate
-
-                # Strategy 2: Try to find file by searching in common locations
-                if not actual_file_path and file_name:
-                    search_paths = []
-                    if root_path:
-                        search_paths.extend([
-                            root_path,
-                            root_path.parent if root_path.parent != root_path else None
-                        ])
-
-                    # Add some common base directories
-                    search_paths.extend([
-                        Path("/home/bot/bot/yk/YK_final/courses"),
-                        Path("/home/bot/bot/yk/YK_final/courses_out"),
-                        db_path.parent
-                    ])
-
-                    for search_path in search_paths:
-                        if not search_path or not search_path.exists():
-                            continue
-
-                        # Find files with matching name
-                        matches = list(search_path.rglob(file_name))
-                        if matches:
-                            # Use the first match (could be improved with more logic)
-                            actual_file_path = matches[0]
-                            break
-
-                if actual_file_path and actual_file_path.exists():
-                    # Generate new hash using the new format
-                    new_hash = file_hash_for_cache(actual_file_path)
-
-                    # Check if this new hash already exists for a different file
-                    existing_file = conn.execute("SELECT uuid, relative_path FROM file WHERE file_hash = ? AND uuid != ?", (new_hash, file_uuid)).fetchone()
-
-                    if existing_file:
-                        existing_uuid, existing_relative_path = existing_file
-
-                        # Check if the existing file still exists at its recorded location
-                        if root_path and existing_relative_path:
-                            existing_file_path = root_path / existing_relative_path
-                        else:
-                            existing_file_path = None
-
-                        if existing_file_path and existing_file_path.exists():
-                            # Both files exist - this is a true duplicate
-                            # Copy markdown content from existing to new location and keep both records
-                            logging.info(f"True duplicate detected: {file_name}. Copying content from existing file.")
-
-                            # Find and copy markdown content if it exists
-                            try:
-                                # Look for markdown files associated with the existing file
-                                existing_md_pattern = existing_file_path.parent / f"{existing_file_path.stem}*.md"
-                                import glob
-                                existing_md_files = glob.glob(str(existing_md_pattern))
-
-                                if existing_md_files:
-                                    # Copy markdown files to the new location
-                                    new_md_dir = actual_file_path.parent / actual_file_path.stem
-                                    new_md_dir.mkdir(parents=True, exist_ok=True)
-
-                                    import shutil
-                                    for md_file in existing_md_files:
-                                        md_path = Path(md_file)
-                                        new_md_path = new_md_dir / md_path.name
-                                        shutil.copy2(md_file, new_md_path)
-                                        logging.info(f"Copied markdown: {md_file} → {new_md_path}")
-
-                            except Exception as copy_error:
-                                logging.warning(f"Failed to copy markdown content: {copy_error}")
-
-                            # Generate a unique hash by including the file UUID to guarantee uniqueness
-                            content_hash = file_content_hash(actual_file_path)
-                            extension = actual_file_path.suffix.lower()
-                            unique_new_hash = _blake2b_hex(f"{content_hash}|{extension}|{file_uuid}")
-
-                            # Double-check uniqueness and add counter if needed
-                            counter = 0
-                            final_hash = unique_new_hash
-                            while conn.execute("SELECT uuid FROM file WHERE file_hash = ? AND uuid != ?", (final_hash, file_uuid)).fetchone():
-                                counter += 1
-                                final_hash = _blake2b_hex(f"{content_hash}|{extension}|{file_uuid}|{counter}")
-
-                            # Update with guaranteed unique hash
-                            conn.execute(
-                                "UPDATE file SET file_hash = ?, relative_path = ? WHERE uuid = ?",
-                                (final_hash, str(actual_file_path.relative_to(root_path)) if root_path else relative_path, file_uuid)
-                            )
-
-                        else:
-                            # Existing file doesn't exist at its location - this is a moved file
-                            logging.info(f"File moved detected: {file_name}. Updating existing record to new location.")
-
-                            # Update the existing record to point to the new location
-                            conn.execute(
-                                "UPDATE file SET relative_path = ? WHERE uuid = ?",
-                                (str(actual_file_path.relative_to(root_path)) if root_path else relative_path, existing_uuid)
-                            )
-
-                            # Delete the current record since it's the same file
-                            conn.execute("DELETE FROM chunks WHERE file_uuid = ?", (file_uuid,))
-                            conn.execute("DELETE FROM problem WHERE file_uuid = ?", (file_uuid,))
-                            conn.execute("DELETE FROM file WHERE uuid = ?", (file_uuid,))
-
-                            logging.info(f"Updated existing record {existing_uuid} and removed duplicate {file_uuid}")
-                            updated_count += 1
-                            continue
-
-                    # Update the database record
-                    conn.execute(
-                        "UPDATE file SET file_hash = ?, relative_path = ? WHERE uuid = ?",
-                        (new_hash, str(actual_file_path.relative_to(root_path)) if root_path else relative_path, file_uuid)
-                    )
-
-                    updated_count += 1
-                    logging.debug(f"Updated {file_name}: {old_hash[:16]}... → {new_hash[:16]}...")
-
-                else:
-                    # File not found - generate hash from extension only
-                    if file_name:
-                        extension = Path(file_name).suffix.lower()
-                        new_hash = _blake2b_hex(f"MISSING|{extension}|{file_uuid}")  # Include uuid to avoid collisions
-
-                        # Check for collision
-                        existing_file = conn.execute("SELECT uuid FROM file WHERE file_hash = ? AND uuid != ?", (new_hash, file_uuid)).fetchone()
-                        if not existing_file:
-                            conn.execute("UPDATE file SET file_hash = ? WHERE uuid = ?", (new_hash, file_uuid))
-                            skipped_count += 1
-                            logging.warning(f"File not found, using extension-only hash for: {file_name}")
-                        else:
-                            error_count += 1
-                            logging.error(f"Cannot generate unique hash for missing file: {file_name}")
-                    else:
-                        error_count += 1
-                        logging.error(f"Cannot generate new hash for file with uuid {file_uuid} - no filename")
-
-            except Exception as e:
-                error_count += 1
-                logging.error(f"Error processing file {file_name} (uuid: {file_uuid}): {e}")
-                continue
-
-        conn.commit()
-        logging.info(f"Migration completed: {updated_count} updated, {skipped_count} missing files, {error_count} errors")
-
-    except Exception as e:
-        conn.rollback()
-        logging.error(f"Migration failed: {e}")
-        raise
-    finally:
-        conn.close()
+SQL_DELETE_FILE_CASCADE = "DELETE FROM file WHERE uuid=?;"

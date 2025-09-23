@@ -36,7 +36,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
     # Process all courses marked for update
-    # process_courses_from_master_config()
+    process_courses_from_master_config()
 
     # Example: Merge course databases after processing
     # After processing individual courses, you can merge them into a collective database:

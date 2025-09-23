@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Read(//home/bot/bot/yk/YK_final/tai/rag/file_conversion_router/conversion/**)",
-      "Read(//home/bot/bot/yk/YK_final/tai/rag/file_conversion_router/**)"
+      "Read(//home/bot/bot/yk/YK_final/tai/rag/file_conversion_router/**)",
+      "Read(//home/bot/bot/yk/YK_final/tai/rag/**)",
+      "Bash(python:*)",
+      "Read(//home/bot/bot/yk/YK_final/courses/ROAR Academy/Part Two/exercises/**)",
+      "Bash(sqlite3:*)"
     ],
     "deny": [],
     "ask": []

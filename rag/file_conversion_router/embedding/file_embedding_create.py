@@ -317,14 +317,14 @@ if __name__ == "__main__":
     data_dir = "/home/bot/bot/yk/YK_final/courses_out"
     
     # Check current status
-    status = check_embedding_status(db_path, course_filter="CS 294-137")
+    status = check_embedding_status(db_path, course_filter="Berkeley")
     print("Current embedding status:", status)
     
     # Run embedding process
     results = embed_files_from_markdown(
         db_path=db_path,
         data_dir=data_dir,
-        course_filter="CS 294-137",
+        course_filter="Berkeley",  # Set to None to process all courses
         force_recompute=False  # Set to True to recompute existing embeddings
     )
     

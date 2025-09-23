@@ -113,5 +113,5 @@ def embedding_create(db_path, embedding_name=None, ):
 if __name__ == "__main__":
     embedding_create(
         "/home/bot/bot/yk/YK_final/course_yaml/metadata.db",
-        "CS 294-137",
+        "Berkeley",
     )

@@ -1,7 +1,6 @@
 import re
 from pathlib import Path
 from urllib.parse import urlparse
-
 from bs4 import BeautifulSoup
 from markdownify import markdownify as md
 
@@ -32,10 +31,10 @@ content_tags_dict = {
         )
     ],
     "https://www.svlsimulator.com/docs/": [("div", {"role": "main"})],
-    "https://cs61a.org/": [
-        ("section", {"id": "calendar", "class": "table", "cellpadding": "5px"}),
-        ("div", {"class": "col-md-9"}),
-    ],
+    # "https://cs61a.org/": [
+    #     ("section", {"id": "calendar", "class": "table", "cellpadding": "5px"}),
+    #     ("div", {"class": "col-md-9"}),
+    # ],
     "https://ucb-ee106.github.io/106b-sp23site/": [("main", {"class": "main-content"})],
     "https://en.wikipedia.org/wiki/University_of_California,_Berkeley": [
         ("main", {"id": "content", "class": "mw-body"})
@@ -51,9 +50,9 @@ content_tags_dict = {
 
 
 class HtmlConverter(BaseConverter):
-    def __init__(self, course_name: str, course_id: str):
-        super().__init__(course_name, course_id)
-        self.index_helper = [dict]
+    def __init__(self, course_name: str, course_code: str, file_uuid: str = None):
+        super().__init__(course_name, course_code,file_uuid)
+        self.index_helper = None
 
     # Override
     def _to_markdown(self, input_path: Path, output_path: Path) -> Path:
@@ -73,10 +72,9 @@ class HtmlConverter(BaseConverter):
             return None  # Return None if no match is found
 
         output_path = output_path.with_suffix(".md")
-        with open(input_path, "r") as input_file:
+        with open(input_path, "r", encoding="utf-8") as input_file:
             html_content = input_file.read()
-        stem = input_path.stem
-        metadata_path = input_path.with_name(f"{input_path.stem}_metadata.yaml")
+        metadata_path = input_path.with_name(f"{input_path.name}_metadata.yaml")
         metadata_content = self._read_metadata(metadata_path)
         url = metadata_content.get("URL")
 
@@ -102,7 +100,15 @@ class HtmlConverter(BaseConverter):
             final_markdown = re.sub(
                 r"(?<!^)(```)", r"\n\1", final_markdown, flags=re.MULTILINE
             )
+            final_markdown = re.sub(r'Â(?=\xa0)', '', final_markdown)
+            final_markdown = final_markdown.replace('\xa0', ' ')
+            final_markdown = final_markdown.replace('\\_', "_")
+            final_markdown = final_markdown.replace('â', '-')  # General dash replacement
+            final_markdown = re.sub(r'[ \t]{2,}', ' ', final_markdown)
+            final_markdown = re.sub(r'câ¬mpâ¬sing prâ¬grams', 'composing programs', final_markdown)
         with open(output_path, "w") as output_file:
+
             output_file.write(final_markdown)
+            self.generate_index_helper(md=final_markdown)
 
         return output_path

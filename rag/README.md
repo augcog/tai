@@ -250,7 +250,7 @@ STRATEGIES = {
 ### Embedding Pipeline
 
 ```python
-from file_conversion_router.embedding_create import create_embeddings
+from file_conversion_router.embedding.embedding_create import create_embeddings
 
 # Generate embeddings
 embeddings = create_embeddings(

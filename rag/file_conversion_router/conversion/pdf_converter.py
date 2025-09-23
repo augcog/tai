@@ -1,26 +1,17 @@
-import os
-import re
+from file_conversion_router.conversion.base_converter import BaseConverter
+from file_conversion_router.services.tai_MinerU_service.api import convert_pdf_to_md_by_MinerU
 from pathlib import Path
 import json
-import yaml
-from file_conversion_router.conversion.base_converter import BaseConverter
-
-from file_conversion_router.services.tai_MinerU_service.api import (
-    convert_pdf_to_md_by_MinerU,
-)
+import re
 
 
 class PdfConverter(BaseConverter):
-    def __init__(self, course_name, course_id):
-        super().__init__(course_name, course_id)
+    def __init__(self, course_name, course_code, file_uuid: str = None):
+        super().__init__(course_name, course_code, file_uuid)
         self.available_tools = ["MinerU"]
         self.index_helper = None
+        self.file_name = ""
 
-    def is_tool_supported(self, tool_name):
-        """
-        Check if a tool is supported.
-        """
-        return tool_name in self.available_tools
 
     def remove_image_links(self, text):
         """
@@ -34,32 +25,24 @@ class PdfConverter(BaseConverter):
     def clean_markdown_content(self, markdown_path):
         with open(markdown_path, "r", encoding="utf-8") as file:
             content = file.read()
+        # Remove image links (assuming this method exists)
         cleaned_content = self.remove_image_links(content)
+        # Remove lines that contain only hash symbols and spaces
+        # This pattern matches lines with only #, spaces, and optionally newlines
+        cleaned_content = re.sub(r'^[ #]+$', '-------------', cleaned_content, flags=re.MULTILINE)
         with open(markdown_path, "w", encoding="utf-8") as file:
             file.write(cleaned_content)
-
-    def validate_tool(self, tool_name):
-        """
-        Validate if the tool is supported, raise an error if not.
-        """
-        if not self.is_tool_supported(tool_name):
-            raise ValueError(
-                f"Tool '{tool_name}' is not supported. Available tools: {', '.join(self.available_tools)}"
-            )
+        return cleaned_content
 
     # Override
     def _to_markdown(
         self, input_path: Path, output_path: Path, conversion_method: str = "MinerU"
     ) -> Path:
-        self.validate_tool(conversion_method)
-        temp_dir_path = output_path.parent
+        self.file_name = input_path.name
+        output_dir = output_path.parent
 
-        # Create the directory if it doesn't exist
-        if not temp_dir_path.exists():
-            os.makedirs(temp_dir_path)
         if conversion_method == "MinerU":
-            new_output_path = output_path.with_suffix("")
-            md_file_path = convert_pdf_to_md_by_MinerU(input_path, new_output_path)
+            md_file_path = convert_pdf_to_md_by_MinerU(input_path, output_dir)
 
             if md_file_path.exists():
                 print(f"Markdown file found: {md_file_path}")
@@ -67,23 +50,41 @@ class PdfConverter(BaseConverter):
                 raise FileNotFoundError(f"Markdown file not found: {md_file_path}")
             # Set the target to this markdown path
             target = md_file_path
-            self.clean_markdown_content(target)
+            cleaned_content = self.clean_markdown_content(target)
             json_file_path = md_file_path.with_name(f"{md_file_path.stem}_content_list.json")
             with open(json_file_path, "r", encoding="utf-8") as f_json:
                 data = json.load(f_json)
-            self.generate_index_helper(data)
+            self.generate_index_helper(data, md=cleaned_content)
             return target
 
-    def generate_index_helper(self, data):
-        self.index_helper  = []
+    def generate_index_helper(self, data, md=None):
+        self.index_helper = []
         for item in data:
             if item.get('text_level') == 1:
                 title = item['text'].strip()
-                pattern = r'^\s*ROAR ACADEMY EXERCISES\s*$'
-                if re.match(pattern, title):
+                if title.startswith('# '):
+                    title = title[2:]
+
+                skip_patterns = [
+                    re.compile(r'^\s*ROAR ACADEMY EXERCISES\s*$', re.I),
+                    re.compile(r'^\s*(?:#+\s*)+$')  # lines that are only # + spaces
+                ]
+                if any(p.match(title) for p in skip_patterns):
                     continue
-                page_index = item['page_idx'] + 1  # Convert to 1-based indexing
-                self.index_helper.append({title: page_index})
 
+                # Check if title appears after any number of # symbols
+                if md:
+                    lines = md.split('\n')
+                    title_found = False
+                    for line in lines:
+                        stripped_line = line.strip()
+                        if stripped_line.startswith('#') and title in stripped_line:
+                            # More precise check: extract the heading text
+                            heading_text = re.sub(r'^#+\s*', '', stripped_line).strip()
+                            if heading_text == title:
+                                title_found = True
+                                break
 
-
+                    if title_found:
+                        page_index = item['page_idx'] + 1  # 1-based
+                        self.index_helper.append({title: page_index})

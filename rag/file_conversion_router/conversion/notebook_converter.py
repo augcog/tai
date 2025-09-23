@@ -2,36 +2,34 @@ from pathlib import Path
 import re
 import nbformat
 from nbconvert import MarkdownExporter
-import yaml
-from file_conversion_router.classes.page import Page
 from file_conversion_router.conversion.base_converter import BaseConverter
-
+from nbformat.validator import normalize
+import uuid
 
 class NotebookConverter(BaseConverter):
-    def __init__(self, course_name, course_id):
-        super().__init__(course_name, course_id)
+    def __init__(self, course_name, course_code, file_uuid: str = None):
+        super().__init__(course_name, course_code, file_uuid)
         self.index_helper = None
 
     def extract_all_markdown_titles(self, content):
         """
-        Extract ALL possible titles from markdown content
+        Extract titles from markdown content that start with #
         Returns a list of all found titles
         """
         if not content.strip():
             return []
         titles = []
-        header_matches = re.findall(r'^\s*(#+)\s+(.+)\s*$', content, re.MULTILINE)
-        for level, title in header_matches:
-            clean_title = title.strip().lstrip('*').strip().rstrip('*').strip()
-            clean_title = clean_title.strip('#').strip()
-            if clean_title:
-                titles.append(clean_title)
-
-        star_matches = re.findall(r'^\s*\*+(.+)\*+\s*$', content, re.MULTILINE)
-        for title in star_matches:
-            clean_title = title.strip(' #*')
-            if clean_title:
-                titles.append(clean_title)
+        # Process line by line to match BaseConverter logic
+        for line in content.splitlines():
+            line = line.strip()
+            if line.startswith("#"):
+                title = line.lstrip("#").strip()
+                if title == "":
+                    continue
+                # Remove * characters from title
+                title = title.replace('*', '')
+                if title.strip():
+                    titles.append(title.strip())
         return titles
 
 
@@ -49,6 +47,9 @@ class NotebookConverter(BaseConverter):
 
         with open(input_path, "r") as input_file, open(output_path, "w") as output_file:
             content = nbformat.read(input_file, as_version=4)
+            normalize(content)
+            for cell in getattr(content, "cells", []):
+                cell.setdefault("id", uuid.uuid4().hex)
             markdown_converter = MarkdownExporter()
             (markdown_content, resources) = markdown_converter.from_notebook_node(
                 content
@@ -128,5 +129,5 @@ class NotebookConverter(BaseConverter):
         for info in title_info:
             new_header = '#' * info['level_of_title'] + ' ' + info['title']
             result_lines[info['line_index']] = new_header
-
         return '\n'.join(result_lines)
+

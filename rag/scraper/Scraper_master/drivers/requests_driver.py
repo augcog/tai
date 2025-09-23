@@ -1,5 +1,7 @@
 import requests
 from .driver import Driver, Resp
+from bs4 import BeautifulSoup
+import re
 
 
 class RequestsDriver(Driver):
@@ -13,14 +15,19 @@ class RequestsDriver(Driver):
         content_type = response.headers.get("Content-Type", "").lower()
 
         if "text/html" in content_type:
-            with open(f"{filename.split('.')[0]}.html", "w", encoding="utf-8") as file:
+            # Parse HTML and get the title
+            soup = BeautifulSoup(response.text, 'html.parser')
+            title = soup.title.string.strip()
+
+            filename = re.sub(r'\s+', ' ', re.sub(r'[\\/:"*?<>|]+', ' ', title)).strip() + '.html' if title else filename.rstrip('.html')+ '.html'
+            with open(filename, "w", encoding="utf-8") as file:
                 file.write(response.text)
         else:
             with open(filename, "wb") as file:
                 for chunk in response.iter_content(chunk_size=8192):
                     file.write(chunk)
 
-        return Resp(
+        return filename,Resp(
             html_content=response.text if "text/html" in content_type else None,
             is_html="text/html" in content_type,
             true_url=response.url,

@@ -10,7 +10,6 @@ from app.services.rag_retriever import top_k_selector
 from app.services.rag_generation import (
     format_chat_msg,
     generate_chat_response,
-    generate_file_chat_response,
     generate_practice_response,
     local_parser,
 )

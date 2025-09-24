@@ -33,27 +33,24 @@ async def build_retrieval_query(user_message: str, memory_synopsis: Any, engine:
     request_parts = []
 
     if memory_synopsis:
-        request_parts.append("Memory Synopsis:\n{memory_synopsis}\n")
+        request_parts.append(f"Memory Synopsis:\n{memory_synopsis}\n")
     
+    if file_sections or excerpt:
+        request_parts.append(f"File Context:\n")
+
     if file_sections:
-        request_parts.append("File Context:\nThe user is looking at this file which has these sections: {file_sections}\n")
-    
+        request_parts.append(f"The user is looking at this file which has these sections: {file_sections}\n")
+
     if excerpt:
-        request_parts.append("The user is focused on the following part of the file: {excerpt}\n")
-    
-    request_parts.append("User Message:\n{user_message}")
-    
-    request_template = "\n".join(request_parts)
+        request_parts.append(f"The user is focused on the following part of the file: {excerpt}\n")
+
+    request_parts.append(f"User Message:\n{user_message}\n")
+
+    request_content = "\n".join(request_parts)
 
     chat = [
         {"role": "system", "content": system_prompt},
-        {
-            "role": "user",
-            "content": request_template.format(
-                memory_synopsis=memory_synopsis.to_json() if memory_synopsis else "",
-                user_message=user_message
-            )
-        }
+        {"role": "user", "content": request_content}
     ]
     prompt = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
     # Generate the query using the engine

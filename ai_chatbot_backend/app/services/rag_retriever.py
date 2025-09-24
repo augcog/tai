@@ -57,6 +57,19 @@ def get_chunks_by_file_uuid(file_uuid: UUID) -> List[Dict[int, Any]]:
         """, (str(file_uuid),)).fetchall()
     return [{"index": row["idx"], "chunk": row["text"]} for row in rows]
 
+def get_sections_by_file_uuid(file_uuid: UUID) -> List[Dict[int, Any]]:
+    """
+    Get all sections associated with a specific file UUID.
+    """
+    with _get_cursor() as cur:
+        rows = cur.execute("""
+            SELECT `sections`
+            FROM file
+            WHERE uuid = ?;
+        """, (str(file_uuid),)).fetchone()
+        sections = json.loads(rows["sections"]) if rows and rows["sections"] else []
+    return sections
+
 def get_file_related_documents(
     file_uuid: UUID, course: str, top_k: int
 ) -> Tuple[List[str], List[str], List[str], List[float], List[str], List[str], List[str], List[str], List[float]]:

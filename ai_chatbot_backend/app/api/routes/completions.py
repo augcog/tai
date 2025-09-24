@@ -309,7 +309,7 @@ async def practice_completion(
 
     if params.stream:
         return StreamingResponse(
-            parser(response, reference_list, messages=formatter(params.messages), engine=engine, old_sid=sid), media_type="text/event-stream"
+            parser(response, reference_list, messages=formatter(params.messages), engine=llm_engine, old_sid=sid), media_type="text/event-stream"
         )
     else:
         return JSONResponse(ResponseDelta(text=response).model_dump_json(exclude_unset=True))

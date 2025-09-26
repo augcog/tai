@@ -4,7 +4,7 @@ from typing import Any, Optional, Tuple, List, Dict
 from uuid import UUID
 # Local libraries
 from app.services.rag_retriever import get_reference_documents, get_chunks_by_file_uuid, get_sections_by_file_uuid, get_file_related_documents
-
+from app.services.rag_postprocess import extract_channels
 
 async def build_retrieval_query(user_message: str, memory_synopsis: Any, engine: Any, tokenizer: Any, sampling: Any, file_sections: Any = None, excerpt: Any = None) -> str:
     """
@@ -61,6 +61,7 @@ async def build_retrieval_query(user_message: str, memory_synopsis: Any, engine:
             request_id=str(time.time_ns())
     ):
         text = chunk.outputs[0].text
+    text = extract_channels(text).get('final', "{}")
     print(f"[INFO] Generated RAG-Query: {text.strip()}")
     return text
 

@@ -15,7 +15,6 @@ async def build_retrieval_query(user_message: str, memory_synopsis: Any, engine:
     # Prepare the chat history for the model
     system_prompt = (
         "You are a query reformulator for a RAG system. "
-        "\nReasoning: high\n"
         "Given the user message and the memory synopsis of the current conversation as well as the file context if any, "
         "rewrite the latest user request as a single, "
         "self-contained question for document retrieval. "

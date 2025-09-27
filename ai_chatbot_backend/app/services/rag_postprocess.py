@@ -79,13 +79,25 @@ async def build_memory_synopsis(
         tokenizer: Any,
         engine: Any,
         prev_synopsis: Optional[MemorySynopsis] = None,
+        chat_history_sid: Optional[str] = None,
         max_prompt_tokens: int = 3500,
 ) -> MemorySynopsis:
     """
     Create/refresh the rolling MemorySynopsis.
     - messages: full chat so far (system/assistant/user)
-    - prev_synopsis: prior memory to carry forward (we’ll merge)
+    - prev_synopsis: prior memory to carry forward (we'll merge)
+    - chat_history_sid: if provided, retrieves previous memory from MongoDB
     """
+    # Graceful MongoDB retrieval for previous memory
+    if chat_history_sid and not prev_synopsis:
+        try:
+            from app.services.memory_synopsis_service import MemorySynopsisService
+            memory_service = MemorySynopsisService()
+            prev_synopsis = await memory_service.get_by_chat_history_sid(chat_history_sid)
+        except Exception as e:
+            print(f"[INFO] Failed to retrieve previous memory, generating from scratch: {e}")
+            prev_synopsis = None  # Continue without previous memory
+
     transcript = _render_transcript(messages)
     cur = await _llm_synopsis_from_transcript(engine, tokenizer, transcript, max_prompt_tokens=max_prompt_tokens)
     if prev_synopsis:

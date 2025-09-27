@@ -302,8 +302,8 @@ async def practice_completion(
 async def create_or_update_memory_synopsis(
         sid: str,
         messages: List[Message],
-        course_code: str,
-        _: bool = Depends(verify_api_token)
+        # course_code: str,
+        # _: bool = Depends(verify_api_token)
 ):
     """
     Create or update memory synopsis for a chat history.
@@ -327,7 +327,7 @@ async def create_or_update_memory_synopsis(
         service = MemorySynopsisService()
 
         # Create or update memory synopsis
-        memory_synopsis_sid = await service.create_or_update_memory(sid, messages, engine, TOKENIZER)
+        memory_synopsis_sid = await service.create_or_update_memory(sid, format_chat_msg(messages), engine, TOKENIZER)
 
         if memory_synopsis_sid:
             return JSONResponse({

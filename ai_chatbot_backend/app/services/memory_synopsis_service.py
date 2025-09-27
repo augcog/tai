@@ -23,8 +23,8 @@ class MemorySynopsisService:
 
     def __init__(self):
         self.mongodb_client = get_mongodb_client()
-        self.database_name = "tai_memory"  # Temporary database name
-        self.collection_name = "memory_synopsis"
+        self.database_name = "main"  # Temporary database name
+        self.collection_name = "memory_synopses"
 
     async def get_by_chat_history_sid(self, chat_history_sid: str) -> Optional[MemorySynopsis]:
         """

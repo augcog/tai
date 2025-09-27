@@ -275,27 +275,31 @@ async def practice_completion(
     # Get problems for this file using the new relationship
     problem_content = ProblemService.get_problem_content_by_file_uuid_and_problem_id(db, str(metadata.uuid),
                                                                                      params.problem_id)
-
+    formatter = format_chat_msg
+    sid = sid_from_history(formatter(params.messages))
+    print(f"[INFO] Generated SID: {sid}")
     # Get the pre-initialized pipeline
-    engine = get_model_engine()
+    llm_engine = get_model_engine()
 
     # select model based on params.model
     course = params.course
     formatter = format_chat_msg
     selector = generate_practice_response
-    parser = local_parser
+    parser = chat_stream_parser
+
 
     response, reference_list = selector(
         formatter(params.messages), problem_content, params.answer_content, stream=params.stream, course=course,
-        engine=engine
+        engine=llm_engine
     )
+
 
     if params.stream:
         return StreamingResponse(
-            parser(response, reference_list), media_type="text/plain"
+            parser(response, reference_list, messages=formatter(params.messages), engine=engine, old_sid=sid), media_type="text/event-stream"
         )
     else:
-        return PlainTextResponse(response)
+       return JSONResponse(ResponseDelta(text=response).model_dump_json(exclude_unset=True))
 
 
 @router.post("/memory-synopsis")

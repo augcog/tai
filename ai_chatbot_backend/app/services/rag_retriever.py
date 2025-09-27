@@ -31,15 +31,13 @@ def get_reference_documents(
     """
     Retrieve top reference documents based on the query embedding and choice of DB-type.
     """
-    picklefile, class_name = _get_pickle_and_class(course)
+    class_name = _get_pickle_and_class(course)
     t0 = time.time()
     query_embed = {"dense_vecs": embedding_model.encode(query, prompt_name="query")}
     print(f"[INFO] Embedding time: {time.time() - t0:.2f} seconds")
     t1 = time.time()
     if SQLDB:
         output = _get_references_from_sql(query_embed, course, top_k=top_k)
-    else:
-        output = _get_references_from_pickle(query_embed, picklefile, top_k=top_k)
     print(f"[INFO] Retrieval time: {time.time() - t1:.2f} seconds")
     return output, class_name
 
@@ -86,11 +84,11 @@ def _get_references_from_sql(
     # Convert the query embedding to a numpy array
     qv = np.array(query_embed["dense_vecs"], dtype=np.float32).reshape(-1)
     if qv.size == 0:
-        return [], [], [], [], [], [], []
+        return [], [], [], [], [], [], [],[], []
     # Get the course index from the cache or build it if not present or stale
     idx = _get_course_index(course)
     if not idx.get("M") is not None:
-        return [], [], [], [], [], [], []
+        return [], [], [], [], [], [], [],[], []
     # Compute the scores for each document in the index
     document_matrix = idx["M"]
     scores = document_matrix @ qv
@@ -261,25 +259,25 @@ def _get_references_from_pickle(
     return top_ids, top_docs, top_urls, similarity_scores, top_files, top_topic_paths, top_titles
 
 
-def _get_pickle_and_class(course: str) -> Tuple[str, str]:
+def _get_pickle_and_class(course: str) -> str:
     """
     Return the pickle filename and course class name based on the course.
     """
     if course == "EECS 106B":
-        return "eecs106b.pkl", "Robotic Manipulation and Interaction"
+        return "Robotic Manipulation and Interaction"
     elif course == "CS 61A":
-        return "cs61a.pkl", "Structure and Interpretation of Computer Programs"
+        return "Structure and Interpretation of Computer Programs"
     elif course == "CS 294-137":
-        return "cs294.pkl", "Immersive Computing and Virtual Reality"
+        return "Immersive Computing and Virtual Reality"
     elif course == "Econ 140":
-        return "econ140.pkl", "Econometrics"
+        return "Econometrics"
     elif course == "INTD 315":
-        return "language.pkl", "Multilingual Engagement"
+        return "Multilingual Engagement"
     elif course == "ROAR Academy":
-        return "ROAR Academy.pkl", "learning python and autonomous driving"
+        return  "learning python and autonomous driving"
         # return "roar_academy.pkl", "learning python and autonomous driving"
-    elif course == "general":
-        return "Berkeley.pkl", "Berkeley"
+    elif course == "Berkeley":
+        return "Berkeley"
     else:
         raise ValueError(f"Unknown course: {course}. Please provide a valid course name.")
 
@@ -311,8 +309,8 @@ def top_k_selector(
         }
 
     current_dir = "/home/bot/localgpt/tai/ai_chatbot_backend/app/embedding/"
-    picklefile, _ = _get_pickle_and_class(course if course else "")
-    path_to_pickle = os.path.join(current_dir, picklefile)
+    course = _get_pickle_and_class(course if course else "")
+    path_to_pickle = os.path.join(current_dir, "picklefile")
     with open(path_to_pickle, "rb") as f:
         data_loaded = pickle.load(f)
     doc_list = data_loaded["doc_list"]

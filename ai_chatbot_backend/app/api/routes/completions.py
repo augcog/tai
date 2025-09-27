@@ -328,7 +328,6 @@ async def create_or_update_memory_synopsis(
 
         # Create or update memory synopsis
         memory_synopsis_sid = await service.create_or_update_memory(sid, format_chat_msg(messages), engine, TOKENIZER)
-
         if memory_synopsis_sid:
             return JSONResponse({
                 "memory_synopsis_sid": memory_synopsis_sid,

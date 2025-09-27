@@ -10,7 +10,6 @@ from app.services.rag_retriever import top_k_selector
 from app.services.rag_generation import (
     format_chat_msg,
     generate_chat_response,
-    generate_file_chat_response,
     generate_practice_response,
     local_parser,
 )
@@ -85,7 +84,7 @@ async def create_text_completion(
         print("file_uuid:", params.user_focus.file_uuid)
         print("selected_text:", params.user_focus.selected_text)
         print("chunk_index:", params.user_focus.chunk_index)
-        response, reference_list = await generate_file_chat_response(
+        response, reference_list = await generate_chat_response(
             formatter(params.messages),
             file_uuid=params.user_focus.file_uuid,
             selected_text=params.user_focus.selected_text,
@@ -137,7 +136,7 @@ async def create_text_completion(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="file_uuid must be provided"
             )
-        response, reference_list = await generate_file_chat_response(
+        response, reference_list = await generate_chat_response(
             formatter(params.messages),
             file_uuid=params.file_uuid,
             selected_text=params.selected_text,
@@ -310,7 +309,7 @@ async def practice_completion(
 
     if params.stream:
         return StreamingResponse(
-            parser(response, reference_list, messages=formatter(params.messages), engine=engine, old_sid=sid), media_type="text/event-stream"
+            parser(response, reference_list, messages=formatter(params.messages), engine=llm_engine, old_sid=sid), media_type="text/event-stream"
         )
     else:
         return JSONResponse(ResponseDelta(text=response).model_dump_json(exclude_unset=True))

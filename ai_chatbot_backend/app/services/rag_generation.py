@@ -15,12 +15,15 @@ from app.services.rag_postprocess import build_memory_synopsis
 # TOKENIZER_MODEL_ID = "THUDM/GLM-4-9B-0414"
 TOKENIZER_MODEL_ID = "openai/gpt-oss-20b"
 # RAG-Pipeline Shared Resources
-SAMPLING = SamplingParams(temperature=0.1, top_p=0.95, max_tokens=4096,skip_special_tokens=False)
+SAMPLING = SamplingParams(temperature=0.1, top_p=0.95, max_tokens=4096, skip_special_tokens=False)
 TOKENIZER = AutoTokenizer.from_pretrained(TOKENIZER_MODEL_ID)
 
 
 async def generate_chat_response(
         messages: List[Message],
+        file_uuid: UUID = None,
+        selected_text: Optional[str] = None,
+        index: Optional[float] = None,
         stream: bool = True,
         rag: bool = True,
         course: Optional[str] = None,
@@ -37,7 +40,17 @@ async def generate_chat_response(
     # Build the query message based on the chat history
     t0 = time.time()
     user_message = messages[-1].content
+    messages[-1].content = ""
 
+    filechat_focused_chunk = ""
+    filechat_file_sections = []
+    if file_uuid:
+        augmented_context, file_content, filechat_focused_chunk, filechat_file_sections = build_file_augmented_context(file_uuid, selected_text, index)
+        messages[-1].content = (
+            f"{augmented_context}"
+            f"Below are the relevant references for answering the user:\n\n"
+        )
+    
     # Graceful memory retrieval from MongoDB
     previous_memory = None
     if sid and len(messages) > 2:
@@ -49,7 +62,8 @@ async def generate_chat_response(
             print(f"[INFO] Failed to retrieve memory for query building, continuing without: {e}")
             previous_memory = None
 
-    query_message = await build_retrieval_query(user_message, previous_memory, engine, TOKENIZER, SAMPLING) if len(messages) > 2 else user_message
+    query_message = await build_retrieval_query(user_message, previous_memory, engine, TOKENIZER, SAMPLING, filechat_file_sections, filechat_focused_chunk)
+
     print(f"[INFO] Preprocessing time: {time.time() - t0:.2f} seconds")
 
     # Build modified prompt with references
@@ -63,7 +77,7 @@ async def generate_chat_response(
         audio_response=audio_response
     )
     # Update the last message with the modified content
-    messages[-1].content = modified_message
+    messages[-1].content += modified_message
     messages[0].content += system_add_message
     # Generate the response using the engine
     if _is_local_engine(engine):
@@ -72,74 +86,7 @@ async def generate_chat_response(
     else:
         response = engine(messages[-1].content, stream=stream, course=course)
         return response, reference_list
-
-
-async def generate_file_chat_response(
-        messages: List[Message],
-        file_uuid: UUID,
-        # document: str,
-        selected_text: Optional[str] = None,
-        index: Optional[float] = None,
-        stream: bool = True,
-        rag: bool = True,
-        course: Optional[str] = "",
-        threshold: float = 0.32,
-        top_k: int = 7,
-        engine: Any = None,
-        audio_response: bool = False,
-        sid: Optional[str] = None
-) -> Tuple[Any, str]:
-    """
-    Build an augmented message with references and run LLM inference for file-based chat.
-    Returns a tuple: (stream, reference_string)
-    """
-    # Build the augmented context for file-based chat
-    augmented_context, reference_list = build_file_augmented_context(
-        file_uuid, course, threshold, rag, selected_text, index, top_k
-    )
-
-    t0 = time.time()
-    user_message = messages[-1].content
-
-    # Graceful memory retrieval from MongoDB
-    previous_memory = None
-    if sid and len(messages) > 2:
-        try:
-            from app.services.memory_synopsis_service import MemorySynopsisService
-            memory_service = MemorySynopsisService()
-            previous_memory = await memory_service.get_by_chat_history_sid(sid)
-        except Exception as e:
-            print(f"[INFO] Failed to retrieve memory for query building, continuing without: {e}")
-            previous_memory = None
-
-    query_message = await build_retrieval_query(user_message, previous_memory, engine, TOKENIZER, SAMPLING) if len(messages) > 2 else user_message
-    print(f"[INFO] Preprocessing time: {time.time() - t0:.2f} seconds")
-    modified_message, reference_list,system_add_message = build_augmented_prompt(
-        user_message,
-        course,
-        threshold,
-        rag,
-        top_k=top_k,
-        query_message=query_message,
-        reference_list=reference_list,
-        audio_response=audio_response
-    )
-
-    messages[-1].content = (
-        f"{augmented_context}"
-        f"\nBesides the context of the file and related references above, you also have the following references based on the chat history:\n\n"
-        f"\n{modified_message}"
-    )
-    messages[0].content += system_add_message
-
-    # Generate the response using the engine
-    if _is_local_engine(engine):
-        iterator = _generate_streaming_response(messages, engine)
-        return iterator, reference_list
-    else:
-        response = engine(messages[-1].content, stream=stream, course=course)
-        return response, reference_list
-
+      
 
 def _is_local_engine(engine: Any) -> bool:
     """

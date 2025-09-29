@@ -79,6 +79,7 @@ class CompletionParams(BaseModel):
     user_focus: Optional[UserFocus] = None
     rag: Optional[bool] = True
     audio_response: Optional[bool] = False
+    sid: Optional[str] = None  # chat_history_sid from frontend
 
 class TextCompletionParams(BaseModel):
     course: str
@@ -91,6 +92,7 @@ class TextCompletionParams(BaseModel):
     index: Optional[float] = None
     rag: Optional[bool] = True
     audio_response: Optional[bool] = False
+    sid: Optional[str] = None  # chat_history_sid from frontend
 
 class PracticeCompletionParams(BaseModel):
     course: str
@@ -114,6 +116,7 @@ class VoiceCompletionParams(BaseModel):
     index: Optional[float] = None
     rag: Optional[bool] = True
     audio_response: Optional[bool] = False
+    sid: Optional[str] = None  # chat_history_sid from frontend
 
 class VoiceTranscriptParams(BaseModel):
     audio: VoiceMessage

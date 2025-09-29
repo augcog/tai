@@ -1,5 +1,4 @@
 from app.core.models.chat_completion import *
-from app.services.rag_generation import build_memory_after_response
 from typing import Union, AsyncIterator, List, Any, Dict
 import re
 import os
@@ -199,8 +198,6 @@ async def chat_stream_parser(
 
     yield sse(Done())
     yield "data: [DONE]\n\n"  # Final done message for SSE clients
-
-    await build_memory_after_response(messages, channels['final'], references, engine, old_sid)
 
 def encode_base64_content_from_file(file_path: str) -> str:
     """Encode a content from a local file to base64 format."""

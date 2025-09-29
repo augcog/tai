@@ -15,9 +15,8 @@ from app.services.rag_postprocess import build_memory_synopsis
 # TOKENIZER_MODEL_ID = "THUDM/GLM-4-9B-0414"
 TOKENIZER_MODEL_ID = "openai/gpt-oss-20b"
 # RAG-Pipeline Shared Resources
-SAMPLING = SamplingParams(temperature=0.1, top_p=0.95, max_tokens=4096,skip_special_tokens=False)
+SAMPLING = SamplingParams(temperature=0.1, top_p=0.95, max_tokens=4096, skip_special_tokens=False)
 TOKENIZER = AutoTokenizer.from_pretrained(TOKENIZER_MODEL_ID)
-LOCAL_MEMORY_SYNOPSIS = {}
 
 
 async def generate_chat_response(
@@ -52,7 +51,19 @@ async def generate_chat_response(
             f"Below are the relevant references for answering the user:\n\n"
         )
     
-    query_message = await build_retrieval_query(user_message, LOCAL_MEMORY_SYNOPSIS.get(sid, None), engine, TOKENIZER, SAMPLING, filechat_file_sections, filechat_focused_chunk)
+    # Graceful memory retrieval from MongoDB
+    previous_memory = None
+    if sid and len(messages) > 2:
+        try:
+            from app.services.memory_synopsis_service import MemorySynopsisService
+            memory_service = MemorySynopsisService()
+            previous_memory = await memory_service.get_by_chat_history_sid(sid)
+        except Exception as e:
+            print(f"[INFO] Failed to retrieve memory for query building, continuing without: {e}")
+            previous_memory = None
+
+    query_message = await build_retrieval_query(user_message, previous_memory, engine, TOKENIZER, SAMPLING, filechat_file_sections, filechat_focused_chunk)
+
     print(f"[INFO] Preprocessing time: {time.time() - t0:.2f} seconds")
 
     # Build modified prompt with references
@@ -75,8 +86,7 @@ async def generate_chat_response(
     else:
         response = engine(messages[-1].content, stream=stream, course=course)
         return response, reference_list
-
-
+      
 
 def _is_local_engine(engine: Any) -> bool:
     """
@@ -146,36 +156,6 @@ async def local_parser(
         yield ref_block
         print(ref_block)
 
-async def build_memory_after_response(
-        messages: List[Message],
-        previous_text: str,
-        references: List[Any],
-        engine: Optional[Any] = None,
-        old_sid: Optional[str] = None
-) -> Any:
-    # Call to build memory after finish output.
-    if messages and engine and old_sid:
-        messages.append(Message(role="assistant", content=previous_text + "\n<!--REFERENCES:" + "\n\n".join([str(ref) for ref in references]) + "-->"))
-        sid = sid_from_history(messages)
-        print(f"[INFO] Generated SID: {sid}")
-        LOCAL_MEMORY_SYNOPSIS[sid] = await build_memory_synopsis(messages, TOKENIZER, engine, LOCAL_MEMORY_SYNOPSIS.get(old_sid, None))
-        if old_sid in LOCAL_MEMORY_SYNOPSIS:
-            LOCAL_MEMORY_SYNOPSIS.pop(old_sid, None)
-            print(f"[INFO] Removed SID: {old_sid}")
-        print(f"\n\n---LOCAL_MEMORY_SYNOPSIS---\n\n{LOCAL_MEMORY_SYNOPSIS[sid]}\n\n")
-
-
-import json, base64, hashlib
-def sid_from_history(messages):
-    hist = [{"r": getattr(m, "role", "user"),
-             "c": (getattr(m, "content", "") or "").split("\n<!--REFERENCES:", 1)[0]}
-            for m in messages]
-    # print(f"[INFO] History for SID generation: {hist}")
-    digest = hashlib.blake2b(
-        json.dumps(hist, separators=(",", ":"), ensure_ascii=False).encode(),
-        digest_size=12
-    ).digest()
-    return base64.urlsafe_b64encode(digest).decode().rstrip("=")
 
 
 def format_chat_msg(messages: List[Message]) -> List[Message]:

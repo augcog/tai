@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sqlite3:*)",
+      "Bash(python:*)",
+      "Read(//home/bot/bot/yk/YK_final/courses/**)",
+      "Read(//Users/yyk956614/tai/rag/**)",
+      "Read(//home/bot/bot/yk/YK_final/tai/rag/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

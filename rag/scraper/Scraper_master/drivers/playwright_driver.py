@@ -1,6 +1,6 @@
 from playwright.sync_api import sync_playwright
 import requests
-from pathlib import Path
+
 
 from .driver import Driver, Resp
 
@@ -20,7 +20,7 @@ class PlaywrightDriver(Driver):
         self._context = self._browser.new_context(accept_downloads=True)
         self._page = self._context.new_page()
 
-    def download_raw(self, filename: str, url: str) -> Resp:
+    def download_raw(self, filename: str, url: str) -> tuple[str, Resp]:
         """
         Attempt to download the content as HTML first, and fallback to binary if an error occurs.
 
@@ -36,11 +36,13 @@ class PlaywrightDriver(Driver):
         content_type = response.headers.get("content-type", "").lower()
         if "text/html" in content_type:
             resp = self._page.goto(url)
+            filename= self._page.title().strip() or filename.rstrip('.html')+ '.html'
             html_content = self._page.content()
-            with open(f"{filename.split('.')[0]}.html", "w", encoding="utf-8") as f:
+            with open(filename, "w", encoding="utf-8") as f:
                 f.write(html_content)
-            return Resp(
+            return filename,Resp(
                 html_content=html_content,
+
                 is_html=True,
                 true_url=resp.url,
             )
@@ -48,7 +50,7 @@ class PlaywrightDriver(Driver):
             with open(filename, "wb") as file:
                 for chunk in response.iter_content(chunk_size=8192):
                     file.write(chunk)
-            return Resp(
+            return filename,Resp(
                 html_content=None,
                 is_html=False,
                 true_url=response.url,

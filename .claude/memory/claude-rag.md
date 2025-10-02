@@ -4,16 +4,43 @@ This file provides specialized guidance for working with the RAG Pipeline compon
 
 ## Component Overview
 
-The RAG Pipeline is an advanced document processing, embedding generation, and file conversion system with multi-modal support. Located in `/rag/`, it handles all document ingestion and processing for the TAI platform.
+The RAG Pipeline is a comprehensive document processing pipeline that converts various file types to Markdown format, creates structured pages with chunking for RAG systems, and enriches content with AI-generated educational metadata. Located in `/rag/`, it handles all document ingestion and processing for the TAI platform through three main stages:
+
+1. **File Conversion**: Convert various file types (PDF, HTML, video, notebooks) to Markdown
+2. **Page Creation & Chunking**: Structure content into pages with intelligent chunking for retrieval
+3. **AI Enhancement** (Optional): Use OpenAI API to generate educational metadata, key concepts, and assessment questions
 
 ## Architecture
 
 ### Core Technologies
-- **Multi-format Support**: PDF, Markdown, HTML, Python, Jupyter notebooks
+- **Multi-format Support**: PDF, Markdown, HTML, Python, Jupyter notebooks, reStructuredText, Video
 - **Advanced OCR**: MinerU, Nougat OCR for complex PDF processing
 - **Embedding Models**: BGE-M3, sentence-transformers, custom models
 - **Vector Storage**: SQLite with vector extensions, pickle files
 - **Service Integration**: FastAPI services for document conversion
+- **AI Enhancement**: OpenAI API integration for educational metadata
+
+### Core Components
+
+The system follows a modular converter pattern where each file type has a dedicated converter that extends `BaseConverter`:
+
+- **Conversion Module** (`conversion/`): Contains converters for PDF, Markdown, HTML, Python, Notebooks, RST, and video files. Each converter implements `to_markdown()` method for format-specific conversion logic.
+
+- **Services** (`services/`): Orchestrates the conversion pipeline with `directory_service.py` handling folder processing and database updates.
+
+- **Utils** (`utils/`):
+  - `course_processor.py`: Manages course-level batch processing and master configuration updates
+  - `database_merger.py`: Merges individual course databases into collective database
+  - `yaml_utils.py`: Configuration file handling
+  - `conversion_cache.py`: Caching mechanism for avoiding re-conversion
+
+### Processing Flow
+
+1. **Input**: Configuration YAML specifies input/output directories, course details, and database paths
+2. **Conversion**: Files are processed through appropriate converters based on extension
+3. **Output**: Each file generates:
+   - **Markdown File** (`file.md`): Clean, structured markdown content with preserved formatting and hierarchy
+   - **Database Entries**: File metadata in SQLite database, chunk records with embeddings, index mappings for efficient retrieval
 
 ### Document Processing Pipeline
 1. **File Conversion**: Format-specific converters transform documents
@@ -21,6 +48,12 @@ The RAG Pipeline is an advanced document processing, embedding generation, and f
 3. **Chunking**: Multiple strategies (recursive, paragraph, semantic)
 4. **Embedding Generation**: BGE-M3 multi-modal embeddings
 5. **Vector Storage**: SQLite/pickle storage for retrieval
+
+### Database Architecture
+
+- Individual course databases: `{course_code}_metadata.db`
+- Collective database: `metadata.db` (merged from course databases)
+- SQLite with tables for files, chunks, and embeddings
 
 ## Key File Locations
 
@@ -30,15 +63,19 @@ The RAG Pipeline is an advanced document processing, embedding generation, and f
 - `rag/file_conversion_router/services/` - External service integrations
 - `rag/file_conversion_router/embedding/` - Embedding generation
 - `rag/file_conversion_router/utils/` - Utilities and helpers
+- `rag/file_conversion_router/api.py` - Main API functions
+- `rag/file_conversion_router/classes/new_page.py` - Page creation and chunking
 
 ### Configuration Files
 - `rag/.env` - RAG pipeline configuration
 - `rag/example.env` - Environment template
+- `rag/file_conversion_router/configs/courses_master_config.yaml` - Master course configuration
 - `rag/file_conversion_router/embedding_optimization/src/configs/default_config.yaml` - Optimization config
 
 ### Processing Scripts
 - `rag/pipeline_to_kb.py` - Main pipeline orchestrator
-- `rag/file_conversion_router/embedding_create.py` - Embedding generation
+- `rag/file_conversion_router/embedding/embedding_create.py` - Embedding generation
+- `rag/file_conversion_router/embedding/file_embedding_create.py` - File-specific embedding creation
 - `rag/file_conversion_router/database_create.py` - Database creation
 
 ### External Services
@@ -81,14 +118,17 @@ make setup-models        # Setup and verify models
 
 ## Supported Document Formats
 
-| Format   | Converter               | Features                                 |
-| -------- | ----------------------- | ---------------------------------------- |
-| PDF      | `pdf_converter.py`      | OCR, layout detection, table extraction  |
-| Markdown | `md_converter.py`       | Syntax parsing, metadata extraction      |
-| HTML     | `html_converter.py`     | Clean text extraction, link preservation |
-| Python   | `python_converter.py`   | Code parsing, docstring extraction       |
-| Jupyter  | `notebook_converter.py` | Cell processing, output handling         |
-| Video    | `video_converter.py`    | Transcript extraction, scene detection   |
+The router handles the following file types with dedicated converters:
+
+| Format               | Extensions                       | Converter               | Features                                 |
+| -------------------- | -------------------------------- | ----------------------- | ---------------------------------------- |
+| PDF                  | `.pdf`                          | `pdf_converter.py`      | Full text extraction with OCR support for scanned documents |
+| Markdown             | `.md`                           | `md_converter.py`       | Enhanced with tree structure preservation |
+| HTML                 | `.html`                         | `html_converter.py`     | Preserves structure and formatting       |
+| Jupyter Notebooks    | `.ipynb`                        | `notebook_converter.py` | Code and markdown cell extraction        |
+| Python               | `.py`                           | `python_converter.py`   | Code documentation and structure analysis |
+| reStructuredText     | `.rst`                          | `rst_converter.py`      | Documentation format conversion          |
+| Video                | `.mp4`, `.mkv`, `.webm`, `.mov` | `video_converter.py`    | Transcript extraction using Whisper     |
 
 ## Environment Configuration
 
@@ -117,42 +157,106 @@ OCR_ENABLED=true
 OCR_PROVIDER=paddleocr  # or nougat, mineru
 ```
 
-## Conversion Pipeline Usage
-
-### Basic Conversion
-```python
-from file_conversion_router.api import convert_documents
-
-# Basic conversion
-results = convert_documents(
-    input_path="/path/to/documents",
-    output_path="/path/to/output",
-    formats=["pdf", "md"]
-)
-```
-
-### Advanced Conversion with Options
-```python
-results = convert_documents(
-    input_path="/path/to/documents",
-    output_path="/path/to/output",
-    formats=["pdf"],
-    ocr_enabled=True,
-    chunk_size=512,
-    overlap=50
-)
-```
-
-### CLI Usage
+### OpenAI Integration (Optional)
 ```bash
-# Convert single file
-poetry run rag-convert --input document.pdf --output processed/
+OPENAI_API_KEY=your_openai_api_key_here
+```
 
-# Batch conversion
-poetry run rag-convert --input /docs --output /processed --recursive
+## Key API Functions
 
-# With specific options
-poetry run rag-convert --input document.pdf --ocr --chunk-size 512
+From `api.py`:
+- `convert_directory()`: Process single course directory
+- `process_courses_from_master_config()`: Batch process multiple courses
+- `merge_course_databases_into_collective()`: Merge course databases
+- `merge_all_course_databases_in_directory()`: Merge course databases from directory
+- `get_courses_needing_update()`: Query courses marked for processing
+- `mark_course_for_update()`: Flag course for reprocessing
+
+## Usage Examples
+
+### Basic File Conversion
+
+```python
+from file_conversion_router.api import convert_directory
+
+# Convert a single course directory
+convert_directory("/path/to/course_config.yaml")
+```
+
+### Batch Processing Multiple Courses
+
+```python
+from file_conversion_router.api import process_courses_from_master_config
+
+# Process all courses marked for update
+process_courses_from_master_config("/path/to/master_config.yaml")
+```
+
+### Page Creation with Chunking
+
+```python
+from file_conversion_router.classes.new_page import Page
+
+# Create page from converted markdown
+page = Page(
+    course_name="CS61A",
+    course_code="CS61A",
+    filetype="pdf",
+    content={'text': markdown_content},
+    index_helper=title_index_dict
+)
+
+# Generate chunks for RAG
+page.to_chunk()
+page.chunks_to_pkl(output_path="/path/to/output.pkl")
+```
+
+### Database Merging
+
+```python
+from file_conversion_router.api import merge_all_course_databases_in_directory
+
+# Merge individual course databases into collective
+merge_stats = merge_all_course_databases_in_directory(
+    course_db_directory="/path/to/course/databases",
+    collective_db_path="/path/to/collective_metadata.db",
+    db_pattern="*_metadata.db"
+)
+```
+
+### Complete Processing Pipeline
+
+```python
+from file_conversion_router.api import convert_directory
+from file_conversion_router.utils.database_merger import merge_course_databases_into_collective
+
+# Step 1: Convert documents
+convert_directory("/path/to/CS61A_config.yaml")
+convert_directory("/path/to/CS61B_config.yaml")
+
+# Step 2: Merge databases
+merge_course_databases_into_collective(
+    course_db_paths=[
+        "/path/to/CS61A_metadata.db",
+        "/path/to/CS61B_metadata.db"
+    ],
+    collective_db_path="/path/to/all_courses_metadata.db"
+)
+```
+
+### AI-Enhanced Processing Example
+
+```python
+from file_conversion_router.utils.title_handle import get_strutured_content_for_ipynb
+
+# Generate educational metadata for notebook content
+structured_content = get_strutured_content_for_ipynb(
+    md_content=markdown_text,
+    file_name="lecture_01.ipynb",
+    course_name="Introduction to Python",
+    index_helper=section_index
+)
+# Returns JSON with key concepts, check-in questions, and problems
 ```
 
 ## Embedding Generation
@@ -178,8 +282,9 @@ STRATEGIES = {
 ```
 
 ### Generate Embeddings
+
 ```python
-from file_conversion_router.embedding_create import create_embeddings
+from file_conversion_router.embedding.embedding_create import create_embeddings
 
 embeddings = create_embeddings(
     documents_path="/path/to/processed",
@@ -308,11 +413,18 @@ make add-ocr PKG="paddleocr==2.7.0"       # Add OCR package
 ## Development Patterns
 
 ### Adding New Converters
+
+To add support for a new file format:
+1. Create converter in `conversion/` extending `BaseConverter`
+2. Implement `to_markdown()` method
+3. Register extension in `services/directory_service.py`
+4. Add tests for the new converter
+
 ```python
 from file_conversion_router.conversion.base_converter import BaseConverter
 
 class NewFormatConverter(BaseConverter):
-    def convert(self, input_path: str, output_path: str) -> dict:
+    def to_markdown(self, input_path: str, output_path: str) -> dict:
         # Implementation here
         pass
 
@@ -325,6 +437,26 @@ class NewFormatConverter(BaseConverter):
 - Use `utils/conversion_cache.py` for intelligent conversion result caching
 - Implement batch processing for efficient multi-document handling
 - Leverage GPU acceleration for ML operations
+- Caching prevents re-conversion of unchanged files
+
+### Configuration Files
+
+#### Course Configuration (YAML)
+```yaml
+input_dir: /path/to/course/materials
+output_dir: /path/to/processed/output
+course_name: "Computer Science 61A"
+course_code: "CS61A"
+db_path: /path/to/CS61A_metadata.db
+log_folder: /path/to/logs
+```
+
+#### Master Configuration
+Located at `configs/courses_master_config.yaml`, tracks all courses with:
+- `needs_update`: Boolean flag for processing
+- `enabled`: Course active status
+- `last_updated`: Timestamp
+- `config_path`: Path to course-specific config
 
 ### Performance Monitoring
 ```bash
@@ -365,6 +497,15 @@ rm -rf ~/.cache/huggingface/
 poetry run python -c "from transformers import AutoModel; AutoModel.from_pretrained('BAAI/bge-m3')"
 ```
 
+## Advanced Features
+
+- **Caching Mechanism**: Avoids re-conversion of unchanged files
+- **Performance Monitoring**: Logs and monitors conversion time for each file
+- **Conversion Fidelity**: 95% similarity threshold for test validations
+- **Robust Logging**: Detailed logging of conversion processes
+- **Ignore Patterns**: Support for `.conversionignore` file to exclude files/folders
+- **Parallel Processing**: Support via `TaskManager` for distributed processing
+
 ## Security & Performance
 
 ### Security Features
@@ -378,3 +519,4 @@ poetry run python -c "from transformers import AutoModel; AutoModel.from_pretrai
 - **Batch Processing**: Efficient multi-document handling
 - **GPU Acceleration**: CUDA support for ML operations
 - **Streaming**: Memory-efficient large file processing
+- **Performance Considerations**: Conversion fidelity varies by device (CPU/GPU/MPS), 95% similarity threshold used for test validation

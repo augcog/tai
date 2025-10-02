@@ -55,96 +55,151 @@ class WebScraper:
 
             # initialize current depths
             self.current_depths = {root_url: 0 for root_url in root_configs.keys()}
-            self.current_depths[-61] = -1  # for the starting URL
 
             # Track visited URLs
             visited = set()
 
-            # Start DFS from the initial URL
-            self.dfs_crawl(task["url"], -61, visited, root_configs, driver)
+            # Start DFS from each root URL directly instead of the initial URL
+            for root_url in root_configs.keys():
+                self.dfs_crawl(root_url, visited, root_configs, driver)
 
         finally:
             driver.close()
             self.logger.info(f"Completed task: {task['name']}")
 
-    def dfs_crawl(self, url, current_root, visited, root_configs, driver):
+    # def dfs_crawl_old(self, url, current_root, visited, root_configs, driver):
+    #     """Recursively crawl URLs using DFS approach"""
+    #     # Skip if already visited
+    #     if url in visited:
+    #         return
+    #
+    #     visited.add(url)
+    #
+    #     # Determine which root this URL belongs to
+    #     matching_root = None
+    #     for root_url in root_configs:
+    #         if root_url in url:
+    #             matching_root = root_url
+    #             break
+    #
+    #     # If no matching root and not the starting URL, skip
+    #     if not matching_root and current_root != -61:
+    #         return
+    #
+    #     indent = "         " * self.current_depths[current_root]
+    #
+    #     # Handle starting URL or URLs matching a root
+    #     if matching_root and current_root != -61:
+    #         root_config = root_configs[matching_root]
+    #         max_depth = root_config["depth"]
+    #         scraper_type = root_config["scraper_type"]
+    #         subtask_folder_path=root_config.get("subtask_folder_path", None)
+    #         target_folder = self.task_folder_path/ subtask_folder_path if subtask_folder_path else self.task_folder_path
+    #         # Skip if we've reached max depth for this root
+    #         if self.current_depths[current_root] > max_depth:
+    #             return
+    #
+    #         # Get appropriate scraper
+    #         if scraper_type not in SCRAPER_MAPPING:
+    #             raise ValueError(f"Unknown scraper type: {scraper_type}")
+    #         scraper = SCRAPER_MAPPING.get(scraper_type)()
+    #
+    #         self.logger.info(f"")
+    #         self.logger.info(f"{indent}Processing: {url}")
+    #         self.logger.info(
+    #             f"{indent}(depth: {self.current_depths[current_root]}, root: {current_root})"
+    #         )
+    #         # Scrape the page
+    #         try:
+    #             links = scraper.scrape(url, driver, target_folder)
+    #         except Exception as e:
+    #             self.logger.error(f"{indent}Error processing link {url}: {e}")
+    #             return
+    #
+    #         # Process each link with DFS
+    #         for link in links:
+    #             self.current_depths[current_root] += 1
+    #             self.dfs_crawl(link, matching_root, visited, root_configs, driver)
+    #             self.current_depths[current_root] -= 1
+    #     else:
+    #         # This is the starting URL, just scrape it using general scraper
+    #         scraper = GeneralScraper()
+    #         self.logger.info(f"Processing starting URL: {url}")
+    #         try:
+    #             links = scraper.scrape(url, driver, self.task_folder_path)
+    #         except Exception as e:
+    #             self.logger.error(f"{indent}Error processing link {url}: {e}")
+    #             return
+    #
+    #         # Process each link, checking for matching roots
+    #         for link in links:
+    #             # Determine root for each link
+    #             link_root = None
+    #             for root_url in root_configs:
+    #                 if root_url in link:
+    #                     link_root = root_url
+    #                     break
+    #
+    #             if link_root:
+    #                 # self.current_depths[link_root] += 1
+    #                 self.dfs_crawl(link, link_root, visited, root_configs, driver)
+    #                 # self.current_depths[link_root] -= 1
+
+    def dfs_crawl(self, url, visited, root_configs, driver):
         """Recursively crawl URLs using DFS approach"""
         # Skip if already visited
         if url in visited:
             return
 
-        visited.add(url)
-
         # Determine which root this URL belongs to
         matching_root = None
         for root_url in root_configs:
-            if root_url in url:
+            if url.startswith(root_url) or url == root_url:
                 matching_root = root_url
                 break
 
         # If no matching root and not the starting URL, skip
-        if not matching_root and current_root != -61:
+        if not matching_root:
+            visited.add(url)
             return
 
-        indent = "         " * self.current_depths[current_root]
+        root_config = root_configs[matching_root]
+        max_depth = root_config["depth"]
+        scraper_type = root_config["scraper_type"]
+        subtask_folder_path = root_config.get("subtask_folder_path", None)
+        target_folder = self.task_folder_path / subtask_folder_path if subtask_folder_path else self.task_folder_path
+        # Skip if we've reached max depth for this root
+        if self.current_depths[matching_root] >= max_depth:
+            return
+        visited.add(url)
 
-        # Handle starting URL or URLs matching a root
-        if matching_root and current_root != -61:
-            root_config = root_configs[matching_root]
-            max_depth = root_config["depth"]
-            scraper_type = root_config["scraper_type"]
+        indent = "         " * self.current_depths[matching_root]
 
-            # Skip if we've reached max depth for this root
-            if self.current_depths[current_root] > max_depth:
-                return
+        # Get appropriate scraper
+        if scraper_type not in SCRAPER_MAPPING:
+            raise ValueError(f"Unknown scraper type: {scraper_type}")
+        scraper = SCRAPER_MAPPING.get(scraper_type)()
 
-            # Get appropriate scraper
-            if scraper_type not in SCRAPER_MAPPING:
-                raise ValueError(f"Unknown scraper type: {scraper_type}")
-            scraper = SCRAPER_MAPPING.get(scraper_type)()
+        self.logger.info(f"")
+        self.logger.info(f"{indent}Processing: {url}")
+        self.logger.info(
+            f"{indent}(depth: {self.current_depths[matching_root]}, root: {matching_root})"
+        )
+        # Scrape the page
+        try:
+            links = scraper.scrape(url, driver, target_folder)
+        except Exception as e:
+            self.logger.error(f"{indent}Error processing link {url}: {e}")
+            return
 
-            self.logger.info(f"")
-            self.logger.info(f"{indent}Processing: {url}")
-            self.logger.info(
-                f"{indent}(depth: {self.current_depths[current_root]}, root: {current_root})"
-            )
-            # Scrape the page
-            try:
-                links = scraper.scrape(url, driver, self.task_folder_path)
-            except Exception as e:
-                self.logger.error(f"{indent}Error processing link {url}: {e}")
-                return
+        # Process each link with DFS
+        for link in links:
+            self.current_depths[matching_root] += 1
+            self.dfs_crawl(link, visited, root_configs, driver)
+            self.current_depths[matching_root] -= 1
 
-            # Process each link with DFS
-            for link in links:
-                self.current_depths[current_root] += 1
-                self.dfs_crawl(link, matching_root, visited, root_configs, driver)
-                self.current_depths[current_root] -= 1
-        else:
-            # This is the starting URL, just scrape it using general scraper
-            scraper = GeneralScraper()
-            self.logger.info(f"Processing starting URL: {url}")
-            try:
-                links = scraper.scrape(url, driver, self.task_folder_path)
-            except Exception as e:
-                self.logger.error(f"{indent}Error processing link {url}: {e}")
-                return
-
-            # Process each link, checking for matching roots
-            for link in links:
-                # Determine root for each link
-                link_root = None
-                for root_url in root_configs:
-                    if root_url in link:
-                        link_root = root_url
-                        break
-
-                if link_root:
-                    self.current_depths[link_root] += 1
-                    self.dfs_crawl(link, link_root, visited, root_configs, driver)
-                    self.current_depths[link_root] -= 1
 
 
 if __name__ == "__main__":
-    scraper = WebScraper("../task.yaml")
+    scraper = WebScraper("/home/bot/bot/yk/YK_final/course_yaml/web3_config.yaml")
     scraper.run()

@@ -313,20 +313,21 @@ def check_embedding_status(db_path: str, course_filter: Optional[str] = None) ->
 
 if __name__ == "__main__":
     # Example usage
-    db_path = "/home/bot/bot/yk/YK_final/course_yaml/metadata.db"
+    db_path = "/home/bot/bot/yk/YK_final/course_yaml/collective_metadata.db"
     data_dir = "/home/bot/bot/yk/YK_final/courses_out"
     
     # Check current status
-    status = check_embedding_status(db_path, course_filter="Berkeley")
+    status = check_embedding_status(db_path, course_filter="CS 61A")
     print("Current embedding status:", status)
     
     # Run embedding process
     results = embed_files_from_markdown(
         db_path=db_path,
         data_dir=data_dir,
-        course_filter="Berkeley",  # Set to None to process all courses
+        course_filter=None,  # Set to None to process all courses
         force_recompute=False  # Set to True to recompute existing embeddings
     )
+
     
     print("\nEmbedding results:")
     print(f"Processed: {results['processed']}")

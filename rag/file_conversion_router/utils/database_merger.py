@@ -3,7 +3,9 @@
 import logging
 import sqlite3
 from pathlib import Path
-from typing import List, Dict, Optional
+from typing import List, Dict
+
+from file_conversion_router.services.directory_service import SQL_INIT
 
 
 def merge_course_databases_into_collective(
@@ -27,7 +29,6 @@ def merge_course_databases_into_collective(
     collective_conn.row_factory = sqlite3.Row
 
     # Initialize schema in collective database
-    from file_conversion_router.services.directory_service import SQL_INIT
     collective_conn.executescript(SQL_INIT)
 
     merge_stats = {}
@@ -179,14 +180,19 @@ def _merge_single_course_db(
         file_uuid = file_row['uuid']
 
         # Insert file (no need to check for conflicts since we deleted all course data)
+        # Preserve created_at and update_time if they exist, otherwise use current timestamp
+        created_at = file_row['created_at'] if 'created_at' in file_row.keys() and file_row['created_at'] else None
+        update_time = file_row['update_time'] if 'update_time' in file_row.keys() and file_row['update_time'] else None
         collective_conn.execute("""
             INSERT OR REPLACE INTO file (uuid, file_hash, sections, relative_path,
-                                       course_code, course_name, file_name, extra_info, url)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                                       course_code, course_name, file_name, extra_info, url,
+                                       created_at, update_time)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, COALESCE(?, datetime('now', 'localtime')), COALESCE(?, datetime('now', 'localtime')))
         """, (
             file_row['uuid'], file_row['file_hash'], file_row['sections'],
             file_row['relative_path'], file_row['course_code'], file_row['course_name'],
-            file_row['file_name'], file_row['extra_info'], file_row['url']
+            file_row['file_name'], file_row['extra_info'], file_row['url'],
+            created_at, update_time
         ))
 
         stats["files"] += 1
@@ -222,185 +228,6 @@ def _merge_single_course_db(
             stats["problems"] += 1
 
     return stats
-
-
-def _update_uuid_in_course_database(
-    course_conn: sqlite3.Connection,
-    old_uuid: str,
-    new_uuid: str
-) -> None:
-    """Update UUID in all tables of the course database.
-
-    Args:
-        course_conn: Connection to the course database
-        old_uuid: The current UUID to be replaced
-        new_uuid: The new UUID to use
-    """
-    try:
-        # Update file table
-        course_conn.execute(
-            "UPDATE file SET uuid = ? WHERE uuid = ?",
-            (new_uuid, old_uuid)
-        )
-
-        # Update chunks table - file_uuid column
-        course_conn.execute(
-            "UPDATE chunks SET file_uuid = ? WHERE file_uuid = ?",
-            (new_uuid, old_uuid)
-        )
-
-        # Update problem table - file_uuid column
-        course_conn.execute(
-            "UPDATE problem SET file_uuid = ? WHERE file_uuid = ?",
-            (new_uuid, old_uuid)
-        )
-
-        # Commit the changes to the course database
-        course_conn.commit()
-
-        logging.info(f"Successfully updated UUID from {old_uuid} to {new_uuid} in course database")
-
-    except Exception as e:
-        course_conn.rollback()
-        logging.error(f"Failed to update UUID in course database: {str(e)}")
-        raise
-
-
-def clean_duplicate_problems(db_path: str) -> Dict[str, int]:
-    """Clean all duplicate problems from a database.
-
-    Removes duplicates based on multiple criteria:
-    1. Identical problem_content and question across all files (global duplicates)
-    2. Identical problem_id within the same file
-    3. Empty or meaningless problems
-
-    Args:
-        db_path: Path to the database file
-
-    Returns:
-        Dictionary with cleanup statistics
-    """
-    db_path = Path(db_path)
-
-    if not db_path.exists():
-        raise FileNotFoundError(f"Database not found: {db_path}")
-
-    conn = sqlite3.connect(str(db_path))
-    conn.row_factory = sqlite3.Row
-
-    cleanup_stats = {
-        "total_problems_before": 0,
-        "total_problems_after": 0,
-        "duplicates_removed": 0,
-        "empty_problems_removed": 0,
-        "duplicate_groups_found": 0
-    }
-
-    try:
-        # Get initial count
-        cleanup_stats["total_problems_before"] = conn.execute("SELECT COUNT(*) FROM problem").fetchone()[0]
-        logging.info(f"Starting cleanup of {cleanup_stats['total_problems_before']} problems in {db_path.name}")
-
-        # Step 1: Remove empty or meaningless problems
-        empty_problems = conn.execute("""
-            SELECT uuid FROM problem
-            WHERE (problem_content IS NULL OR TRIM(problem_content) = '' OR problem_content = '...')
-            AND (question IS NULL OR TRIM(question) = '' OR question = '...')
-            AND (problem_id IS NULL OR TRIM(problem_id) = '')
-        """).fetchall()
-
-        if empty_problems:
-            empty_uuids = [row['uuid'] for row in empty_problems]
-            cleanup_stats["empty_problems_removed"] = len(empty_uuids)
-            placeholders = ",".join("?" * len(empty_uuids))
-            conn.execute(f"DELETE FROM problem WHERE uuid IN ({placeholders})", empty_uuids)
-            logging.info(f"Removed {cleanup_stats['empty_problems_removed']} empty problems")
-
-        # Step 2: Find global duplicates based on content (across all files)
-        duplicates_query = """
-        SELECT uuid,
-               ROW_NUMBER() OVER (
-                   PARTITION BY COALESCE(TRIM(problem_content), ''),
-                                COALESCE(TRIM(question), '')
-                   ORDER BY problem_index ASC, uuid ASC
-               ) as row_num
-        FROM problem
-        WHERE NOT (
-            (problem_content IS NULL OR TRIM(problem_content) = '' OR problem_content = '...')
-            AND (question IS NULL OR TRIM(question) = '' OR question = '...')
-        )
-        """
-
-        duplicates = conn.execute(duplicates_query).fetchall()
-        duplicate_uuids = [row['uuid'] for row in duplicates if row['row_num'] > 1]
-
-        if duplicate_uuids:
-            content_duplicates = len(duplicate_uuids)
-
-            # Count duplicate groups
-            duplicate_groups_query = """
-            SELECT COUNT(*) as groups FROM (
-                SELECT COALESCE(TRIM(problem_content), ''),
-                       COALESCE(TRIM(question), ''),
-                       COUNT(*) as cnt
-                FROM problem
-                WHERE NOT (
-                    (problem_content IS NULL OR TRIM(problem_content) = '' OR problem_content = '...')
-                    AND (question IS NULL OR TRIM(question) = '' OR question = '...')
-                )
-                GROUP BY COALESCE(TRIM(problem_content), ''),
-                         COALESCE(TRIM(question), '')
-                HAVING COUNT(*) > 1
-            )
-            """
-            cleanup_stats["duplicate_groups_found"] = conn.execute(duplicate_groups_query).fetchone()[0]
-
-            # Delete duplicates
-            placeholders = ",".join("?" * len(duplicate_uuids))
-            conn.execute(f"DELETE FROM problem WHERE uuid IN ({placeholders})", duplicate_uuids)
-
-            cleanup_stats["duplicates_removed"] += content_duplicates
-            logging.info(f"Removed {content_duplicates} content duplicates from {cleanup_stats['duplicate_groups_found']} duplicate groups")
-
-        # Step 3: Handle problems with identical problem_id within the same file (keep most recent)
-        problem_id_duplicates_query = """
-        SELECT uuid,
-               ROW_NUMBER() OVER (
-                   PARTITION BY file_uuid, TRIM(problem_id)
-                   ORDER BY problem_index DESC, uuid DESC
-               ) as row_num
-        FROM problem
-        WHERE problem_id IS NOT NULL AND TRIM(problem_id) != ''
-        """
-
-        problem_id_duplicates = conn.execute(problem_id_duplicates_query).fetchall()
-        problem_id_duplicate_uuids = [row['uuid'] for row in problem_id_duplicates if row['row_num'] > 1]
-
-        if problem_id_duplicate_uuids:
-            additional_removed = len(problem_id_duplicate_uuids)
-            placeholders = ",".join("?" * len(problem_id_duplicate_uuids))
-            conn.execute(f"DELETE FROM problem WHERE uuid IN ({placeholders})", problem_id_duplicate_uuids)
-
-            cleanup_stats["duplicates_removed"] += additional_removed
-            logging.info(f"Removed additional {additional_removed} problems with duplicate problem_ids within same file")
-
-        conn.commit()
-
-        # Get final count
-        cleanup_stats["total_problems_after"] = conn.execute("SELECT COUNT(*) FROM problem").fetchone()[0]
-
-        logging.info(f"Cleanup completed: {cleanup_stats['total_problems_before']} → {cleanup_stats['total_problems_after']} problems")
-        logging.info(f"Total removed: {cleanup_stats['duplicates_removed'] + cleanup_stats['empty_problems_removed']} problems")
-
-    except Exception as e:
-        conn.rollback()
-        logging.error(f"Error during cleanup: {str(e)}")
-        raise
-    finally:
-        conn.close()
-
-    return cleanup_stats
-
 
 def merge_all_course_databases_in_directory(
     course_db_directory: str,
@@ -440,323 +267,171 @@ def merge_all_course_databases_in_directory(
         collective_db_path=collective_db_path,
     )
 
-def validate_comprehensive_questions(db_path: str) -> Dict[str, any]:
-    """Validate comprehensive questions and identify data integrity issues.
-
-    For comprehensive questions, problem_content and question fields should be identical.
-    This function identifies questions with missing or mismatched content.
+def merge_databases_by_list(
+    course_db_paths: List[str],
+    collective_db_path: str
+) -> Dict[str, int]:
+    """Merge a list of course databases into collective database based on course codes.
 
     Args:
-        db_path: Path to the database file
+        course_db_paths: List of paths to individual course database files
+        collective_db_path: Path to the collective/master database
 
     Returns:
-        Dictionary with validation statistics and problem UUIDs
+        Dictionary with merge statistics
     """
-    db_path = Path(db_path)
+    if not course_db_paths:
+        logging.warning("No course database paths provided")
+        return {}
 
-    if not db_path.exists():
-        raise FileNotFoundError(f"Database not found: {db_path}")
+    # Validate all database paths exist
+    valid_paths = []
+    for db_path in course_db_paths:
+        db_path_obj = Path(db_path)
+        if db_path_obj.exists():
+            valid_paths.append(str(db_path))
+        else:
+            logging.warning(f"Course database not found: {db_path}")
 
-    conn = sqlite3.connect(str(db_path))
-    conn.row_factory = sqlite3.Row
+    if not valid_paths:
+        logging.warning("No valid course database paths found")
+        return {}
 
-    validation_stats = {
-        "total_comprehensive": 0,
-        "valid_questions": 0,
-        "empty_question_field": 0,
-        "empty_problem_content_field": 0,
-        "both_fields_empty": 0,
-        "mismatched_content": 0,
-        "issues_found": []
-    }
+    logging.info(f"Merging {len(valid_paths)} course databases into collective database")
+    for db_path in valid_paths:
+        logging.info(f"  - {Path(db_path).name}")
+
+    return merge_course_databases_into_collective(
+        course_db_paths=valid_paths,
+        collective_db_path=collective_db_path,
+    )
+def split_course_from_collective(
+    collective_db_path: str,
+    course_code: str,
+    output_course_db_path: str
+) -> Dict[str, int]:
+    """Split a specific course's data from collective database into individual course database.
+
+    Args:
+        collective_db_path: Path to the collective database
+        course_code: Course code to extract
+        output_course_db_path: Path for the new course database
+
+    Returns:
+        Dictionary with split statistics (files, chunks, problems extracted)
+    """
+    collective_db_path = Path(collective_db_path)
+    output_course_db_path = Path(output_course_db_path)
+
+    if not collective_db_path.exists():
+        raise FileNotFoundError(f"Collective database not found: {collective_db_path}")
+
+    # Ensure output directory exists
+    output_course_db_path.parent.mkdir(parents=True, exist_ok=True)
+
+    # Connect to collective database
+    collective_conn = sqlite3.connect(str(collective_db_path))
+    collective_conn.row_factory = sqlite3.Row
+
+    # Connect to/create course database
+    course_conn = sqlite3.connect(str(output_course_db_path))
+    course_conn.row_factory = sqlite3.Row
+
+    # Initialize schema in course database
+    course_conn.executescript(SQL_INIT)
+
+    split_stats = {"files": 0, "chunks": 0, "problems": 0}
 
     try:
-        # Get all comprehensive questions
-        comprehensive_questions = conn.execute("""
-            SELECT uuid, problem_content, question
-            FROM problem
-            WHERE question_type = 'comprehensive'
-        """).fetchall()
+        logging.info(f"Splitting course '{course_code}' from collective database")
 
-        validation_stats["total_comprehensive"] = len(comprehensive_questions)
+        # Get all files for the specified course
+        files = collective_conn.execute(
+            "SELECT * FROM file WHERE course_code = ?", (course_code,)
+        ).fetchall()
 
-        for row in comprehensive_questions:
-            uuid = row['uuid']
-            problem_content = row['problem_content'] or ''
-            question = row['question'] or ''
+        if not files:
+            logging.warning(f"No files found for course '{course_code}' in collective database")
+            return split_stats
 
-            problem_content = problem_content.strip()
-            question = question.strip()
+        logging.info(f"Found {len(files)} files for course '{course_code}'")
 
-            # Check for various issues
-            if not problem_content and not question:
-                validation_stats["both_fields_empty"] += 1
-                validation_stats["issues_found"].append({
-                    "uuid": uuid,
-                    "issue_type": "both_empty",
-                    "problem_content": problem_content,
-                    "question": question
-                })
-            elif not question:
-                validation_stats["empty_question_field"] += 1
-                validation_stats["issues_found"].append({
-                    "uuid": uuid,
-                    "issue_type": "empty_question",
-                    "problem_content": problem_content,
-                    "question": question
-                })
-            elif not problem_content:
-                validation_stats["empty_problem_content_field"] += 1
-                validation_stats["issues_found"].append({
-                    "uuid": uuid,
-                    "issue_type": "empty_problem_content",
-                    "problem_content": problem_content,
-                    "question": question
-                })
-            elif problem_content != question:
-                validation_stats["mismatched_content"] += 1
-                validation_stats["issues_found"].append({
-                    "uuid": uuid,
-                    "issue_type": "content_mismatch",
-                    "problem_content": problem_content,
-                    "question": question
-                })
-            else:
-                validation_stats["valid_questions"] += 1
+        # Copy files and related data
+        for file_row in files:
+            file_uuid = file_row['uuid']
 
-        total_issues = (validation_stats["empty_question_field"] +
-                       validation_stats["empty_problem_content_field"] +
-                       validation_stats["both_fields_empty"] +
-                       validation_stats["mismatched_content"])
+            # Insert file into course database
+            course_conn.execute("""
+                INSERT OR REPLACE INTO file (uuid, file_hash, sections, relative_path,
+                                           course_code, course_name, file_name, extra_info, url)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                file_row['uuid'], file_row['file_hash'], file_row['sections'],
+                file_row['relative_path'], file_row['course_code'], file_row['course_name'],
+                file_row['file_name'], file_row['extra_info'], file_row['url']
+            ))
+            split_stats["files"] += 1
 
-        logging.info(f"Comprehensive questions validation for {db_path.name}:")
-        logging.info(f"  Total comprehensive questions: {validation_stats['total_comprehensive']}")
-        logging.info(f"  Valid questions: {validation_stats['valid_questions']}")
-        logging.info(f"  Issues found: {total_issues}")
-        logging.info(f"    - Empty question field: {validation_stats['empty_question_field']}")
-        logging.info(f"    - Empty problem_content field: {validation_stats['empty_problem_content_field']}")
-        logging.info(f"    - Both fields empty: {validation_stats['both_fields_empty']}")
-        logging.info(f"    - Content mismatch: {validation_stats['mismatched_content']}")
+            # Copy chunks for this file
+            chunks = collective_conn.execute(
+                "SELECT * FROM chunks WHERE file_uuid = ?", (file_uuid,)
+            ).fetchall()
 
-    except Exception as e:
-        logging.error(f"Error during comprehensive questions validation: {str(e)}")
-        raise
-    finally:
-        conn.close()
+            for chunk_row in chunks:
+                course_conn.execute("""
+                    INSERT OR REPLACE INTO chunks (chunk_uuid, file_uuid, idx, text, title, url,
+                                                 file_path, reference_path, course_name, course_code, chunk_index)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    chunk_row['chunk_uuid'], chunk_row['file_uuid'], chunk_row['idx'],
+                    chunk_row['text'], chunk_row['title'], chunk_row['url'],
+                    chunk_row['file_path'], chunk_row['reference_path'], chunk_row['course_name'],
+                    chunk_row['course_code'], chunk_row['chunk_index']
+                ))
+                split_stats["chunks"] += 1
 
-    return validation_stats
+            # Copy problems for this file
+            problems = collective_conn.execute(
+                "SELECT * FROM problem WHERE file_uuid = ?", (file_uuid,)
+            ).fetchall()
 
+            for problem_row in problems:
+                course_conn.execute("""
+                    INSERT OR REPLACE INTO problem (uuid, file_uuid, problem_index, problem_id, problem_content,
+                                                  question_id, question, choices, answer, explanation, question_type)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    problem_row['uuid'], problem_row['file_uuid'], problem_row['problem_index'],
+                    problem_row['problem_id'], problem_row['problem_content'], problem_row['question_id'],
+                    problem_row['question'], problem_row['choices'], problem_row['answer'],
+                    problem_row['explanation'], problem_row['question_type']
+                ))
+                split_stats["problems"] += 1
 
-def fix_comprehensive_questions(db_path: str) -> Dict[str, int]:
-    """Fix comprehensive questions with missing or inconsistent content.
-
-    Repairs comprehensive questions by ensuring problem_content and question fields
-    contain identical content. Uses the following repair strategy:
-    1. If question is empty but problem_content exists: Copy problem_content to question
-    2. If problem_content is empty but question exists: Copy question to problem_content
-    3. If both have content but differ: Keep the longer/more complete version in both
-    4. If both are empty: Log for manual review (no automatic fix)
-
-    Args:
-        db_path: Path to the database file
-
-    Returns:
-        Dictionary with repair statistics
-    """
-    db_path = Path(db_path)
-
-    if not db_path.exists():
-        raise FileNotFoundError(f"Database not found: {db_path}")
-
-    conn = sqlite3.connect(str(db_path))
-    conn.row_factory = sqlite3.Row
-
-    repair_stats = {
-        "questions_fixed": 0,
-        "question_field_filled": 0,
-        "problem_content_field_filled": 0,
-        "content_standardized": 0,
-        "manual_review_needed": 0,
-        "manual_review_uuids": []
-    }
-
-    try:
-        # First validate to get issues
-        validation_results = validate_comprehensive_questions(db_path)
-
-        if not validation_results["issues_found"]:
-            logging.info("No comprehensive questions need fixing.")
-            return repair_stats
-
-        logging.info(f"Starting repair of {len(validation_results['issues_found'])} comprehensive questions...")
-
-        for issue in validation_results["issues_found"]:
-            uuid = issue["uuid"]
-            problem_content = issue["problem_content"]
-            question = issue["question"]
-            issue_type = issue["issue_type"]
-
-            new_problem_content = problem_content
-            new_question = question
-            fixed = False
-
-            if issue_type == "empty_question":
-                # Copy problem_content to question
-                new_question = problem_content
-                repair_stats["question_field_filled"] += 1
-                fixed = True
-
-            elif issue_type == "empty_problem_content":
-                # Copy question to problem_content
-                new_problem_content = question
-                repair_stats["problem_content_field_filled"] += 1
-                fixed = True
-
-            elif issue_type == "content_mismatch":
-                # Use the longer/more complete version for both fields
-                if len(problem_content) >= len(question):
-                    new_question = problem_content
-                else:
-                    new_problem_content = question
-                repair_stats["content_standardized"] += 1
-                fixed = True
-
-            elif issue_type == "both_empty":
-                # Cannot auto-fix, needs manual review
-                repair_stats["manual_review_needed"] += 1
-                repair_stats["manual_review_uuids"].append(uuid)
-                logging.warning(f"Comprehensive question {uuid} has both fields empty - requires manual review")
-                continue
-
-            if fixed:
-                # Update the database
-                conn.execute("""
-                    UPDATE problem
-                    SET problem_content = ?, question = ?
-                    WHERE uuid = ?
-                """, (new_problem_content, new_question, uuid))
-
-                repair_stats["questions_fixed"] += 1
-
-        conn.commit()
-
-        logging.info(f"Comprehensive questions repair completed:")
-        logging.info(f"  Questions fixed: {repair_stats['questions_fixed']}")
-        logging.info(f"  Question fields filled: {repair_stats['question_field_filled']}")
-        logging.info(f"  Problem content fields filled: {repair_stats['problem_content_field_filled']}")
-        logging.info(f"  Content standardized: {repair_stats['content_standardized']}")
-        logging.info(f"  Manual review needed: {repair_stats['manual_review_needed']}")
+        course_conn.commit()
+        logging.info(f"Successfully split course '{course_code}' from collective database: {split_stats}")
 
     except Exception as e:
-        conn.rollback()
-        logging.error(f"Error during comprehensive questions repair: {str(e)}")
+        course_conn.rollback()
+        logging.error(f"Error during course split: {str(e)}")
         raise
     finally:
-        conn.close()
+        collective_conn.close()
+        course_conn.close()
 
-    return repair_stats
-
-
-def verify_comprehensive_questions_fix(db_path: str) -> Dict[str, any]:
-    """Verify that comprehensive questions have been properly fixed.
-
-    Re-validates comprehensive questions after repair to ensure all issues
-    have been resolved.
-
-    Args:
-        db_path: Path to the database file
-
-    Returns:
-        Dictionary with verification results
-    """
-    logging.info(f"Verifying comprehensive questions fix for {Path(db_path).name}...")
-
-    validation_results = validate_comprehensive_questions(db_path)
-
-    verification = {
-        "total_comprehensive": validation_results["total_comprehensive"],
-        "valid_questions": validation_results["valid_questions"],
-        "remaining_issues": len(validation_results["issues_found"]),
-        "fix_success_rate": 0.0,
-        "verification_passed": False
-    }
-
-    if validation_results["total_comprehensive"] > 0:
-        verification["fix_success_rate"] = (validation_results["valid_questions"] /
-                                          validation_results["total_comprehensive"]) * 100
-
-    # Consider fix successful if all questions are valid or only manual review cases remain
-    manual_review_only = all(issue["issue_type"] == "both_empty"
-                           for issue in validation_results["issues_found"])
-
-    verification["verification_passed"] = (validation_results["valid_questions"] ==
-                                         validation_results["total_comprehensive"] or
-                                         manual_review_only)
-
-    logging.info(f"Verification results:")
-    logging.info(f"  Success rate: {verification['fix_success_rate']:.1f}%")
-    logging.info(f"  Verification passed: {verification['verification_passed']}")
-
-    return verification
-
+    return split_stats
 
 if __name__ == "__main__":
-    import logging
-
-    # Configure logging
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-    # Example usage: Merge single course database with proper transaction handling
-    try:
-        course_conn = sqlite3.connect("/home/bot/bot/yk/YK_final/courses_out/CS_294-137/CS_294-137_metadata.db")
-        collective_conn = sqlite3.connect("/home/bot/bot/yk/YK_final/course_yaml/metadata.db")
-
-        merge_stats = _merge_single_course_db(
-            course_conn=course_conn,
-            collective_conn=collective_conn,
-            course_db_name="CS_294-137_metadata.db"
-        )
-
-        # IMPORTANT: Commit the transaction to persist changes
-        collective_conn.commit()
-
-        print(f"Merge completed: {merge_stats}")
-
-        course_conn.close()
-        collective_conn.close()
-
-    except Exception as e:
-        print(f"Merge failed: {e}")
-        if 'collective_conn' in locals():
-            collective_conn.rollback()
-            collective_conn.close()
-        if 'course_conn' in locals():
-            course_conn.close()
-
-    # Fix comprehensive questions
-    try:
-        print("\n" + "="*50)
-        print("FIXING COMPREHENSIVE QUESTIONS")
-        print("="*50)
-
-        db_path = "/home/bot/bot/yk/YK_final/course_yaml/metadata.db"
-
-        # Step 1: Validate current state
-        validation_results = validate_comprehensive_questions(db_path)
-
-        # Step 2: Fix issues
-        if validation_results["issues_found"]:
-            repair_results = fix_comprehensive_questions(db_path)
-            print(f"Repair completed: {repair_results}")
-
-            # Step 3: Verify fixes
-            verification_results = verify_comprehensive_questions_fix(db_path)
-            print(f"Verification: {verification_results}")
-        else:
-            print("No comprehensive questions issues found.")
-
-    except Exception as e:
-        print(f"Comprehensive questions fix failed: {e}")
-
-    # Example: Clean duplicate problems
-    # clean_duplicate_problems("/home/bot/bot/yk/YK_final/course_yaml/metadata.db")
+    # Example usage: merge specific databases by providing a list of paths
+    merge_stats = merge_databases_by_list(
+        course_db_paths=[
+            "/home/bot/bot/yk/YK_final/courses_out/db/CS 294-137_metadata.db",
+            "/home/bot/bot/yk/YK_final/courses_out/db/CS 61A_metadata.db",
+            "/home/bot/bot/yk/YK_final/courses_out/db/Berkeley_metadata.db",
+            "/home/bot/bot/yk/YK_final/courses_out/db/ROAR Academy_metadata.db"
+        ],
+        collective_db_path="/home/bot/bot/yk/YK_final/course_yaml/collective_metadata.db"
+    )
+    logging.info(f"Merge statistics: {merge_stats}")

@@ -70,16 +70,17 @@ def get_strutured_content_for_ipynb(
                       - Provide clear explanations for correct answers
                       - Sub-problems should test different aspects or depths of understanding of the main concept
 
-                    ### Part 3: Generate Comprehensive Summary Questions
-                    Create 3-5 comprehensive summary questions that test understanding of the entire document's key knowledge points.
-                    These questions should:
-                    - **Synthesize Knowledge:** Connect multiple concepts from different parts of the document
-                    - **Test Deep Understanding:** Go beyond simple recall to test application, analysis, and evaluation
-                    - **Cover Main Themes:** Collectively address the most important learning objectives
-                    - **Progressive Difficulty:** Build from foundational understanding to advanced synthesis
-                    
-                    For each comprehensive question:
-                    - **Question Type:** Classify as comprehensive
+                    ### Part 3: Generate Comprehensive Recap Questions
+                    Create up to 5 recap questions (0–5, only include questions that are genuinely meaningful). These questions are for review and self-check, not extension. They must help students recall and consolidate the document's key concepts and verify whether they understand what the file/lecture teaches.
+
+                    Design principles:
+                    - **Recap, not add-on:** Do not introduce content beyond the document. Use the document's terminology and scope.
+                    - **Coverage with minimal redundancy:** Collectively touch the main themes; avoid overlapping questions.
+                    - **Easy → Moderate:** Questions should be easy to moderate. If multiple questions are produced, order them from easier to slightly more integrative.
+                    - **Concept integration (lightweight):** Prefer questions that connect 2–3 core ideas from different sections to reinforce recall, but keep cognitive load reasonable.
+
+                    For each recap question:
+                    - **Question Type:** Classify as recap
                     - **Multiple Choice:** Provide exactly 4 options with 1-2 correct answers
                     - **Clear Explanation:** Detail why correct answers are right and others wrong
                     - **Knowledge Areas:** List the key knowledge areas being tested
@@ -221,7 +222,7 @@ def get_strutured_content_for_ipynb(
                                 'additionalProperties': False,
                             }
                         },
-                        'comprehensive_questions': {
+                        'recap_questions': {
                             "type": "array",
                             "items": {
                                 "type": "object",
@@ -229,11 +230,11 @@ def get_strutured_content_for_ipynb(
                                     "question_id": {"type": "integer", "description": "Sequential number starting from 1"},
                                     "question_type": {
                                         "type": "string",
-                                        "enum": ["comprehensive"],
+                                        "enum": ["recap"],
                                     },
                                     "question_text": {
                                         "type": "string",
-                                        "description": "The complete text of the multiple-choice question"
+                                        "description": "The complete text of the multiple-choice recap question"
                                     },
                                     "options": {
                                         "type": "array",
@@ -262,12 +263,12 @@ def get_strutured_content_for_ipynb(
                                 "required": ["question_id", "question_type", "question_text", "options", "correct_answers", "explanation", "knowledge_areas"],
                                 "additionalProperties": False
                             },
-                            "minItems": 3,
+                            "minItems": 0,
                             "maxItems": 5,
-                            "description": "3-5 comprehensive summary questions covering the entire document"
+                            "description": "0-5 recap questions for review and self-check, ordered from easy to moderate"
                         }
                     },
-                    'required': ['key_concepts', 'problems', 'comprehensive_questions'],
+                    'required': ['key_concepts', 'problems', 'recap_questions'],
                     'additionalProperties': False,
                 }
             }
@@ -336,20 +337,21 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
         -   `key_concept`: [A single, clear sentence summarizing the core idea of the section.]
         -   `source_section`: [The single, exact title from the section that this concept is derived from.]
         -   `check_in_question`:The structured question object as defined above.
-        ### Part 3: Generate Comprehensive Summary Questions
-        Create 3-5 comprehensive summary questions that test understanding of the entire document's key knowledge points.
-        These questions should:
-        - **Synthesize Knowledge:** Connect multiple concepts from different parts of the document
-        - **Test Deep Understanding:** Go beyond simple recall to test application, analysis, and evaluation
-        - **Cover Main Themes:** Collectively address the most important learning objectives
-        - **Progressive Difficulty:** Build from foundational understanding to advanced synthesis
-        
-        For each comprehensive question:
-        - **Question Type:** Classify as synthesis, application, analysis, or evaluation
+        ### Part 3: Generate Comprehensive Recap Questions
+        Create up to 5 recap questions (0–5, only include questions that are genuinely meaningful). These questions are for review and self-check, not extension. They must help students recall and consolidate the document's key concepts and verify whether they understand what the file/lecture teaches.
+
+        Design principles:
+        - **Recap, not add-on:** Do not introduce content beyond the document. Use the document's terminology and scope.
+        - **Coverage with minimal redundancy:** Collectively touch the main themes; avoid overlapping questions.
+        - **Easy → Moderate:** Questions should be easy to moderate. If multiple questions are produced, order them from easier to slightly more integrative.
+        - **Concept integration (lightweight):** Prefer questions that connect 2–3 core ideas from different sections to reinforce recall, but keep cognitive load reasonable.
+
+        For each recap question:
+        - **Question Type:** Classify as recap
         - **Multiple Choice:** Provide exactly 4 options with 1-2 correct answers
         - **Clear Explanation:** Detail why correct answers are right and others wrong
         - **Knowledge Areas:** List the key knowledge areas being tested
-        
+
         ### Part 4: Identify and Classify Speakers
         The markdown includes speaker tags like Speaker_00, Speaker_01, etc. For each unique speaker:
         - Analyze their content and determine the most likely role:
@@ -452,7 +454,7 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                 "additionalProperties": False,
                             },
                         },
-                        'comprehensive_questions': {
+                        'recap_questions': {
                             "type": "array",
                             "items": {
                                 "type": "object",
@@ -460,11 +462,11 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                     "question_id": {"type": "integer", "description": "Sequential number starting from 1"},
                                     "question_type": {
                                         "type": "string",
-                                        "enum": ["comprehensive"],
+                                        "enum": ["recap"],
                                     },
                                     "question_text": {
                                         "type": "string",
-                                        "description": "The complete text of the multiple-choice question"
+                                        "description": "The complete text of the multiple-choice recap question"
                                     },
                                     "options": {
                                         "type": "array",
@@ -493,9 +495,9 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                 "required": ["question_id", "question_type", "question_text", "options", "correct_answers", "explanation", "knowledge_areas"],
                                 "additionalProperties": False
                             },
-                            "minItems": 3,
+                            "minItems": 0,
                             "maxItems": 5,
-                            "description": "3-5 comprehensive summary questions covering the entire document"
+                            "description": "0-5 recap questions for review and self-check, ordered from easy to moderate"
                         },
                         "speakers": {
                             "type": "array",
@@ -515,7 +517,7 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                             },
                         },
                     },
-                    "required": ["paragraphs", "sections", "key_concepts", "comprehensive_questions", "speakers"],
+                    "required": ["paragraphs", "sections", "key_concepts", "recap_questions", "speakers"],
                     "additionalProperties": False,
                 },
             },
@@ -547,20 +549,21 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
             -   `key_concept`: [A single, clear sentence summarizing the core idea of the section.]
             -   `source_section`: [The single, exact title from the section that this concept is derived from.]
             -   `check_in_question`:The structured question object as defined above.
-            ### Part 3: Generate Comprehensive Summary Questions
-            Create 3-5 comprehensive summary questions that test understanding of the entire document's key knowledge points.
-            These questions should:
-            - **Synthesize Knowledge:** Connect multiple concepts from different parts of the document
-            - **Test Deep Understanding:** Go beyond simple recall to test application, analysis, and evaluation
-            - **Cover Main Themes:** Collectively address the most important learning objectives
-            - **Progressive Difficulty:** Build from foundational understanding to advanced synthesis
-            
-            For each comprehensive question:
-            - **Question Type:** Classify as comprehensive
+            ### Part 3: Generate Comprehensive Recap Questions
+            Create up to 5 recap questions (0–5, only include questions that are genuinely meaningful). These questions are for review and self-check, not extension. They must help students recall and consolidate the document's key concepts and verify whether they understand what the file/lecture teaches.
+
+            Design principles:
+            - **Recap, not add-on:** Do not introduce content beyond the document. Use the document's terminology and scope.
+            - **Coverage with minimal redundancy:** Collectively touch the main themes; avoid overlapping questions.
+            - **Easy → Moderate:** Questions should be easy to moderate. If multiple questions are produced, order them from easier to slightly more integrative.
+            - **Concept integration (lightweight):** Prefer questions that connect 2–3 core ideas from different sections to reinforce recall, but keep cognitive load reasonable.
+
+            For each recap question:
+            - **Question Type:** Classify as recap
             - **Multiple Choice:** Provide exactly 4 options with 1-2 correct answers
             - **Clear Explanation:** Detail why correct answers are right and others wrong
             - **Knowledge Areas:** List the key knowledge areas being tested
-            
+
              ### Part 4: Identify and Classify Speakers
             The markdown includes speaker tags like Speaker_00, Speaker_01, etc. For each unique speaker:
             - FIRST: Look for name introductions in their speech (e.g., "I am John", "My name is Sarah", "I'm Professor Smith")
@@ -658,7 +661,7 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                 "additionalProperties": False,
                             },
                         },
-                        'comprehensive_questions': {
+                        'recap_questions': {
                             "type": "array",
                             "items": {
                                 "type": "object",
@@ -666,11 +669,11 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                     "question_id": {"type": "integer", "description": "Sequential number starting from 1"},
                                     "question_type": {
                                         "type": "string",
-                                        "enum": ["comprehensive"],
+                                        "enum": ["recap"],
                                     },
                                     "question_text": {
                                         "type": "string",
-                                        "description": "The complete text of the multiple-choice question"
+                                        "description": "The complete text of the multiple-choice recap question"
                                     },
                                     "options": {
                                         "type": "array",
@@ -699,9 +702,9 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                                 "required": ["question_id", "question_type", "question_text", "options", "correct_answers", "explanation", "knowledge_areas"],
                                 "additionalProperties": False
                             },
-                            "minItems": 3,
+                            "minItems": 0,
                             "maxItems": 5,
-                            "description": "3-5 comprehensive summary questions covering the entire document"
+                            "description": "0-5 recap questions for review and self-check, ordered from easy to moderate"
                         },
                         "speakers": {
                             "type": "array",
@@ -720,7 +723,7 @@ def generate_json_schema_for_no_title(paragraph_count: int, course_name: str, fi
                             },
                         },
                     },
-                    "required": ["paragraphs", "key_concepts", "comprehensive_questions", "speakers"],
+                    "required": ["paragraphs", "key_concepts", "recap_questions", "speakers"],
                     "additionalProperties": False,
                 },
             },
@@ -863,7 +866,7 @@ def get_structured_content_with_one_title_level(
                                 "additionalProperties": False,
                             },
                         },
-                        'comprehensive_questions': {
+                        'recap_questions': {
                             "type": "array",
                             "items": {
                                 "type": "object",
@@ -871,11 +874,11 @@ def get_structured_content_with_one_title_level(
                                     "question_id": {"type": "integer", "description": "Sequential number starting from 1"},
                                     "question_type": {
                                         "type": "string",
-                                        "enum": ["comprehensive"],
+                                        "enum": ["recap"],
                                     },
                                     "question_text": {
                                         "type": "string",
-                                        "description": "The complete text of the multiple-choice question"
+                                        "description": "The complete text of the multiple-choice recap question"
                                     },
                                     "options": {
                                         "type": "array",
@@ -904,12 +907,12 @@ def get_structured_content_with_one_title_level(
                                 "required": ["question_id", "question_type", "question_text", "options", "correct_answers", "explanation", "knowledge_areas"],
                                 "additionalProperties": False
                             },
-                            "minItems": 3,
+                            "minItems": 0,
                             "maxItems": 5,
-                            "description": "3-5 comprehensive summary questions covering the entire document"
+                            "description": "0-5 recap questions for review and self-check, ordered from easy to moderate"
                         }
                     },
-                    "required": ["titles_with_levels", "key_concepts", "comprehensive_questions"],
+                    "required": ["titles_with_levels", "key_concepts", "recap_questions"],
                     "additionalProperties": False,
                 },
             },
@@ -957,17 +960,18 @@ def get_structured_content_with_one_title_level(
                 Key Concept: [A single, clear sentence summarizing the core idea of the section.]
                 Source Section: [The single, exact title from {title_list} that this concept is derived from.]
                 Check-in Question: The structured question object as defined above.
-                
-                ### Part 3: Generate Comprehensive Summary Questions
-                Create 3-5 comprehensive summary questions that test understanding of the entire document's key knowledge points.
-                These questions should:
-                - **Synthesize Knowledge:** Connect multiple concepts from different parts of the document
-                - **Test Deep Understanding:** Go beyond simple recall to test application, analysis, and evaluation
-                - **Cover Main Themes:** Collectively address the most important learning objectives
-                - **Progressive Difficulty:** Build from foundational understanding to advanced synthesis
-                
-                For each comprehensive question:
-                - **Question Type:** Classify as comprehensive
+
+                ### Part 3: Generate Comprehensive Recap Questions
+                Create up to 5 recap questions (0–5, only include questions that are genuinely meaningful). These questions are for review and self-check, not extension. They must help students recall and consolidate the document's key concepts and verify whether they understand what the file/lecture teaches.
+
+                Design principles:
+                - **Recap, not add-on:** Do not introduce content beyond the document. Use the document's terminology and scope.
+                - **Coverage with minimal redundancy:** Collectively touch the main themes; avoid overlapping questions.
+                - **Easy → Moderate:** Questions should be easy to moderate. If multiple questions are produced, order them from easier to slightly more integrative.
+                - **Concept integration (lightweight):** Prefer questions that connect 2–3 core ideas from different sections to reinforce recall, but keep cognitive load reasonable.
+
+                For each recap question:
+                - **Question Type:** Classify as recap
                 - **Multiple Choice:** Provide exactly 4 options with 1-2 correct answers
                 - **Clear Explanation:** Detail why correct answers are right and others wrong
                 - **Knowledge Areas:** List the key knowledge areas being tested""")
@@ -1208,7 +1212,7 @@ def get_only_key_concepts(md_content: str, index_helper: dict):
                             "additionalProperties": False,
                         },
                     },
-                    'comprehensive_questions': {
+                    'recap_questions': {
                         "type": "array",
                         "items": {
                             "type": "object",
@@ -1216,12 +1220,12 @@ def get_only_key_concepts(md_content: str, index_helper: dict):
                                 "question_id": {"type": "integer", "description": "Sequential number starting from 1"},
                                 "question_type": {
                                     "type": "string",
-                                    "enum": ["synthesis", "application", "analysis", "evaluation"],
-                                    "description": "Type of cognitive skill being tested"
+                                    "enum": ["recap"],
+                                    "description": "Type of question for review and self-check"
                                 },
                                 "question_text": {
                                     "type": "string",
-                                    "description": "The complete text of the multiple-choice question"
+                                    "description": "The complete text of the multiple-choice recap question"
                                 },
                                 "options": {
                                     "type": "array",
@@ -1250,12 +1254,12 @@ def get_only_key_concepts(md_content: str, index_helper: dict):
                             "required": ["question_id", "question_type", "question_text", "options", "correct_answers", "explanation", "knowledge_areas"],
                             "additionalProperties": False
                         },
-                        "minItems": 3,
+                        "minItems": 0,
                         "maxItems": 5,
-                        "description": "3-5 comprehensive summary questions covering the entire document"
+                        "description": "0-5 recap questions for review and self-check, ordered from easy to moderate"
                     }
                 },
-                "required": ["key_concepts", "comprehensive_questions"],
+                "required": ["key_concepts", "recap_questions"],
                 "additionalProperties": False,
             },
         },
@@ -1287,17 +1291,18 @@ def get_only_key_concepts(md_content: str, index_helper: dict):
                 Key Concept: [A single, clear sentence summarizing the core idea of the section.]
                 Source Section: [The single, exact title from {title_list} that this concept is derived from.]
                 Check-in Question: The structured question object as defined above.
-                
-                ### Generate Comprehensive Summary Questions
-                Create 3-5 comprehensive summary questions that test understanding of the entire document's key knowledge points.
-                These questions should:
-                - **Synthesize Knowledge:** Connect multiple concepts from different parts of the document
-                - **Test Deep Understanding:** Go beyond simple recall to test application, analysis, and evaluation
-                - **Cover Main Themes:** Collectively address the most important learning objectives
-                - **Progressive Difficulty:** Build from foundational understanding to advanced synthesis
-                
-                For each comprehensive question:
-                - **Question Type:** Classify as comprehensive
+
+                ### Generate Comprehensive Recap Questions
+                Create up to 5 recap questions (0–5, only include questions that are genuinely meaningful). These questions are for review and self-check, not extension. They must help students recall and consolidate the document's key concepts and verify whether they understand what the file/lecture teaches.
+
+                Design principles:
+                - **Recap, not add-on:** Do not introduce content beyond the document. Use the document's terminology and scope.
+                - **Coverage with minimal redundancy:** Collectively touch the main themes; avoid overlapping questions.
+                - **Easy → Moderate:** Questions should be easy to moderate. If multiple questions are produced, order them from easier to slightly more integrative.
+                - **Concept integration (lightweight):** Prefer questions that connect 2–3 core ideas from different sections to reinforce recall, but keep cognitive load reasonable.
+
+                For each recap question:
+                - **Question Type:** Classify as recap
                 - **Multiple Choice:** Provide exactly 4 options with 1-2 correct answers
                 - **Clear Explanation:** Detail why correct answers are right and others wrong
                 - **Knowledge Areas:** List the key knowledge areas being tested""")

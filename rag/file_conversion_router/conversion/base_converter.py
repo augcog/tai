@@ -232,8 +232,8 @@ class BaseConverter(ABC):
             section["aspects"] = section.pop('content_coverage')
             for aspect in section["aspects"]:
                 aspect["type"] = aspect.pop('aspect')
-        if content_dict.get('comprehensive_questions'):
-            metadata_content["comprehensive_questions"] = content_dict['comprehensive_questions']
+        if content_dict.get('recap_questions'):
+            metadata_content["recap_questions"] = content_dict['recap_questions']
         if self.file_type == "ipynb":
             metadata_content["problems"] = self.process_problems(content_dict)
         return metadata_content
@@ -242,13 +242,46 @@ class BaseConverter(ABC):
         """
         Match the helper titles with the levels titles.
         This method is used to fix the index_helper with titles and their levels.
-        Handles quote variations by trying multiple normalization approaches.
+        Handles quote variations, markdown formatting, and semantic similarities.
         """
-        a_titles = a_titles.translate(str.maketrans('', '', string.punctuation)).lower().strip()
-        a_titles = a_titles.replace('\\','').lower().strip()
-        b_titles = b_titles.translate(str.maketrans('', '', string.punctuation)).lower().strip()
-        b_titles = b_titles.replace('\\','').lower().strip()
-        return operator(a_titles, b_titles)
+        def normalize_title(title: str) -> str:
+            """Normalize a title for matching by removing common variations."""
+            # Remove markdown formatting (**, *, etc.)
+            title = re.sub(r'\*+', '', title)
+            # Remove punctuation and convert to lowercase
+            title = title.translate(str.maketrans('', '', string.punctuation)).lower().strip()
+            # Remove backslashes
+            title = title.replace('\\', '').strip()
+            # Remove common words that might vary (options, section, etc.)
+            common_variations = ['options', 'section', 'part', 'chapter']
+            words = title.split()
+            filtered_words = [w for w in words if w not in common_variations]
+            return ' '.join(filtered_words)
+
+        normalized_a = normalize_title(a_titles)
+        normalized_b = normalize_title(b_titles)
+
+        # First try exact match after normalization
+        if operator(normalized_a, normalized_b):
+            return True
+
+        # Try reverse order for contains operation
+        if operator == str.__contains__:
+            if normalized_b in normalized_a:
+                return True
+
+        # Try with individual words for better semantic matching
+        words_a = set(normalized_a.split())
+        words_b = set(normalized_b.split())
+
+        # Check if significant overlap exists (at least 70% of words match)
+        if words_a and words_b:
+            intersection = words_a.intersection(words_b)
+            min_words = min(len(words_a), len(words_b))
+            if len(intersection) / min_words >= 0.7:
+                return True
+
+        return False
 
     def process_problems(self, content_dict):
         # Return just the list of problems, not a dictionary

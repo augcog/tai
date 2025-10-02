@@ -54,6 +54,8 @@ def process_folder(
         course_code: str,
         log_dir: Union[str, Path] = None,
         db_path: Union[str, Path] = None,
+        generate_embeddings: bool = False,
+        embedding_model: str = "Qwen/Qwen3-Embedding-4B",
 ) -> None:
     """Walk through the input directory and schedule conversion tasks for specified file types."""
     logging.getLogger().setLevel(logging.INFO)
@@ -128,10 +130,10 @@ def process_folder(
         # sections from metadata if provided
         sections = []
         url = ""
-        comprehensive_questions = []
+        recap_questions = []
         if isinstance(metadata, dict):
             sections = metadata.get("sections", []) or []
-            comprehensive_questions = metadata.get("comprehensive_questions", []) or []
+            recap_questions = metadata.get("recap_questions", [])
             url = metadata.get("URL", "")
 
         # read extra info from json file if present
@@ -144,7 +146,6 @@ def process_folder(
             except json.JSONDecodeError as e:
                 logging.error(f"Failed to read extra info from {extra_info_file}: {e}")
                 extra_info = []
-        # write chunks + file row
         file_uuid_written = write_chunks_to_db(
             conn=conn,
             file_hash=fhash,
@@ -172,32 +173,32 @@ def process_folder(
                     upsert_problem_meta(conn, file_uuid_written, pr, q_id, q)
             conn.commit()
         
-        # upsert comprehensive questions if present
-        if comprehensive_questions:
+        # upsert recap questions if present
+        if recap_questions:
             conn.execute("BEGIN IMMEDIATE")
-            for idx, cq in enumerate(comprehensive_questions, start=1):
-                # Create a problem entry for each comprehensive question
-                # Treat it as a special type of problem with comprehensive question data
+            for idx, cq in enumerate(recap_questions, start=1):
+                # Create a problem entry for each recap question
+                # Treat it as a special type of problem with recap question data
                 problem_data = {
                     "problem_index": idx,
-                    "problem_id": f"comprehensive_{idx}",
+                    "problem_id": f"recap_{idx}",
                     "problem_content": cq.get("question_text", "")
                 }
-                
-                # Handle questions within comprehensive questions
+
+                # Handle questions within recap questions
                 q_container = cq.get("questions") or cq.get("question_set") or []
                 if q_container:
                     for q_id, q in _iter_questions_local(q_container):
-                        upsert_problem_meta(conn, file_uuid_written, problem_data, q_id, q, "comprehensive")
+                        upsert_problem_meta(conn, file_uuid_written, problem_data, q_id, q, "recap")
                 else:
-                    # If no nested questions, store the comprehensive question itself
+                    # If no nested questions, store the recap question itself
                     question_data = {
-                        "question": cq.get("question", "") or cq.get("text", ""),
+                        "question": cq.get("question", "") or cq.get("question_text", ""),
                         "choices": cq.get("options"),
                         "answer": cq.get("correct_answers"),
                         "explanation": cq.get("explanation")
                     }
-                    upsert_problem_meta(conn, file_uuid_written, problem_data, idx, question_data, "comprehensive")
+                    upsert_problem_meta(conn, file_uuid_written, problem_data, idx, question_data, "recap")
             conn.commit()
 
         logging.info(f"[OK] {input_file_path} → {output_file_path} ({len(chunks)} chunks)")
@@ -207,6 +208,35 @@ def process_folder(
     deleted_count = cleanup_deleted_files(conn, course_code, input_dir.parent)
     if deleted_count > 0:
         logging.info(f"Database cleanup completed: {deleted_count} deleted file(s) removed")
+
+    # Generate embeddings if requested
+    if generate_embeddings:
+        logging.info(f"Generating embeddings for course: {course_code}")
+        try:
+            # Import here to avoid circular imports
+            from file_conversion_router.embedding.embedding_create import embedding_create
+            from file_conversion_router.embedding.file_embedding_create import embed_files_from_markdown
+
+            # Generate chunk embeddings (stores in chunks.vector)
+            logging.info("Generating chunk embeddings...")
+            embedding_create(str(db_path), course_code)
+            logging.info("Chunk embedding generation completed")
+
+            # Generate file embeddings (stores in file.vector)
+            logging.info("Generating file embeddings...")
+            file_embedding_results = embed_files_from_markdown(
+                db_path=str(db_path),
+                data_dir=str(output_dir),
+                embedding_model=embedding_model,
+                course_filter=course_code,
+                force_recompute=False
+            )
+
+            logging.info(f"File embedding generation completed. Processed files: {file_embedding_results.get('processed', 0)}")
+            logging.info("All embeddings generation completed successfully")
+
+        except Exception as e:
+            logging.error(f"Failed to generate embeddings: {str(e)}")
 
     conn.close()
     content_logger.info(f"Completed content checking for directory: {input_dir}")
@@ -263,6 +293,7 @@ def upsert_file_meta(conn: sqlite3.Connection, f: dict):
     """
     Upsert into `file` using uuid as the conflict key.
     Expects keys: uuid, file_hash, sections, relative_path, course_code, course_name, file_name
+    Optional keys: created_at (if not provided, uses current time via COALESCE)
     """
     args = (
         f["uuid"],
@@ -274,6 +305,7 @@ def upsert_file_meta(conn: sqlite3.Connection, f: dict):
         f.get("file_name"),
         json.dumps(f.get("extra_info", {}), ensure_ascii=False) if f.get("extra_info") else None,
         f.get("url"),
+        f.get("created_at"),  # Pass created_at if available, otherwise None (COALESCE will use current time)
     )
     conn.execute(SQL_UPSERT_FILE, args)
 
@@ -309,8 +341,46 @@ def _blake2b_hex(s: str) -> str:
     h.update(s.encode("utf-8"))
     return h.hexdigest()
 
+def normalize_notebook_for_hashing(notebook_path: Path) -> str:
+    """
+    Normalize a Jupyter notebook by clearing outputs and execution metadata before hashing.
+    This ensures notebooks hash identically regardless of execution state.
+
+    Removes: execution_count, outputs, cell IDs, cell metadata
+    Keeps: cell_type, source content, notebook structure
+
+    Returns a deterministic JSON string for hashing, or None on error.
+    """
+    try:
+        with notebook_path.open("r", encoding="utf-8") as f:
+            nb = json.load(f)
+
+        # Keep only stable notebook-level fields
+        normalized = {
+            "nbformat": nb.get("nbformat"),
+            "nbformat_minor": nb.get("nbformat_minor"),
+            "cells": []
+        }
+
+        # Process each cell, clearing volatile data
+        for cell in nb.get("cells", []):
+            normalized_cell = {
+                "cell_type": cell.get("cell_type"),
+                "source": cell.get("source", [])
+            }
+            # Explicitly exclude: execution_count, outputs, id, metadata
+            normalized["cells"].append(normalized_cell)
+
+        # Return deterministic JSON string (sorted keys for consistency)
+        return json.dumps(normalized, sort_keys=True, ensure_ascii=False)
+
+    except Exception as e:
+        logging.warning(f"Failed to normalize notebook {notebook_path}: {e}")
+        return None
+
 def file_hash_for_cache(p: Path) -> str:
     """ Generate a stable hash for a file using content + file extension.
+    For Jupyter notebooks, normalizes by clearing outputs before hashing.
     For empty files, includes filename for individual tracking.
     This is location-independent, so moving files won't cause reprocessing.
     """
@@ -321,6 +391,16 @@ def file_hash_for_cache(p: Path) -> str:
         if p.stat().st_size == 0:
             # For empty files, use extension + filename for individual tracking
             return _blake2b_hex(f"EMPTY|{extension}|{filename}")
+        elif extension == ".ipynb":
+            # For Jupyter notebooks, normalize by clearing outputs/execution data
+            normalized_content = normalize_notebook_for_hashing(p)
+            if normalized_content:
+                # Hash the normalized content
+                return _blake2b_hex(f"{normalized_content}|{extension}")
+            else:
+                # Fallback to regular content hash if normalization fails
+                content_hash = file_content_hash(p)
+                return _blake2b_hex(f"{content_hash}|{extension}")
         else:
             # For non-empty files, combine content hash with extension
             content_hash = file_content_hash(p)
@@ -339,7 +419,7 @@ def write_chunks_to_db(conn: sqlite3.Connection,
                        course_name: str | None = None,
                        sections: list | str | None = None,
                        extra_info: list = None,
-                       url: str = None) -> str:
+                       url: str = None,) -> str:
     """
     Write chunks and bind file row. Returns file_uuid.
     """
@@ -477,7 +557,10 @@ CREATE TABLE IF NOT EXISTS file (
   course_name  TEXT,
   file_name    TEXT,
   extra_info   TEXT,
-  url          TEXT
+  url          TEXT,
+  vector       BLOB,
+  created_at TIMESTAMP DEFAULT (datetime('now', 'localtime')),
+  update_time TIMESTAMP DEFAULT (datetime('now', 'localtime'))
 );
 
 CREATE TABLE IF NOT EXISTS chunks (
@@ -492,6 +575,7 @@ CREATE TABLE IF NOT EXISTS chunks (
   course_name    TEXT,
   course_code    TEXT,
   chunk_index    INTEGER,
+  vector         BLOB,
   FOREIGN KEY (file_uuid) REFERENCES file(uuid) ON DELETE CASCADE
 );
 
@@ -511,8 +595,8 @@ CREATE TABLE IF NOT EXISTS problem (
 );
 """
 SQL_UPSERT_FILE = """
-INSERT INTO file (uuid, file_hash, sections, relative_path, course_code, course_name, file_name, extra_info, url)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+INSERT INTO file (uuid, file_hash, sections, relative_path, course_code, course_name, file_name, extra_info, url, created_at, update_time)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, COALESCE(?, datetime('now', 'localtime')), datetime('now', 'localtime'))
 ON CONFLICT(uuid) DO UPDATE SET
   file_hash     = excluded.file_hash,
   sections      = excluded.sections,
@@ -521,7 +605,8 @@ ON CONFLICT(uuid) DO UPDATE SET
   course_name   = excluded.course_name,
   file_name     = excluded.file_name,
   extra_info    = excluded.extra_info,
-  url           = excluded.url;
+  url           = excluded.url,
+  update_time   = datetime('now', 'localtime');
 """
 
 

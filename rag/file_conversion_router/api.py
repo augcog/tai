@@ -9,11 +9,18 @@ from file_conversion_router.utils.course_processor import (
     process_courses_from_master_config,
     update_master_config_status,
     get_courses_needing_update,
-    mark_course_for_update
+    mark_course_for_update,
+    merge_course_databases_from_master_config
 )
 from file_conversion_router.utils.database_merger import (
     merge_course_databases_into_collective,
-    merge_all_course_databases_in_directory
+    merge_all_course_databases_in_directory,
+    merge_databases_by_list
+)
+from file_conversion_router.embedding.embedding_create import embedding_create
+from file_conversion_router.embedding.file_embedding_create import (
+    embed_files_from_markdown,
+    check_embedding_status
 )
 
 # Re-export main functions for backward compatibility
@@ -26,7 +33,12 @@ __all__ = [
     'get_courses_needing_update',
     'mark_course_for_update',
     'merge_course_databases_into_collective',
-    'merge_all_course_databases_in_directory'
+    'merge_all_course_databases_in_directory',
+    'merge_databases_by_list',
+    'merge_course_databases_from_master_config',
+    'embedding_create',
+    'embed_files_from_markdown',
+    'check_embedding_status'
 ]
 
 
@@ -35,25 +47,18 @@ if __name__ == "__main__":
     # Configure logging
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-    # Process all courses marked for update
-    process_courses_from_master_config()
+    # Process all courses marked for update with auto-embedding enabled
+    process_courses_from_master_config(auto_embed=True)
 
-    # Example: Merge course databases after processing
-    # After processing individual courses, you can merge them into a collective database:
-    #
-    # merge_stats = merge_all_course_databases_in_directory(
-    #     course_db_directory="/path/to/course/databases",
-    #     collective_db_path="/path/to/collective_metadata.db",
-    #     db_pattern="*_metadata.db"  # Match files like CS61A_metadata.db
-    # )
-    # print(f"Merge completed: {merge_stats}")
-    #
-    # Or merge specific databases:
-    # merge_stats = merge_course_databases_into_collective(
+    # Merge all course databases from master config
+    # merge_stats = merge_course_databases_from_master_config()
+
+    # Alternative: merge specific databases by providing a list of paths
+    # merge_stats = merge_databases_by_list(
     #     course_db_paths=[
-    #         "/home/bot/bot/yk/YK_final/courses_out/CS_294-137/CS_294-137_metadata.db",
-    #         "/path/to/CS294_metadata.db"
+    #         "/path/to/CS61A_metadata.db",
+    #         "/path/to/CS61B_metadata.db",
+    #         "/path/to/CS70_metadata.db"
     #     ],
-    #     collective_db_path="/home/bot/bot/yk/YK_final/course_yaml/metadata.db"
+    #     collective_db_path="/path/to/collective_metadata.db"
     # )
-    # print(f"Merge completed: {merge_stats}")

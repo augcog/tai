@@ -42,11 +42,12 @@ class NotebookConverter(BaseConverter):
 
     # Override
     def _to_markdown(self, input_path: Path, output_path: Path) -> Path:
-        self.pre_process_notebook(input_path)
         output_path = output_path.with_suffix(".md")
 
         with open(input_path, "r") as input_file, open(output_path, "w") as output_file:
+            # Read and normalize notebook in memory (don't modify source file)
             content = nbformat.read(input_file, as_version=4)
+            content = self.pre_process_notebook(content)
             normalize(content)
             for cell in getattr(content, "cells", []):
                 cell.setdefault("id", uuid.uuid4().hex)
@@ -75,18 +76,16 @@ class NotebookConverter(BaseConverter):
         md_content = self.fix_markdown_title_levels("\n".join(processed_lines))
         return md_content
 
-    def pre_process_notebook(self, input_path: Path):
+    def pre_process_notebook(self, content):
         """
-        Pre-process the notebook to extract metadata and titles.
+        Pre-process the notebook in memory to clean up cell IDs.
+        Works on notebook object without modifying the source file.
+        Returns the cleaned notebook object.
         """
-        with open(input_path, "r") as input_file:
-            content = nbformat.read(input_file, as_version=4)
-            for cell in content.cells:
-                if 'id' in cell:
-                    del cell['id']
-        # Write the cleaned notebook
-        with open(input_path, 'w') as f:
-            nbformat.write(content, f)
+        for cell in content.cells:
+            if 'id' in cell:
+                del cell['id']
+        return content
 
     def fix_markdown_title_levels(self, md_content):
         """

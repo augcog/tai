@@ -1,8 +1,4 @@
 # Consolidated completions router
-import hashlib
-import base64
-import json
-
 from app.api.deps import verify_api_token
 from app.core.models.chat_completion import *
 from app.dependencies.model import get_model_engine, get_whisper_engine
@@ -10,7 +6,6 @@ from app.services.rag_retriever import top_k_selector
 from app.services.rag_generation import (
     format_chat_msg,
     generate_chat_response,
-    generate_file_chat_response,
     generate_practice_response,
     local_parser,
 )
@@ -22,6 +17,7 @@ from app.services.file_service import file_service
 from app.services.problem_service import ProblemService
 from app.services.audio_service import audio_to_text, audio_stream_parser
 from app.services.chat_service import chat_stream_parser, format_audio_text_message, audio_generator, tts_parsor, get_speaker_name
+from app.services.memory_synopsis_service import MemorySynopsisService
 import re
 
 router = APIRouter()
@@ -42,17 +38,6 @@ def parse_assistant_message(content):
     print("Parsed assistant content:", content)
     return content
 
-def sid_from_history(messages):
-    hist = [{"r": getattr(m, "role", "user"),
-             "c": (getattr(m, "content", "") or "").split("\n<!--REFERENCES:", 1)[0]}
-            for m in messages[:-1]]
-    # print(f"[INFO] History for SID generation: {hist}")
-    digest = hashlib.blake2b(
-        json.dumps(hist, separators=(",", ":"), ensure_ascii=False).encode(),
-        digest_size=12
-    ).digest()
-    return base64.urlsafe_b64encode(digest).decode().rstrip("=")
-
 @router.post("/completions")
 async def create_text_completion(
         params: CompletionParams, _: bool = Depends(verify_api_token)
@@ -71,8 +56,8 @@ async def create_text_completion(
     # Select chat pipeline based on chat_type
     formatter = format_chat_msg
 
-    sid = sid_from_history(formatter(params.messages))
-    print(f"[INFO] Generated SID: {sid}")
+    sid = params.sid  # Use chat_history_sid from frontend
+    print(f"[INFO] Using SID: {sid}")
 
     print(f"[INFO] Chat Type: {params.chat_type}")
     if params.chat_type == 'file':  # filechat
@@ -85,7 +70,7 @@ async def create_text_completion(
         print("file_uuid:", params.user_focus.file_uuid)
         print("selected_text:", params.user_focus.selected_text)
         print("chunk_index:", params.user_focus.chunk_index)
-        response, reference_list = await generate_file_chat_response(
+        response, reference_list = await generate_chat_response(
             formatter(params.messages),
             file_uuid=params.user_focus.file_uuid,
             selected_text=params.user_focus.selected_text,
@@ -126,8 +111,8 @@ async def create_text_completion(
     course = params.course
     formatter = format_chat_msg
 
-    sid = sid_from_history(formatter(params.messages))
-    print(f"[INFO] Generated SID: {sid}")
+    sid = params.sid  # Use chat_history_sid from frontend
+    print(f"[INFO] Using SID: {sid}")
 
     print(f"[INFO] Chat Type: {params.chat_type}")
     if params.chat_type == 'file':  # filechat
@@ -137,7 +122,7 @@ async def create_text_completion(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="file_uuid must be provided"
             )
-        response, reference_list = await generate_file_chat_response(
+        response, reference_list = await generate_chat_response(
             formatter(params.messages),
             file_uuid=params.file_uuid,
             selected_text=params.selected_text,
@@ -188,7 +173,7 @@ async def create_voice_completion(
     audio_text = audio_to_text(params.audio, whisper_engine, stream=False)
     params.messages.append(Message(role="user", content=audio_text))
     response, reference_list = await selector(
-        formatter(params.messages), stream=params.stream, course=course, engine=engine,audio_response=params.audio_response,
+        formatter(params.messages), stream=params.stream, course=course, engine=engine,audio_response=params.audio_response, sid=params.sid
     )
 
     if params.stream:
@@ -310,7 +295,58 @@ async def practice_completion(
 
     if params.stream:
         return StreamingResponse(
-            parser(response, reference_list, messages=formatter(params.messages), engine=engine, old_sid=sid), media_type="text/event-stream"
+            parser(response, reference_list, messages=formatter(params.messages), engine=llm_engine, old_sid=sid), media_type="text/event-stream"
         )
     else:
-        return JSONResponse(ResponseDelta(text=response).model_dump_json(exclude_unset=True))
+       return JSONResponse(ResponseDelta(text=response).model_dump_json(exclude_unset=True))
+
+
+@router.post("/memory-synopsis")
+async def create_or_update_memory_synopsis(
+        sid: str,
+        messages: List[Message],
+        # course_code: str,
+        # _: bool = Depends(verify_api_token)
+):
+    """
+    Create or update memory synopsis for a chat history.
+
+    Args:
+        sid: chat_history_sid from frontend
+        messages: List of chat messages
+        course_code: Course code for context
+
+    Returns:
+        JSON response with memory_synopsis_sid if successful, error message if failed
+    """
+    try:
+        # Get the pre-initialized pipeline
+        engine = get_model_engine()
+
+        # Import TOKENIZER from rag_generation
+        from app.services.rag_generation import TOKENIZER
+
+        # Initialize memory synopsis service
+        service = MemorySynopsisService()
+
+        # Create or update memory synopsis
+        memory_synopsis_sid = await service.create_or_update_memory(sid, format_chat_msg(messages), engine, TOKENIZER)
+
+        if memory_synopsis_sid:
+            return JSONResponse({
+                "memory_synopsis_sid": memory_synopsis_sid,
+                "status": "success",
+                "message": "Memory synopsis created/updated successfully"
+            })
+        else:
+            return JSONResponse({
+                "status": "failed",
+                "message": "Memory generation failed, will retry next round"
+            })
+
+    except Exception as e:
+        print(f"[INFO] Memory synopsis endpoint failed: {e}")
+        return JSONResponse({
+            "status": "failed",
+            "message": "Memory generation failed, will retry next round"
+        })

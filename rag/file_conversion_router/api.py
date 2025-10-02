@@ -1,32 +1,64 @@
 """Public API for the file conversion router module."""
 
-from pathlib import Path
-from typing import Union
+import logging
 
-from file_conversion_router.services.directory_service import process_folder
+# Import from utility modules
+from file_conversion_router.utils.yaml_utils import load_yaml, save_yaml
+from file_conversion_router.utils.course_processor import (
+    convert_directory,
+    process_courses_from_master_config,
+    update_master_config_status,
+    get_courses_needing_update,
+    mark_course_for_update,
+    merge_course_databases_from_master_config
+)
+from file_conversion_router.utils.database_merger import (
+    merge_course_databases_into_collective,
+    merge_all_course_databases_in_directory,
+    merge_databases_by_list
+)
+from file_conversion_router.embedding.embedding_create import embedding_create
+from file_conversion_router.embedding.file_embedding_create import (
+    embed_files_from_markdown,
+    check_embedding_status
+)
+
+# Re-export main functions for backward compatibility
+__all__ = [
+    'load_yaml',
+    'save_yaml',
+    'convert_directory',
+    'process_courses_from_master_config',
+    'update_master_config_status',
+    'get_courses_needing_update',
+    'mark_course_for_update',
+    'merge_course_databases_into_collective',
+    'merge_all_course_databases_in_directory',
+    'merge_databases_by_list',
+    'merge_course_databases_from_master_config',
+    'embedding_create',
+    'embed_files_from_markdown',
+    'check_embedding_status'
+]
 
 
-def convert_directory(
-    input_dir: Union[str, Path],
-    output_dir: Union[str, Path],
-    course_name: str,
-    course_id: str,
-    log_dir: Union[str, Path] = None,
-    cache_path: Union[str, Path] = None,
-) -> None:
-    """Convert all supported files in the given directory to Markdown format, to the specified output directory.
+# Example usage (commented out by default)
+if __name__ == "__main__":
+    # Configure logging
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-    Current supported file types:
-    1. PDF
-    2. Markdown (To clarify, this markdown includes additional tree structure of original markdown file)
-    """
-    process_folder(
-        input_dir,
-        output_dir,
-        course_name,
-        course_id,
-        log_dir=log_dir,
-        cache_path=cache_path,
-    )
+    # Process all courses marked for update with auto-embedding enabled
+    process_courses_from_master_config(auto_embed=True)
 
+    # Merge all course databases from master config
+    # merge_stats = merge_course_databases_from_master_config()
 
+    # Alternative: merge specific databases by providing a list of paths
+    # merge_stats = merge_databases_by_list(
+    #     course_db_paths=[
+    #         "/path/to/CS61A_metadata.db",
+    #         "/path/to/CS61B_metadata.db",
+    #         "/path/to/CS70_metadata.db"
+    #     ],
+    #     collective_db_path="/path/to/collective_metadata.db"
+    # )

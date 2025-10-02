@@ -1,0 +1,35 @@
+courses:
+  Berkeley:
+    config_path: /home/bot/bot/yk/YK_final/course_yaml/Berkeley.yaml
+    enabled: true
+    last_updated: '2025-09-23T14:38:58.838543'
+    needs_update: false
+  CS 294-137:
+    config_path: /home/bot/bot/yk/YK_final/course_yaml/CS 294-137_config.yaml
+    enabled: true
+    last_updated: '2025-09-26T16:24:35.016816'
+    needs_update: false
+  CS 61A:
+    config_path: /home/bot/bot/yk/YK_final/course_yaml/CS 61A_config.yaml
+    enabled: true
+    last_updated: null
+    needs_update: false
+  Roar Academy:
+    config_path: /home/bot/bot/yk/YK_final/course_yaml/Roar Academy_config.yaml
+    enabled: true
+    last_updated: '2025-09-17T18:00:25.421131'
+    needs_update: false
+  test:
+    config_path: /home/bot/bot/yk/YK_final/course_yaml/test.yaml
+    enabled: true
+    last_updated: '2025-09-30T18:35:08.518510'
+    needs_update: false
+global:
+  base_config_dir: /home/bot/bot/yk/YK_final/course_yaml
+  base_output_dir: /home/bot/bot/yk/YK_final/courses_out
+  collective_db_path: /home/bot/bot/yk/YK_final/courses_out/collective_metadata.db
+processing:
+  enable_caching: true
+  max_concurrent_courses: 1
+  update_timestamp_on_completion: true
+  verbose_logging: true

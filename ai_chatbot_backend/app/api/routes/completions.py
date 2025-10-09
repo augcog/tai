@@ -102,7 +102,7 @@ async def create_text_completion(
         return JSONResponse(ResponseDelta(text=response).model_dump_json(exclude_unset=True))
 
 @router.post("/completions_v2")
-async def create_text_completion(
+async def create_text_completion_v2(
         params: CompletionParamsV2, db: Session = Depends(get_metadata_db), _: bool = Depends(verify_api_token)
 ):
     # Get the pre-initialized pipeline

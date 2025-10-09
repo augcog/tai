@@ -155,7 +155,7 @@ async def create_text_completion_v2(
 
     response, reference_list = await generate_chat_response_v2(
         formatter(params.messages),
-        practice=params.chat_type == 'practice',
+        params.chat_type == 'practice',
         file_uuid=params.user_focus.file_uuid,
         selected_text=params.user_focus.selected_text,
         index=params.user_focus.chunk_index,

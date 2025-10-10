@@ -8,7 +8,7 @@ from uuid import UUID
 from transformers import AutoTokenizer
 from vllm import SamplingParams
 # Local libraries
-from app.core.models.chat_completion import Message
+from app.core.models.chat_completion import Message, UserFocus
 from app.services.rag_preprocess import build_retrieval_query, build_augmented_prompt, build_file_augmented_context
 from app.services.rag_postprocess import build_memory_synopsis
 # Environment Variables
@@ -18,22 +18,24 @@ TOKENIZER_MODEL_ID = "openai/gpt-oss-20b"
 SAMPLING = SamplingParams(temperature=0.1, top_p=0.95, max_tokens=4096, skip_special_tokens=False)
 TOKENIZER = AutoTokenizer.from_pretrained(TOKENIZER_MODEL_ID)
 
+"""
+class UserFocus(BaseModel):
+    file_uuid: UUID
+    selected_text: str = None
+    chunk_index: float = None
+"""
 async def generate_chat_response_v2(
         messages: List[Message],
-        practice: bool,
-        file_uuid: UUID = None,
-        selected_text: Optional[str] = None,
-        index: Optional[float] = None,
+        user_focus: UserFocus,
+        answer_content: str,
+        problem_content: str,
         stream: bool = True,
-        rag: bool = True,
         course: Optional[str] = None,
         threshold: float = 0.32,
         top_k: int = 7,
         engine: Any = None,
         audio_response: bool = False,
-        sid: Optional[str] = None,
-        problem_content: Optional[str] = None,
-        answer_content: Optional[str] = None
+        sid: Optional[str] = None
 ) -> Tuple[Any, List[str | Any]]:
     """
     Build an augmented message with references and run LLM inference.
@@ -41,11 +43,19 @@ async def generate_chat_response_v2(
     """
     # Build the query message based on the chat history
     t0 = time.time()
+
+    messages = format_chat_msg(messages)
+
     user_message = messages[-1].content
     messages[-1].content = ""
 
     filechat_focused_chunk = ""
     filechat_file_sections = []
+
+    file_uuid = user_focus.file_uuid
+    selected_text = user_focus.selected_text
+    index = user_focus.chunk_index
+
     if file_uuid:
         augmented_context, file_content, filechat_focused_chunk, filechat_file_sections = build_file_augmented_context(
             file_uuid, selected_text, index)
@@ -76,9 +86,8 @@ async def generate_chat_response_v2(
         user_message,
         course if course else "",
         threshold,
-        rag,
+        True,
         top_k = top_k,
-        practice = practice,
         problem_content = problem_content,
         answer_content = answer_content,
         query_message=query_message,
@@ -311,7 +320,7 @@ def generate_practice_response(
     """
     user_message = messages[-1].content
     modified_message, reference_list, system_add_message = build_augmented_prompt(
-        user_message, course if course else "", threshold, rag, top_k=top_k, practice=True,
+        user_message, course if course else "", threshold, rag, top_k=top_k,
         problem_content=problem_content, answer_content=answer_content
     )
 

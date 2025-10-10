@@ -7,27 +7,7 @@ import io
 import soundfile as sf
 import numpy as np
 from openai import OpenAI
-
-
-def extract_channels(text: str) -> dict:
-    if "</think>" in text:
-        parts = text.split("</think>", 1)
-        return {
-            "analysis": parts[0].strip(),
-            "final": parts[1].strip()
-        }
-
-    incomplete_patterns = ["</think", "</", "<"]
-    cleaned_text = text
-    for pattern in incomplete_patterns:
-        if text.endswith(pattern):
-            cleaned_text = text[:-len(pattern)]
-            break
-
-    return {
-        "analysis": cleaned_text.strip(),
-        "final": ""
-    }
+from app.services.rag_postprocess import extract_channels
 
 def extract_channels_oss(text: str) -> dict:
     # 1) Remove the special marker wherever it appears

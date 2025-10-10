@@ -13,10 +13,11 @@ from app.services.rag_preprocess import build_retrieval_query, build_augmented_p
 from app.services.rag_postprocess import build_memory_synopsis
 # Environment Variables
 # TOKENIZER_MODEL_ID = "THUDM/GLM-4-9B-0414"
-TOKENIZER_MODEL_ID = "kaitchup/GLM-Z1-32B-0414-autoround-gptq-4bit"
+from app.dependencies.model import LLM_MODEL_ID
+# TOKENIZER_MODEL_ID = "kaitchup/GLM-Z1-32B-0414-autoround-gptq-4bit"
 # RAG-Pipeline Shared Resources
-SAMPLING = SamplingParams(temperature=0.6, top_p=0.95,top_k=40, max_tokens=30000)
-TOKENIZER = AutoTokenizer.from_pretrained(TOKENIZER_MODEL_ID)
+SAMPLING = SamplingParams(temperature=0.6, top_p=0.95,top_k=20,min_p=0, max_tokens=6000)
+TOKENIZER = AutoTokenizer.from_pretrained(LLM_MODEL_ID)
 
 """
 class UserFocus(BaseModel):

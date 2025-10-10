@@ -13,9 +13,9 @@ from app.services.rag_preprocess import build_retrieval_query, build_augmented_p
 from app.services.rag_postprocess import build_memory_synopsis
 # Environment Variables
 # TOKENIZER_MODEL_ID = "THUDM/GLM-4-9B-0414"
-TOKENIZER_MODEL_ID = "openai/gpt-oss-20b"
+TOKENIZER_MODEL_ID = "kaitchup/GLM-Z1-32B-0414-autoround-gptq-4bit"
 # RAG-Pipeline Shared Resources
-SAMPLING = SamplingParams(temperature=0.1, top_p=0.95, max_tokens=4096, skip_special_tokens=False)
+SAMPLING = SamplingParams(temperature=0.6, top_p=0.95,top_k=40, max_tokens=30000)
 TOKENIZER = AutoTokenizer.from_pretrained(TOKENIZER_MODEL_ID)
 
 """

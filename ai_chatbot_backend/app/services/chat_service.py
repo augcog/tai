@@ -10,6 +10,28 @@ from openai import OpenAI
 
 
 def extract_channels(text: str) -> dict:
+    # 先检查完整标签
+    if "</think>" in text:
+        parts = text.split("</think>", 1)
+        return {
+            "analysis": parts[0].strip(),
+            "final": parts[1].strip()
+        }
+
+    # 检查不完整标签并移除（在文本末尾）
+    incomplete_patterns = ["</think", "</", "<"]
+    cleaned_text = text
+    for pattern in incomplete_patterns:
+        if text.endswith(pattern):
+            cleaned_text = text[:-len(pattern)]
+            break
+
+    return {
+        "analysis": cleaned_text.strip(),
+        "final": ""
+    }
+
+def extract_channels_oss(text: str) -> dict:
     # 1) Remove the special marker wherever it appears
     cleaned = re.sub(r"<\|start\|\>assistant\s*", "", text)
 
@@ -59,6 +81,7 @@ async def chat_stream_parser(
     async for output in stream:
         text = output.outputs[0].text
         channels= extract_channels(text)
+        # print(channels)
         if not channels:
             continue
         chunks= {c: channels[c][len(previous_channels.get(c,"")):] for c in channels if channels[c] != previous_channels.get(c,"")}
@@ -75,7 +98,7 @@ async def chat_stream_parser(
                 continue_flag = True
                 break
             yield sse(ResponseDelta(seq=text_seq, text_channel=channel, text=chunk)); text_seq += 1
-            print(chunk, end="_")
+            print(chunk, end="")
         if continue_flag:
             continue
         previous_channels = channels
@@ -235,7 +258,7 @@ async def audio_generator(messages: List[Dict], stream: bool = True, speaker_nam
     """
     Parse the streaming response from the audio model and yield deltas.
     """
-    data_dir = '/home/bot/localgpt/tai/ai_chatbot_backend/voice_prompts'
+    data_dir = '/home/tai25/bot/tai/ai_chatbot_backend/voice_prompts'
     
     # Select voice prompt based on course_code
     if speaker_name == "Professor John DeNero":

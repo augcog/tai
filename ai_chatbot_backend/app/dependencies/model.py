@@ -15,13 +15,13 @@ _embedding_engine = None
 def get_local_model_engine():
     os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
     # MODEL_ID = "THUDM/GLM-4-9B-0414"
-    MODEL_ID = "openai/gpt-oss-20b"
+    MODEL_ID = "kaitchup/GLM-Z1-32B-0414-autoround-gptq-4bit"
     TP_SIZE = 2  # tensor_parallel_size
-    GPU_UTIL = 0.47
+    GPU_UTIL = 0.65
     engine_args = AsyncEngineArgs(
         model=MODEL_ID,
         tensor_parallel_size=TP_SIZE,
-        gpu_memory_utilization=GPU_UTIL,
+        gpu_memory_utilization=GPU_UTIL
     )
     engine = AsyncLLMEngine.from_engine_args(engine_args)
     return engine

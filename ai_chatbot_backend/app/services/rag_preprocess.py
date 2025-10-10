@@ -131,7 +131,7 @@ def build_augmented_prompt(
             f"No references at the end."
         )
         reference_style = (
-            f"\nALWAYS: Refer to specific reference numbers inline using [Reference: n] style!!! Do not use other style like refs, 【】, Reference: [n], > *Reference: n*  or (reference n)!!!"
+            f"\nALWAYS: Refer to specific reference numbers inline using [Reference: a,b] style!!! Do not use other style like refs, 【】, Reference: [n], > *Reference: n*, [Reference: a-b]  or (reference n)!!!"
             f"\nDo not list references at the end. "
         )
     else:

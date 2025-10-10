@@ -11,22 +11,24 @@ from app.core.models.chat_completion import Message
 import re
 
 def extract_channels(text: str) -> dict:
-    # 1) Remove the special marker wherever it appears
-    cleaned = re.sub(r"<\|start\|\>assistant\s*", "", text)
+    if "</think>" in text:
+        parts = text.split("</think>", 1)
+        return {
+            "analysis": parts[0].strip(),
+            "final": parts[1].strip()
+        }
 
-    # 2) Capture channel/message pairs; message ends at next channel, <|end|>, or end-of-text
-    pattern = re.compile(
-        r"<\|channel\|\>(?P<channel>[A-Za-z0-9_]+)\s*"
-        r"<\|message\|\>(?P<message>.*?)(?=(?:<\|channel\|\>|<\|end\|\>|\Z))",
-        re.DOTALL
-    )
+    incomplete_patterns = ["</think", "</", "<"]
+    cleaned_text = text
+    for pattern in incomplete_patterns:
+        if text.endswith(pattern):
+            cleaned_text = text[:-len(pattern)]
+            break
 
-    result = {}
-    for m in pattern.finditer(cleaned):
-        ch = m.group("channel").strip()
-        msg = m.group("message").strip()
-        result[ch] = msg  # if duplicate channels appear, the last one wins
-    return result
+    return {
+        "analysis": cleaned_text.strip(),
+        "final": ""
+    }
 
 # Environment variables
 MEMORY_SYNOPSIS_JSON_SCHEMA = {

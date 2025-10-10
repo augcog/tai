@@ -10,7 +10,6 @@ from openai import OpenAI
 
 
 def extract_channels(text: str) -> dict:
-    # 先检查完整标签
     if "</think>" in text:
         parts = text.split("</think>", 1)
         return {
@@ -18,7 +17,6 @@ def extract_channels(text: str) -> dict:
             "final": parts[1].strip()
         }
 
-    # 检查不完整标签并移除（在文本末尾）
     incomplete_patterns = ["</think", "</", "<"]
     cleaned_text = text
     for pattern in incomplete_patterns:

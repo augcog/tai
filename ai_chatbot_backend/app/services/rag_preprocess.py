@@ -73,7 +73,6 @@ def build_augmented_prompt(
         top_k: int = 7,
         query_message: str = "",
         reference_list: List[Dict] = None,
-        practice: bool = False,
         problem_content: Optional[str] = None,
         answer_content: Optional[str] = None,
         audio_response: bool = False
@@ -85,7 +84,7 @@ def build_augmented_prompt(
       - reference_list: list of reference URLs for JSON output.
     """
     # Practice mode has its own message format
-    if practice:
+    if answer_content and problem_content:
         user_message = (
             f"Course problem:\n{problem_content}\n"
             f"Answer attempted by user:\n{answer_content}\n"
@@ -185,7 +184,7 @@ def build_augmented_prompt(
             f"{insert_document}\n---\n"
         )
     # Append user instruction to the modified message
-    if not practice:
+    if not (answer_content and problem_content):
         modified_message += f"Instruction: {user_message}"
     else:
         modified_message += user_message

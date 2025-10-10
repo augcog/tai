@@ -7,19 +7,23 @@ from app.services.rag_generation import (
     format_chat_msg,
     generate_chat_response,
     generate_chat_response_v2,
-    generate_practice_response,
-    local_parser,
+    generate_practice_response
 )
 from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.responses import JSONResponse, PlainTextResponse, StreamingResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 from sqlalchemy.orm import Session
 from app.core.dbs.metadata_db import get_metadata_db
 from app.services.file_service import file_service
 from app.services.problem_service import ProblemService
 from app.services.audio_service import audio_to_text, audio_stream_parser
-from app.services.chat_service import chat_stream_parser, format_audio_text_message, audio_generator, tts_parsor, get_speaker_name
+from app.services.chat_service import (
+    chat_stream_parser,
+    format_audio_text_message,
+    audio_generator,
+    tts_parsor,
+    get_speaker_name
+)
 from app.services.memory_synopsis_service import MemorySynopsisService
-import re
 
 router = APIRouter()
 
@@ -96,14 +100,16 @@ async def create_text_completion(
 
     if params.stream:
         return StreamingResponse(
-            parser(response, reference_list, params.audio_response,audio_text=audio_text, messages=formatter(params.messages), engine=llm_engine, old_sid=sid,course_code=params.course_code), media_type="text/event-stream"
+            parser(response, reference_list, params.audio_response, audio_text=audio_text, messages=formatter(params.messages), engine=llm_engine, old_sid=sid,course_code=params.course_code), media_type="text/event-stream"
         )
     else:
         return JSONResponse(ResponseDelta(text=response).model_dump_json(exclude_unset=True))
 
 @router.post("/completions_v2")
 async def create_text_completion_v2(
-        params: CompletionParamsV2, db: Session = Depends(get_metadata_db), _: bool = Depends(verify_api_token)
+        params: GeneralCompletionParams | FileCompletionParams | PracticeCompletionParams,
+        db: Session = Depends(get_metadata_db),
+        _: bool = Depends(verify_api_token)
 ):
     # Get the pre-initialized pipeline
     llm_engine = get_model_engine()
@@ -117,16 +123,16 @@ async def create_text_completion_v2(
         if message.role == "assistant":
             message.content = parse_assistant_message(message.content)
     # Select chat pipeline based on chat_type
-    formatter = format_chat_msg
 
     sid = params.sid  # Use chat_history_sid from frontend
     print(f"[INFO] Using SID: {sid}")
 
-    print(f"[INFO] Chat Type: {params.chat_type}")
+    print(f"[INFO] Chat Type: {type(params)}")
 
     problem_content = None
 
-    if params.chat_type == 'file':  # filechat
+    # parameter check
+    if isinstance(params, FileCompletionParams):
         if not params.user_focus.file_uuid:
             # Handle case where file_uuid is not provided
             raise HTTPException(
@@ -136,7 +142,7 @@ async def create_text_completion_v2(
         print("file_uuid:", params.user_focus.file_uuid)
         print("selected_text:", params.user_focus.selected_text)
         print("chunk_index:", params.user_focus.chunk_index)
-    elif params.chat_type == 'practice':
+    elif isinstance(params, PracticeCompletionParams):
         if any(
                 param is None for param in [params.problem_id, params.file_path, params.answer_content]
         ):
@@ -148,24 +154,33 @@ async def create_text_completion_v2(
         if not metadata:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail="File metadata not found by given path " + params.file_path
+                detail="File metadata not found by given path: " + params.file_path
             )
-        problem_content = ProblemService.get_problem_content_by_file_uuid_and_problem_id(db, str(metadata.uuid),
-                                                                                         params.problem_id)
+        problem_content = (
+            ProblemService.
+            get_problem_content_by_file_uuid_and_problem_id(
+                db,
+                str(metadata.uuid),
+                params.problem_id
+            )
+        )
+        if not problem_content:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Problem content not found for given problem_id: " + params.problem_id
+                       + " and file_path: " + params.file_path
+            )
 
     response, reference_list = await generate_chat_response_v2(
-        formatter(params.messages),
-        params.chat_type == 'practice',
-        file_uuid=params.user_focus.file_uuid,
-        selected_text=params.user_focus.selected_text,
-        index=params.user_focus.chunk_index,
+        params.messages,
+        getattr(params, 'user_focus', UserFocus()),
+        getattr(params, 'answer_content', None),
+        problem_content,
         stream=params.stream,
         course=params.course_code,
         engine=llm_engine,
         audio_response=params.audio_response,
-        sid=sid,
-        problem_content=problem_content,
-        answer_content=params.answer_content,
+        sid=sid
     )
     parser = chat_stream_parser
 
@@ -351,8 +366,6 @@ async def practice_completion(
     problem_content = ProblemService.get_problem_content_by_file_uuid_and_problem_id(db, str(metadata.uuid),
                                                                                      params.problem_id)
     formatter = format_chat_msg
-    sid = sid_from_history(formatter(params.messages))
-    print(f"[INFO] Generated SID: {sid}")
     # Get the pre-initialized pipeline
     llm_engine = get_model_engine()
 
@@ -371,7 +384,7 @@ async def practice_completion(
 
     if params.stream:
         return StreamingResponse(
-            parser(response, reference_list, messages=formatter(params.messages), engine=llm_engine, old_sid=sid), media_type="text/event-stream"
+            parser(response, reference_list, messages=formatter(params.messages), engine=llm_engine), media_type="text/event-stream"
         )
     else:
        return JSONResponse(ResponseDelta(text=response).model_dump_json(exclude_unset=True))

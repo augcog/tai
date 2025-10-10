@@ -81,6 +81,52 @@ class CompletionParams(BaseModel):
     audio_response: Optional[bool] = False
     sid: Optional[str] = None  # chat_history_sid from frontend
 
+class GeneralCompletionParams(BaseModel):
+    """
+    Parameters for general chat completions.
+    """
+    course_code: str
+    audio: VoiceMessage = None
+    messages: List[Message]
+    temperature: float  # TODO: Not in use. Remove?
+    stream: bool
+    chat_type: str = "general"  # e.g., "general", "file", "practice"
+    rag: Optional[bool] = True
+    audio_response: Optional[bool] = False
+    sid: Optional[str] = None  # chat_history_sid from frontend
+
+class FileCompletionParams(BaseModel):
+    """
+    Parameters for file-based chat completions.
+    """
+    course_code: str
+    audio: VoiceMessage
+    messages: List[Message]
+    temperature: float  # TODO: Not in use. Remove?
+    stream: bool
+    chat_type: str = "file"  # e.g., "general", "file", "practice"
+    rag: Optional[bool] = True
+    audio_response: Optional[bool] = False
+    sid: Optional[str] = None  # chat_history_sid from frontend
+    user_focus: UserFocus
+
+class PracticeCompletionParams(BaseModel):
+    """
+    Parameters for practice problem chat completions.
+    """
+    course_code: str
+    audio: VoiceMessage = None
+    messages: List[Message]
+    temperature: float
+    stream: bool
+    chat_type: str = "practice"  # e.g., "general", "file", "practice"
+    rag: Optional[bool] = True
+    audio_response: Optional[bool] = False
+    sid: Optional[str] = None  # chat_history_sid from frontend
+    answer_content: str
+    problem_id: str
+    file_path: str
+
 class CompletionParamsV2(BaseModel):
     course_code: str
     audio: VoiceMessage = None
@@ -88,7 +134,7 @@ class CompletionParamsV2(BaseModel):
     temperature: float  # TODO: Not in use. Remove?
     stream: bool
     chat_type: str = "general"  # e.g., "general", "file" "practice"
-    user_focus: Optional[UserFocus] = None
+    user_focus: Optional[UserFocus] = None  # TODO: change default from Node to an empty UserFocus object
     rag: Optional[bool] = True
     audio_response: Optional[bool] = False
     sid: Optional[str] = None  # chat_history_sid from frontend
@@ -108,16 +154,6 @@ class TextCompletionParams(BaseModel):
     rag: Optional[bool] = True
     audio_response: Optional[bool] = False
     sid: Optional[str] = None  # chat_history_sid from frontend
-
-class PracticeCompletionParams(BaseModel):
-    course: str
-    messages: List[Message]
-    temperature: float
-    stream: bool
-    rag: Optional[bool] = True
-    answer_content: Optional[str] = None
-    problem_id: Optional[str] = None
-    file_path: Optional[str] = None
 
 class VoiceCompletionParams(BaseModel):
     course: str

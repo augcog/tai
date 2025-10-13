@@ -6,7 +6,6 @@ from app.services.rag_retriever import top_k_selector
 from app.services.rag_generation import (
     format_chat_msg,
     generate_chat_response,
-    generate_chat_response_v2,
     generate_practice_response
 )
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -45,68 +44,6 @@ def parse_assistant_message(content):
 
 @router.post("/completions")
 async def create_text_completion(
-        params: CompletionParams, _: bool = Depends(verify_api_token)
-):
-    # Get the pre-initialized pipeline
-    llm_engine = get_model_engine()
-    audio_text = None
-    if params.audio:
-        whisper_engine = get_whisper_engine()
-        audio_text = audio_to_text(params.audio, whisper_engine, stream=False)
-        params.messages.append(Message(role="user", content=audio_text))
-
-    for message in params.messages:
-        if message.role == "assistant":
-            message.content = parse_assistant_message(message.content)
-    # Select chat pipeline based on chat_type
-    formatter = format_chat_msg
-
-    sid = params.sid  # Use chat_history_sid from frontend
-    print(f"[INFO] Using SID: {sid}")
-
-    print(f"[INFO] Chat Type: {params.chat_type}")
-    if params.chat_type == 'file':  # filechat
-        if not params.user_focus.file_uuid:
-            # Handle case where file_uuid is not provided
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="file_uuid must be provided"
-            )
-        print("file_uuid:", params.user_focus.file_uuid)
-        print("selected_text:", params.user_focus.selected_text)
-        print("chunk_index:", params.user_focus.chunk_index)
-        response, reference_list = await generate_chat_response(
-            formatter(params.messages),
-            file_uuid=params.user_focus.file_uuid,
-            selected_text=params.user_focus.selected_text,
-            index=params.user_focus.chunk_index,
-            stream=params.stream,
-            course=params.course_code,
-            engine=llm_engine,
-            audio_response=params.audio_response,
-            sid=sid
-        )
-    else:   # general case
-        response, reference_list = await generate_chat_response(
-            formatter(params.messages),
-            stream=params.stream,
-            course=params.course_code,
-            engine=llm_engine,
-            audio_response=params.audio_response,
-            sid=sid
-        )
-
-    parser = chat_stream_parser
-
-    if params.stream:
-        return StreamingResponse(
-            parser(response, reference_list, params.audio_response, audio_text=audio_text, messages=formatter(params.messages), engine=llm_engine, old_sid=sid,course_code=params.course_code), media_type="text/event-stream"
-        )
-    else:
-        return JSONResponse(ResponseDelta(text=response).model_dump_json(exclude_unset=True))
-
-@router.post("/completions_v2")
-async def create_text_completion_v2(
         params: GeneralCompletionParams | FileCompletionParams | PracticeCompletionParams,
         db: Session = Depends(get_metadata_db),
         _: bool = Depends(verify_api_token)
@@ -171,7 +108,7 @@ async def create_text_completion_v2(
                        + " and file_path: " + params.file_path
             )
 
-    response, reference_list = await generate_chat_response_v2(
+    response, reference_list = await generate_chat_response(
         params.messages,
         getattr(params, 'user_focus', UserFocus()),
         getattr(params, 'answer_content', None),
@@ -186,7 +123,7 @@ async def create_text_completion_v2(
 
     if params.stream:
         return StreamingResponse(
-            parser(response, reference_list, params.audio_response,audio_text=audio_text, messages=formatter(params.messages), engine=llm_engine, old_sid=sid,course_code=params.course_code), media_type="text/event-stream"
+            parser(response, reference_list, params.audio_response,audio_text=audio_text, messages=format_chat_msg(params.messages), engine=llm_engine, old_sid=sid,course_code=params.course_code), media_type="text/event-stream"
         )
     else:
         return JSONResponse(ResponseDelta(text=response).model_dump_json(exclude_unset=True))
@@ -214,10 +151,14 @@ async def create_text_completion(
                 detail="file_uuid must be provided"
             )
         response, reference_list = await generate_chat_response(
-            formatter(params.messages),
-            file_uuid=params.file_uuid,
-            selected_text=params.selected_text,
-            index=params.index,
+            params.messages,
+            UserFocus(
+                file_uuid=params.file_uuid,
+                selected_text=params.user_focus.selected_text,
+                chunk_index=params.user_focus.chunk_index
+            ),
+            getattr(params, 'answer_content', None),
+            getattr(params, 'problem_content', None),
             stream=params.stream,
             course=course,
             engine=engine,
@@ -226,7 +167,10 @@ async def create_text_completion(
         )
     else:   # general case
         response, reference_list = await generate_chat_response(
-            formatter(params.messages),
+            params.messages,
+            UserFocus(),
+            getattr(params, 'answer_content', None),
+            getattr(params, 'problem_content', None),
             stream=params.stream,
             course=course,
             engine=engine,
@@ -257,15 +201,21 @@ async def create_voice_completion(
 
     # select model based on params.model
     course = params.course
-    formatter = format_chat_msg
     selector = generate_chat_response
     parser = chat_stream_parser
 
     audio_text = audio_to_text(params.audio, whisper_engine, stream=False)
     params.messages.append(Message(role="user", content=audio_text))
     response, reference_list = await selector(
-        formatter(params.messages), stream=params.stream, course=course, engine=engine,audio_response=params.audio_response, sid=params.sid
-    )
+        params.messages,
+        UserFocus(),
+        getattr(params, 'answer_content', None),
+        getattr(params, 'problem_content', None),
+        stream=params.stream,
+        course=course,
+        engine=engine,
+        audio_response=params.audio_response,
+        sid=params.sid)
 
     if params.stream:
         return StreamingResponse(

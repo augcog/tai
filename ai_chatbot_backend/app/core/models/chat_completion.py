@@ -65,7 +65,7 @@ class VoiceMessage(BaseModel):
     tool_call_id: Optional[str] = None
 
 class UserFocus(BaseModel):
-    file_uuid: UUID
+    file_uuid: UUID = None
     selected_text: str = None
     chunk_index: float = None
 

@@ -79,33 +79,7 @@ async def create_text_completion(
         print("selected_text:", params.user_focus.selected_text)
         print("chunk_index:", params.user_focus.chunk_index)
     elif isinstance(params, PracticeCompletionParams):
-        if any(
-                param is None for param in [params.problem_id, params.file_path, params.answer_content]
-        ):
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="problem_id, file_path, and answer_content must be provided"
-            )
-        metadata = file_service.get_file_metadata_by_path(db, params.file_path)
-        if not metadata:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="File metadata not found by given path: " + params.file_path
-            )
-        problem_content = (
-            ProblemService.
-            get_problem_content_by_file_uuid_and_problem_id(
-                db,
-                str(metadata.uuid),
-                params.problem_id
-            )
-        )
-        if not problem_content:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="Problem content not found for given problem_id: " + params.problem_id
-                       + " and file_path: " + params.file_path
-            )
+        problem_content = get_problem_content(params, db)
 
     response, reference_list = await generate_chat_response(
         params.messages,
@@ -252,3 +226,39 @@ async def create_or_update_memory_synopsis(
             "status": "failed",
             "message": "Memory generation failed, will retry next round"
         })
+
+def get_problem_content(params: PracticeCompletionParams, db: Session):
+
+    if any(
+            param is None for param in [params.problem_id, params.file_path, params.answer_content]
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="problem_id, file_path, and answer_content must be provided"
+        )
+
+    metadata = file_service.get_file_metadata_by_path(db, params.file_path)
+
+    if not metadata:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="File metadata not found by given path: " + params.file_path
+        )
+
+    problem_content = (
+        ProblemService.
+        get_problem_content_by_file_uuid_and_problem_id(
+            db,
+            str(metadata.uuid),
+            params.problem_id
+        )
+    )
+
+    if not problem_content:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Problem content not found for given problem_id: " + params.problem_id
+                   + " and file_path: " + params.file_path
+        )
+
+    return problem_content

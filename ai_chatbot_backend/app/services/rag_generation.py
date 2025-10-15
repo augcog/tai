@@ -27,7 +27,7 @@ class UserFocus(BaseModel):
 """
 async def generate_chat_response(
         messages: List[Message],
-        user_focus: UserFocus,
+        user_focus: Optional[UserFocus] = None,
         answer_content: Optional[str] = None,
         problem_content: Optional[str] = None,
         stream: bool = True,
@@ -53,9 +53,14 @@ async def generate_chat_response(
     filechat_focused_chunk = ""
     filechat_file_sections = []
 
-    file_uuid = user_focus.file_uuid
-    selected_text = user_focus.selected_text
-    index = user_focus.chunk_index
+    file_uuid = None
+    selected_text = None
+    index = None
+
+    if user_focus:
+        file_uuid = user_focus.file_uuid
+        selected_text = user_focus.selected_text
+        index = user_focus.chunk_index
 
     if file_uuid:
         augmented_context, file_content, filechat_focused_chunk, filechat_file_sections = build_file_augmented_context(
@@ -234,37 +239,6 @@ def join_titles(info_path: Union[str, List], *, sep=" > ", start=0) -> str:
 """
 LEGACY: unknown current usage; remove in future updates.
 """
-
-
-def generate_practice_response(
-        messages: List[Message],
-        problem_content: str,
-        answer_content: str,
-        stream: bool = True,
-        rag: bool = True,
-        course: Optional[str] = None,
-        threshold: float = 0.32,
-        top_k: int = 7,
-        engine: Any = None,
-) -> Tuple[Any, List[str | Any]]:
-    """
-    Build an augmented message with references and run LLM inference.
-    Returns a tuple: (stream, reference_string)
-    """
-    user_message = messages[-1].content
-    modified_message, reference_list, system_add_message = build_augmented_prompt(
-        user_message, course if course else "", threshold, rag, top_k=top_k,
-        problem_content=problem_content, answer_content=answer_content
-    )
-
-    messages[-1].content = modified_message
-    messages[0].content += system_add_message
-    if _is_local_engine(engine):
-        iterator = _generate_streaming_response(messages, engine)
-        return iterator, reference_list
-    else:
-        response = engine(messages[-1].content, stream=stream, course=course)
-        return response, reference_list
 
 async def parse_token_stream_for_json(stream: Any) -> Generator[str, None, None]:
     """

@@ -111,8 +111,8 @@ async def create_text_completion(
     response, reference_list = await generate_chat_response(
         params.messages,
         getattr(params, 'user_focus', UserFocus()),
-        getattr(params, 'answer_content', None),
-        problem_content,
+        answer_content=getattr(params, 'answer_content', None),
+        problem_content=problem_content,
         stream=params.stream,
         course=params.course_code,
         engine=llm_engine,
@@ -157,8 +157,6 @@ async def create_text_completion(
                 selected_text=params.user_focus.selected_text,
                 chunk_index=params.user_focus.chunk_index
             ),
-            getattr(params, 'answer_content', None),
-            getattr(params, 'problem_content', None),
             stream=params.stream,
             course=course,
             engine=engine,
@@ -169,8 +167,6 @@ async def create_text_completion(
         response, reference_list = await generate_chat_response(
             params.messages,
             UserFocus(),
-            getattr(params, 'answer_content', None),
-            getattr(params, 'problem_content', None),
             stream=params.stream,
             course=course,
             engine=engine,
@@ -209,8 +205,6 @@ async def create_voice_completion(
     response, reference_list = await selector(
         params.messages,
         UserFocus(),
-        getattr(params, 'answer_content', None),
-        getattr(params, 'problem_content', None),
         stream=params.stream,
         course=course,
         engine=engine,

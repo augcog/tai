@@ -28,8 +28,8 @@ class UserFocus(BaseModel):
 async def generate_chat_response(
         messages: List[Message],
         user_focus: UserFocus,
-        answer_content: str,
-        problem_content: str,
+        answer_content: Optional[str] = None,
+        problem_content: Optional[str] = None,
         stream: bool = True,
         course: Optional[str] = None,
         threshold: float = 0.32,

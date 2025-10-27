@@ -1,6 +1,16 @@
 # Consolidated completions router
+from typing import List
 from app.api.deps import verify_api_token
-from app.core.models.chat_completion import *
+from app.core.models.chat_completion import (
+    GeneralCompletionParams,
+    FileCompletionParams,
+    PracticeCompletionParams,
+    Message,
+    ResponseDelta,
+    TextToSpeechParams,
+    VoiceTranscriptParams,
+    AudioTranscript,
+)
 from app.dependencies.model import get_model_engine, get_whisper_engine
 from app.services.rag_retriever import top_k_selector
 from app.services.rag_generation import (
@@ -79,7 +89,7 @@ async def create_text_completion(
         print("selected_text:", params.user_focus.selected_text)
         print("chunk_index:", params.user_focus.chunk_index)
     elif isinstance(params, PracticeCompletionParams):
-        problem_content = get_problem_content(params, db)
+        problem_content = _get_problem_content(params, db)
 
     response, reference_list = await generate_chat_response(
         params.messages,
@@ -227,7 +237,7 @@ async def create_or_update_memory_synopsis(
             "message": "Memory generation failed, will retry next round"
         })
 
-def get_problem_content(params: PracticeCompletionParams, db: Session):
+def _get_problem_content(params: PracticeCompletionParams, db: Session):
 
     if any(
             param is None for param in [params.problem_id, params.file_path, params.answer_content]

@@ -127,33 +127,6 @@ class PracticeCompletionParams(BaseModel):
     problem_id: str
     file_path: str
 
-class TextCompletionParams(BaseModel):
-    course: str
-    messages: List[Message]
-    temperature: float  # TODO: Not in use. Remove?
-    stream: bool
-    chat_type: str = "general"  # e.g., "general", "file"
-    file_uuid: Optional[UUID] = None
-    selected_text: Optional[str] = None
-    index: Optional[float] = None
-    rag: Optional[bool] = True
-    audio_response: Optional[bool] = False
-    sid: Optional[str] = None  # chat_history_sid from frontend
-
-class VoiceCompletionParams(BaseModel):
-    course: str
-    messages: List[Message]
-    audio: VoiceMessage
-    temperature: float
-    stream: bool
-    chat_type: str = "general"
-    file_uuid: Optional[str] = None
-    selected_text: Optional[str] = None
-    index: Optional[float] = None
-    rag: Optional[bool] = True
-    audio_response: Optional[bool] = False
-    sid: Optional[str] = None  # chat_history_sid from frontend
-
 class VoiceTranscriptParams(BaseModel):
     audio: VoiceMessage
     stream: bool = True

@@ -1,16 +1,15 @@
 # Standard python libraries
+import json
 import re
 import ast
 import time
 from typing import Any, Optional, Tuple, List, Union, Generator
-from uuid import UUID
 # Third-party libraries
 from transformers import AutoTokenizer
 from vllm import SamplingParams
 # Local libraries
 from app.core.models.chat_completion import Message, UserFocus
 from app.services.rag_preprocess import build_retrieval_query, build_augmented_prompt, build_file_augmented_context
-from app.services.rag_postprocess import build_memory_synopsis
 # Environment Variables
 # TOKENIZER_MODEL_ID = "THUDM/GLM-4-9B-0414"
 from app.dependencies.model import LLM_MODEL_ID
@@ -231,22 +230,3 @@ def join_titles(info_path: Union[str, List], *, sep=" > ", start=0) -> str:
     items = _to_str_list(info_path)
     items = items[start:]
     return sep.join(items)
-
-
-#############################################################################
-############################# LEGACY OLD CODE ###############################
-#############################################################################
-"""
-LEGACY: unknown current usage; remove in future updates.
-"""
-
-async def parse_token_stream_for_json(stream: Any) -> Generator[str, None, None]:
-    """
-    Yield tokens from a text stream (simplified version for JSON output).
-    """
-    previous_text = ""
-    async for output in stream:
-        text = output.outputs[0].text
-        chunk = text[len(previous_text):]
-        yield chunk
-        previous_text = text

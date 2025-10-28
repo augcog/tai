@@ -128,58 +128,6 @@ def _generate_streaming_response(messages: List[Message], engine: Any = None) ->
     prompt = TOKENIZER.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
     return engine.generate(prompt, SAMPLING, request_id=str(time.time_ns()))
 
-
-async def local_parser(
-        stream: Any,
-        reference_list: List[str],
-        messages: Optional[List[Message]] = None,
-        engine: Optional[Any] = None,
-        old_sid: Optional[str] = None
-) -> Generator[str, None, None]:
-    """
-    Yield tokens from a text stream and append the reference block at the end.
-    TODO: This function can be removed in the future once the legacy code migration is completed.
-    """
-    print('Response:')
-    previous_text = ""
-    async for output in stream:
-        text = output.outputs[0].text
-        chunk = text[len(previous_text):]
-        yield chunk
-        previous_text = text
-        print(chunk, end="")
-    # Extract mentioned references from the previous text
-    pattern = re.compile(
-        r'(?:\[Reference:\s*([\d,\s]+)\]|\breferences?\s+(\d+(?:\s*(?:,|and)\s*\d+)*))',
-        re.IGNORECASE
-    )
-    mentioned_references = {
-        int(n)
-        for m in pattern.finditer(previous_text)
-        for n in re.findall(r'\d+', m.group(1) or m.group(2))
-    }
-    print("\n\nMentioned references:", mentioned_references)
-    # Generate the reference block
-    lines = []
-    max_idx = len(reference_list)
-    for i in sorted(mentioned_references):
-        if 1 <= i <= max_idx:
-            info_path, url, file_path = reference_list[i - 1]
-            lines.append(
-                f"Reference {i}: "
-                f"<|begin_of_reference_name|>{i}: {info_path}<|end_of_reference_name|>"
-                f"<|begin_of_reference_link|>{url}<|end_of_reference_link|>"
-                f"<|begin_of_file_path|>{file_path}<|end_of_file_path|>"
-                f"<|begin_of_index|>1<|end_of_index|>"
-            )
-    if lines:
-        reference_string = "\n\n".join(lines)
-        ref_block = f"\n\n<|begin_of_reference|>\n\n{reference_string}\n<|end_of_reference|>"
-        yield ref_block
-        print(ref_block)
-
-
-
 def format_chat_msg(messages: List[Message]) -> List[Message]:
     """
     Format a conversation by prepending an initial system message.

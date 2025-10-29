@@ -76,7 +76,6 @@ class GeneralCompletionParams(BaseModel):
     course_code: str
     audio: VoiceMessage = None
     messages: List[Message]
-    temperature: float  # TODO: Not in use. Remove?
     stream: bool
     chat_type: str = "general"  # e.g., "general", "file", "practice"
     rag: Optional[bool] = True
@@ -90,7 +89,6 @@ class FileCompletionParams(BaseModel):
     course_code: str
     audio: VoiceMessage
     messages: List[Message]
-    temperature: float  # TODO: Not in use. Remove?
     stream: bool
     chat_type: str = "file"  # e.g., "general", "file", "practice"
     rag: Optional[bool] = True
@@ -105,7 +103,6 @@ class PracticeCompletionParams(BaseModel):
     course_code: str
     audio: VoiceMessage = None
     messages: List[Message]
-    temperature: float
     stream: bool
     chat_type: str = "practice"  # e.g., "general", "file", "practice"
     rag: Optional[bool] = True

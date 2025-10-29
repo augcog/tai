@@ -69,18 +69,6 @@ class UserFocus(BaseModel):
     selected_text: str = None
     chunk_index: float = None
 
-class CompletionParams(BaseModel):
-    course_code: str
-    audio: VoiceMessage = None
-    messages: List[Message]
-    temperature: float  # TODO: Not in use. Remove?
-    stream: bool
-    chat_type: str = "general"  # e.g., "general", "file"
-    user_focus: Optional[UserFocus] = None
-    rag: Optional[bool] = True
-    audio_response: Optional[bool] = False
-    sid: Optional[str] = None  # chat_history_sid from frontend
-
 class GeneralCompletionParams(BaseModel):
     """
     Parameters for general chat completions.

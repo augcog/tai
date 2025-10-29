@@ -69,18 +69,6 @@ class UserFocus(BaseModel):
     selected_text: str = None
     chunk_index: float = None
 
-class CompletionParams(BaseModel):
-    course_code: str
-    audio: VoiceMessage = None
-    messages: List[Message]
-    temperature: float  # TODO: Not in use. Remove?
-    stream: bool
-    chat_type: str = "general"  # e.g., "general", "file"
-    user_focus: Optional[UserFocus] = None
-    rag: Optional[bool] = True
-    audio_response: Optional[bool] = False
-    sid: Optional[str] = None  # chat_history_sid from frontend
-
 class GeneralCompletionParams(BaseModel):
     """
     Parameters for general chat completions.
@@ -88,7 +76,6 @@ class GeneralCompletionParams(BaseModel):
     course_code: str
     audio: VoiceMessage = None
     messages: List[Message]
-    temperature: float  # TODO: Not in use. Remove?
     stream: bool
     chat_type: str = "general"  # e.g., "general", "file", "practice"
     rag: Optional[bool] = True
@@ -102,7 +89,6 @@ class FileCompletionParams(BaseModel):
     course_code: str
     audio: VoiceMessage
     messages: List[Message]
-    temperature: float  # TODO: Not in use. Remove?
     stream: bool
     chat_type: str = "file"  # e.g., "general", "file", "practice"
     rag: Optional[bool] = True
@@ -117,7 +103,6 @@ class PracticeCompletionParams(BaseModel):
     course_code: str
     audio: VoiceMessage = None
     messages: List[Message]
-    temperature: float
     stream: bool
     chat_type: str = "practice"  # e.g., "general", "file", "practice"
     rag: Optional[bool] = True
@@ -126,33 +111,6 @@ class PracticeCompletionParams(BaseModel):
     answer_content: str
     problem_id: str
     file_path: str
-
-class TextCompletionParams(BaseModel):
-    course: str
-    messages: List[Message]
-    temperature: float  # TODO: Not in use. Remove?
-    stream: bool
-    chat_type: str = "general"  # e.g., "general", "file"
-    file_uuid: Optional[UUID] = None
-    selected_text: Optional[str] = None
-    index: Optional[float] = None
-    rag: Optional[bool] = True
-    audio_response: Optional[bool] = False
-    sid: Optional[str] = None  # chat_history_sid from frontend
-
-class VoiceCompletionParams(BaseModel):
-    course: str
-    messages: List[Message]
-    audio: VoiceMessage
-    temperature: float
-    stream: bool
-    chat_type: str = "general"
-    file_uuid: Optional[str] = None
-    selected_text: Optional[str] = None
-    index: Optional[float] = None
-    rag: Optional[bool] = True
-    audio_response: Optional[bool] = False
-    sid: Optional[str] = None  # chat_history_sid from frontend
 
 class VoiceTranscriptParams(BaseModel):
     audio: VoiceMessage

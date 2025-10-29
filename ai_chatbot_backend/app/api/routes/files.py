@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, Path, status
 from sqlalchemy.orm import Session
 from app.core.dbs.metadata_db import get_metadata_db
 from app.api.deps import verify_api_token
-from app.schemas.files import FileMetadata, FileListResponse, FileStatsResponse, DirectoryBrowserResponse, TranscriptSegment
+from app.schemas.files import FileMetadata, FileListResponse, DirectoryBrowserResponse, TranscriptSegment
 from app.services.file_service import file_service
 
 router = APIRouter()
@@ -184,35 +184,6 @@ async def download_file(
     - Proper headers: Correct MIME type and filename
     """
     return file_service.get_file_content(db, file_id)
-
-
-@router.get(
-    "/stats/summary",
-    response_model=FileStatsResponse,
-    summary="Get file system statistics",
-)
-async def get_file_stats(
-    db: Session = Depends(get_metadata_db), _: bool = Depends(verify_api_token)
-):
-    """
-    Get comprehensive file system statistics.
-
-    Returns:
-    - Total file count
-    - Files by course
-    - System configuration
-    - Last update time
-    """
-    try:
-        stats = file_service.get_stats(db)
-        return FileStatsResponse(**stats)
-
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Error getting stats: {str(e)}",
-        )
-
 
 @router.get(
     "/{file_id}/extra_info", 

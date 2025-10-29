@@ -8,7 +8,6 @@ This module handles:
 """
 
 from pathlib import Path
-from datetime import datetime
 from typing import Dict
 import logging
 

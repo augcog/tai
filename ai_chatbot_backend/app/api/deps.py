@@ -18,6 +18,10 @@ def verify_api_token(credentials: HTTPAuthorizationCredentials = Depends(securit
 
     return True
 
+"""
+TODO: setup auth usage
+"""
+
 def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)) -> dict:
     """
     Dependency that returns the current user for authenticated requests.

@@ -2,7 +2,7 @@
 import time
 import json
 from dataclasses import dataclass, asdict, field
-from typing import Any, List, Optional, Iterable
+from typing import Any, List, Optional
 # Third-party libraries
 from vllm import SamplingParams
 from vllm.sampling_params import GuidedDecodingParams

@@ -188,18 +188,6 @@ class TestFileAPIHealth:
         assert "status" in data
         assert data["status"] == "ok"
 
-    def test_imports_work(self):
-        """Test that all imports work correctly"""
-        # Test file service import
-        from app.services.file_service import file_service
-
-        assert file_service is not None
-
-        # Test models import
-        from app.core.models.files import FileRegistry
-
-        assert FileRegistry is not None
-
     def test_file_service_initialization(self):
         """Test that file service initializes correctly"""
         from app.services.file_service import file_service

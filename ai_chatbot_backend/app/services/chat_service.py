@@ -1,5 +1,5 @@
 from app.core.models.chat_completion import *
-from typing import Union, AsyncIterator, List, Any, Dict
+from typing import AsyncIterator, List, Any, Dict
 import re
 import os
 import base64

@@ -2,9 +2,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-"""
-    TODO: merge practice db and course db together
-"""
 # Database configuration - separate courses database
 COURSE_DATABASE_URL = "sqlite:///./db/courses.db"
 

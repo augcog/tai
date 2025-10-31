@@ -274,39 +274,6 @@ class FileListResponse(BaseModel):
         }
 
 
-class FileStatsResponse(BaseModel):
-    """Simple file statistics"""
-
-    total_files: int = Field(..., description="Total number of files")
-    base_directory: str = Field(..., description="Base directory path")
-    auto_discovery: str = Field(..., description="Auto-discovery status")
-    courses: dict = Field(..., description="Course breakdown with counts")
-    last_updated: datetime = Field(..., description="Last update timestamp")
-
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "total_files": 150,
-                "base_directory": "/path/to/data",
-                "auto_discovery": "enabled",
-                "courses": {"CS61A": 75, "CS61B": 50, "CS70": 25},
-                "last_updated": "2023-01-01T12:00:00Z",
-            }
-        }
-
-
-class ErrorResponse(BaseModel):
-    """Standard error response"""
-
-    detail: str = Field(..., description="Error message")
-    error_code: Optional[str] = Field(None, description="Error code")
-
-    class Config:
-        json_schema_extra = {
-            "example": {"detail": "File not found", "error_code": "FILE_NOT_FOUND"}
-        }
-
-
 class DirectoryInfo(BaseModel):
     """Information about a directory in the file system"""
     
@@ -403,26 +370,3 @@ class DirectoryBrowserResponse(BaseModel):
                 "course_code": "CS61A"
             }
         }
-
-
-# Simple query parameters
-class FileListParams(BaseModel):
-    """Simple query parameters for file listing"""
-
-    course: Optional[str] = Field(None, description="Filter by course")
-    category: Optional[str] = Field(None, description="Filter by category")
-    search: Optional[str] = Field(None, description="Search in filename and title")
-    page: int = Field(1, ge=1, description="Page number")
-    limit: int = Field(100, ge=1, le=1000, description="Items per page")
-
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "course": "CS61A",
-                "category": "document",
-                "search": "lab",
-                "page": 1,
-                "limit": 50,
-            }
-        }
-

@@ -1,6 +1,16 @@
 # Consolidated completions router
+from typing import List
 from app.api.deps import verify_api_token
-from app.core.models.chat_completion import *
+from app.core.models.chat_completion import (
+    GeneralCompletionParams,
+    FileCompletionParams,
+    PracticeCompletionParams,
+    Message,
+    ResponseDelta,
+    TextToSpeechParams,
+    VoiceTranscriptParams,
+    AudioTranscript,
+)
 from app.dependencies.model import get_model_engine, get_whisper_engine
 from app.services.rag_retriever import top_k_selector
 from app.services.rag_generation import (
@@ -22,6 +32,8 @@ from app.services.chat_service import (
     get_speaker_name
 )
 from app.services.memory_synopsis_service import MemorySynopsisService
+from app.services.memory_synopsis_service import MemorySynopsisServiceLong
+from app.services.rag_postprocess import build_memory_synopsis, MemorySynopsis
 
 router = APIRouter()
 
@@ -79,7 +91,7 @@ async def create_text_completion(
         print("selected_text:", params.user_focus.selected_text)
         print("chunk_index:", params.user_focus.chunk_index)
     elif isinstance(params, PracticeCompletionParams):
-        problem_content = get_problem_content(params, db)
+        problem_content = _get_problem_content(params, db)
 
     response, reference_list = await generate_chat_response(
         params.messages,
@@ -180,20 +192,14 @@ async def get_top_k_docs(
 @router.post("/memory-synopsis")
 async def create_or_update_memory_synopsis(
         sid: str,
+        user_id: str, # 假设已在 GeneralCompletionParams, FileCompletionParams, PracticeCompletionParams 中添加
         messages: List[Message],
         # course_code: str,
         # _: bool = Depends(verify_api_token)
 ):
     """
-    Create or update memory synopsis for a chat history.
-
-    Args:
-        sid: chat_history_sid from frontend
-        messages: List of chat messages
-        course_code: Course code for context
-
-    Returns:
-        JSON response with memory_synopsis_sid if successful, error message if failed
+    Create or update memory synopsis (STM) for a chat history, and then synthesize
+    and update Long-Term Memory (LTM) for the user.
     """
     try:
         # Get the pre-initialized pipeline
@@ -203,16 +209,48 @@ async def create_or_update_memory_synopsis(
         from app.services.rag_generation import TOKENIZER
 
         # Initialize memory synopsis service
-        service = MemorySynopsisService()
+        stm_service = MemorySynopsisService()
+        ltm_service = MemorySynopsisServiceLong()
+        formatted_messages = format_chat_msg(messages)
 
-        # Create or update memory synopsis
-        memory_synopsis_sid = await service.create_or_update_memory(sid, format_chat_msg(messages), engine, TOKENIZER)
 
+        # 1. 步骤 a: 生成 Short-Term Memory (STM) 实例
+        # 这一步是为了获取 MemorySynopsis 实例 (new_stm) 供 LTM 使用
+        new_memory: MemorySynopsis = await build_memory_synopsis(
+            messages=formatted_messages,
+            tokenizer=TOKENIZER,
+            engine=engine,
+            chat_history_sid=sid # build_memory_synopsis 会自动检索旧的 STM
+        )
+
+        # 2. 步骤 b: 存储/更新 Short-Term Memory (STM)
+        # 调用 STM 服务进行持久化。STM 服务内部会再次调用 build_memory_synopsis
+        memory_synopsis_sid = await stm_service.create_or_update_memory(
+            chat_history_sid=sid,
+            messages=formatted_messages,
+            engine=engine,
+            tokenizer=TOKENIZER
+        )
+
+        ltm_synopsis_sid = None
+        # 3. 步骤 c: 如果 STM 成功，生成并存储 Long-Term Memory (LTM)
+        if memory_synopsis_sid:
+            ltm_synopsis_sid = await ltm_service.create_or_update_ltm(
+                user_id=user_id,
+                chat_history_sid=sid,
+                messages=formatted_messages,
+                new_stm=new_memory, # <--- 修正：传递第一步生成的 MemorySynopsis 实例
+                engine=engine,
+                tokenizer=TOKENIZER
+            )
+
+        # 4. 返回结果
         if memory_synopsis_sid:
             return JSONResponse({
-                "memory_synopsis_sid": memory_synopsis_sid,
+                "memory_synopsis_sid": memory_synopsis_sid, # STM SID
+                "ltm_synopsis_sid": ltm_synopsis_sid,       # LTM SID
                 "status": "success",
-                "message": "Memory synopsis created/updated successfully"
+                "message": "Memory synopses (STM and LTM) created/updated successfully"
             })
         else:
             return JSONResponse({
@@ -224,10 +262,10 @@ async def create_or_update_memory_synopsis(
         print(f"[INFO] Memory synopsis endpoint failed: {e}")
         return JSONResponse({
             "status": "failed",
-            "message": "Memory generation failed, will retry next round"
+            "message": "Memory generation failed due to internal error, will retry next round"
         })
 
-def get_problem_content(params: PracticeCompletionParams, db: Session):
+def _get_problem_content(params: PracticeCompletionParams, db: Session):
 
     if any(
             param is None for param in [params.problem_id, params.file_path, params.answer_content]

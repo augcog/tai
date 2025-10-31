@@ -81,6 +81,7 @@ class GeneralCompletionParams(BaseModel):
     rag: Optional[bool] = True
     audio_response: Optional[bool] = False
     sid: Optional[str] = None  # chat_history_sid from frontend
+    user_id: str
 
 class FileCompletionParams(BaseModel):
     """
@@ -95,6 +96,7 @@ class FileCompletionParams(BaseModel):
     audio_response: Optional[bool] = False
     sid: Optional[str] = None  # chat_history_sid from frontend
     user_focus: UserFocus
+    user_id: str
 
 class PracticeCompletionParams(BaseModel):
     """
@@ -111,6 +113,7 @@ class PracticeCompletionParams(BaseModel):
     answer_content: str
     problem_id: str
     file_path: str
+    user_id: str
 
 class VoiceTranscriptParams(BaseModel):
     audio: VoiceMessage

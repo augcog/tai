@@ -149,7 +149,9 @@ def build_augmented_prompt(
             f"\nALWAYS: Do not mention references in a unreadable format like refs, 【】, Reference: [n], > *Reference: n* or (reference n)!!! Those are not understandable since the output is going to be converted to speech. "
         )
     # Create modified message based on whether documents were inserted
+
     if not insert_document or n == 0:
+        print("[INFO] No relevant documents found above the similarity threshold.")
         system_add_message = (
             f"\n{response_style}"
             f"If the question is a complex question, provide hints, explanations, "
@@ -164,14 +166,24 @@ def build_augmented_prompt(
             f""
         )
     else:
+        print("[INFO] Relevant documents found and inserted into the prompt.")
         system_add_message =(
             f"\n{response_style}"
             f"Review the reference documents, considering their Directory Path (original file location), "
             f"Topic Path (section or title it belongs to), and Document content. "
             f"Select only the most relevant references to answer the instruction thoroughly. "
-            f"Ground your answer in the facts from these selected references if needed. "
-            f"If the question is a complex problem, provide hints, explanations, "
-            f"or step-by-step guidance instead of giving the direct answer. "
+            f"Role: adaptive and encouraging tutor using Bloom taxonomy and provided references, don't give out answer."
+            f"always praise curiosity + link to prior knowledge; explain only core ideas from refs with one"
+            f"Quickly identify goal = Understand / Apply–Analyze / Evaluate–Create."
+            f"If Understand → explanation + clear example; headlines and keep concise and clear"
+            f"then ask if the user wants more explanation, such as analogies, counterexamples, or deep exploration \n\n"
+            f"If Apply–Analyze → clarify what’s asked, what concepts and prereqs are involved; ask if they want hints "
+            f"or steps; wait for attempt; then outline step-by-step guidance using refs, no final answer.\n\n"
+            f"If Evaluate–Create → unpack the problem and key concepts; ask for their approach first; then guide "
+            f"reflection with criteria (correctness, completeness, trade-offs); compare views, note assumptions, "
+            f"outline structure if needed, never a full solution.\n\n"
+            f"always ground reasoning in the references and note how each supports the step."
+            f"Prefer hints and reflection; end each turn by inviting the next action."
             f"{reference_style}"
             f"Exclude and avoid explaining irrelevant references. "
             f"If, after reasonable effort, no relevant information is found, "

@@ -127,9 +127,11 @@ def build_augmented_prompt(
     # Create response and reference styles based on audio mode.
     if not audio_response:
         response_style = (
-            f"Answer the instruction thoroughly with a well-structured markdown format answer. "
+            f"Answer the instruction thoroughly with a well-structured markdown format answer (do not add '```markdown'). "
+            f"Discuss what the reference is, such as a textbook or sth, and what the reference is about. Quote the reference if needed. "
             f"No references at the end."
         )
+        # "[Reference: a; Quote: 'xxx to xxx']"
         reference_style = (
             f"\nALWAYS: Refer to specific reference numbers inline using [Reference: a,b] style!!! Do not use other style like refs, 【】, Reference: [n], > *Reference: n*, [Reference: a-b]  or (reference n)!!!"
             f"\nDo not list references at the end. "
@@ -137,15 +139,14 @@ def build_augmented_prompt(
     else:
         response_style = """
         STYLE:
-        Use a clear, natural, speaker-friendly tone that is short and engaging. Try to end every sentence with a period '.'. ALWAYS: Avoid code block, Markdown formatting or math equation!!! No references at the end or listed withou telling usage.
-        Make the first sentence short and engaging. If no instruction is given, explain that you did not hear any instruction.
+        Use a speaker-friendly tone. Try to end every sentence with a period '.'. ALWAYS: Avoid code block, Markdown formatting or math equation!!! No references at the end or listed without telling usage.
+        Make the first sentence short and engaging. If no instruction is given, explain that you did not hear any instruction. Discuss what the reference is, such as a textbook or sth, and what the reference is about. Quote the reference if needed. 
         Do not use symbols that are not readable in speech, such as (, ), [, ], {, }, <, >, *, #, -, !, $, %, ^, &, =, +, \, /, ~, `, etc. In this way, avoid code, Markdown formatting or math equation!!!
         """
         reference_style = (
             "\nREFERENCE USAGE:"
-            f"\nMention specific reference numbers inline when that part of the answer is refer to some reference. "
+            f"\nMention specific reference numbers inline when that part of the answer is refer to some reference. Discuss what the reference is, such as a textbook or sth, and what the reference is about. Quote the reference if needed. "
             f"\nALWAYS: Do not mention references in a unreadable format like refs, 【】, Reference: [n], > *Reference: n* or (reference n)!!! Those are not understandable since the output is going to be converted to speech. "
-            f"\nGood example: According to reference 1, as mention in reference 2, etc. \n"
         )
     # Create modified message based on whether documents were inserted
     if not insert_document or n == 0:
@@ -167,9 +168,8 @@ def build_augmented_prompt(
             f"\n{response_style}"
             f"Review the reference documents, considering their Directory Path (original file location), "
             f"Topic Path (section or title it belongs to), and Document content. "
-            f"Select only the most relevant references to answer the instruction thoroughly "
-            f"in a well-structured markdown format (do not add '```markdown'). "
-            f"Ground your answer in the facts from these selected references. "
+            f"Select only the most relevant references to answer the instruction thoroughly. "
+            f"Ground your answer in the facts from these selected references if needed. "
             f"If the question is a complex problem, provide hints, explanations, "
             f"or step-by-step guidance instead of giving the direct answer. "
             f"{reference_style}"
@@ -231,53 +231,3 @@ def build_file_augmented_context(
         augmented_context += f"The user has selected the following text in the file:\n\n{selected_text}\n\n"
 
     return augmented_context, file_content, focused_chunk, sections
-
-    # The following code is commented out because file chat no longer needs separate reference retrieval for file-related context.
-
-    # if not rag:
-    #     return augmented_context, []
-
-    # # Get reference documents based on the selected text.
-    # (
-    #     top_chunk_uuids, top_docs, top_urls, similarity_scores, top_files, top_refs, top_titles,
-    #     top_file_uuids, top_chunk_idxs
-    # ), _ = get_reference_documents(selected_text, course, top_k=top_k // 2) if selected_text else ([], [], [], [], [], [], [],[], []), ""
-
-    # # Get reference documents based on the entire document.
-    # (
-    #     top_chunk_uuids_doc, top_docs_doc, top_urls_doc, similarity_scores_doc, top_files_doc, top_refs_doc, top_titles_doc,
-    #     top_file_uuids_doc, top_chunk_idxs_doc
-    # ) = get_file_related_documents(file_uuid, course, top_k=top_k // 2 if selected_text else top_k)
-
-    # # Combine results from selected text and entire document
-    # top_ids_combined = top_chunk_uuids + top_chunk_uuids_doc
-    # top_docs_combined = top_docs + top_docs_doc
-    # top_urls_combined = top_urls + top_urls_doc
-    # similarity_scores_combined = similarity_scores + similarity_scores_doc
-    # top_files_combined = top_files + top_files_doc
-    # top_refs_combined = top_refs + top_refs_doc
-    # top_titles_combined = top_titles + top_titles_doc
-    # top_file_uuids_combined = top_file_uuids + top_file_uuids_doc
-    # top_chunk_idxs_combined = top_chunk_idxs + top_chunk_idxs_doc
-
-    # insert_document = ""
-    # reference_list = reference_list or []
-    # n = len(reference_list)
-    # for i in range(len(top_docs_combined)):
-    #     if similarity_scores_combined[i] > threshold:
-    #         n += 1
-    #         file_path = top_files_combined[i]
-    #         file_uuid = top_file_uuids_combined[i]
-    #         chunk_index = top_chunk_idxs_combined[i]
-    #         topic_path = top_refs_combined[i]
-    #         url = top_urls_combined[i] if top_urls_combined[i] else ""
-    #         insert_document += (
-    #             f'Reference Number: {n}\n'
-    #             f"Directory Path to reference file to tell what file is about: {file_path}\n"
-    #             f"Topic Path of chunk in file to tell the topic of chunk: {topic_path}\n"
-    #             f'Document: {top_docs_combined[i]}\n\n'
-    #         )
-    #         reference_list.append([topic_path, url, file_path, file_uuid, chunk_index])
-
-    # augmented_context += insert_document + "---\n"
-    # return augmented_context, reference_list

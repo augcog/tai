@@ -107,6 +107,7 @@ async def create_completion(
         sid=sid
     )
     
+    logger.info(f"[INFO] Generated chat response: {response}")
     create_or_update_memory_synopsis(sid, response)
 
     if params.stream:

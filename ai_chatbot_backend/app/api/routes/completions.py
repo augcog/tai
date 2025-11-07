@@ -34,6 +34,8 @@ from app.services.chat_service import (
 from app.services.memory_synopsis_service import MemorySynopsisService
 from app.services.memory_synopsis_service import MemorySynopsisServiceLong
 from app.services.rag_postprocess import build_memory_synopsis, MemorySynopsis
+import logging
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
@@ -203,7 +205,7 @@ async def create_or_update_memory_synopsis(
     Create or update memory synopsis (STM) for a chat history, and then synthesize
     and update Long-Term Memory (LTM) for the user.
     """
-    print("We are building memory")
+    logger.info(f"[INFO] Memory Request received. SID: {sid}")
     try:
         # Get the pre-initialized pipeline
         engine = get_model_engine()

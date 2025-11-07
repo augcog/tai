@@ -203,6 +203,7 @@ async def create_or_update_memory_synopsis(
     Create or update memory synopsis (STM) for a chat history, and then synthesize
     and update Long-Term Memory (LTM) for the user.
     """
+    print("We are building memory")
     try:
         # Get the pre-initialized pipeline
         engine = get_model_engine()

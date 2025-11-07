@@ -54,7 +54,7 @@ def parse_assistant_message(content):
     return content
 
 @router.post("/completions")
-async def create_text_completion(
+async def create_completion(
         params: GeneralCompletionParams | FileCompletionParams | PracticeCompletionParams,
         db: Session = Depends(get_metadata_db),
         _: bool = Depends(verify_api_token)

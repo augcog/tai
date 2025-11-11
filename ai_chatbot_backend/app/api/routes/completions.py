@@ -74,8 +74,10 @@ async def create_completion(
             message.content = parse_assistant_message(message.content)
     # Select chat pipeline based on chat_type
 
-    sid = params.sid  # Use chat_history_sid from frontend
+    sid = params.sid if "sid" in params else "temp_sid_12345"  # Use chat_history_sid from frontend
     print(f"[INFO] Using SID: {sid}")
+    user_id = params.user_id if "user_id" in params else "temp_user_id_12345" # Assume user_id is provided in params
+    print(f"[INFO] User ID: {user_id}")
 
     print(f"[INFO] Chat Type: {type(params)}")
 
@@ -108,7 +110,7 @@ async def create_completion(
     )
     
     logger.info(f"[INFO] Generated chat response: {response}")
-    create_or_update_memory_synopsis(sid, response)
+    print(f"[INFO] Generated chat response: {response}")
 
     if params.stream:
         return StreamingResponse(
@@ -120,6 +122,7 @@ async def create_completion(
                 messages=format_chat_msg(params.messages),
                 engine=llm_engine,
                 old_sid=sid,
+                user_id=user_id,
                 course_code=params.course_code
             ),
             media_type="text/event-stream"
@@ -194,6 +197,7 @@ async def get_top_k_docs(
     return JSONResponse(content=response_data)
 
 
+
 @router.post("/memory-synopsis")
 async def create_or_update_memory_synopsis(
         sid: str,
@@ -207,18 +211,22 @@ async def create_or_update_memory_synopsis(
     and update Long-Term Memory (LTM) for the user.
     """
     logger.info(f"[INFO] Memory Request received. SID: {sid}")
+    print(f"[INFO] Memory Request received. SID: {sid}")
     try:
         # Get the pre-initialized pipeline
         engine = get_model_engine()
+        print(f"[INFO] Using engine: {engine}")
 
         # Import TOKENIZER from rag_generation
         from app.services.rag_generation import TOKENIZER
 
         # Initialize memory synopsis service
         stm_service = MemorySynopsisService()
+        print("[INFO] STM Service initialized.")
         ltm_service = MemorySynopsisServiceLong()
+        print("[INFO] LTM Service initialized.")
         formatted_messages = format_chat_msg(messages)
-
+        print("[INFO] Messages formatted for memory synopsis.")
 
         # 1. 步骤 a: 生成 Short-Term Memory (STM) 实例
         # 这一步是为了获取 MemorySynopsis 实例 (new_stm) 供 LTM 使用
@@ -228,7 +236,7 @@ async def create_or_update_memory_synopsis(
             engine=engine,
             chat_history_sid=sid # build_memory_synopsis 会自动检索旧的 STM
         )
-
+        print("[INFO] Short-Term Memory (STM) instance built.")
         # 2. 步骤 b: 存储/更新 Short-Term Memory (STM)
         # 调用 STM 服务进行持久化。STM 服务内部会再次调用 build_memory_synopsis
         memory_synopsis_sid = await stm_service.create_or_update_memory(
@@ -237,7 +245,7 @@ async def create_or_update_memory_synopsis(
             engine=engine,
             tokenizer=TOKENIZER
         )
-
+        print("[INFO] Short-Term Memory (STM) stored/updated.")
         ltm_synopsis_sid = None
         # 3. 步骤 c: 如果 STM 成功，生成并存储 Long-Term Memory (LTM)
         if memory_synopsis_sid:
@@ -249,7 +257,7 @@ async def create_or_update_memory_synopsis(
                 engine=engine,
                 tokenizer=TOKENIZER
             )
-
+        print("[INFO] Long-Term Memory (LTM) stored/updated.")
         # 4. 返回结果
         if memory_synopsis_sid:
             return JSONResponse({
@@ -270,6 +278,7 @@ async def create_or_update_memory_synopsis(
             "status": "failed",
             "message": "Memory generation failed due to internal error, will retry next round"
         })
+
 
 def _get_problem_content(params: PracticeCompletionParams, db: Session):
 

@@ -8,6 +8,7 @@ import soundfile as sf
 import numpy as np
 from openai import OpenAI
 from app.services.rag_postprocess import extract_channels
+from app.services.memory_synopsis_service import create_or_update_memory_synopsis
 
 def extract_channels_oss(text: str) -> dict:
     # 1) Remove the special marker wherever it appears
@@ -28,7 +29,7 @@ def extract_channels_oss(text: str) -> dict:
     return result
 
 async def chat_stream_parser(
-        stream: AsyncIterator, reference_list: List[str], audio: bool = False, messages: List[Message]= None,audio_text: str=None, engine: Any = None, old_sid: str = "", course_code: str = None, debug: bool = False
+        stream: AsyncIterator, reference_list: List[str], audio: bool = False, messages: List[Message]= None,audio_text: str=None, engine: Any = None, old_sid: str = "", user_id: str = "", course_code: str = None, debug: bool = False
 ) -> AsyncIterator[str]:
     """
     Parse the streaming response from the chat model and yield deltas.
@@ -56,6 +57,7 @@ async def chat_stream_parser(
         \[\s*\Z                              # 只有一个 '[' 到结尾
     )
     """, re.VERBOSE)
+    response_messages = []
     async for output in stream:
         text = output.outputs[0].text
         channels= extract_channels(text)
@@ -77,6 +79,7 @@ async def chat_stream_parser(
                 break
             yield sse(ResponseDelta(seq=text_seq, text_channel=channel, text=chunk)); text_seq += 1
             print(chunk, end="")
+            response_messages.append(Message(role="assistant", content=chunk))
         if continue_flag:
             continue
         previous_channels = channels
@@ -167,7 +170,7 @@ async def chat_stream_parser(
     # TOKENIZER = AutoTokenizer.from_pretrained(TOKENIZER_MODEL_ID)
     # full_response_text = TOKENIZER.decode(token, skip_special_tokens=False)
     # print(full_response_text)
-
+    await create_or_update_memory_synopsis(old_sid, user_id, response_messages)
 
     pattern = re.compile(
         r'(?:\[Reference:\s*([\d,\s]+)\]'
@@ -236,7 +239,9 @@ async def audio_generator(messages: List[Dict], stream: bool = True, speaker_nam
     """
     Parse the streaming response from the audio model and yield deltas.
     """
-    data_dir = '/home/tai25/bot/tai/ai_chatbot_backend/voice_prompts'
+    data_dir = '/home/bot/localgpt/tai/ai_chatbot_backend/voice_prompts'
+
+    # data_dir = '/home/tai25/bot/tai/ai_chatbot_backend/voice_prompts'
     
     # Select voice prompt based on course_code
     if speaker_name == "Professor John DeNero":

@@ -124,7 +124,7 @@ LTM_SCHEMA = {
 }
 GUIDED_LTM = GuidedDecodingParams(json=LTM_SCHEMA)
 SAMPLING_JSON_LTM = SamplingParams(
-    temperature=0.0, top_p=1.0, max_tokens=800, guided_decoding=GUIDED, skip_special_tokens=False
+    temperature=0.0, top_p=1.0, max_tokens=8000, guided_decoding=GUIDED_LTM, skip_special_tokens=False
 )
 
 
@@ -283,6 +283,7 @@ async def build_memory_synopsis(
     transcript = _render_transcript(messages)
     cur = await _llm_synopsis_from_transcript(engine, tokenizer, transcript, max_prompt_tokens=max_prompt_tokens)
     if prev_synopsis:
+        print("[INFO] Merging with previous MemorySynopsis...")
         cur = await _llm_merge_synopses(engine, tokenizer, prev_synopsis, cur)
 
     # tighten fields (keep stable, short)
@@ -320,11 +321,8 @@ EXISTING_LTM:
 NEW_STM:
 {new_stm_json}
 
-CHAT_HISTORY:
-{transcript}
-
 Task:
-Produce the single best updated LTM JSON object following the system rules. Return ONLY JSON.
+Produce the single best updated LTM JSON object following the system rules. Return ONLY JSON. Please do not leave your output an empty json skeleton with no content.
 """
 
     # 准备系统和用户消息
@@ -332,27 +330,28 @@ Produce the single best updated LTM JSON object following the system rules. Retu
     usr_content = LLM_USER_LTM_TEMPLATE.format(
         existing_ltm_json=existing_ltm_json,
         new_stm_json=new_stm_json,
-        transcript=_truncate_to_tokens(tokenizer, transcript, max_prompt_tokens)
     )
     usr = {"role": "user", "content": usr_content}
     chat = [sys_msg, usr]
-
+    # sys_msg = {"role": "system", "content": _LLM_MERGE_SYSTEM}
+    # usr_msg = {"role": "user", "content": _LLM_MERGE_USER_TEMPLATE.format(old_json=old_json, new_json=new_json)}
     prompt = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
 
     # 使用 LTM 专用的采样参数（特别是 GUIDED_LTM）进行生成
     text = ""
-    # 注意: 在您的原文件中 SAMPLING_JSON_LTM 被定义时错误地使用了 GUIDED，
-    # 实际应该使用 GUIDED_LTM，这里假设已在文件顶部修正并导入 GUIDED_LTM。
-    # SAMPLING_JSON_LTM = SamplingParams(..., guided_decoding=GUIDED_LTM, ...)
+    print(f"sampling params for LTM: {SAMPLING_JSON_LTM}")
+    print(f"LTM synthesis prompt: {prompt}")
+    print(f"\n\n\nstart generating LTM \n\n\n")
     async for chunk in engine.generate(
             prompt=prompt,
             sampling_params=SAMPLING_JSON_LTM,
             request_id=str(time.time_ns()) # 假设 time.time_ns() 可用
     ):
+        # print(f"chunk = {chunk}")
         text = chunk.outputs[0].text
 
     # 提取 JSON 结果
-    text = extract_channels(text).get('final', "{}")
+    # text = extract_channels(text).get('final', "{}")
     print('Generated MemorySynopsisLong JSON:', text)
 
     try:
@@ -385,20 +384,18 @@ async def build_memory_synopsis_long(
     # 1. 优雅地从数据库检索之前的 LTM (如果需要)
     # 此处省略 MongoDB 服务的具体导入和实现，仅保留逻辑结构。
     if chat_history_sid and not prev_synopsis_long:
+        print("[INFO] Attempting to retrieve previous memory from DB...")
         try:
-            # 假设有一个类似 MemorySynopsisService 的 Long-Term Memory Service
-            # from app.services.ltm_service import LTMService
-            # ltm_service = LTMService()
-            # prev_synopsis_long = await ltm_service.get_by_chat_history_sid(chat_history_sid)
-            print("[INFO] Attempting to retrieve previous LTM from DB...")
-            pass # 实际项目中在这里添加 DB 检索逻辑
+            from app.services.memory_synopsis_service import MemorySynopsisServiceLong
+            memory_service = MemorySynopsisServiceLong()
+            prev_synopsis_long = await memory_service.get_by_user_id(chat_history_sid)
         except Exception as e:
-            print(f"[INFO] Failed to retrieve previous LTM, generating from scratch: {e}")
-            prev_synopsis_long = None
+            print(f"[INFO] Failed to retrieve previous memory, generating from scratch: {e}")
+            prev_synopsis_long = None  # Continue without previous memory
 
     # 2. 渲染转录文本 (Transcript)
     transcript = _render_transcript(messages)
-
+    print(f"[INFO] previous LTM: {prev_synopsis_long}")
     # 3. 调用 LLM 合成新的 LTM
     updated_ltm = await _llm_synthesize_ltm(
         engine,
@@ -412,7 +409,7 @@ async def build_memory_synopsis_long(
     # 4. （可选）对 LTM 字段进行后处理/规范化 (类似于 STM 的 tighten fields)
     # LTM 结构复杂，通常由 LLM 严格按照 JSON Schema 生成，
     # 但可以添加额外的清理或大小限制，例如：
-    updated_ltm.historical_interactions = updated_ltm.historical_interactions[-20:] # 只保留最近20条会话记录
+    # updated_ltm.historical_interactions = updated_ltm.historical_interactions[-20:] # 只保留最近20条会话记录
 
     return updated_ltm
 
@@ -501,6 +498,7 @@ async def _llm_synopsis_from_transcript(
     }
     chat = [sys_msg, usr]
     prompt = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
+    # print(f"MemorySynopsis prompt tokens: {prompt}")
     # Generate the synopsis using the engine
     text = ""
     async for chunk in engine.generate(
@@ -509,7 +507,7 @@ async def _llm_synopsis_from_transcript(
             request_id=str(time.time_ns())
     ):
         text = chunk.outputs[0].text
-    text = extract_channels(text).get('final', "{}")
+    # text = extract_channels(text).get('final', "{}")
     print('Generated MemorySynopsis JSON:', text)
     try:
         data = json.loads(text.strip())
@@ -596,16 +594,22 @@ async def _llm_merge_synopses(
     # Prepare the system and user messages for the LLM
     sys_msg = {"role": "system", "content": _LLM_MERGE_SYSTEM}
     usr_msg = {"role": "user", "content": _LLM_MERGE_USER_TEMPLATE.format(old_json=old_json, new_json=new_json)}
+    print(f"Old MemorySynopsis JSON: {old_json}")
+    print(f"New MemorySynopsis JSON: {new_json}")
+    print(f"sys_msg for merge STM: {sys_msg}")
+    print(f"usr_msg for merge STM: {usr_msg}")
     prompt = tokenizer.apply_chat_template([sys_msg, usr_msg], tokenize=False, add_generation_prompt=True)
     # Generate the merged synopsis using the engine
     text = ""
+    # print(f"Merge MemorySynopsis prompt STM: {prompt}")
+    # print(f"sampling params for merge STM: {SAMPLING_JSON}")
     async for chunk in engine.generate(
             prompt=prompt,
             sampling_params=SAMPLING_JSON,
             request_id=str(time.time_ns())
     ):
         text = chunk.outputs[0].text
-    text = extract_channels(text).get('final', "{}")
+    # text = extract_channels(text).get('final', "{}")
     # try to parse JSON, if fails return empty MemorySynopsis
     try:
         data = json.loads(text.strip())

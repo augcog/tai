@@ -102,6 +102,7 @@ ENV/
 env.bak/
 venv.bak/
 ai_chatbot_backend/voice_prompts/
+ai_chatbot_backend/audio/
 
 # Spyder project settings
 .spyderproject

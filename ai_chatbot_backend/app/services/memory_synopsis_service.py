@@ -413,6 +413,7 @@ async def create_or_update_memory_synopsis(
         ltm_synopsis_sid = None
         # 3. 步骤 c: 如果 STM 成功，生成并存储 Long-Term Memory (LTM)
         if memory_synopsis_sid:
+            print(f"STM 1 : {new_memory}")
             ltm_synopsis_sid = await ltm_service.create_or_update_ltm(
                 user_id=user_id,
                 chat_history_sid=sid,

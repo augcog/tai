@@ -248,7 +248,7 @@ class MemorySynopsisLong:
 
         # Build the final MemorySynopsisLong instance
         return MemorySynopsisLong(
-            student_id=data.get('student_id', ""),
+            student_id=data.get('user_id', ""),
             course_info=_to_dataclass(CourseInfo, course_info_data),
             knowledge_profile=knowledge_profile_instance,
             learning_preferences=_to_dataclass(LearningPreferences, learning_preferences_data),
@@ -301,7 +301,6 @@ async def build_memory_synopsis(
 async def _llm_synthesize_ltm(
         engine: Any,
         tokenizer: Any,
-        transcript: str,
         new_stm: MemorySynopsis,
         prev_ltm: Optional[MemorySynopsisLong],
         max_prompt_tokens: int = 3500,
@@ -311,6 +310,7 @@ async def _llm_synthesize_ltm(
     """
     # 准备 LTM、STM 和转录文本
     existing_ltm_json = prev_ltm.to_json() if prev_ltm else "{}"
+    print(f"Existing LTM JSON: {existing_ltm_json}")
     new_stm_json = new_stm.to_json()
 
     # LTM_SYSTEM 中提到的输入数据结构
@@ -327,11 +327,20 @@ Produce the single best updated LTM JSON object following the system rules. Retu
 
     # 准备系统和用户消息
     sys_msg = {"role": "system", "content": _LLM_SYSTEM_LTM}
+    print(f"STM : {new_stm_json}")
     usr_content = LLM_USER_LTM_TEMPLATE.format(
         existing_ltm_json=existing_ltm_json,
         new_stm_json=new_stm_json,
     )
-    usr = {"role": "user", "content": usr_content}
+    print(f"usr_content for LTM synthesis: {usr_content}")
+    usr = {"role": "user",
+           "content": usr_content}
+    # usr = {
+    #     "role": "user",
+    #     "content": _LLM_USER_TEMPLATE.format(
+    #         transcript=_truncate_to_tokens(tokenizer, transcript, max_prompt_tokens)
+    #     )
+    # }
     chat = [sys_msg, usr]
     # sys_msg = {"role": "system", "content": _LLM_MERGE_SYSTEM}
     # usr_msg = {"role": "user", "content": _LLM_MERGE_USER_TEMPLATE.format(old_json=old_json, new_json=new_json)}
@@ -347,7 +356,6 @@ Produce the single best updated LTM JSON object following the system rules. Retu
             sampling_params=SAMPLING_JSON_LTM,
             request_id=str(time.time_ns()) # 假设 time.time_ns() 可用
     ):
-        # print(f"chunk = {chunk}")
         text = chunk.outputs[0].text
 
     # 提取 JSON 结果
@@ -400,7 +408,6 @@ async def build_memory_synopsis_long(
     updated_ltm = await _llm_synthesize_ltm(
         engine,
         tokenizer,
-        transcript,
         new_stm,
         prev_synopsis_long,
         max_prompt_tokens=max_prompt_tokens

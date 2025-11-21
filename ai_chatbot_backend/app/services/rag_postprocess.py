@@ -350,21 +350,21 @@ _LLM_SYSTEM_LTM = (
 
     "LTM JSON Keys and Update Logic:"
 
-    "1. knowledge_profile:"
-    "Mastery/Confidence - Analyze the `CHAT_HISTORY`, `NEW_STM`'s `focus`, and `decisions`. If the student confidently explained a topic, successfully answered a question, or the session concluded with a clear understanding, update or increase the `confidence_score` for the related **concept** in `concept_mastery_level`. If a concept is newly mastered, add it to `mastered_topics`. Update `last_reviewed` for all affected concepts."
-    "Gaps/Weakness - Analyze `open_questions`, any apparent confusion in the `CHAT_HISTORY`, or recurring struggles in the `NEW_STM`'s `focus`. Add or reinforce these areas in `weak_topics` and/or lower the `confidence_score` in `concept_mastery_level`."
+    "1. user_id:"
+    "No need to be updated."
+    
+    "2. knowledge_profile:"
+    "Including arrays of items, each items include course id and weak topics. An item for each courses."
 
-    "2. learning_preferences:"
-    "Style/Pace - Infer the student's preferred_learning_style (e.g., analogy-based, theoretical depth, or practical examples) and pace (fast, slow, detailed) from the tone and type of questions/requests in the `CHAT_HISTORY`."
-    "Interests/Files - Consolidate `user_goals` and `key_entities` for preferred_topics_and_interests. Extract any mentioned file extensions, formats, or resource types from `artifacts` to populate **preferred_file_types."
-
-    "3. historical_interactions:"
-    "Add a new entry representing the current session. Use the `focus`, `artifacts`, and `decisions` from the `NEW_STM`. Assign a unique `session_id` and set `session_type` to 'chat'."
-
-    "4. current_focus_and_goals:"
-    "Consolidation - Merge the `user_goals` from `NEW_STM` into long_term_user_goals, removing goals that were completed (indicated by `decisions` or absence in future STMs)."
-    "Recurrence - Aggregate `key_entities` into key_entities_of_interest. Track recurring unresolved questions from `open_questions` into persistent_open_questions."
-
+    "3. current focus:"
+    "The user's current learning focus areas, updated based on the NEW_STM `focus` and `user_goals`."
+    
+    "4. learning_preferences:"
+    "Some guide on how to response based on the user's learning preferences."
+    
+    "5. user_profile:"
+    "The background knowledge of the user which can facilitate response and the user's learning."
+    
     "Rules:"
     "- Return ONLY a single updated LTM JSON object that strictly matches the provided schema and type requirements."
     "- Aggregation: When updating arrays (e.g., `mastered_topics`, `long_term_user_goals`), deduplicate items and merge with the `EXISTING_LTM` content. Do not lose historical information unless it's explicitly resolved."

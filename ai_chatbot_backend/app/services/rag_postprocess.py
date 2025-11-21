@@ -56,22 +56,21 @@ SAMPLING_JSON = SamplingParams(
 LTM_SCHEMA = {
     "type": "object",
     "properties": {
-        "user_id": {"type": "string"},
         "knowledge_profile": {
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
                     "course_id": {"type": "string"},
-                    "weak_topics": {"type": "array", "items": {"type": "string"}}
+                    "weak_topics": {"type": "string"}
                 },
                 "required": ["course_id", "weak_topics"],
                 "additionalProperties": False
             }
         },        
-        "current_focus": {"type": "array", "items": {"type": "string"}},
-        "learning_preferences": {"type": "array", "items": {"type": "string"}},
-        "user_profile": {"type": "array", "items": {"type": "string"}},
+        "current_focus": {"type": "string"},
+        "learning_preferences": {"type": "string"},
+        "user_profile": {"type": "string"},
     },
     "required": ["user_id", "knowledge_profile", "current_focus", "learning_preferences", "user_profile"],
     "additionalProperties": False
@@ -114,19 +113,18 @@ import json
 class KnowledgeProfileItem:
     """Represents a specific course and the user's weak topics within it."""
     course_id: str = ""
-    weak_topics: List[str] = field(default_factory=list)
+    weak_topics: str = ""
 
 @dataclass
 class MemorySynopsisLong:
     """
     Structured memory containing the user's long-term learning profile (LTM_SCHEMA).
     """
-    user_id: str = ""
     # knowledge_profile is a list of KnowledgeProfileItem objects
     knowledge_profile: List[KnowledgeProfileItem] = field(default_factory=list)
-    current_focus: List[str] = field(default_factory=list)
-    learning_preferences: List[str] = field(default_factory=list)
-    user_profile: List[str] = field(default_factory=list)
+    current_focus: str = ""
+    learning_preferences: str = ""
+    user_profile: str = ""
 
     def to_json(self) -> str:
         """Converts the dataclass instance to a JSON string."""
@@ -200,6 +198,7 @@ async def _llm_synthesize_ltm(
         tokenizer: Any,
         new_stm: MemorySynopsis,
         prev_ltm: Optional[MemorySynopsisLong],
+        transcript: str,
         max_prompt_tokens: int = 3500,
 ) -> MemorySynopsisLong:
     """
@@ -207,7 +206,6 @@ async def _llm_synthesize_ltm(
     """
     # 准备 LTM、STM 和转录文本
     existing_ltm_json = prev_ltm.to_json() if prev_ltm else "{}"
-    print(f"Existing LTM JSON: {existing_ltm_json}")
     new_stm_json = new_stm.to_json()
 
     # LTM_SYSTEM 中提到的输入数据结构
@@ -218,8 +216,11 @@ EXISTING_LTM:
 NEW_STM:
 {new_stm_json}
 
+TRANSCRIPT:
+{transcript}
+
 Task:
-Produce the single best updated LTM JSON object following the system rules. Return ONLY JSON. Please do not leave your output an empty json skeleton with no content.
+Produce the single best updated LTM JSON object following the system rules. Return ONLY JSON.
 """
 
     # 准备系统和用户消息
@@ -228,8 +229,8 @@ Produce the single best updated LTM JSON object following the system rules. Retu
     usr_content = LLM_USER_LTM_TEMPLATE.format(
         existing_ltm_json=existing_ltm_json,
         new_stm_json=new_stm_json,
+        transcript=_truncate_to_tokens(tokenizer, transcript, max_prompt_tokens)
     )
-    print(f"usr_content for LTM synthesis: {usr_content}")
     usr = {"role": "user",
            "content": usr_content}
     # usr = {
@@ -245,19 +246,14 @@ Produce the single best updated LTM JSON object following the system rules. Retu
 
     # 使用 LTM 专用的采样参数（特别是 GUIDED_LTM）进行生成
     text = ""
-    print(f"sampling params for LTM: {SAMPLING_JSON_LTM}")
     print(f"LTM synthesis prompt: {prompt}")
-    print(f"\n\n\nstart generating LTM \n\n\n")
+    print(f"\n\nstart generating LTM \n\n")
     async for chunk in engine.generate(
             prompt=prompt,
             sampling_params=SAMPLING_JSON_LTM,
             request_id=str(time.time_ns()) # 假设 time.time_ns() 可用
     ):
         text = chunk.outputs[0].text
-
-    # 提取 JSON 结果
-    # text = extract_channels(text).get('final', "{}")
-    print('Generated MemorySynopsisLong JSON:', text)
 
     try:
         # 使用 MemorySynopsisLong.from_json 方法创建实例
@@ -300,21 +296,15 @@ async def build_memory_synopsis_long(
 
     # 2. 渲染转录文本 (Transcript)
     transcript = _render_transcript(messages)
-    print(f"[INFO] previous LTM: {prev_synopsis_long}")
     # 3. 调用 LLM 合成新的 LTM
     updated_ltm = await _llm_synthesize_ltm(
         engine,
         tokenizer,
         new_stm,
         prev_synopsis_long,
+        transcript,
         max_prompt_tokens=max_prompt_tokens
     )
-
-    # 4. （可选）对 LTM 字段进行后处理/规范化 (类似于 STM 的 tighten fields)
-    # LTM 结构复杂，通常由 LLM 严格按照 JSON Schema 生成，
-    # 但可以添加额外的清理或大小限制，例如：
-    # updated_ltm.historical_interactions = updated_ltm.historical_interactions[-20:] # 只保留最近20条会话记录
-
     return updated_ltm
 
 
@@ -340,36 +330,38 @@ _LLM_SYSTEM = (
 )
 
 _LLM_SYSTEM_LTM = (
-    "You are a Long-Term Memory (LTM) Synthesis Agent for a teaching platform."
-    "Given the student's existing long-term memory, the new short-term memory from the latest session, and the full chat transcript, your task is to produce an updated LTM JSON that reflects the student's profile, knowledge state, and learning history."
+    "You are a Long-Term Memory (LTM) Synthesis Agent for a teaching platform.\n"
+    "Given the student's existing long-term memory, the new short-term memory from the latest session, and the full chat transcript, your task is to produce an updated LTM JSON that reflects the student's profile, knowledge state, and learning history.\n"
 
-    "Input Data:"
-    "1. EXISTING_LTM: The student's current comprehensive LTM JSON. (May be empty/null if this is the first session)."
-    "2. NEW_STM: The structured Short-Term Memory JSON from the recent session."
-    "3. CHAT_HISTORY: The full text transcript of the conversation that generated the NEW_STM."
+    "Input Data:\n"
+    "1. EXISTING_LTM: The student's current comprehensive LTM JSON. (May be empty/null if this is the first session).\n"
+    "2. NEW_STM: The structured Short-Term Memory JSON from the recent session.\n"
+    "3. CHAT_HISTORY: The full text transcript of the conversation that generated the NEW_STM.\n"
 
-    "LTM JSON Keys and Update Logic:"
+    "LTM JSON Keys and Update Logic:\n"
 
-    "1. user_id:"
-    "No need to be updated."
+    "1. user_id:\n"
+    "No need to be updated.\n"
     
-    "2. knowledge_profile:"
-    "Including arrays of items, each items include course id and weak topics. An item for each courses."
+    "2. knowledge_profile:\n"
+    "Including arrays of items, each items include course id and weak topics. An item for each courses.\n"
 
-    "3. current focus:"
-    "The user's current learning focus areas, updated based on the NEW_STM `focus` and `user_goals`."
+    "3. current focus:\n"
+    "The user's current learning focus areas, updated based on the NEW_STM `focus` and `user_goals`.\n"
     
-    "4. learning_preferences:"
-    "Some guide on how to response based on the user's learning preferences."
+    "4. learning_preferences:\n"
+    "Some guide on how to response based on the user's learning preferences. Do not need to write down the specific reference number for this key.\n"
+    "Please do not change this item rapidly. Keep it stable over time unless there is strong evidence in the NEW_STM or CHAT_HISTORY indicating a significant change in the user's learning preferences.\n"
+
+    "5. user_profile:\n"
+    "The background knowledge of the user which can facilitate response and the user's learning.\n"
+    "Please do not change this item rapidly. Keep it stable over time unless there is strong evidence in the NEW_STM or CHAT_HISTORY indicating a significant change in the user's profile.\n"
     
-    "5. user_profile:"
-    "The background knowledge of the user which can facilitate response and the user's learning."
-    
-    "Rules:"
-    "- Return ONLY a single updated LTM JSON object that strictly matches the provided schema and type requirements."
-    "- Aggregation: When updating arrays (e.g., `mastered_topics`, `long_term_user_goals`), deduplicate items and merge with the `EXISTING_LTM` content. Do not lose historical information unless it's explicitly resolved."
-    "- Terseness: Keep all text entries (e.g., concept names, goals) terse and factual. No markdown, code fences, or extra commentary."
-    "- Ensure all required keys are present and follow their specified formats (e.g., `confidence_score` as a number 0.0-1.0)."
+    "Rules:\n"
+    "- Imagine the you are a teaching assistant that teaches this user. After reading the LTM you generated, you should have a better idea of how to teach this student."
+    "- Return ONLY a single updated LTM JSON object that strictly matches the provided schema and type requirements.\n"
+    "- Make each element long to ensure that the LTM is informative and useful for future sessions. No need to have too many items in an array, this is not recommended. A better way is to make each item more informative. 100 or more words is preferred for each item in an array.\n"
+    "- Ensure all required keys are present and follow their specified formats (e.g., `confidence_score` as a number 0.0-1.0).\n"
 )
 
 _LLM_USER_TEMPLATE = """Transcript:
@@ -498,10 +490,7 @@ async def _llm_merge_synopses(
     # Prepare the system and user messages for the LLM
     sys_msg = {"role": "system", "content": _LLM_MERGE_SYSTEM}
     usr_msg = {"role": "user", "content": _LLM_MERGE_USER_TEMPLATE.format(old_json=old_json, new_json=new_json)}
-    print(f"Old MemorySynopsis JSON: {old_json}")
-    print(f"New MemorySynopsis JSON: {new_json}")
-    print(f"sys_msg for merge STM: {sys_msg}")
-    print(f"usr_msg for merge STM: {usr_msg}")
+
     prompt = tokenizer.apply_chat_template([sys_msg, usr_msg], tokenize=False, add_generation_prompt=True)
     # Generate the merged synopsis using the engine
     text = ""

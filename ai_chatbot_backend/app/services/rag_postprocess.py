@@ -52,74 +52,28 @@ SAMPLING_JSON = SamplingParams(
     temperature=0.0, top_p=1.0, max_tokens=800, guided_decoding=GUIDED, skip_special_tokens=False
 )
 
+
 LTM_SCHEMA = {
     "type": "object",
     "properties": {
-        "student_id": {"type": "string"},
-        "course_info": {
-            "type": "object",
-            "properties": {
-                "course_id": {"type": "string"},
-                "course_name": {"type": "string"}
-            },
-            "required": ["course_id", "course_name"]
-        },
+        "user_id": {"type": "string"},
         "knowledge_profile": {
-            "type": "object",
-            "properties": {
-                "mastered_topics": {"type": "array", "items": {"type": "string"}, "description": "High confidence areas."},
-                "weak_topics": {"type": "array", "items": {"type": "string"}, "description": "Identified knowledge gaps."},
-                "concept_mastery_level": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "concept": {"type": "string"},
-                            "confidence_score": {"type": "number", "description": "Score 0.0-1.0"},
-                            "last_reviewed": {"type": "string", "format": "date"}
-                        }
-                    },
-                    "description": "Granular mastery per core concept."
-                }
-            },
-            "required": ["mastered_topics", "weak_topics", "concept_mastery_level"]
-        },
-        "learning_preferences": {
-            "type": "object",
-            "properties": {
-                "preferred_topics_and_interests": {"type": "array", "items": {"type": "string"}, "description": "Student's expressed interests and elective focus."},
-                "preferred_learning_style": {"type": "string", "description": "e.g., 'Analogy-based', 'Detailed theoretical', 'Problem-solving focused'."},
-                "preferred_file_types": {"type": "array", "items": {"type": "string"}, "description": "e.g., 'PDFs', 'Lecture slides', 'Code examples'."},
-                "pace": {"type": "string", "description": "e.g., 'Fast-paced', 'Detailed and slow', 'Moderate'."}
-            },
-            "required": ["preferred_topics_and_interests", "preferred_learning_style"]
-        },
-        "historical_interactions": {
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
-                    "session_id": {"type": "string"},
-                    "date": {"type": "string", "format": "date-time"},
-                    "session_type": {"type": "string", "enum": ["chat", "study", "plan"]},
-                    "focus": {"type": "string", "description": "Main focus of the session (from STM focus)."},
-                    "artifacts_referenced": {"type": "array", "items": {"type": "string"}},
-                    "decisions_made": {"type": "array", "items": {"type": "string"}, "description": "Key takeaways/agreements (from STM decisions)."}
-                }
-            },
-            "description": "Chronological log of key session summaries."
-        },
-        "current_focus_and_goals": {
-            "type": "object",
-            "properties": {
-                "long_term_user_goals": {"type": "array", "items": {"type": "string"}, "description": "Aggregated long-term goals (from STM user_goals)."},
-                "key_entities_of_interest": {"type": "array", "items": {"type": "string"}, "description": "Consolidated entities (from STM key_entities)."},
-                "persistent_open_questions": {"type": "array", "items": {"type": "string"}, "description": "Unresolved, recurring questions."}
-            },
-            "required": ["long_term_user_goals", "key_entities_of_interest"]
-        }
+                    "course_id": {"type": "string"},
+                    "weak_topics": {"type": "array", "items": {"type": "string"}}
+                },
+                "required": ["course_id", "weak_topics"],
+                "additionalProperties": False
+            }
+        },        
+        "current_focus": {"type": "array", "items": {"type": "string"}},
+        "learning_preferences": {"type": "array", "items": {"type": "string"}},
+        "user_profile": {"type": "array", "items": {"type": "string"}},
     },
-    "required": ["student_id", "course_info", "knowledge_profile", "learning_preferences", "historical_interactions", "current_focus_and_goals"],
+    "required": ["user_id", "knowledge_profile", "current_focus", "learning_preferences", "user_profile"],
     "additionalProperties": False
 }
 GUIDED_LTM = GuidedDecodingParams(json=LTM_SCHEMA)
@@ -151,110 +105,53 @@ class MemorySynopsis:
         return MemorySynopsis(**{k: data.get(k, v) for k, v in asdict(MemorySynopsis()).items()})
 
 
-# Standard python libraries
+from dataclasses import dataclass, field, asdict
+from typing import List, Dict, Any
 import json
-from dataclasses import dataclass, asdict, field
-from typing import Any, List, Optional, Dict
 
+# Helper structure for the 'knowledge_profile' array items
 @dataclass
-class CourseInfo:
-    """Structure for LTM's course_info."""
+class KnowledgeProfileItem:
+    """Represents a specific course and the user's weak topics within it."""
     course_id: str = ""
-    course_name: str = ""
-
-@dataclass
-class ConceptMasteryLevelItem:
-    """Structure for an item in knowledge_profile.concept_mastery_level."""
-    concept: str = ""
-    confidence_score: float = 0.0  # Score 0.0-1.0
-    last_reviewed: str = ""        # Expected format: "date"
-
-@dataclass
-class KnowledgeProfile:
-    """Structure for LTM's knowledge_profile."""
-    mastered_topics: List[str] = field(default_factory=list)
     weak_topics: List[str] = field(default_factory=list)
-    concept_mastery_level: List[ConceptMasteryLevelItem] = field(default_factory=list)
-
-@dataclass
-class LearningPreferences:
-    """Structure for LTM's learning_preferences."""
-    preferred_topics_and_interests: List[str] = field(default_factory=list)
-    preferred_learning_style: str = ""  # e.g., 'Analogy-based', 'Detailed theoretical', 'Problem-solving focused'.
-    preferred_file_types: List[str] = field(default_factory=list) # e.g., 'PDFs', 'Lecture slides', 'Code examples'.
-    pace: str = ""                      # e.g., 'Fast-paced', 'Detailed and slow', 'Moderate'.
-
-@dataclass
-class HistoricalInteractionItem:
-    """Structure for an item in LTM's historical_interactions."""
-    session_id: str = ""
-    date: str = ""                     # Expected format: "date-time"
-    session_type: str = "chat"         # enum: ["chat", "study", "plan"]
-    focus: str = ""                    # Main focus of the session (from STM focus).
-    artifacts_referenced: List[str] = field(default_factory=list)
-    decisions_made: List[str] = field(default_factory=list) # Key takeaways/agreements (from STM decisions).
-
-@dataclass
-class CurrentFocusAndGoals:
-    """Structure for LTM's current_focus_and_goals."""
-    long_term_user_goals: List[str] = field(default_factory=list)    # Aggregated long-term goals.
-    key_entities_of_interest: List[str] = field(default_factory=list) # Consolidated entities.
-    persistent_open_questions: List[str] = field(default_factory=list) # Unresolved, recurring questions.
-
 
 @dataclass
 class MemorySynopsisLong:
     """
-    Comprehensive, structured Long-Term Memory (LTM) for a student's profile.
-    Corresponds to the LTM_SCHEMA.
+    Structured memory containing the user's long-term learning profile (LTM_SCHEMA).
     """
-    student_id: str = ""
-    course_info: CourseInfo = field(default_factory=CourseInfo)
-    knowledge_profile: KnowledgeProfile = field(default_factory=KnowledgeProfile)
-    learning_preferences: LearningPreferences = field(default_factory=LearningPreferences)
-    historical_interactions: List[HistoricalInteractionItem] = field(default_factory=list)
-    current_focus_and_goals: CurrentFocusAndGoals = field(default_factory=CurrentFocusAndGoals)
+    user_id: str = ""
+    # knowledge_profile is a list of KnowledgeProfileItem objects
+    knowledge_profile: List[KnowledgeProfileItem] = field(default_factory=list)
+    current_focus: List[str] = field(default_factory=list)
+    learning_preferences: List[str] = field(default_factory=list)
+    user_profile: List[str] = field(default_factory=list)
 
     def to_json(self) -> str:
-        """Serializes the dataclass instance to a JSON string."""
-        # Custom serialization to handle nested dataclasses (using a standard dictionary conversion)
-        return json.dumps(asdict(self), ensure_ascii=False)
+        """Converts the dataclass instance to a JSON string."""
+        # Custom serialization logic to handle the nested dataclass (KnowledgeProfileItem)
+        data = asdict(self)
+        return json.dumps(data, ensure_ascii=False)
 
     @staticmethod
     def from_json(s: str) -> "MemorySynopsisLong":
-        """Deserializes a JSON string into a MemorySynopsisLong instance."""
-        data = json.loads(s or "{}")
+        """Creates a MemorySynopsisLong instance from a JSON string."""
+        data: Dict[str, Any] = json.loads(s or "{}")
+        
+        # Manually deserialize the nested 'knowledge_profile' list of objects
+        knowledge_profiles_data = data.get("knowledge_profile", [])
+        knowledge_profiles = [
+            KnowledgeProfileItem(**item)
+            for item in knowledge_profiles_data
+        ]
+        
+        # Remove the raw list data and insert the deserialized objects
+        data["knowledge_profile"] = knowledge_profiles
+        
+        # Use a safe method to initialize, filling defaults if keys are missing
+        return MemorySynopsisLong(**{k: data.get(k, v) for k, v in asdict(MemorySynopsisLong()).items()})
 
-        # Helper function to convert a dictionary to a dataclass instance
-        def _to_dataclass(cls, d: Dict[str, Any]) -> Any:
-            return cls(**{k: d.get(k, v) for k, v in asdict(cls()).items() if k in d})
-
-        # Re-construct nested dataclasses from the parsed JSON data
-        course_info_data = data.pop('course_info', {})
-        knowledge_profile_data = data.pop('knowledge_profile', {})
-        learning_preferences_data = data.pop('learning_preferences', {})
-        current_focus_and_goals_data = data.pop('current_focus_and_goals', {})
-
-        # Handle nested lists of dataclasses
-        concept_mastery_level_list = [_to_dataclass(ConceptMasteryLevelItem, item)
-                                      for item in knowledge_profile_data.pop('concept_mastery_level', [])]
-
-        historical_interactions_list = [_to_dataclass(HistoricalInteractionItem, item)
-                                        for item in data.pop('historical_interactions', [])]
-
-        # Build KnowledgeProfile
-        knowledge_profile_instance = _to_dataclass(KnowledgeProfile, knowledge_profile_data)
-        knowledge_profile_instance.concept_mastery_level = concept_mastery_level_list
-
-        # Build the final MemorySynopsisLong instance
-        return MemorySynopsisLong(
-            student_id=data.get('user_id', ""),
-            course_info=_to_dataclass(CourseInfo, course_info_data),
-            knowledge_profile=knowledge_profile_instance,
-            learning_preferences=_to_dataclass(LearningPreferences, learning_preferences_data),
-            historical_interactions=historical_interactions_list,
-            current_focus_and_goals=_to_dataclass(CurrentFocusAndGoals, current_focus_and_goals_data),
-        )
 
 async def build_memory_synopsis(
         messages: List[Message],

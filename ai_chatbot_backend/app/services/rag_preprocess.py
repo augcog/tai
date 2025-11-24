@@ -2,11 +2,14 @@
 import time
 from typing import Any, Optional, Tuple, List, Dict
 from uuid import UUID
+# Third-party libraries
+from openai import OpenAI
 # Local libraries
 from app.services.rag_retriever import get_reference_documents, get_chunks_by_file_uuid, get_sections_by_file_uuid, get_file_related_documents
-from app.services.rag_postprocess import extract_channels
+from app.config import settings
 
-async def build_retrieval_query(user_message: str, memory_synopsis: Any, engine: Any, tokenizer: Any, sampling: Any, file_sections: Any = None, excerpt: Any = None) -> str:
+
+async def build_retrieval_query(user_message: str, memory_synopsis: Any, engine: Any, file_sections: Any = None, excerpt: Any = None) -> str:
     """
     Reformulate the latest user request into a single self-contained query string,
     based on the full chat history (user + assistant messages).
@@ -33,7 +36,7 @@ async def build_retrieval_query(user_message: str, memory_synopsis: Any, engine:
 
     if memory_synopsis:
         request_parts.append(f"Memory Synopsis:\n{memory_synopsis}\n")
-    
+
     if file_sections or excerpt:
         request_parts.append(f"File Context:\n")
 
@@ -47,22 +50,29 @@ async def build_retrieval_query(user_message: str, memory_synopsis: Any, engine:
 
     request_content = "\n".join(request_parts)
 
-    chat = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": request_content}
-    ]
-    prompt = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
-    # Generate the query using the engine
-    text = ""
-    async for chunk in engine.generate(
-            prompt=prompt,
-            sampling_params=sampling,
-            request_id=str(time.time_ns())
-    ):
-        text = chunk.outputs[0].text
-    text = extract_channels(text).get('final', "{}")
-    print(f"[INFO] Generated RAG-Query: {text.strip()}")
-    return text
+    # Check if engine is OpenAI client
+    if isinstance(engine, OpenAI):
+        chat = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": request_content}
+        ]
+        # Generate the query using the OpenAI API
+        response = engine.chat.completions.create(
+            model=settings.vllm_chat_model,
+            messages=chat,
+            temperature=0.6,
+            top_p=0.95,
+            max_tokens=500,
+            extra_body={"top_k": 20, "min_p": 0}
+        )
+        # vLLM with --reasoning-parser separates reasoning_content from content
+        # Use content directly (final response without thinking)
+        text = response.choices[0].message.content or ""
+        print(f"[INFO] Generated RAG-Query: {text.strip()}")
+        return text.strip()
+    else:
+        # Fallback for remote/mock pipelines
+        return user_message
 
 
 def build_augmented_prompt(
@@ -140,7 +150,7 @@ def build_augmented_prompt(
         response_style = """
         STYLE:
         Use a speaker-friendly tone. Try to end every sentence with a period '.'. ALWAYS: Avoid code block, Markdown formatting or math equation!!! No references at the end or listed without telling usage.
-        Make the first sentence short and engaging. If no instruction is given, explain that you did not hear any instruction. Discuss what the reference is, such as a textbook or sth, and what the reference is about. Quote the reference if needed. 
+        Make the first sentence short and engaging. If no instruction is given, explain that you did not hear any instruction. Discuss what the reference is, such as a textbook or sth, and what the reference is about. Quote the reference if needed.
         Do not use symbols that are not readable in speech, such as (, ), [, ], {, }, <, >, *, #, -, !, $, %, ^, &, =, +, \, /, ~, `, etc. In this way, avoid code, Markdown formatting or math equation!!!
         """
         reference_style = (
@@ -177,7 +187,7 @@ def build_augmented_prompt(
             f"Quickly identify goal = Understand / Apply–Analyze / Evaluate–Create."
             f"If Understand → explanation + clear example; headlines and keep concise and clear"
             f"then ask if the user wants more explanation, such as analogies, counterexamples, or deep exploration \n\n"
-            f"If Apply–Analyze → clarify what’s asked, what concepts and prereqs are involved; ask if they want hints "
+            f"If Apply–Analyze → clarify what's asked, what concepts and prereqs are involved; ask if they want hints "
             f"or steps; wait for attempt; then outline step-by-step guidance using refs, no final answer.\n\n"
             f"If Evaluate–Create → unpack the problem and key concepts; ask for their approach first; then guide "
             f"reflection with criteria (correctness, completeness, trade-offs); compare views, note assumptions, "
@@ -238,7 +248,7 @@ def build_file_augmented_context(
             # Already sorted by chunk_index, so closest_chunks are in order
         focused_chunk = ' '.join(chunk['chunk'] for chunk in closest_chunks)
         augmented_context += f"The user is focused on the following part of the file: {focused_chunk}\n\n"
-    
+
     if selected_text:
         augmented_context += f"The user has selected the following text in the file:\n\n{selected_text}\n\n"
 

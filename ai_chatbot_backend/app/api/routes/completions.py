@@ -155,18 +155,16 @@ async def voice_to_text(
     """
     Endpoint for converting voice messages to text.
     """
-    # Get the pre-initialized Whisper model engine
-    whisper_engine = get_whisper_engine()
-
     # Convert audio message to text
     if params.stream:
-        stream = await audio_to_text(params.audio, whisper_engine, stream=params.stream, sample_rate=24000)
+        # Use async streaming transcription
         return StreamingResponse(
-            audio_stream_parser(stream), media_type="text/event-stream"
+            audio_stream_parser(params.audio, sample_rate=24000), media_type="text/event-stream"
         )
     else:
-        transcription = audio_to_text(
-            params.audio, whisper_engine, stream=params.stream, sample_rate=24000)
+        # Use synchronous transcription
+        whisper_engine = get_whisper_engine()
+        transcription = audio_to_text(params.audio, whisper_engine, sample_rate=24000)
         return JSONResponse(AudioTranscript(text=transcription).model_dump_json(exclude_unset=True))
 
 
@@ -206,17 +204,14 @@ async def create_or_update_memory_synopsis(
         JSON response with memory_synopsis_sid if successful, error message if failed
     """
     try:
-        # Get the pre-initialized pipeline
+        # Get the pre-initialized pipeline (OpenAI client)
         engine = get_model_engine()
-
-        # Import TOKENIZER from rag_generation
-        from app.services.rag_generation import TOKENIZER
 
         # Initialize memory synopsis service
         service = MemorySynopsisService()
 
         # Create or update memory synopsis
-        memory_synopsis_sid = await service.create_or_update_memory(sid, format_chat_msg(messages), engine, TOKENIZER)
+        memory_synopsis_sid = await service.create_or_update_memory(sid, format_chat_msg(messages), engine)
 
         if memory_synopsis_sid:
             return JSONResponse({

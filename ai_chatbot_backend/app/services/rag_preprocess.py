@@ -5,6 +5,7 @@ from uuid import UUID
 # Local libraries
 from app.services.rag_retriever import get_reference_documents, get_chunks_by_file_uuid, get_sections_by_file_uuid, get_file_related_documents
 from app.services.rag_postprocess import extract_channels
+from app.config import settings
 
 async def build_retrieval_query(user_message: str, memory_synopsis: Any, engine: Any, tokenizer: Any, sampling: Any, file_sections: Any = None, excerpt: Any = None) -> str:
     """
@@ -83,6 +84,8 @@ def build_augmented_prompt(
       - modified_message: the augmented instruction prompt.
       - reference_list: list of reference URLs for JSON output.
     """
+    # Use centralized configuration
+    json_output = settings.JSON_OUTPUT
     # Practice mode has its own message format
     if answer_content and problem_content:
         user_message = (

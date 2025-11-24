@@ -9,6 +9,7 @@ import logging
 from datetime import datetime
 from typing import Optional, List, Any
 from uuid import uuid4
+import json
 
 from app.core.mongodb_client import get_mongodb_client
 from app.core.models.memory_synopsis import MemorySynopsisDocument
@@ -270,7 +271,7 @@ class MemorySynopsisServiceLong:
                 prev_synopsis_long=prev_ltm,
                 chat_history_sid=chat_history_sid # 传递 sid，尽管 LTM 是以 user_id 检索的
             )
-            print(f"[INFO] New LTM generated for user_id {user_id}: {new_ltm}")
+            print(f"[INFO] New LTM generated for user_id {user_id}: {new_ltm.to_json()}")
             # 3. 生成新的 LTM SID
             ltm_synopsis_sid = str(uuid4())
 

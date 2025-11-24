@@ -62,9 +62,16 @@ class Settings(BaseSettings):
         description="MongoDB connection URI"
     )
     MONGODB_ENABLED: bool = Field(
-        default=True, 
+        default=True,
         description="Whether to use MongoDB for cloud data storage"
     )
+
+    # Response format configuration
+    JSON_OUTPUT: bool = Field(
+        default=True,
+        description="Enable JSON output format for structured responses"
+    )
+
     # Server configuration
     HOST: str = Field(default="127.0.0.1", description="Server host address")
     PORT: int = Field(default=8000, description="Server port")

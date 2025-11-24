@@ -12,9 +12,37 @@ import numpy as np
 from pathlib import Path
 from contextlib import contextmanager
 from urllib.parse import quote
-# Local libraries; import and initialize the embedding model from app dependencies.
+from openai import OpenAI
+# Local libraries; import and initialize the embedding client from app dependencies.
 from app.dependencies.model import get_embedding_engine
-embedding_model = get_embedding_engine()
+from app.config import settings
+
+# Initialize embedding client (lazy loading)
+_embedding_client: Optional[OpenAI] = None
+
+
+def _get_embedding_client() -> OpenAI:
+    """Get or initialize the embedding client."""
+    global _embedding_client
+    if _embedding_client is None:
+        _embedding_client = get_embedding_engine()
+    return _embedding_client
+
+
+def _get_embedding(query: str) -> np.ndarray:
+    """
+    Get embedding for a query using vLLM embedding server via OpenAI API.
+    Uses instruction-aware format for Qwen3-Embedding.
+    """
+    client = _get_embedding_client()
+    # Qwen3-Embedding uses instruction-aware format
+    formatted_query = f"Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:{query}"
+
+    response = client.embeddings.create(
+        model=settings.vllm_embedding_model,
+        input=formatted_query
+    )
+    return np.array(response.data[0].embedding, dtype=np.float32)
 # Environment Variables
 EMBEDDING_PICKLE_PATH = Path("/home/tai25/bot/tai/ai_chatbot_backend/app/embedding/")
 DB_URI_RO = f"file:{quote('/home/tai25/bot/tai/ai_chatbot_backend/db/metadata.db')}?mode=ro&cache=shared"
@@ -33,7 +61,7 @@ def get_reference_documents(
     """
     class_name = _get_pickle_and_class(course)
     t0 = time.time()
-    query_embed = {"dense_vecs": embedding_model.encode(query, prompt_name="query")}
+    query_embed = {"dense_vecs": _get_embedding(query)}
     print(f"[INFO] Embedding time: {time.time() - t0:.2f} seconds")
     t1 = time.time()
     if SQLDB:
@@ -310,7 +338,7 @@ def top_k_selector(
         return {"top_docs": [], "top_reference_paths": [], "used_chunks": 0}
 
     t0 = time.time()
-    query_embed = {"dense_vecs": embedding_model.encode(message, prompt_name="query")}
+    query_embed = {"dense_vecs": _get_embedding(message)}
     print(f"Embedding time: {time.time() - t0:.2f} seconds")
 
     if SQLDB:

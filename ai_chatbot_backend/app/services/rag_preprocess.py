@@ -3,7 +3,7 @@ import time
 from typing import Any, Optional, Tuple, List, Dict
 from uuid import UUID
 # Third-party libraries
-from openai import OpenAI
+from openai import OpenAI, AsyncOpenAI
 # Local libraries
 from app.services.rag_retriever import get_reference_documents, get_chunks_by_file_uuid, get_sections_by_file_uuid, get_file_related_documents
 from app.config import settings
@@ -51,13 +51,13 @@ async def build_retrieval_query(user_message: str, memory_synopsis: Any, engine:
     request_content = "\n".join(request_parts)
 
     # Check if engine is OpenAI client
-    if isinstance(engine, OpenAI):
+    if isinstance(engine, (OpenAI, AsyncOpenAI)):
         chat = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": request_content}
         ]
         # Generate the query using the OpenAI API
-        response = engine.chat.completions.create(
+        response = await engine.chat.completions.create(
             model=settings.vllm_chat_model,
             messages=chat,
             temperature=0.6,

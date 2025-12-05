@@ -5,7 +5,7 @@ import ast
 import time
 from typing import Any, Optional, Tuple, List, Union, Generator
 # Third-party libraries
-from openai import OpenAI
+from openai import OpenAI, AsyncOpenAI
 # Local libraries
 from app.core.models.chat_completion import Message, UserFocus
 from app.services.rag_preprocess import build_retrieval_query, build_augmented_prompt, build_file_augmented_context
@@ -109,12 +109,12 @@ async def generate_chat_response(
 
 def _is_openai_client(engine: Any) -> bool:
     """
-    Check if the engine is an OpenAI client instance.
+    Check if the engine is an OpenAI or AsyncOpenAI client instance.
     """
-    return isinstance(engine, OpenAI)
+    return isinstance(engine, (OpenAI, AsyncOpenAI))
 
 
-async def _generate_streaming_response(messages: List[Message], client: OpenAI):
+async def _generate_streaming_response(messages: List[Message], client: Any):
     """
     Generate a streaming response from the vLLM server using OpenAI chat completions API.
 
@@ -129,7 +129,7 @@ async def _generate_streaming_response(messages: List[Message], client: OpenAI):
         for m in messages
     ]
 
-    stream = client.chat.completions.create(
+    stream = await client.chat.completions.create(
         model=settings.vllm_chat_model,
         messages=chat,
         stream=True,
@@ -140,7 +140,7 @@ async def _generate_streaming_response(messages: List[Message], client: OpenAI):
     )
 
     # Yield raw chunks - chat_stream_parser handles reasoning_content vs content
-    for chunk in stream:
+    async for chunk in stream:
         if chunk.choices:
             yield chunk
 

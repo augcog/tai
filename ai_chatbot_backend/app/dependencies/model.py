@@ -1,5 +1,5 @@
 import json
-from openai import OpenAI
+from openai import OpenAI, AsyncOpenAI
 from app.dependencies.remote_model import RemoteModelClient
 from app.config import settings
 
@@ -13,8 +13,8 @@ LLM_MODEL_ID = settings.vllm_chat_model
 
 
 def get_vllm_chat_client():
-    """Returns an OpenAI client configured for vLLM chat/responses API."""
-    return OpenAI(
+    """Returns an AsyncOpenAI client configured for vLLM chat/responses API."""
+    return AsyncOpenAI(
         base_url=settings.vllm_chat_url,
         api_key=settings.vllm_api_key
     )

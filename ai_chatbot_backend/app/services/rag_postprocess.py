@@ -4,7 +4,7 @@ import json
 from dataclasses import dataclass, asdict, field
 from typing import Any, List, Optional
 # Third-party libraries
-from openai import OpenAI
+from openai import OpenAI, AsyncOpenAI
 # Local libraries
 from app.core.models.chat_completion import Message
 from app.config import settings
@@ -134,7 +134,7 @@ async def _llm_synopsis_from_transcript(
     Use vLLM server to compress the transcript into MemorySynopsis JSON.
     """
     # Check if engine is OpenAI client
-    if not isinstance(engine, OpenAI):
+    if not isinstance(engine, (OpenAI, AsyncOpenAI)):
         # Fallback for non-OpenAI engines
         return MemorySynopsis()
 
@@ -152,7 +152,7 @@ async def _llm_synopsis_from_transcript(
     chat = [sys_msg, usr]
 
     # Generate the synopsis using the OpenAI API with JSON mode
-    response = engine.chat.completions.create(
+    response = await engine.chat.completions.create(
         model=settings.vllm_chat_model,
         messages=chat,
         temperature=0.0,
@@ -222,7 +222,7 @@ async def _llm_merge_synopses(
     new: MemorySynopsis,
 ) -> MemorySynopsis:
     # Check if engine is OpenAI client
-    if not isinstance(engine, OpenAI):
+    if not isinstance(engine, (OpenAI, AsyncOpenAI)):
         # Fallback: just return new synopsis
         return new
 
@@ -235,7 +235,7 @@ async def _llm_merge_synopses(
     chat = [sys_msg, usr_msg]
 
     # Generate the merged synopsis using the OpenAI API
-    response = engine.chat.completions.create(
+    response = await engine.chat.completions.create(
         model=settings.vllm_chat_model,
         messages=chat,
         temperature=0.0,

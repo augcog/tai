@@ -240,13 +240,13 @@ async def audio_generator(messages: List[Dict], stream: bool = True, speaker_nam
     
     # Select voice prompt based on course_code
     if speaker_name == "Professor John DeNero":
-        audio_file = "trees_54.wav"
+        audio_file = "trees_54_original.wav"
         text_file = "trees_54.txt"
     elif speaker_name == "Professor Allen Yang":
-        audio_file = "Allen_yang_voice.wav"
+        audio_file = "Allen_yang_voice_original.wav"
         text_file = "Allen_yang_voice.txt"
     else:
-        audio_file = "Allen_yang_voice.wav"
+        audio_file = "Allen_yang_voice_original.wav"
         text_file = "Allen_yang_voice.txt"
     
     audio_path = os.path.join(data_dir, audio_file)
@@ -254,6 +254,7 @@ async def audio_generator(messages: List[Dict], stream: bool = True, speaker_nam
     with open(audio_text_path, "r") as f:
         audio_text = f.read()
     audio_base64 = encode_base64_content_from_file(audio_path)
+    print("Currently saying:", audio_text)
     messages_add_to_begining = [
         {"role": "user", "content": audio_text},
         {
@@ -271,8 +272,8 @@ async def audio_generator(messages: List[Dict], stream: bool = True, speaker_nam
     ]
     messages = messages_add_to_begining + messages
     audio_bytes_io = io.BytesIO()
-    if len(messages) > 3:
-        messages = messages[:2] + messages[-1:]
+    #if len(messages) > 3:
+    #    messages = messages[:2] + messages[-1:]
     client = OpenAI(base_url='http://128.32.43.216:8000/v1',api_key='EMPTY')
     models = client.models.list()
     model = models.data[0].id

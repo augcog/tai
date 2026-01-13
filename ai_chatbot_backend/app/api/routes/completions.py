@@ -139,7 +139,7 @@ async def text_to_speech(
     print("answer:", answer)
     speaker_name= get_speaker_name(params.class_code)
     stream = audio_generator(audio_message, stream=params.stream, speaker_name=speaker_name)
-
+    print("finished generating audio stream")
     if params.stream:
         return StreamingResponse(
             tts_parsor(stream), media_type="text/event-stream"

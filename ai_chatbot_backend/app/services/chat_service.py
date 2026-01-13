@@ -6,6 +6,7 @@ import base64
 import io
 import soundfile as sf
 import numpy as np
+from pathlib import Path
 from openai import OpenAI
 from app.services.rag_postprocess import extract_channels
 
@@ -236,7 +237,10 @@ async def audio_generator(messages: List[Dict], stream: bool = True, speaker_nam
     """
     Parse the streaming response from the audio model and yield deltas.
     """
-    data_dir = '/home/tai25/bot/tai/ai_chatbot_backend/voice_prompts'
+    # Dynamic path based on current file location
+    _current_file = Path(__file__).resolve()
+    _backend_root = _current_file.parent.parent.parent  # Navigate up to ai_chatbot_backend/
+    data_dir = str(_backend_root / 'voice_prompts')
     
     # Select voice prompt based on course_code
     if speaker_name == "Professor John DeNero":

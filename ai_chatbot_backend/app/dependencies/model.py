@@ -18,7 +18,7 @@ def get_local_model_engine():
     # MODEL_ID = "THUDM/GLM-4-9B-0414"
     # MODEL_ID = "kaitchup/GLM-Z1-32B-0414-autoround-gptq-4bit"
     TP_SIZE = 2  # tensor_parallel_size
-    GPU_UTIL = 0.65
+    GPU_UTIL = 0.47
     engine_args = AsyncEngineArgs(
         model=LLM_MODEL_ID,
         tensor_parallel_size=TP_SIZE,

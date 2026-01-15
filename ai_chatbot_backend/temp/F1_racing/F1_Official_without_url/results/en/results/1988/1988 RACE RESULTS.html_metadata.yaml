@@ -1,0 +1,223 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page listing the 1988 Formula 1 race results, including winners,
+  teams, and race details, along with information about F1's official partners and
+  a promotion for the official F1 mobile app.
+file_name: 1988 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1988/1988 RACE RESULTS.html
+file_uuid: 14d7fbb1-a639-53df-8dff-b5bb216e3649
+recap_questions:
+- correct_answers:
+  - 0
+  - 3
+  explanation: Both Alain Prost and Ayrton Senna, driving for McLaren Honda, won all
+    but one race in the 1988 season. Gerhard Berger's only win came at the Italian
+    Grand Prix for Ferrari, and Nigel Mansell did not win any races that year.
+  knowledge_areas:
+  - 1988 Formula 1 Race Results
+  options:
+  - Alain Prost, McLaren Honda
+  - Gerhard Berger, Ferrari
+  - Nigel Mansell, Williams
+  - Ayrton Senna, McLaren Honda
+  question_id: 1
+  question_text: Which driver and team combination won the majority of the 1988 Formula
+    1 Grand Prix races?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The Italian Grand Prix was the only race in the 1988 season not won
+    by McLaren Honda, instead being won by Gerhard Berger for Ferrari.
+  knowledge_areas:
+  - 1988 Formula 1 Race Results
+  - Historical Context
+  options:
+  - It was the first race of the season.
+  - It was the only race not won by McLaren Honda.
+  - It marked Ayrton Senna's championship win.
+  - It was canceled due to weather.
+  question_id: 2
+  question_text: What is the significance of the Italian Grand Prix in the context
+    of the 1988 F1 season?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: AWS is explicitly listed as an official F1 partner in the provided
+    content, whereas Microsoft, Google, and Oracle are not.
+  knowledge_areas:
+  - F1 Official Partners
+  options:
+  - AWS
+  - Microsoft
+  - Google
+  - Oracle
+  question_id: 3
+  question_text: Which of the following companies is listed as an official partner
+    of Formula 1?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App provides features such as live timing, race updates,
+    and exclusive content to enhance fan engagement. It does not offer free tickets,
+    virtual driving, or team shares.
+  knowledge_areas:
+  - Official F1 App Promotion
+  options:
+  - By providing live timing and race updates
+  - By offering free race tickets
+  - By allowing fans to drive F1 cars virtually
+  - By selling team shares
+  question_id: 4
+  question_text: How does the Official F1 App enhance the experience for Formula 1
+    fans?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Race results, official partners, and the F1 app each play a role in
+    F1's commercial and digital ecosystem, supporting fan engagement, business operations,
+    and the sport's global profile.
+  knowledge_areas:
+  - 1988 Formula 1 Race Results
+  - F1 Official Partners
+  - Official F1 App Promotion
+  options:
+  - They all contribute to F1's digital and commercial ecosystem.
+  - They are all managed by the same race team.
+  - They are only relevant for the 1988 season.
+  - They are unrelated to fan engagement.
+  question_id: 5
+  question_text: Which aspect connects race results, official partners, and the F1
+    app in the broader context of Formula 1's operations?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1988 Formula 1 Race Results refer to the official outcomes of each
+      Grand Prix in the 1988 F1 World Championship season. The results are typically
+      presented in a tabular format, listing the Grand Prix name, date, winning driver,
+      team, number of laps, and the winning time. This structure allows for easy comparison
+      across different races and provides a comprehensive overview of the season's
+      competitive landscape.
+    type: Definition and Structure
+  - content: During the 1988 season, McLaren Honda dominated, with drivers Ayrton
+      Senna and Alain Prost winning all but one race. For example, Alain Prost won
+      the Brazilian, Monaco, Mexican, French, Portuguese, Spanish, and Australian
+      Grands Prix, while Ayrton Senna won in San Marino, Canada, Detroit, Great Britain,
+      Germany, Hungary, Belgium, and Japan. The only exception was the Italian Grand
+      Prix, won by Gerhard Berger for Ferrari. This highlights the exceptional performance
+      of McLaren Honda and the rivalry between its drivers.
+    type: Examples and Notable Outcomes
+  - content: The 1988 season is historically significant due to McLaren Honda's near-total
+      dominance, which is often cited as one of the most dominant seasons by a single
+      team in F1 history. The results also reflect the intense competition between
+      teammates Senna and Prost, which shaped the narrative of the championship and
+      influenced F1's evolution in terms of team dynamics and technical regulations.
+      The Italian Grand Prix stands out as a notable exception, symbolizing Ferrari's
+      resilience and the emotional significance of a home victory shortly after the
+      death of Enzo Ferrari.
+    type: Implications and Historical Context
+  - content: Race results are directly connected to the drivers' and constructors'
+      championship standings, as points are awarded based on finishing positions.
+      The 1988 results influenced the allocation of championship points, ultimately
+      determining the season's world champion. Additionally, these results are part
+      of the broader F1 historical archive, allowing for longitudinal analysis of
+      team and driver performance over decades.
+    type: Connections to Related Concepts
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: McLaren Honda, with drivers Ayrton Senna and Alain Prost, won all
+      races except the Italian Grand Prix, which was won by Ferrari. Williams and
+      Benetton did not win any races that season.
+    options:
+    - Ferrari
+    - Williams
+    - McLaren Honda
+    - Benetton
+    question_text: Which team dominated the 1988 Formula 1 season by winning all but
+      one Grand Prix?
+  index: 153
+  key_concept: 1988 Formula 1 Race Results
+  name: 1988 RACE RESULTS
+- aspects:
+  - content: F1 Official Partners are companies and brands that have formal sponsorship
+      or partnership agreements with Formula 1, contributing to the sport's commercial
+      ecosystem. These partners provide financial support, technological expertise,
+      and branding opportunities in exchange for global exposure and association with
+      the high-profile F1 brand.
+    type: Definition and Role
+  - content: Notable F1 partners include luxury brands like LVMH and Louis Vuitton,
+      technology firms such as AWS and Lenovo, logistics companies like DHL, and beverage
+      brands such as Heineken. The partnership list also features financial services
+      (Santander, American Express), energy (Aramco), and consumer goods (Nestle,
+      PepsiCo). This diversity illustrates F1's broad commercial appeal across multiple
+      sectors.
+    type: Examples and Industry Diversity
+  - content: Partnerships provide F1 with vital resources—ranging from technical innovations
+      (e.g., AWS cloud computing for data analytics) to logistical support (e.g.,
+      DHL for global transport of equipment). For partners, the relationship enables
+      extensive marketing reach, hospitality opportunities, and the chance to showcase
+      products or services in a dynamic, global environment. These collaborations
+      are integral to the financial sustainability and technological advancement of
+      the sport.
+    type: Practical Implications and Benefits
+  - content: Official partners are visible throughout F1 events, from branding on
+      cars and tracks to involvement in fan experiences and digital platforms. Their
+      presence underscores the commercialization of modern motorsport and the interdependence
+      between sporting success and business partnerships. These relationships also
+      often lead to innovations that benefit both the sport and the partners' industries.
+    type: Connections to Broader F1 Operations
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: AWS, Heineken, and Pirelli are all listed as official F1 partners,
+      but Microsoft is not mentioned among the partners in the source content.
+    options:
+    - AWS
+    - Heineken
+    - Microsoft
+    - Pirelli
+    question_text: Which of the following is NOT listed as an official partner of
+      Formula 1 in the provided content?
+  index: 174
+  key_concept: F1 Official Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application designed to provide fans
+      with real-time updates, race results, news, and exclusive content related to
+      Formula 1. The promotion of the app encourages users to download it from major
+      platforms such as the Apple App Store and Google Play.
+    type: Definition and Purpose
+  - content: The app offers features like live timing, session status updates, event
+      trackers, and access to news and videos. Fans can follow races in real time,
+      view driver and team information, and receive notifications about key F1 events.
+      The app enhances fan engagement by making F1 content easily accessible on mobile
+      devices.
+    type: Features and User Benefits
+  - content: By promoting the official app, F1 aims to centralize its digital offerings,
+      increase user engagement, and collect valuable user data. The app serves as
+      a direct communication channel between F1 and its global fanbase, supporting
+      marketing campaigns and driving interest in F1’s digital products such as F1
+      TV and fantasy gaming.
+    type: Practical Implications
+  - content: The app promotion reflects F1's broader strategy to expand its digital
+      footprint and cater to a tech-savvy audience. It complements other digital initiatives
+      like F1 TV, esports, and social media engagement, positioning F1 as a modern,
+      interactive sporting brand.
+    type: Connections to Broader Digital Strategy
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App is promoted as a tool for fans to access live
+      race updates, news, and exclusive content, not for merchandise sales, betting,
+      or technical team support.
+    options:
+    - To provide live race updates and exclusive F1 content
+    - To sell official F1 merchandise
+    - To offer betting services on F1 races
+    - To provide technical support to F1 teams
+    question_text: What is the primary purpose of the Official F1 App as promoted
+      in the content?
+  index: 184
+  key_concept: Official F1 App Promotion
+  name: Download the Official F1 App

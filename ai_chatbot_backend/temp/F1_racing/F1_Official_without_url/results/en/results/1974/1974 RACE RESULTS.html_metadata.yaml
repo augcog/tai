@@ -1,0 +1,211 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A summary page from the official Formula 1 website for the 1974
+  season, listing Grand Prix race results, sponsors and partners, and links to download
+  the official F1 app.
+file_name: 1974 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1974/1974 RACE RESULTS.html
+file_uuid: 611dd079-fd82-51d0-887f-8e1cdfbe5975
+recap_questions:
+- correct_answers:
+  - 2
+  explanation: McLaren Ford had both Denny Hulme and Emerson Fittipaldi winning races,
+    showing the team's depth and competitiveness during the season.
+  knowledge_areas:
+  - 1974 Formula 1 Race Results
+  options:
+  - Ferrari
+  - Lotus Ford
+  - McLaren Ford
+  - Brabham Ford
+  question_id: 1
+  question_text: Which team had multiple drivers win races during the 1974 Formula
+    1 season?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: AWS (Amazon Web Services) is specifically mentioned as a technology
+    partner, providing data and analytics services for Formula 1.
+  knowledge_areas:
+  - Formula 1 Partners and Sponsors
+  options:
+  - AWS
+  - Heineken
+  - DHL
+  - Barilla
+  question_id: 2
+  question_text: Which of the following companies is a technology partner of Formula
+    1, as listed in the document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App enhances the fan experience by providing live timing,
+    race updates, and exclusive content, not by offering discounts, free streaming,
+    or voting on outcomes.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - By providing live timing, race updates, and exclusive content
+  - By offering discounts on race tickets
+  - By streaming races for free
+  - By allowing fans to vote for race outcomes
+  question_id: 3
+  question_text: How does the Official F1 App enhance the experience for Formula 1
+    fans?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Sponsors play a crucial role by providing financial and material support
+    to Formula 1, gaining marketing exposure in return.
+  knowledge_areas:
+  - Formula 1 Partners and Sponsors
+  options:
+  - Sponsors provide financial and material support in exchange for marketing opportunities.
+  - Sponsors determine race winners.
+  - Sponsors are only involved in team management.
+  - Sponsors have no influence on the sport.
+  question_id: 4
+  question_text: Which of the following best describes the relationship between sponsors
+    and Formula 1?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: All three elements—race results, sponsorship, and digital engagement—are
+    interconnected and essential for the sport's success, influencing competition,
+    finances, and fan experiences.
+  knowledge_areas:
+  - 1974 Formula 1 Race Results
+  - Formula 1 Partners and Sponsors
+  - Official F1 App
+  options:
+  - Race results, sponsors, and digital platforms like the F1 App collectively shape
+    the competitive, financial, and fan engagement aspects of the sport.
+  - Only race results matter for the sport's future.
+  - Sponsors are more important than race results or digital engagement.
+  - Digital platforms have replaced the need for sponsors.
+  question_id: 5
+  question_text: Which of the following statements best integrates the roles of race
+    results, sponsors, and digital platforms in modern Formula 1?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1974 Formula 1 Race Results section provides a tabular summary of
+      each Grand Prix held during the 1974 season, including details such as the event
+      location, date, winning driver, team, number of laps, and total race time. This
+      data serves as an official record for the outcomes of each race in the season.
+    type: Definition
+  - content: For example, the Argentine Grand Prix on January 13th was won by Denny
+      Hulme of McLaren Ford, while Emerson Fittipaldi, also from McLaren Ford, won
+      the Brazilian Grand Prix on January 27th. Other notable winners include Niki
+      Lauda (Ferrari), Ronnie Peterson (Lotus Ford), and Carlos Reutemann (Brabham
+      Ford), illustrating the competitive diversity of the season.
+    type: Examples
+  - content: These results are crucial for determining the championship standings
+      for both drivers and teams. Each race's outcome contributes points that accumulate
+      over the season, affecting team strategies, sponsorships, and historical legacies.
+      The 1974 season was particularly notable for its competitive balance, with multiple
+      teams and drivers winning races.
+    type: Implications
+  - content: The 1974 season is part of the historical archive of Formula 1, reflecting
+      the era's technology, team compositions, and race formats. It provides context
+      for the evolution of the sport, including the emergence of legendary drivers
+      and the shifting dominance among teams.
+    type: Context
+  - content: The race results connect to broader themes in motorsport, such as the
+      development of car engineering, the role of team management, and the impact
+      of regulations. They also serve as a reference point for comparing performances
+      across different seasons.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: All three drivers—Emerson Fittipaldi, Ronnie Peterson, and Carlos
+      Reutemann—won multiple races in the 1974 season, as shown in the results table.
+    options:
+    - Emerson Fittipaldi
+    - Ronnie Peterson
+    - Carlos Reutemann
+    - All of the above
+    question_text: Which of the following drivers won more than one Grand Prix in
+      the 1974 Formula 1 season?
+  index: 148
+  key_concept: 1974 Formula 1 Race Results
+  name: 1974 RACE RESULTS
+- aspects:
+  - content: Formula 1 partners and sponsors are corporations and brands that provide
+      financial support, products, or services to the Formula 1 organization in exchange
+      for marketing and promotional opportunities. Their logos and links are prominently
+      displayed on the official F1 website and during events.
+    type: Definition
+  - content: Examples of partners include LVMH, Pirelli, Aramco, Heineken, AWS, Lenovo,
+      DHL, Qatar Airways, and Crypto.com. These companies represent a wide range of
+      industries such as luxury goods, technology, logistics, beverages, and financial
+      services.
+    type: Examples
+  - content: Sponsors gain global exposure through branding on cars, tracks, and digital
+      platforms. For instance, Pirelli supplies tires for all teams, AWS provides
+      cloud computing and data analytics, and Heineken sponsors race events. These
+      partnerships enhance the technological and commercial aspects of the sport.
+    type: Use Cases
+  - content: Sponsorship is vital for the financial health and global reach of Formula
+      1. It enables technological innovation, supports event logistics, and helps
+      teams compete at the highest level. The diversity of sponsors also reflects
+      F1's broad appeal and international audience.
+    type: Implications
+  - content: The presence of high-profile sponsors connects Formula 1 to global business
+      trends, technological advancements, and marketing strategies. It also impacts
+      fan engagement and the overall experience of the sport, both on-site and digitally.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not listed among the official Formula 1 partners or sponsors
+      in the provided section; the others are all present.
+    options:
+    - Heineken
+    - AWS
+    - Nike
+    - Pirelli
+    question_text: Which of the following is NOT listed as an official Formula 1 partner
+      or sponsor in the document?
+  index: 168
+  key_concept: Formula 1 Partners and Sponsors
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application available for download on
+      the Apple App Store and Google Play. It provides users with access to live timing
+      data, race updates, news, and other exclusive content related to Formula 1.
+    type: Definition
+  - content: Users can download the app to follow live race positions, session status,
+      gap to leader, and event trackers. The app also offers access to news, video
+      highlights, and schedules, enhancing the fan experience beyond traditional broadcasts.
+    type: Examples
+  - content: The app is used by fans to stay updated during race weekends, track their
+      favorite teams and drivers, and access in-depth statistics and analytics. It
+      also serves as a platform for notifications about schedule changes and special
+      events.
+    type: Use Cases
+  - content: The app's availability increases fan engagement and accessibility, allowing
+      real-time interaction with the sport regardless of location. It also supports
+      F1's digital strategy and data-driven fan services.
+    type: Implications
+  - content: The app connects to F1's broader digital ecosystem, including F1 TV,
+      fantasy leagues, and social media platforms. It reflects the sport's adaptation
+      to modern technology and the increasing importance of mobile access in sports
+      consumption.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App is available for download on the Apple App Store
+      and Google Play, as indicated by the section's download links.
+    options:
+    - Apple App Store and Google Play
+    - Microsoft Store and Amazon Appstore
+    - Only on the F1 official website
+    - Steam and Epic Games Store
+    question_text: What are the main platforms where the Official F1 App can be downloaded?
+  index: 178
+  key_concept: Official F1 App
+  name: Download the Official F1 App

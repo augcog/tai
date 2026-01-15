@@ -1,0 +1,265 @@
+URL: https://www.britannica.com/technology/cable-television/additional-info
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A references and edit history page for the Britannica article on
+  cable television, listing related topics, developments, notable contributors, and
+  a detailed revision log.
+file_name: cable television Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/cable-television/cable television
+  Britannica.html
+file_uuid: 34403432-5009-5205-8975-8c525bbeb685
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: '''Assorted References'' is the section that lists contexts where cable
+    television is mentioned in relation to other topics.'
+  knowledge_areas:
+  - Assorted References
+  - cross-referencing
+  options:
+  - Assorted References
+  - developments in
+  - place of
+  - Article History
+  question_id: 1
+  question_text: Which of the following sections in the Britannica cable television
+    article provides cross-references to related topics such as broadcasting and music?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The 'developments in' section focuses on key technological and historical
+    developments related to cable television.
+  knowledge_areas:
+  - developments in
+  - historical context
+  options:
+  - Listing contributors to the article
+  - Highlighting technological and historical changes in cable television
+  - Providing a timeline of article edits
+  - Listing popular cable channels
+  question_id: 2
+  question_text: What is the main focus of the 'developments in' section regarding
+    cable television?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The 'Article Contributors' section lists all the individuals involved
+    in writing and editing the article.
+  knowledge_areas:
+  - Article Contributors
+  - editorial process
+  options:
+  - Assorted References
+  - Article Contributors
+  - Article History
+  - place of
+  question_id: 3
+  question_text: Which section would you consult to find out who contributed to writing
+    and editing the Britannica article on cable television?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The 'place of' section highlights important cable channels, illustrating
+    cable television's influence on specific audiences and content genres.
+  knowledge_areas:
+  - place of
+  - cultural impact
+  options:
+  - By listing significant cable channels and their cultural roles
+  - By providing a timeline of technological inventions
+  - By explaining the technical aspects of cable transmission
+  - By listing all article contributors
+  question_id: 4
+  question_text: How does the 'place of' section contribute to understanding the impact
+    of cable television?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: '''developments in'' covers the evolution of cable television, while
+    ''Article History'' documents the changes to the article itself.'
+  knowledge_areas:
+  - developments in
+  - Article History
+  - historical evolution
+  options:
+  - developments in and Article History
+  - Assorted References and place of
+  - Article Contributors and Assorted References
+  - place of and Article Contributors
+  question_id: 5
+  question_text: Which two sections together best help a reader trace both the evolution
+    of cable television as a medium and the evolution of the article itself?
+  question_type: recap
+sections:
+- aspects:
+  - content: Assorted References in this context are cross-references to other Britannica
+      articles or sections that mention cable television in relation to broader topics.
+      These references serve as a curated list of contexts where cable television
+      is discussed, highlighting its interdisciplinary relevance.
+    type: definition
+  - content: Examples include Ted Turner's contributions to media, the role of cable
+      television in the evolution of music (such as its impact on rock and television),
+      its significance in the management of broadcasting, and its technological basis
+      in the transmission of radio waves. Each reference provides a unique lens on
+      cable television's influence across industries.
+    type: examples
+  - content: The presence of assorted references demonstrates how cable television
+      intersects with various domains, such as media entrepreneurship, music culture,
+      broadcasting regulation, and electromagnetic technology. This underscores cable
+      television's multifaceted impact on both cultural and technological developments.
+    type: implications
+  - content: These references connect cable television to key figures (like Ted Turner),
+      technological concepts (radio waves), and broader societal trends (music and
+      broadcasting). They illustrate the interconnectedness of technological innovation
+      and cultural change.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: The first three options are directly cited in the 'Assorted References'
+      section, while 'Development of satellite navigation' is not mentioned as a context
+      for cable television in this list.
+    options:
+    - Contribution by Ted Turner
+    - Importance in music
+    - Significance in broadcasting
+    - Development of satellite navigation
+    question_text: Which of the following is NOT an example of how cable television
+      is referenced in other contexts according to the 'Assorted References' section?
+  index: 124
+  key_concept: Assorted References
+  name: Assorted References
+- aspects:
+  - content: The 'developments in' section highlights major areas of progress and
+      historical change related to cable television, such as the advent of interactive
+      media and the evolution of television broadcasting in the U.S. and globally.
+    type: definition
+  - content: Specific developments include the rise of interactive media, the growth
+      of cable TV in the United States, the changing landscape of television in the
+      1990s, the emergence of cable news as entertainment, and the expansion of cable
+      into new content genres like teen dramas and adult cartoons.
+    type: examples
+  - content: These developments are situated within larger shifts in media consumption,
+      technological innovation, and the fragmentation of television audiences. The
+      references to particular decades and trends (e.g., the 1990s, cable news) provide
+      historical context for cable television's transformation.
+    type: context
+  - content: The developments in cable television reflect broader societal changes,
+      such as the move toward personalized, on-demand content, the decline of shared
+      national viewing experiences, and the increasing role of cable in shaping public
+      discourse and entertainment preferences.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Interactive media is directly mentioned as a key development related
+      to cable television, while the other options are unrelated to this context.
+    options:
+    - Interactive media
+    - The invention of the internet
+    - The rise of print newspapers
+    - The development of color photography
+    question_text: Which development is associated with cable television according
+      to the 'developments in' section?
+  index: 137
+  key_concept: developments in
+  name: developments in
+- aspects:
+  - content: The 'place of' section identifies specific cable television channels
+      or networks that have played significant roles in the medium's history and cultural
+      landscape.
+    type: definition
+  - content: Examples include Black Entertainment Television (BET), ESPN, and Nickelodeon.
+      Each of these channels has carved out a unique niche, influencing both content
+      and audience demographics.
+    type: examples
+  - content: Highlighting the 'place of' these channels demonstrates the diversity
+      and specialization within cable television, as well as its capacity to serve
+      targeted audiences and foster new forms of content and community.
+    type: implications
+  - content: The prominence of channels like BET, ESPN, and Nickelodeon shows how
+      cable television has facilitated the rise of genre-specific and demographic-specific
+      programming, contributing to the fragmentation and personalization of television
+      viewing.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Black Entertainment Television (BET) is specifically mentioned in
+      the 'place of' section, while the other channels are not listed in this context.
+    options:
+    - Black Entertainment Television
+    - Discovery Channel
+    - CNN
+    - HBO
+    question_text: Which channel is listed in the 'place of' section as having a significant
+      role in cable television history?
+  index: 150
+  key_concept: place of
+  name: place of
+- aspects:
+  - content: The 'Article Contributors' section lists the individuals responsible
+      for creating, editing, and updating the Britannica article on cable television.
+      This includes both primary contributors and other editors.
+    type: definition
+  - content: Primary contributors include 'The Editors of Encyclopaedia Britannica,'
+      who oversee content accuracy and quality. Other contributors are named individuals
+      such as Vivek Abhinav, Adam Augustyn, Aakanksha Gaur, Parul Jain, Gloria Lotha,
+      Emily Rodriguez, Shiveta Singh, Amy Tikkanen, and Grace Young.
+    type: examples
+  - content: This section reflects Britannica's editorial process, which combines
+      expert oversight with contributions from multiple editors to ensure comprehensive
+      and reliable content.
+    type: context
+  - content: Listing contributors provides transparency and accountability, allowing
+      readers to assess the expertise behind the article and trace editorial changes
+      over time.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The 'Article Contributors' section specifically lists the editors
+      and writers responsible for the article, not technological developments, historical
+      summaries, or channel lists.
+    options:
+    - To list the individuals who contributed to the article's content and editing
+    - To provide a timeline of technological developments
+    - To summarize the history of cable television
+    - To list all cable television channels
+    question_text: What is the primary function of the 'Article Contributors' section?
+  index: 161
+  key_concept: Article Contributors
+  name: Article Contributors
+- aspects:
+  - content: The 'Article History' section is a chronological log of all significant
+      edits, updates, and additions made to the Britannica article on cable television,
+      including the nature of the change, the contributor, and the date.
+    type: definition
+  - content: Examples of entries include the addition of new web resources from academic
+      and governmental sources, corrections to display issues, and major content revisions.
+      Contributors such as Grace Young, Gloria Lotha, Aakanksha Gaur, and others are
+      credited for specific updates.
+    type: examples
+  - content: This history provides transparency and allows readers to track the evolution
+      of the article, ensuring that information remains current and that sources are
+      properly documented.
+    type: implications
+  - content: The article history connects to the broader practice of academic and
+      encyclopedic publishing, where revision logs are essential for maintaining scholarly
+      integrity and tracking the development of knowledge over time.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The 'Article History' section's primary function is to document all
+      significant changes, ensuring transparency and scholarly integrity.
+    options:
+    - It provides a transparent record of edits and updates
+    - It lists all television channels
+    - It summarizes the content of the article
+    - It explains how cable television works
+    question_text: Why is the 'Article History' section important in a Britannica
+      article?
+  index: 181
+  key_concept: Article History
+  name: Article History

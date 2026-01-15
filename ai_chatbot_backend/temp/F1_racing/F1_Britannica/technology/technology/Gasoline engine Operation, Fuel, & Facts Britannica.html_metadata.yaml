@@ -1,0 +1,259 @@
+URL: https://www.britannica.com/technology/gasoline-engine
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article section providing an overview of gasoline
+  engines, including their definition, main types, and a detailed explanation of the
+  four-stroke cycle with examples and practical implications.
+file_name: Gasoline engine Operation, Fuel, & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Gasoline engine Operation,
+  Fuel, & Facts Britannica.html
+file_uuid: b246e0d6-b3a2-5cbb-9642-8c284367d838
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The key distinction is that gasoline engines use spark ignition, whereas
+    diesel engines rely on compression ignition. Both engine types can be used in
+    various vehicles, and gasoline is a volatile fuel.
+  knowledge_areas:
+  - gasoline engine
+  - Engine types
+  options:
+  - Gasoline engines use spark ignition, while diesel engines use compression ignition.
+  - Gasoline engines are only used in cars, while diesel engines are used in trucks.
+  - Diesel engines use volatile fuels, while gasoline engines use non-volatile fuels.
+  - Gasoline engines operate only on the two-stroke cycle.
+  question_id: 1
+  question_text: What distinguishes a gasoline engine from a diesel engine?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The four-stroke cycle provides more thorough scavenging and reloading
+    of cylinders, which improves efficiency and reduces emissions, even though it
+    produces fewer power strokes per revolution than the two-stroke cycle.
+  knowledge_areas:
+  - Four-stroke cycle
+  options:
+  - Twice as many power strokes per revolution
+  - More complete scavenging of exhaust gases and reduced loss of fresh charge
+  - Simpler mechanical design
+  - Higher power output for the same engine size
+  question_id: 2
+  question_text: Which of the following is a major advantage of the four-stroke cycle
+    over the two-stroke cycle?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The piston converts the pressure from combustion into reciprocating
+    motion, which is then converted into rotational motion to drive the vehicle or
+    tool. It does not store fuel, cool the engine, or ignite the mixture.
+  knowledge_areas:
+  - Piston-and-cylinder engines
+  options:
+  - It converts combustion pressure into back-and-forth motion that is then transformed
+    into rotational motion.
+  - It stores fuel for the combustion process.
+  - It cools the cylinder during operation.
+  - It acts as the ignition source for the air-fuel mixture.
+  question_id: 3
+  question_text: In a piston-and-cylinder gasoline engine, what is the role of the
+    reciprocating piston?
+  question_type: recap
+- correct_answers:
+  - 3
+  explanation: Engine types are classified by technical and operational criteria,
+    not by aesthetic features like paint color.
+  knowledge_areas:
+  - Engine types
+  options:
+  - Number of strokes per cycle
+  - Ignition method
+  - Piston-and-cylinder or rotary arrangement
+  - Exterior paint color
+  question_id: 4
+  question_text: Which of the following is NOT a typical criterion for classifying
+    gasoline engine types?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The four-stroke cycle's thorough scavenging of exhaust gases and reduced
+    loss of fresh charge improve efficiency and lower emissions compared to two-stroke
+    engines, which can lose unburned fuel during the exhaust process.
+  knowledge_areas:
+  - Four-stroke cycle
+  - gasoline engine
+  options:
+  - By doubling the number of power strokes per revolution
+  - By providing more positive scavenging and reducing fresh charge loss
+  - By eliminating the need for an exhaust system
+  - By allowing for operation without spark ignition
+  question_id: 5
+  question_text: How does the four-stroke cycle contribute to the efficiency and emissions
+    profile of gasoline engines compared to two-stroke engines?
+  question_type: recap
+sections:
+- aspects:
+  - content: A gasoline engine is a type of internal-combustion engine that generates
+      power by burning a volatile liquid fuel, typically gasoline or a gasoline-ethanol
+      mixture, with ignition initiated by an electric spark. The process converts
+      chemical energy from the fuel into mechanical work.
+    type: Definition
+  - content: Gasoline engines are highly versatile and used in a wide range of applications.
+      The most significant use is in passenger automobiles, but they are also common
+      in small trucks, buses, general aviation aircraft, outboard and small inboard
+      marine units, stationary pumping and lighting plants, machine tools, and power
+      tools. Their adaptability to different power-plant requirements is a key feature.
+    type: Applications
+  - content: These engines require a volatile liquid fuel, most commonly gasoline,
+      but sometimes gasoline-ethanol blends. Ignition is achieved via an electric
+      spark, distinguishing gasoline engines from diesel engines, which use compression
+      ignition. The volatility of the fuel allows for efficient mixing with air and
+      rapid combustion.
+    type: Fuel and Ignition
+  - content: Four-stroke gasoline engines dominate the automotive sector, powering
+      most cars, light trucks, motorcycles, and lawn mowers. Two-stroke gasoline engines
+      are less common but are preferred for small outboard marine engines and handheld
+      tools like chainsaws and leaf blowers, where simplicity and power-to-weight
+      ratio are critical.
+    type: Prevalence and Variants
+  - content: The gasoline engine's reliance on spark ignition and volatile fuels shapes
+      its performance characteristics, emissions, and environmental impact. Its widespread
+      use has driven technological advances in fuel efficiency, emissions control,
+      and alternative fuels, while also raising concerns about fossil fuel dependence
+      and air pollution.
+    type: Connections and Implications
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Gasoline engines are defined by their use of spark ignition and volatile
+      liquid fuels like gasoline. They are widely used in automobiles, small trucks,
+      marine, and aviation applications. Diesel engines use compression ignition,
+      and gasoline engines are not limited to large-scale power plants.
+    options:
+    - It is an internal-combustion engine that uses spark ignition and volatile liquid
+      fuels.
+    - It relies solely on compression ignition and diesel fuel.
+    - It is mainly used in large-scale power plants and heavy industry.
+    - It cannot be used in marine or aviation applications.
+    question_text: Which of the following statements accurately describes a gasoline
+      engine?
+  index: 181
+  key_concept: gasoline engine
+  name: gasoline engine
+- aspects:
+  - content: Gasoline engines are classified based on several criteria, including
+      application (e.g., automotive, marine, aviation), method of fuel management
+      (carbureted or fuel-injected), ignition method (spark or compression), piston-and-cylinder
+      or rotary arrangement, number of strokes per cycle (two-stroke or four-stroke),
+      cooling system (air or liquid-cooled), and valve type/location.
+    type: Classification Criteria
+  - content: The two principal types of gasoline engines are piston-and-cylinder engines
+      and rotary (Wankel) engines. Piston-and-cylinder engines use reciprocating pistons
+      to convert combustion pressure into motion, while rotary engines use a rotating
+      rotor to achieve the same result without conventional pistons.
+    type: Major Types
+  - content: Common configurations include in-line engines, V-type engines (such as
+      V-8s), opposed-piston engines, and Wankel rotary engines. Each configuration
+      has specific advantages in terms of balance, compactness, and application suitability.
+    type: Examples
+  - content: The choice of engine type affects performance, efficiency, maintenance,
+      and suitability for different vehicles or tools. For instance, rotary engines
+      are valued for their compactness and smooth operation, while piston engines
+      are favored for reliability and widespread support.
+    type: Implications and Use Cases
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Engine types are classified by functional and design criteria such
+      as number of strokes, ignition method, and whether they use pistons or rotors.
+      The color of the engine block is not a relevant classification criterion.
+    options:
+    - Number of strokes per cycle
+    - Color of the engine block
+    - Ignition method
+    - Piston-and-cylinder or rotary arrangement
+    question_text: Which of the following is NOT a major criterion for classifying
+      gasoline engine types?
+  index: 304
+  key_concept: Engine types
+  name: Engine types
+- aspects:
+  - content: Piston-and-cylinder engines are reciprocating internal-combustion engines
+      in which the combustion of fuel creates pressure on the piston head, causing
+      it to move back and forth (reciprocate) within a cylinder. This motion is converted
+      into rotational motion to perform mechanical work.
+    type: Definition and Structure
+  - content: Key components include the piston, cylinder, crankshaft, connecting rod,
+      valves, and sometimes a camshaft. The arrangement allows for the intake of air-fuel
+      mixture, compression, combustion, and exhaust in a controlled sequence.
+    type: Components
+  - content: Most gasoline engines in vehicles and small machinery are of the piston-and-cylinder
+      type. Their design allows for scalability from small handheld devices to large
+      automotive engines.
+    type: Prevalence
+  - content: These engines typically operate on either a four-stroke or two-stroke
+      cycle, determining how the intake, compression, power, and exhaust processes
+      are sequenced. The four-stroke cycle is most common in automobiles, while the
+      two-stroke cycle is used in smaller, lighter applications.
+    type: Operating Cycles
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The piston moves back and forth within the cylinder, converting the
+      pressure from combustion into mechanical motion. It does not store electricity,
+      inject fuel, or serve as a cooling device.
+    options:
+    - To store electrical energy
+    - To reciprocate within the cylinder and convert combustion pressure into motion
+    - To act as a fuel injector
+    - To cool the engine block
+    question_text: What is the primary function of the piston in a piston-and-cylinder
+      gasoline engine?
+  index: 312
+  key_concept: Piston-and-cylinder engines
+  name: '[Piston-and-cylinder](https://www.britannica.com/technology/piston-and-cylinder
+    "https://www.britannica.com/technology/piston-and-cylinder") engines'
+- aspects:
+  - content: 'The four-stroke cycle, developed in the late 19th century, is a method
+      for recovering power from combustion in internal-combustion engines. It consists
+      of four sequential piston movements (strokes): intake, compression, power (combustion),
+      and exhaust.'
+    type: Definition and History
+  - content: During the intake stroke, the piston descends and draws in a mixture
+      of air and gasoline vapor. The compression stroke follows, with both valves
+      closed, compressing the mixture as the piston ascends. Near the top of this
+      stroke, an electric spark ignites the mixture, causing rapid combustion and
+      a power stroke that forces the piston downward. The exhaust stroke then expels
+      combustion products as the piston rises again with the exhaust valve open.
+    type: Operation Sequence
+  - content: Each complete cycle requires four piston strokes and two revolutions
+      of the crankshaft. The timing of valve openings and spark ignition is critical
+      for efficient operation and is controlled by the engine's camshaft and ignition
+      system.
+    type: Mechanical Details
+  - content: The four-stroke cycle provides thorough scavenging (clearing out exhaust
+      gases) and reloading of the cylinder, reducing loss of fresh charge and improving
+      efficiency. However, it delivers only half as many power strokes per revolution
+      as a two-stroke cycle, meaning less power output for a given engine size and
+      speed.
+    type: Advantages and Disadvantages
+  - content: The four-stroke cycle is the dominant operating principle in automotive
+      engines, as well as in motorcycles, lawn mowers, and many other machines where
+      efficiency and emissions control are important. It is less common in small,
+      lightweight tools, where two-stroke engines may be preferred.
+    type: Examples and Applications
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: The correct order is intake (drawing in air-fuel mixture), compression
+      (compressing the mixture), power (combustion and expansion), and exhaust (expelling
+      burnt gases).
+    options:
+    - Intake, combustion, compression, exhaust
+    - Compression, intake, exhaust, power
+    - Intake, compression, power, exhaust
+    - Power, intake, exhaust, compression
+    question_text: Which sequence correctly describes the four strokes of the four-stroke
+      cycle in a gasoline engine?
+  index: 320
+  key_concept: Four-stroke cycle
+  name: Four-stroke cycle

@@ -1,0 +1,305 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A detailed team-by-team report of the Friday practice sessions at
+  the 2025 Abu Dhabi Grand Prix, covering driver performances, car setups, tyre strategies,
+  and technical challenges encountered by each F1 team.
+file_name: What the teams said – Friday at the 2025 Abu Dhabi Grand Prix.html
+file_path: F1_racing/F1_Official/news/en/latest/article/What the teams said – Friday
+  at the 2025 Abu Dhabi Grand Prix.html
+file_uuid: a43235dd-7009-5d0d-81b9-aa169800f80c
+recap_questions:
+- correct_answers:
+  - 2
+  explanation: Mercedes fielded both Russell and Antonelli in FP1, which their engineering
+    director noted was advantageous for maximizing data collection and driver adaptation.
+  knowledge_areas:
+  - Mercedes' session improvements and race preparation
+  options:
+  - McLaren; allowed for more tyre testing
+  - Red Bull; focused on long-run pace
+  - Mercedes; enabled both drivers to get to grips with the car and collect useful
+    data
+  - Ferrari; gave both Leclerc brothers equal track time
+  question_id: 1
+  question_text: Which team had both of their main race drivers participate in FP1,
+    and what advantage did this provide according to their engineering director?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Both teams noted front-right graining, which increased tyre degradation
+    and made a one-stop race less certain, influencing their data collection and strategic
+    planning.
+  knowledge_areas:
+  - Red Bull's practice focus and tyre management
+  - Pirelli's tyre analysis and race strategy implications
+  options:
+  - High rear tyre temperatures; led to a focus on qualifying
+  - Front-right graining; increased expected degradation and uncertainty over one-stop
+    strategies
+  - Low grip on hard tyres; caused teams to avoid the compound
+  - Soft tyre overheating; forced teams to save medium tyres
+  question_id: 2
+  question_text: What tyre-related challenge did both Red Bull and Williams identify
+    during Friday practice, and how did it affect their outlook for race strategy?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: McLaren used Pato O’Ward in FP1 to fulfill rookie requirements, allowing
+    Norris to lead both sessions while Piastri, missing FP1, needed additional setup
+    adaptation in FP2.
+  knowledge_areas:
+  - McLaren performance and strategy
+  options:
+  - By skipping long runs; Norris and Piastri both struggled
+  - By running a young driver in FP1; Norris topped both sessions while Piastri needed
+    more setup time
+  - By focusing only on soft tyres; both drivers set identical times
+  - By splitting setup directions; both drivers had reliability issues
+  question_id: 3
+  question_text: How did McLaren balance their race preparation with regulatory requirements
+    during Friday practice, and what was the result for their main drivers?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Bearman rebounded from FP1 technical issues to set a top time in FP2,
+    while Hirakawa's rookie outing provided important setup data, illustrating Haas's
+    effective rookie integration.
+  knowledge_areas:
+  - Haas' rookie integration and competitive pace
+  options:
+  - Focusing on soft tyre only; rookies provided little feedback
+  - Bearman overcoming technical issues in FP1 and rookies like Hirakawa providing
+    valuable data and setup feedback
+  - Skipping FP1 entirely; Bearman used old tyres
+  - Running both main drivers in every session; no rookies involved
+  question_id: 4
+  question_text: What was a key factor in Haas's strong FP2 performance, particularly
+    for Oliver Bearman, and how did rookie participation contribute to the team's
+    weekend?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Pirelli's analysis highlighted the consistency of medium and hard compounds
+    but noted that as the track evolved, the soft C5 might become a race option, so
+    teams saved hard tyres to maintain strategic flexibility.
+  knowledge_areas:
+  - Pirelli's tyre analysis and race strategy implications
+  options:
+  - It led all teams to choose a one-stop strategy regardless of conditions
+  - It suggested medium and hard tyres were most consistent, but track evolution could
+    make the soft C5 viable, prompting teams to save hard tyres and remain flexible
+  - It caused teams to avoid soft tyres completely
+  - It had no impact on team strategies
+  question_id: 5
+  question_text: How did Pirelli's analysis of tyre performance influence team strategies
+    for the Abu Dhabi Grand Prix weekend?
+  question_type: recap
+sections:
+- aspects:
+  - content: This concept covers McLaren's activities and performance during the Friday
+      practice sessions at the 2025 Abu Dhabi Grand Prix. It includes driver rotation
+      (Piastri sitting out FP1 for O’Ward), session results, and commentary from both
+      drivers and team principal Andrea Stella.
+    type: Definition and Overview
+  - content: Lando Norris led both FP1 and FP2, showing McLaren's competitive pace
+      at Yas Marina. Oscar Piastri, after sitting out FP1, struggled to set a representative
+      time on soft tyres in FP2, highlighting the importance of maximizing limited
+      track time. Pato O’Ward, as a young driver, contributed valuable data and fulfilled
+      the team's mandatory rookie session requirements.
+    type: Driver Performance and Session Results
+  - content: McLaren focused on executing their run plans, optimizing car setup, and
+      managing tyre choices. The team emphasized the tight competition and the need
+      for overnight tweaks, especially for Piastri. The strategic use of young drivers
+      in practice reflects both regulatory compliance and long-term talent development.
+    type: Technical and Strategic Implications
+  - content: Norris’s consistent pace contrasted with Piastri’s struggles, illustrating
+      the variability even within a top team. O’Ward’s participation is an example
+      of how teams integrate reserve or development drivers into critical weekends
+      without compromising preparation for main drivers.
+    type: Examples and Edge Cases
+  - content: McLaren’s approach demonstrates the balance between short-term race preparation
+      and long-term driver development. Their Friday performance sets expectations
+      for qualifying and the race, while also reflecting broader trends in F1 regarding
+      the use of young drivers and data-driven setup adjustments.
+    type: Connections and Context
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Lando Norris topped both sessions, while Oscar Piastri struggled
+      to set a representative time on the soft tyre, not due to reliability or radio
+      issues.
+    options:
+    - Lando Norris; struggled with car reliability
+    - Oscar Piastri; struggled with soft tyre laps
+    - Pato O’Ward; struggled with engine issues
+    - Lando Norris; struggled with radio communication
+    question_text: Which McLaren driver topped both practice sessions on Friday in
+      Abu Dhabi, and what was a key challenge faced by Oscar Piastri?
+  index: 63
+  key_concept: McLaren performance and strategy
+  name: McLaren
+- aspects:
+  - content: This concept addresses Red Bull Racing's priorities and challenges during
+      Friday practice, including driver feedback, tyre degradation, and session objectives.
+      It highlights Max Verstappen's and Yuki Tsunoda's contrasting experiences and
+      the team's strategic focus on tyre management.
+    type: Definition and Overview
+  - content: Verstappen was narrowly behind Norris in both sessions, expressing concerns
+      about the car's feel and the need for better race pace. Tsunoda struggled significantly,
+      citing discomfort and lack of pace, which the team needed to investigate overnight.
+      Arvid Lindblad contributed as a young driver, collecting setup data.
+    type: Driver and Team Performance
+  - content: Red Bull's engineering team, led by Gianpiero Lambiase, prioritized high-fuel,
+      long-run data over single-lap pace, anticipating higher-than-expected tyre degradation,
+      especially front-right graining. The team considered the possibility of a two-stop
+      race due to the evolving track and tyre wear.
+    type: Tyre Strategy and Technical Analysis
+  - content: Verstappen’s feedback about tricky car ride and tyre graining exemplifies
+      the technical challenges teams face in adapting to real-world track conditions.
+      Lindblad’s dual F1/F2 weekend illustrates the logistical and performance complexities
+      for young drivers.
+    type: Examples and Practical Implications
+  - content: Red Bull’s approach reflects a broader F1 trend of data-driven decision-making
+      and the importance of tyre management in race strategy. Their focus on long-run
+      pace connects to Pirelli’s analysis and highlights the interplay between practice
+      data and race-day tactics.
+    type: Connections and Broader Context
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Red Bull identified front-right graining as a key issue, leading
+      them to focus on collecting long-run data to inform race strategy rather than
+      single-lap speed.
+    options:
+    - Rear-left graining; focused on qualifying pace
+    - Front-right graining; focused on long-run data
+    - Soft tyre overheating; focused on pit stop practice
+    - No tyre issues; focused solely on single-lap speed
+    question_text: What tyre-related issue did Red Bull identify as a concern during
+      Friday practice, and how did it influence their session focus?
+  index: 103
+  key_concept: Red Bull's practice focus and tyre management
+  name: Red Bull
+- aspects:
+  - content: This concept explores Mercedes' progress and challenges during Friday
+      practice, emphasizing their improvements between FP1 and FP2, driver feedback,
+      and preparation for both qualifying and the race.
+    type: Definition and Overview
+  - content: Both George Russell and Kimi Antonelli participated in FP1, with Russell
+      improving in FP2 and Antonelli making a minor mistake on his best soft tyre
+      lap. The team was competitive but recognized the need for further improvements
+      to match McLaren and Red Bull.
+    type: Driver Performance and Session Dynamics
+  - content: Mercedes faced issues with car balance and high-speed bouncing, particularly
+      affecting their long-run pace. They made setup changes between sessions to address
+      graining and balance, but acknowledged that more work was needed overnight.
+    type: Technical Adjustments and Challenges
+  - content: Russell’s radio comments about improved car feel in cooler conditions
+      and Antonelli’s rookie status (allowing full session participation) illustrate
+      the importance of adapting to track evolution and maximizing driver track time.
+      The team’s attention to both qualifying and race pace shows a holistic preparation
+      approach.
+    type: Examples and Strategic Implications
+  - content: Mercedes’ experience underscores the competitive closeness at the front
+      and the technical fine margins that separate teams. Their focus on both immediate
+      improvements and long-term development (with a rookie driver) reflects key F1
+      operational strategies.
+    type: Connections and Broader Context
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Mercedes struggled with high-speed bouncing and tyre graining during
+      long runs, prompting them to make setup changes to improve balance and tyre
+      management.
+    options:
+    - Overheating brakes; switched to harder compound
+    - High-speed bouncing and graining; made setup changes
+    - Gearbox failures; replaced both gearboxes
+    - Understeer in slow corners; adjusted front wing
+    question_text: What specific technical issue did Mercedes encounter during long
+      runs, and how did they attempt to address it?
+  index: 137
+  key_concept: Mercedes' session improvements and race preparation
+  name: Mercedes
+- aspects:
+  - content: This concept examines Haas F1 Team’s use of rookie drivers and their
+      competitive performance during Friday practice, focusing on the contributions
+      of Ryō Hirakawa and Oliver Bearman, as well as technical challenges faced by
+      Esteban Ocon.
+    type: Definition and Overview
+  - content: Ryō Hirakawa participated in FP1, providing valuable data and showcasing
+      strong pace on medium tyres, despite not using the softs. Bearman overcame technical
+      issues in FP1 to set a highly competitive time in FP2, demonstrating the team’s
+      potential.
+    type: Rookie Driver Participation and Impact
+  - content: Bearman’s FP1 was interrupted by a suspected hydraulics leak and a sensor
+      problem, while Ocon struggled with brake feel and entry stability in FP2. The
+      team’s ability to resolve these issues and extract performance from their car
+      was key to their strong showing.
+    type: Technical Issues and Team Response
+  - content: Bearman’s leap from a disrupted FP1 to a top-four time in FP2 highlights
+      the importance of adaptability and resilience. Hirakawa’s familiarity with the
+      track improved his feedback and performance, emphasizing the benefits of experience
+      even for rookies.
+    type: Examples and Strategic Implications
+  - content: Haas’s approach to integrating rookies aligns with F1’s regulatory and
+      developmental trends, while their competitive pace in a tight midfield illustrates
+      the small margins that can separate teams on a given weekend.
+    type: Connections and Broader Context
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Oliver Bearman set the fourth fastest time in FP2 after overcoming
+      a hydraulics leak and sensor issue in FP1.
+    options:
+    - Esteban Ocon; engine overheating
+    - Oliver Bearman; hydraulics leak and sensor problem
+    - Ryō Hirakawa; brake failure
+    - Oliver Bearman; gearbox failure
+    question_text: Which Haas driver set the fourth fastest time in FP2, and what
+      technical issue affected his FP1 session?
+  index: 205
+  key_concept: Haas' rookie integration and competitive pace
+  name: Haas
+- aspects:
+  - content: This concept covers Pirelli’s technical analysis of tyre performance
+      during Friday practice, including degradation patterns, compound suitability,
+      and implications for race strategy at Yas Marina.
+    type: Definition and Overview
+  - content: Pirelli observed that lap times were about half a second faster than
+      the previous year, but graining—especially on the front-right tyre—was accelerating
+      degradation. Medium and hard compounds showed the most consistency for race
+      conditions, while the soft was best for qualifying laps.
+    type: Tyre Performance and Graining
+  - content: Track evolution, due to rubber being laid down by support races, was
+      expected to reduce graining as the weekend progressed. This could bring the
+      soft C5 tyre back into play for the race, depending on how grip levels change.
+    type: Track Evolution and Strategy Considerations
+  - content: Teams like McLaren and Aston Martin saved a set of hard tyres in FP2,
+      anticipating strategic flexibility. The performance gap between compounds (about
+      two tenths between hard and medium, and seven to eight tenths between medium
+      and soft) influences pit stop and stint length decisions.
+    type: Examples and Practical Implications
+  - content: Pirelli’s analysis informs all teams’ race strategies and highlights
+      the dynamic relationship between tyre management, track conditions, and competitive
+      decision-making in F1. Their data-driven insights are crucial for predicting
+      race outcomes and optimizing performance.
+    type: Connections and Broader Context
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Pirelli identified the medium and hard as the most consistent for
+      race conditions, but noted that as the track evolves and graining decreases,
+      the soft C5 could become more viable for race stints.
+    options:
+    - Medium and hard; due to reduced graining as rubber builds up
+    - Soft and medium; because of lower initial degradation
+    - Hard only; because it is the fastest compound
+    - Soft only; because qualifying pace is most important
+    question_text: According to Pirelli, which tyre compounds were most consistent
+      for race conditions in Abu Dhabi, and why might the soft C5 become more viable
+      as the weekend progresses?
+  index: 395
+  key_concept: Pirelli's tyre analysis and race strategy implications
+  name: Pirelli

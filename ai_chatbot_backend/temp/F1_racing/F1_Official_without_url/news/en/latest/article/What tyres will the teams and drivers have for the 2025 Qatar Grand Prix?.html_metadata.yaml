@@ -1,0 +1,242 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Formula 1 news article detailing the official Pirelli tyre compound
+  selections, allocation rules, and usage restrictions for the 2025 Qatar Grand Prix,
+  including context on the Sprint format and technical measures for tyre safety.
+file_name: What tyres will the teams and drivers have for the 2025 Qatar Grand Prix?.html
+file_path: F1_racing/F1_Official/news/en/latest/article/What tyres will the teams
+  and drivers have for the 2025 Qatar Grand Prix?.html
+file_uuid: cce330ea-5032-5e1e-ac25-8dc4a562183f
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Pirelli has selected C1 (white) as the hard, C2 (yellow) as the medium,
+    and C3 (red) as the soft compounds for the 2025 Qatar Grand Prix.
+  knowledge_areas:
+  - Pirelli Tyre Compound Selection
+  options:
+  - C1 (white), C2 (yellow), C3 (red)
+  - C2 (red), C3 (yellow), C4 (white)
+  - C1 (yellow), C2 (white), C3 (red)
+  - C3 (white), C4 (yellow), C5 (red)
+  question_id: 1
+  question_text: Which tyre compounds are available for teams at the 2025 Qatar Grand
+    Prix, and how are they identified?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: During Sprint weekends, such as Qatar 2025, each driver receives 12
+    sets of dry tyres, one fewer than the standard 13 sets for regular weekends.
+  knowledge_areas:
+  - Sprint Weekend Tyre Allocation
+  options:
+  - Drivers receive more sets of tyres than usual
+  - Drivers receive fewer sets of tyres (12 instead of 13)
+  - There is no change in tyre allocation
+  - Only soft tyres are provided
+  question_id: 2
+  question_text: How does the Sprint weekend format affect tyre allocation for the
+    2025 Qatar Grand Prix?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Each set is limited to 25 cumulative laps across all sessions, including
+    laps under Safety Car or Virtual Safety Car, but excluding laps to the grid, formation
+    laps, and post-race laps.
+  knowledge_areas:
+  - Maximum Tyre Usage Limit
+  options:
+  - 20 laps, only in the race
+  - 25 laps, across all sessions including Safety Car laps
+  - 30 laps, only in qualifying and race
+  - No maximum limit
+  question_id: 3
+  question_text: What is the cumulative maximum number of laps allowed on a single
+    set of tyres during the Qatar Grand Prix weekend, and what sessions does this
+    include?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: The main reason was the excessive wear and structural fatigue observed
+    in 2024, particularly on the left front tyre, necessitating a safety measure.
+  knowledge_areas:
+  - Rationale for Tyre Restrictions
+  options:
+  - To increase the number of pit stops
+  - To ensure teams use all tyre compounds
+  - Due to high tyre wear and structural fatigue observed in 2024
+  - To make the race more exciting
+  question_id: 4
+  question_text: What was the main reason for introducing a maximum lap limit per
+    tyre set for the 2025 Qatar Grand Prix?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The combination of compound selection, allocation, and usage limits
+    forces teams to manage tyre wear, plan multiple pit stops, and prioritize safety,
+    directly influencing overall race strategy.
+  knowledge_areas:
+  - Pirelli Tyre Compound Selection
+  - Sprint Weekend Tyre Allocation
+  - Maximum Tyre Usage Limit
+  - Rationale for Tyre Restrictions
+  options:
+  - They have no significant impact on strategy or safety
+  - They require teams to plan multiple pit stops and manage tyre wear carefully
+  - They allow teams to use the same set for the entire race
+  - They only affect qualifying sessions
+  question_id: 5
+  question_text: How do the tyre compound selection, allocation, and usage limits
+    collectively influence race strategy and safety at the 2025 Qatar Grand Prix?
+  question_type: recap
+sections:
+- aspects:
+  - content: Pirelli, the official tyre supplier for Formula 1, selects specific tyre
+      compounds for each Grand Prix based on the circuit's characteristics and expected
+      conditions. For the 2025 Qatar Grand Prix at Lusail International Circuit, Pirelli
+      has chosen the C1 (hard), C2 (medium), and C3 (soft) compounds. These compounds
+      are part of a standardized range, with C1 being the hardest and C5 the softest,
+      designed to balance durability and grip.
+    type: Definition
+  - content: The C1 compound is marked with a white sidewall and is the hardest available,
+      providing maximum durability but less grip. The C2, marked yellow, offers a
+      compromise between durability and performance, while the C3, marked red, is
+      the softest for this event, offering the most grip but wearing out faster. These
+      selections are tailored to the Lusail circuit, which features high-speed corners
+      and aggressive kerbs.
+    type: Examples
+  - content: The choice of compounds affects race strategy, as teams must balance
+      tyre longevity with performance. Harder tyres may last longer but offer less
+      peak performance, while softer tyres provide speed at the cost of rapid degradation.
+      The selection also reflects Pirelli's response to the circuit's history of high
+      tyre wear and thermal stress, aiming to ensure safety and competitive racing.
+    type: Implications
+  - content: Tyre compound selection is closely linked to other regulatory measures,
+      such as the maximum lap limit per set and the allocation for Sprint weekends.
+      It is also influenced by data from previous races, including wear patterns and
+      structural integrity observed in past events, particularly in challenging circuits
+      like Qatar.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Pirelli has officially selected the C1 as the hard, C2 as the medium,
+      and C3 as the soft compound for the 2025 Qatar Grand Prix, reflecting the need
+      for durability and grip on the demanding Lusail circuit.
+    options:
+    - C1 (hard), C2 (medium), C3 (soft)
+    - C2 (hard), C3 (medium), C4 (soft)
+    - C3 (hard), C4 (medium), C5 (soft)
+    - C1 (soft), C2 (medium), C5 (hard)
+    question_text: Which tyre compounds has Pirelli selected for the 2025 Qatar Grand
+      Prix?
+  index: 53
+  key_concept: Pirelli Tyre Compound Selection
+  name: What tyres will the teams and drivers have for the 2025 Qatar Grand Prix?
+- aspects:
+  - content: During Sprint weekends, Formula 1 modifies the standard tyre allocation
+      to accommodate the additional competitive session. For the 2025 Qatar Grand
+      Prix, which uses the Sprint format, each driver receives 12 sets of dry tyres
+      instead of the usual 13.
+    type: Definition
+  - content: The allocation for Qatar includes two sets of the hard (C1, white), four
+      sets of the medium (C2, yellow), and six sets of the soft (C3, red) tyres. Additionally,
+      drivers have access to green-marked intermediate tyres and blue-marked full
+      wet tyres in case of rain.
+    type: Examples
+  - content: Teams must strategically plan tyre usage across practice, qualifying,
+      the Sprint, and the Grand Prix. The reduced allocation increases the importance
+      of tyre management, especially given the high wear expected at Lusail and the
+      mandatory lap limits.
+    type: Use Cases
+  - content: The limited number of sets requires teams to optimize their running in
+      each session, balancing the need for data collection with tyre preservation.
+      It also impacts pit stop strategy and could influence the outcome of both the
+      Sprint and main race.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: For Sprint weekends such as the 2025 Qatar Grand Prix, drivers are
+      allocated 12 sets of dry tyres, which is one fewer than the standard allocation
+      for non-Sprint events.
+    options:
+    - 13 sets
+    - 10 sets
+    - 12 sets
+    - 15 sets
+    question_text: How many sets of dry tyres will each driver receive for the 2025
+      Qatar Grand Prix Sprint weekend?
+  index: 53
+  key_concept: Sprint Weekend Tyre Allocation
+  name: What tyres will the teams and drivers have for the 2025 Qatar Grand Prix?
+- aspects:
+  - content: A maximum tyre usage limit is a regulatory measure that restricts the
+      total number of laps a single set of tyres can be used during the race weekend.
+      For the 2025 Qatar Grand Prix, Pirelli and the FIA have set a 25-lap maximum
+      per set, counted cumulatively across all sessions.
+    type: Definition
+  - content: This rule was introduced after analysis of tyre wear during the 2024
+      Qatar Grand Prix, where tyres—especially the left front—showed extreme wear
+      and structural fatigue due to the circuit's high lateral energy and harsh kerbs.
+      The measure is intended to enhance safety and prevent failures.
+    type: Context
+  - content: If a driver uses a set of tyres for 10 laps in practice, only 15 laps
+      remain for that set for the rest of the weekend. Laps under Safety Car or Virtual
+      Safety Car count toward the limit, but laps to the grid, formation laps, and
+      post-chequered flag laps do not.
+    type: Examples
+  - content: This limit ensures that no set is overstressed, mandating at least two
+      pit stops during the 57-lap race. Teams must carefully monitor and manage tyre
+      usage, with Pirelli informing teams before the race how many laps remain for
+      each set.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Pirelli has mandated a 25-lap maximum per set for the 2025 Qatar
+      Grand Prix, aiming to prevent excessive wear and ensure safety after issues
+      observed in 2024.
+    options:
+    - 20 laps
+    - 25 laps
+    - 30 laps
+    - No limit
+    question_text: What is the maximum number of laps a single set of tyres can be
+      used during the 2025 Qatar Grand Prix weekend?
+  index: 53
+  key_concept: Maximum Tyre Usage Limit
+  name: What tyres will the teams and drivers have for the 2025 Qatar Grand Prix?
+- aspects:
+  - content: The rationale for imposing strict tyre usage limits at the 2025 Qatar
+      Grand Prix stems from data collected during the 2024 event, where tyres experienced
+      high wear, particularly on the left front. The Lusail circuit's combination
+      of high-speed corners and aggressive kerbs places extreme stress on tyres.
+    type: Context
+  - content: Without these restrictions, tyres could reach dangerous levels of wear,
+      risking structural failure and compromising driver safety. The 25-lap limit
+      is a proactive measure to ensure that tyres are not used beyond their safe operating
+      window.
+    type: Implications
+  - content: This decision was made collaboratively by Pirelli, the FIA, and Formula
+      1, and was communicated to teams in advance. It reflects an ongoing process
+      of safety management and technical adaptation based on real-world data and post-race
+      analysis.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The maximum lap limit was introduced due to excessive tyre wear and
+      signs of structural fatigue observed during the 2024 Qatar Grand Prix, especially
+      on the left front tyre, to enhance safety.
+    options:
+    - To reduce pit stops and make the race faster
+    - Because tyres showed excessive wear and potential structural fatigue in 2024
+    - To allow teams to use softer compounds more frequently
+    - To simplify tyre strategy for teams
+    question_text: Why did Pirelli and the FIA introduce a maximum lap limit per tyre
+      set for the 2025 Qatar Grand Prix?
+  index: 53
+  key_concept: Rationale for Tyre Restrictions
+  name: What tyres will the teams and drivers have for the 2025 Qatar Grand Prix?

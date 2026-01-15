@@ -1,0 +1,267 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page listing the official Formula 1 drivers for the 2025 season,
+  including team and driver details, along with sections on F1's commercial partners
+  and information about the official F1 app.
+file_name: F1 Drivers 2025 - Verstappen, Hamilton, Leclerc and more.html
+file_path: F1_racing/F1_Official/drivers/en/F1 Drivers 2025 - Verstappen, Hamilton,
+  Leclerc and more.html
+file_uuid: 9701022a-bdfd-5b5f-b04a-a84e62fd6696
+recap_questions:
+- correct_answers:
+  - 0
+  - 3
+  explanation: Both Lewis Hamilton and Fernando Alonso are listed as official drivers
+    for 2025, while Sebastian Vettel and Michael Schumacher are not part of the 2025
+    lineup.
+  knowledge_areas:
+  - F1 Drivers 2025 Lineup
+  options:
+  - Lewis Hamilton
+  - Sebastian Vettel
+  - Michael Schumacher
+  - Fernando Alonso
+  question_id: 1
+  question_text: Which of the following drivers is listed as part of the 2025 Formula
+    1 lineup?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Max Verstappen is listed as a driver for Red Bull Racing in the 2025
+    season.
+  knowledge_areas:
+  - F1 Drivers 2025 Lineup
+  - F1 Teams 2025
+  options:
+  - Ferrari
+  - Mercedes
+  - Red Bull Racing
+  - McLaren
+  question_id: 2
+  question_text: Which team will Max Verstappen drive for in the 2025 F1 season?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Heineken is listed as an official partner of Formula 1, while Samsung,
+    Nike, and Apple are not mentioned as sponsors in the document.
+  knowledge_areas:
+  - F1 Partners and Sponsors
+  options:
+  - Heineken
+  - Samsung
+  - Nike
+  - Apple
+  question_id: 3
+  question_text: Which of these companies is an official partner or sponsor of Formula
+    1 in 2025?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App provides live race data, news, and exclusive content
+    for fans. While it may link to ticket sales, its primary function is information
+    and engagement.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - To provide live race data and F1 news to fans
+  - To allow fans to purchase race tickets directly
+  - To stream full races exclusively
+  - To manage team logistics
+  question_id: 4
+  question_text: What is the main purpose of the Official F1 App as described in the
+    document?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Drivers represent teams, and those teams are supported by a wide variety
+    of sponsors, which is central to the sport's commercial and competitive structure.
+    The other options misrepresent the roles of teams and sponsors.
+  knowledge_areas:
+  - F1 Drivers 2025 Lineup
+  - F1 Teams 2025
+  - F1 Partners and Sponsors
+  options:
+  - Sponsors are only linked to drivers, not teams.
+  - Teams select drivers based on sponsor preferences alone.
+  - Drivers represent teams that are supported by a diverse range of global sponsors,
+    contributing to the sport's commercial and competitive ecosystem.
+  - Sponsors are not involved in the F1 ecosystem.
+  question_id: 5
+  question_text: Which of the following statements best integrates the relationship
+    between F1 teams, drivers, and sponsors in the 2025 season?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 'F1 Drivers 2025 Lineup' refers to the complete roster of drivers
+      officially participating in the 2025 Formula 1 World Championship season. This
+      lineup is determined by contractual agreements between drivers and teams, and
+      is subject to confirmation by the FIA, the sport's governing body.
+    type: Definition
+  - content: Notable examples from the 2025 lineup include Max Verstappen (Red Bull
+      Racing), Lewis Hamilton (Ferrari), Charles Leclerc (Ferrari), Lando Norris (McLaren),
+      and George Russell (Mercedes). The list also features rookies and returning
+      drivers such as Kimi Antonelli (Mercedes), Oliver Bearman (Haas F1 Team), and
+      Franco Colapinto (Alpine), reflecting a blend of experience and new talent.
+    type: Examples
+  - content: The composition of the driver lineup has significant implications for
+      team strategies, fan engagement, and the competitive landscape of the season.
+      High-profile transfers, such as Lewis Hamilton's move to Ferrari, can shift
+      team dynamics and championship prospects. The inclusion of new drivers can also
+      affect team performance and the development of young talent within the sport.
+    type: Implications
+  - content: Each driver is paired with a specific team, often representing their
+      nationality and contributing to the team's global brand. The 2025 lineup reflects
+      ongoing trends in F1, such as increased diversity in nationalities (e.g., drivers
+      from Australia, Japan, Argentina, and Brazil) and the presence of established
+      stars alongside emerging talents.
+    type: Context
+  - content: The driver lineup is closely connected to other core elements of F1,
+      including team performance, constructor standings, and the sport's broader commercial
+      and media ecosystem. Driver movements often influence sponsorships, media coverage,
+      and fan followings, making the annual lineup announcement a key event in the
+      F1 calendar.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The 2025 F1 Drivers Lineup consists of all officially contracted
+      drivers for the season, including both experienced and new drivers, regardless
+      of their championship history or nationality. Options 0, 2, and 3 are incorrect
+      because the lineup is not restricted by championship wins, European nationality,
+      or prior Ferrari experience.
+    options:
+    - It only includes drivers who have previously won a championship.
+    - It lists all drivers officially contracted to compete in the 2025 F1 season,
+      including both veterans and newcomers.
+    - It is limited to drivers from European countries.
+    - It only features drivers who have raced for Ferrari in the past.
+    question_text: Which of the following statements best describes the 2025 F1 Drivers
+      Lineup?
+  index: 51
+  key_concept: F1 Drivers 2025 Lineup
+  name: F1 Drivers 2025
+- aspects:
+  - content: F1 Teams 2025 refers to the official constructors participating in the
+      2025 Formula 1 World Championship. Each team fields two drivers and is responsible
+      for car development, engineering, and race strategy throughout the season.
+    type: Definition
+  - content: Examples of 2025 teams include Red Bull Racing, Ferrari, Mercedes, McLaren,
+      Aston Martin, Williams, Haas F1 Team, Kick Sauber, Racing Bulls, and Alpine.
+      Each team has a unique history, technical partnerships, and branding, contributing
+      to the diversity of the grid.
+    type: Examples
+  - content: Teams compete for the Constructors' Championship, which rewards engineering
+      excellence and consistent performance. The team structure also supports driver
+      development, technical innovation, and commercial partnerships. Fans often support
+      teams based on heritage, driver lineup, or national identity.
+    type: Use Cases
+  - content: Team performance directly impacts driver results, sponsorship deals,
+      and prize money distribution. Changes in team lineups or technical staff can
+      lead to shifts in competitive balance. The presence of both established and
+      newer teams ensures ongoing competition and innovation.
+    type: Implications
+  - content: Teams are central to the F1 ecosystem, interacting with sponsors, the
+      FIA, and the media. Their success is intertwined with driver talent, technical
+      resources, and strategic decision-making. Team rivalries and alliances often
+      shape the narrative of each season.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: Cadillac is not listed as an official F1 team for the 2025 season
+      in the provided document. Red Bull Racing, Kick Sauber, and Ferrari are all
+      official teams.
+    options:
+    - Red Bull Racing
+    - Kick Sauber
+    - Ferrari
+    - Cadillac
+    question_text: Which of the following is NOT an official F1 team for the 2025
+      season?
+  index: 51
+  key_concept: F1 Teams 2025
+  name: F1 Drivers 2025
+- aspects:
+  - content: F1 Partners and Sponsors are companies and brands that have formal commercial
+      relationships with Formula 1, providing financial support, products, or services
+      in exchange for marketing opportunities and brand exposure.
+    type: Definition
+  - content: Major partners and sponsors include LVMH, Pirelli, Aramco, Heineken,
+      AWS, Lenovo, DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton,
+      TAG Heuer, Moet Hennessy, American Express, Santander, Allwyn, Globant, Las
+      Vegas Convention and Visitors Authority, Paramount+, Barilla, Liqui Moly, Nestle,
+      PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds. These brands represent
+      a wide range of industries, from luxury goods to technology and logistics.
+    type: Examples
+  - content: Sponsorships and partnerships are vital for the financial health and
+      global reach of Formula 1. They enable technological advancements, support event
+      logistics, and enhance the fan experience through branded content and activations.
+      The diversity of sponsors reflects the sport's international appeal and commercial
+      significance.
+    type: Implications
+  - content: Partners are often visible through trackside branding, team apparel,
+      and digital content. Some, like Pirelli and AWS, play technical roles, supplying
+      tires or data analytics. Others, such as Heineken and DHL, focus on event promotion
+      and logistics. The presence of luxury and technology brands underscores F1's
+      status as a premium global sport.
+    type: Context
+  - content: Sponsorship agreements are closely tied to team and driver marketing,
+      media rights, and the overall business model of F1. The success of these partnerships
+      can influence team budgets, event locations, and the sport's expansion into
+      new markets.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Pirelli is a major sponsor and the official tire supplier for Formula
+      1. Nike, Sony, and Toyota are not listed as F1 partners or sponsors in the provided
+      document.
+    options:
+    - Pirelli
+    - Nike
+    - Sony
+    - Toyota
+    question_text: Which of the following companies is a major sponsor or partner
+      of Formula 1 in 2025?
+  index: 257
+  key_concept: F1 Partners and Sponsors
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application available for iOS and Android
+      devices, providing fans with real-time information, news, live timing, and exclusive
+      content related to Formula 1.
+    type: Definition
+  - content: The app can be downloaded from the Apple App Store or Google Play Store.
+      Features include live race data, push notifications for breaking news, driver
+      and team profiles, and access to video highlights. It serves as a central hub
+      for fans to follow the sport on the go.
+    type: Examples
+  - content: Fans use the app to stay updated during race weekends, track driver standings,
+      and receive instant updates on race results and schedule changes. The app enhances
+      the viewing experience by offering supplementary data and interactive features.
+    type: Use Cases
+  - content: The app's widespread adoption reflects F1's commitment to digital engagement
+      and global fan outreach. It allows the sport to gather user data, tailor content,
+      and foster a more interactive relationship with its audience.
+    type: Implications
+  - content: The app connects with other F1 digital platforms, including F1 TV and
+      social media, offering a seamless ecosystem for content consumption. It also
+      integrates with live broadcasts and fantasy gaming, expanding the ways fans
+      interact with the sport.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App is designed to provide fans with live race timing,
+      news, and exclusive content. It does not sell cars, manage contracts, or broadcast
+      races in cinemas.
+    options:
+    - To provide live race timing and news updates to fans
+    - To sell official F1 cars to consumers
+    - To manage team sponsorship contracts
+    - To broadcast races exclusively in cinemas
+    question_text: What is a primary function of the Official F1 App?
+  index: 267
+  key_concept: Official F1 App
+  name: Download the Official F1 App

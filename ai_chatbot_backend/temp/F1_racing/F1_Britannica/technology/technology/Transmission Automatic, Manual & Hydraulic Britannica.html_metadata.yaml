@@ -1,0 +1,246 @@
+URL: https://www.britannica.com/technology/transmission-engineering
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article introducing mechanical transmissions, focusing
+  on their function as speed changers, types (step-variable and stepless), mechanisms
+  (gears, chains, belts, rolling-contact bodies), and special forms like traction
+  drives, with references to automatic and hydraulic transmissions.
+file_name: Transmission Automatic, Manual & Hydraulic Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Transmission Automatic, Manual
+  & Hydraulic Britannica.html
+file_uuid: b8940d9b-5147-5a97-8f10-31b3c197deec
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Mechanical transmissions are designed to match the output characteristics
+    of a power source (like an engine) to the requirements of the application (such
+    as vehicle wheels), primarily by changing speed and torque.
+  knowledge_areas:
+  - Mechanical Transmission Function
+  options:
+  - To adapt the power source's speed and torque to the needs of the application
+  - To generate electrical energy from mechanical motion
+  - To store kinetic energy for later use
+  - To cool the engine during operation
+  question_id: 1
+  question_text: Which of the following best describes the main purpose of a mechanical
+    transmission in engineering?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Step-variable transmissions have discrete, selectable speed ratios,
+    while stepless (continuously variable) transmissions allow for smooth, continuous
+    changes in speed ratio.
+  knowledge_areas:
+  - Step-Variable and Stepless Transmissions
+  options:
+  - Step-variable transmissions provide fixed speed ratios; stepless transmissions
+    offer a continuous range.
+  - Both provide only one speed ratio.
+  - Step-variable transmissions use belts; stepless use gears.
+  - Stepless transmissions cannot be used in vehicles.
+  question_id: 2
+  question_text: How do step-variable transmissions differ from stepless transmissions?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: V-belt and variable-diameter pulley systems depend on friction, which
+    can lead to slip under heavy loads, making them less suitable for high-torque
+    applications.
+  knowledge_areas:
+  - V-Belt and Variable-Diameter Pulley Drives
+  options:
+  - They are only used in manual transmissions.
+  - They are prone to slip due to reliance on friction.
+  - They can only provide one fixed speed ratio.
+  - They are more efficient than gear-based transmissions at high torque.
+  question_id: 3
+  question_text: What is a notable limitation of V-belt drives with variable-diameter
+    pulleys in stepless transmissions?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Traction drives transmit power through rolling-contact bodies, unlike
+    belt- or gear-based systems, and are capable of smooth, variable speed changes.
+  knowledge_areas:
+  - Traction Drives and Rolling-Contact Transmissions
+  options:
+  - Use of rolling-contact bodies like rollers or disks
+  - Use of gears for discrete speed changes
+  - Dependence on belt friction
+  - Inability to change speed ratios
+  question_id: 4
+  question_text: Which feature is unique to traction drives among stepless transmissions?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Traction drives are favored in applications where quiet, smooth, and
+    precise operation is essential, such as in high-end vehicles or precision machinery,
+    whereas V-belt drives are more prone to slip and noise.
+  knowledge_areas:
+  - Traction Drives and Rolling-Contact Transmissions
+  - V-Belt and Variable-Diameter Pulley Drives
+  options:
+  - In high-noise environments, because traction drives are quieter
+  - In applications requiring precise, quiet operation due to their smooth and silent
+    characteristics
+  - In heavy-duty applications where maximum torque is needed, because V-belts slip
+    less
+  - In low-cost applications where efficiency is not a concern
+  question_id: 5
+  question_text: In what type of application might a traction drive be preferred over
+    a V-belt drive, and why?
+  question_type: recap
+sections:
+- aspects:
+  - content: In mechanical engineering, a transmission is a device placed between
+      a power source (such as an engine) and a specific application (like the wheels
+      of a car) to adapt the characteristics of the power source to the requirements
+      of the application. Its primary function is to modify rotary speed and torque,
+      enabling the output to match the needs of the machinery or vehicle.
+    type: Definition
+  - content: Common examples include the gearbox in automobiles, which allows the
+      driver to select different speed-torque combinations, and machine-tool drives
+      that require precise speed control. In both cases, the transmission ensures
+      that the engine operates efficiently while the application receives the appropriate
+      speed and torque.
+    type: Examples
+  - content: The presence of a transmission allows for greater flexibility and efficiency
+      in mechanical systems. Without it, engines would have to be designed for a much
+      wider range of operating conditions, resulting in inefficiency and increased
+      wear. Transmissions also enable features like reverse motion and variable speed
+      control.
+    type: Implications
+  - content: Transmissions are fundamental in automotive engineering but are also
+      critical in industrial machinery, robotics, and any system where power adaptation
+      is necessary. Their design influences fuel economy, performance, and user experience.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: A mechanical transmission adapts the power source's speed and torque
+      to the requirements of the application, such as vehicle wheels or machine tools.
+      It does not generate power, store energy, or serve as a cooling device.
+    options:
+    - To generate electrical power
+    - To adapt the characteristics of a power source to a specific application
+    - To store mechanical energy for later use
+    - To cool the engine during operation
+    question_text: What is the primary function of a mechanical transmission in engineering
+      applications?
+  index: 137
+  key_concept: Mechanical Transmission Function
+  name: transmission
+- aspects:
+  - content: Transmissions can be categorized as step-variable or stepless (continuously
+      variable). Step-variable transmissions provide discrete speed ratios, often
+      using gears or chains, allowing the operator to select from fixed settings.
+      Stepless transmissions, on the other hand, offer a continuous range of speed
+      ratios within a given range, typically using belts, chains, or rolling-contact
+      bodies.
+    type: Definition
+  - content: Automobile manual gearboxes are classic step-variable transmissions,
+      offering several fixed gear ratios. Continuously variable transmissions (CVTs),
+      commonly found in some modern cars and scooters, are examples of stepless transmissions,
+      allowing smooth and uninterrupted changes in speed ratio.
+    type: Examples
+  - content: Step-variable transmissions are suitable where specific, repeatable speed
+      settings are required, such as in vehicles or machine tools. Stepless transmissions
+      are preferred in applications demanding smooth acceleration and efficiency,
+      like in some passenger vehicles or industrial drives.
+    type: Use Cases
+  - content: Step-variable systems are simple and reliable but can result in jerky
+      transitions between gears. Stepless systems offer smoother operation but may
+      be more complex and prone to slippage, especially if friction-based. The choice
+      affects performance, user comfort, and maintenance requirements.
+    type: Implications and Edge Cases
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Step-variable transmissions offer fixed, discrete speed ratios, while
+      stepless (continuously variable) transmissions allow for a smooth, continuous
+      range of speed ratios. The other statements are incorrect or misleading.
+    options:
+    - Step-variable transmissions use only belts; stepless use only gears.
+    - Step-variable transmissions provide discrete speed ratios; stepless provide
+      a continuous range.
+    - Both types provide only one fixed speed ratio.
+    - Stepless transmissions cannot be used in automobiles.
+    question_text: Which statement best distinguishes step-variable from stepless
+      transmissions?
+  index: 137
+  key_concept: Step-Variable and Stepless Transmissions
+  name: transmission
+- aspects:
+  - content: A widely used form of stepless drive is the V-belt running on variable-diameter
+      pulleys. The pulleys have conical inner surfaces to match the V-belt. Adjusting
+      the distance between the pulley sides causes the belt to ride at different diameters,
+      thus changing the speed ratio between input and output shafts.
+    type: Definition and Mechanism
+  - content: This mechanism is commonly found in scooters, some motorcycles, and industrial
+      machinery where variable speed is needed. The continuously variable transmission
+      (CVT) in many modern vehicles uses this principle.
+    type: Examples
+  - content: These drives are inexpensive and allow for smooth, stepless speed changes.
+      However, they rely on friction between the belt and pulleys, making them susceptible
+      to slip under high loads or wear, which can reduce efficiency and lifespan.
+    type: Practical Implications
+  - content: V-belt and variable-diameter pulley systems are a subset of friction-based
+      transmissions. Their effectiveness is limited by the coefficient of friction
+      and the quality of materials. They are less suitable for high-torque applications
+      compared to gear-based systems.
+    type: Connections and Limitations
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: V-belt drives with variable-diameter pulleys change speed ratios
+      smoothly but depend on friction, making them prone to slip, especially under
+      heavy loads. They are not limited to manual transmissions and do not use gears
+      for speed variation.
+    options:
+    - They provide only fixed speed ratios.
+    - They rely on friction and are subject to slip.
+    - They use gears to change speed ratios.
+    - They are only used in manual transmissions.
+    question_text: What is a key characteristic of V-belt drives with variable-diameter
+      pulleys in stepless transmissions?
+  index: 137
+  key_concept: V-Belt and Variable-Diameter Pulley Drives
+  name: transmission
+- aspects:
+  - content: Traction drives are stepless transmissions that transmit power through
+      rolling-contact bodies such as cylinders, cones, balls, rollers, or disks. Instead
+      of relying on sliding friction, these systems use rolling friction to transfer
+      torque and speed between input and output.
+    type: Definition and Mechanism
+  - content: One example is the toroidal traction drive, where input and output members
+      with toroidal surfaces are connected by adjustable rollers. The speed ratio
+      is changed by altering the position of the rollers. These drives are used in
+      some high-end vehicles and precision machinery.
+    type: Examples
+  - content: Traction drives can offer smooth, quiet operation and are valued in applications
+      where noise reduction is important. The use of special lubricants that stiffen
+      under load can increase tractive effort and reduce slippage. However, they can
+      be more complex and costly than other transmission types.
+    type: Practical Implications
+  - content: Traction drives are related to CVTs but use rolling rather than belt
+      friction. Their efficiency and load capacity depend on contact pressure and
+      lubricant properties. They are less common but crucial in specialized applications
+      requiring quietness and precision.
+    type: Connections and Edge Cases
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Traction drives utilize rolling-contact bodies like rollers or disks
+      to transmit power, distinguishing them from belt- or chain-based systems. They
+      are not limited to manual gearboxes and can vary speed ratios smoothly.
+    options:
+    - They use rolling-contact bodies to transmit power.
+    - They rely solely on belts for power transmission.
+    - They cannot change speed ratios.
+    - They are only used in manual gearboxes.
+    question_text: What distinguishes traction drives from other types of stepless
+      transmissions?
+  index: 137
+  key_concept: Traction Drives and Rolling-Contact Transmissions
+  name: transmission

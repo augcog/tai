@@ -1,0 +1,253 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A promotional web page for an F1 Unlocked competition, including
+  details about the membership program, a list of official partners, related articles,
+  and app download links.
+file_name: Win a shirt from your favourite team with F1 Unlocked!.html
+file_path: F1_racing/F1_Official/news/en/latest/article/Win a shirt from your favourite
+  team with F1 Unlocked!.html
+file_uuid: 157cc6b7-f965-5808-8f5f-b8ac6bf8872c
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: F1 Unlocked offers curated insider content, but does not guarantee
+    pit lane access, free tickets, or personal meet-and-greets.
+  knowledge_areas:
+  - F1 Unlocked Membership Benefits
+  options:
+  - Curated insider content
+  - Guaranteed pit lane access
+  - Free race tickets for every event
+  - Personal driver meet-and-greet
+  question_id: 1
+  question_text: Which of the following is a benefit of joining F1 Unlocked as highlighted
+    on the competition page?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The 'OUR PARTNERS' section lists official F1 sponsors and partners,
+    not race results, stats, or car specs.
+  knowledge_areas:
+  - F1 Official Partners
+  options:
+  - To list companies that sponsor or partner with F1
+  - To provide driver statistics
+  - To announce race results
+  - To offer technical car specifications
+  question_id: 2
+  question_text: What is the main purpose of the 'OUR PARTNERS' section on the F1
+    Unlocked competition page?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: F1 Unlocked competitions are exclusive to members, serving as an incentive
+    for fans to join the program.
+  knowledge_areas:
+  - F1 Unlocked Competition
+  - F1 Unlocked Membership Benefits
+  options:
+  - Competitions are only open to race team staff
+  - Competitions are exclusive to F1 Unlocked members and encourage sign-ups
+  - Competitions are unrelated to the membership program
+  - Competitions are held at every race event
+  question_id: 3
+  question_text: Which statement best describes the relationship between F1 Unlocked
+    competitions and the F1 Unlocked membership?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app provides live race timing, news, and exclusive content, enhancing
+    digital fan engagement.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - By offering live race timing and exclusive content
+  - By providing free merchandise
+  - By allowing fans to vote on race outcomes
+  - By streaming races without a subscription
+  question_id: 4
+  question_text: How does the Official F1 App support fan engagement according to
+    the competition page?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: These sections keep fans informed and engaged with news, features,
+    and the broader F1 ecosystem, including its commercial partners.
+  knowledge_areas:
+  - Related F1 Content and News
+  - F1 Official Partners
+  options:
+  - By providing technical engineering tutorials
+  - By linking to news, features, and showcasing F1's commercial ecosystem
+  - By selling discounted tickets directly
+  - By displaying only race highlights
+  question_id: 5
+  question_text: In what way do the 'Related Articles' and 'OUR PARTNERS' sections
+    contribute to the overall fan experience on the F1 Unlocked page?
+  question_type: recap
+sections:
+- aspects:
+  - content: The F1 Unlocked Competition is a promotional event organized by Formula
+      1, allowing registered F1 Unlocked members to enter for a chance to win one
+      of 30 official team shirts. The competition requires participants to sign in
+      and share their favorite teams, engaging the fanbase and promoting the F1 Unlocked
+      membership.
+    type: Definition
+  - content: An example of the competition is the 2025 event where 30 winners were
+      selected from F1 Unlocked members to receive team shirts. Such competitions
+      are often used to generate excitement around the sport and increase engagement
+      with the F1 digital platform.
+    type: Examples
+  - content: The competition incentivizes registration for F1 Unlocked, expanding
+      the user base and deepening fan loyalty. It also serves as a marketing tool
+      for official merchandise and increases traffic to the F1 website.
+    type: Implications
+  - content: This competition is directly linked to the F1 Unlocked membership program,
+      and indirectly promotes the F1 store and official team merchandise. It also
+      connects to broader fan engagement strategies in sports marketing.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The competition is designed to reward F1 Unlocked members with exclusive
+      team shirts, encouraging sign-ups and engagement. It is not focused on regulations,
+      live updates, or ticket sales.
+    options:
+    - To reward F1 Unlocked members with exclusive merchandise
+    - To announce new F1 regulations
+    - To provide live race updates
+    - To sell tickets for upcoming races
+    question_text: What is the primary purpose of the F1 Unlocked Competition?
+  index: 53
+  key_concept: F1 Unlocked Competition
+  name: Win a shirt from your favourite team!
+- aspects:
+  - content: F1 Unlocked membership is a free program that provides fans with access
+      to exclusive Formula 1 content, VIP experiences, member benefits, rewards, and
+      special offers. It is aimed at enhancing fan engagement by offering curated
+      insider content and unique opportunities.
+    type: Definition
+  - content: Examples of benefits include behind-the-scenes articles, VIP event access,
+      member-only competitions, and special discounts on merchandise. Members might
+      also receive early notifications about tickets or events.
+    type: Examples
+  - content: Fans who want deeper involvement with F1 beyond race broadcasts can use
+      the membership for exclusive news, unique experiences, and rewards. It also
+      appeals to collectors and superfans interested in limited-edition items.
+    type: Use Cases
+  - content: The membership program builds a loyal fan community, increases website
+      engagement, and provides valuable data for targeted marketing. It also helps
+      differentiate F1's digital offering from other sports.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: While F1 Unlocked offers content, experiences, and rewards, it does
+      not guarantee race tickets to members.
+    options:
+    - Access to curated insider content
+    - Exclusive VIP experiences
+    - Guaranteed race tickets
+    - Member rewards and offers
+    question_text: Which of the following is NOT a benefit of F1 Unlocked membership?
+  index: 59
+  key_concept: F1 Unlocked Membership Benefits
+  name: This competition is now closed
+- aspects:
+  - content: The 'Related Articles' section provides links to recent news stories,
+      features, and analysis about Formula 1 events, drivers, teams, and upcoming
+      seasons. It serves as a curated resource for fans to stay updated on the latest
+      developments.
+    type: Definition
+  - content: Examples include articles on the dramatic 2025 title battle, alternative
+      awards for the 2025 season, bold predictions for 2026, team performance reviews,
+      and features on what to expect in the 2026 season.
+    type: Examples
+  - content: This section is contextually placed to keep users engaged after viewing
+      the competition, offering additional reading and video content relevant to their
+      interests in F1.
+    type: Context
+  - content: The related articles connect fans to the broader F1 ecosystem, encouraging
+      deeper engagement with the sport's narrative and history. They also promote
+      ongoing website visits and interaction.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The 'Related Articles' section offers links to news stories, features,
+      and analysis, helping fans stay informed about F1.
+    options:
+    - To provide live race commentary
+    - To link fans to recent F1 news and features
+    - To sell official team merchandise
+    - To display sponsor advertisements
+    question_text: What is the main function of the 'Related Articles' section on
+      the F1 Unlocked competition page?
+  index: 85
+  key_concept: Related F1 Content and News
+  name: Related Articles
+- aspects:
+  - content: F1 Official Partners are companies and brands that have formal sponsorship
+      or partnership agreements with Formula 1. These partnerships support the sport
+      financially and through co-branded marketing efforts.
+    type: Definition
+  - content: Notable partners include LVMH, Pirelli, Aramco, Heineken, AWS, Lenovo,
+      DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton, TAG Heuer, and
+      others. These brands are featured prominently in F1 events and media.
+    type: Examples
+  - content: Partnerships provide F1 with essential funding and technological support,
+      while partners benefit from global exposure and association with a prestigious
+      sporting brand. This symbiotic relationship is critical to the commercial success
+      of modern F1.
+    type: Implications
+  - content: These partnerships often result in co-branded products, special fan experiences,
+      and technological innovations (e.g., AWS data analytics for F1). They also influence
+      the sport's image and reach.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: F1 partners gain international visibility and marketing opportunities,
+      not regulatory power or exclusive contracts.
+    options:
+    - By receiving free race tickets
+    - Through global brand exposure and co-branded marketing
+    - By dictating race regulations
+    - Through exclusive driver contracts
+    question_text: How do F1 Official Partners typically benefit from their association
+      with Formula 1?
+  index: 94
+  key_concept: F1 Official Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application available for iOS and Android
+      devices, providing users with access to live timing, news, race schedules, driver
+      and team information, and exclusive content.
+    type: Definition
+  - content: Users can download the app from the Apple App Store or Google Play Store.
+      Features include live race updates, push notifications for major events, and
+      multimedia content such as videos and interviews.
+    type: Examples
+  - content: The app is useful for fans who want real-time updates during races, quick
+      access to official news, and a convenient way to follow their favorite drivers
+      and teams on the go.
+    type: Use Cases
+  - content: Having an official app strengthens F1's digital presence, enhances fan
+      engagement, and provides a direct communication channel for marketing and updates.
+      It also supports the broader digital strategy of the sport.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The app's main functions include live race timing, updates, and official
+      news, not direct merchandise sales, free race broadcasts, or betting.
+    options:
+    - Providing live timing and race updates
+    - Selling team shirts directly
+    - Broadcasting races for free
+    - Offering betting services
+    question_text: What is a primary function of the Official F1 App?
+  index: 104
+  key_concept: Official F1 App
+  name: Download the Official F1 App

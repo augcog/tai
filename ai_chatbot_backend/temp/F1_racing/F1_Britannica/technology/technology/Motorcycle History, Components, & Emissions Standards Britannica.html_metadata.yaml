@@ -1,0 +1,264 @@
+URL: https://www.britannica.com/technology/motorcycle#ref64093
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article overviewing motorcycles, covering their
+  definition, historical development, key mechanical components and classifications,
+  and the evolution of emissions standards.
+file_name: Motorcycle History, Components, & Emissions Standards Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Motorcycle History, Components,
+  & Emissions Standards Britannica.html
+file_uuid: bca08daf-33d0-5b74-a080-7c754dc1101e
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The article defines a motorcycle as a two- or three-wheeled motor vehicle,
+    typically powered by an internal-combustion engine, and used for a range of purposes.
+  knowledge_areas:
+  - motorcycle
+  options:
+  - A vehicle with two or three wheels, usually powered by an internal-combustion
+    engine.
+  - A four-wheeled vehicle designed for cargo transport.
+  - A pedal-powered vehicle without an engine.
+  - A vehicle exclusively used for racing.
+  question_id: 1
+  question_text: Which statement accurately describes a motorcycle according to the
+    article?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The Tourist Trophy races were endurance events that served as a testing
+    ground for new motorcycle technologies, influencing their design and reliability.
+  knowledge_areas:
+  - History
+  options:
+  - The introduction of electric cars
+  - Tourist Trophy races on the Isle of Man
+  - The creation of the Environmental Protection Agency
+  - The invention of the bicycle
+  question_id: 2
+  question_text: Which historical event significantly contributed to the advancement
+    of motorcycle technology and reliability?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Hydraulic disc brakes are commonly used in modern motorcycles for effective
+    braking, while the other options are not standard features.
+  knowledge_areas:
+  - Components
+  options:
+  - Hydraulic disc brakes
+  - Solar-powered engines
+  - Wooden frames
+  - Steam-powered transmissions
+  question_id: 3
+  question_text: Which of the following is a typical component or feature of modern
+    motorcycles?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Emissions standards are designed to reduce air pollution, and manufacturers
+    have responded by implementing catalytic converters and fuel-injection systems.
+  knowledge_areas:
+  - Emissions standards
+  options:
+  - To increase speed; by using turbochargers
+  - To reduce air pollution; by installing catalytic converters and fuel-injection
+    systems
+  - To improve comfort; by adding larger seats
+  - To lower production costs; by using cheaper materials
+  question_id: 4
+  question_text: What is the primary purpose of motorcycle emissions standards, and
+    which technologies have been adopted to meet them?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Racing events have spurred performance and reliability innovations,
+    while emissions regulations have promoted the adoption of cleaner technologies,
+    together shaping the modern motorcycle.
+  knowledge_areas:
+  - History
+  - Components
+  - Emissions standards
+  options:
+  - By encouraging the use of only two-stroke engines
+  - By driving innovations in both performance and environmental technology
+  - By eliminating the need for advanced materials
+  - By focusing solely on engine size increases
+  question_id: 5
+  question_text: How have racing events and emissions regulations together influenced
+    the evolution of motorcycle design?
+  question_type: recap
+sections:
+- aspects:
+  - content: A motorcycle is a two-wheeled or, less commonly, three-wheeled motor
+      vehicle, typically propelled by an internal-combustion engine. The primary distinguishing
+      feature of motorcycles is their configuration, which contrasts with cars and
+      other vehicles by prioritizing compactness, maneuverability, and direct rider
+      control. Motorcycles are also known as motorbikes and are designed for a variety
+      of uses, from personal transportation to racing and recreation.
+    type: definition
+  - content: Motorcycles encompass a wide range of types, including mopeds, child
+      bikes, trail bikes, road bikes, touring bikes, racing bikes, and superbikes.
+      For example, mopeds are small-engine motorcycles designed for fuel efficiency,
+      while superbikes are high-performance machines with large engine displacements
+      and aerodynamic designs. Touring motorcycles are built for long-distance comfort,
+      and racing bikes are optimized for speed and agility.
+    type: examples and types
+  - content: Motorcycles offer advantages such as fuel efficiency, ease of parking,
+      and agility in traffic, making them popular in densely populated and developing
+      regions. However, they also pose safety challenges due to their exposure and
+      require specific handling skills. Their design allows for leaning in turns,
+      which is essential for stability and maneuverability.
+    type: practical implications
+  - content: Motorcycles are closely related to bicycles in their form and to automobiles
+      in their use of internal combustion engines. The evolution of motorcycles reflects
+      broader trends in transportation technology and societal needs, including the
+      demand for personal mobility and the influence of regulatory standards.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: A motorcycle is specifically a two- or three-wheeled motor vehicle,
+      typically powered by an internal-combustion engine. The other options describe
+      different types of vehicles.
+    options:
+    - A two- or three-wheeled vehicle usually powered by an internal-combustion engine.
+    - A four-wheeled vehicle designed for off-road use.
+    - A pedal-powered vehicle with no engine.
+    - A vehicle primarily used for transporting goods.
+    question_text: Which of the following best defines a motorcycle?
+  index: 157
+  key_concept: motorcycle
+  name: motorcycle
+- aspects:
+  - content: The history of the motorcycle traces back to the late 19th century, paralleling
+      the development of the automobile. The first commercial motorcycle was a three-wheeler
+      built by Edward Butler in 1884 in Great Britain, featuring a horizontal single-cylinder
+      gasoline engine. Early motorcycles were essentially bicycles fitted with small
+      engines, marking a transition from human-powered to engine-powered personal
+      transport.
+    type: definition and origins
+  - content: Key milestones include the conversion of bicycles to motorized vehicles
+      around 1900, the introduction of road motorcycle trials and endurance races
+      such as the Tourist Trophy races on the Isle of Man in 1907, and the evolution
+      from simple two-stroke designs to advanced, supercharged, multivalve engines.
+      These races served as testing grounds for technological advancements and reliability.
+    type: examples and milestones
+  - content: The development of motorcycles was driven by the need for reliable, self-propelled
+      vehicles and spurred by competition among manufacturers. Innovations in engine
+      design, materials, and aerodynamics were often validated through racing and
+      endurance trials, reinforcing the motorcycle’s role in both transportation and
+      sport.
+    type: implications and context
+  - content: The motorcycle’s evolution reflects broader trends in industrialization,
+      technological innovation, and changing social attitudes toward mobility. Its
+      development is intertwined with the history of the automobile, the rise of motor
+      sports, and the growth of recreational and utilitarian vehicle use.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Tourist Trophy races were endurance events that served as a proving
+      ground for new motorcycle technologies, influencing design and reliability.
+    options:
+    - Tourist Trophy races on the Isle of Man
+    - The invention of the automobile
+    - The introduction of electric cars
+    - The establishment of the Environmental Protection Agency
+    question_text: What event played a significant role in testing and advancing early
+      motorcycle technology?
+  index: 290
+  key_concept: History
+  name: History
+- aspects:
+  - content: Motorcycle components refer to the essential mechanical and structural
+      parts that make up a motorcycle, including the engine, frame, wheels, suspension,
+      transmission, brakes, and control systems. The design and configuration of these
+      components determine the motorcycle’s performance, safety, and suitability for
+      different uses.
+    type: definition and overview
+  - content: Motorcycles are produced with two-stroke or four-stroke engines, ranging
+      from small 50 cc mopeds to large 1,800 cc superbikes. Classifications include
+      mopeds, child bikes, trail bikes, road bikes, touring bikes, racing bikes, and
+      superbikes, each optimized for specific power, speed, and handling characteristics.
+      For example, superbikes feature forward-tilted seats for aerodynamics, while
+      touring bikes prioritize comfort for long distances.
+    type: engine and classifications
+  - content: Frames are typically constructed from steel tubes and sheets, though
+      lightweight materials like aluminum, graphite, and magnesium are increasingly
+      used. Wheels are usually aluminum or steel with spokes, and tires are rounded
+      for stability during leaning. Suspension systems use coil springs and shock
+      absorbers, with telescopic forks for the front and various configurations for
+      the rear, contributing to ride comfort and handling.
+    type: frame, wheels, and suspension
+  - content: Motorcycle transmissions generally have four to six speeds, with smaller
+      bikes sometimes having as few as two. Power is transmitted to the rear wheel
+      by chain, belt, or shaft. Controls include handgrip-operated throttle and clutch,
+      hand lever for the front brake, and a foot pedal for the rear brake. Most modern
+      motorcycles use hydraulic disc brakes at the front and either disc or drum brakes
+      at the rear. Electric starters have largely replaced kick starters.
+    type: transmission and controls
+  - content: The configuration of components affects performance, safety, and user
+      experience. Innovations in materials and engineering have led to lighter, stronger,
+      and more efficient motorcycles. The interplay between design, technology, and
+      regulatory requirements continues to shape the evolution of motorcycle components.
+    type: implications and connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Solar panel arrays are not standard components or classifications
+      of motorcycles, whereas the other options are integral parts of motorcycle design.
+    options:
+    - Hydraulic disc brakes
+    - Telescopic fork suspension
+    - Solar panel array
+    - Chain transmission
+    question_text: Which of the following is NOT typically considered a main component
+      or classification of a motorcycle?
+  index: 316
+  key_concept: Components
+  name: Components
+- aspects:
+  - content: Emissions standards for motorcycles are regulatory limits on the pollutants
+      that motorcycles can emit, including hydrocarbons, nitric oxides, and carbon
+      monoxide. These standards are set by governmental agencies such as the U.S.
+      Environmental Protection Agency (EPA), the European Union (EU), and California
+      state authorities, and have become increasingly stringent over time.
+    type: definition and overview
+  - content: The EPA began regulating motorcycle hydrocarbon emissions in 1980, initially
+      allowing up to 5.0 grams per kilometer. Over the years, both the U.S. and EU
+      have tightened these limits, with the EU leading in strictness. For example,
+      by 2016, EU standards required emissions as low as 0.17 grams of hydrocarbons,
+      0.09 grams of nitric oxides, and 1.14 grams of carbon monoxide per kilometer,
+      with further reductions planned for 2020.
+    type: historical development
+  - content: To meet these regulations, manufacturers have adopted advanced technologies
+      such as catalytic converters and fuel-injection systems. These changes have
+      not only reduced regulated emissions but have also indirectly lowered carbon
+      monoxide output, even when not explicitly required by law. Compliance with emissions
+      standards has increased the complexity and cost of motorcycle manufacturing
+      but has contributed to significant environmental benefits.
+    type: implications and technological responses
+  - content: Motorcycle emissions standards are part of broader efforts to reduce
+      air pollution from vehicles. They reflect evolving scientific understanding
+      of health and environmental risks posed by vehicle emissions and have influenced
+      global manufacturing practices and technological innovation in the motorcycle
+      industry.
+    type: connections and context
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Catalytic converters and fuel-injection systems are key technologies
+      used to reduce emissions and comply with modern standards.
+    options:
+    - Installing larger engines
+    - Using catalytic converters and fuel-injection systems
+    - Switching to two-stroke engines exclusively
+    - Eliminating all electronic controls
+    question_text: What technological change have manufacturers implemented to meet
+      stricter motorcycle emissions standards?
+  index: 375
+  key_concept: Emissions standards
+  name: '[Emissions](https://www.britannica.com/technology/exhaust "https://www.britannica.com/technology/exhaust")
+    standards'

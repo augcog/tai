@@ -1,0 +1,228 @@
+URL: https://www.britannica.com/technology/steel
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article excerpt introducing steel, its composition,
+  the properties of its base metal iron, and the effects of carbon content on its
+  structure and mechanical properties.
+file_name: Steel Composition, Properties, Types, Grades, & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Steel Composition, Properties,
+  Types, Grades, & Facts Britannica.html
+file_uuid: 57508d86-ab94-5ee4-b5ac-c689eabf7cd4
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Steel is an alloy of iron with up to 2% carbon, which gives it enhanced
+    mechanical properties compared to pure iron. Pure iron is relatively soft and
+    lacks the strength required for most engineering applications.
+  knowledge_areas:
+  - steel
+  - 'The base metal: iron'
+  options:
+  - Steel contains significant amounts of carbon, while pure iron does not.
+  - Steel is a non-metal, while iron is a metal.
+  - Steel is always magnetic, but iron is not.
+  - Steel is softer than pure iron.
+  question_id: 1
+  question_text: What is the primary difference between steel and pure iron?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Iron is bcc (ferrite/alpha iron) below 912°C and above 1394°C (delta
+    iron), and fcc (austenite/gamma iron) between 912°C and 1394°C. This allotropic
+    behavior is critical in steel heat treatment and alloying.
+  knowledge_areas:
+  - 'The base metal: iron'
+  options:
+  - Only body-centred cubic (bcc) at all temperatures.
+  - Face-centred cubic (fcc) at low temperatures and bcc at high temperatures.
+  - Body-centred cubic (bcc) at low and high temperatures, face-centred cubic (fcc)
+    at intermediate temperatures.
+  - Hexagonal close-packed (hcp) at all temperatures.
+  question_id: 2
+  question_text: Which crystal structures does iron exhibit at different temperatures,
+    and how do they relate to steel's properties?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Carbon in steel forms solid solutions and carbides, and at certain
+    concentrations and cooling rates, leads to structures like pearlite and cementite,
+    which greatly increase the hardness and strength of steel.
+  knowledge_areas:
+  - Effects of carbon
+  options:
+  - It creates a uniform ferrite structure, making steel softer.
+  - It leads to the formation of pearlite and cementite, increasing hardness.
+  - It causes steel to form graphite flakes, making it brittle.
+  - It has no effect on steel's microstructure.
+  question_id: 3
+  question_text: How does the addition of carbon influence the microstructure and
+    hardness of steel?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The Curie point (770°C) is the temperature above which iron loses its
+    ferromagnetic properties, which is important in applications involving magnetic
+    materials.
+  knowledge_areas:
+  - 'The base metal: iron'
+  options:
+  - It marks the temperature at which iron melts.
+  - It is the temperature above which iron loses its ferromagnetic properties.
+  - It is the point where iron transforms from bcc to fcc structure.
+  - It is the temperature where carbon forms graphite in steel.
+  question_id: 4
+  question_text: What is the significance of the Curie point in the context of iron
+    and steel?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Steel's popularity is due to its low cost of production, abundance
+    of raw materials, and its unparalleled range of mechanical properties, making
+    it suitable for a vast array of engineering applications.
+  knowledge_areas:
+  - steel
+  options:
+  - Steel is lighter than aluminum.
+  - Steel has a higher production cost than aluminum.
+  - Steel offers a broader range of mechanical properties and is cheaper to produce.
+  - Aluminum is more abundant than iron ore.
+  question_id: 5
+  question_text: Which of the following best explains why steel is more widely used
+    than aluminum in engineering applications?
+  question_type: recap
+sections:
+- aspects:
+  - content: Steel is an alloy of iron and carbon, with the carbon content typically
+      ranging up to 2 percent. If the carbon content exceeds this limit, the material
+      is classified as cast iron rather than steel. Steel is distinguished from pure
+      iron by its enhanced mechanical properties, which are largely attributable to
+      the presence of carbon and, in some cases, other alloying elements.
+    type: definition
+  - content: Steel is the most widely used engineering material globally, employed
+      in the construction of infrastructure such as buildings, bridges, and oil tankers,
+      as well as in the manufacture of everyday items like sewing needles. The tools
+      necessary for fabricating and manufacturing these products are also often made
+      from steel, demonstrating its versatility and importance across diverse industries.
+    type: examples and applications
+  - content: The popularity of steel is due to its relatively low production cost,
+      the abundance of its raw materials (iron ore and scrap), and its wide range
+      of mechanical properties. In 2013, global raw steel production reached about
+      1.6 billion tons, vastly outpacing the next most important engineering metal,
+      aluminum, which had a production volume of approximately 47 million tons. This
+      underscores steel's foundational role in modern economies and technological
+      advancement.
+    type: economic and industrial significance
+  - content: Steel is closely related to other iron-based materials such as cast iron
+      and wrought iron, but its unique combination of strength, ductility, and workability
+      sets it apart. Alloying elements such as chromium, nickel, and manganese can
+      further modify its properties, leading to specialized steels like stainless
+      steel and tool steel.
+    type: connections to related materials
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Steel is defined as an alloy of iron and carbon, with the carbon
+      content typically not exceeding 2%. Pure iron lacks the mechanical properties
+      of steel, and aluminum alloys are distinct materials.
+    options:
+    - A pure metal consisting only of iron.
+    - An alloy of iron and carbon with up to 2% carbon content.
+    - A non-metallic compound used in construction.
+    - A form of aluminum alloyed with iron.
+    question_text: Which of the following statements best describes steel?
+  index: 283
+  key_concept: steel
+  name: steel
+- aspects:
+  - content: Iron, the primary component of steel, is a polycrystalline metal that
+      exists in different crystalline forms (allotropes) depending on temperature.
+      At lower temperatures (below 912°C), iron adopts a body-centred cubic (bcc)
+      structure known as alpha iron or ferrite, which is stable up to 912°C and again
+      from 1394°C to its melting point as delta iron. Between 912°C and 1394°C, iron
+      transitions to a face-centred cubic (fcc) structure called gamma iron or austenite.
+      The fcc structure provides more space for foreign atoms, which is significant
+      for alloying.
+    type: crystal structure and allotropy
+  - content: Iron exhibits strong ferromagnetic properties below 770°C, a temperature
+      known as the Curie point. Above this temperature, iron loses its magnetism,
+      a phenomenon important in both materials science and industrial applications.
+    type: magnetic properties
+  - content: Pure iron is relatively soft and not suitable for most engineering applications.
+      Its mechanical properties are significantly enhanced when alloyed with carbon
+      and other elements, forming steel. The ability of iron to exist in different
+      crystalline forms allows for various heat treatments and alloying strategies
+      that tailor the properties of steel for specific uses.
+    type: mechanical properties and implications
+  - content: The allotropic transformations of iron are retained in steel, even when
+      alloyed with significant amounts of other elements. This behavior underlies
+      many of the thermal and mechanical treatments applied to steel, influencing
+      its microstructure and, consequently, its mechanical properties.
+    type: connections to steel behavior
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Iron exhibits body-centred cubic (bcc) structure (ferrite/alpha or
+      delta iron) at lower and higher temperatures, and face-centred cubic (fcc) structure
+      (austenite/gamma iron) at intermediate temperatures. Its magnetic properties
+      change at the Curie point.
+    options:
+    - Iron remains in a single crystal structure regardless of temperature.
+    - Iron is always ferromagnetic, even at high temperatures.
+    - Iron exhibits both bcc and fcc structures at different temperature ranges.
+    - Iron's fcc structure is called ferrite.
+    question_text: Which statement about iron's crystal structure is correct?
+  index: 414
+  key_concept: 'The base metal: iron'
+  name: 'The base metal: [iron](https://www.britannica.com/science/iron-chemical-element
+    "https://www.britannica.com/science/iron-chemical-element")'
+- aspects:
+  - content: Carbon is the principal element used to strengthen iron and convert it
+      into steel. In its pure form, iron is too soft for most engineering purposes.
+      The addition of small amounts of carbon increases the hardness and strength
+      of the alloy, making it suitable for a wide range of applications.
+    type: role in steel strengthening
+  - content: In steel, carbon is found either dissolved in solid solution within the
+      iron matrix (in ferrite or austenite) or as carbides, such as iron carbide (Fe3C,
+      known as cementite) or carbides of other alloying elements like titanium. The
+      presence of silicon can alter this by promoting the formation of graphite in
+      cast irons rather than carbides.
+    type: forms of carbon in steel
+  - content: The iron-carbon equilibrium diagram illustrates how carbon content affects
+      the solidification and microstructure of steel. As steel cools, austenite (fcc)
+      transforms into a mixture of ferrite (bcc) and cementite, forming structures
+      like pearlite. The eutectoid transformation at 727°C produces pearlite, a fine
+      lamellar structure with alternating layers of ferrite and cementite, which significantly
+      increases hardness compared to pure iron.
+    type: microstructural changes and phase transformations
+  - content: The hardness and mechanical properties of steel are directly influenced
+      by its carbon content and resulting microstructure. For example, steel with
+      0.77% carbon forms entirely pearlite and has a diamond pyramid hardness (DPH)
+      of about 200 kgf/mm², while lower carbon steels have mixed microstructures (ferrite
+      and pearlite) and are softer. Higher carbon steels (>0.77%) contain pearlite
+      and cementite, resulting in even greater hardness.
+    type: mechanical properties and hardness
+  - content: Increasing carbon content lowers the solidification temperature of steel,
+      which is why cast irons (with >2% carbon) are processed at lower temperatures
+      than steels. The specific microstructures formed during cooling—such as pearlite,
+      ferrite, and cementite—determine the steel's suitability for various industrial
+      applications, from ductile low-carbon steels for construction to hard, wear-resistant
+      high-carbon steels for cutting tools.
+    type: practical implications and edge cases
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Carbon strengthens steel by forming solid solutions and carbides,
+      and it lowers the solidification temperature. Higher carbon content generally
+      increases hardness and strength, while also affecting the microstructure (e.g.,
+      formation of pearlite and cementite).
+    options:
+    - It makes steel softer and more ductile as its content increases.
+    - It increases steel's hardness and strength by forming carbides and influencing
+      microstructure.
+    - It has no effect on the solidification temperature of steel.
+    - It causes steel to lose its metallic properties.
+    question_text: How does carbon affect the properties and structure of steel?
+  index: 432
+  key_concept: Effects of carbon
+  name: Effects of [carbon](https://www.britannica.com/science/carbon-chemical-element
+    "https://www.britannica.com/science/carbon-chemical-element")

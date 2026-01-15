@@ -1,0 +1,274 @@
+URL: https://www.britannica.com/technology/bicycle
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article section about the history and early development
+  of the bicycle, covering definitions, early two-wheeled machines, and the evolution
+  of powered velocipedes.
+file_name: Bicycle Definition, History, Types, & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Bicycle Definition, History,
+  Types, & Facts Britannica.html
+file_uuid: 3866ad70-313e-5930-b613-0a8a22f6c29d
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The standard bicycle is defined as a two-wheeled, pedal-powered vehicle
+    with in-line wheels and a chain-driven rear wheel, distinguishing it from earlier
+    foot-powered devices and other vehicle types.
+  knowledge_areas:
+  - bicycle
+  options:
+  - A two-wheeled, pedal-powered vehicle with in-line wheels and chain-driven rear
+    wheel
+  - A three-wheeled, engine-powered vehicle for heavy loads
+  - A two-wheeled, foot-powered device with no pedals or chain
+  - A four-wheeled vehicle designed for off-road use
+  question_id: 1
+  question_text: Which of the following statements best summarizes the main function
+    and design of a standard bicycle as described in the article?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The main contribution of these early machines was to show that two-wheeled
+    vehicles could be balanced, which was foundational for later bicycle development.
+  knowledge_areas:
+  - Bicycle predecessors
+  - Draisiennes, hobby-horses, and other velocipedes
+  options:
+  - They introduced pedals and chains for propulsion.
+  - They demonstrated that two-wheeled vehicles could be balanced while moving.
+  - They were widely adopted for practical transportation.
+  - They used pneumatic tires for comfort.
+  question_id: 2
+  question_text: What was the primary contribution of early bicycle predecessors such
+    as the draisienne and hobby-horse?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The key innovation was the addition of pedals and cranks, first to
+    the rear and then to the front wheel, enabling mechanical propulsion.
+  knowledge_areas:
+  - 'Treadles and pedals: powered velocipedes'
+  options:
+  - Addition of pedals and cranks to the wheels
+  - Use of electric motors
+  - Adoption of rubber tires
+  - Introduction of multi-speed gears
+  question_id: 3
+  question_text: Which innovation marked the transition from foot-propelled velocipedes
+    to powered velocipedes in the 1860s?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The article emphasizes that the bicycle's development was a gradual
+    process involving many inventors, rather than a single individual's creation.
+  knowledge_areas:
+  - History of the bicycle
+  options:
+  - Because the bicycle was invented by a single person in the 18th century
+  - Because multiple inventors and cultures contributed various improvements over
+    time
+  - Because the first bicycle was a direct copy of Leonardo da Vinci's design
+  - Because the vélocifère was the only predecessor to the modern bicycle
+  question_id: 4
+  question_text: Why is the history of the bicycle considered an example of collaborative
+    technological evolution rather than individual invention?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The article notes that early machines were expensive and impractical,
+    limiting their use, but important mechanical insights and evolving social attitudes
+    eventually led to the modern bicycle.
+  knowledge_areas:
+  - Bicycle predecessors
+  - Draisiennes, hobby-horses, and other velocipedes
+  - History of the bicycle
+  options:
+  - High cost and impracticality limited widespread adoption, but mechanical innovations
+    and changing attitudes enabled further development.
+  - Early bicycles were immediately popular across all social classes and regions.
+  - Technological advances had little impact on bicycle design.
+  - Social attitudes discouraged any further experimentation with two-wheeled vehicles.
+  question_id: 5
+  question_text: How did social and technological factors influence the adoption and
+    evolution of early bicycles and their predecessors?
+  question_type: recap
+sections:
+- aspects:
+  - content: A bicycle is a two-wheeled, steerable vehicle that is propelled by the
+      rider’s feet via pedals. The standard design features wheels mounted in-line
+      within a metal frame, a saddle for the rider, and handlebars attached to a fork
+      for steering. Pedaling turns cranks and a chainwheel, which transmits power
+      through a chain to a sprocket on the rear wheel, making it one of the most efficient
+      forms of human-powered transportation.
+    type: definition
+  - content: Bicycles are used globally for transportation, recreation, and sport.
+      Examples include road bikes, mountain bikes, racing bicycles, and recumbent
+      bicycles. Countries like the Netherlands, Denmark, and Japan actively promote
+      cycling for commuting and shopping, while in the United States, bike paths and
+      government support encourage bicycle use as an alternative to automobiles.
+    type: examples and types
+  - content: The bicycle is recognized as the most efficient means of converting human
+      energy into mobility, allowing speeds of 16–24 km/h (10–15 mph) with minimal
+      effort. Bicycles play a crucial role in regions with limited access to automobiles,
+      outnumbering and outselling cars worldwide. Their widespread use impacts transportation
+      infrastructure, urban planning, and environmental policies.
+    type: implications and significance
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The standard bicycle is a two-wheeled, pedal-powered vehicle with
+      in-line wheels and a chain-driven rear wheel. Other options describe different
+      types of vehicles or earlier forms not matching the modern bicycle's definition.
+    options:
+    - A two-wheeled, pedal-powered vehicle with in-line wheels and a chain-driven
+      rear wheel
+    - A three-wheeled vehicle propelled by an engine
+    - A two-wheeled vehicle powered solely by pushing with the feet against the ground
+    - A four-wheeled vehicle designed for carrying heavy loads
+    question_text: Which of the following best describes the standard design and primary
+      function of a bicycle?
+  index: 169
+  key_concept: bicycle
+  name: bicycle
+- aspects:
+  - content: The history of the bicycle is characterized by gradual evolution rather
+      than a single inventor. While some attributions, such as Leonardo da Vinci’s
+      supposed sketch, have been debunked as forgeries, the development of the bicycle
+      involved contributions from various inventors and cultures over time. The term
+      'bicycle' itself only came into common use in the late 19th century.
+    type: historical context
+  - content: Historians disagree on the exact origins and inventors of the bicycle.
+      Several early claims, like the vélocifère or célérifère of the 1790s, have been
+      shown to be unrelated to the true development of the bicycle. The lack of a
+      clear, singular inventor highlights the collaborative and iterative nature of
+      technological progress.
+    type: debates and misconceptions
+  - content: The progressive development of the bicycle paralleled advances in materials,
+      mechanics, and social attitudes toward personal transportation. Its history
+      reflects broader trends in industrialization, urbanization, and the democratization
+      of mobility.
+    type: connections to social and technological change
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The article makes clear that the bicycle evolved through the contributions
+      of many inventors and that claims of a single inventor or early blueprints are
+      either disputed or disproven.
+    options:
+    - The bicycle was invented by a single person in the 18th century.
+    - The bicycle evolved through the efforts of many inventors over time.
+    - Leonardo da Vinci’s sketch in 1492 is the original blueprint for the bicycle.
+    - The vélocifère was the first true bicycle.
+    question_text: Which statement accurately reflects the historical development
+      of the bicycle?
+  index: 169
+  key_concept: History of the bicycle
+  name: bicycle
+- aspects:
+  - content: Bicycle predecessors refer to early human-powered vehicles that influenced
+      the development of the modern bicycle. Notable examples include the draisienne
+      (or 'running machine') invented by Baron Karl von Drais in 1817, which was propelled
+      by the rider paddling their feet against the ground, and the 'pedestrian curricle'
+      improved by Denis Johnson in 1818.
+    type: definition and examples
+  - content: These early machines were typically made of wood, expensive, and mainly
+      accessible to the nobility. Their impracticality on rough roads, high cost,
+      and social ridicule limited their widespread adoption. However, they demonstrated
+      that two-wheeled vehicles could be balanced in motion, laying the groundwork
+      for future innovations.
+    type: limitations and impact
+  - content: Despite their brief popularity, draisiennes and hobby-horses established
+      key mechanical principles. For decades after, inventors focused on three- and
+      four-wheeled velocipedes, but the concept of two-wheeled balance remained influential
+      in the eventual creation of the modern bicycle.
+    type: historical significance
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The main contribution of these early machines was the demonstration
+      that two-wheeled vehicles could be balanced, even though they lacked pedals
+      and were not practical for widespread use.
+    options:
+    - They introduced the use of pedals and chains.
+    - They proved that two-wheeled vehicles could be balanced while in motion.
+    - They were widely adopted as practical transportation.
+    - They replaced horse-drawn carriages in most cities.
+    question_text: What was the main contribution of early bicycle predecessors like
+      the draisienne and hobby-horse to the development of modern bicycles?
+  index: 169
+  key_concept: Bicycle predecessors
+  name: bicycle
+- aspects:
+  - content: The draisienne, invented by Baron Karl von Drais in 1817, was the first
+      two-wheeled, rider-propelled machine with indisputable evidence. It was made
+      of wood and propelled by the rider’s feet pushing against the ground. Denis
+      Johnson improved upon this design in London in 1818, producing the 'pedestrian
+      curricle,' also known as the hobby-horse.
+    type: definition and invention
+  - content: These early velocipedes became a brief fad among the nobility, with over
+      300 built by Johnson. However, they were expensive, impractical on rough roads,
+      and subject to public ridicule. Caricaturists called them 'dandy horses,' and
+      health concerns were raised about their use.
+    type: social and cultural context
+  - content: Although their popularity was short-lived, draisiennes and hobby-horses
+      proved that two-wheeled vehicles could be balanced while moving. This insight
+      was crucial for later developments in bicycle technology, even as inventors
+      shifted focus to multi-wheeled designs for several decades.
+    type: technological legacy
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: The draisienne and hobby-horse were propelled by the rider's feet
+      and were mainly purchased by the nobility, but their popularity was short-lived
+      and did not directly lead to the modern bicycle.
+    options:
+    - They were powered by pedals attached to the wheels.
+    - They were mainly used by the working class for daily transportation.
+    - They were propelled by the rider's feet pushing against the ground and were
+      popular among the nobility.
+    - They led directly to the invention of the modern bicycle without any interruption.
+    question_text: Which of the following statements about the draisienne and hobby-horse
+      is correct?
+  index: 312
+  key_concept: Draisiennes, hobby-horses, and other velocipedes
+  name: Draisiennes, hobby-horses, and other [velocipedes](https://www.britannica.com/technology/velocipede
+    "https://www.britannica.com/technology/velocipede")
+- aspects:
+  - content: Powered velocipedes refer to two-wheeled machines that used treadles
+      or pedals to drive the wheels, marking a significant shift from foot-propelled
+      designs. Early examples include Scottish treadle-driven machines built by Kirkpatrick
+      Macmillan in the 1840s and similar devices by Gavin Dalzell and Thomas McCall.
+      These machines typically featured wooden wheels and iron rims, with the rider
+      powering the rear wheel using treadles connected by rods.
+    type: definition and early examples
+  - content: The introduction of pedals mounted on the front wheel in the early 1860s,
+      notably by Pierre Lallement in France and later in the United States, represented
+      a major innovation. Lallement's design used cranks and pedals to drive the front
+      wheel, and he secured a U.S. patent in 1866. The Michaux family in Paris also
+      built pedal-driven velocipedes in the mid-1860s, some with cast-iron frames
+      for mass production.
+    type: technological advancements
+  - content: Although early treadle and pedal machines were not widely commercialized,
+      they laid the foundation for the modern bicycle by introducing mechanical propulsion.
+      The term 'bicycle' came into use in 1868, and the popularity of pedal-driven
+      velocipedes in France and America set the stage for the bicycle's global spread.
+      Patent disputes and commercial interests, such as Lallement selling his patent
+      to Calvin Witty, influenced the industry's development.
+    type: commercial and historical impact
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The major advancement was the use of pedals and cranks to drive the
+      wheels, first on the rear and then on the front wheel, which distinguished powered
+      velocipedes from earlier foot-propelled designs.
+    options:
+    - The use of pedals and cranks to drive the wheels
+    - The addition of a third wheel for stability
+    - The use of electric motors for propulsion
+    - The introduction of pneumatic tires
+    question_text: What was the key technological advancement introduced by powered
+      velocipedes in the 1860s?
+  index: 326
+  key_concept: 'Treadles and pedals: powered velocipedes'
+  name: '[Treadles](https://www.britannica.com/technology/treadle "https://www.britannica.com/technology/treadle")
+    and pedals: powered velocipedes'

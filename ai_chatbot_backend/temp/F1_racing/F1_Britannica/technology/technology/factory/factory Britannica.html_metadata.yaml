@@ -1,0 +1,226 @@
+URL: https://www.britannica.com/technology/factory/additional-info#history
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A reference and edit history page for the Britannica article on
+  'factory', detailing contributors, editorial oversight, and a log of article changes.
+file_name: factory Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/factory/factory Britannica.html
+file_uuid: 40f09b16-eb6f-51b7-b5cb-f857864f18ec
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Listing contributors ensures transparency, attributes responsibility,
+    and allows readers to assess the credibility of the content.
+  knowledge_areas:
+  - Article Contributors
+  - Editorial Transparency
+  options:
+  - To provide transparency and attribute responsibility for the article's content
+  - To advertise the contributors' other works
+  - To list all readers of the article
+  - To summarize the article's main points
+  question_id: 1
+  question_text: What is the primary purpose of listing 'Article Contributors' in
+    the Britannica 'factory' article?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: The 'Primary Contributors' section lists the main editors, such as
+    The Editors of Encyclopaedia Britannica, responsible for the article's core content.
+  knowledge_areas:
+  - Primary Contributors
+  - Editorial Roles
+  options:
+  - Other Encyclopedia Britannica Contributors
+  - Article History
+  - Primary Contributors
+  - References
+  question_id: 2
+  question_text: Which section specifically details the main editors responsible for
+    the article's accuracy and comprehensiveness?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The 'Article History' section enhances credibility by documenting the
+    sequence of edits, sources, contributors, and dates, ensuring transparency and
+    accountability.
+  knowledge_areas:
+  - Article History
+  - Editorial Process
+  - Transparency
+  options:
+  - By listing related articles
+  - By providing a chronological record of edits, sources, and contributors
+  - By summarizing the article's content
+  - By displaying advertisements
+  question_id: 3
+  question_text: How does the 'Article History' section contribute to the credibility
+    of the Britannica article?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Primary contributors have overarching responsibility for quality and
+    accuracy, while other contributors provide supporting research, writing, or updates.
+  knowledge_areas:
+  - Primary Contributors
+  - Other Encyclopedia Britannica Contributors
+  - Editorial Hierarchy
+  options:
+  - Primary contributors oversee and ensure quality, while other contributors provide
+    additional support and expertise.
+  - Both groups have identical roles and responsibilities.
+  - Other contributors are responsible for all editorial decisions.
+  - Primary contributors only write, while others only edit.
+  question_id: 4
+  question_text: Which of the following best describes the relationship between 'Primary
+    Contributors' and 'Other Encyclopedia Britannica Contributors'?
+  question_type: recap
+sections:
+- aspects:
+  - content: Article contributors are individuals who have participated in the creation,
+      review, and editing of the Britannica article on 'factory'. This includes both
+      primary and additional contributors who bring subject expertise and editorial
+      oversight.
+    type: Definition
+  - content: Examples of contributors listed include The Editors of Encyclopaedia
+      Britannica, Swati Chopra, Robert Curley, and Satyavrat Nirala. Each has a profile
+      link indicating their involvement in the article's development.
+    type: Examples
+  - content: The listing of contributors is important for transparency, allowing readers
+      to see who is responsible for the content and to assess the credibility of the
+      information. It also provides a way to attribute intellectual property and editorial
+      effort.
+    type: Use Cases
+  - content: Acknowledging contributors helps establish trust in the encyclopedia's
+      content, ensures accountability, and encourages scholarly rigor. It also allows
+      for recognition of diverse expertise and collaboration.
+    type: Implications
+  - content: This concept connects to the broader practice of academic citation and
+      editorial transparency in reference works. It is also related to the 'Article
+      History' section, which documents the specific actions taken by contributors.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Article contributors are individuals involved in creating, reviewing,
+      and editing the article, as opposed to being subjects, external reviewers without
+      editing power, or automated bots.
+    options:
+    - They are responsible for creating, reviewing, and editing the article.
+    - They are the subjects of the article.
+    - They are external reviewers who do not edit the article.
+    - They are automated bots that update content.
+    question_text: Which of the following best describes the role of 'Article Contributors'
+      in the Britannica 'factory' article?
+  index: 132
+  key_concept: Article Contributors
+  name: Article Contributors
+- aspects:
+  - content: Primary contributors are the main authors or editors who have had the
+      most significant role in the writing, verification, and editing of the article.
+      In this case, it specifically refers to The Editors of Encyclopaedia Britannica.
+    type: Definition
+  - content: The Editors of Encyclopaedia Britannica are cited as primary contributors,
+      indicating their collective responsibility for the overall quality and accuracy
+      of the article.
+    type: Examples
+  - content: Primary contributors typically oversee the subject area, write new content,
+      and verify and edit submissions from other contributors. They ensure that the
+      article meets Britannica's standards for accuracy and comprehensiveness.
+    type: Editorial Process
+  - content: Having a designated group of primary contributors ensures consistency
+      and authority in the article's content. It also facilitates accountability and
+      maintains editorial standards.
+    type: Implications
+  - content: Primary contributors are distinguished from other contributors by their
+      level of involvement and responsibility. Their role is essential in the editorial
+      hierarchy and quality control within reference publishing.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The Editors of Encyclopaedia Britannica are specifically listed as
+      the primary contributors, while the others are listed as additional contributors.
+    options:
+    - Swati Chopra
+    - The Editors of Encyclopaedia Britannica
+    - Robert Curley
+    - Satyavrat Nirala
+    question_text: Who are identified as the primary contributors for the 'factory'
+      article on Britannica?
+  index: 134
+  key_concept: Primary Contributors
+  name: Primary Contributors
+- aspects:
+  - content: Other contributors are individuals who have made additional or supporting
+      contributions to the article but are not the main editors. Their input may include
+      research, writing, or fact-checking.
+    type: Definition
+  - content: Swati Chopra, Robert Curley, and Satyavrat Nirala are listed as other
+      contributors, each with a profile link indicating their editorial involvement.
+    type: Examples
+  - content: These contributors may add new information, update existing content,
+      or provide specialized knowledge. Their work is subject to review and integration
+      by primary editors.
+    type: Role in Editorial Process
+  - content: Including other contributors allows for a broader range of expertise
+      and perspectives, enriching the article's content and accuracy. It also encourages
+      collaborative scholarship.
+    type: Implications
+  - content: Other contributors complement the work of primary contributors, collectively
+      ensuring the article's quality. Their contributions are documented in the article
+      history for transparency.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Swati Chopra is specifically listed as an 'Other Encyclopedia Britannica
+      Contributor', while the others are not.
+    options:
+    - The Editors of Encyclopaedia Britannica
+    - Swati Chopra
+    - The CEO of Britannica
+    - Alexander Graham Bell
+    question_text: Which of the following individuals is listed as an 'Other Encyclopedia
+      Britannica Contributor' for the 'factory' article?
+  index: 140
+  key_concept: Other Encyclopedia Britannica Contributors
+  name: Other Encyclopedia Britannica Contributors
+- aspects:
+  - content: Article history documents the chronological record of changes, additions,
+      and revisions made to the article, including the type of update, a brief description,
+      the contributor, and the date.
+    type: Definition
+  - content: Examples include the invalidation of a website source by Satyavrat Nirala
+      on Dec 16, 2014, the addition of a new website by Swati Chopra on Dec 25, 2011,
+      and the creation of the article by Robert Curley on Apr 29, 2009.
+    type: Examples
+  - content: The article history is used for transparency, allowing readers and editors
+      to track the evolution of the content, verify sources, and ensure editorial
+      integrity.
+    type: Use Cases
+  - content: Maintaining a detailed article history supports accountability, helps
+      prevent misinformation, and allows for the restoration of previous versions
+      if necessary. It also provides insight into the editorial process.
+    type: Implications
+  - content: Article history is closely linked to the roles of contributors, as it
+      records their specific actions. It is a standard feature in academic and reference
+      publishing for quality assurance.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The article history provides a chronological log of changes, including
+      the type of change, description, contributor, and date, rather than biographies
+      or summaries.
+    options:
+    - A list of all contributors' biographies
+    - A chronological log of changes, including type, description, contributor, and
+      date
+    - A summary of the article's main points
+    - A list of related articles
+    question_text: What information is typically included in the 'Article History'
+      section for a Britannica article?
+  index: 146
+  key_concept: Article History
+  name: Article History

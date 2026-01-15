@@ -1,0 +1,295 @@
+URL: https://www.britannica.com/technology/broadcasting/International-organizations#ref25194
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article section focusing on the development and
+  role of international organizations in broadcasting, the early history and technical
+  evolution of television broadcasting, and the advent of transoceanic television
+  broadcasts via satellite.
+file_name: Broadcasting - Radio, TV, Networks Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/broadcasting/Broadcasting
+  - Radio, TV, Networks Britannica.html
+file_uuid: fb64c785-1180-5198-9d15-64618d10ca0a
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: The International Telecommunications Union (ITU) became a UN specialized
+    agency in 1947 and is responsible for coordinating global telecommunications,
+    including frequency allocation and broadcasting standards.
+  knowledge_areas:
+  - International organizations in broadcasting
+  options:
+  - European Broadcasting Union (EBU)
+  - International Telecommunications Union (ITU)
+  - Asia-Pacific Broadcasting Union
+  - Radio Free Europe
+  question_id: 1
+  question_text: Which international organization became a specialized agency of the
+    United Nations in 1947 and plays a key role in global broadcasting coordination?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Shoenberg's team developed the Emitron camera tube and pioneered electronic
+    scanning, which was a significant improvement over mechanical methods and formed
+    the basis of the world's first high-definition television service.
+  knowledge_areas:
+  - Technical evolution of television broadcasting
+  - Early developments in television
+  options:
+  - Development of color television
+  - Introduction of mechanical scanning
+  - Creation of the Emitron camera tube and adoption of electronic scanning
+  - Focus on cable-only transmission
+  question_id: 2
+  question_text: What was a major feature of Isaac Shoenberg's contribution to early
+    British television broadcasting?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: World War II caused most television activity to cease, as resources
+    were redirected to the war effort. After the war, restrictions were lifted, leading
+    to rapid growth in television ownership and broadcasting.
+  knowledge_areas:
+  - Early developments in television
+  - Technical evolution of television broadcasting
+  options:
+  - It led to the immediate expansion of television networks.
+  - It caused most broadcasting and manufacturing to halt, delaying widespread adoption
+    until after the war.
+  - It resulted in the introduction of international satellite relays.
+  - It had no significant effect on television development.
+  question_id: 3
+  question_text: How did World War II impact the expansion of television broadcasting
+    in the United States and the United Kingdom?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Geostationary (synchronous) communications satellites made it possible
+    to maintain a constant relay of television signals between continents, revolutionizing
+    global broadcasting.
+  knowledge_areas:
+  - Transoceanic television broadcasts
+  options:
+  - Mechanical scanning systems
+  - Shortwave radio transmission
+  - Geostationary communications satellites
+  - Undersea telegraph cables
+  question_id: 4
+  question_text: Which technological innovation enabled continuous live television
+    broadcasts between continents starting in the mid-1960s?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: International broadcasting organizations play a vital role in setting
+    standards, coordinating frequency use, and fostering cooperation, all of which
+    are essential for successful transoceanic television broadcasts.
+  knowledge_areas:
+  - International organizations in broadcasting
+  - Transoceanic television broadcasts
+  options:
+  - They set technical standards and facilitate cooperation necessary for global signal
+    transmission.
+  - They only focus on national programming schedules.
+  - They are unrelated to technological advances in broadcasting.
+  - They serve only as regulatory bodies for print media.
+  question_id: 5
+  question_text: How are international broadcasting organizations connected to the
+    development of transoceanic television broadcasts?
+  question_type: recap
+sections:
+- aspects:
+  - content: International organizations in broadcasting are formal associations or
+      unions composed of national or regional broadcasting bodies, established to
+      coordinate, regulate, and promote cooperation in the field of radio and television
+      transmission across borders. They may be global, regional, or specialized by
+      function, and often facilitate technical standardization, frequency allocation,
+      and information exchange.
+    type: Definition
+  - content: Key examples include the International Telecommunications Union (ITU),
+      which became a UN specialized agency in 1947 and comprises bodies like the International
+      Frequency Registration Board. The European Broadcasting Union (EBU), founded
+      in 1950, includes over 30 nations and associate members worldwide. Other regional
+      unions include the Asia-Pacific Broadcasting Union, Union of National Radio
+      and Television Organizations of Africa, Arab States Broadcasting Union, and
+      the Caribbean Broadcasting Union, each with specific membership and headquarters.
+      There are also specialized organizations for religious broadcasting and information
+      flow between developed and developing countries.
+    type: Examples and Structure
+  - content: These organizations play crucial roles in harmonizing broadcasting standards,
+      resolving technical and political disputes, and ensuring equitable access to
+      broadcasting resources. They foster international cooperation, facilitate large-scale
+      event coverage (such as the Olympics), and sometimes serve as platforms for
+      soft power or propaganda (e.g., Radio Free Europe). Their existence reflects
+      the need for coordination in an increasingly interconnected media landscape,
+      especially as technology enables global signal transmission.
+    type: Implications and Functions
+  - content: The proliferation of international broadcasting organizations accelerated
+      after World War II, driven by geopolitical tensions (such as the Cold War) and
+      the need for regional collaboration. For example, the EBU was created after
+      the Union Internationale de Radiophonie became ineffective due to East-West
+      tensions. Over time, new organizations emerged to represent nonaligned, developing,
+      or religious broadcasters, reflecting both technological advances and shifting
+      political alliances.
+    type: Historical Context and Evolution
+  - content: International broadcasting organizations are closely linked to issues
+      of spectrum management, international law, cultural exchange, and technological
+      innovation. They also interact with global governance bodies like the United
+      Nations and UNESCO, and their activities impact international relations, media
+      policy, and the dissemination of information worldwide.
+    type: Connections to Related Concepts
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The EBU is a regional organization that coordinates radio and television
+      broadcasting among its members, primarily in Europe, but also includes associate
+      members from other continents. It is not a global regulatory body (that's the
+      ITU), nor is it focused solely on frequency allocation or religious broadcasting.
+    options:
+    - It is a global regulatory body for all telecommunications.
+    - It coordinates radio and television broadcasting among its member nations, primarily
+      in Europe, and includes associate members worldwide.
+    - It only manages frequency allocation for North America.
+    - It is exclusively focused on religious broadcasting.
+    question_text: Which of the following statements best describes the role of the
+      European Broadcasting Union (EBU)?
+  index: 190
+  key_concept: International organizations in broadcasting
+  name: International organizations
+- aspects:
+  - content: Television broadcasting refers to the transmission of visual and audio
+      content to a dispersed audience via electronic signals, typically using radio
+      waves or cables. Its evolution encompasses the development of both the technology
+      (hardware and standards) and the organizational structures for content delivery.
+    type: Definition and Scope
+  - content: Significant milestones include the establishment of technical feasibility
+      by 1931, the development of the Emitron camera tube by Isaac Shoenberg's team
+      in Britain, and the adoption of high-definition standards (405 lines) by the
+      BBC in 1936. In the United States, public demonstrations began in 1939, with
+      commercial operations authorized in 1941. The post-World War II era saw rapid
+      expansion, with millions of receivers in use by the early 1950s.
+    type: Key Milestones
+  - content: Advancements such as electronic scanning (superior to mechanical methods),
+      improved cathode-ray tubes, and portable transmitters enabled higher-quality
+      and more flexible broadcasting. The transition from mechanical to electronic
+      systems was pivotal, as was the gradual increase in line resolution (from 405
+      to 625 lines).
+    type: Technological Innovations
+  - content: The rapid adoption of television broadcasting transformed mass communication,
+      entertainment, and information dissemination. It led to new industries, regulatory
+      frameworks, and cultural phenomena, such as live event coverage and advertising-driven
+      programming. Wartime disruptions and postwar consumer booms shaped the pace
+      and scale of adoption in different countries.
+    type: Social and Economic Implications
+  - content: Britain led early technical development, while the United States quickly
+      surpassed in scale post-WWII. Other nations lagged behind, with wide-scale adoption
+      occurring mainly in the 1950s and beyond. The evolution of television broadcasting
+      reflects both technological diffusion and the influence of national policies
+      and economic conditions.
+    type: Comparative Development
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The British system, under Isaac Shoenberg, adopted electronic scanning
+      and the Emitron camera tube, which was far superior to the earlier mechanical
+      scanning methods. Color broadcasting and deregulation came much later.
+    options:
+    - The adoption of mechanical scanning pioneered by John Baird.
+    - The use of electronic scanning and the Emitron camera tube developed by Isaac
+      Shoenberg's team.
+    - The exclusive use of color broadcasting from the outset.
+    - The absence of any government regulation.
+    question_text: What was a major technical innovation that distinguished early
+      British television broadcasting from earlier systems?
+  index: 309
+  key_concept: Technical evolution of television broadcasting
+  name: '[Television](https://www.britannica.com/topic/television-broadcasting "https://www.britannica.com/topic/television-broadcasting")
+    broadcasting'
+- aspects:
+  - content: The early developments in television refer to the period from the late
+      1920s through the 1940s, during which television moved from experimental technology
+      to practical public broadcasting. Key events include the establishment of technical
+      standards, the first public demonstrations, and the launch of regular broadcast
+      services.
+    type: Definition and Timeline
+  - content: Isaac Shoenberg and his British research group were instrumental, creating
+      the Emitron camera tube and advancing electronic scanning. The BBC adopted their
+      405-line standard in 1936, launching the world's first high-definition service.
+      In the US, companies like NBC and CBS began experimental broadcasts in 1939
+      and 1940, but progress was delayed by World War II.
+    type: Major Figures and Innovations
+  - content: Notable early broadcasts included the BBC's coverage of King George VI's
+      coronation procession in 1937, with a portable transmitter enabling outside
+      coverage. Audience numbers were initially small, but the novelty and clarity
+      of electronic television attracted significant public interest.
+    type: Early Broadcasts and Public Reception
+  - content: World War II halted most television development as resources shifted
+      to wartime production. In the US, only a handful of stations remained operational,
+      and television set manufacturing ceased. After the war, restrictions were lifted,
+      leading to explosive growth in both the US and UK.
+    type: Impact of World War II
+  - content: By the late 1940s and early 1950s, television became a mass medium, with
+      millions of receivers in use and regular programming schedules. The adoption
+      of higher-definition standards and the expansion of broadcast networks facilitated
+      widespread access and set the stage for television's cultural impact.
+    type: Transition to Mass Medium
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: World War II caused most television broadcasting and manufacturing
+      to be suspended, as resources were diverted to support the war effort. The resumption
+      of activities after the war led to rapid industry growth.
+    options:
+    - It accelerated the spread of television technology worldwide.
+    - It led to the suspension of most television broadcasting activities and manufacturing.
+    - It resulted in the immediate introduction of color television.
+    - It had no significant effect on television development.
+    question_text: How did World War II affect the early development of television
+      broadcasting?
+  index: 311
+  key_concept: Early developments in television
+  name: Early developments
+- aspects:
+  - content: Transoceanic television broadcasts refer to the transmission of television
+      signals across oceans, enabling live or near-live coverage between continents.
+      This was made possible by advances in satellite and relay technologies.
+    type: Definition
+  - content: The first major attempt occurred in 1962 with the Telstar satellite relaying
+      signals between the US, England, and France. Early transmissions were brief,
+      limited by satellite visibility. The first color transoceanic transmission took
+      place on July 16, 1962. The development of geostationary (synchronous) satellites
+      in the mid-1960s, such as Syncom, allowed continuous coverage, exemplified by
+      the 1964 Tokyo Olympics broadcast to North America.
+    type: Key Events and Milestones
+  - content: Initially, a series of low-orbit satellites were required for continuous
+      coverage, but the introduction of geostationary satellites revolutionized the
+      field by maintaining a fixed position relative to the Earth, enabling uninterrupted
+      signal relay. These satellites could carry multiple television channels and
+      additional communications, such as telephone calls.
+    type: Technical Innovations
+  - content: Transoceanic broadcasts transformed the global media landscape, making
+      real-time international event coverage possible and fostering a sense of global
+      community. The 1969 Moon landing, broadcast to over 100 million viewers worldwide,
+      is a landmark example.
+    type: Implications for Global Communication
+  - content: These developments are closely tied to advances in telecommunications,
+      international cooperation, and the globalization of media. The ability to broadcast
+      across oceans required collaboration between governments, corporations, and
+      international organizations, and it paved the way for the modern era of global
+      live television.
+    type: Connections to Broader Trends
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The development of geostationary (synchronous) satellites, which
+      remain fixed relative to a point on Earth, enabled continuous transoceanic television
+      broadcasts. Earlier methods, like mechanical scanning and shortwave radio, could
+      not provide the same capacity or reliability.
+    options:
+    - Mechanical scanning devices
+    - Geostationary (synchronous) communications satellites
+    - Shortwave radio relays
+    - Undersea fiber optic cables
+    question_text: What technological advance made continuous transoceanic television
+      broadcasts possible in the mid-1960s?
+  index: 325
+  key_concept: Transoceanic television broadcasts
+  name: Transoceanic broadcasts

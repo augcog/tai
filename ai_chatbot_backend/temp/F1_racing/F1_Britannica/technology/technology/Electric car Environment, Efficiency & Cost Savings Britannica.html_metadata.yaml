@@ -1,0 +1,195 @@
+URL: https://www.britannica.com/technology/electric-car
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article overviewing electric cars, covering their
+  historical development, technological evolution, environmental impact, and recent
+  trends in the automotive industry.
+file_name: Electric car Environment, Efficiency & Cost Savings Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Electric car Environment,
+  Efficiency & Cost Savings Britannica.html
+file_uuid: f90c408d-dad3-5422-9a2a-2e40e62a5c35
+recap_questions:
+- correct_answers:
+  - 2
+  explanation: Electric cars are primarily powered by rechargeable batteries, distinguishing
+    them from vehicles that use petroleum-based fuels or other energy sources.
+  knowledge_areas:
+  - electric car
+  - Definition
+  options:
+  - Petroleum-based fuels
+  - Fuel cells exclusively
+  - Rechargeable batteries
+  - Compressed natural gas
+  question_id: 1
+  question_text: What is the primary power source for electric cars as described in
+    the article?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The introduction of the electrical self-starter for gasoline cars made
+    gasoline vehicles more user-friendly, contributing significantly to the decline
+    of electric cars in the early 20th century.
+  knowledge_areas:
+  - electric car
+  - Historical Context
+  options:
+  - The invention of the fuel cell
+  - The introduction of the electrical self-starter for gasoline cars
+  - The creation of plug-in hybrid vehicles
+  - Advances in battery technology
+  question_id: 2
+  question_text: Which historical development contributed most to the decline of early
+    electric cars in the 20th century?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Tesla released the Roadster in 2008, which was a fully electric sports
+    car and inspired other manufacturers to develop their own electric vehicles.
+  knowledge_areas:
+  - electric car
+  - Modern Developments and Market Trends
+  options:
+  - Toyota
+  - Chevrolet
+  - Tesla
+  - Renault
+  question_id: 3
+  question_text: Which company released a fully electric sports car in 2008 that influenced
+    other manufacturers to develop electric vehicles?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Widespread adoption of electric vehicles can reduce greenhouse gas
+    emissions but also presents challenges for the capacity and sustainability of
+    electrical power grids.
+  knowledge_areas:
+  - electric car
+  - Environmental and Societal Implications
+  options:
+  - Increased air pollution and higher fuel costs
+  - Reduced greenhouse gas emissions and challenges for electrical power grids
+  - Elimination of battery waste and unlimited driving range
+  - Decline in public transportation usage and increased road congestion
+  question_id: 4
+  question_text: What are two major environmental and societal implications of widespread
+    electric vehicle adoption mentioned in the article?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: The news section highlights increased competition in the electric vehicle
+    market, leading to changes in market leadership, such as Tesla losing its top
+    position.
+  knowledge_areas:
+  - 'News: Electric Vehicle Market Trends'
+  options:
+  - A decline in plug-in hybrid popularity
+  - Tesla's continued dominance in electric vehicle sales
+  - Growing competition leading to changes in market leadership
+  - A universal shift away from electric vehicles
+  question_id: 5
+  question_text: Which recent trend in the electric vehicle market is highlighted
+    by the news section of the article?
+  question_type: recap
+sections:
+- aspects:
+  - content: An electric car is a battery-powered motor vehicle, also known as an
+      electric automobile, designed for private passenger, truck, and bus transportation.
+      Unlike conventional vehicles that use internal combustion engines powered by
+      petroleum-based fuels, electric cars rely on electric motors and rechargeable
+      batteries as their primary source of propulsion. This fundamental distinction
+      shapes their operation, maintenance, and environmental footprint.
+    type: Definition
+  - content: Electric cars originated in the late 1880s and were initially competitive
+      with petroleum-fueled cars, especially as luxury vehicles for urban use and
+      delivery trucks. Their popularity stemmed from their quiet operation and low
+      maintenance costs. However, the introduction of the electrical self-starter
+      for gasoline cars and mass production techniques, notably by Henry Ford, led
+      to the decline of electric cars in the early 20th century. Electric trucks and
+      buses persisted slightly longer, particularly in Europe.
+    type: Historical Context
+  - content: Prototypes of electric cars resurfaced in the 1960s, spurred by concerns
+      over the depletion of petroleum resources and rising fuel costs. Advances included
+      improvements in speed and range, and the exploration of fuel cells as alternatives
+      to batteries. Despite these innovations, electric cars did not become mainstream
+      automotive products by the mid-1980s, although electric vehicles found widespread
+      use in industrial settings for carrying and lifting tasks.
+    type: Technological Evolution
+  - content: Interest in electric vehicles increased in the late 1990s due to growing
+      awareness of climate change. The introduction of hybrid vehicles like the Toyota
+      Prius in 1997, followed by the Honda Insight and Chevrolet Volt, marked a significant
+      shift. Tesla's release of the all-electric Roadster in 2008, capable of a 394
+      km (245 mile) range per charge, catalyzed a new wave of electric vehicle development.
+      Major automakers subsequently introduced their own electric models, such as
+      the Nissan LEAF and Renault ZOE, and many announced plans to transition to primarily
+      electric or hybrid fleets by the 2030s.
+    type: Modern Developments and Market Trends
+  - content: Electric cars are often promoted for their potential to reduce greenhouse
+      gas emissions and dependence on fossil fuels, especially when powered by renewable
+      electricity. Their widespread adoption raises questions about the capacity and
+      sustainability of electrical power grids, as well as the environmental impact
+      of battery production and disposal. The shift toward electric vehicles also
+      has implications for public health, urban air quality, and the global automotive
+      industry's economic landscape.
+    type: Environmental and Societal Implications
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: 'Option 0 is correct because electric cars are defined by their use
+      of batteries and electric motors, distinguishing them from traditional vehicles
+      that use internal combustion engines. The other options are incorrect: electric
+      cars are not limited to industrial use, have not always been more popular, and
+      can be used for trucks and buses.'
+    options:
+    - Electric cars use batteries and electric motors, while traditional vehicles
+      use petroleum-fueled internal combustion engines.
+    - Electric cars are only used for industrial purposes, while traditional vehicles
+      are used for personal transportation.
+    - Electric cars have always been more popular than gasoline cars since their invention.
+    - Electric cars cannot be used for trucks or buses.
+    question_text: Which of the following best describes the primary difference between
+      electric cars and traditional internal-combustion vehicles?
+  index: 140
+  key_concept: electric car
+  name: electric car
+- aspects:
+  - content: The electric vehicle market is dynamic, with notable shifts in manufacturer
+      leadership and consumer preferences. For example, Tesla, once the world's largest
+      electric vehicle maker, recently lost its top position as its sales declined
+      for a second consecutive year, indicating increased competition and market maturation.
+      Such changes reflect broader trends in the automotive sector, where legacy manufacturers
+      and new entrants vie for market share.
+    type: Recent Industry Developments
+  - content: Plug-in hybrids, which combine battery power with gasoline engines, have
+      become increasingly attractive to consumers, especially those seeking vehicles
+      under specific price thresholds (e.g., under $55,000). The popularity of these
+      models reflects a transitional phase in consumer adoption, as hybrids offer
+      a compromise between range, cost, and environmental benefits while infrastructure
+      for fully electric vehicles continues to develop.
+    type: Hybrid Vehicle Popularity
+  - content: These news items suggest a rapidly evolving landscape in which electric
+      and hybrid vehicles are gaining traction but also facing challenges such as
+      market saturation, changing consumer expectations, and technological advancements.
+      The shifting dominance among manufacturers and the growing variety of vehicle
+      options point toward a future where electrification becomes mainstream, but
+      competition and innovation remain central.
+    type: Implications for the Future
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: 'Option 1 is correct because recent news reported that Tesla lost
+      its position as the top electric vehicle maker after experiencing a sales decline
+      for two consecutive years. The other options are incorrect: Tesla did not increase
+      its sales, plug-in hybrids remain popular, and not all companies have stopped
+      producing hybrids.'
+    options:
+    - Tesla increased its sales and remained the largest electric vehicle maker.
+    - Tesla lost its title as the world's biggest electric vehicle maker due to declining
+      sales.
+    - Plug-in hybrids are no longer popular among consumers.
+    - All car companies have stopped producing hybrid vehicles.
+    question_text: According to recent news, what major change occurred in the electric
+      vehicle market?
+  index: 242
+  key_concept: 'News: Electric Vehicle Market Trends'
+  name: News •

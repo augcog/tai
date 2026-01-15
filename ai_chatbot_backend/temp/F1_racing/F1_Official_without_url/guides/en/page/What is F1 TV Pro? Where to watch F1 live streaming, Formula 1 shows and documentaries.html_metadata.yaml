@@ -1,0 +1,275 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An informational web page explaining F1 TV Pro, its features for
+  live streaming Formula 1 and related series, exclusive content, and access platforms,
+  along with a section listing F1's official partners and app download options.
+file_name: What is F1 TV Pro? Where to watch F1 live streaming, Formula 1 shows and
+  documentaries.html
+file_path: F1_racing/F1_Official/guides/en/page/What is F1 TV Pro? Where to watch
+  F1 live streaming, Formula 1 shows and documentaries.html
+file_uuid: d0eda879-2e5d-54b9-8934-888e8f2d9ec2
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: F1 TV Pro includes live streaming of F1, F2, F3, F1 Academy, Porsche
+    Supercup, exclusive shows, and a large F1 archive. It does not provide merchandise,
+    tickets, betting, or non-F1 series.
+  knowledge_areas:
+  - F1 TV Pro Features and Offerings
+  - F1 TV Pro Content Types
+  options:
+  - Live streaming of F1 and related series, exclusive shows, and access to the F1
+    archive
+  - Free merchandise and race tickets
+  - Live betting and fantasy league management
+  - Access to Formula E and MotoGP content
+  question_id: 1
+  question_text: What are the main features included in an F1 TV Pro subscription?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: F1 TV Pro is designed to be accessible on a wide range of devices,
+    including computers, tablets, smartphones, and smart TVs.
+  knowledge_areas:
+  - F1 TV Pro Accessibility and Devices
+  options:
+  - Only available on desktop computers
+  - Available on computers, tablets, smartphones, and smart TVs
+  - Requires a proprietary F1 TV device
+  - Accessible only through cable TV providers
+  question_id: 2
+  question_text: Which of the following best describes the device compatibility of
+    F1 TV Pro?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Pirelli, AWS, and Heineken are official partners, but Sony is not mentioned
+    among the listed partners.
+  knowledge_areas:
+  - F1 Official Partners
+  options:
+  - Pirelli
+  - AWS
+  - Sony
+  - Heineken
+  question_id: 3
+  question_text: Which of the following is NOT an official Formula 1 partner as listed
+    in the document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: F1 TV Pro offers multi-angle viewing, including onboard cameras for
+    all F1 cars and customizable live timing, but does not provide VR, coaching, or
+    commentary in all languages.
+  knowledge_areas:
+  - F1 TV Pro Features and Offerings
+  - F1 TV Pro Accessibility and Devices
+  options:
+  - Onboard cameras for all 20 F1 cars and customizable live timing data
+  - Virtual reality race simulations
+  - Personalized driver coaching
+  - Live race commentary in every world language
+  question_id: 4
+  question_text: What unique viewing experiences does F1 TV Pro offer to enhance fan
+    engagement?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App provides live timing, updates, and news, enhancing
+    the experience for mobile users and integrating with F1 TV Pro.
+  knowledge_areas:
+  - Official F1 App Download
+  - F1 TV Pro Accessibility and Devices
+  options:
+  - By providing live timing, race updates, and news on mobile devices
+  - By offering free live race streams to all users
+  - By selling exclusive F1 merchandise
+  - By managing team strategies during races
+  question_id: 5
+  question_text: How does the Official F1 App complement the F1 TV Pro service?
+  question_type: recap
+sections:
+- aspects:
+  - content: F1 TV Pro is a premium subscription-based streaming service provided
+      by Formula 1, offering live coverage of every Formula 1 Grand Prix, as well
+      as other motorsport series such as F2, F3, F1 Academy, and Porsche Supercup.
+      It is available in selected countries and provides access to a wide range of
+      exclusive content, including live races, replays, highlights, and behind-the-scenes
+      documentaries. The service is designed for fans who want comprehensive, real-time
+      access to all aspects of Formula 1.
+    type: Definition and Scope
+  - content: Subscribers to F1 TV Pro can watch every session live, including practice,
+      qualifying, and the race itself, with the ability to ride onboard with any of
+      the 20 F1 drivers. The platform offers multi-angle viewing, expert analysis,
+      pre- and post-race shows, technical explainers, and deep dives into race strategy.
+      Interactive features include live timing and the creation of a virtual pit wall,
+      allowing users to track lap times, weather, tyre usage, and more in real time
+      across multiple devices.
+    type: Exclusive Content and Interactivity
+  - content: F1 TV Pro includes access to an extensive archive of Formula 1 content,
+      spanning decades of the sport’s history. This archive features legendary drivers,
+      iconic races, and exclusive documentaries, providing fans with the opportunity
+      to relive classic moments and explore the evolution of F1. Content is regularly
+      updated, making it the largest F1 archive available and supporting both educational
+      and entertainment purposes for enthusiasts.
+    type: Archive and On-Demand Access
+  - content: The service is accessible on a variety of devices, including computers,
+      tablets, smartphones, and smart TVs, enabling fans to watch F1 wherever and
+      whenever they choose. F1 TV Pro is particularly valuable for fans who want to
+      follow every round of the season, catch up with replays and highlights, or dive
+      deeper into race weekends with exclusive shows and technical content. The platform’s
+      flexibility and breadth of content make it suitable for both casual viewers
+      and dedicated F1 followers.
+    type: Practical Use Cases and Accessibility
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: F1 TV Pro provides live streaming, exclusive documentaries, and multi-device
+      support, but it does not offer live betting functionality.
+    options:
+    - Live streaming of every F1 Grand Prix session
+    - On-demand access to exclusive F1 documentaries
+    - Ability to place live bets on race outcomes
+    - Multi-device support for viewing and live timing
+    question_text: Which of the following is NOT a feature of F1 TV Pro as described?
+  index: 53
+  key_concept: F1 TV Pro Features and Offerings
+  name: What is F1 TV Pro?
+- aspects:
+  - content: F1 TV Pro offers live streaming of not only Formula 1 but also related
+      series such as F2, F3, F1 Academy, and Porsche Supercup. This means fans can
+      follow the entire race weekend, including practice, qualifying, and main races,
+      across multiple motorsport disciplines. On-demand features include full session
+      replays and highlights, allowing users to catch up at their convenience.
+    type: Live and On-Demand Motorsport Coverage
+  - content: The platform features a variety of exclusive shows, including pre- and
+      post-session analysis, technical explainers, and deep dives into specific races
+      or drivers. In addition, F1 TV Pro provides access to original documentaries
+      that explore the history, technology, and personalities of Formula 1, offering
+      behind-the-scenes perspectives unavailable on standard broadcasts.
+    type: Exclusive Shows, Analysis, and Documentaries
+  - content: A significant component of F1 TV Pro is its comprehensive archive, which
+      includes footage from recent Grand Prix weekends and legendary races from past
+      decades. This archive is regularly updated and includes feature content such
+      as Top 10 countdowns and the best onboard camera moments, making it a valuable
+      resource for both new and long-time fans.
+    type: Historical Archive and Feature Content
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: F1 TV Pro covers F2, F3, F1 Academy, and Porsche Supercup in addition
+      to Formula 1. Other series like IndyCar, NASCAR, MotoGP, and Formula E are not
+      included.
+    options:
+    - F2, F3, F1 Academy, and Porsche Supercup
+    - IndyCar and NASCAR
+    - MotoGP and World Rally Championship
+    - Le Mans and Formula E
+    question_text: Which motorsport series, besides Formula 1, are included in F1
+      TV Pro's live and on-demand coverage?
+  index: 53
+  key_concept: F1 TV Pro Content Types
+  name: What is F1 TV Pro?
+- aspects:
+  - content: F1 TV Pro is designed for maximum accessibility, allowing users to watch
+      content on a wide range of devices, including computers, tablets, smartphones,
+      and smart TVs. This flexibility ensures that fans can follow live races and
+      access on-demand content whether they are at home or on the move. The service
+      supports simultaneous use across multiple devices, enhancing the viewing experience
+      for individuals and households.
+    type: Device Compatibility and Viewing Flexibility
+  - content: The platform enables fans to experience every angle of the race, including
+      onboard cameras for all 20 F1 cars, and provides interactive features such as
+      live timing and customizable data dashboards. This allows users to tailor their
+      viewing experience, track specific drivers, and analyze race strategies in real
+      time, replicating a virtual pit wall environment.
+    type: User Experience and Multi-Angle Features
+  - content: F1 TV Pro is available only in selected countries due to regional broadcasting
+      rights. Access requires a subscription, which provides full access to all features,
+      including live streaming, replays, and the F1 archive. The subscription model
+      supports ongoing content updates and platform enhancements.
+    type: Geographical Availability and Subscription Model
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: F1 TV Pro is accessible on a wide range of devices, including computers,
+      tablets, smartphones, and smart TVs, enhancing flexibility for users.
+    options:
+    - It is only available on desktop computers.
+    - It can be accessed on computers, tablets, smartphones, and smart TVs.
+    - It requires a special F1 TV device.
+    - It is only available through cable television providers.
+    question_text: Which statement best describes F1 TV Pro's device compatibility?
+  index: 53
+  key_concept: F1 TV Pro Accessibility and Devices
+  name: What is F1 TV Pro?
+- aspects:
+  - content: Official partners play a significant role in supporting the operations,
+      marketing, and global reach of Formula 1. These partners come from various industries
+      such as luxury goods, technology, logistics, beverages, and financial services.
+      Their involvement often includes sponsorship, technological collaboration, and
+      co-branded campaigns that enhance the fan experience and contribute to the sport’s
+      financial health.
+    type: Role and Importance of Partners
+  - content: Notable partners include LVMH, Pirelli, Aramco, Heineken, AWS, Lenovo,
+      DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton, TAG Heuer, Moet
+      Hennessy, American Express, Santander, Allwyn, Globant, Las Vegas Convention
+      and Visitors Authority, Paramount+, Barilla, Liqui Moly, Nestle, PwC, PepsiCo,
+      Puma, TATA, Aggreko, BBS, and McDonalds. Each partner brings unique value, such
+      as Pirelli supplying tires, AWS providing data analytics, and DHL managing logistics.
+    type: Examples of Key Partners
+  - content: The presence of diverse partners reflects Formula 1’s global appeal and
+      its integration with leading brands across sectors. These partnerships often
+      result in technological innovations (e.g., AWS analytics), enhanced fan engagement
+      (e.g., Heineken and Paramount+ promotions), and expanded event reach (e.g.,
+      Qatar Airways travel deals). The synergy between F1 and its partners is essential
+      for the sport’s continued growth and modernization.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Pirelli, AWS, and Heineken are all official partners of Formula 1,
+      while Sony is not mentioned among the listed partners.
+    options:
+    - Pirelli
+    - AWS
+    - Sony
+    - Heineken
+    question_text: Which of the following companies is NOT listed as an official partner
+      of Formula 1?
+  index: 129
+  key_concept: F1 Official Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is designed to complement the F1 TV Pro service by
+      providing fans with mobile access to live timing, race updates, news, and other
+      essential information. The app enhances the fan experience by offering real-time
+      data, push notifications, and interactive features that keep users engaged with
+      the sport even when they are away from traditional screens.
+    type: Purpose and Functionality of the App
+  - content: The app is available for download on both iOS (Apple App Store) and Android
+      (Google Play Store) devices, ensuring broad accessibility for global users.
+      This cross-platform availability allows fans to stay connected to F1 events
+      and content regardless of their preferred mobile operating system.
+    type: Platform Availability
+  - content: The Official F1 App integrates with F1 TV Pro, offering features like
+      live timing and session status, and serves as a hub for race schedules, driver
+      and team information, and news. This integration supports a seamless transition
+      between app and streaming experiences, increasing overall fan engagement and
+      satisfaction.
+    type: Integration with F1 TV and Fan Engagement
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The Official F1 App is available for download on both the Apple App
+      Store and Google Play Store, making it accessible to iOS and Android users.
+    options:
+    - Only from the F1 website
+    - Apple App Store and Google Play Store
+    - Through cable TV providers
+    - Only on Windows devices
+    question_text: Where can fans download the Official F1 App?
+  index: 139
+  key_concept: Official F1 App Download
+  name: Download the Official F1 App

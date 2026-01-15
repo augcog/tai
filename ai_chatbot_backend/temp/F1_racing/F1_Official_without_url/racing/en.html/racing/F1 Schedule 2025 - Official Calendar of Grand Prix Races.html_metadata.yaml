@@ -1,0 +1,255 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An official overview of the 2025 FIA Formula One World Championship
+  race calendar, including detailed results for each Grand Prix, information about
+  F1's commercial partners, and links to download the official F1 app.
+file_name: F1 Schedule 2025 - Official Calendar of Grand Prix Races.html
+file_path: F1_racing/F1_Official/racing/en.html/racing/F1 Schedule 2025 - Official
+  Calendar of Grand Prix Races.html
+file_uuid: 594051d9-aa08-5611-a0ae-39544d088f83
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Each race entry includes the dates, location, official Grand Prix name,
+    and the top three finishers, but not technical regulations or a list of partners.
+  knowledge_areas:
+  - 2025 FIA Formula One Race Calendar
+  - F1 Grand Prix Results and Standings
+  options:
+  - Race dates, location, Grand Prix name, and top three finishers
+  - Only the winner and race location
+  - Technical regulations for each event
+  - List of commercial partners for each race
+  question_id: 1
+  question_text: What information is provided for each race in the 2025 FIA Formula
+    One World Championship calendar?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Commercial partners support F1 through funding, branding, and marketing,
+    but do not set rules, organize the calendar, or only sponsor drivers.
+  knowledge_areas:
+  - F1 Commercial Partners
+  options:
+  - They provide financial, branding, and marketing support to F1.
+  - They set the rules and regulations for the championship.
+  - They are responsible for organizing the race calendar.
+  - They only sponsor individual drivers.
+  question_id: 2
+  question_text: Which of the following best describes the relationship between F1
+    commercial partners and the sport?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app offers live tracking, news, and exclusive content, but does
+    not provide features like share purchases, voting on results, or direct driver
+    communication.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - By providing live race tracking, news, and exclusive content
+  - By allowing fans to buy shares in F1 teams
+  - By enabling fans to vote on race results
+  - By offering direct communication with drivers
+  question_id: 3
+  question_text: How does the Official F1 App enhance the experience for Formula One
+    fans?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Grand Prix results determine the allocation of points that influence
+    driver and team championship standings.
+  knowledge_areas:
+  - F1 Grand Prix Results and Standings
+  options:
+  - They are unrelated to championship points.
+  - They determine the allocation of points for drivers and teams.
+  - They are only used for media reporting and not for standings.
+  - They are set by commercial partners.
+  question_id: 4
+  question_text: Which of the following statements about F1 Grand Prix results is
+    correct?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The calendar structures the season, partners support and brand the
+    events, and the app provides fans with access to live updates and information,
+    demonstrating their interconnected roles.
+  knowledge_areas:
+  - 2025 FIA Formula One Race Calendar
+  - F1 Commercial Partners
+  - Official F1 App
+  options:
+  - The calendar provides the schedule, partners fund and brand the events, and the
+    app delivers real-time updates and content to fans.
+  - Commercial partners set the calendar, the app manages race logistics, and the
+    calendar lists app features.
+  - The app and partners determine race results, while the calendar is for historical
+    reference only.
+  - There is no connection between these elements.
+  question_id: 5
+  question_text: How are the race calendar, commercial partners, and the Official
+    F1 App interconnected in the context of the 2025 season?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 2025 FIA Formula One Race Calendar is the official schedule of all
+      Formula One Grand Prix events for the 2025 season, as sanctioned by the Fédération
+      Internationale de l'Automobile (FIA). It details the sequence, dates, and locations
+      of each race, including pre-season testing and all competitive rounds.
+    type: Definition
+  - content: The calendar begins with pre-season testing in Bahrain, followed by 24
+      rounds held across various countries and continents. Each entry lists the Grand
+      Prix name, host country, dates, and the top three finishers with their respective
+      teams and race times. The schedule is chronologically ordered, providing a comprehensive
+      view of the season's progression.
+    type: Structure and Content
+  - content: Examples include the FORMULA 1 LOUIS VUITTON AUSTRALIAN GRAND PRIX 2025
+      (March 14-16), where Norris won, and the FORMULA 1 HEINEKEN CHINESE GRAND PRIX
+      2025 (March 21-23), won by Piastri. The calendar covers iconic races such as
+      Monaco, Silverstone (Great Britain), Monza (Italy), and concludes with the Abu
+      Dhabi Grand Prix in December.
+    type: Examples and Highlights
+  - content: The calendar is essential for teams, drivers, sponsors, broadcasters,
+      and fans to plan logistics, travel, and engagement. It impacts team strategies,
+      resource allocation, and fan attendance. The global distribution of races also
+      reflects F1's international appeal and commercial reach.
+    type: Implications and Use Cases
+  - content: The race calendar is central to the structure of the F1 championship,
+      influencing driver and team standings, media coverage, and commercial activities.
+      It connects with other F1 elements such as driver lineups, team participation,
+      and regulatory changes. The schedule also interacts with local and international
+      sporting calendars.
+    type: Connections and Context
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: The section provides dates, locations, pre-season testing, and top
+      finishers for each race, but the list of F1 commercial partners is covered in
+      a separate section.
+    options:
+    - Dates and locations of each Grand Prix
+    - Top three finishers of each race
+    - List of F1 commercial partners
+    - Pre-season testing details
+    question_text: Which of the following is NOT included in the 2025 FIA Formula
+      One Race Calendar section?
+  index: 53
+  key_concept: 2025 FIA Formula One Race Calendar
+  name: 2025 FIA FORMULA ONE WORLD CHAMPIONSHIP™ RACE CALENDAR
+- aspects:
+  - content: F1 Grand Prix Results refer to the official outcomes of each race, including
+      the finishing order, race times, and point allocations that contribute to the
+      drivers' and constructors' championship standings.
+    type: Definition
+  - content: For instance, in the Australian Grand Prix, Norris finished first, Verstappen
+      second, and Russell third. Similarly, Piastri and Norris frequently appear in
+      the top three, indicating strong performances throughout the season.
+    type: Examples
+  - content: Results are used to update championship standings, inform team strategies,
+      and provide data for media analysis. Fans and analysts track these outcomes
+      to assess driver and team performance, predict future results, and engage in
+      fantasy leagues.
+    type: Use Cases
+  - content: Race results directly impact the allocation of championship points, influencing
+      both individual driver and team standings. Consistent high finishes can lead
+      to championship contention, while poor results may prompt strategic or personnel
+      changes.
+    type: Implications
+  - content: Race results are interconnected with the race calendar, team and driver
+      lineups, and broader championship narratives. They also influence commercial
+      interests, sponsorships, and media coverage throughout the season.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Grand Prix results allocate points to drivers and teams, which are
+      used to determine championship standings. The other options are unrelated to
+      the direct impact of race results.
+    options:
+    - They determine the order of races for the next season.
+    - They allocate points that influence driver and team standings.
+    - They decide which countries will host races in the future.
+    - They set the rules for technical regulations.
+    question_text: How do the Grand Prix results presented in the calendar affect
+      the F1 World Championship?
+  index: 53
+  key_concept: F1 Grand Prix Results and Standings
+  name: 2025 FIA FORMULA ONE WORLD CHAMPIONSHIP™ RACE CALENDAR
+- aspects:
+  - content: F1 Commercial Partners are companies and brands that sponsor and support
+      Formula One through financial investment, branding, and collaborative marketing
+      initiatives. They are featured prominently in F1 events, media, and promotional
+      materials.
+    type: Definition
+  - content: Notable partners include LVMH, Pirelli, Aramco, Heineken, AWS, Lenovo,
+      DHL, Qatar Airways, MSC Cruises, Crypto.com, Salesforce, Louis Vuitton, TAG
+      Heuer, Moet Hennessy, American Express, and many others. These brands are often
+      associated with specific races or F1 programs.
+    type: Examples
+  - content: Partnerships provide essential funding for the sport, enable technological
+      innovation (e.g., AWS for data analytics), and enhance the global reach of both
+      F1 and the partner brands. Sponsors often have exclusive rights, hospitality
+      packages, and on-track branding.
+    type: Implications
+  - content: Commercial partners are involved in race title sponsorships, team partnerships,
+      event activations, and digital engagement. For example, the FORMULA 1 HEINEKEN
+      CHINESE GRAND PRIX 2025 is directly branded by Heineken.
+    type: Use Cases
+  - content: These partnerships link F1 to a wide range of industries, including luxury
+      goods, technology, logistics, beverages, and travel. They are integral to F1's
+      commercial model and global marketing strategy.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: F1's commercial partners provide funding, branding, and marketing
+      support, but do not organize the calendar, set rules, or handle driver training.
+    options:
+    - They organize the race calendar and set technical rules.
+    - They sponsor teams only, not races or events.
+    - They provide funding, branding, and marketing support to F1.
+    - They are responsible for driver training and recruitment.
+    question_text: Which statement best describes the role of F1's commercial partners?
+  index: 597
+  key_concept: F1 Commercial Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application offered by Formula One, available
+      for download on both the Apple App Store and Google Play. It provides fans with
+      access to live timing, news, race schedules, and exclusive content.
+    type: Definition
+  - content: The app offers live race tracking, session status updates, driver and
+      team information, news, and multimedia content. It is designed to enhance fan
+      engagement by delivering real-time data and personalized experiences during
+      race weekends.
+    type: Features and Use Cases
+  - content: Users can follow live race positions, gap to leader, and session status
+      directly from their mobile devices. The app also provides notifications for
+      key events, such as qualifying results or breaking news.
+    type: Examples
+  - content: The app increases accessibility to F1 content, allowing fans worldwide
+      to stay updated regardless of location. It supports F1's digital transformation
+      and expands its global fanbase by leveraging mobile technology.
+    type: Implications
+  - content: The app integrates with F1's broader digital ecosystem, including F1
+      TV, fantasy leagues, and social media platforms. It serves as a central hub
+      for official F1 information and fan interaction.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The app is designed for fans to access live race tracking, news,
+      and schedules, not for team logistics, driver recruitment, or exclusive gaming
+      tournaments.
+    options:
+    - To manage team logistics and race entries
+    - To provide live race tracking and F1 news to fans
+    - To serve as a platform for driver recruitment
+    - To host online F1 gaming tournaments exclusively
+    question_text: What is a primary function of the Official F1 App as described
+      in the document?
+  index: 607
+  key_concept: Official F1 App
+  name: Download the Official F1 App

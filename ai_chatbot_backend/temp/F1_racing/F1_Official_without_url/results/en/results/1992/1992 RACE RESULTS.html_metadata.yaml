@@ -1,0 +1,217 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page presenting the official 1992 Formula 1 race results,
+  with a summary table of Grand Prix winners, and sections highlighting F1's commercial
+  partners and promoting the official F1 mobile app.
+file_name: 1992 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1992/1992 RACE RESULTS.html
+file_uuid: df8d234c-9c94-5ace-b971-fbdd33f3d2c1
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Nigel Mansell dominated the 1992 season, winning the majority of races
+    for Williams Renault.
+  knowledge_areas:
+  - 1992 Formula 1 Race Winners and Results
+  options:
+  - Nigel Mansell – Williams Renault
+  - Ayrton Senna – McLaren Honda
+  - Gerhard Berger – Benetton Ford
+  - Michael Schumacher – McLaren Honda
+  question_id: 1
+  question_text: Who won the most races in the 1992 Formula 1 season, and for which
+    team did he drive?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: F1 commercial partners do not set race regulations; this is the responsibility
+    of governing bodies like the FIA.
+  knowledge_areas:
+  - F1 Commercial Partners
+  options:
+  - Sponsoring teams or events for brand exposure
+  - Providing technological support or products
+  - Setting race regulations and rules
+  - Engaging in co-branded marketing campaigns
+  question_id: 2
+  question_text: Which of the following is NOT typically a role of an F1 commercial
+    partner?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app provides live timing and news updates; it does not offer team
+    management or circuit design features.
+  knowledge_areas:
+  - Official F1 Mobile Application
+  options:
+  - Live race timing and news updates
+  - Exclusive driver hiring opportunities
+  - Designing and voting on new circuits
+  - Managing team finances
+  question_id: 3
+  question_text: What are two main features provided by the Official F1 App?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Commercial partners support F1 financially and through marketing, which
+    can enhance fan engagement, but they do not influence race results or technical
+    regulations.
+  knowledge_areas:
+  - F1 Commercial Partners
+  - Fan Engagement
+  options:
+  - They provide funding and enhance fan experiences through branded initiatives.
+  - They determine the outcome of races.
+  - They select which drivers participate in each race.
+  - They regulate technical rules for the cars.
+  question_id: 4
+  question_text: How do F1 commercial partnerships impact the sport and its fans?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app is a key digital engagement tool, often featuring branding
+    from commercial partners, illustrating the intersection of technology and sponsorship
+    in F1.
+  knowledge_areas:
+  - Official F1 Mobile Application
+  - F1 Commercial Partners
+  - Fan Engagement
+  options:
+  - The Official F1 App, supported by commercial partners, delivers real-time content
+    and branded experiences to fans worldwide.
+  - Commercial partners only advertise during TV broadcasts and have no digital presence.
+  - F1 apps are unrelated to commercial sponsorship and serve only as race simulators.
+  - Technology is not a significant part of F1's fan engagement strategy.
+  question_id: 5
+  question_text: Which of the following statements best integrates the role of technology
+    and commercial partnerships in modern F1 fan engagement?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1992 Formula 1 Race Results section provides a comprehensive tabular
+      summary of each Grand Prix held during the 1992 F1 season, listing the date,
+      winner, team, number of laps, and total race time for each event. This data
+      is official and sourced from the governing body of Formula 1, ensuring accuracy
+      and historical reliability.
+    type: Definition
+  - content: For example, Nigel Mansell, driving for Williams Renault, won multiple
+      races including the South African, Mexican, Brazilian, Spanish, San Marino,
+      French, British, German, and Portuguese Grands Prix. Ayrton Senna, representing
+      McLaren Honda, secured victories in Monaco, Hungary, and Italy. Other notable
+      winners include Gerhard Berger (Canada, Australia), Michael Schumacher (Belgium),
+      and Riccardo Patrese (Japan).
+    type: Examples
+  - content: This results table is used by historians, statisticians, fans, and analysts
+      to track performance trends, compare driver and team dominance, and analyze
+      the competitive landscape of the 1992 season. It is also useful for media referencing,
+      trivia, and as a foundation for deeper statistical analysis such as win rates,
+      podium finishes, and team strategies.
+    type: Use Cases
+  - content: The dominance of certain drivers and teams, such as Nigel Mansell and
+      Williams Renault, is evident from the frequency of their wins, reflecting technical
+      superiority, strategic acumen, and driver skill. The distribution of victories
+      also highlights the competitive presence of other teams like McLaren Honda and
+      Benetton Ford, and the emergence of future stars like Michael Schumacher.
+    type: Implications
+  - content: These results connect to broader F1 concepts such as championship points
+      allocation, team and driver standings, and the evolution of car technology and
+      regulations. The 1992 season is historically significant for showcasing the
+      peak of Williams' technical innovation and for being a pivotal year in the careers
+      of several legendary drivers.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Nigel Mansell, driving for Williams Renault, won the majority of
+      races in 1992, demonstrating both driver and team dominance. Other drivers and
+      teams won fewer races.
+    options:
+    - Nigel Mansell – Williams Renault
+    - Ayrton Senna – McLaren Honda
+    - Michael Schumacher – Benetton Ford
+    - Gerhard Berger – McLaren Honda
+    question_text: Which driver and team combination secured the most Grand Prix victories
+      during the 1992 Formula 1 season?
+  index: 153
+  key_concept: 1992 Formula 1 Race Winners and Results
+  name: 1992 RACE RESULTS
+- aspects:
+  - content: F1 Commercial Partners are corporations and brands that sponsor or collaborate
+      with Formula 1, providing financial support, products, or services in exchange
+      for marketing exposure and association with the sport. The partners' logos and
+      links are prominently displayed on the official F1 platform.
+    type: Definition
+  - content: Examples of F1 partners include luxury brands like LVMH and Louis Vuitton,
+      technology companies such as AWS and Lenovo, automotive-related firms like Pirelli
+      and BBS, logistics companies like DHL, beverage brands like Heineken and PepsiCo,
+      and financial institutions such as American Express and Santander. Each partner
+      represents a different industry sector, reflecting F1's broad commercial appeal.
+    type: Examples
+  - content: Partnerships are vital for the financial sustainability of F1, enabling
+      technological innovation, global marketing campaigns, and fan engagement initiatives.
+      Partners often leverage their association for co-branded advertising, hospitality
+      events, and product placements during races and broadcasts.
+    type: Use Cases
+  - content: The diversity and prestige of F1 partners underscore the sport's global
+      reach and commercial value. These relationships drive revenue streams that support
+      teams, event organization, and technological development. They also influence
+      the fan experience through branded content, giveaways, and exclusive offers.
+    type: Implications
+  - content: Commercial partnerships in F1 are closely linked to broader sports marketing
+      strategies, brand management, and the economics of motorsport. They also have
+      implications for team sponsorship, driver endorsements, and the overall image
+      of Formula 1 as a premium global entertainment property.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: F1 commercial partners sponsor the sport for marketing and exposure
+      benefits; they do not design cars, set regulations, or hire drivers.
+    options:
+    - They provide financial and marketing support in exchange for brand exposure.
+    - They design the F1 cars for all teams.
+    - They determine the race calendar and regulations.
+    - They are responsible for hiring drivers.
+    question_text: Which of the following best describes the role of F1's commercial
+      partners?
+  index: 174
+  key_concept: F1 Commercial Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application available for download on
+      both iOS and Android platforms, designed to provide fans with real-time updates,
+      race schedules, news, and exclusive content related to Formula 1.
+    type: Definition
+  - content: The app can be downloaded from the Apple App Store or Google Play Store,
+      offering features such as live timing, driver and team profiles, race results,
+      and push notifications for key events. It serves as a digital companion during
+      race weekends and throughout the F1 season.
+    type: Examples
+  - content: Fans use the app to follow live race data, receive instant news updates,
+      access multimedia content, and personalize their F1 experience. It also acts
+      as a hub for ticketing, fantasy gaming, and integration with other F1 digital
+      services.
+    type: Use Cases
+  - content: The app enhances fan engagement by providing a direct, interactive channel
+      between the sport and its global audience. It supports F1's digital strategy,
+      increasing accessibility and offering sponsors additional advertising opportunities.
+    type: Implications
+  - content: The F1 app is part of a broader digital ecosystem that includes F1 TV,
+      official websites, and social media, reflecting the sport's adaptation to modern
+      consumption habits and the importance of mobile technology in sports entertainment.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The F1 App is designed to deliver live timing, news, and updates;
+      it does not handle team ownership, exclusive broadcasting, or circuit design.
+    options:
+    - Providing live timing and race updates to fans
+    - Allowing fans to buy shares in F1 teams
+    - Broadcasting races exclusively
+    - Designing F1 circuits
+    question_text: What is a primary function of the Official F1 App?
+  index: 184
+  key_concept: Official F1 Mobile Application
+  name: Download the Official F1 App

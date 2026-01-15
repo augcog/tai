@@ -1,0 +1,211 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page footer and sidebar content from the official Formula
+  1 website, listing F1's commercial partners and providing download links for the
+  official F1 mobile app. The content focuses on sponsorship, brand partnerships,
+  and digital engagement options for fans.
+file_name: Alfa Romeo News and Videos | Formula 1.html
+file_path: F1_racing/F1_Official/news/en/latest/tags/Alfa Romeo News and Videos |
+  Formula 1.html
+file_uuid: 0539a5ff-2165-574d-b231-43245cfb0e75
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: F1 commercial partnerships primarily provide funding, technological
+    support, and operational enhancements for the sport, rather than influencing competitive
+    or regulatory outcomes.
+  knowledge_areas:
+  - F1 Commercial Partnerships
+  options:
+  - Providing exclusive racing strategies to teams
+  - Funding the sport and enhancing event operations
+  - Determining race winners
+  - Regulating driver contracts
+  question_id: 1
+  question_text: Which of the following is a primary role of F1 commercial partnerships?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Local amateur racing clubs are not listed among the official F1 partners,
+    which are typically global brands from luxury, technology, and logistics sectors.
+  knowledge_areas:
+  - F1 Commercial Partnerships
+  options:
+  - Luxury brands
+  - Technology companies
+  - Local amateur racing clubs
+  - Logistics firms
+  question_id: 2
+  question_text: Which brand category is LEAST likely to be an official F1 partner,
+    based on the website's listing?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Sponsoring F1 provides companies with global marketing exposure and
+    association with the sport, not ownership or regulatory control.
+  knowledge_areas:
+  - Brand Sponsorship in F1
+  options:
+  - Ownership of F1 teams
+  - Global marketing exposure
+  - Direct influence over race regulations
+  - Guaranteed race victories
+  question_id: 3
+  question_text: What is a major benefit for companies sponsoring Formula 1 events?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App offers live race timing, updates, and multimedia
+    content, but not car manufacturing tutorials, free tickets, or direct communication
+    with teams.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - Live race timing and updates
+  - Car manufacturing tutorials
+  - Free race tickets
+  - Direct race team communication
+  question_id: 4
+  question_text: Which of the following features is offered by the Official F1 App?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: F1 commercial partnerships and the Official F1 App work together to
+    enhance fan experience by integrating branded content and providing real-time
+    race updates and multimedia engagement.
+  knowledge_areas:
+  - F1 Commercial Partnerships
+  - Official F1 App
+  options:
+  - By offering direct betting on races
+  - Through integrated branded content and real-time updates
+  - By allowing fans to design race cars
+  - Through exclusive team ownership opportunities
+  question_id: 5
+  question_text: How do F1 commercial partnerships and the Official F1 App connect
+    to enhance the fan experience?
+  question_type: recap
+sections:
+- aspects:
+  - content: F1 commercial partnerships refer to the formal business relationships
+      between Formula 1 and various global brands, companies, and organizations. These
+      partnerships are typically structured as sponsorships, official supplier agreements,
+      or promotional collaborations, and are a core part of F1's business model.
+    type: Definition
+  - content: Notable F1 partners include luxury brands (LVMH, Louis Vuitton), technology
+      companies (AWS, Lenovo), financial services (American Express, Santander), beverage
+      companies (Heineken, Moet Hennessy, PepsiCo), and logistics firms (DHL). Each
+      partner's logo is prominently displayed on the F1 website and often at race
+      events, on cars, and in broadcast graphics.
+    type: Examples
+  - content: 'These partnerships provide mutual benefits: F1 gains financial support,
+      technological advancements, and enhanced event operations, while partners receive
+      global exposure, association with a premium sporting brand, and opportunities
+      for unique marketing activations. For instance, AWS provides cloud computing
+      for race analytics, while Pirelli supplies official tires.'
+    type: Use Cases
+  - content: F1's commercial partnerships are crucial for funding the sport, enabling
+      technological innovation, and enhancing fan experiences. The diversity of partners
+      reflects F1's global reach and appeal across multiple industries. However, reliance
+      on sponsorship can also influence event locations, marketing strategies, and
+      even regulatory decisions.
+    type: Implications
+  - content: F1 commercial partnerships are interconnected with team sponsorships,
+      race hosting agreements, and media rights deals. They also influence fan engagement
+      through branded content, promotional events, and exclusive offers, contributing
+      to the broader F1 ecosystem.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Local amateur racing clubs are not listed as official commercial
+      partners of F1; the official partners are usually global brands from luxury,
+      technology, finance, and logistics sectors.
+    options:
+    - Luxury brands like Louis Vuitton
+    - Technology companies like AWS
+    - Local amateur racing clubs
+    - Logistics firms like DHL
+    question_text: Which of the following is NOT typically a type of F1 commercial
+      partner listed on the official F1 website?
+  index: 85
+  key_concept: F1 Commercial Partnerships
+  name: OUR PARTNERS
+- aspects:
+  - content: Brand sponsorship in F1 involves companies providing financial or material
+      support to Formula 1 in exchange for advertising, branding opportunities, and
+      association with the sport. Sponsorship can be at the level of the overall championship,
+      individual teams, or specific events.
+    type: Definition
+  - content: Examples include Heineken as a global event sponsor, Pirelli as the exclusive
+      tire supplier, and Crypto.com as a digital asset partner. These brands often
+      have their logos displayed on race tracks, cars, driver suits, and digital platforms.
+    type: Examples
+  - content: Sponsorship deals allow brands to reach a global audience, leverage F1's
+      high-profile events for marketing campaigns, and create exclusive experiences
+      (such as VIP hospitality or fan contests). For F1, sponsorship provides essential
+      revenue and resources.
+    type: Use Cases
+  - content: Brand sponsorship shapes the visual identity of the sport, influences
+      team finances and competitiveness, and can affect the types of products and
+      services promoted to fans. It also raises considerations about brand alignment
+      and ethical sponsorship (e.g., alcohol, crypto, or gambling brands).
+    type: Implications
+  - content: Brand sponsorship is closely linked to F1's commercial partnerships,
+      media rights, and merchandising. It also impacts the fan experience through
+      branded activations, giveaways, and integrated advertising in digital and broadcast
+      content.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Brands sponsor F1 primarily for global exposure through events, media
+      coverage, and association with the sport, not for direct control or team ownership.
+    options:
+    - Access to exclusive racing technology
+    - Global exposure through race events and media
+    - Ownership of F1 teams
+    - Regulatory control over race rules
+    question_text: What is a primary benefit for brands sponsoring Formula 1?
+  index: 85
+  key_concept: Brand Sponsorship in F1
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application available for iOS and Android
+      devices, designed to provide fans with real-time updates, live timing, news,
+      and multimedia content related to Formula 1.
+    type: Definition
+  - content: Features of the app include live race timing, driver and team stats,
+      push notifications for breaking news, and access to exclusive video content.
+      The app is available for download from the Apple App Store and Google Play Store.
+    type: Examples
+  - content: Fans use the app to follow races in real time, receive instant updates
+      on standings and incidents, and engage with multimedia content such as interviews
+      and highlight reels. The app enhances the fan experience by offering personalized
+      alerts and interactive features.
+    type: Use Cases
+  - content: The app represents F1's digital transformation and commitment to engaging
+      a global audience. It allows F1 to collect user data for targeted marketing,
+      improve fan engagement, and offer premium subscription services (such as F1
+      TV integration).
+    type: Implications
+  - content: The Official F1 App connects to other digital platforms, including F1
+      TV and social media, creating an integrated digital ecosystem. It also complements
+      F1's commercial partnerships by providing branded content and sponsor activations
+      within the app.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App provides live race timing, updates, and multimedia
+      content; it does not offer car blueprints, betting, or free tickets.
+    options:
+    - Live race timing and updates
+    - Exclusive car design blueprints
+    - Direct betting on race outcomes
+    - Free race tickets for every user
+    question_text: Which feature is commonly offered by the Official F1 App?
+  index: 95
+  key_concept: Official F1 App
+  name: Download the Official F1 App

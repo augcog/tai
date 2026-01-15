@@ -1,0 +1,216 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page presenting the official 1967 Formula 1 race results,
+  including a summary table of Grand Prix winners, and sections highlighting F1's
+  corporate partners and links to download the official F1 mobile app.
+file_name: 1967 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1967/1967 RACE RESULTS.html
+file_uuid: 449d6ebc-cb63-56b8-a78f-7d9bd577d814
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Jim Clark, driving for Lotus Ford, secured the most race wins in the
+    1967 season, as indicated by multiple victories in the results table.
+  knowledge_areas:
+  - 1967 Formula 1 Race Results
+  options:
+  - Lotus Ford - Jim Clark
+  - Brabham Repco - Jack Brabham
+  - Brabham Repco - Denny Hulme
+  - Honda - John Surtees
+  question_id: 1
+  question_text: Which team and driver combination won the most races in the 1967
+    Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: AWS (Amazon Web Services) is an official F1 partner that specializes
+    in cloud computing and data analytics, supporting F1's technological infrastructure.
+  knowledge_areas:
+  - F1 Corporate Partners
+  options:
+  - Heineken
+  - AWS
+  - TAG Heuer
+  - Barilla
+  question_id: 2
+  question_text: Which of the following companies is listed as an official F1 partner
+    and is known for providing cloud computing and data analytics?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app is designed to deliver live timing, news, and exclusive content,
+    enhancing the fan experience and engagement with current F1 events.
+  knowledge_areas:
+  - Official F1 Mobile App
+  options:
+  - To provide live race timing, news, and exclusive content to fans
+  - To sell official F1 merchandise
+  - To stream only past races
+  - To provide engineering schematics of F1 cars
+  question_id: 3
+  question_text: What is the main purpose of the Official F1 Mobile App as presented
+    in the document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: F1 corporate partners contribute financial resources, technological
+    expertise, and marketing initiatives, but are not responsible for managing tracks,
+    supplying cars, or organizing the calendar.
+  knowledge_areas:
+  - F1 Corporate Partners
+  options:
+  - They provide financial, technological, and marketing support to Formula 1.
+  - They are responsible for managing race tracks.
+  - They supply all the race cars for the teams.
+  - They organize the race calendar.
+  question_id: 4
+  question_text: Which of the following statements best describes the role of F1 corporate
+    partners?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: These elements together offer fans comprehensive historical data, access
+    to engaging and up-to-date content, and digital tools for following live events,
+    thereby enhancing overall engagement with the sport.
+  knowledge_areas:
+  - 1967 Formula 1 Race Results
+  - F1 Corporate Partners
+  - Official F1 Mobile App
+  options:
+  - By providing historical data, engaging content, and digital access to live events
+  - By manufacturing all F1 cars and tires
+  - By organizing all F1 races and logistics
+  - By limiting access to F1 information to in-person attendees only
+  question_id: 5
+  question_text: How do the 1967 race results, F1 corporate partners, and the Official
+    F1 Mobile App collectively support the fan experience?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1967 Formula 1 Race Results refer to the official outcomes of all
+      Grand Prix races held during the 1967 World Championship season. This includes
+      details such as the Grand Prix name, date, winning driver, team, number of laps,
+      and total race time for each event.
+    type: Definition
+  - content: Results are typically presented in a tabular format, with columns for
+      Grand Prix (including country and flag), date, winner (with driver code), team,
+      laps completed, and the winner's total race time. This standardized layout allows
+      for easy comparison across races and seasons.
+    type: Structure and Format
+  - content: The 1967 season was part of the early era of Formula 1, featuring legendary
+      drivers like Jim Clark, Denny Hulme, and Jack Brabham, and teams such as Lotus
+      Ford, Brabham Repco, and Cooper Maserati. The season comprised races across
+      various countries, reflecting the global nature of the championship even in
+      its formative decades.
+    type: Historical Context
+  - content: Notable highlights from the 1967 results include Jim Clark's dominance
+      with multiple wins for Lotus Ford (Netherlands, Great Britain, United States,
+      and Mexico), and Denny Hulme's victories for Brabham Repco (Monaco and Germany).
+      The table also shows unique wins, such as Dan Gurney's victory for Eagle Weslake
+      in Belgium and John Surtees' win for Honda in Italy.
+    type: Examples and Highlights
+  - content: These results are crucial for fans, historians, and statisticians to
+      track performance trends, driver and team achievements, and the evolution of
+      the sport. They serve as an authoritative record for championship standings,
+      inform retrospective analyses, and are foundational for F1's official archives
+      and databases.
+    type: Implications and Use Cases
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Jim Clark won the most races in 1967, securing victories at the Netherlands,
+      Great Britain, United States, and Mexico Grands Prix. The others won fewer races
+      that season.
+    options:
+    - Jim Clark
+    - Jack Brabham
+    - Denny Hulme
+    - Dan Gurney
+    question_text: Which of the following drivers won the most Grand Prix races in
+      the 1967 Formula 1 season?
+  index: 144
+  key_concept: 1967 Formula 1 Race Results
+  name: 1967 RACE RESULTS
+- aspects:
+  - content: F1 Corporate Partners are companies and brands that have entered into
+      official sponsorship or partnership agreements with Formula 1. These partnerships
+      often involve branding, marketing, and collaborative promotional activities.
+    type: Definition
+  - content: The partners listed include a diverse range of global brands such as
+      LVMH, Pirelli, Aramco, Heineken, AWS, Lenovo, DHL, Qatar Airways, MSC, Crypto.com,
+      Salesforce, Louis Vuitton, TAG Heuer, Moet Hennessy, American Express, Santander,
+      Allwyn, Globant, Las Vegas Convention and Visitors Authority, Paramount+, Barilla,
+      Liqui Moly, Nestle, PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds.
+    type: Examples
+  - content: These partnerships provide financial support, technological innovation,
+      and global exposure for both F1 and the partner brands. For example, AWS contributes
+      cloud computing and data analytics, Pirelli supplies official tires, and DHL
+      manages logistics. The presence of luxury and consumer brands like LVMH and
+      Heineken reflects F1's appeal to premium markets.
+    type: Implications and Use Cases
+  - content: The inclusion of partners from various industries—luxury goods, technology,
+      logistics, finance, and consumer products—demonstrates F1's broad commercial
+      reach and its ability to attract high-profile sponsors. These relationships
+      are vital for the sport's economic sustainability and continued innovation.
+    type: Context and Significance
+  - content: Corporate partners are visible throughout F1 events, from trackside branding
+      to digital platforms and fan experiences. Their involvement often extends to
+      supporting sustainability initiatives, fan engagement campaigns, and technological
+      advancements within the sport.
+    type: Connections to F1 Operations
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Heineken, AWS, and Pirelli are all mentioned as official partners.
+      Coca-Cola is not listed among the partners in the provided section.
+    options:
+    - Heineken
+    - AWS
+    - Coca-Cola
+    - Pirelli
+    question_text: Which of the following is NOT listed as an official F1 partner
+      in the provided section?
+  index: 160
+  key_concept: F1 Corporate Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 Mobile App is a digital application available for download
+      on iOS (App Store) and Android (Google Play) platforms, providing fans with
+      access to live timing, news, schedules, and exclusive content related to Formula
+      1.
+    type: Definition
+  - content: The app offers features such as live race timing, driver and team information,
+      race schedules, news updates, and multimedia content. It enhances the fan experience
+      by delivering real-time data and personalized notifications during race weekends.
+    type: Features and Use Cases
+  - content: By centralizing F1 information, the app allows fans to stay connected
+      to the sport regardless of location. It supports fan engagement, provides marketing
+      opportunities for F1 and its partners, and serves as a platform for digital
+      innovation within the sport.
+    type: Practical Implications
+  - content: Users can download the app via the App Store or Google Play, as indicated
+      by the provided download links. The app may include features such as live leaderboard
+      tracking, driver radio, and access to exclusive interviews or race highlights.
+    type: Examples
+  - content: The app complements other F1 digital offerings, such as F1 TV and the
+      official website, creating a comprehensive digital ecosystem for fans. It also
+      integrates with social media and fantasy gaming platforms, further broadening
+      fan interaction.
+    type: Connections to Broader F1 Ecosystem
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 Mobile App is primarily designed to provide live
+      race timing, updates, and exclusive content for fans. It does not sell cars,
+      broadcast only historic races, or manufacture tires.
+    options:
+    - Providing live race timing and updates
+    - Selling Formula 1 cars
+    - Broadcasting only historic races
+    - Manufacturing F1 tires
+    question_text: What is a primary function of the Official F1 Mobile App?
+  index: 170
+  key_concept: Official F1 Mobile App
+  name: Download the Official F1 App

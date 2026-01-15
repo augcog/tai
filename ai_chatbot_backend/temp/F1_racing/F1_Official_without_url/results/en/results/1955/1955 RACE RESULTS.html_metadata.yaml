@@ -1,0 +1,205 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page listing the 1955 Formula 1 race results, including race
+  winners, teams, and dates, along with sections promoting F1 partners and the official
+  F1 app.
+file_name: 1955 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1955/1955 RACE RESULTS.html
+file_uuid: c2dc5e5c-d640-5d38-a405-f725b9a1c5a8
+recap_questions:
+- correct_answers:
+  - 2
+  explanation: Mercedes-Benz won the majority of races in 1955, with Juan Manuel Fangio
+    and Stirling Moss securing multiple victories for the team. Ferrari and Kurtis
+    Kraft Offenhauser each had a single win, and Lotus did not win any race that year.
+  knowledge_areas:
+  - 1955 Formula 1 Race Results
+  options:
+  - Ferrari
+  - Kurtis Kraft Offenhauser
+  - Mercedes-Benz
+  - Lotus
+  question_id: 1
+  question_text: Which team had the most race wins in the 1955 Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Maurice Trintignant won the Monaco Grand Prix in 1955 for Ferrari,
+    while Fangio won the races in Argentina, Belgium, and Italy for Mercedes-Benz.
+  knowledge_areas:
+  - 1955 Formula 1 Race Results
+  options:
+  - Argentina
+  - Belgium
+  - Monaco
+  - Italy
+  question_id: 2
+  question_text: Which of the following Grand Prix races was NOT won by Juan Manuel
+    Fangio in 1955?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: LVMH is a conglomerate known for luxury goods and is listed as an F1
+    partner. Pirelli is a tire manufacturer, AWS is a cloud computing provider, and
+    DHL is a logistics company.
+  knowledge_areas:
+  - F1 Partners
+  options:
+  - Pirelli
+  - LVMH
+  - AWS
+  - DHL
+  question_id: 3
+  question_text: Which of the following brands is listed as an F1 partner and is known
+    for luxury goods?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App provides live timing and race updates as its core
+    features. It does not primarily offer merchandise discounts, driver coaching,
+    or non-F1 sports news.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - Live timing and race updates
+  - Discounts on team merchandise
+  - Driver coaching tutorials
+  - Access to non-F1 sports news
+  question_id: 4
+  question_text: What are two key features provided by the Official F1 App?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: F1 partners contribute through products, services, and funding, not
+    just financial support. AWS is an example of a technology partner, providing cloud
+    and data solutions.
+  knowledge_areas:
+  - F1 Partners
+  - Connections
+  options:
+  - They provide only financial support; DHL
+  - They offer products, services, and funding; AWS
+  - They manage race regulations; Pirelli
+  - They design race tracks; Lenovo
+  question_id: 5
+  question_text: How do F1 partners contribute to the sport, and what is an example
+    of a technology partner?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1955 Formula 1 Race Results refer to the official outcomes of each
+      Grand Prix held during the 1955 World Championship season, including details
+      such as the event name, date, winning driver, team, number of laps, and total
+      race time. This data forms the historical record for the season and is used
+      for statistical, analytical, and historical reference.
+    type: Definition
+  - content: Notable examples from the 1955 season include Juan Manuel Fangio winning
+      the Argentine, Belgian, Dutch, and Italian Grands Prix for Mercedes-Benz, Maurice
+      Trintignant winning Monaco for Ferrari, Bob Sweikert winning the Indianapolis
+      500 for Kurtis Kraft Offenhauser, and Stirling Moss winning the British Grand
+      Prix for Mercedes-Benz. Each entry lists the Grand Prix, date, winner, team,
+      laps, and time, providing a comprehensive overview of the season's competitive
+      landscape.
+    type: Examples
+  - content: These results have significant implications for understanding the dominance
+      of certain drivers and teams in 1955, particularly Mercedes-Benz and Juan Manuel
+      Fangio. The data also illustrates the international scope of the championship,
+      with races held across Europe and the Americas. The results are essential for
+      determining championship points, historical comparisons, and the evolution of
+      racing strategies and technology.
+    type: Implications
+  - content: The 1955 race results connect to broader themes in motorsport history,
+      such as the development of racing technology, the careers of legendary drivers,
+      and the changing structure of the Formula 1 calendar. They also serve as a reference
+      point for comparing performance across different eras and understanding the
+      historical context of modern F1.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Juan Manuel Fangio won the most races in the 1955 season, securing
+      victories in Argentina, Belgium, Netherlands, and Italy. The other drivers won
+      only one race each.
+    options:
+    - Stirling Moss
+    - Juan Manuel Fangio
+    - Maurice Trintignant
+    - Bob Sweikert
+    question_text: Which driver won the most races in the 1955 Formula 1 season?
+  index: 144
+  key_concept: 1955 Formula 1 Race Results
+  name: 1955 RACE RESULTS
+- aspects:
+  - content: F1 Partners are companies and brands that have established official sponsorship
+      or partnership agreements with Formula 1, providing financial support, products,
+      or services in exchange for marketing and promotional opportunities within the
+      sport.
+    type: Definition
+  - content: Examples of F1 Partners include luxury brands (LVMH, Louis Vuitton),
+      technology firms (AWS, Lenovo), logistics companies (DHL), beverage brands (Heineken,
+      Moet Hennessy), airlines (Qatar Airways), and financial services (Santander,
+      American Express). These partners are featured prominently on F1's official
+      platforms and at race events.
+    type: Examples
+  - content: Partnerships allow brands to leverage F1's global audience for advertising,
+      product placement, and hospitality experiences. For F1, these partnerships provide
+      essential funding, technical innovation, and logistical support, contributing
+      to the sport's commercial and operational success.
+    type: Use Cases
+  - content: The presence of diverse and high-profile partners highlights F1's status
+      as a premier global sporting event. It also reflects the sport's reliance on
+      commercial sponsorships for financial stability and technological advancement.
+      These relationships can influence the fan experience, event organization, and
+      even the direction of sport development.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not listed among the official F1 partners; the others (Heineken,
+      AWS, DHL) are all mentioned as partners in the source.
+    options:
+    - Heineken
+    - AWS
+    - Nike
+    - DHL
+    question_text: Which of the following is NOT listed as an official F1 partner?
+  index: 156
+  key_concept: F1 Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application provided by Formula 1, available
+      for download on major app stores (Apple App Store and Google Play). It offers
+      fans access to live timing, news, schedules, driver information, and other interactive
+      features related to the F1 World Championship.
+    type: Definition
+  - content: Examples of features within the F1 App include real-time race data, session
+      status updates, driver and team profiles, event schedules, and push notifications
+      for breaking news. The app is promoted as a central hub for fans to follow the
+      sport on mobile devices.
+    type: Examples
+  - content: The app is used by fans to stay updated during live races, track their
+      favorite drivers and teams, and access exclusive content. It enhances the fan
+      experience by providing information that complements TV broadcasts or on-site
+      attendance.
+    type: Use Cases
+  - content: The F1 App connects digital engagement strategies with traditional motorsport
+      fandom, reflecting the sport's adaptation to modern media consumption. It also
+      ties into F1's broader digital ecosystem, including F1 TV, social media, and
+      official websites.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App is primarily designed to provide live timing,
+      race updates, and F1-specific content, not to sell car parts, coach drivers,
+      or stream unrelated sports.
+    options:
+    - Providing live timing and race updates
+    - Selling car parts
+    - Offering driver coaching services
+    - Streaming non-F1 sports events
+    question_text: What is a primary function of the Official F1 App?
+  index: 166
+  key_concept: Official F1 App
+  name: Download the Official F1 App

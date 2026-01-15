@@ -1,0 +1,219 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page summarizing the 1987 Formula 1 race results, listing
+  each Grand Prix winner, their team, and race details, along with sections highlighting
+  F1's commercial partners and promoting the official F1 mobile application.
+file_name: 1987 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1987/1987 RACE RESULTS.html
+file_uuid: 69b4903f-e55c-5823-a992-630d826b681c
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Nigel Mansell won the most races in 1987, driving for Williams Honda,
+    as evidenced by multiple victories listed in the results table.
+  knowledge_areas:
+  - 1987 Formula 1 Race Results
+  options:
+  - Alain Prost for McLaren TAG
+  - Nigel Mansell for Williams Honda
+  - Ayrton Senna for Lotus Honda
+  - Gerhard Berger for Ferrari
+  question_id: 1
+  question_text: Which driver won the most races in the 1987 Formula 1 season, and
+    for which team did he primarily drive?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Nike is not listed among the official F1 commercial partners, while
+    Pirelli, AWS, and Heineken are all present.
+  knowledge_areas:
+  - F1 Commercial Partners
+  options:
+  - Pirelli
+  - AWS
+  - Nike
+  - Heineken
+  question_id: 2
+  question_text: Which of the following is NOT an official F1 commercial partner as
+    shown in the document?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The F1 Mobile App is designed to provide fans with live race updates,
+    news, and interactive content, enhancing their engagement with the sport.
+  knowledge_areas:
+  - Official F1 Mobile App
+  options:
+  - To supply car parts to teams
+  - To provide real-time race results, news, and interactive features for fans
+  - To organize Grand Prix events
+  - To manage team sponsorships
+  question_id: 3
+  question_text: What is the primary purpose of the Official F1 Mobile App?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Commercial partnerships provide F1 with financial and logistical support,
+    while partners benefit from global marketing and brand exposure.
+  knowledge_areas:
+  - F1 Commercial Partners
+  options:
+  - By providing exclusive access to race tracks only
+  - 'Through mutual promotion: F1 receives funding and services, partners gain global
+    exposure'
+  - By allowing partners to compete in races
+  - Through regulation of race outcomes
+  question_id: 4
+  question_text: How do F1 commercial partnerships benefit both Formula 1 and the
+    partner companies?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Successful teams and drivers bring greater visibility to their sponsors,
+    enhancing the value of commercial partnerships.
+  knowledge_areas:
+  - 1987 Formula 1 Race Results
+  - F1 Commercial Partners
+  options:
+  - Race results determine which partners supply car parts
+  - Winning teams and drivers increase exposure for their sponsors and partners
+  - Commercial partners are only involved in app development
+  - Race results have no impact on commercial partnerships
+  question_id: 5
+  question_text: Which of the following best illustrates the connection between the
+    1987 race results and F1's commercial partners?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1987 Formula 1 Race Results refer to the official record of winners,
+      teams, and key statistics for each Grand Prix held during the 1987 FIA Formula
+      One World Championship season. This includes the event name, date, winning driver,
+      team, number of laps, and total race time for each race.
+    type: definition
+  - content: Examples from the 1987 season include Alain Prost winning the Brazilian
+      and Belgian Grands Prix for McLaren TAG, Nigel Mansell securing victories in
+      San Marino, France, Great Britain, Austria, Spain, and Mexico for Williams Honda,
+      and Gerhard Berger winning the Japanese and Australian Grands Prix for Ferrari.
+      Each entry in the results table provides a snapshot of the competitive landscape
+      for that race.
+    type: examples
+  - content: These results are crucial for historical analysis, determining championship
+      standings, and understanding the performance trends of drivers and teams. The
+      dominance of certain teams, such as Williams Honda, and the distribution of
+      wins among top drivers like Mansell, Piquet, and Prost, reflect technological,
+      strategic, and driver skill factors that shaped the season.
+    type: implications
+  - content: The 1987 F1 season was marked by intense competition, with multiple teams
+      and drivers contending for wins. The results table provides context for broader
+      narratives, such as the rivalry between Williams teammates Nigel Mansell and
+      Nelson Piquet, and the emergence of future legends like Ayrton Senna. The season
+      is also notable for the presence of turbocharged engines and the transition
+      period before significant regulatory changes.
+    type: context
+  - content: The race results connect directly to other F1 metrics such as driver
+      and team championship standings, fastest laps, and pole positions. They also
+      serve as a reference point for comparing performance across different eras,
+      and are often used in statistical analyses, media retrospectives, and fan discussions.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Williams Honda, with drivers Nigel Mansell and Nelson Piquet, won
+      the most races in 1987, as seen by their multiple victories listed in the results
+      table.
+    options:
+    - McLaren TAG
+    - Williams Honda
+    - Lotus Honda
+    - Ferrari
+    question_text: Which team secured the most Grand Prix victories in the 1987 Formula
+      1 season?
+  index: 153
+  key_concept: 1987 Formula 1 Race Results
+  name: 1987 RACE RESULTS
+- aspects:
+  - content: F1 Commercial Partners are companies and brands that have established
+      official sponsorship or partnership agreements with Formula 1. These partners
+      contribute financially and through services or products, gaining global exposure
+      through F1 events and media.
+    type: definition
+  - content: Notable partners listed include LVMH, Pirelli, Aramco, Heineken, AWS,
+      Lenovo, DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton, TAG
+      Heuer, Moet Hennessy, American Express, Santander, Allwyn, Globant, Las Vegas
+      Convention and Visitors Authority, Paramount+, Barilla, Liqui Moly, Nestle,
+      PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds. Each partner's logo and
+      link is displayed, emphasizing their association with F1.
+    type: examples
+  - content: Commercial partners provide essential funding, technology, and logistics
+      support for F1 operations. For example, Pirelli supplies tires for all teams,
+      AWS offers cloud computing and data analytics, DHL manages logistics, and Heineken
+      sponsors events and fan experiences. These partnerships are mutually beneficial,
+      promoting brands to a global audience while supporting the sport's infrastructure.
+    type: use case
+  - content: The presence of high-profile partners underscores F1's status as a premier
+      global sporting property. Partnerships influence the sport's financial health,
+      technological innovation, and fan engagement. They also reflect broader trends
+      in sports marketing, such as the integration of digital platforms and sustainability
+      initiatives.
+    type: implications
+  - content: F1's commercial partnerships are interconnected with the sport's media
+      rights, event organization, and fan engagement strategies. They also influence
+      the design and branding of cars, tracks, and digital content, and are a key
+      part of the business model for both F1 and its teams.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not mentioned among the listed F1 commercial partners, while
+      Pirelli, AWS, and Heineken are all present.
+    options:
+    - Pirelli
+    - AWS
+    - Nike
+    - Heineken
+    question_text: Which of the following companies is NOT listed as a 2024 Formula
+      1 commercial partner?
+  index: 174
+  key_concept: F1 Commercial Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 Mobile App is a smartphone application developed to provide
+      fans with real-time information, news, and interactive features related to Formula
+      1. It is available for download on both the Apple App Store and Google Play.
+    type: definition
+  - content: The app offers live timing, race results, schedules, driver and team
+      information, news updates, and multimedia content. It also provides push notifications,
+      exclusive interviews, and access to F1 TV for subscribers. The app is designed
+      to enhance the fan experience by delivering comprehensive coverage and interactivity.
+    type: features
+  - content: Fans use the app to follow races in real time, track their favorite drivers
+      and teams, and stay informed about F1 news and events. It is especially useful
+      for those unable to watch live broadcasts, as it provides up-to-the-minute data
+      and analysis.
+    type: use case
+  - content: The app reflects the digital transformation of sports consumption, enabling
+      F1 to reach a global audience and engage fans beyond traditional TV broadcasts.
+      It also supports F1's commercial strategy by integrating promotions, merchandise,
+      and partner content.
+    type: implications
+  - content: The app is part of F1's broader digital ecosystem, connecting with official
+      websites, social media, and F1 TV. It also integrates data from partners like
+      AWS and Pirelli, and serves as a platform for fan engagement, feedback, and
+      community building.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The app is designed to provide real-time race updates, news, and
+      information to fans, not to supply tires, organize logistics, or manufacture
+      engines.
+    options:
+    - Supplying tires to F1 teams
+    - Providing real-time race updates and news
+    - Organizing F1 logistics
+    - Manufacturing F1 engines
+    question_text: What is a key function of the Official F1 Mobile App?
+  index: 184
+  key_concept: Official F1 Mobile App
+  name: Download the Official F1 App

@@ -1,0 +1,180 @@
+URL: https://www.britannica.com/technology/website/additional-info#history
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A reference and edit history page for the Britannica article on
+  'website', covering related topics, contributors, and the article's revision history.
+file_name: website Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/website/website Britannica.html
+file_uuid: 77256e0e-2c3b-56ab-885f-511a2ab5f197
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The section specifically lists deep web, graphic design, phishing,
+    and propaganda as related topics, reflecting the interdisciplinary connections
+    of websites.
+  knowledge_areas:
+  - Related Topics and References
+  options:
+  - Deep web, graphic design, phishing, propaganda
+  - Quantum computing, blockchain, phishing, deep web
+  - Graphic design, quantum computing, propaganda, social media
+  - Phishing, deep web, artificial intelligence, graphic design
+  question_id: 1
+  question_text: Which topics are referenced in the 'More Articles On This Topic'
+    section as related to websites?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Listing contributors ensures transparency, accountability, and allows
+    readers to assess the authority of the article.
+  knowledge_areas:
+  - Article Contributors
+  options:
+  - To provide a list of website designers
+  - To promote the contributors' personal websites
+  - To ensure transparency and indicate editorial responsibility
+  - To display the number of contributors involved
+  question_id: 2
+  question_text: What is the primary purpose of listing article contributors in the
+    Britannica 'website' article?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The 'Article History' section increases credibility by documenting
+    each revision, who made it, and when, allowing for transparency and tracking of
+    content changes.
+  knowledge_areas:
+  - Article Revision History
+  options:
+  - By showing user ratings
+  - By documenting all revisions, contributors, and dates
+  - By providing a list of website examples
+  - By linking to external sources
+  question_id: 3
+  question_text: How does the 'Article History' section contribute to the credibility
+    of the Britannica article on 'website'?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: '''More Articles On This Topic'' lists related topics, while ''Article
+    Contributors'' lists the individuals responsible for the article''s content.'
+  knowledge_areas:
+  - Related Topics and References
+  - Article Contributors
+  options:
+  - Both provide technical definitions of websites
+  - One lists related interdisciplinary topics, the other lists responsible editors
+    and writers
+  - Both document the revision history of the article
+  - Both focus on website security issues
+  question_id: 4
+  question_text: Which of the following best describes the relationship between the
+    'More Articles On This Topic' and 'Article Contributors' sections?
+  question_type: recap
+sections:
+- aspects:
+  - content: This section lists other Britannica articles and references that are
+      related to the topic of 'website'. It includes connections to subjects such
+      as the deep web, graphic design, phishing, and propaganda, indicating the interdisciplinary
+      nature of websites in modern digital contexts.
+    type: Definition
+  - content: Examples provided include links to articles on the deep web (explaining
+      how non-indexed parts of the web function), graphic design's digital revolution
+      (highlighting the web's impact on design), phishing (discussing online security
+      threats), and propaganda (analyzing the web's role in information dissemination
+      and manipulation).
+    type: Examples
+  - content: The inclusion of these topics underscores the broad reach of websites,
+      from technical underpinnings (deep web) to societal impacts (propaganda), and
+      security concerns (phishing). This demonstrates how websites intersect with
+      a variety of academic and practical fields.
+    type: Implications
+  - content: By referencing these topics, the section encourages interdisciplinary
+      study and shows how understanding websites requires knowledge of technology,
+      design, security, and social sciences.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Quantum computing is not listed among the referenced topics; the
+      section specifically mentions deep web, phishing, and propaganda as directly
+      related to websites.
+    options:
+    - Deep web
+    - Phishing
+    - Quantum computing
+    - Propaganda
+    question_text: Which of the following topics is NOT directly referenced as related
+      to 'website' in the 'More Articles On This Topic' section?
+  index: 122
+  key_concept: Related Topics and References
+  name: More Articles On This Topic
+- aspects:
+  - content: This section identifies the individuals responsible for writing, editing,
+      and verifying the content of the 'website' article. It distinguishes between
+      primary contributors, such as the Editors of Encyclopaedia Britannica, and other
+      named contributors.
+    type: Definition
+  - content: Primary contributors are typically editors with subject-matter expertise,
+      responsible for overseeing content accuracy and quality. Other contributors
+      may include writers and editors who provide additional research, revisions,
+      or updates.
+    type: Roles and Responsibilities
+  - content: Named contributors include Erik Gregersen, William L. Hosch, and Gloria
+      Lotha, each of whom has specific editorial or subject expertise. The Editors
+      of Encyclopaedia Britannica are described as having extensive knowledge from
+      experience or advanced study.
+    type: Examples
+  - content: Listing contributors promotes transparency and accountability, allowing
+      readers to assess the authority and reliability of the article. It also reflects
+      the collaborative nature of encyclopedia publishing.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The Editors of Encyclopaedia Britannica are specifically listed as
+      the primary contributors, while the others are named as additional contributors.
+    options:
+    - Erik Gregersen
+    - The Editors of Encyclopaedia Britannica
+    - Gloria Lotha
+    - William L. Hosch
+    question_text: Who is listed as a primary contributor to the 'website' article
+      according to the 'Article Contributors' section?
+  index: 137
+  key_concept: Article Contributors
+  name: Article Contributors
+- aspects:
+  - content: This section provides a chronological record of changes made to the 'website'
+      article, including additions, revisions, and updates. Each entry typically lists
+      the type of edit, a brief description, the contributor, and the date.
+    type: Definition
+  - content: Examples of revisions include adding links, updating the article title
+      from 'Web site' to 'website', and incorporating new content such as references
+      to content management systems like WordPress. Contributors for each change are
+      also documented, such as Erik Gregersen and Gloria Lotha.
+    type: Examples
+  - content: The revision history ensures transparency and allows readers to track
+      the evolution of the article's content. It also provides insight into how the
+      understanding and presentation of the topic have changed over time.
+    type: Implications
+  - content: This practice is common in academic and reference publishing, supporting
+      the credibility of the resource. It also connects to broader themes of digital
+      authorship and collaborative knowledge creation.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The 'Article History' section provides a chronological record of
+      edits, including descriptions, contributors, and dates, not a list of websites
+      or user comments.
+    options:
+    - A list of all websites on the internet
+    - Chronological record of article edits and contributors
+    - Detailed technical specifications of websites
+    - User comments and reviews
+    question_text: What type of information can be found in the 'Article History'
+      section of the 'website' article?
+  index: 151
+  key_concept: Article Revision History
+  name: Article History

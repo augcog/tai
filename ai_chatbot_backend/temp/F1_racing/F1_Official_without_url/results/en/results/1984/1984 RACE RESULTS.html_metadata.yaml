@@ -1,0 +1,214 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A webpage summary for the 1984 Formula 1 season, including a table
+  of race results, a list of official F1 partners, and information about downloading
+  the official F1 app.
+file_name: 1984 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1984/1984 RACE RESULTS.html
+file_uuid: 73d24d8b-c91c-5976-90f4-46976aacf2bd
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: McLaren TAG, with drivers Alain Prost and Niki Lauda, won the majority
+    of races in 1984, as shown by their repeated presence in the winner column of
+    the results table.
+  knowledge_areas:
+  - 1984 Formula 1 Race Results
+  options:
+  - McLaren TAG
+  - Ferrari
+  - Brabham BMW
+  - Williams Honda
+  question_id: 1
+  question_text: Which team achieved the most race wins in the 1984 Formula 1 season
+    according to the results table?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: TAG Heuer is listed among the official F1 partners, while Apple, Google,
+    and Sony are not mentioned in the partners section.
+  knowledge_areas:
+  - F1 Official Partners
+  options:
+  - TAG Heuer
+  - Apple
+  - Google
+  - Sony
+  question_id: 2
+  question_text: Which of the following is an official F1 partner as listed on the
+    1984 Race Results page?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App provides live race timing, updates, and official
+    news, but does not offer car purchases, free streaming of all past races, or betting
+    functionality.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - Live race timing and updates
+  - Ability to purchase F1 cars
+  - Streaming of all past races for free
+  - Direct betting on race outcomes
+  question_id: 3
+  question_text: What is a key feature of the Official F1 App promoted on the page?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Official partners contribute through sponsorship, technology collaborations,
+    and marketing efforts, not by driving, organizing the calendar, or determining
+    results.
+  knowledge_areas:
+  - F1 Official Partners
+  - 1984 Formula 1 Race Results
+  options:
+  - By providing funding, technology, and global marketing support
+  - By driving the race cars
+  - By organizing the race calendar
+  - By determining race results
+  question_id: 4
+  question_text: How do F1's official partners contribute to the sport, based on the
+    information provided?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The F1 app delivers live and historical race results to fans, and its
+    features are often enhanced by technology and services provided by official partners,
+    demonstrating the interconnectedness of these elements.
+  knowledge_areas:
+  - 1984 Formula 1 Race Results
+  - F1 Official Partners
+  - Official F1 App
+  options:
+  - The F1 app provides access to live race results, which are supported by technological
+    innovations from official partners.
+  - F1 partners decide which teams win races, and the app broadcasts these decisions.
+  - The 1984 race results are only available to partners through the app.
+  - The app is used by drivers to communicate with their teams during races.
+  question_id: 5
+  question_text: Which of the following statements best connects the 1984 race results,
+    F1 partners, and the F1 app?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1984 Formula 1 Race Results refer to the official outcomes of each
+      Grand Prix event held during the 1984 F1 World Championship season. This includes
+      the winner, their team, the number of laps completed, and the total race time
+      for each event.
+    type: Definition
+  - content: For example, Alain Prost won the Brazilian Grand Prix for McLaren TAG,
+      completing 61 laps in 1:42:34.492. Another example is Niki Lauda's victory at
+      the South African Grand Prix, also for McLaren TAG, with 75 laps in 1:29:23.430.
+      The table lists similar data for each race, including winners like Michele Alboreto
+      (Ferrari) in Belgium and Nelson Piquet (Brabham BMW) in Canada and Detroit.
+    type: Examples
+  - content: The race results are critical for determining the drivers' and constructors'
+      championship standings. Consistent high placements, such as those by Alain Prost
+      and Niki Lauda, contributed significantly to McLaren TAG's dominance in 1984.
+      These results also influence historical analyses of team and driver performance
+      trends.
+    type: Implications
+  - content: The 1984 season is notable for the intense rivalry between Alain Prost
+      and Niki Lauda, both driving for McLaren TAG, and for the variety of teams and
+      drivers achieving race wins. The data connects to broader topics like F1 history,
+      team strategy, and the evolution of race regulations. The results table also
+      links to individual race reports and further statistics for deeper analysis.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Alain Prost, driving for McLaren TAG, won the most races in 1984,
+      as indicated by the frequency of his name in the winner column of the results
+      table. Other drivers won fewer races, and no other team-driver pairing matched
+      Prost's total.
+    options:
+    - Alain Prost - McLaren TAG
+    - Nelson Piquet - Brabham BMW
+    - Michele Alboreto - Ferrari
+    - Keke Rosberg - Williams Honda
+    question_text: Which driver and team combination won the most races in the 1984
+      Formula 1 season?
+  index: 149
+  key_concept: 1984 Formula 1 Race Results
+  name: 1984 RACE RESULTS
+- aspects:
+  - content: F1 Official Partners are companies and brands that have established formal
+      sponsorship or partnership agreements with Formula 1. These partnerships often
+      involve financial support, technological collaboration, and brand promotion
+      within the F1 ecosystem.
+    type: Definition
+  - content: Examples of F1 partners listed include LVMH, Pirelli, Aramco, Heineken,
+      AWS, Lenovo, DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton,
+      TAG Heuer, Moet Hennessy, American Express, Santander, Allwyn, Globant, Las
+      Vegas Convention and Visitors Authority, Paramount+, Barilla, Liqui Moly, Nestle,
+      PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds. Each brand is linked
+      to its respective website, showcasing the diversity of industries involved in
+      F1 sponsorship.
+    type: Examples
+  - content: These partnerships provide essential funding and resources for the sport,
+      enabling technological advancements (e.g., AWS for data analytics, Pirelli for
+      tires), global marketing reach, and enhanced fan experiences. For example, Heineken's
+      involvement often leads to branded events and campaigns, while DHL supports
+      logistics. The presence of luxury brands like Louis Vuitton and TAG Heuer underscores
+      F1's premium positioning.
+    type: Use Cases and Implications
+  - content: The network of partners reflects the commercial and international nature
+      of Formula 1, connecting the sport to sectors like technology, luxury goods,
+      travel, and consumer products. These relationships are integral to the business
+      model of F1 and often influence event presentation, digital platforms, and fan
+      engagement strategies.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Google is not listed among the official F1 partners on the provided
+      page, while AWS, Heineken, and Pirelli are all present in the partners section.
+    options:
+    - AWS
+    - Heineken
+    - Google
+    - Pirelli
+    question_text: Which of the following companies is NOT listed as an official F1
+      partner in the 1984 Race Results page?
+  index: 170
+  key_concept: F1 Official Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application provided by Formula 1, available
+      for download on iOS and Android devices. It offers fans access to live timing,
+      race data, news, and exclusive content related to Formula 1.
+    type: Definition
+  - content: The app can be downloaded via the Apple App Store or Google Play Store,
+      as indicated by the prominent download buttons and links. Features may include
+      live race tracking, driver and team statistics, push notifications for breaking
+      news, and interactive schedules.
+    type: Examples
+  - content: The app enhances the fan experience by providing real-time updates and
+      in-depth information, allowing users to follow races even when not watching
+      live broadcasts. It serves as a central hub for F1 enthusiasts to access official
+      content, increasing engagement and loyalty. The app also supports F1's digital
+      transformation and data-driven marketing strategies.
+    type: Use Cases and Implications
+  - content: The promotion of the official app reflects F1's commitment to digital
+      innovation and global fan outreach. It connects with broader trends in sports
+      consumption, where mobile apps are essential for delivering personalized, on-demand
+      content. The app is part of F1's ecosystem, linking to news, schedules, and
+      results.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App is available for download from the Apple App
+      Store for iOS devices and the Google Play Store for Android devices, as indicated
+      by the download links and icons.
+    options:
+    - Apple App Store and Google Play Store
+    - Microsoft Store and Amazon Appstore
+    - Only from the F1 official website
+    - Steam and Epic Games Store
+    question_text: What are the primary platforms where the Official F1 App can be
+      downloaded?
+  index: 180
+  key_concept: Official F1 App
+  name: Download the Official F1 App

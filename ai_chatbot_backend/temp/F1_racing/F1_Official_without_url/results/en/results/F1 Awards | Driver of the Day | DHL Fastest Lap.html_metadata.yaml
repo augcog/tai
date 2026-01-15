@@ -1,0 +1,172 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page excerpt listing Formula 1's official partners and sponsors,
+  as well as a section promoting the download of the official F1 mobile app.
+file_name: F1 Awards | Driver of the Day | DHL Fastest Lap.html
+file_path: F1_racing/F1_Official/results/en/results/F1 Awards | Driver of the Day
+  | DHL Fastest Lap.html
+file_uuid: 02ffc95e-d558-5af1-8ca3-fc6085c1a5e6
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Pirelli is a tire manufacturer and an official F1 sponsor, while FIFA,
+    NBA, and NHL are unrelated sports organizations.
+  knowledge_areas:
+  - Official F1 Partners and Sponsors
+  options:
+  - Pirelli
+  - FIFA
+  - NBA
+  - NHL
+  question_id: 1
+  question_text: Which of the following is an example of an official F1 sponsor mentioned
+    in the source?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The 'OUR PARTNERS' section highlights the companies that have official
+    partnerships or sponsorships with Formula 1.
+  knowledge_areas:
+  - Official F1 Partners and Sponsors
+  options:
+  - To list companies that sponsor and support Formula 1.
+  - To display the schedule of upcoming races.
+  - To provide live race commentary.
+  - To show historical race results.
+  question_id: 2
+  question_text: What is the main purpose of the 'OUR PARTNERS' section on the F1
+    website?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App is available on the Apple App Store and Google
+    Play, as stated in the source.
+  knowledge_areas:
+  - Official F1 Mobile App
+  options:
+  - Apple App Store and Google Play
+  - Windows Store and Steam
+  - Amazon Appstore and Huawei AppGallery
+  - BlackBerry World and Symbian Store
+  question_id: 3
+  question_text: Which platforms are mentioned for downloading the Official F1 App?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Sponsors such as AWS and DHL contribute their expertise—AWS with cloud
+    computing and analytics, DHL with logistics—enhancing F1 operations beyond just
+    financial input.
+  knowledge_areas:
+  - Official F1 Partners and Sponsors
+  options:
+  - By providing technological solutions and logistics services.
+  - By designing race tracks.
+  - By selecting drivers for teams.
+  - By setting race regulations.
+  question_id: 4
+  question_text: How do official sponsors like AWS and DHL contribute to Formula 1
+    beyond financial support?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app delivers live data and exclusive content for fans, while also
+    offering sponsors additional branding and engagement opportunities, thus supporting
+    F1's commercial objectives.
+  knowledge_areas:
+  - Official F1 Mobile App
+  - Official F1 Partners and Sponsors
+  options:
+  - By providing real-time data and serving as a platform for sponsor promotions.
+  - By offering free race tickets to all users.
+  - By allowing fans to control race strategies.
+  - By replacing television broadcasts entirely.
+  question_id: 5
+  question_text: In what way does the Official F1 App support both fans and the commercial
+    ecosystem of the sport?
+  question_type: recap
+sections:
+- aspects:
+  - content: Official F1 partners and sponsors are corporations and brands that have
+      established formal agreements with Formula 1 to provide financial support, products,
+      or services in exchange for marketing, branding, and promotional opportunities
+      within the sport. These partnerships are integral to the commercial ecosystem
+      of modern motorsport, enabling the funding of events, teams, and technological
+      advancements.
+    type: Definition
+  - content: Notable F1 partners and sponsors include luxury brands like LVMH and
+      Louis Vuitton, technology companies such as AWS and Lenovo, automotive and tire
+      manufacturers like Pirelli, and global logistics providers such as DHL. Other
+      examples include Heineken (beverages), Qatar Airways (airlines), Crypto.com
+      (cryptocurrency services), and American Express (financial services), among
+      many others.
+    type: Examples
+  - content: 'Sponsors play a multifaceted role: they provide essential funding for
+      races and teams, supply specialized products (e.g., Pirelli tires), and enhance
+      the fan experience through branded activations and digital engagement. Partnerships
+      may also include title sponsorships of races, technical collaborations (such
+      as AWS providing cloud computing for data analytics), and exclusive hospitality
+      services for VIP guests.'
+    type: Role and Use Cases
+  - content: The involvement of diverse sponsors reflects F1's global reach and appeal
+      across industries. Sponsorships drive innovation—such as technology partners
+      contributing to data-driven performance analysis—and help make the sport financially
+      viable. These relationships also influence the visibility of brands in international
+      markets and can shape public perception of both F1 and its commercial partners.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Official F1 partners and sponsors primarily provide financial backing,
+      products, or services in return for marketing, branding, and promotional benefits.
+      They do not manage regulations, design cars, or handle driver training.
+    options:
+    - They provide financial and product support in exchange for marketing opportunities.
+    - They manage the sporting regulations and race operations.
+    - They design and manufacture all F1 cars.
+    - They are responsible for driver training and recruitment.
+    question_text: Which of the following best describes the primary function of official
+      F1 partners and sponsors?
+  index: 55
+  key_concept: Official F1 Partners and Sponsors
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 Mobile App is a digital application available for download
+      on major platforms (Apple App Store and Google Play) that provides fans with
+      real-time information, news, live timing, and exclusive content related to Formula
+      1.
+    type: Definition
+  - content: Key features of the app include live race timing, driver and team information,
+      news updates, and access to multimedia content such as videos and interviews.
+      The app enhances the fan experience by allowing users to follow races in real
+      time, receive push notifications about key events, and engage with interactive
+      elements like fantasy leagues or voting for awards.
+    type: Features and Use Cases
+  - content: The app serves as a central hub for fans to stay connected to the sport,
+      regardless of location. It democratizes access to race data and exclusive insights,
+      supporting both casual viewers and dedicated enthusiasts. The app also acts
+      as a marketing and engagement tool for F1, driving digital interaction and expanding
+      the sport's global reach.
+    type: Practical Implications
+  - content: The promotion of the official app aligns with broader trends in sports
+      towards digital engagement and second-screen experiences. It connects fans directly
+      to F1's ecosystem, integrates with other digital products (such as F1 TV), and
+      supports the commercial objectives of both the sport and its sponsors by providing
+      additional advertising and branding opportunities.
+    type: Connections and Context
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 Mobile App provides fans with live timing, news,
+      and exclusive content, but does not offer car purchases, event attendance rights,
+      or regulatory voting.
+    options:
+    - Access to live race timing and exclusive F1 content.
+    - Ability to purchase F1 cars directly.
+    - Exclusive rights to attend every Grand Prix.
+    - Direct voting power over race regulations.
+    question_text: What is a primary benefit of downloading the Official F1 Mobile
+      App?
+  index: 65
+  key_concept: Official F1 Mobile App
+  name: Download the Official F1 App

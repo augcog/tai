@@ -1,0 +1,300 @@
+URL: https://www.britannica.com/technology/film-photography
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A reference overview of photographic film from Britannica, covering
+  its chemical composition, historical development, technological applications in
+  photography and motion pictures, and specialized uses such as radiation detection
+  and recycling.
+file_name: Film photography Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Film photography Britannica.html
+file_uuid: c31e1db8-d7e2-5386-8f35-865cace74724
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Silver halide crystals are the light-sensitive component of photographic
+    film, reacting to light exposure to form a latent image that can be developed.
+    They do not provide structural support, prevent degradation, or add color.
+  knowledge_areas:
+  - Photographic Film Composition and Function
+  options:
+  - They provide structural support for the film.
+  - They react to light exposure to form a latent image.
+  - They prevent the film from degrading over time.
+  - They add color to black-and-white photographs.
+  question_id: 1
+  question_text: What is the primary function of the silver halide crystals in photographic
+    film?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The introduction of flexible, transparent nitrocellulose-based film
+    allowed for portable cameras and the long reels needed for motion pictures, unlike
+    earlier rigid or paper-based supports.
+  knowledge_areas:
+  - Historical Development of Film
+  options:
+  - The use of glass plates as a photographic support
+  - The introduction of nitrocellulose-based flexible film
+  - The development of instant digital sensors
+  - The invention of color printing processes
+  question_id: 2
+  question_text: Which historical innovation made motion picture cameras and portable
+    photography widely practical?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Film gauges refer to the width of the film and are chosen based on
+    the desired image quality, application, and equipment compatibility. They do not
+    determine emulsion chemistry or are used solely for storage.
+  knowledge_areas:
+  - Film Formats and Technological Applications
+  options:
+  - They determine the chemical composition of the film emulsion.
+  - They define the physical size and image quality suitable for specific applications.
+  - They affect only the color reproduction of the film.
+  - They are used solely for archival storage.
+  question_id: 3
+  question_text: Why are different film gauges (such as 8mm, 16mm, 35mm, and 70mm)
+    important in photography and cinematography?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Photographic film records exposure to radiation through chemical changes
+    in its emulsion, providing a permanent record for analysis in medical imaging
+    and dosimetry.
+  knowledge_areas:
+  - 'Specialized Uses: Radiation Detection and Medical Imaging'
+  options:
+  - By reflecting radiation away from sensitive tissues
+  - By chemically recording exposure to radiation such as X-rays
+  - By emitting visible light when exposed to radiation
+  - By electronically amplifying radiation signals
+  question_id: 4
+  question_text: How does photographic film contribute to radiation detection in medical
+    and scientific contexts?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Celluloid and nitrocellulose are both highly flammable and chemically
+    unstable, leading to fires and degradation of historical films, which has prompted
+    efforts to develop safer film bases.
+  knowledge_areas:
+  - 'Material Innovations: Celluloid and Nitrocellulose'
+  options:
+  - They are highly flammable and degrade over time, threatening archives.
+  - They are too expensive to manufacture in large quantities.
+  - They cannot be used for color photography.
+  - They are incompatible with modern digital cameras.
+  question_id: 5
+  question_text: What safety and preservation challenges are associated with early
+    film materials like celluloid and nitrocellulose?
+  question_type: recap
+sections:
+- aspects:
+  - content: Photographic film is a material coated with light-sensitive compounds,
+      typically silver halide crystals suspended in a gelatin emulsion. When exposed
+      to light, these crystals undergo a chemical change that forms a latent image,
+      which can later be developed into a visible photograph. The film's emulsion
+      is crucial for capturing and storing the image information until processing.
+    type: Definition
+  - content: Common types of photographic film include black-and-white film, which
+      uses silver bromide and sometimes silver iodide, and color film, which contains
+      multiple layers sensitive to different wavelengths. Specialized films, such
+      as radiographic film for X-ray imaging, have higher concentrations of silver
+      halide to increase sensitivity.
+    type: Examples
+  - content: Photographic film is used in still photography, motion pictures, medical
+      imaging (radiography), and scientific applications like spectroscopy. Its ability
+      to record and preserve light patterns makes it foundational to visual documentation
+      and analysis.
+    type: Use Cases
+  - content: The chemical nature of film determines its sensitivity, contrast, and
+      resolution. Innovations in emulsion chemistry have led to films with higher
+      speed, finer grain, and greater dynamic range, impacting artistic and scientific
+      practices.
+    type: Implications
+  - content: Film technology is closely related to the development of cameras, printing
+      processes (like halftone for publications), and the evolution of digital imaging,
+      which has largely supplanted film in many areas but still relies on principles
+      established by film chemistry.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Photographic film's main functional component is a plastic (or sometimes
+      glass or paper) base coated with a gelatin emulsion containing light-sensitive
+      silver halide crystals. This distinguishes it from other imaging supports like
+      glass plates or digital sensors.
+    options:
+    - A plastic base coated with silver halide crystals in gelatin
+    - A glass plate with iron oxide coating
+    - A paper sheet coated with cellulose acetate
+    - A metal foil with organic dye layers
+    question_text: Which of the following best describes the main functional component
+      of photographic film?
+  index: 134
+  key_concept: Photographic Film Composition and Function
+  name: Assorted References
+- aspects:
+  - content: The historical development of film refers to the progression from early
+      photographic supports, such as glass plates and paper, to flexible, transparent
+      plastic-based films. This transition enabled new forms of photography and cinematography.
+    type: Definition
+  - content: Eastman’s 'American film' was initially paper-based, with the image-carrying
+      gelatin layer transferred to a transparent support after processing. In 1889,
+      this was replaced by nitrocellulose-based transparent film, which became standard
+      for both still and motion picture photography.
+    type: Examples
+  - content: The invention of roll film allowed for portable cameras, mass-market
+      photography, and the birth of the motion picture industry. The flexibility and
+      durability of plastic film made rapid sequential exposures and long reels possible.
+    type: Use Cases
+  - content: The shift to plastic film revolutionized image capture, making photography
+      and filmmaking more accessible and practical. It also introduced issues such
+      as flammability (with nitrocellulose) and long-term stability, leading to further
+      innovations like safety film.
+    type: Implications
+  - content: Advances in film paralleled developments in camera technology, printing,
+      and media distribution. The move from glass to flexible film was a key enabler
+      of modern visual culture, influencing everything from amateur snapshots to Hollywood
+      cinema.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The introduction of nitrocellulose-based transparent film allowed
+      for flexibility and transparency, which were essential for portable cameras
+      and the creation of motion picture reels, unlike the earlier, less practical
+      paper-based films.
+    options:
+    - It enabled the development of flexible, portable cameras and motion picture
+      reels.
+    - It improved the color accuracy of photographs.
+    - It reduced the cost of photographic chemicals.
+    - It allowed for instant image development.
+    question_text: What was the key advantage of replacing paper-based film with nitrocellulose-based
+      transparent film in the late 19th century?
+  index: 134
+  key_concept: Historical Development of Film
+  name: Assorted References
+- aspects:
+  - content: Film formats refer to the physical dimensions and characteristics of
+      photographic and motion picture film, such as width (gauge), length, and perforation
+      patterns. These formats determine compatibility with cameras, projectors, and
+      other equipment.
+    type: Definition
+  - content: Common film gauges include 8mm, 16mm, 35mm, and 70mm, each serving different
+      purposes. For example, 35mm is standard for theatrical motion pictures, while
+      65mm/70mm is used for high-resolution special effects and IMAX. Specialized
+      formats exist for scientific and industrial uses.
+    type: Examples
+  - content: Film formats are chosen based on the desired image quality, application,
+      and equipment. Smaller formats are used for home movies and amateur photography;
+      larger formats for professional cinema and high-fidelity imaging.
+    type: Use Cases
+  - content: The choice of format affects image resolution, cost, and portability.
+      Technological advances have allowed for greater image quality at smaller sizes,
+      but larger formats remain important for specific high-quality or archival needs.
+    type: Implications
+  - content: Film formats are linked to the evolution of camera and projector technology,
+      as well as to the standardization of media production and distribution. The
+      persistence of certain gauges (like 35mm) has shaped the aesthetics and economics
+      of visual media.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: 35mm film has historically been the standard for theatrical motion
+      picture production and exhibition, balancing image quality and practicality.
+    options:
+    - 8mm
+    - 16mm
+    - 35mm
+    - 70mm
+    question_text: Which film gauge is most commonly associated with theatrical motion
+      picture production?
+  index: 134
+  key_concept: Film Formats and Technological Applications
+  name: Assorted References
+- aspects:
+  - content: Photographic film is used as a passive detector in radiation measurement
+      and medical imaging, such as X-ray radiography. These films are designed to
+      be sensitive to various types of radiation, not just visible light.
+    type: Definition
+  - content: Radiographic films for X-ray imaging have a higher concentration of silver
+      halide crystals to respond to low doses of X-rays. Film badge dosimeters use
+      photographic film to monitor occupational exposure to ionizing radiation, while
+      specialized films record gamma-ray or neutron exposures in scientific research.
+    type: Examples
+  - content: Medical radiography uses film to produce diagnostic images of the body's
+      interior. In occupational health, film badges monitor cumulative radiation exposure
+      for workers. Scientific applications include detecting and measuring radiation
+      in laboratory experiments.
+    type: Use Cases
+  - content: Film’s sensitivity to radiation has made it indispensable for non-invasive
+      diagnostics and safety monitoring. The ability to store a permanent record of
+      exposure or diagnostic images is a major advantage, though digital detectors
+      are now replacing film in many contexts.
+    type: Implications
+  - content: The use of film in radiation detection connects photography to physics
+      and medicine, illustrating the versatility of photographic technology. Innovations
+      in film chemistry for these applications have influenced the development of
+      faster, more sensitive photographic materials.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Photographic film is used in these applications due to its high sensitivity
+      to radiation such as X-rays, allowing for the recording and analysis of exposures
+      that are invisible to the human eye.
+    options:
+    - Because it is highly sensitive to various types of radiation, including X-rays
+    - Because it is the cheapest imaging method available
+    - Because it can be reused multiple times
+    - Because it requires no chemical processing
+    question_text: Why is photographic film used in radiation detection and medical
+      imaging?
+  index: 189
+  key_concept: 'Specialized Uses: Radiation Detection and Medical Imaging'
+  name: use in
+- aspects:
+  - content: Celluloid and nitrocellulose are early forms of plastic used as the base
+      for photographic film. Celluloid is a clear, flexible material derived from
+      nitrocellulose and camphor, while nitrocellulose itself is a chemically modified
+      cellulose.
+    type: Definition
+  - content: Celluloid film, processed by researchers like Henry Reichenbach at Eastman
+      Kodak, became the standard for photographic and motion picture film despite
+      its flammability and tendency to degrade. Nitrocellulose was used in collodion
+      solutions for wet plate photography and as a base for early flexible films.
+    type: Examples
+  - content: Celluloid and nitrocellulose films were used in still photography, motion
+      pictures, and medical imaging. Their flexibility and transparency enabled the
+      mass adoption of roll film and portable cameras.
+    type: Use Cases
+  - content: 'While revolutionary, both materials posed risks: nitrocellulose is highly
+      flammable, leading to fires in theaters and archives, and both degrade over
+      time, threatening the preservation of historical films. These issues prompted
+      the development of safer alternatives like cellulose acetate (''safety film'').'
+    type: Implications
+  - content: The use of celluloid and nitrocellulose links the history of photography
+      to the broader history of plastics and materials science. Their adoption marked
+      a turning point in mass media and industrial chemistry, influencing the design
+      of countless consumer products.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Celluloid and nitrocellulose, while enabling flexible film, were
+      both highly flammable and chemically unstable, leading to safety and preservation
+      concerns.
+    options:
+    - They were highly flammable and prone to degradation over time.
+    - They were too rigid for use in cameras.
+    - They could not be coated with photographic emulsions.
+    - They were more expensive than glass plates.
+    question_text: What was a major drawback of using celluloid and nitrocellulose
+      as film bases?
+  index: 240
+  key_concept: 'Material Innovations: Celluloid and Nitrocellulose'
+  name: use of

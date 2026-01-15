@@ -1,0 +1,285 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A team profile page for McLaren's Formula 1 team, covering drivers,
+  2025 season statistics, historical achievements, technical details, and related
+  media.
+file_name: McLaren – F1 Racing Team – Norris, Piastri.html
+file_path: F1_racing/F1_Official/teams/en/teams/McLaren – F1 Racing Team – Norris,
+  Piastri.html
+file_uuid: 7e9e80d6-b895-5074-8f84-a51da589d9f4
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: McLaren’s 2025 dominance was due to a combination of talented drivers
+    (Norris and Piastri), technical excellence (MCL39 chassis and Mercedes power unit),
+    and consistently high results in both Grand Prix and sprint races.
+  knowledge_areas:
+  - Statistics
+  - DRIVERS
+  - Team Profile
+  options:
+  - Strong driver lineup, technical innovation, and consistent race results
+  - Frequent retirements and lack of sprint race points
+  - Limited sponsorship and outdated chassis
+  - Infrequent podium finishes and no sprint wins
+  question_id: 1
+  question_text: What factors contributed most to McLaren's dominant performance in
+    the 2025 Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: McLaren is one of the most successful and historic teams in F1, with
+    ten world championships and a roster of legendary drivers.
+  knowledge_areas:
+  - McLaren
+  - Team Profile
+  options:
+  - A new team with no world championships
+  - A team with a rich history, multiple world championships, and legendary drivers
+  - A team known only for its road cars
+  - A team that has never achieved a podium finish
+  question_id: 2
+  question_text: Which of the following best describes McLaren's historical legacy
+    in Formula 1?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Both Norris and Piastri were highly competitive, each winning seven
+    races and contributing to McLaren’s constructors’ championship and Norris’s drivers’
+    title.
+  knowledge_areas:
+  - DRIVERS
+  - Statistics
+  options:
+  - Both drivers won seven races each and maintained a close championship battle,
+    pushing the team to the constructors’ title.
+  - Neither driver finished in the top 10.
+  - Only Norris scored points, while Piastri did not participate.
+  - Both drivers retired from most races.
+  question_id: 3
+  question_text: How did McLaren's drivers, Lando Norris and Oscar Piastri, contribute
+    to the team's 2025 season success?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: McLaren’s technical and organizational strength came from its leadership
+    team, advanced chassis (MCL39), and Mercedes power unit, all based in Woking,
+    UK.
+  knowledge_areas:
+  - Team Profile
+  - Statistics
+  options:
+  - Leadership by Andrea Stella, technical chiefs Peter Prodromou and Neil Houldey,
+    and use of the MCL39 chassis with Mercedes power
+  - No technical leadership and an uncompetitive power unit
+  - Reliance on outdated technology and minimal staff
+  - Base in Italy with Ferrari engines
+  question_id: 4
+  question_text: What technical and organizational factors underpinned McLaren's 2025
+    Formula 1 campaign?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The videos offer visual and narrative context for McLaren’s season,
+    including key races, driver achievements, and award celebrations, deepening fans’
+    understanding of the team’s journey.
+  knowledge_areas:
+  - Related Videos
+  - Statistics
+  - DRIVERS
+  options:
+  - They provide race highlights, driver onboards, award moments, and season recaps
+    that illustrate key performances and strategies.
+  - They focus exclusively on off-track activities.
+  - They only show technical data without any race footage.
+  - They are unrelated to the 2025 season.
+  question_id: 5
+  question_text: In what ways do McLaren’s related videos enhance understanding of
+    the team's 2025 season?
+  question_type: recap
+sections:
+- aspects:
+  - content: McLaren is one of the most storied and successful teams in Formula 1
+      history, known officially as the McLaren Formula 1 Team. Founded in 1966 by
+      Bruce McLaren, the team is based in Woking, United Kingdom. Over five decades,
+      McLaren has become synonymous with innovation, engineering excellence, and competitive
+      spirit in motorsport.
+    type: Definition and Overview
+  - content: McLaren's legacy includes a remarkable tally of victories, pole positions,
+      and podiums, alongside ten world championships. The team has been a launchpad
+      for some of F1’s greatest drivers, including Emerson Fittipaldi, Ayrton Senna,
+      Mika Hakkinen, and Lewis Hamilton. Their historical impact is reflected in their
+      consistent presence at the front of the grid and their ability to adapt to changing
+      eras in F1.
+    type: Historical Significance
+  - content: In the 2024 and 2025 seasons, McLaren experienced a resurgence, winning
+      their first constructors’ championship since 1998 and dominating the 2025 season.
+      The team clinched the constructors’ title with six rounds to spare and saw both
+      Lando Norris and Oscar Piastri win seven races each, with Norris ultimately
+      winning the drivers’ title.
+    type: Recent Achievements
+  - content: McLaren’s brand is closely tied to high performance and technological
+      advancement, collaborating with leading sponsors and technical partners such
+      as Mercedes for power units. Their partnerships with global brands like LVMH,
+      Pirelli, AWS, and others reinforce the team's commercial strength and international
+      appeal.
+    type: Brand and Partnerships
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: 'Option 1 is correct because McLaren has a rich history in F1, with
+      multiple championships and legendary drivers. The other options are incorrect:
+      McLaren is not a recent entrant, has won constructors’ championships, and while
+      it does have a road car division, its racing heritage is central.'
+    options:
+    - McLaren is a recent entrant to Formula 1 with only a few podiums.
+    - McLaren has a long legacy, multiple championships, and has been home to legendary
+      drivers.
+    - McLaren has never won a constructors’ championship.
+    - McLaren is primarily known for its road car business, not racing.
+    question_text: Which of the following statements best reflects McLaren's historical
+      significance in Formula 1?
+  index: 59
+  key_concept: McLaren
+  name: McLaren
+- aspects:
+  - content: For the 2025 season, McLaren's driver lineup consists of Lando Norris
+      from Great Britain and Oscar Piastri from Australia. Both drivers are recognized
+      for their skill, consistency, and contributions to the team's success.
+    type: Current Lineup
+  - content: In 2025, Norris and Piastri each secured seven Grand Prix wins, highlighting
+      their competitiveness and the team's balanced driver strategy. Norris ultimately
+      claimed the drivers’ championship, while Piastri was a strong contender throughout
+      the season.
+    type: Driver Achievements
+  - content: The close competition between Norris and Piastri fostered a high-performance
+      environment within the team, pushing both drivers to excel. Their rivalry was
+      marked by mutual respect and contributed to McLaren's dominance in the constructors’
+      standings.
+    type: Team Dynamics
+  - content: McLaren has a tradition of nurturing top driving talent, with past champions
+      like Senna and Hamilton. The current lineup continues this legacy, positioning
+      McLaren as a team that develops and supports world-class drivers.
+    type: Historical Context
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Option 1 is correct because Lando Norris and Oscar Piastri were the
+      main drivers for McLaren in 2025. The other options list drivers from different
+      teams.
+    options:
+    - Lewis Hamilton and Charles Leclerc
+    - Lando Norris and Oscar Piastri
+    - Max Verstappen and Sergio Perez
+    - Fernando Alonso and George Russell
+    question_text: Who were McLaren's primary drivers during their dominant 2025 Formula
+      1 season?
+  index: 67
+  key_concept: DRIVERS
+  name: DRIVERS
+- aspects:
+  - content: McLaren finished the 2025 season in 1st place with 833 points. The team
+      won 14 out of 24 Grand Prix races, achieved 34 podiums, 13 poles, 12 fastest
+      laps, and only 3 DNFs, demonstrating exceptional reliability and speed.
+    type: 2025 Season Performance
+  - content: In addition to Grand Prix events, McLaren excelled in sprint races, securing
+      3 sprint wins, 8 podiums, and 3 poles out of 6 sprints, accumulating 58 sprint
+      points. Their sprint performance contributed significantly to their overall
+      points tally.
+    type: Sprint Race Results
+  - content: The 2025 season statistics reflect a dominant performance compared to
+      previous years and competitors, with McLaren outperforming traditional rivals
+      like Red Bull and Ferrari. Their consistency across both standard and sprint
+      formats was key to their championship success.
+    type: Comparative Analysis
+  - content: These statistics underscore McLaren’s balanced approach, combining qualifying
+      speed, race pace, and strategic execution. Low DNFs indicate mechanical reliability,
+      while high podium and win counts reflect driver skill and team coordination.
+    type: Implications for Team Strategy
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Option 1 is correct because McLaren had many wins, podiums, and only
+      3 DNFs, reflecting a dominant and reliable season. The other options are contradicted
+      by the data.
+    options:
+    - Few podiums and multiple retirements
+    - High number of wins, podiums, and low DNFs
+    - No sprint race success
+    - Finished outside the top 3 in the constructors’ standings
+    question_text: Which statistical achievements best summarize McLaren's 2025 Formula
+      1 season?
+  index: 89
+  key_concept: Statistics
+  name: Statistics
+- aspects:
+  - content: McLaren’s headquarters are in Woking, UK. The team is led by Team Chief
+      Andrea Stella and Technical Chiefs Peter Prodromou and Neil Houldey. The technical
+      team oversees the design and performance of the MCL39 chassis, powered by Mercedes
+      engines.
+    type: Organizational Structure
+  - content: The MCL39 chassis and Mercedes power unit combination provided McLaren
+      with a competitive edge in 2025. Technical leadership and innovation in aerodynamics,
+      powertrain integration, and race strategy were key to their success.
+    type: Technical Details
+  - content: McLaren entered Formula 1 in 1966 and has since participated in 995 Grands
+      Prix, accumulating 7783.5 points, 445 podiums, 177 pole positions, and 10 world
+      championships. Their long-standing presence underscores their adaptability and
+      resilience.
+    type: Legacy and Firsts
+  - content: The team has been home to legendary figures, including founder Bruce
+      McLaren and champions like Fittipaldi, Senna, Hakkinen, and Hamilton. This tradition
+      of excellence continues with the current leadership and driver lineup.
+    type: Notable Figures and Drivers
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: 'Option 1 is correct: McLaren is based in Woking, UK, with Andrea
+      Stella as Team Chief and Peter Prodromou and Neil Houldey as Technical Chiefs.
+      The other options refer to different teams.'
+    options:
+    - Maranello, Italy; Mattia Binotto and Enrico Cardile
+    - Woking, United Kingdom; Andrea Stella, Peter Prodromou, Neil Houldey
+    - Milton Keynes, UK; Christian Horner and Adrian Newey
+    - Brackley, UK; Toto Wolff and James Allison
+    question_text: Where is McLaren's Formula 1 team based, and who are its key technical
+      leaders for the 2025 season?
+  index: 174
+  key_concept: Team Profile
+  name: Team Profile
+- aspects:
+  - content: The related videos section features highlights such as iconic onboard
+      laps from Oscar Piastri and Lando Norris, season recaps, and award moments.
+      These videos provide visual insights into driver performance, key races, and
+      the team's journey through the season.
+    type: Content Overview
+  - content: Videos like 'How The 2025 World Drivers' Championship unfolded' and 'McLaren’s
+      unstoppable season | 2025 FIA Awards' offer in-depth analysis of race strategies,
+      pivotal moments, and competitive dynamics. They serve as valuable resources
+      for understanding racecraft and team operations.
+    type: Educational Value
+  - content: Such media content strengthens fan engagement by showcasing behind-the-scenes
+      perspectives, emotional reactions, and technical prowess. Award ceremonies and
+      post-race interviews highlight the human side of the sport and celebrate achievements.
+    type: Fan Engagement
+  - content: These videos complement the written content by illustrating McLaren’s
+      competitive edge, teamwork, and the drivers’ personalities, reinforcing the
+      story of their 2025 dominance.
+    type: Integration with Team Narrative
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: 'Option 1 is correct: the section includes onboards, recaps, awards,
+      and highlights, all relevant to the 2025 season. The other options are not representative
+      of the described content.'
+    options:
+    - Only technical briefings
+    - Onboard laps, season recaps, award moments, and race highlights
+    - Old interviews from the 1980s
+    - Non-racing lifestyle features
+    question_text: Which types of content are featured in McLaren's related videos
+      section for the 2025 season?
+  index: 225
+  key_concept: Related Videos
+  name: Related Videos

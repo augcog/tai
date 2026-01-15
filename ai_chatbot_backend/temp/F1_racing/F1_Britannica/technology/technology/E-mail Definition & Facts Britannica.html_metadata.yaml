@@ -1,0 +1,218 @@
+URL: https://www.britannica.com/technology/e-mail
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia entry explaining e-mail, covering its definition,
+  basic functioning, and the process of sending and receiving messages, along with
+  related concepts such as mailboxes and network communication.
+file_name: E-mail Definition & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/E-mail Definition & Facts
+  Britannica.html
+file_uuid: ee78045d-91d4-56c5-b70f-8ea6e314ebec
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The at sign (@) is a defining feature of e-mail addresses, separating
+    the user's name from the domain.
+  knowledge_areas:
+  - e-mail
+  - symbolism and structure
+  options:
+  - The at sign (@)
+  - The hash (#)
+  - The dollar sign ($)
+  - The ampersand (&)
+  question_id: 1
+  question_text: Which symbol is essential in every e-mail address and separates the
+    user's name from the domain name?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Electronic mailboxes are designed to receive and store messages, allowing
+    users to manage their correspondence.
+  knowledge_areas:
+  - How are e-mails sent and received?
+  - features and capabilities
+  options:
+  - Receiving and storing messages
+  - Printing and faxing messages
+  - Encrypting and decrypting all files
+  - Broadcasting live audio
+  question_id: 2
+  question_text: What are two key functions of an electronic mailbox in an e-mail
+    system?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: E-mail is asynchronous; recipients do not need to be online at the
+    same time as senders. The other statements are true.
+  knowledge_areas:
+  - How does e-mail work?
+  - How are e-mails sent and received?
+  options:
+  - E-mail can include text, graphics, and multimedia attachments.
+  - E-mail requires recipients to be online at the same time as senders.
+  - E-mail can be sent to individuals or groups.
+  - E-mail systems often include privacy and notification features.
+  question_id: 3
+  question_text: Which of the following statements about e-mail is FALSE?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: E-mail is a vital communication tool in large organizations, facilitating
+    efficient internal and external correspondence.
+  knowledge_areas:
+  - How are e-mails sent and received?
+  - organizational and public use
+  options:
+  - It has become a primary communication link among employees.
+  - It has replaced all face-to-face meetings.
+  - It is only used for personal messages.
+  - It is rarely used due to high costs.
+  question_id: 4
+  question_text: How has e-mail impacted communication in large organizations?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The @ symbol is central to e-mail addressing, and protocols such as
+    SMTP are used to transmit messages across networks.
+  knowledge_areas:
+  - e-mail
+  - How does e-mail work?
+  options:
+  - An e-mail address uses the @ symbol, and messages are routed through networks
+    using protocols like SMTP.
+  - E-mails require handwritten signatures and physical delivery.
+  - E-mail addresses are optional, and messages are transmitted by voice.
+  - E-mail can only be sent within a single computer, not across networks.
+  question_id: 5
+  question_text: Which of the following best integrates the concepts of e-mail structure
+    and its technical process?
+  question_type: recap
+sections:
+- aspects:
+  - content: E-mail, or electronic mail, refers to messages transmitted and received
+      by digital computers through a network. It is a form of telecommunication that
+      enables users to send and receive information electronically, typically via
+      the Internet or internal organizational networks. The term encompasses both
+      the technology and the actual messages exchanged.
+    type: definition
+  - content: A defining feature of e-mail is the use of the 'at sign' (@) in addresses,
+      which separates the user's name from the domain of the hosting server. This
+      structure is now globally recognized and essential for routing messages correctly.
+      The format supports both individual and group communication.
+    type: symbolism and structure
+  - content: E-mail has become one of the most widely used communication tools worldwide,
+      revolutionizing personal, academic, and business correspondence. Its development
+      is tied to the broader history of computer networking and the Internet, with
+      key figures such as Vinton Cerf contributing to its evolution. E-mail's ubiquity
+      has also led to the emergence of related concepts like spam, phishing, and business
+      e-mail compromise.
+    type: historical and social context
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: E-mail is defined as the transmission and reception of messages through
+      computer networks. The other options describe unrelated communication or storage
+      methods.
+    options:
+    - Transmitting and receiving messages via computer networks
+    - Storing physical letters in post offices
+    - Broadcasting live audio to multiple users
+    - Encrypting files for secure storage
+    question_text: Which of the following best describes the primary function of e-mail?
+  index: 134
+  key_concept: e-mail
+  name: e-mail
+- aspects:
+  - content: An e-mail is a message that is transmitted and received by computers
+      through a network. It can contain text and, depending on the system, may also
+      include attachments such as images, documents, or multimedia files. E-mail serves
+      as a digital alternative to traditional mail, providing rapid and asynchronous
+      communication.
+    type: definition and core function
+  - content: Examples of e-mail usage include sending a business memo, sharing academic
+      research, or communicating with friends. E-mails can be sent to one recipient
+      or multiple recipients simultaneously, making them suitable for both personal
+      and mass communication.
+    type: examples and usage
+  - content: Unlike phone calls or instant messaging, e-mail allows for more formal,
+      documented, and often asynchronous exchanges. It is preferred for official communication
+      due to its ability to store and archive messages for future reference.
+    type: comparison to other forms of communication
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: E-mail is characterized by its transmission through computer networks
+      and its ability to include various types of content. Unlike instant messaging,
+      it does not require real-time interaction, and it is not inherently anonymous.
+    options:
+    - It is transmitted and received by computers through a network
+    - It requires real-time interaction between users
+    - It can only send text, not images or files
+    - It is always anonymous
+    question_text: What distinguishes an e-mail from other forms of digital communication?
+  index: 134
+  key_concept: What is an e-mail?
+  name: e-mail
+- aspects:
+  - content: E-mail systems allow computer users on a network to send text, graphics,
+      sounds, and animated images to other users. The process involves composing a
+      message, specifying recipients, and transmitting the message through servers
+      that route it to the appropriate destination. E-mail protocols such as SMTP
+      (Simple Mail Transfer Protocol) and IMAP/POP3 facilitate the sending and retrieval
+      of messages.
+    type: technical process
+  - content: Modern e-mail systems support a wide array of features, including attachments,
+      formatting, contact management, and filtering. Advanced features may include
+      notifications for incoming messages, privacy settings, and integration with
+      other productivity tools.
+    type: features and capabilities
+  - content: E-mail is indispensable for business, education, and personal communication.
+      Its ability to handle multimedia content and reach global audiences has made
+      it a backbone of digital correspondence. However, it also introduces challenges
+      such as spam management and security concerns.
+    type: implications and use cases
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: E-mail is asynchronous, meaning messages do not require real-time
+      transmission. The other options are standard features of e-mail systems.
+    options:
+    - Sending text and multimedia content
+    - Providing an electronic mailbox for users
+    - Requiring all messages to be sent in real time
+    - Allowing recipients to forward or save messages
+    question_text: Which of the following is NOT a typical feature of e-mail systems?
+  index: 134
+  key_concept: How does e-mail work?
+  name: e-mail
+- aspects:
+  - content: E-mails can be sent simultaneously to individuals, groups, or even all
+      users on a network. The sender composes a message, addresses it, and the e-mail
+      system routes it through networks to the recipients' mailboxes. The process
+      is often facilitated by user-friendly interfaces and address books.
+    type: sending process
+  - content: Recipients have electronic mailboxes that receive, store, and manage
+      incoming correspondence. Users can view, print, save, edit, answer, forward,
+      or otherwise interact with received messages. Many systems offer features like
+      message alerts and privacy options.
+    type: receiving and managing messages
+  - content: Large organizations use e-mail as a primary communication link among
+      employees and stakeholders. E-mail is also widely available on public online
+      systems and bulletin boards, enabling free or low-cost global communication.
+    type: organizational and public use
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Recipients have multiple options for managing e-mails, including
+      viewing, saving, editing, answering, and forwarding. The other options are either
+      too limited or not relevant to e-mail.
+    options:
+    - View, print, save, edit, answer, or forward the message
+    - Only delete the message
+    - Only reply in real time
+    - Broadcast the message as a live video
+    question_text: What are some actions a recipient can take upon receiving an e-mail?
+  index: 250
+  key_concept: How are e-mails sent and received?
+  name: How are e-mails sent and received?

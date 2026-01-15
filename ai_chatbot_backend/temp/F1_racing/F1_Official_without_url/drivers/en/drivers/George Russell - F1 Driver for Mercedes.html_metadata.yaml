@@ -1,0 +1,241 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A profile page for George Russell, Mercedes F1 driver, covering
+  his 2026 season status, career statistics, detailed biography, related media, and
+  official F1 partnerships.
+file_name: George Russell - F1 Driver for Mercedes.html
+file_path: F1_racing/F1_Official/drivers/en/drivers/George Russell - F1 Driver for
+  Mercedes.html
+file_uuid: 4c6bb4e7-0168-5ea7-b8d6-93f805489936
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Russell's motto is 'If in doubt, go flat out,' which is directly cited
+    in the biography and underpins his approach to racing and career highlights.
+  knowledge_areas:
+  - George Russell
+  - Biography and Career Progression
+  options:
+  - '''If in doubt, go flat out'' – It reflects his aggressive and committed driving
+    style, leading to notable qualifying and race performances.'
+  - '''Slow and steady wins the race'' – He focuses on consistency over speed.'
+  - '''Never give up'' – He is known for his perseverance in long races.'
+  - '''Win at all costs'' – He often takes risky strategies to secure victories.'
+  question_id: 1
+  question_text: What is George Russell's racing motto, and how has it influenced
+    his Formula 1 career?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: All 2026 season statistics for Russell are at zero, indicating the
+    season has not started or no results are recorded yet.
+  knowledge_areas:
+  - 2026 Season Status
+  options:
+  - He has already scored points and podiums in 2026.
+  - He has not yet participated in any races or scored points in 2026.
+  - He has won two races in 2026.
+  - He leads the championship standings in 2026.
+  question_id: 2
+  question_text: Which of the following statements about George Russell's 2026 season
+    statistics is accurate?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Russell has finished first in a Grand Prix five times, showing he is
+    capable of winning but has not yet achieved world champion status.
+  knowledge_areas:
+  - Career Statistics
+  options:
+  - 0 times – He is still seeking his first win.
+  - 5 times – He is an established race winner but not yet a world champion.
+  - 10 times – He is a multiple world champion.
+  - 24 times – He has won as many races as he has podiums.
+  question_id: 3
+  question_text: How many times has George Russell finished first in a Grand Prix
+    during his F1 career, and what does this indicate about his competitive level?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Russell won the GP3 and Formula 2 championships, which are direct feeders
+    to F1 and demonstrate his potential and readiness for top-level competition.
+  knowledge_areas:
+  - Biography and Career Progression
+  options:
+  - Formula 3 and Formula Renault – They are stepping stones to F1.
+  - GP3 and Formula 2 – Success in these series is a key indicator for F1 readiness.
+  - IndyCar and Formula E – They are unrelated to the F1 ladder.
+  - Super Formula and Formula 4 – They are not mentioned in Russell's biography.
+  question_id: 4
+  question_text: Which two junior championships did George Russell win before joining
+    Formula 1, and why are these achievements significant?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Media and partnerships are essential for funding, fan engagement, and
+    the global promotion of both the sport and its athletes, including Russell.
+  knowledge_areas:
+  - Media and Partnerships
+  options:
+  - They provide financial support, enhance fan engagement, and promote the sport
+    globally.
+  - They have no significant impact on the sport.
+  - They only benefit the sponsors, not the teams or drivers.
+  - They are limited to local markets and do not affect global reach.
+  question_id: 5
+  question_text: How do media coverage and official partnerships contribute to the
+    visibility and success of George Russell and Formula 1 as a whole?
+  question_type: recap
+sections:
+- aspects:
+  - content: George Russell is a British Formula 1 driver currently racing for the
+      Mercedes team. He is recognized for his speed, tenacity, and the motto 'If in
+      doubt, go flat out,' which encapsulates his aggressive and committed driving
+      style.
+    type: definition
+  - content: Russell has become a key figure in Formula 1, especially after joining
+      Mercedes and stepping into a leading role following Lewis Hamilton's departure.
+      His reputation is built on consistent performance, adaptability, and the ability
+      to deliver under pressure.
+    type: context
+  - content: Russell's presence in Mercedes positions him as a potential future world
+      champion, particularly as the team enters a new regulatory era in 2026. His
+      leadership and performance will be pivotal for Mercedes' competitiveness against
+      rivals such as McLaren and Red Bull.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: George Russell is currently a driver for Mercedes, as highlighted
+      in the profile and throughout the statistics and biography sections.
+    options:
+    - Red Bull Racing
+    - Ferrari
+    - Mercedes
+    - McLaren
+    question_text: Which team does George Russell currently drive for in Formula 1?
+  index: 67
+  key_concept: George Russell
+  name: GeorgeRussell
+- aspects:
+  - content: The 2026 season status refers to George Russell's current performance
+      and participation metrics for the ongoing or upcoming Formula 1 season. As of
+      the latest update, he has not yet scored points, podiums, or wins in either
+      Grand Prix or Sprint events for 2026.
+    type: definition
+  - content: For the 2026 season, all statistical categories such as races entered,
+      points, wins, podiums, poles, top 10s, fastest laps, and DNFs are at zero, indicating
+      the season has not yet started or no races have occurred.
+    type: examples
+  - content: These statistics set a baseline for evaluating Russell's performance
+      as the season progresses. They also reflect the anticipation surrounding the
+      new regulations and the potential for Mercedes and Russell to mount a title
+      challenge.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: All 2026 season statistics for Russell, including Grand Prix wins,
+      are currently at zero.
+    options:
+    - '0'
+    - '1'
+    - '3'
+    - '5'
+    question_text: As of the latest update, how many Grand Prix wins does George Russell
+      have in the 2026 season?
+  index: 81
+  key_concept: 2026 Season Status
+  name: 2026 SEASON
+- aspects:
+  - content: Career statistics encompass George Russell's cumulative achievements
+      in Formula 1, including races entered, points scored, podiums, pole positions,
+      and DNFs. These figures provide a quantitative overview of his experience and
+      success in the sport.
+    type: definition
+  - content: Russell has entered 152 Grand Prix, scored 1033 career points, achieved
+      24 podiums, and 7 pole positions. He has finished first in races five times
+      and has 19 DNFs (Did Not Finish). He has not yet won a world championship.
+    type: examples
+  - content: These statistics are essential for comparing Russell to his contemporaries
+      and predecessors, evaluating his consistency, and assessing his growth as a
+      driver. They also highlight his resilience, given the number of DNFs relative
+      to podiums and wins.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Russell has 24 podiums and over 1000 career points, but he has not
+      won a world championship and has finished first in races five times.
+    options:
+    - He has won a world championship.
+    - He has achieved more than 20 podiums.
+    - He has never finished first in a race.
+    - He has less than 500 career points.
+    question_text: Which of the following is true about George Russell's F1 career
+      statistics?
+  index: 139
+  key_concept: Career Statistics
+  name: CAREER STATS
+- aspects:
+  - content: The biography section outlines George Russell's personal background,
+      early career, and progression through the motorsport ranks to Formula 1. It
+      includes key milestones, such as his birth in King's Lynn, England, and his
+      rapid rise through GP3 and Formula 2.
+    type: definition
+  - content: Russell won the 2017 GP3 championship and the 2018 Formula 2 title, which
+      led to his entry into F1 with Williams. Notable moments include out-qualifying
+      Robert Kubica in his rookie season, a one-off Mercedes drive in Sakhir 2020,
+      and his first F1 win in Brazil 2022.
+    type: examples
+  - content: Russell's career trajectory demonstrates the importance of junior series
+      success for F1 opportunities. His ability to perform under pressure and adapt
+      to new teams and regulations marks him as a future leader and potential champion
+      in the sport.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Russell won the GP3 championship in 2017 and the Formula 2 championship
+      in 2018, key steps before his F1 career.
+    options:
+    - Formula 3 and Formula E
+    - GP3 and Formula 2
+    - IndyCar and Formula Renault
+    - Super Formula and Formula 4
+    question_text: Which junior championships did George Russell win before entering
+      Formula 1?
+  index: 167
+  key_concept: Biography and Career Progression
+  name: Biography
+- aspects:
+  - content: This concept covers the official media content related to George Russell,
+      such as videos and articles, as well as the commercial partnerships that support
+      Formula 1 and its teams.
+    type: definition
+  - content: Related videos include race recaps, interviews, and highlights of Russell's
+      performances, such as reflections on Abu Dhabi 2025 and key battles from the
+      2025 season. The partnership section lists brands like LVMH, Pirelli, Aramco,
+      Heineken, AWS, Lenovo, DHL, and others as official F1 sponsors.
+    type: examples
+  - content: Media coverage and partnerships are vital for promoting the sport, enhancing
+      fan engagement, and providing financial support to teams and events. They also
+      shape the public image of drivers like Russell and contribute to the global
+      reach of Formula 1.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: Nike is not mentioned among the official F1 partners; the others
+      are explicitly listed.
+    options:
+    - Pirelli
+    - Heineken
+    - TAG Heuer
+    - Nike
+    question_text: Which of the following is NOT listed as an official F1 partner
+      in the document?
+  index: 254
+  key_concept: Media and Partnerships
+  name: OUR PARTNERS

@@ -1,0 +1,201 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A webpage summarizing the 1966 Formula 1 race results, including
+  a table of Grand Prix winners, and sections highlighting official partners and promoting
+  the F1 mobile app.
+file_name: 1966 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1966/1966 RACE RESULTS.html
+file_uuid: 3c6cca08-6300-5daa-8f10-31ef7c230b87
+recap_questions:
+- correct_answers:
+  - 3
+  explanation: The table includes the Grand Prix name, winner, team, laps, and time,
+    but does not provide information on weather conditions.
+  knowledge_areas:
+  - 1966 Formula 1 Race Results
+  options:
+  - Name of the Grand Prix
+  - Winning driver and team
+  - Number of laps and total race time
+  - Weather conditions during the race
+  question_id: 1
+  question_text: Which of the following is NOT a detail found in the 1966 Formula
+    1 race results table?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: F1 partners contribute in multiple ways, including financial, technological,
+    and promotional support, not just financial sponsorship or team/driver management.
+  knowledge_areas:
+  - Formula 1 Partners
+  options:
+  - They provide only financial sponsorship.
+  - They support F1 through financial, technological, and promotional means.
+  - They are responsible for team management.
+  - They supply all the drivers for the teams.
+  question_id: 2
+  question_text: What is the primary function of Formula 1 partners as described in
+    the 'OUR PARTNERS' section?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app is promoted as a tool for fans to access live data, news, and
+    multimedia content, rather than for ticket sales, officiating, or merchandise.
+  knowledge_areas:
+  - Official F1 App Promotion
+  options:
+  - By providing real-time race data and exclusive multimedia content
+  - By offering direct ticket sales for all Grand Prix events
+  - By allowing fans to officiate races
+  - By selling team merchandise
+  question_id: 3
+  question_text: How does the Official F1 App enhance the fan experience according
+    to its promotion?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: F1 partners often provide technological innovations and promotional
+    support, while the Official F1 App leverages technology to engage fans, showing
+    a shared focus on enhancing the fan experience.
+  knowledge_areas:
+  - Formula 1 Partners
+  - Official F1 App Promotion
+  options:
+  - Both are involved in race officiating duties.
+  - Both contribute to enhancing the fan experience through technology and engagement.
+  - Both are responsible for organizing the race calendar.
+  - Both supply technical parts for the cars.
+  question_id: 4
+  question_text: Which of the following best connects the roles of F1 partners and
+    the Official F1 App?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1966 Formula 1 Race Results refer to the official outcomes of each
+      Grand Prix event held during the 1966 season of the FIA Formula One World Championship.
+      This includes details such as the Grand Prix name, date, winning driver, their
+      team, the number of laps completed, and the total race time.
+    type: Definition
+  - content: For example, the Monaco Grand Prix on May 22 was won by Jackie Stewart
+      driving for BRM, completing 100 laps in 2:33:10.500. Another example is the
+      German Grand Prix on August 7, won by Jack Brabham for Brabham Repco, with 15
+      laps completed in 2:27:03.000. Each race entry in the table provides similar
+      details for all nine races of the season.
+    type: Examples
+  - content: These results are critical for determining the drivers’ and constructors’
+      standings for the season, influencing championship outcomes and historical records.
+      The data is also used for statistical analysis, historical comparisons, and
+      fan engagement.
+    type: Implications
+  - content: The 1966 season was notable for changes in technical regulations, such
+      as increased engine capacity, which influenced team strategies and race outcomes.
+      The results reflect the competitive landscape of that era, with drivers like
+      Jack Brabham and John Surtees achieving multiple victories.
+    type: Context
+  - content: Race results are closely linked to other aspects of the sport, such as
+      team and driver performance, technological developments, and the evolution of
+      race strategies. They also connect to broader historical trends in Formula 1,
+      including the dominance of certain teams and the impact of rule changes.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The table includes the Grand Prix name, winner, team, number of laps,
+      and total race time for each event. It does not provide weather conditions,
+      qualifying times, a full list of drivers, or pit stop strategies.
+    options:
+    - Grand Prix name, winner, team, laps, and time
+    - Weather conditions and qualifying times
+    - List of all participating drivers
+    - Pit stop strategies
+    question_text: Which of the following details are consistently included in the
+      1966 Formula 1 race results table?
+  index: 142
+  key_concept: 1966 Formula 1 Race Results
+  name: 1966 RACE RESULTS
+- aspects:
+  - content: Formula 1 Partners are official sponsors and collaborators that provide
+      financial, technological, and promotional support to the Formula 1 organization
+      and its events. These partnerships are integral to the commercial and operational
+      aspects of the sport.
+    type: Definition
+  - content: Examples of partners listed include LVMH, Pirelli, Aramco, Heineken,
+      AWS, Lenovo, DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton,
+      TAG Heuer, Moet Hennessy, American Express, Santander, Allwyn, Globant, Las
+      Vegas Convention and Visitors Authority, Paramount+, Barilla, Liqui Moly, Nestle,
+      PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds. Each partner typically
+      has a specific role, such as tire supply (Pirelli), logistics (DHL), or technology
+      (AWS).
+    type: Examples
+  - content: These partnerships enable Formula 1 to access advanced technologies,
+      global marketing platforms, and substantial financial resources. The presence
+      of high-profile brands enhances the sport’s prestige and global reach, while
+      also providing fans with enhanced experiences through co-branded activations
+      and products.
+    type: Implications
+  - content: Sponsorship and partnership have been central to Formula 1’s business
+      model for decades, evolving from simple advertising to complex, multi-faceted
+      collaborations. Partners are selected for their alignment with the sport’s values
+      and their ability to contribute to its growth and innovation.
+    type: Context
+  - content: Partners are connected to various aspects of the sport, including event
+      organization, team operations, fan engagement, and technological advancement.
+      Their involvement often extends beyond sponsorship to include research, sustainability
+      initiatives, and digital transformation projects.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Formula 1 partners offer a range of support, including financial,
+      technological, and promotional contributions, but are not responsible for officiating,
+      supplying cars, or enforcing rules.
+    options:
+    - They provide only financial sponsorship with no other involvement.
+    - They contribute financial, technological, and promotional support to F1.
+    - They are responsible for race officiating and rule enforcement.
+    - They supply all the cars and engines for the teams.
+    question_text: Which statement best describes the role of Formula 1 partners?
+  index: 156
+  key_concept: Formula 1 Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application provided by Formula 1 for
+      fans to access real-time data, news, schedules, and multimedia content related
+      to the sport. The promotion of the app encourages users to download it from
+      major app stores.
+    type: Definition
+  - content: The section provides direct links to download the app from the Apple
+      App Store and Google Play Store. The app typically includes features such as
+      live timing, driver and team profiles, race calendars, and exclusive video content.
+    type: Examples
+  - content: Promoting the app increases fan engagement by providing a centralized,
+      interactive platform for following the sport. It also allows Formula 1 to gather
+      user data, deliver targeted content, and enhance the overall fan experience
+      through digital innovation.
+    type: Implications
+  - content: In the context of modern sports entertainment, mobile apps are essential
+      for engaging a global, tech-savvy audience. The F1 app reflects the sport’s
+      commitment to digital transformation and keeping pace with evolving fan expectations.
+    type: Context
+  - content: The app connects fans to live race data, news, and official content,
+      complementing other digital platforms like the F1 website and social media.
+      It also integrates with broader fan engagement strategies, such as fantasy leagues
+      and gaming.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App is promoted to give fans access to live race
+      data, news, and multimedia content, not for merchandise sales, officiating,
+      or driver recruitment.
+    options:
+    - To provide fans with a platform for live data, news, and exclusive content
+    - To sell official F1 merchandise directly
+    - To manage race officiating decisions
+    - To recruit new Formula 1 drivers
+    question_text: What is the main purpose of promoting the Official F1 App on the
+      website?
+  index: 166
+  key_concept: Official F1 App Promotion
+  name: Download the Official F1 App

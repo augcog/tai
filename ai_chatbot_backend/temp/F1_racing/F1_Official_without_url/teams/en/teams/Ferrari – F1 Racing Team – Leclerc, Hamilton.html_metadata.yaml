@@ -1,0 +1,279 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A team profile page for Ferrari's Formula 1 team, covering its 2025
+  drivers (Leclerc, Hamilton), recent and historical team statistics, organizational
+  structure, notable moments, and partnerships.
+file_name: Ferrari – F1 Racing Team – Leclerc, Hamilton.html
+file_path: F1_racing/F1_Official/teams/en/teams/Ferrari – F1 Racing Team – Leclerc,
+  Hamilton.html
+file_uuid: c05d5983-cb86-5031-b4ab-d771093688dd
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Ferrari is the only team to have participated in every F1 World Championship
+    season since 1950, making it unique in the sport's history.
+  knowledge_areas:
+  - Ferrari
+  - Team Profile
+  options:
+  - It has never won a race
+  - It has competed in every F1 World Championship season since 1950
+  - It is based in the UK
+  - It only joined F1 in the 2000s
+  question_id: 1
+  question_text: What distinguishes Ferrari from all other Formula 1 teams in terms
+    of historical participation?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Leclerc and Hamilton form a high-profile pairing for Ferrari in 2025,
+    combining young talent with a seven-time world champion.
+  knowledge_areas:
+  - DRIVERS
+  options:
+  - Charles Leclerc and Lewis Hamilton; a mix of youth and championship experience
+  - Carlos Sainz and Sebastian Vettel; both former world champions
+  - Lando Norris and Oscar Piastri; both rookies
+  - Max Verstappen and George Russell; both from Red Bull
+  question_id: 2
+  question_text: Who are Ferrari's main drivers for the 2025 Formula 1 season, and
+    what is notable about their pairing?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Ferrari finished fourth in 2025, with no race wins but seven podiums,
+    reflecting a challenging but competitive season.
+  knowledge_areas:
+  - Statistics
+  options:
+  - Dominant title winners with multiple race wins
+  - Fourth place in the Constructors' Championship with no Grand Prix wins but several
+    podiums
+  - Failed to score any points
+  - Retired from the championship mid-season
+  question_id: 3
+  question_text: Which of the following best summarizes Ferrari's 2025 season performance?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Ferrari's F1 operations are based in Maranello, Italy, under the leadership
+    of Frédéric Vasseur.
+  knowledge_areas:
+  - Team Profile
+  options:
+  - Woking, UK; Zak Brown
+  - Maranello, Italy; Frédéric Vasseur
+  - Brackley, UK; Toto Wolff
+  - Silverstone, UK; Christian Horner
+  question_id: 4
+  question_text: What is the official base location and team chief for Ferrari in
+    2025?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Ferrari's partnerships provide crucial funding, technology, and marketing
+    reach, enabling the team to compete at the highest level. Partners come from a
+    diverse range of global industries.
+  knowledge_areas:
+  - OUR PARTNERS
+  options:
+  - They have no impact on the team's performance or budget
+  - They provide financial support, technology, and brand synergy essential for competition
+  - They only supply merchandise for fans
+  - They are limited to Italian companies only
+  question_id: 5
+  question_text: How do Ferrari's commercial partnerships contribute to its Formula
+    1 operations?
+  question_type: recap
+sections:
+- aspects:
+  - content: Ferrari is a legendary Formula 1 racing team, officially known as Scuderia
+      Ferrari HP, based in Maranello, Italy. It is the only team to have competed
+      in every F1 World Championship season since the series began in 1950. Ferrari
+      is renowned for its iconic prancing horse logo and its deep connection to the
+      history and culture of Formula 1.
+    type: definition
+  - content: Founded by Enzo Ferrari, the team quickly found success with drivers
+      like Alberto Ascari and John Surtees, and later with Niki Lauda and Michael
+      Schumacher. Schumacher's era in the 2000s was particularly dominant, with Ferrari
+      securing five consecutive title doubles. The team's legacy is defined by both
+      its competitive achievements and its status as a symbol of Italian engineering
+      and motorsport passion.
+    type: historical context
+  - content: Ferrari is not just a racing team but a global brand synonymous with
+      speed, luxury, and technical excellence. The team's continuous presence in F1
+      has made it a favorite among fans and a key player in the sport's commercial
+      and cultural landscape. Ferrari's red livery and passionate fanbase, the 'Tifosi,'
+      are instantly recognizable worldwide.
+    type: brand significance
+  - content: Ferrari's influence extends beyond racing into automotive manufacturing
+      and luxury branding. Its partnerships with major sponsors and technology companies,
+      as well as its role in shaping F1 regulations and history, make it a central
+      figure in the sport. The team's ongoing rivalry with other top teams, such as
+      McLaren and Mercedes, is a recurring theme in F1.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: 'Ferrari is unique in F1 as the only team to have participated in
+      every season since 1950, making it central to the sport''s history. The other
+      options are incorrect: Ferrari is not new, is deeply involved in racing, and
+      has won multiple championships.'
+    options:
+    - A new team with limited historical significance
+    - The only team to have competed in every F1 World Championship season
+    - A team known primarily for its street cars, not racing
+    - A team that has never won a world championship
+    question_text: Which of the following best describes Ferrari's role in Formula
+      1 history?
+  index: 59
+  key_concept: Ferrari
+  name: Ferrari
+- aspects:
+  - content: For the 2025 Formula 1 season, Ferrari's driver lineup consists of Charles
+      Leclerc and Lewis Hamilton. Leclerc, from Monaco, has been with Ferrari for
+      several seasons and is recognized for his qualifying speed and racecraft. Hamilton,
+      a seven-time world champion from Great Britain, joined Ferrari in 2025, making
+      headlines for his high-profile move from Mercedes.
+    type: current lineup
+  - content: The pairing of Leclerc and Hamilton is significant as it combines youthful
+      talent with one of the most successful drivers in F1 history. Leclerc's consistency
+      and Hamilton's experience are expected to provide strong leadership and performance
+      potential, though adapting to the SF-25 car has presented challenges.
+    type: driver significance
+  - content: Having two top-tier drivers can lead to both opportunities and challenges.
+      While it increases the team's chances for podiums and wins, it can also create
+      intra-team competition and strategic dilemmas. In 2025, Hamilton struggled to
+      adapt to the car, whereas Leclerc managed to secure several podiums, highlighting
+      the importance of car-driver synergy.
+    type: implications for team performance
+  - content: Ferrari has a tradition of recruiting high-profile drivers, such as Michael
+      Schumacher and Fernando Alonso. The addition of Hamilton continues this legacy,
+      aiming to leverage his championship-winning experience to return Ferrari to
+      title contention.
+    type: connections to team history
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The 2025 Ferrari lineup features Charles Leclerc and Lewis Hamilton.
+      The other options list drivers from different teams or previous seasons.
+    options:
+    - Charles Leclerc and Lewis Hamilton
+    - Carlos Sainz and Sebastian Vettel
+    - Lando Norris and Oscar Piastri
+    - Max Verstappen and George Russell
+    question_text: Who are Ferrari's main drivers for the 2025 Formula 1 season?
+  index: 67
+  key_concept: DRIVERS
+  name: DRIVERS
+- aspects:
+  - content: In the 2025 season, Ferrari finished 4th in the Constructors' Championship
+      with 398 points. The team participated in 24 Grand Prix races, earning 360 points,
+      0 wins, 7 podiums, 1 pole position, 39 top-10 finishes, 2 fastest laps, and
+      4 DNFs. In 6 sprint races, Ferrari scored 38 points, with 1 win, 2 podiums,
+      1 pole, and 8 top-10s.
+    type: 2025 season performance
+  - content: Ferrari has entered 1123 Grand Prix events, amassing 10,675 team points,
+      249 race wins, 639 podiums, 254 pole positions, and 16 World Championships.
+      These statistics underscore Ferrari's status as the most successful and decorated
+      team in F1 history.
+    type: historical achievements
+  - content: The 2025 statistics reflect a challenging year for Ferrari, with no race
+      wins and a drop to 4th place, despite multiple podiums. This suggests competitive
+      struggles, possibly due to car performance or adaptation issues with the new
+      driver lineup. Historically, however, Ferrari's record highlights its enduring
+      competitiveness and ability to attract top talent.
+    type: interpretation and implications
+  - content: Ferrari's fluctuating performance mirrors the cyclical nature of F1 dominance,
+      where regulatory changes, technical innovation, and driver moves can shift the
+      competitive landscape. The team's resilience and ability to rebound from less
+      successful seasons are key themes in F1 history.
+    type: connections to broader F1 trends
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Ferrari finished 4th with 398 points in 2025. They did not win any
+      Grand Prix races but did achieve 7 podiums. There is no evidence they set a
+      record for DNFs.
+    options:
+    - Ferrari won multiple Grand Prix races in 2025
+    - Ferrari finished 4th in the Constructors' Championship with 398 points
+    - Ferrari had no podium finishes in 2025
+    - Ferrari set a new record for most DNFs in a season
+    question_text: Which of the following statements is true about Ferrari's 2025
+      F1 season statistics?
+  index: 89
+  key_concept: Statistics
+  name: Statistics
+- aspects:
+  - content: Ferrari's full team name is Scuderia Ferrari HP, with its base in Maranello,
+      Italy. The team is led by Team Chief Frédéric Vasseur and Technical Chiefs Loic
+      Serra and Enrico Gualtieri. The chassis for 2025 is the SF-25, powered by a
+      Ferrari engine. The reserve driver is Antonio Giovinazzi.
+    type: organizational structure
+  - content: Ferrari first entered Formula 1 in 1950 and has maintained an unbroken
+      presence ever since. This continuity is rare in F1 and contributes to the team's
+      deep institutional knowledge and stable brand identity.
+    type: historical continuity
+  - content: The SF-25 chassis and Ferrari power unit are central to the team's 2025
+      campaign. Technical leadership under Serra and Gualtieri is tasked with adapting
+      to evolving F1 regulations and maximizing performance. The presence of an experienced
+      reserve driver like Giovinazzi ensures depth in the driver roster.
+    type: technical and strategic details
+  - content: Ferrari's culture is shaped by its Italian heritage, competitive spirit,
+      and pursuit of excellence. The team's leadership structure and technical resources
+      reflect its ambition to return to championship-winning form, building on a legacy
+      of innovation and resilience.
+    type: team culture and legacy
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Ferrari is based in Maranello, Italy, and their Team Chief for 2025
+      is Frédéric Vasseur. The other options list locations and chiefs of other F1
+      teams.
+    options:
+    - Silverstone, UK; Toto Wolff
+    - Maranello, Italy; Frédéric Vasseur
+    - Woking, UK; Zak Brown
+    - Brackley, UK; Christian Horner
+    question_text: Where is Ferrari's Formula 1 team based and who is their 2025 Team
+      Chief?
+  index: 174
+  key_concept: Team Profile
+  name: Team Profile
+- aspects:
+  - content: Ferrari, like all F1 teams, collaborates with a range of commercial and
+      technical partners. These partnerships provide financial support, technology,
+      and brand synergy, which are essential for competing at the highest level of
+      motorsport.
+    type: definition and role
+  - content: Notable partners include global brands such as LVMH, Pirelli, Aramco,
+      Heineken, AWS, Lenovo, DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis
+      Vuitton, TAG Heuer, Moet Hennessy, American Express, Santander, and many others.
+      These companies span sectors from luxury goods to technology and logistics.
+    type: examples
+  - content: Partnerships enable Ferrari to access cutting-edge technology (e.g.,
+      AWS for data analytics), secure funding for development, and enhance global
+      marketing reach. The association with prestigious brands also reinforces Ferrari's
+      image as a premium and innovative team.
+    type: implications for team operations
+  - content: Sponsorship and partnership deals are a core part of the F1 business
+      model. Teams like Ferrari leverage these relationships to maintain competitive
+      budgets, invest in R&D, and engage with fans worldwide. The diversity and prestige
+      of Ferrari's partners reflect its status as a premier F1 brand.
+    type: connections to F1 business model
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: Nike is not listed among Ferrari's 2025 partners. AWS, Heineken,
+      and Pirelli are all mentioned as official partners.
+    options:
+    - AWS
+    - Heineken
+    - Pirelli
+    - Nike
+    question_text: Which of the following is NOT listed as a Ferrari partner in 2025?
+  index: 271
+  key_concept: OUR PARTNERS
+  name: OUR PARTNERS

@@ -1,0 +1,124 @@
+URL: https://www.britannica.com/technology/server
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia entry defining the concept of a server in computing,
+  with examples and practical contexts such as web, print, network, and file servers.
+file_name: Server Definition, Examples, & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Server Definition, Examples,
+  & Facts Britannica.html
+file_uuid: 6fbf9213-a031-55c1-8d72-f59c26578e3f
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: A server's main function is to process requests from clients and provide
+    resources, which can include storing files, managing printers, or serving web
+    pages. The other options are specific examples or incorrect.
+  knowledge_areas:
+  - Server (computing)
+  - Definition
+  - Use Cases
+  options:
+  - To store and retrieve files for clients
+  - To process requests from clients and provide resources or services
+  - To print documents for users
+  - To initiate communication with other servers
+  question_id: 1
+  question_text: What is the main function of a server in a computer network?
+  question_type: recap
+- correct_answers:
+  - 3
+  explanation: Web servers, print servers, and file servers are all mentioned as examples
+    of servers. A gaming console is not described as a server in the article.
+  knowledge_areas:
+  - Examples
+  - Server (computing)
+  options:
+  - Web server
+  - Print server
+  - File server
+  - Gaming console
+  question_id: 2
+  question_text: Which of the following is NOT a typical example of a server described
+    in the article?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: In a client-server architecture, the server processes requests from
+    clients and responds with the requested resources or services. It does not initiate
+    requests to clients.
+  knowledge_areas:
+  - Client-server architecture
+  - Server (computing)
+  - Implications and Connections
+  options:
+  - By sending requests to clients for resources
+  - By processing requests from clients and responding with data or services
+  - By operating independently without network connections
+  - By acting as a backup device only
+  question_id: 3
+  question_text: How does a server typically interact with other devices in a client-server
+    architecture?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: HTTP (Hypertext Transfer Protocol) is the standard protocol used by
+    web servers to deliver web pages to clients.
+  knowledge_areas:
+  - Examples
+  - Server (computing)
+  options:
+  - FTP
+  - SMTP
+  - HTTP
+  - SSH
+  question_id: 4
+  question_text: Which protocol is commonly used by a web server to send web pages
+    to a client’s computer?
+  question_type: recap
+sections:
+- aspects:
+  - content: A server in computing is a network computer, computer program, or device
+      that processes requests from a client. The server's primary function is to provide
+      resources, data, or services to other computers, known as clients, over a network.
+      Servers can be dedicated hardware or software, and their role is central to
+      modern networked environments, including the Internet and local area networks.
+    type: Definition
+  - content: Common examples of servers include web servers, which use the HTTP protocol
+      to deliver web pages to users' browsers upon request; print servers, which manage
+      one or more printers and handle print jobs sent from client computers; network
+      servers, which manage network traffic and resources; and file servers, which
+      store and retrieve files for clients. Each type of server is specialized for
+      its particular function within a network.
+    type: Examples
+  - content: Servers are fundamental to both local and global networks. On the World
+      Wide Web, web servers are responsible for hosting websites and serving content
+      to users worldwide. In organizational settings, print servers streamline printing
+      operations by managing printer access, while file servers centralize data storage
+      and sharing. Network servers ensure efficient communication and resource allocation
+      across devices. The client-server architecture, in which servers respond to
+      client requests, underpins most modern computing environments.
+    type: Use Cases and Context
+  - content: The concept of a server is closely tied to client-server architecture,
+      a foundational model in computer networking. Servers enable scalability, centralized
+      management, and resource sharing, but also introduce considerations around security,
+      reliability, and maintenance. The proliferation of server types reflects the
+      diversity of networked services required in both personal and enterprise computing.
+      Understanding servers is essential for grasping how digital information and
+      services are delivered and managed.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The primary role of a server is to process requests and provide resources
+      or services to client devices. While servers can manage printers or files, their
+      essential function is broader than just printing or gaming.
+    options:
+    - A device that initiates requests to other computers on a network.
+    - A computer or program that processes requests and provides resources to clients.
+    - A standalone computer used exclusively for gaming.
+    - A type of software used only for printing documents.
+    question_text: Which of the following best describes the primary role of a server
+      in computing?
+  index: 128
+  key_concept: Server (computing)
+  name: server

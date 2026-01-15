@@ -1,0 +1,209 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page summarizing the 1999 Formula 1 race results, listing
+  race winners, teams, and dates, with sections on F1's commercial partners and links
+  to download the official F1 app.
+file_name: 1999 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1999/1999 RACE RESULTS.html
+file_uuid: 4287005e-77ba-51ba-b29b-dea2dfc92c04
+recap_questions:
+- correct_answers:
+  - 2
+  explanation: The 1999 Race Results section provides details about race winners,
+    teams, dates, locations, laps, and times, but the list of commercial partners
+    is found in a different section.
+  knowledge_areas:
+  - 1999 Formula 1 Race Results
+  options:
+  - Race winners and their teams
+  - Dates and locations of each Grand Prix
+  - List of official F1 commercial partners
+  - Number of laps and total race time
+  question_id: 1
+  question_text: Which of the following is NOT included in the 1999 Formula 1 Race
+    Results section?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Commercial partners benefit mainly through marketing exposure and association
+    with F1's global audience, not by controlling rules, entering teams, or determining
+    race outcomes.
+  knowledge_areas:
+  - F1 Commercial Partners
+  options:
+  - They receive global brand visibility and exclusive marketing rights.
+  - They are given control over race regulations.
+  - They can enter their own teams in the championship.
+  - They determine the winners of each Grand Prix.
+  question_id: 2
+  question_text: How do F1 Commercial Partners benefit from their association with
+    Formula 1?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app provides live timing and statistics, but does not allow fans
+    to vote for winners, receive car parts, or manage team strategies.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - Live timing and race statistics
+  - Direct voting for race winners
+  - Free car parts for fans
+  - Ability to manage team strategies
+  question_id: 3
+  question_text: Which feature is commonly available in the Official F1 App?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Strong race results, especially by teams sponsored by major partners,
+    can enhance the visibility and perceived value of those partnerships.
+  knowledge_areas:
+  - 1999 Formula 1 Race Results
+  - F1 Commercial Partners
+  options:
+  - Race results can influence the visibility and value of commercial partnerships.
+  - Commercial partners are responsible for compiling race results.
+  - Race results are only available to official partners.
+  - There is no connection between these sections.
+  question_id: 4
+  question_text: In what way are the '1999 Race Results' and 'OUR PARTNERS' sections
+    connected within the context of Formula 1?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1999 Formula 1 Race Results refer to the official recorded outcomes
+      of each Grand Prix event in the 1999 F1 World Championship season, including
+      information such as the Grand Prix name, date, winning driver, their team, number
+      of laps completed, and total race time. This data is compiled by the FIA and
+      serves as the historical record for the season.
+    type: Definition
+  - content: Examples from the 1999 season include Eddie Irvine winning the Australian
+      Grand Prix for Ferrari on March 7th, Mika Hakkinen winning the Brazilian Grand
+      Prix for McLaren Mercedes on April 11th, and Johnny Herbert securing victory
+      at the European Grand Prix for Stewart Ford on September 26th. Each entry provides
+      a snapshot of the race's outcome, highlighting the diversity of winners and
+      teams.
+    type: Examples
+  - content: These results are used by historians, statisticians, fans, and teams
+      for performance analysis, championship calculations, and comparative studies
+      across seasons. They also serve as the basis for determining driver and constructor
+      standings, influencing team strategies and sponsorships.
+    type: Use Cases
+  - content: The race results impact the allocation of championship points, which
+      ultimately determine the season's World Champion for drivers and constructors.
+      They also affect team reputations, driver market values, and sponsor visibility.
+      Unexpected results, such as a less-favored team winning, can have significant
+      repercussions in the sport's competitive dynamics.
+    type: Implications
+  - content: Race results are closely connected to other F1 data, such as qualifying
+      times, fastest laps, and season standings. They are also referenced in media,
+      fan discussions, and official F1 archives, providing a foundation for ongoing
+      engagement with the sport.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The 1999 Race Results section is dedicated to listing the outcomes
+      of each Grand Prix, including winners, teams, and race specifics. Other options
+      pertain to different sections or unrelated content.
+    options:
+    - To provide historical records of each Grand Prix's winner, team, and race details
+      for the 1999 season.
+    - To advertise the official F1 app to fans.
+    - To list all F1 commercial partners for 1999.
+    - To explain the rules and regulations of Formula 1.
+    question_text: Which of the following best describes the primary purpose of the
+      1999 Formula 1 Race Results section?
+  index: 153
+  key_concept: 1999 Formula 1 Race Results
+  name: 1999 RACE RESULTS
+- aspects:
+  - content: F1 Commercial Partners are companies and brands that have entered into
+      sponsorship or partnership agreements with Formula 1, often providing financial
+      support, products, or services in exchange for marketing exposure and association
+      with the sport. These partnerships are integral to the business model of F1.
+    type: Definition
+  - content: Examples of F1's partners in the given section include LVMH, Pirelli,
+      Aramco, Heineken, AWS, Lenovo, DHL, Qatar Airways, MSC, Crypto.com, Salesforce,
+      Louis Vuitton, TAG Heuer, Moet Hennessy, American Express, Santander, Allwyn,
+      Globant, Las Vegas Convention and Visitors Authority, Paramount+, Barilla, Liqui
+      Moly, Nestle, PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds. Each partner
+      represents a different industry, from luxury goods to technology and logistics.
+    type: Examples
+  - content: 'These partnerships are leveraged for mutual benefit: F1 receives funding,
+      technological advancements, and logistical support, while partners gain global
+      brand visibility, exclusive marketing rights, and association with the prestige
+      and excitement of Formula 1. For instance, Pirelli is the official tire supplier,
+      while DHL manages logistics.'
+    type: Use Cases
+  - content: Commercial partnerships impact the sport's financial health, technological
+      progress, and global reach. They can influence race operations (e.g., tire choice,
+      logistics), and the presence of high-profile brands enhances F1's appeal to
+      a broad audience. Changes in partnerships can signal shifts in F1's commercial
+      strategy or market positioning.
+    type: Implications
+  - content: F1 partners are featured in event branding, team uniforms, and broadcast
+      graphics. Their involvement is often highlighted in media coverage and fan engagement
+      activities. These partnerships are also connected to sustainability initiatives,
+      fan experiences, and the development of F1's digital platforms.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: F1 Commercial Partners include a wide range of companies from various
+      industries, not just luxury fashion or car parts, and their main role is sponsorship
+      and service provision for marketing benefits.
+    options:
+    - They are companies that provide financial support and services to F1 in exchange
+      for marketing exposure.
+    - They are only involved in supplying race car parts.
+    - They are responsible for enforcing F1 regulations.
+    - They are exclusively luxury fashion brands.
+    question_text: Which statement about F1 Commercial Partners is most accurate based
+      on the 'OUR PARTNERS' section?
+  index: 174
+  key_concept: F1 Commercial Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application developed for Formula 1 fans,
+      offering access to real-time race data, schedules, news, driver and team information,
+      and multimedia content. It is available for download on both iOS and Android
+      platforms.
+    type: Definition
+  - content: The app provides features such as live timing, in-depth race statistics,
+      push notifications for news updates, and access to exclusive videos and articles.
+      For example, users can follow live race positions, get alerts on race incidents,
+      and view driver standings from their mobile devices.
+    type: Examples
+  - content: Fans use the app to stay updated during race weekends, track their favorite
+      drivers and teams, and access F1 content on the go. It enhances the fan experience
+      by delivering timely and interactive information, especially for those unable
+      to watch races live.
+    type: Use Cases
+  - content: The app is a key part of F1's digital engagement strategy, helping to
+      grow and retain a global fanbase. It also serves as a platform for integrating
+      sponsor content and promoting F1 products and services. The app's analytics
+      can inform F1's marketing and content strategies.
+    type: Implications
+  - content: The app is linked to F1's broader digital ecosystem, including its website,
+      social media, and streaming services (like F1 TV). It also connects fans to
+      official schedules, ticketing, and merchandise, serving as a central hub for
+      F1-related activities.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App is designed for fans to access race data, news,
+      and multimedia content; it is not for selling car parts, free TV coverage, or
+      managing partnerships.
+    options:
+    - To provide fans with real-time race data, news, and multimedia content.
+    - To sell car parts to F1 teams.
+    - To broadcast live TV coverage of all races for free.
+    - To manage F1's commercial partnerships.
+    question_text: What is the primary function of the Official F1 App as described
+      in the section?
+  index: 184
+  key_concept: Official F1 App
+  name: Download the Official F1 App

@@ -1,0 +1,278 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Formula 1 promotional webpage announcing a now-closed competition
+  for F1 Unlocked members to win a VIP Miami Grand Prix weekend, with additional sections
+  on F1 Unlocked membership benefits, related F1 news articles, official partners,
+  and app download information.
+file_name: Win the ultimate Miami GP weekend | Formula 1®.html
+file_path: F1_racing/F1_Official/news/en/latest/article/Win the ultimate Miami GP
+  weekend | Formula 1®.html
+file_uuid: 90910971-fc07-5d1e-8534-9d5c94e3673a
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The competition was designed to reward F1 Unlocked members with an
+    exclusive VIP Miami Grand Prix experience, not for merchandise sales, regulatory
+    announcements, or general ticket giveaways.
+  knowledge_areas:
+  - Miami GP VIP Competition
+  - F1 Unlocked Membership Benefits
+  options:
+  - To offer F1 Unlocked members a chance to win a VIP experience at the Miami Grand
+    Prix
+  - To sell more F1 merchandise
+  - To announce new technical regulations
+  - To provide free tickets to all fans
+  question_id: 1
+  question_text: What was the main purpose of the Miami GP VIP Competition promoted
+    on the F1 website?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: F1 Unlocked offers curated insider content and VIP experiences, but
+    does not provide podium access, free cars, or regulatory voting rights.
+  knowledge_areas:
+  - F1 Unlocked Membership Benefits
+  options:
+  - Curated insider content and VIP experiences
+  - Guaranteed podium access at every race
+  - Free F1 cars for members
+  - Voting rights on race regulations
+  question_id: 2
+  question_text: Which of the following is a benefit of joining F1 Unlocked, according
+    to the document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The 'Related Articles' section features a variety of news and feature
+    stories, not just technical or commercial content.
+  knowledge_areas:
+  - Related F1 News and Features
+  options:
+  - Race recaps, team and driver reviews, alternative awards, and off-track stories
+  - Only technical rulebooks
+  - Exclusive partner advertisements
+  - Live race streaming links
+  question_id: 3
+  question_text: What types of stories are found in the 'Related Articles' section?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Official partners support F1 through sponsorship, branding, and services,
+    not by managing regulations or team selections.
+  knowledge_areas:
+  - Official F1 Partners
+  options:
+  - By providing sponsorship, branding, and essential services for F1 events
+  - By managing all race regulations
+  - By selecting drivers for each team
+  - By organizing fan competitions exclusively
+  question_id: 4
+  question_text: How do official partners contribute to the Formula 1 ecosystem, as
+    described in the document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The document provides links for the Apple App Store and Google Play,
+    indicating those as the official platforms for the F1 app.
+  knowledge_areas:
+  - Official F1 App Availability
+  options:
+  - Apple App Store and Google Play
+  - Windows Store only
+  - Physical CD distribution
+  - Amazon Appstore only
+  question_id: 5
+  question_text: Which platforms are mentioned for downloading the official F1 app?
+  question_type: recap
+sections:
+- aspects:
+  - content: The Miami GP VIP Competition was a promotional contest exclusive to F1
+      Unlocked members, offering a chance to win an all-expenses-paid VIP weekend
+      at the Miami Grand Prix for the winner and three friends. The prize package
+      included Vista Club weekend tickets, premium hospitality, lunch and a paddock
+      tour with an F1 Ambassador, flights, and accommodation. This competition was
+      designed to provide an immersive Formula 1 experience, granting winners access
+      to exclusive areas and behind-the-scenes opportunities.
+    type: Definition
+  - content: Examples of the VIP experience offered include premium trackside views,
+      all-day hospitality services, and curated events such as a paddock tour. Winners
+      would also have the opportunity to interact with F1 insiders and attend Miami
+      nightlife events as part of their prize. The competition exemplifies how sports
+      organizations use experiential rewards to engage fans and promote membership
+      programs.
+    type: Examples
+  - content: By offering such a high-value, exclusive experience, Formula 1 incentivizes
+      fans to join its F1 Unlocked membership, increasing user engagement and brand
+      loyalty. The competition also highlights the growing trend of sports marketing
+      strategies that focus on unique, memorable experiences rather than just physical
+      prizes. It serves as a case study in fan engagement and the monetization of
+      exclusive access within major sports leagues.
+    type: Implications
+  - content: This competition was open only to F1 Unlocked members, underscoring the
+      importance of membership and digital engagement in modern sports marketing.
+      The event was time-limited, with entries closing on a specific date, creating
+      urgency and exclusivity. The context also reflects Formula 1's ongoing efforts
+      to expand its fanbase, particularly in the United States, by leveraging marquee
+      events like the Miami Grand Prix.
+    type: Context
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The competition prize included Vista Club weekend tickets, premium
+      hospitality, a lunch and paddock tour with an F1 Ambassador, flights, and accommodation
+      for the winner and three friends. The other options are not part of the described
+      prize.
+    options:
+    - Vista Club weekend tickets, hospitality, paddock tour, flights, and accommodation
+      for four
+    - A meet-and-greet with all F1 drivers
+    - A new Formula 1 car
+    - Lifetime free tickets to all F1 races
+    question_text: What was included in the Miami GP VIP Competition prize for F1
+      Unlocked members?
+  index: 53
+  key_concept: Miami GP VIP Competition
+  name: Win the ultimate Miami GP weekend and bring your friends too!
+- aspects:
+  - content: F1 Unlocked is a free membership program offered by Formula 1 that provides
+      exclusive access to curated content, VIP experiences, member rewards, and insider
+      benefits. Membership is required to participate in certain competitions and
+      to access premium digital resources.
+    type: Definition
+  - content: Examples of F1 Unlocked benefits include access to exclusive competitions
+      like the Miami GP VIP weekend, curated insider content such as behind-the-scenes
+      articles and videos, and opportunities to live like an F1 insider through VIP
+      experiences. Additional perks may include member-only offers, rewards, and early
+      access to certain events or content.
+    type: Examples
+  - content: Fans use F1 Unlocked to deepen their engagement with the sport, gain
+      access to unique experiences, and receive rewards not available to the general
+      public. The membership is also a gateway for Formula 1 to collect user data
+      and tailor marketing efforts, making it valuable for both fans and the organization.
+    type: Use Cases
+  - content: The program demonstrates Formula 1's strategy to build a digital community
+      and foster loyalty among fans. It also reflects broader trends in sports and
+      entertainment industries toward offering tiered digital experiences and exclusive
+      content as a means of monetization and engagement.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Guaranteed pit lane access at every race is not mentioned as a benefit;
+      the other options are explicitly listed as F1 Unlocked membership perks.
+    options:
+    - Curated insider content
+    - Exclusive access and VIP experiences
+    - Guaranteed pit lane access at every race
+    - Member benefits, rewards, and offers
+    question_text: Which of the following is NOT a listed benefit of F1 Unlocked membership?
+  index: 65
+  key_concept: F1 Unlocked Membership Benefits
+  name: This competition is now closed
+- aspects:
+  - content: The 'Related Articles' section aggregates recent news stories, features,
+      and reports relevant to Formula 1 fans. These articles cover a range of topics
+      including race recaps, team and driver performance reviews, alternative awards,
+      and off-track stories.
+    type: Definition
+  - content: Examples from the section include articles such as 'Every twist and turn
+      from a dramatic 2025 title battle,' 'Williams’ best and worst moments from 2025,'
+      'Best radio and more – F1's 2025 alternative awards,' and 'The top 10 drivers
+      of 2025 – as chosen by the drivers.' These provide both in-depth analysis and
+      lighter, entertainment-focused content.
+    type: Examples
+  - content: This section is designed to keep fans informed and engaged with the latest
+      happenings in the F1 world, offering both serious analysis and more informal,
+      fan-oriented features. It reflects the multifaceted nature of F1 media coverage,
+      catering to diverse audience interests.
+    type: Context
+  - content: By linking to various articles, the section encourages deeper exploration
+      of the sport, connecting the promotional competition and membership benefits
+      to ongoing F1 narratives and community discussions. This integration supports
+      the overall digital engagement strategy of Formula 1.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The 'Related Articles' section features a variety of F1 news and
+      features, including race reports, team and driver reviews, alternative awards,
+      and rankings, not just technical regulations or sales information.
+    options:
+    - Technical regulations only
+    - Recent race reports, team reviews, alternative awards, and driver rankings
+    - Exclusive merchandise sales
+    - Ticketing information
+    question_text: What types of content are featured in the 'Related Articles' section?
+  index: 91
+  key_concept: Related F1 News and Features
+  name: Related Articles
+- aspects:
+  - content: The 'OUR PARTNERS' section lists the official sponsors and commercial
+      partners associated with Formula 1. These companies represent a range of industries,
+      including luxury goods, technology, automotive, beverages, and financial services.
+    type: Definition
+  - content: Examples of F1 partners include LVMH, Pirelli, Aramco, Heineken, AWS,
+      Lenovo, DHL, Qatar Airways, MSC Cruises, Crypto.com, Salesforce, Louis Vuitton,
+      TAG Heuer, Moet Hennessy, American Express, Santander, and more. Each partner
+      typically has a specific role, such as providing technical services, branding,
+      or event support.
+    type: Examples
+  - content: These partnerships are crucial for the financial and operational success
+      of Formula 1, providing both monetary sponsorship and essential services. The
+      diversity of partners also reflects F1's global reach and appeal across different
+      markets.
+    type: Implications
+  - content: The presence of high-profile partners enhances the prestige and resources
+      of Formula 1 events, including promotional competitions like the Miami GP VIP
+      weekend. It also illustrates the symbiotic relationship between major sports
+      leagues and global brands.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Pirelli is explicitly listed as an official partner in the 'OUR PARTNERS'
+      section; the other companies are not mentioned.
+    options:
+    - Pirelli
+    - Sony
+    - Samsung
+    - Apple
+    question_text: Which of the following is an official partner of Formula 1 as listed
+      in the document?
+  index: 100
+  key_concept: Official F1 Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The 'Download the Official F1 App' section provides information and links
+      for downloading the official Formula 1 mobile application. The app is available
+      on major platforms, including the Apple App Store and Google Play.
+    type: Definition
+  - content: The section includes direct download links and platform icons for iOS
+      and Android devices, making it easy for fans to access the app. The app typically
+      offers features such as live timing, race updates, news, and exclusive content.
+    type: Examples
+  - content: Fans use the official F1 app to follow live race data, receive news alerts,
+      access exclusive videos, and manage their F1 Unlocked membership. The app serves
+      as a central hub for digital engagement with the sport.
+    type: Use Cases
+  - content: The availability of the official app underscores Formula 1's commitment
+      to digital innovation and fan engagement. It also facilitates the integration
+      of membership programs, competitions, and content delivery in a mobile-first
+      environment.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The document provides links for both the Apple App Store and Google
+      Play, indicating the app's availability on these major mobile platforms.
+    options:
+    - Apple App Store and Google Play
+    - Only from the F1 website
+    - On CD-ROM
+    - Through cable TV subscription
+    question_text: Where can fans download the official Formula 1 app?
+  index: 110
+  key_concept: Official F1 App Availability
+  name: Download the Official F1 App

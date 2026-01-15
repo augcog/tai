@@ -1,0 +1,202 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page summarizing the 1972 Formula 1 race results, listing
+  Grand Prix winners, teams, and race data, along with sections highlighting official
+  F1 partners and promoting the official F1 mobile app.
+file_name: 1972 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1972/1972 RACE RESULTS.html
+file_uuid: 107760ba-f2bc-51d5-9de9-6991b6c3ab71
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Lotus Ford, with Emerson Fittipaldi as their main driver, secured the
+    most wins in 1972 according to the race results table.
+  knowledge_areas:
+  - 1972 Formula 1 Race Results
+  options:
+  - Lotus Ford
+  - Tyrrell Ford
+  - Ferrari
+  - McLaren Ford
+  question_id: 1
+  question_text: Which team had the most race wins in the 1972 Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: AWS is listed as an official F1 partner; the other companies are not
+    mentioned in the partners section.
+  knowledge_areas:
+  - F1 Official Partners
+  options:
+  - AWS
+  - Apple
+  - Sony
+  - Google
+  question_id: 2
+  question_text: Which of the following is an example of an F1 Official Partner from
+    the list provided?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app is promoted as a tool for accessing live timing and F1 news,
+    not for team management, ticket sales, or exclusively classic race streaming.
+  knowledge_areas:
+  - Official F1 Mobile App
+  options:
+  - Live timing and F1 news
+  - Team management for constructors
+  - Online ticket sales
+  - Streaming classic races only
+  question_id: 3
+  question_text: What is the main purpose of the Official F1 Mobile App as described
+    in the document?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Jackie Stewart won both the Argentine (opening) and United States (closing)
+    Grands Prix in 1972.
+  knowledge_areas:
+  - 1972 Formula 1 Race Results
+  options:
+  - Denny Hulme
+  - Jackie Stewart
+  - Emerson Fittipaldi
+  - Jacky Ickx
+  question_id: 4
+  question_text: Which driver won both the opening and closing Grands Prix of the
+    1972 season?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: F1 Official Partners support the sport through sponsorship, technical,
+    and marketing contributions, not by managing contracts, regulations, or track
+    design.
+  knowledge_areas:
+  - F1 Official Partners
+  options:
+  - By sponsoring teams and providing technical or marketing support
+  - By managing driver contracts
+  - By setting race regulations
+  - By designing race tracks
+  question_id: 5
+  question_text: How do F1 Official Partners contribute to the sport, based on the
+    information provided?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1972 Formula 1 Race Results refer to the official summary of each
+      Grand Prix in the 1972 F1 World Championship season, detailing the race winner,
+      team, number of laps, and winning time for each event. This data provides a
+      comprehensive overview of the season's competitive outcomes and forms a historical
+      record for reference and analysis.
+    type: definition
+  - content: For example, the 1972 Argentine Grand Prix was won by Jackie Stewart
+      driving for Tyrrell Ford, completing 95 laps in 1:57:58.820. Emerson Fittipaldi,
+      representing Lotus Ford, won multiple races, including Spain, Belgium, Great
+      Britain, Austria, and Italy. Each entry in the results table gives specific
+      details such as the Grand Prix location, date, winner, team, total laps, and
+      finishing time.
+    type: examples
+  - content: These results are crucial for determining championship standings, influencing
+      team strategies, and shaping the historical legacy of drivers and constructors.
+      They also provide data for statistical analysis, such as win rates, team dominance,
+      and performance trends across the season.
+    type: implications
+  - content: The 1972 season is part of the broader F1 historical archive, allowing
+      for comparison with other years. It highlights the competitive landscape of
+      the early 1970s, including major teams like Tyrrell Ford, Lotus Ford, McLaren
+      Ford, and Ferrari, and legendary drivers such as Jackie Stewart and Emerson
+      Fittipaldi.
+    type: context
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Emerson Fittipaldi won the most races in 1972, with victories in
+      Spain, Belgium, Great Britain, Austria, and Italy. Jackie Stewart also won several
+      races but not as many as Fittipaldi.
+    options:
+    - Jackie Stewart
+    - Emerson Fittipaldi
+    - Denny Hulme
+    - Jean-Pierre Beltoise
+    question_text: Which driver won the most races in the 1972 Formula 1 season according
+      to the official race results?
+  index: 145
+  key_concept: 1972 Formula 1 Race Results
+  name: 1972 RACE RESULTS
+- aspects:
+  - content: F1 Official Partners are companies and brands that have established formal
+      sponsorship or partnership agreements with Formula 1, providing financial support,
+      products, or services in exchange for global marketing exposure and association
+      with the sport.
+    type: definition
+  - content: Examples of F1 partners include luxury brands like LVMH and Louis Vuitton,
+      technology companies such as AWS and Lenovo, logistics firms like DHL, and consumer
+      brands like Heineken and PepsiCo. Each partner is typically featured with a
+      logo and a link to their website, reflecting their commercial relationship with
+      F1.
+    type: examples
+  - content: These partnerships enable F1 to access cutting-edge technologies, logistical
+      expertise, and global marketing reach. For example, AWS provides cloud computing
+      and data analytics, while Pirelli supplies tires for all teams. Partners also
+      benefit from brand visibility at races, on digital platforms, and through co-branded
+      campaigns.
+    type: use cases
+  - content: The presence of high-profile partners enhances the financial stability
+      and technological advancement of the sport. It also reflects the global appeal
+      of F1, attracting diverse industries seeking to reach an international audience.
+      The selection of partners can influence the sport's image and fan engagement
+      strategies.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not listed among the official F1 partners in the section;
+      Pirelli, AWS, and Heineken are all featured as partners.
+    options:
+    - Pirelli
+    - AWS
+    - Nike
+    - Heineken
+    question_text: Which of the following companies is NOT listed as an official F1
+      partner in the provided section?
+  index: 162
+  key_concept: F1 Official Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 Mobile App is a smartphone application offered by Formula
+      1 to provide fans with access to live timing, news, schedules, and exclusive
+      content related to the F1 World Championship. It is available for download on
+      both Apple App Store and Google Play.
+    type: definition
+  - content: Users can download the app on iOS or Android devices to follow live race
+      updates, view driver and team statistics, and receive notifications about major
+      F1 events. The app is promoted with direct links to both app stores, indicating
+      its broad accessibility.
+    type: examples
+  - content: The app is used by fans to stay informed about race schedules, track
+      live positions and gaps, and access multimedia content such as videos and interviews.
+      It enhances fan engagement by providing a centralized platform for official
+      F1 information and interactive features.
+    type: use cases
+  - content: The app complements other digital F1 services such as F1 TV and the official
+      website, forming part of F1's broader digital strategy to reach global audiences
+      and provide real-time, immersive experiences.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The main function highlighted is providing live timing and race information;
+      other options like merchandise or ticketing are not described as core app features
+      in this section.
+    options:
+    - Ordering F1 merchandise
+    - Accessing live timing and race information
+    - Booking race tickets
+    - Managing team strategies
+    question_text: What is a primary function of the Official F1 Mobile App as described
+      in the section?
+  index: 172
+  key_concept: Official F1 Mobile App
+  name: Download the Official F1 App

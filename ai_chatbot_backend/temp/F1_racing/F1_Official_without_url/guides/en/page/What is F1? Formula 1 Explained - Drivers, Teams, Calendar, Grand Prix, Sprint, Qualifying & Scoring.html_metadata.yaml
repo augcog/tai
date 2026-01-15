@@ -1,0 +1,279 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web overview page introducing Formula 1 (F1), covering the basics
+  of the sport, its drivers, teams, international calendar, technical aspects, sustainability
+  initiatives, and official partners, along with links to further resources and the
+  official F1 app.
+file_name: What is F1? Formula 1 Explained - Drivers, Teams, Calendar, Grand Prix,
+  Sprint, Qualifying & Scoring.html
+file_path: F1_racing/F1_Official/guides/en/page/What is F1? Formula 1 Explained -
+  Drivers, Teams, Calendar, Grand Prix, Sprint, Qualifying & Scoring.html
+file_uuid: e3c427c3-4b2d-57da-8592-d1a009561082
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: F1 is defined by its international single-seater format, 20 drivers,
+    10 teams, and a global calendar. The other options describe different sports or
+    omit key aspects.
+  knowledge_areas:
+  - Formula 1 Overview
+  options:
+  - International single-seater racing, 20 drivers, 10 teams, and a global calendar.
+  - Stock car racing with unlimited teams.
+  - Motorcycle racing with regional events.
+  - Team-based racing with no technological innovation.
+  question_id: 1
+  question_text: What are the core elements that define Formula 1 as a sport?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: F1 success depends on close collaboration between teams (providing
+    cars, engineering, strategy) and drivers (executing on track), making option 1
+    correct.
+  knowledge_areas:
+  - F1 Drivers and Teams
+  options:
+  - Drivers race independently without team input.
+  - Teams provide cars and strategies, while drivers execute on track, both relying
+    on each other's expertise.
+  - Drivers design their own cars.
+  - Teams and drivers are randomly paired each race.
+  question_id: 2
+  question_text: How do F1 teams and drivers collaborate to achieve success?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: F1's global reach is shown by its calendar of races across five continents
+    and many cities, making option 1 correct.
+  knowledge_areas:
+  - F1 Calendar and Global Reach
+  options:
+  - All races are held in one country.
+  - Races are scheduled across five continents and in diverse cities each season.
+  - Only European teams can participate.
+  - The calendar changes every decade.
+  question_id: 3
+  question_text: What demonstrates Formula 1's global reach and international appeal?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Technology in F1 is central to competition and safety, with teams innovating
+    in areas like hybrid engines and safety devices, making option 1 correct.
+  knowledge_areas:
+  - F1 Technology and Innovation
+  options:
+  - F1 cars use outdated technology for tradition.
+  - Teams develop advanced technologies for performance and safety, such as hybrid
+    engines and the Halo device.
+  - Technology is not permitted in F1.
+  - Teams share identical cars and technology.
+  question_id: 4
+  question_text: In what ways does technology influence both competition and safety
+    in Formula 1?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Official partners support F1 financially and technologically, while
+    the app increases fan engagement and access to live content, making option 0 correct.
+  knowledge_areas:
+  - F1 Partners and Official App
+  options:
+  - They provide financial, technological, and marketing support, and the app enhances
+    fan access to live data and content.
+  - They only sponsor individual drivers.
+  - They have no impact on the sport.
+  - The app is used only by teams for strategy.
+  question_id: 5
+  question_text: How do official partners and the F1 App contribute to the sport's
+    ecosystem?
+  question_type: recap
+sections:
+- aspects:
+  - content: Formula 1 (F1) is the highest class of international single-seater auto
+      racing, sanctioned by the FIA. It involves a series of races known as Grands
+      Prix, held on purpose-built circuits and public roads across the globe. F1 is
+      characterized by its fast-paced, technologically advanced cars and a global
+      fanbase.
+    type: Definition
+  - content: F1 consists of 20 drivers and 10 teams, each competing in a season-long
+      championship. Races are held in diverse locations, with a typical season featuring
+      24 races across five continents. Each race weekend includes practice sessions,
+      qualifying, and the main race, with some weekends featuring additional formats
+      like Sprint races.
+    type: Structure and Components
+  - content: Drivers such as Lewis Hamilton and Max Verstappen compete for teams like
+      Ferrari and Red Bull Racing. Races take place in iconic venues like Monaco,
+      Silverstone, and Suzuka, showcasing both driver skill and team strategy. The
+      sport is renowned for its blend of athleticism, engineering, and international
+      spectacle.
+    type: Examples and Context
+  - content: F1 is not only a sporting competition but also a platform for technological
+      innovation, global marketing, and cultural exchange. Its influence extends beyond
+      racing, impacting automotive engineering, sustainability practices, and entertainment.
+      The sport's structure encourages intense competition and continuous development.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Formula 1 is defined as the premier global single-seater racing series
+      featuring 20 drivers and 10 teams, making option 0 correct. The other options
+      describe different forms or levels of motorsport.
+    options:
+    - A global single-seater racing series with 20 drivers and 10 teams.
+    - A national stock car racing championship.
+    - A motorcycle racing league.
+    - A regional amateur motorsport event.
+    question_text: Which of the following best describes Formula 1?
+  index: 53
+  key_concept: Formula 1 Overview
+  name: What is F1?
+- aspects:
+  - content: F1 drivers are elite athletes selected to compete at the highest level
+      of motorsport, often compared to fighter pilots for their reflexes and decision-making
+      at high speeds. F1 teams are organizations responsible for designing, building,
+      and operating the cars, as well as managing race strategies and logistics.
+    type: Definition
+  - content: Notable drivers include Lewis Hamilton, Charles Leclerc, and Max Verstappen.
+      Teams such as Mercedes, Ferrari, and Red Bull Racing are renowned for their
+      history, engineering prowess, and competitive spirit. Each team fields two drivers,
+      and teamwork is essential for success both on and off the track.
+    type: Examples
+  - content: Drivers must possess exceptional skill, physical fitness, and mental
+      acuity to handle the demands of F1 racing. Teams provide the technological and
+      strategic foundation, with hundreds of engineers, mechanics, and support staff
+      working together. The synergy between driver and team determines championship
+      outcomes.
+    type: Role and Importance
+  - content: The limited number of seats (20) makes F1 highly exclusive, with intense
+      competition for places. Team dynamics, intra-team rivalries, and the allocation
+      of resources significantly influence race results and championship standings.
+      The relationship between drivers and teams is central to the sport's narrative.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: F1 teams design and build their own cars and compete globally, with
+      only 20 drivers participating, making option 1 correct. Drivers do not design
+      their cars (option 0), teams and drivers are not randomly assigned (option 2),
+      and drivers always have team support (option 3).
+    options:
+    - Drivers must design their own cars.
+    - Teams compete globally and design their own cars, while only 20 drivers participate
+      at any time.
+    - Teams and drivers are randomly assigned before each race.
+    - Drivers race individually without team support.
+    question_text: What distinguishes F1 drivers and teams from those in most other
+      sports?
+  index: 53
+  key_concept: F1 Drivers and Teams
+  name: What is F1?
+- aspects:
+  - content: The F1 calendar refers to the schedule of races (Grands Prix) held throughout
+      the season, typically spanning 24 events across various countries and continents.
+      The global reach of F1 is reflected in its presence in diverse locations, making
+      it one of the most internationally recognized sports.
+    type: Definition
+  - content: Races are held in cities such as Melbourne, Monaco, Singapore, and Austin,
+      with circuits ranging from traditional tracks to temporary street circuits.
+      The calendar is updated annually, with new venues sometimes added and others
+      rotated out.
+    type: Examples
+  - content: F1's international calendar enhances its appeal to a worldwide audience,
+      increases commercial opportunities, and presents logistical challenges for teams.
+      The sport's ability to attract fans from different cultures contributes to its
+      status as a global phenomenon.
+    type: Implications
+  - content: The calendar is closely linked to team logistics, driver preparation,
+      and the sport's marketing strategies. It also plays a role in sustainability
+      efforts, as F1 seeks to reduce its carbon footprint while maintaining a broad
+      international presence.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: F1's global reach is demonstrated by its calendar of 24 races held
+      across five continents, making option 2 correct. The other options do not reflect
+      the sport's international scope.
+    options:
+    - By holding races only in Europe.
+    - By rotating drivers between teams every race.
+    - By scheduling 24 races across five continents in diverse locations.
+    - By limiting races to one country per season.
+    question_text: How does the F1 calendar demonstrate the sport's global reach?
+  index: 53
+  key_concept: F1 Calendar and Global Reach
+  name: What is F1?
+- aspects:
+  - content: F1 is renowned for its cutting-edge technology, with teams developing
+      some of the most advanced and efficient race cars in the world. Innovations
+      in aerodynamics, materials science, and hybrid power units are hallmarks of
+      the sport.
+    type: Definition
+  - content: F1 cars feature hybrid engines, energy recovery systems, and complex
+      aerodynamic devices like DRS (Drag Reduction System). Safety innovations, such
+      as the Halo cockpit protection device, have been adopted both in F1 and in road
+      cars.
+    type: Examples
+  - content: Technological advancements in F1 often trickle down to consumer vehicles,
+      influencing automotive safety, efficiency, and performance. The sport's relentless
+      pursuit of innovation drives competition and sets benchmarks for engineering
+      excellence.
+    type: Implications
+  - content: F1 technology is closely tied to team performance, regulatory changes,
+      and sustainability goals. Teams must balance innovation with compliance to strict
+      technical regulations, fostering creativity within defined boundaries.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: F1 is defined by technological innovation, with teams developing
+      advanced, efficient, and safe cars, making option 1 correct. Options 0 and 3
+      are incorrect, and option 2 is inaccurate as F1 technology is highly regulated.
+    options:
+    - F1 teams use only standard, unmodified cars.
+    - Technological innovation is central, with teams developing advanced, efficient,
+      and safe cars.
+    - Technology is not regulated in F1.
+    - F1 cars are less advanced than road cars.
+    question_text: Which statement best reflects the role of technology in Formula
+      1?
+  index: 53
+  key_concept: F1 Technology and Innovation
+  name: What is F1?
+- aspects:
+  - content: F1 partners are companies and brands that sponsor or collaborate with
+      the sport, providing financial support, technology, and services. The Official
+      F1 App is a digital platform offering fans live timing, news, and exclusive
+      content.
+    type: Definition
+  - content: Major partners include LVMH, Pirelli, Aramco, AWS, Lenovo, and DHL, among
+      others. These partnerships enhance the sport's operations, marketing, and fan
+      engagement. The Official F1 App is available on both iOS and Android platforms.
+    type: Examples
+  - content: Partnerships contribute to the financial stability and technological
+      advancement of F1, while the app increases accessibility and engagement for
+      fans worldwide. Sponsors often leverage F1's global audience for brand exposure.
+    type: Implications
+  - content: The presence of diverse partners reflects F1's commercial appeal and
+      integration with various industries, from technology to luxury goods. The app
+      connects fans to live data, race schedules, and multimedia, fostering a more
+      interactive viewing experience.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: F1 partners provide crucial financial and technological support,
+      and the Official F1 App enhances fan engagement and access to live content,
+      making option 0 correct. The other options are incorrect or incomplete.
+    options:
+    - Partners provide financial and technological support, while the app enhances
+      fan engagement and access to live content.
+    - Partners only supply race cars, and the app is for driver training.
+    - The app is only available in Europe and partners are not involved in racing.
+    - Partners and the app are unrelated to the sport's operations.
+    question_text: What is the primary benefit of F1's official partners and the Official
+      F1 App?
+  index: 133
+  key_concept: F1 Partners and Official App
+  name: OUR PARTNERS

@@ -1,0 +1,259 @@
+URL: https://www.britannica.com/technology/HTML
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article providing an overview of HTML, including
+  its definition, historical development, core features, and its role in web technology.
+file_name: HTML Definition & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/HTML Definition & Facts Britannica.html
+file_uuid: 09ca3604-9349-5a71-a6b6-ef6fb40b5ec2
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: HTML is used to structure and format content so that it can be displayed
+    by web browsers; it is not designed for computation, database management, or operating
+    system development.
+  knowledge_areas:
+  - HTML as a Markup Language
+  options:
+  - To perform complex calculations
+  - To structure and format content for web browsers
+  - To manage server databases
+  - To create operating systems
+  question_id: 1
+  question_text: What is the primary function of HTML in web development?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Sir Tim Berners-Lee invented HTML at CERN to enable the sharing and
+    linking of documents, leading to the creation of the World Wide Web.
+  knowledge_areas:
+  - History and Development of HTML
+  options:
+  - Linus Torvalds, to create Linux
+  - Steve Jobs, to design the Macintosh
+  - Sir Tim Berners-Lee, to facilitate sharing and linking documents on the Internet
+  - Bill Gates, to develop Windows applications
+  question_id: 2
+  question_text: Who invented HTML and what was its original purpose?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The <a> tag is used to create hyperlinks, and the HREF attribute specifies
+    the destination URL.
+  knowledge_areas:
+  - HTML Structure and Tags
+  - Hypertext and Anchors in HTML
+  options:
+  - <table> with the SRC attribute
+  - <a> with the HREF attribute
+  - <p> with the LINK attribute
+  - <h1> with the URL attribute
+  question_id: 3
+  question_text: Which HTML tag is used to create a hyperlink, and what attribute
+    specifies the destination?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Web browsers interpret HTML tags and render the structured content
+    for users to view and interact with.
+  knowledge_areas:
+  - Role of Browsers in HTML
+  options:
+  - They store HTML files on the server
+  - They interpret HTML tags to display content to users
+  - They convert HTML into executable programs
+  - They ignore HTML and only process CSS
+  question_id: 4
+  question_text: How do web browsers interact with HTML documents?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: HTML enables the creation of hypertext links (anchors), which are fundamental
+    to the interconnected structure of the World Wide Web.
+  knowledge_areas:
+  - HTML as a Markup Language
+  - Hypertext and Anchors in HTML
+  options:
+  - HTML is used to create hypertext links, which enable the interconnected structure
+    of the World Wide Web.
+  - HTML is a programming language that controls web servers.
+  - Hypertext is a type of image supported by HTML.
+  - The World Wide Web is unrelated to HTML or hypertext.
+  question_id: 5
+  question_text: Which of the following best describes the relationship between HTML,
+    hypertext, and the World Wide Web?
+  question_type: recap
+sections:
+- aspects:
+  - content: HTML stands for Hypertext Markup Language and is the standard system
+      for tagging text files to achieve font, color, graphic, and hyperlink effects
+      on web pages. It is a markup language, not a programming language, meaning it
+      is used to annotate and structure content rather than to perform computations
+      or logic.
+    type: Definition
+  - content: HTML is used to format material for display in web browsers, enabling
+      the creation of web pages that can include text, images, tables, and links to
+      other pages. Each web page is an HTML document that can be retrieved and rendered
+      by browsers over the Internet. HTML is foundational for all web development
+      and is used in conjunction with other technologies like CSS and JavaScript.
+    type: Function and Use Cases
+  - content: HTML uses markup tags, such as <h1> for headings, <p> for paragraphs,
+      and <table> for tables, to define the structure and presentation of content.
+      For example, <A HREF="http://www.britannica.com">Encyclopædia Britannica</A>
+      creates a hyperlink. Tags are interpreted by browsers to display content appropriately,
+      adapting to screen size and available fonts.
+    type: Examples and Syntax
+  - content: HTML's design allows for the separation of content and presentation,
+      facilitating accessibility and responsive design. It is closely related to other
+      web technologies such as CSS (for styling) and JavaScript (for interactivity),
+      and is the backbone of the World Wide Web. Its simplicity and flexibility have
+      contributed to the rapid expansion and accessibility of web content.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: HTML is a markup language, not a programming language or a database
+      system. It is used to structure and format content for display in web browsers,
+      not for computation or browsing itself.
+    options:
+    - A programming language used for computation
+    - A markup language used to structure and format web content
+    - A database management system
+    - A software application for browsing the web
+    question_text: Which of the following best describes HTML?
+  index: 141
+  key_concept: HTML as a Markup Language
+  name: HTML
+- aspects:
+  - content: HTML was designed by Sir Tim Berners-Lee, a British scientist, at CERN
+      in Switzerland during the early 1990s. Its creation was motivated by the need
+      to facilitate the sharing and linking of documents over the Internet, leading
+      to the birth of the World Wide Web.
+    type: Origins
+  - content: Since its inception, HTML has undergone several revisions and standardizations,
+      overseen by organizations such as the World Wide Web Consortium (W3C). These
+      updates have expanded its capabilities, including support for multimedia, scripting,
+      and improved accessibility.
+    type: Evolution
+  - content: HTML's development was pivotal in making the Internet accessible to a
+      broad audience, enabling the creation of interconnected web pages and the rapid
+      growth of web-based information sharing. It remains the foundation of web development
+      today.
+    type: Impact
+  - content: HTML was influenced by earlier markup languages like SGML and has inspired
+      the development of related technologies such as XML and XHTML. Its evolution
+      is closely tied to the advancement of web browsers and the expansion of the
+      Internet.
+    type: Connection to Other Technologies
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Sir Tim Berners-Lee designed HTML at CERN in Switzerland in the early
+      1990s, laying the groundwork for the World Wide Web.
+    options:
+    - Bill Gates at Microsoft
+    - Sir Tim Berners-Lee at CERN
+    - Steve Jobs at Apple
+    - Linus Torvalds at Linux Foundation
+    question_text: Who is credited with inventing HTML, and where was it developed?
+  index: 141
+  key_concept: History and Development of HTML
+  name: HTML
+- aspects:
+  - content: HTML documents are composed of elements marked by tags, such as headings
+      (<h1> to <h6>), paragraphs (<p>), and tables (<table>). These tags define the
+      structure and organization of content on a web page, allowing browsers to render
+      the material appropriately.
+    type: Core Elements
+  - content: 'Tags are enclosed in angle brackets and often come in pairs: an opening
+      tag (e.g., <p>) and a closing tag (e.g., </p>). Some tags, like <img>, are self-closing.
+      Proper nesting and structure are important for browser compatibility and accessibility.'
+    type: Syntax and Usage
+  - content: A simple HTML document might include <h1> for a main heading, <p> for
+      a paragraph, and <a href="url"> for a hyperlink. For instance, <A HREF="http://www.britannica.com">Encyclopædia
+      Britannica</A> creates a clickable link to the Britannica website.
+    type: Examples
+  - content: Understanding HTML structure is essential for creating accessible and
+      well-organized web pages. Proper use of tags ensures that content is readable
+      by both humans and machines, including search engines and assistive technologies.
+    type: Implications and Best Practices
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: The <a> tag (anchor) is used to create hyperlinks in HTML, allowing
+      users to navigate to other web pages or resources.
+    options:
+    - <p>
+    - <h1>
+    - <table>
+    - <a>
+    question_text: Which HTML tag is used to create a hyperlink to another web page?
+  index: 141
+  key_concept: HTML Structure and Tags
+  name: HTML
+- aspects:
+  - content: A web browser is a computer program that retrieves, interprets, and displays
+      HTML documents from the Internet. Browsers read the markup tags in HTML files
+      and render the content according to the specified structure and formatting.
+    type: Definition and Function
+  - content: Browsers adapt the presentation of HTML content to the device's screen
+      size, available fonts, and user preferences. This flexibility allows web pages
+      to be viewed on a wide range of devices, from desktop computers to smartphones.
+    type: Adaptation and Display
+  - content: Popular web browsers include Google Chrome, Mozilla Firefox, Microsoft
+      Edge, and Safari. Each browser may interpret certain aspects of HTML slightly
+      differently, making cross-browser compatibility an important consideration for
+      web developers.
+    type: Examples
+  - content: Browsers play a critical role in the user experience of web content.
+      Their ability to interpret HTML accurately and consistently is essential for
+      accessibility, usability, and the overall effectiveness of web communication.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: A web browser's main function is to interpret and display HTML documents,
+      allowing users to view and interact with web pages.
+    options:
+    - To write HTML code
+    - To store HTML documents on the server
+    - To interpret and display HTML documents for users
+    - To manage database connections
+    question_text: What is the primary role of a web browser in relation to HTML?
+  index: 141
+  key_concept: Role of Browsers in HTML
+  name: HTML
+- aspects:
+  - content: Hypertext refers to text that contains links (hyperlinks) to other documents
+      or resources. In HTML, these links are created using anchor tags (<a>), which
+      specify the destination URL and the clickable text.
+    type: Definition
+  - content: An anchor tag has the form <A HREF="URL">Link Text</A>, where the HREF
+      attribute specifies the destination. For example, <A HREF="http://www.britannica.com">Encyclopædia
+      Britannica</A> creates a link to the Britannica website, with the text 'Encyclopædia
+      Britannica' underlined to indicate it is clickable.
+    type: Syntax and Example
+  - content: Anchors enable navigation between web pages and the integration of diverse
+      resources, forming the interconnected structure of the World Wide Web. They
+      can link to text, images, or other media, and can also be used for internal
+      navigation within a page.
+    type: Use Cases and Implications
+  - content: Hypertext and anchors are fundamental to the concept of the web, distinguishing
+      it from static documents. They enable non-linear navigation and are closely
+      related to the development of search engines, web navigation, and information
+      architecture.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The anchor tag (<a>) is used to create hyperlinks, allowing users
+      to navigate to other web pages or resources.
+    options:
+    - To display images
+    - To create hyperlinks to other web pages or resources
+    - To define table rows
+    - To format text as bold
+    question_text: What is the primary purpose of the anchor (<a>) tag in HTML?
+  index: 141
+  key_concept: Hypertext and Anchors in HTML
+  name: HTML

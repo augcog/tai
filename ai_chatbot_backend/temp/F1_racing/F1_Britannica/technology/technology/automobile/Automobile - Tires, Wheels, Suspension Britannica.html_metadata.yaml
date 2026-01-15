@@ -1,0 +1,233 @@
+URL: https://www.britannica.com/technology/automobile/Tires
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article section on automobile tires, security systems,
+  and safety systems, covering tire construction and function, anti-theft technologies,
+  and both accident avoidance and occupant protection safety features in vehicles.
+file_name: Automobile - Tires, Wheels, Suspension Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/automobile/Automobile - Tires,
+  Wheels, Suspension Britannica.html
+file_uuid: db506d5e-c199-5608-888a-a2ca73784381
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The main function of the tire is to provide traction for acceleration
+    and braking, and to limit the transmission of vibrations from the road to the
+    vehicle body.
+  knowledge_areas:
+  - Tire construction and function
+  options:
+  - To provide traction and limit road vibration transmission
+  - To prevent vehicle theft
+  - To absorb energy during a crash
+  - To inflate air bags
+  question_id: 1
+  question_text: What is the primary function of the pneumatic rubber tire in automobiles?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Tubeless tires and low height-to-width ratios are major innovations
+    that improve performance and safety; inner tubes are largely obsolete, and synthetic
+    fibers remain important.
+  knowledge_areas:
+  - Tire construction and function
+  options:
+  - Use of inner tubes for all tires
+  - Development of tubeless tires and low height-to-width ratios
+  - Exclusive use of smooth treads for all vehicles
+  - Elimination of synthetic fibers in tire construction
+  question_id: 2
+  question_text: Which of the following best describes a key innovation in modern
+    tire design?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Providing traction in snow is a function of tire tread design, not
+    security systems. The other options are all security features.
+  knowledge_areas:
+  - Security systems
+  options:
+  - Tracking stolen vehicles using GPS
+  - Providing traction in snow
+  - Deterring theft with electronic alarms
+  - Using tamper-resistant wiring and electronic locks
+  question_id: 3
+  question_text: Which of the following is NOT a function of modern automobile security
+    systems?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Occupant protection systems include seat belts, air bags, and energy-absorbing
+    interior features; brakes and GPS are not occupant protection features.
+  knowledge_areas:
+  - Automobile safety systems
+  options:
+  - Dual-master-cylinder brakes and GPS tracking
+  - Lap and shoulder belts, air bags, energy-absorbing steering columns
+  - Deep-tread tires and reinforced door latches
+  - Removable steering wheels and side-mounted air bags
+  question_id: 4
+  question_text: Which safety features are classified as occupant protection systems?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Tire design impacts handling and accident avoidance, while safety systems
+    protect occupants and help prevent accidents; both are integral to overall vehicle
+    safety.
+  knowledge_areas:
+  - Tire construction and function
+  - Automobile safety systems
+  options:
+  - Tire design affects only comfort, while safety systems prevent accidents.
+  - Both tire design and safety systems contribute to handling, accident avoidance,
+    and occupant protection.
+  - Safety systems are unrelated to tire performance.
+  - Tire design is only important for racing vehicles.
+  question_id: 5
+  question_text: How do tire design and safety systems together influence overall
+    vehicle safety?
+  question_type: recap
+sections:
+- aspects:
+  - content: Automobile tires are pneumatic rubber components that form the point
+      of contact between the vehicle and the road. Their primary functions are to
+      provide traction for acceleration and braking, and to limit the transmission
+      of road vibrations to the vehicle body. Modern tires are typically tubeless,
+      a design innovation that replaced inner tubes in the 1950s, improving reliability
+      and performance.
+    type: Definition
+  - content: Tire casings are constructed from multiple layers, or plies, of rubber
+      compounds reinforced with synthetic fibers, carbon fibers, or steel wire. The
+      composition and orientation of these reinforcing materials, especially the angle
+      relative to the tread, affect the tire's ability to handle sidewise forces during
+      cornering, as well as its vibration and harshness characteristics. By 1990,
+      three main ply constructions—longitudinal, bias, and radial—were in use, with
+      the number of plies adjusted for load capacity.
+    type: Construction and Materials
+  - content: 'Tread patterns are engineered for specific surface conditions: deep
+      treads are optimal for loose soil or snow, while smooth treads maximize contact
+      for racing. Passenger car treads are a compromise, balancing grip, wear, and
+      comfort. The tread design directly impacts the vehicle''s handling, safety,
+      and performance in various environments.'
+    type: Tread Design and Use Cases
+  - content: Tire design influences vehicle safety, comfort, and efficiency. Innovations
+      such as tubeless tires and low height-to-width ratio designs have increased
+      road contact area without raising the vehicle's center of gravity. Proper tire
+      inflation is critical for maximizing load capacity and performance. The evolution
+      of tire technology reflects ongoing efforts to balance durability, safety, and
+      driving dynamics.
+    type: Implications and Innovations
+  - content: Tires interact closely with suspension, braking, and steering systems,
+      affecting overall vehicle dynamics. The choice of tire construction and tread
+      design must be harmonized with these systems to ensure optimal handling and
+      occupant comfort. Poor tire maintenance or inappropriate tire selection can
+      compromise the effectiveness of safety and control systems.
+    type: Connections to Other Vehicle Systems
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Tubeless tires replaced inner tubes in the 1950s as seals improved.
+      Smooth treads are not suitable for snow or loose soil; deep treads are. The
+      number of plies directly affects load capacity, and tires do affect vibration
+      transmission.
+    options:
+    - Tubeless tires became standard after the 1950s due to improved sealing with
+      the wheel.
+    - Smooth treads are ideal for driving in snow and loose soil.
+    - The number of plies in a tire is unrelated to its load capacity.
+    - Tires have no effect on the transmission of road vibrations to the vehicle body.
+    question_text: Which of the following statements about automobile tires is TRUE?
+  index: 193
+  key_concept: Tire construction and function
+  name: '[Tires](https://www.britannica.com/technology/tire "https://www.britannica.com/technology/tire")'
+- aspects:
+  - content: Automobile security systems are technologies and mechanisms designed
+      to prevent unauthorized use and theft of vehicles. Since the early days of the
+      automobile, theft has been a persistent issue, prompting both mechanical and
+      electronic innovations. Early solutions included removable steering wheels,
+      such as in the 1900 Leach automobile, which physically deterred theft.
+    type: Definition and Historical Context
+  - content: Contemporary security systems incorporate sophisticated electronic alarms,
+      tamper-resistant wiring, and electronic locks. Some alarms use radio beacons
+      to aid in vehicle recovery. The integration of wireless technology and GPS navigation
+      systems has further enhanced security, enabling stolen vehicles to be tracked
+      and recovered more easily.
+    type: Modern Technologies and Examples
+  - content: Effective security systems reduce the incidence of vehicle theft and
+      increase the likelihood of recovery. They protect both private and commercial
+      vehicle owners from financial loss and inconvenience. However, as technology
+      advances, so do the methods used by thieves, necessitating continual innovation
+      in security measures.
+    type: Practical Implications
+  - content: The development of security systems parallels advances in automotive
+      electronics and connectivity. As vehicles become more integrated with digital
+      networks, security concerns extend beyond physical theft to include cybersecurity
+      threats. The evolution of security systems reflects the ongoing arms race between
+      theft deterrence and criminal ingenuity.
+    type: Connections to Broader Automotive Trends
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Electronic alarms and GPS tracking are modern security features;
+      removable steering wheels are an early mechanical solution, and the other options
+      are unrelated to security.
+    options:
+    - Bias-ply tire construction
+    - Removable steering wheels only
+    - Electronic alarms and GPS tracking
+    - Energy-absorbing steering columns
+    question_text: Which of the following is an example of a modern automobile security
+      feature?
+  index: 337
+  key_concept: Security systems
+  name: Security systems
+- aspects:
+  - content: Automobile safety systems are features and design elements intended to
+      reduce the risk of accidents and protect occupants during collisions. These
+      systems are categorized into accident avoidance (active safety) and occupant
+      protection (passive safety). Accident avoidance systems help the driver maintain
+      control, while occupant protection systems minimize injury during impacts.
+    type: Definition and Types
+  - content: Accident avoidance includes technologies like the dual-master-cylinder
+      brake system, which separates front and rear brake lines to ensure partial braking
+      capability if one line fails. Other avoidance features include improved vehicle
+      handling, driver training, road design, and law enforcement efforts. These systems
+      aim to prevent accidents before they occur.
+    type: Accident Avoidance Systems
+  - content: 'Occupant protection encompasses four main classes: passenger-compartment
+      integrity, occupant restraints, interior-impact energy absorbers, and exterior-impact
+      energy absorbers. Passenger-compartment integrity relies on reinforced doors
+      and latches to prevent intrusion. Restraints include lap and shoulder belts,
+      which secure passengers and decelerate them with the vehicle. Passive restraints,
+      notably air bags, deploy automatically in a crash to cushion occupants.'
+    type: Occupant Protection Systems
+  - content: Air bags, required in all new U.S. vehicles since the late 1990s, inflate
+      rapidly upon impact to absorb energy and reduce injuries. When combined with
+      seat belts, air bags can eliminate up to 46% of front-seat fatalities—a 10%
+      improvement over belts alone. However, front air bags do not protect against
+      side or rear impacts, leading to the development of side-mounted air bags. Energy-absorbing
+      steering columns and deformable chassis elements further reduce injury risk.
+    type: Examples and Effectiveness
+  - content: The implementation of safety systems has led to significant declines
+      in fatality rates per vehicle mile, despite increased vehicle numbers. Ongoing
+      advancements in materials, sensors, and crash dynamics continue to improve safety.
+      However, rates and effectiveness vary by country, and safety remains a complex
+      interplay between vehicle design, infrastructure, and human factors.
+    type: Implications and Trends
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Lap and shoulder belts, along with air bags, are occupant protection
+      systems. The other options either mix unrelated features or list non-safety
+      devices.
+    options:
+    - Dual-master-cylinder brakes and GPS tracking
+    - Lap and shoulder belts with air bags
+    - Deep-tread tires and removable steering wheels
+    - Bias-ply tires and electronic alarms
+    question_text: Which combination of automobile safety features is designed to
+      protect occupants during a crash?
+  index: 341
+  key_concept: Automobile safety systems
+  name: '[Safety systems](https://www.britannica.com/technology/vehicular-safety-devices
+    "https://www.britannica.com/technology/vehicular-safety-devices")'

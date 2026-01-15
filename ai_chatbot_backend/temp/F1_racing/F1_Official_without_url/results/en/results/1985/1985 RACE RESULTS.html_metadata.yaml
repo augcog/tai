@@ -1,0 +1,294 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page listing the 1985 Formula 1 race results, including Grand
+  Prix winners, teams, and race details, along with sections on F1's commercial partners
+  and official app download links.
+file_name: 1985 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1985/1985 RACE RESULTS.html
+file_uuid: bbd4a1b3-f227-55fa-9967-9992c258cb39
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Alain Prost won the most races in 1985, with victories at Brazil, Monaco,
+    Great Britain, Austria, and Italy.
+  knowledge_areas:
+  - 1985 Formula 1 Race Results
+  options:
+  - Alain Prost
+  - Nigel Mansell
+  - Ayrton Senna
+  - Michele Alboreto
+  question_id: 1
+  question_text: Which driver achieved the most race wins in the 1985 Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Both Alain Prost and Niki Lauda won races for McLaren TAG during the
+    1985 season.
+  knowledge_areas:
+  - F1 Teams and Constructors in 1985
+  options:
+  - Lotus Renault
+  - McLaren TAG
+  - Williams Honda
+  - Ferrari
+  question_id: 2
+  question_text: Which team had both Alain Prost and Niki Lauda as race winners in
+    1985?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The Australian Grand Prix had 82 laps, the highest number among the
+    listed options.
+  knowledge_areas:
+  - Grand Prix Venues and Race Structure
+  options:
+  - Monaco
+  - Australia
+  - Italy
+  - San Marino
+  question_id: 3
+  question_text: Which Grand Prix in 1985 had the greatest number of laps completed?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Heineken is listed as a commercial partner; the other companies are
+    not mentioned in the document.
+  knowledge_areas:
+  - F1 Commercial Partners
+  options:
+  - Nike
+  - Heineken
+  - Adidas
+  - Apple
+  question_id: 4
+  question_text: Which of the following companies is listed as an F1 commercial partner
+    in the document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App is designed to provide live race timing, news,
+    and updates for fans.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - Providing live race timing and updates
+  - Selling F1 memorabilia
+  - Recruiting drivers
+  - Broadcasting races exclusively
+  question_id: 5
+  question_text: What is the main purpose of the Official F1 App as described in the
+    document?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1985 Formula 1 Race Results refer to the official record of each
+      Grand Prix held during the 1985 F1 season, detailing the date, winning driver,
+      their team, the number of laps completed, and the total race time. This data
+      is foundational for historical analysis, statistical comparisons, and understanding
+      the progression of the season.
+    type: Definition
+  - content: Notable examples from the 1985 season include Alain Prost winning multiple
+      races for McLaren TAG (Brazil, Monaco, Great Britain, Austria, and Italy), Ayrton
+      Senna's victories for Lotus Renault (Portugal and Belgium), and Nigel Mansell
+      securing wins for Williams Honda (Europe and South Africa). Each entry in the
+      results table provides a snapshot of the competitive landscape and the diversity
+      of race winners and teams.
+    type: Examples
+  - content: These results are used by motorsport historians, statisticians, and fans
+      to track driver and team performance, analyze trends over time, and inform discussions
+      about championship outcomes. They are also referenced in media coverage, documentaries,
+      and educational resources about the sport.
+    type: Use Cases
+  - content: The distribution of wins among drivers and teams in 1985 reflects the
+      competitive balance and technological advancements of the era. For instance,
+      McLaren TAG's dominance, the emergence of Ayrton Senna, and the presence of
+      multiple manufacturers (Ferrari, Lotus, Williams, Brabham) highlight the dynamic
+      nature of F1 during this period.
+    type: Implications
+  - content: The 1985 results connect to broader themes in F1 such as driver legacies,
+      team strategies, engine development, and the evolution of race formats. They
+      also serve as a reference point for comparing other seasons and understanding
+      the historical context of modern F1.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Alain Prost won the most races in the 1985 season, securing victories
+      at Brazil, Monaco, Great Britain, Austria, and Italy. The other drivers each
+      won fewer races.
+    options:
+    - Alain Prost
+    - Ayrton Senna
+    - Nigel Mansell
+    - Keke Rosberg
+    question_text: Which driver won the most races in the 1985 Formula 1 season?
+  index: 149
+  key_concept: 1985 Formula 1 Race Results
+  name: 1985 RACE RESULTS
+- aspects:
+  - content: Teams and constructors in Formula 1 represent the organizations responsible
+      for designing, building, and racing cars in the championship. In 1985, prominent
+      teams included McLaren TAG, Lotus Renault, Ferrari, Williams Honda, and Brabham
+      BMW, each fielding drivers and competing for both race victories and the Constructors'
+      Championship.
+    type: Definition
+  - content: McLaren TAG, with drivers like Alain Prost and Niki Lauda, was highly
+      successful in 1985. Lotus Renault featured stars such as Ayrton Senna and Elio
+      de Angelis, while Ferrari and Williams Honda also achieved race wins with drivers
+      like Michele Alboreto, Keke Rosberg, and Nigel Mansell. Brabham BMW, represented
+      by Nelson Piquet, won the French Grand Prix.
+    type: Examples
+  - content: Understanding which teams were successful in 1985 helps contextualize
+      the technological and strategic developments of the era. It also aids in tracing
+      the history and evolution of current F1 teams, many of which have undergone
+      significant changes in ownership, branding, and technology.
+    type: Use Cases
+  - content: The diversity of winning teams in 1985 demonstrates the competitive nature
+      of the season and the importance of both engineering excellence and driver skill.
+      The results also influenced future regulations, sponsorship deals, and the development
+      of new technologies in F1.
+    type: Implications
+  - content: The teams and constructors from 1985 connect to broader F1 history, as
+      many of these organizations (or their successors) continue to compete today.
+      Their legacies are reflected in the sport's culture, technological advancements,
+      and ongoing rivalries.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: Brabham BMW won the French Grand Prix with Nelson Piquet, so all
+      listed teams won at least one race in 1985. This is a trick question; all listed
+      teams did win a race that season.
+    options:
+    - McLaren TAG
+    - Ferrari
+    - Williams Honda
+    - Brabham BMW
+    question_text: Which of the following teams did NOT win a race in the 1985 Formula
+      1 season?
+  index: 149
+  key_concept: F1 Teams and Constructors in 1985
+  name: 1985 RACE RESULTS
+- aspects:
+  - content: Grand Prix venues are the international circuits where Formula 1 races
+      are held, each with unique characteristics and historical significance. The
+      race structure includes the number of laps, total race distance, and timing,
+      all of which are standardized but vary by location.
+    type: Definition
+  - content: In 1985, races were held at iconic venues such as Monaco, Silverstone
+      (Great Britain), Monza (Italy), and Spa-Francorchamps (Belgium). Each race had
+      a different number of laps and total time, such as 78 laps in Monaco and 51
+      in Italy, reflecting circuit length and race regulations.
+    type: Examples
+  - content: Knowledge of venues and race structures is essential for understanding
+      race strategies, car setups, and driver performance. It also informs fans and
+      analysts about the challenges presented by each circuit, such as tight street
+      tracks versus high-speed permanent circuits.
+    type: Use Cases
+  - content: The diversity of circuits and race structures impacts team strategies,
+      tire choices, and even championship outcomes. Weather, track surface, and layout
+      can all influence race results, making venue knowledge crucial for competitive
+      success.
+    type: Implications
+  - content: Venues and race structures are linked to broader themes in motorsport,
+      such as safety innovations, circuit design evolution, and the globalization
+      of F1. They also contribute to the unique identity and traditions of each Grand
+      Prix.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The Australian Grand Prix in 1985 featured 82 laps, the highest among
+      the listed options. Monaco had 78, Italy 51, and Belgium 43 laps.
+    options:
+    - Monaco
+    - Australia
+    - Italy
+    - Belgium
+    question_text: Which Grand Prix in 1985 featured the highest number of laps?
+  index: 149
+  key_concept: Grand Prix Venues and Race Structure
+  name: 1985 RACE RESULTS
+- aspects:
+  - content: F1 commercial partners are companies and brands that sponsor the sport,
+      providing financial support, products, and services in exchange for marketing
+      exposure and association with the global F1 brand. These partnerships are critical
+      for the financial health and global reach of Formula 1.
+    type: Definition
+  - content: Key partners listed include luxury brands (LVMH, Louis Vuitton), technology
+      companies (AWS, Lenovo), automotive suppliers (Pirelli, BBS), logistics (DHL),
+      beverages (Heineken, Moet Hennessy), and financial services (American Express,
+      Santander). Each partner contributes in a specific domain, such as providing
+      official tires, timing technology, or hospitality services.
+    type: Examples
+  - content: Commercial partnerships enable F1 to invest in event organization, technological
+      innovation, and fan engagement. In return, partners gain global visibility,
+      access to exclusive hospitality, and the ability to leverage F1's brand in their
+      marketing campaigns.
+    type: Use Cases
+  - content: These partnerships shape the commercial landscape of F1, influencing
+      everything from race operations to broadcast quality and fan experiences. They
+      also reflect the sport's appeal to diverse industries and its role as a global
+      marketing platform.
+    type: Implications
+  - content: F1's commercial partners are connected to broader themes of sports marketing,
+      sponsorship strategy, and the globalization of sporting events. Their involvement
+      often leads to co-branded products, special promotions, and technological advancements
+      within the sport.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not listed among the commercial partners in the document;
+      the others (Heineken, AWS, Pirelli) are official F1 partners.
+    options:
+    - Heineken
+    - AWS
+    - Nike
+    - Pirelli
+    question_text: Which of the following is NOT listed as a commercial partner of
+      Formula 1 in the document?
+  index: 170
+  key_concept: F1 Commercial Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is the mobile application provided by Formula 1 for
+      fans to access live timing, news, schedules, and exclusive content related to
+      F1 races. It is available for download on platforms such as the Apple App Store
+      and Google Play.
+    type: Definition
+  - content: The app offers features like live race timing, driver and team information,
+      push notifications for race events, and access to multimedia content. It serves
+      as a comprehensive digital companion for F1 enthusiasts.
+    type: Examples
+  - content: Fans use the app to stay updated on race weekends, follow their favorite
+      drivers and teams, and access real-time data during races. It also enhances
+      the remote viewing experience by providing information not always available
+      in TV broadcasts.
+    type: Use Cases
+  - content: The app represents F1's commitment to digital engagement and fan experience,
+      making the sport more accessible and interactive for a global audience. Its
+      widespread availability supports F1's strategy to grow its fanbase and provide
+      value-added services.
+    type: Implications
+  - content: The Official F1 App connects to broader trends in sports technology,
+      digital media, and fan engagement strategies. It complements F1's other digital
+      offerings, such as F1 TV and social media channels.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App's primary function is to provide live race timing,
+      updates, and exclusive content for fans. The other options do not represent
+      core app features.
+    options:
+    - Live race timing and updates
+    - Selling race car parts
+    - Organizing fan meetups
+    - Providing team sponsorships
+    question_text: What is a primary function of the Official F1 App?
+  index: 180
+  key_concept: Official F1 App
+  name: Download the Official F1 App

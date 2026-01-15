@@ -1,0 +1,252 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web article announcing an F1 Unlocked summer competition, highlighting
+  a spot-the-difference game for prizes, the closure of the competition, related F1
+  articles, official partners, and app download links.
+file_name: 'F1 Unlocked: Spot the difference for a chance to win epic prizes.html'
+file_path: 'F1_racing/F1_Official/news/en/latest/article/F1 Unlocked: Spot the difference
+  for a chance to win epic prizes.html'
+file_uuid: c0fc4ca5-6161-55d3-96fe-7665ba6803d9
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: The competition was centered around a spot-the-difference game, with
+    the incentive of winning F1 prizes.
+  knowledge_areas:
+  - F1 Unlocked Summer Competition
+  options:
+  - To encourage fans to vote for their favorite driver
+  - To have fans spot differences in images for a chance to win prizes
+  - To provide technical insights into F1 cars
+  - To announce new F1 regulations
+  question_id: 1
+  question_text: What was the main objective of the F1 Unlocked Summer Competition?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Closure means the entry period has ended and no further submissions
+    are accepted.
+  knowledge_areas:
+  - Competition Closure
+  options:
+  - They can still enter the competition
+  - They can no longer submit entries
+  - They can now download the F1 app
+  - They must register for F1 Unlocked
+  question_id: 2
+  question_text: What does the closure of the F1 Unlocked competition mean for participants?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Related Articles section links to more news and feature content
+    for further reading.
+  knowledge_areas:
+  - Related Articles
+  options:
+  - To provide additional F1 news and features
+  - To list official F1 partners
+  - To announce the competition winner
+  - To offer technical car data
+  question_id: 3
+  question_text: Which of the following best describes the purpose of the 'Related
+    Articles' section on the competition page?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: F1 Partners are sponsors and collaborators who provide financial backing,
+    products, or services.
+  knowledge_areas:
+  - F1 Partners
+  options:
+  - By designing F1 circuits
+  - By providing financial support and services
+  - By managing driver training
+  - By officiating races
+  question_id: 4
+  question_text: How do F1 Partners, as listed in 'OUR PARTNERS', contribute to the
+    Formula 1 ecosystem?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app delivers live data, news, and exclusive content, and is part
+    of F1's digital engagement, connecting with F1 Unlocked and other services.
+  knowledge_areas:
+  - Official F1 App
+  - F1 Unlocked Summer Competition
+  options:
+  - It provides live race data and exclusive content, integrating with F1 Unlocked
+    for a seamless fan experience
+  - It manages team logistics and race officiating
+  - It allows fans to purchase F1 cars directly
+  - It is only available for desktop computers
+  question_id: 5
+  question_text: Which features are offered by the Official F1 App, and how does it
+    connect to F1's digital engagement strategy?
+  question_type: recap
+sections:
+- aspects:
+  - content: The F1 Unlocked Summer Competition was a promotional event organized
+      by Formula 1, inviting fans to participate in a summer-themed 'spot the difference'
+      game. The competition aimed to engage fans during the F1 summer break, offering
+      them a chance to win exclusive F1 prizes by identifying three differences in
+      an image.
+    type: Definition
+  - content: Participants played an online spot-the-difference game, where they had
+      to carefully observe two similar images and mark the three subtle differences
+      between them. Successful completion of the challenge entered them into a prize
+      draw for F1 merchandise or experiences.
+    type: Examples
+  - content: Such competitions serve to maintain fan engagement during off-peak periods
+      like the summer break, encourage website traffic, and promote the F1 Unlocked
+      membership platform. They also provide an accessible entry point for casual
+      fans and can be shared on social media to increase reach.
+    type: Use Cases
+  - content: Running interactive competitions can enhance brand loyalty and collect
+      valuable user data for marketing. They also foster a sense of community among
+      fans and can introduce new audiences to F1's digital ecosystem.
+    type: Implications
+  - content: This competition is linked to the broader F1 Unlocked initiative, which
+      offers exclusive content and benefits to registered members, and is part of
+      F1's ongoing digital engagement strategy.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The competition centered around a 'spot the difference' game, where
+      participants had to find three differences between two images. The other options
+      do not describe the main activity.
+    options:
+    - Participating in a trivia quiz
+    - Spotting differences between two images
+    - Voting for the best driver
+    - Designing a new F1 car
+    question_text: What was the main activity in the F1 Unlocked Summer Competition?
+  index: 53
+  key_concept: F1 Unlocked Summer Competition
+  name: 'F1 UNLOCKED: SPOT THE DIFFERENCE FOR A CHANCE TO WIN EPIC PRIZES'
+- aspects:
+  - content: The announcement that the competition is now closed indicates that the
+      entry period for the F1 Unlocked Summer Competition has ended and no further
+      submissions are being accepted.
+    type: Definition
+  - content: Once a competition is closed, participants can no longer enter, and the
+      organizers typically proceed to select and notify winners. This status update
+      is important for transparency and managing user expectations.
+    type: Implications
+  - content: Competition closure is standard practice in promotional events, marking
+      the transition from the active participation phase to prize distribution and
+      follow-up communication with winners.
+    type: Context
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: The statement means that no further entries are being accepted; it
+      does not necessarily mean winners have been announced yet.
+    options:
+    - The competition is ongoing
+    - Entries are still being accepted
+    - The entry period has ended
+    - Winners have been announced
+    question_text: What does the statement 'This competition is now closed' imply?
+  index: 59
+  key_concept: Competition Closure
+  name: This competition is now closed
+- aspects:
+  - content: Related Articles are a curated list of additional content pieces linked
+      to the main topic, in this case, recent news and features about F1 teams, drivers,
+      and season highlights.
+    type: Definition
+  - content: Examples include articles such as 'Bortoleto on his rookie year and Audi
+      excitement,' 'Williams’ best and worst moments from 2025,' and 'Every twist
+      and turn from a dramatic 2025 title battle.' These provide deeper insights into
+      specific teams, drivers, or events.
+    type: Examples
+  - content: Related Articles serve to keep readers engaged by offering them more
+      in-depth or tangentially relevant information, increasing time spent on the
+      site and broadening understanding of the F1 landscape.
+    type: Use Cases
+  - content: These articles are connected to the main competition page as part of
+      F1’s content strategy, encouraging cross-navigation and sustained fan engagement.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The 'Related Articles' section links to further news and feature
+      content, not regulations, winner lists, or merchandise.
+    options:
+    - To provide technical regulations
+    - To offer additional F1 news and features
+    - To list competition winners
+    - To advertise F1 merchandise
+    question_text: Which of the following best describes the purpose of the 'Related
+      Articles' section?
+  index: 85
+  key_concept: Related Articles
+  name: Related Articles
+- aspects:
+  - content: F1 Partners refers to the official sponsors and business collaborators
+      of the Formula 1 organization. These companies provide financial support, products,
+      or services in exchange for brand visibility and marketing opportunities within
+      the F1 ecosystem.
+    type: Definition
+  - content: Notable F1 partners include global brands such as LVMH, Pirelli, Aramco,
+      Heineken, AWS, Lenovo, DHL, Qatar Airways, and MSC Cruises. Each partner may
+      have specific roles, such as tire supply (Pirelli), technology support (AWS,
+      Lenovo), or event logistics (DHL).
+    type: Examples
+  - content: Partnerships are crucial for the financial sustainability and technological
+      advancement of F1. They enable large-scale events, innovation in broadcasting
+      and data analytics, and enhance the overall fan experience.
+    type: Implications
+  - content: These partnerships are integrated into F1’s marketing, event operations,
+      and digital platforms, often featuring in race sponsorships, team branding,
+      and fan engagement activities.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: F1 Partners are official sponsors and collaborators who provide financial
+      backing and various services, not cars, contract management, or journalism.
+    options:
+    - Supplying race cars
+    - Providing financial and logistical support
+    - Managing driver contracts
+    - Writing F1 news articles
+    question_text: What is the primary role of F1 Partners as listed in the 'OUR PARTNERS'
+      section?
+  index: 94
+  key_concept: F1 Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is the mobile application provided by Formula 1,
+      available for download on iOS and Android platforms. It serves as a digital
+      hub for fans to access live timing, news, schedules, and exclusive content.
+    type: Definition
+  - content: Users can use the app to follow live race data, receive push notifications
+      about breaking news, check driver and team standings, and watch video highlights.
+      The app is available on the App Store and Google Play.
+    type: Examples
+  - content: The app is designed for both casual and dedicated fans who want real-time
+      updates, personalized notifications, and easy access to F1 content on the go.
+      It enhances the fan experience by providing interactive features and exclusive
+      digital content.
+    type: Use Cases
+  - content: The app is part of F1’s broader digital strategy, integrating with F1
+      Unlocked and other online services to provide a seamless, multi-platform experience
+      for fans worldwide.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The app provides live timing, news, and F1 content, but does not
+      offer contract negotiations, manufacturing tutorials, or team management.
+    options:
+    - Live timing and race data
+    - Driver contract negotiations
+    - Car manufacturing tutorials
+    - Official team management
+    question_text: Which features are available through the Official F1 App?
+  index: 104
+  key_concept: Official F1 App
+  name: Download the Official F1 App

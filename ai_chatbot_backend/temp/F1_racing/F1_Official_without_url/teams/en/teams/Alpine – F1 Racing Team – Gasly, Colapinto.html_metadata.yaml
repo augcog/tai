@@ -1,0 +1,281 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A team profile and season summary for the Alpine F1 team, covering
+  drivers, performance statistics for 2025, historical achievements, organizational
+  structure, and related media.
+file_name: Alpine – F1 Racing Team – Gasly, Colapinto.html
+file_path: F1_racing/F1_Official/teams/en/teams/Alpine – F1 Racing Team – Gasly, Colapinto.html
+file_uuid: add81a36-9c84-5b4a-b43f-3c44cae3d65c
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Pierre Gasly and Franco Colapinto were Alpine's primary drivers for
+    the 2025 season.
+  knowledge_areas:
+  - DRIVERS
+  options:
+  - Pierre Gasly and Franco Colapinto
+  - Esteban Ocon and Pierre Gasly
+  - Jack Doohan and Franco Colapinto
+  - Lando Norris and Pierre Gasly
+  question_id: 1
+  question_text: Which two drivers formed the main Alpine F1 lineup in the 2025 season?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Alpine finished 10th in the standings with 22 points in 2025.
+  knowledge_areas:
+  - Statistics
+  options:
+  - 5th place, 60 points
+  - 10th place, 22 points
+  - 6th place, 40 points
+  - 2nd place, 100 points
+  question_id: 2
+  question_text: What was Alpine's final position and total points in the 2025 Constructors'
+    Championship?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Alpine announced a switch to Mercedes power units for the 2026 season.
+  knowledge_areas:
+  - Team Profile
+  options:
+  - Switching to Mercedes power units
+  - Hiring Lewis Hamilton as a driver
+  - Relocating to Italy
+  - Merging with McLaren
+  question_id: 3
+  question_text: Which of the following best describes a major organizational or technical
+    change Alpine planned for 2026?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Alpine struggled in 2025, finishing last in the standings, with most
+    points scored by Pierre Gasly and no wins or podiums.
+  knowledge_areas:
+  - Alpine
+  - Statistics
+  - DRIVERS
+  options:
+  - Alpine dominated the season with multiple wins and podiums.
+  - Alpine struggled, finishing last, with points mainly from Gasly and no podiums.
+  - Alpine had a stable leadership and consistent top 5 finishes.
+  - Alpine did not participate in any Grand Prix races.
+  question_id: 4
+  question_text: Which of the following statements accurately reflects Alpine's 2025
+    F1 season performance and team dynamics?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The related videos feature driver interviews and strategic reflections,
+    giving a personal and psychological context to Alpine's season.
+  knowledge_areas:
+  - Related Videos
+  - Alpine
+  options:
+  - They provide only technical data about the car.
+  - They offer driver interviews, strategic insights, and personal reactions, highlighting
+    the team's challenges.
+  - They are fictional stories unrelated to F1.
+  - They focus solely on race highlights without any commentary.
+  question_id: 5
+  question_text: How do the related videos enhance understanding of Alpine's 2025
+    season?
+  question_type: recap
+sections:
+- aspects:
+  - content: Alpine is the Formula 1 racing team that serves as the sportscar arm
+      of Renault, rebranded in 2021 as part of Renault's F1 revival. The team competes
+      under the full name BWT Alpine Formula One Team and is based in Enstone, United
+      Kingdom. Alpine's identity is closely tied to Renault's motorsport heritage,
+      leveraging both the technical expertise and brand recognition of its parent
+      company.
+    type: Definition and Identity
+  - content: Although Alpine is a relatively new name in Formula 1, the team has a
+      long-standing presence in the sport through its previous incarnations, notably
+      as Renault. The team first entered F1 in 1986 and has since accumulated significant
+      achievements, including 2 World Championships, 60 podiums, and 20 pole positions.
+      The 2021 rebrand marked a new era, aiming for regular podiums and championship
+      contention.
+    type: Historical Context and Achievements
+  - content: In recent seasons, Alpine has undergone several leadership changes and
+      faced performance fluctuations. Notable recent events include the appointment
+      of Flavio Briatore as Team Chief in 2025 and a mid-season leadership transition
+      from Oli Oakes. Despite some strong individual performances, such as those by
+      Pierre Gasly, the team struggled in 2025, finishing last in the standings but
+      planning a switch to Mercedes power units for 2026.
+    type: Recent Developments and Challenges
+  - content: Alpine operates within a competitive F1 landscape, interacting with other
+      major teams, sponsors, and technical partners. The team benefits from a wide
+      range of sponsors and is involved in the broader F1 community through media,
+      fan engagement, and participation in official F1 events and promotions.
+    type: Connections to Broader F1 Ecosystem
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Alpine is Renault's sportscar arm, rebranded in 2021, with a rich
+      motorsport heritage and a history of F1 competition dating back to 1986. The
+      team has experienced recent leadership changes and is planning a switch to Mercedes
+      power in 2026.
+    options:
+    - Alpine is a new team with no prior F1 history, debuting in 2025.
+    - Alpine is Renault's sportscar arm, rebranded in 2021, with a history of F1 competition
+      and recent leadership changes.
+    - Alpine is based in Italy and has never won a championship.
+    - Alpine has dominated F1 since 2010 with consecutive world titles.
+    question_text: Which statement best describes Alpine's identity and recent trajectory
+      in Formula 1?
+  index: 59
+  key_concept: Alpine
+  name: Alpine
+- aspects:
+  - content: For the 2025 season, Alpine's driver lineup consists of Pierre Gasly
+      from France and Franco Colapinto from Argentina. Both drivers represent the
+      team in Grand Prix and Sprint races, with Gasly being the more experienced F1
+      driver and Colapinto a rising talent.
+    type: Current Lineup
+  - content: Pierre Gasly has been instrumental in scoring the majority of Alpine's
+      points during challenging seasons, showcasing resilience and skill even when
+      the car's performance lagged behind competitors. Franco Colapinto, as a newer
+      entrant, has faced a learning curve but is viewed as a promising addition with
+      potential for growth.
+    type: Driver Roles and Contributions
+  - content: Alpine's reserve drivers for 2025 include Jack Doohan, Paul Aron, and
+      Kush Maini, reflecting the team's commitment to nurturing young talent and maintaining
+      depth in its driver roster. Reserve drivers participate in testing, simulator
+      work, and may substitute in case of primary driver unavailability.
+    type: Reserve Drivers and Development
+  - content: The composition and performance of the driver lineup directly influence
+      Alpine's results in both the Constructors' and Drivers' Championships. Strong
+      individual performances can help mitigate technical or strategic shortcomings,
+      while the integration of new talent is essential for long-term competitiveness.
+    type: Implications for Team Performance
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Pierre Gasly and Franco Colapinto were Alpine's primary drivers for
+      the 2025 season, while Esteban Ocon and Jack Doohan were not part of the main
+      lineup.
+    options:
+    - Pierre Gasly and Esteban Ocon
+    - Pierre Gasly and Franco Colapinto
+    - Franco Colapinto and Jack Doohan
+    - Esteban Ocon and Lando Norris
+    question_text: Which drivers represented Alpine as primary drivers in the 2025
+      F1 season?
+  index: 67
+  key_concept: DRIVERS
+  name: DRIVERS
+- aspects:
+  - content: In the 2025 F1 season, Alpine finished 10th in the Constructors' standings
+      with 22 points. The team participated in 24 Grand Prix races, scoring 20 points,
+      and 6 Sprint races, adding 2 points. Despite entering every race, Alpine did
+      not secure any wins, podiums, or pole positions, highlighting a challenging
+      season.
+    type: 2025 Season Performance
+  - content: Alpine achieved 5 Grand Prix Top 10 finishes and 3 Sprint Top 10s, but
+      also suffered 4 DNFs (Did Not Finish), indicating reliability or incident-related
+      issues. The lack of podiums and wins reflects the team's competitive struggles,
+      while the points scored mainly came from consistent, if unspectacular, finishes.
+    type: Key Metrics and Trends
+  - content: Comparing 2025 to previous seasons, Alpine's performance marks a decline,
+      especially considering their surprise double podium in 2024 and historical achievements
+      as Renault. The statistics underscore the need for technical and strategic improvements
+      to regain competitiveness.
+    type: Historical Context
+  - content: The statistical outcomes of 2025 have prompted organizational changes
+      and the decision to switch to Mercedes power units in 2026. The data highlights
+      areas for development, such as reliability, qualifying performance, and race
+      pace, which will be focal points in upcoming seasons.
+    type: Implications for Future Strategy
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Alpine finished 10th in the standings, scored 22 points, and did
+      not achieve any wins or podiums in 2025, reflecting a difficult season.
+    options:
+    - Alpine won multiple races and finished in the top 3 in the standings.
+    - Alpine finished 10th, scored 22 points, and had no wins or podiums.
+    - Alpine had the most DNFs but also the most podiums.
+    - Alpine did not participate in any Sprint races.
+    question_text: Which statement best summarizes Alpine's 2025 F1 season statistics?
+  index: 89
+  key_concept: Statistics
+  name: Statistics
+- aspects:
+  - content: The BWT Alpine Formula One Team is headquartered in Enstone, United Kingdom,
+      and is led by Team Chief Flavio Briatore and Technical Chief David Sanchez.
+      The team's chassis is the A525, and it used a Renault power unit in 2025, with
+      plans to switch to Mercedes power in 2026. The reserve driver lineup includes
+      Jack Doohan, Paul Aron, and Kush Maini.
+    type: Organizational Structure
+  - content: Alpine's F1 journey began with Renault's acquisition of the Lotus squad
+      in 2016, followed by a rebranding to Alpine in 2021. The team has a legacy of
+      motorsport success, including two World Championships and a reputation for technical
+      innovation. The profile emphasizes Alpine's ambition to transition from midfield
+      contenders to regular podium finishers.
+    type: Historical Evolution
+  - content: Alpine collaborates with a range of sponsors and technical partners,
+      which provide financial backing and technological support. The 2025 decision
+      to move to Mercedes power units in 2026 is a significant strategic shift aimed
+      at enhancing competitiveness.
+    type: Technical and Strategic Partnerships
+  - content: Alpine leverages its brand through merchandise, media appearances, and
+      fan engagement initiatives. The team maintains a visible presence in the F1
+      community, offering official memorabilia and participating in promotional events
+      to strengthen its connection with fans and stakeholders.
+    type: Brand and Fan Engagement
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Alpine has announced a move to Mercedes power units for 2026, marking
+      a major technical and strategic change aimed at improving performance.
+    options:
+    - Switching to Ferrari power units
+    - Moving team headquarters to France
+    - Switching to Mercedes power units
+    - Hiring Esteban Ocon as Team Chief
+    question_text: What is a significant planned change for Alpine's technical setup
+      in 2026?
+  index: 174
+  key_concept: Team Profile
+  name: Team Profile
+- aspects:
+  - content: The related videos section features interviews, race debriefs, and behind-the-scenes
+      content focusing on Alpine drivers Pierre Gasly and Franco Colapinto. Topics
+      include reflections on challenging races, strategic insights, and personal reactions
+      to season outcomes.
+    type: Content Overview
+  - content: These videos provide firsthand perspectives from drivers, offering valuable
+      insights into the psychological and strategic aspects of F1 racing. For example,
+      Gasly discusses the emotional toll of a difficult season, while Colapinto reflects
+      on his learning experiences and goals for the future.
+    type: Educational and Fan Engagement Value
+  - content: The video content underscores the challenges faced by the team, such
+      as struggles with car performance, race strategy experimentation, and adapting
+      to changing circumstances. These narratives help contextualize the statistical
+      and organizational information presented elsewhere.
+    type: Connection to Team Performance
+  - content: By featuring driver interviews and event highlights, the videos contribute
+      to F1's broader media ecosystem, enhancing fan engagement and providing a more
+      personal connection to the sport. Such content is integral to modern sports
+      marketing and community building.
+    type: Broader Context in F1 Media
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The videos focus on driver interviews, strategic discussions, and
+      personal reflections, offering insights into the team's season and the drivers'
+      experiences.
+    options:
+    - Only technical breakdowns of car components
+    - Driver perspectives, strategic discussions, and personal reflections on the
+      season
+    - Historical documentaries about Renault
+    - Animated features about F1 rules
+    question_text: What types of insights do the related Alpine videos provide?
+  index: 226
+  key_concept: Related Videos
+  name: Related Videos

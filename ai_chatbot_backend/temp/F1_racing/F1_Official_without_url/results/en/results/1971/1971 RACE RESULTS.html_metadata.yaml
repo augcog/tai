@@ -1,0 +1,194 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A summary webpage for the 1971 Formula 1 season, including detailed
+  race results, a list of official partners, and links to download the official F1
+  app.
+file_name: 1971 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1971/1971 RACE RESULTS.html
+file_uuid: 2a7ab8d3-acee-5370-88f6-c6cbd9922a4b
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Tyrrell Ford, primarily driven by Jackie Stewart, had the most race
+    wins in 1971, as shown by their multiple victories in the results table.
+  knowledge_areas:
+  - 1971 Formula 1 Race Results
+  options:
+  - Ferrari
+  - Tyrrell Ford
+  - BRM
+  - McLaren
+  question_id: 1
+  question_text: Which team had the most race wins in the 1971 Formula 1 season according
+    to the results table?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Heineken is listed among the official partners, while Adidas, Sony,
+    and Toyota are not mentioned.
+  knowledge_areas:
+  - Official Formula 1 Partners
+  options:
+  - Heineken
+  - Adidas
+  - Sony
+  - Toyota
+  question_id: 2
+  question_text: Which of the following brands is an official Formula 1 partner, as
+    listed in the document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app provides live timing and news updates, as well as other digital
+    content related to F1.
+  knowledge_areas:
+  - Official F1 Mobile App
+  options:
+  - Live race timing and news updates
+  - Selling F1 car parts
+  - Organizing F1 driver meetups
+  - Broadcasting only historic races
+  question_id: 3
+  question_text: What is one primary function of the Official F1 Mobile App as described
+    in the document?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Official partners provide logistical, technological, and financial
+    support that enhances the operations and global reach of F1 races, including those
+    in 1971.
+  knowledge_areas:
+  - 1971 Formula 1 Race Results
+  - Official Formula 1 Partners
+  options:
+  - The 1971 race results were determined by fan votes sponsored by official partners.
+  - Official partners like Pirelli and DHL contribute to the operations and visibility
+    of races, such as those in the 1971 season.
+  - The Official F1 App was the only way to access 1971 race results.
+  - Drivers in 1971 were required to use products from every official partner.
+  question_id: 4
+  question_text: Which of the following statements best integrates information about
+    the 1971 race results and the role of F1 partners?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1971 Formula 1 Race Results section provides a comprehensive tabular
+      summary of each Grand Prix held during the 1971 season, listing the race location,
+      date, winner, team, number of laps, and total race time for each event. This
+      data is crucial for understanding the competitive landscape and outcomes of
+      the 1971 season.
+    type: Definition
+  - content: For example, the South African Grand Prix on 6 March was won by Mario
+      Andretti driving for Ferrari, completing 79 laps in 1:47:35.500. Jackie Stewart,
+      driving for Tyrrell Ford, won multiple races including Spain, Monaco, France,
+      Great Britain, Germany, and Canada. Other notable winners include Jacky Ickx
+      (Ferrari), Jo Siffert (BRM), Peter Gethin (BRM), and Francois Cevert (Tyrrell
+      Ford).
+    type: Examples
+  - content: These results reveal patterns of dominance by certain drivers and teams,
+      such as Jackie Stewart and Tyrrell Ford, and highlight the competitive diversity
+      of the era. The data can be used for statistical analysis, historical comparison,
+      and understanding the evolution of driver and team performance over time.
+    type: Implications
+  - content: The 1971 season is part of the larger history of Formula 1, and these
+      results are archived alongside other seasons from 1950 onward. The race outcomes
+      are linked to broader discussions on technological advancements, team strategies,
+      and the global expansion of the sport.
+    type: Context
+  - content: The race results are interconnected with driver and team standings, awards
+      (such as fastest laps), and are referenced in historical analyses and media.
+      They also inform fan engagement, trivia, and are foundational for the sport’s
+      statistical records.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Jackie Stewart won the most races in the 1971 season, including Spain,
+      Monaco, France, Great Britain, Germany, and Canada. The other drivers each won
+      only one or two races.
+    options:
+    - Mario Andretti
+    - Jackie Stewart
+    - Jacky Ickx
+    - Jo Siffert
+    question_text: Which driver won the most races in the 1971 Formula 1 season?
+  index: 148
+  key_concept: 1971 Formula 1 Race Results
+  name: 1971 RACE RESULTS
+- aspects:
+  - content: Official Formula 1 Partners are companies and brands that have established
+      formal sponsorship or partnership agreements with the Formula 1 organization.
+      These partnerships often involve financial support, product placement, and collaborative
+      marketing initiatives.
+    type: Definition
+  - content: Notable partners listed include LVMH, Pirelli, Aramco, Heineken, AWS,
+      Lenovo, DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton, TAG
+      Heuer, Moet Hennessy, American Express, Santander, Allwyn, Globant, Las Vegas
+      Convention and Visitors Authority, Paramount+, Barilla, Liqui Moly, Nestle,
+      PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds.
+    type: Examples
+  - content: These partnerships provide essential funding and technological support
+      for the sport. They also enhance the global visibility of both F1 and the partner
+      brands, influencing fan engagement and the overall commercial ecosystem of Formula
+      1.
+    type: Implications
+  - content: Partnerships are a longstanding tradition in motorsport, reflecting the
+      sport’s reliance on external funding and the mutual benefits of brand association.
+      The diversity of partners—from luxury goods to technology and logistics—demonstrates
+      F1’s broad commercial appeal.
+    type: Context
+  - content: Partners are visible in race broadcasts, team equipment, and fan experiences.
+      Their involvement often extends to special events, branded content, and technological
+      innovations that may impact race operations or fan engagement platforms.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not listed among the official partners in the document, while
+      Pirelli, Heineken, and AWS are all mentioned.
+    options:
+    - Pirelli
+    - Heineken
+    - Nike
+    - AWS
+    question_text: Which of the following is NOT listed as an official Formula 1 partner
+      in the document?
+  index: 164
+  key_concept: Official Formula 1 Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 Mobile App is a digital application available for download
+      on both iOS and Android platforms, providing users with access to live timing,
+      news, schedules, and exclusive content related to Formula 1.
+    type: Definition
+  - content: The app can be downloaded from the Apple App Store and Google Play Store,
+      as indicated by the provided links. Users can follow races in real-time, view
+      driver and team information, and receive updates on upcoming events.
+    type: Examples
+  - content: The app enhances fan engagement by offering a centralized, interactive
+      platform for following the sport. It allows fans to stay updated regardless
+      of location, increasing the accessibility and reach of Formula 1 content.
+    type: Implications
+  - content: Mobile apps are now standard in global sports, reflecting the shift toward
+      digital consumption and the importance of real-time data. The F1 app is part
+      of a broader digital strategy to connect with a tech-savvy audience.
+    type: Context
+  - content: The app integrates with other F1 digital services, such as F1 TV and
+      fantasy gaming, and is promoted alongside other fan engagement tools. It also
+      connects users to official news, race results, and multimedia content.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App is available on both the Apple App Store and
+      Google Play Store, as indicated in the document.
+    options:
+    - Apple App Store and Google Play Store
+    - Microsoft Store and Amazon Appstore
+    - F1 Team Websites and Google Play Store
+    - Apple App Store and Windows Store
+    question_text: What are two main platforms where the Official F1 App can be downloaded?
+  index: 174
+  key_concept: Official F1 Mobile App
+  name: Download the Official F1 App

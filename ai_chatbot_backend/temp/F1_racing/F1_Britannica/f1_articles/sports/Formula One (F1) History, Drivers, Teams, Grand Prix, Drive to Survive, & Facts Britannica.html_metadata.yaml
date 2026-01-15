@@ -1,0 +1,271 @@
+URL: https://www.britannica.com/sports/Formula-One-automobile-racing#ref407363
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedic overview of Formula One racing, covering its history,
+  structure, key drivers, team dynamics, race formats, business aspects, cultural
+  impact, and the role of women in the sport.
+file_name: Formula One (F1) History, Drivers, Teams, Grand Prix, Drive to Survive,
+  & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/f1_articles/sports/Formula One (F1) History, Drivers,
+  Teams, Grand Prix, Drive to Survive, & Facts Britannica.html
+file_uuid: 3c42cd12-0ede-5475-8d92-568150d12a18
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: The FIA (Fédération Internationale de l’Automobile) is the governing
+    body that sanctions F1 races and sets the rules and regulations for the sport.
+  knowledge_areas:
+  - F1 origins
+  options:
+  - International Olympic Committee (IOC)
+  - Fédération Internationale de l’Automobile (FIA)
+  - United Nations (UN)
+  - World Motor Sport Council (WMSC)
+  question_id: 1
+  question_text: Which organization is responsible for sanctioning Formula One races
+    and setting the rules that define the 'formula'?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The FIA Super Licence is a qualification drivers must earn by accumulating
+    points in feeder series, allowing them to compete in Formula One.
+  knowledge_areas:
+  - Feeder Formula series
+  options:
+  - It is a sponsorship requirement for teams.
+  - It allows drivers to compete in F1 after accruing enough points in feeder series.
+  - It certifies engineers to work on F1 cars.
+  - It grants automatic entry to all Grand Prix races.
+  question_id: 2
+  question_text: What is the primary function of the FIA Super Licence in the context
+    of Formula One?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: F1 teams are responsible for ongoing car development and strategic
+    decisions, both of which are critical to performance and championship results.
+  knowledge_areas:
+  - The team behind the driver
+  - Race weekends
+  options:
+  - Teams are only responsible for driver selection, not car development.
+  - Teams continuously develop their cars during the season, which affects both performance
+    and the distribution of championship points and prize money.
+  - Teams do not influence race strategy.
+  - Teams only compete in a single race per season.
+  question_id: 3
+  question_text: How does the team structure in Formula One impact both car performance
+    and championship outcomes?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Historically, very few women have competed as drivers in F1, but new
+    initiatives like the F1 Academy aim to improve gender diversity in the sport.
+  knowledge_areas:
+  - Women drivers in F1
+  options:
+  - Women have frequently won world championships in F1.
+  - Only a handful of women have competed in F1 races, and initiatives are now in
+    place to increase their participation.
+  - Women are not allowed to participate in F1.
+  - Women have only served as team managers, not drivers.
+  question_id: 4
+  question_text: Which of the following statements best summarizes the role of women
+    in Formula One history?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: F1 is distinguished by its dual emphasis on engineering and driving
+    talent, with teams investing heavily in car development and strategy throughout
+    the season.
+  knowledge_areas:
+  - The team behind the driver
+  - F1 origins
+  options:
+  - Focus on driver skill only and identical cars for all teams
+  - Emphasis on both engineering innovation and driver performance, with teams continuously
+    modifying cars throughout the season
+  - No team involvement and random car assignments
+  - Single-race championship format
+  question_id: 5
+  question_text: Which combination of factors makes Formula One unique compared to
+    other motorsport series like IndyCar or lower Formula categories?
+  question_type: recap
+sections:
+- aspects:
+  - content: The origins of Formula One (F1) racing trace back to the early 20th century,
+      with the term 'grand prix' first used in 1906 at the French Grand Prix in Le
+      Mans. The 'formula' refers to a set of rules and regulations that distinguish
+      F1 from other forms of racing. The Fédération Internationale de l’Automobile
+      (FIA), established in 1904, is the governing body that sanctions F1 races. The
+      first plans for a Formula One championship were discussed in the late 1930s
+      but were postponed due to World War II. The championship was revived in 1946,
+      and the inaugural world championship took place in 1950 at Silverstone, England.
+    type: Definition and Historical Development
+  - content: Early F1 races were characterized by open cockpits, long distances, and
+      endurance-based driving. The first world championship in 1950 featured dominant
+      car manufacturers such as Alfa Romeo, Ferrari, Maserati, and Mercedes-Benz.
+      These teams set the standard for technical innovation and competition in the
+      sport.
+    type: Key Milestones and Early Teams
+  - content: The establishment of F1 as a regulated, international competition laid
+      the groundwork for its evolution into the most prestigious open-wheel racing
+      series globally. The historical context, including the interruption by World
+      War II and the postwar revival, shaped the sport’s identity and traditions.
+      The legacy of early manufacturers continues to influence team culture and technological
+      development in modern F1.
+    type: Implications and Legacy
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: While the 1906 French Grand Prix introduced the 'grand prix' concept
+      and the FIA was founded in 1904, the official start of the Formula One World
+      Championship was the 1950 race at Silverstone.
+    options:
+    - The 1906 French Grand Prix at Le Mans
+    - The founding of the FIA in 1904
+    - The 1950 race at Silverstone, England
+    - The first Indianapolis 500
+    question_text: Which event marked the official beginning of the Formula One World
+      Championship?
+  index: 315
+  key_concept: F1 origins
+  name: F1 origins
+- aspects:
+  - content: Feeder Formula series are lower tiers of open-wheel racing designed to
+      develop young drivers’ skills and prepare them for Formula One. The structure
+      is a pyramid, with categories such as Formula 4 (F4), Formula Regional (FR),
+      Formula 3 (F3), and Formula 2 (F2) building in complexity and competition. Participation
+      in these series allows drivers to accrue points toward the FIA Super Licence,
+      a mandatory qualification for F1.
+    type: Definition and Structure
+  - content: F4 is the entry-level series for drivers graduating from karting, offering
+      cars that are more powerful than go-karts but simpler than higher-tier vehicles.
+      Formula Regional (FR) bridges the gap between F4 and F3 with more powerful cars
+      and regional competitions. F3 is an international series with regulations and
+      race formats similar to F2 and F1, and F2 is the final step before F1, often
+      sharing tracks and weekends with F1 races. The FIA introduced this structured
+      career ladder in 2014, beginning with F4.
+    type: Examples and Progression Pathway
+  - content: The feeder series system ensures a merit-based progression to F1, standardizing
+      driver development and increasing the accessibility of the sport. The accumulation
+      of Super Licence points incentivizes participation and success in these series.
+      The system also connects global regions, offering diverse pathways for aspiring
+      drivers and maintaining a high competitive standard in F1.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The Feeder Formula series are designed primarily to develop young
+      drivers’ skills and help them qualify for F1 through a structured progression
+      and Super Licence point accumulation.
+    options:
+    - To provide entertainment for fans
+    - To develop young drivers’ skills and qualify them for F1
+    - To test new car technologies
+    - To promote regional racing events
+    question_text: What is the primary purpose of the Feeder Formula series in motorsport?
+  index: 323
+  key_concept: Feeder Formula series
+  name: Feeder Formula series
+- aspects:
+  - content: Each F1 team consists of two drivers and a large supporting crew, including
+      mechanics, engineers, and strategists. There are currently 10 teams, with an
+      11th (Cadillac) expected to join in 2026. The team is responsible for car preparation,
+      race strategy, and in-season development.
+    type: Team Structure and Roles
+  - content: F1 is unique compared to other series like IndyCar and lower Formula
+      categories because it is as much an engineering competition as a driver one.
+      Teams continuously modify cars throughout the season to enhance performance,
+      often resulting in significant differences between the car at the start and
+      end of the season. These modifications can influence race outcomes and prize
+      money distribution.
+    type: Engineering and Competitive Dynamics
+  - content: The intense competition among teams for the best drivers and technical
+      staff drives innovation and performance improvements. The team’s collective
+      effort is crucial for success, as individual drivers do not receive prize money
+      directly; instead, team performance determines financial rewards and championship
+      standings.
+    type: Implications for Competition and Success
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: F1 teams are distinguished by their dual focus on engineering and
+      driving, with continuous car development throughout the season, unlike many
+      lower series or IndyCar.
+    options:
+    - F1 teams have more drivers per team
+    - F1 teams focus equally on engineering and driving performance
+    - F1 teams do not modify their cars during the season
+    - F1 teams only compete in Europe
+    question_text: What distinguishes Formula One teams from those in lower Formula
+      series and IndyCar?
+  index: 334
+  key_concept: The team behind the driver
+  name: The team behind the driver
+- aspects:
+  - content: A typical F1 race weekend includes multiple practice sessions for car
+      calibration, followed by a three-round knockout qualifying competition to determine
+      the starting grid. The fastest qualifier earns pole position. The Grand Prix
+      race covers a minimum distance of 305 kilometers, except for Monaco, which is
+      shorter due to its unique street circuit.
+    type: Format and Structure
+  - content: Race strategy involves tire choices, pit stops (with top teams changing
+      all four tires in under two seconds), and tactical maneuvers like slipstreaming.
+      All drivers must make at least one pit stop. Points are awarded based on finishing
+      position, with 25 points for the winner and descending values for the top ten
+      finishers. Sprint races, which are shorter, may also award points.
+    type: Strategy and Rules
+  - content: At season’s end, the driver with the most points wins the drivers’ championship,
+      while the team with the combined highest driver points wins the constructors’
+      championship. This system incentivizes both individual and team performance,
+      making every race and strategic decision critical.
+    type: Championship Implications
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: F1 race weekends include practice, qualifying, and a Grand Prix race
+      (with required pit stops), but do not feature 24-hour endurance races, which
+      are typical of other racing formats like Le Mans.
+    options:
+    - Practice sessions
+    - Knockout qualifying rounds
+    - A mandatory pit stop for all drivers
+    - A 24-hour endurance race format
+    question_text: Which of the following is NOT a standard part of an F1 race weekend?
+  index: 342
+  key_concept: Race weekends
+  name: Race weekends
+- aspects:
+  - content: Only five women have competed in F1, beginning with Maria Teresa de Filippis
+      in 1958. Lella Lombardi is the only woman to score points in F1, finishing sixth
+      at the 1975 Spanish Grand Prix. Desiré Wilson is the only woman to win a race
+      in an F1 car, though it was in an ancillary series.
+    type: Historical Participation
+  - content: Giovanna Amati was the last woman to attempt F1 qualifying in 1992. More
+      recently, Susie Wolff served as a test driver for Williams, participating in
+      free practice sessions in 2014. In 2023, Wolff became the managing director
+      of F1 Academy, an all-female racing series aimed at increasing women’s participation.
+    type: Recent Developments and Barriers
+  - content: The low number of female participants highlights ongoing barriers to
+      gender diversity in F1. Initiatives like the F1 Academy are designed to address
+      these challenges by providing more opportunities and support for women in motorsport.
+      The historical achievements of women in F1, though rare, serve as important
+      milestones for future progress.
+    type: Implications and Gender Diversity
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Lella Lombardi is the only woman to have scored points in F1, finishing
+      sixth at the 1975 Spanish Grand Prix. The others either participated without
+      scoring points or contributed in other roles.
+    options:
+    - Maria Teresa de Filippis
+    - Susie Wolff
+    - Lella Lombardi
+    - Desiré Wilson
+    question_text: Who is the only woman to have scored championship points in a Formula
+      One race?
+  index: 421
+  key_concept: Women drivers in F1
+  name: Women drivers in F1

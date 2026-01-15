@@ -1,0 +1,144 @@
+URL: https://www.britannica.com/technology/Sholes-and-Glidden-typewriter
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Britannica encyclopedia entry summarizing the Sholes and Glidden
+  typewriter, focusing on its development, improvements, and early manufacturing history.
+file_name: Sholes and Glidden typewriter Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Sholes and Glidden typewriter
+  Britannica.html
+file_uuid: 69b87cfa-841e-57a6-b909-5d332c857649
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The Sholes and Glidden typewriter introduced the QWERTY keyboard layout,
+    which became the standard for typewriters and modern keyboards. The other options
+    are unrelated to this early typewriter.
+  knowledge_areas:
+  - Sholes and Glidden typewriter
+  - development
+  options:
+  - The QWERTY keyboard layout
+  - Electric power
+  - Color printing
+  - Voice recognition
+  question_id: 1
+  question_text: What was a major innovation introduced by the Sholes and Glidden
+    typewriter?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: E. Remington and Sons, a gunsmithing company, was responsible for the
+    first mass production of the Sholes and Glidden typewriter after signing a contract
+    in 1873.
+  knowledge_areas:
+  - development
+  options:
+  - E. Remington and Sons
+  - Christopher Latham Sholes
+  - Royal Typewriter Company
+  - Smith Corona
+  question_id: 2
+  question_text: Who was contracted to manufacture the first Sholes and Glidden typewriters
+    for mass production?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Sholes and Glidden typewriter was the first commercially successful
+    typewriter and played a crucial role in standardizing office communication. The
+    other options are incorrect or anachronistic.
+  knowledge_areas:
+  - Sholes and Glidden typewriter
+  - historical context
+  options:
+  - It was the first commercially successful typewriter and standardized written communication
+    in offices.
+  - It was the first electric typewriter.
+  - It was the first portable typewriter.
+  - It was invented in the 20th century.
+  question_id: 3
+  question_text: Which of the following best describes the historical significance
+    of the Sholes and Glidden typewriter?
+  question_type: recap
+sections:
+- aspects:
+  - content: The Sholes and Glidden typewriter refers to the first commercially successful
+      typewriting machine, developed in the 19th century by Christopher Latham Sholes
+      and his collaborators. It is notable for being the first device to allow the
+      rapid mechanical inscription of letters onto paper, fundamentally changing the
+      way documents were produced. The machine is often recognized as the prototype
+      for modern typewriters and introduced the QWERTY keyboard layout, which remains
+      standard today.
+    type: definition
+  - content: Emerging during the industrialization era in the United States, the Sholes
+      and Glidden typewriter was a product of the growing demand for efficient business
+      and administrative practices. Its invention coincided with the expansion of
+      commerce and bureaucracy, making written communication faster and more standardized.
+      The device's introduction marked a significant shift from handwritten to machine-produced
+      documents, influencing office work and the role of clerical workers, especially
+      women, in the workforce.
+    type: historical context
+  - content: The Sholes and Glidden typewriter's development is closely linked to
+      the evolution of office technology and the rise of mass communication. Its QWERTY
+      keyboard layout became the de facto standard for typewriters and, later, computer
+      keyboards. The machine's success also paved the way for further innovations
+      in printing, document creation, and information management, influencing the
+      design of subsequent writing and computing devices.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    - 1
+    - 2
+    explanation: The Sholes and Glidden typewriter is notable for being the first
+      commercially successful typewriter, introducing the QWERTY keyboard layout,
+      and shifting document production from handwritten to machine-produced. It was
+      invented in the 19th century, not the 20th.
+    options:
+    - Being the first commercially successful typewriter
+    - Introducing the QWERTY keyboard layout
+    - Replacing handwritten documents with machine-produced ones
+    - Being invented in the 20th century
+    question_text: What is the Sholes and Glidden typewriter most notable for?
+  index: 118
+  key_concept: Sholes and Glidden typewriter
+  name: Sholes and Glidden typewriter
+- aspects:
+  - content: The development of the Sholes and Glidden typewriter refers to the process
+      of its invention, refinement, and eventual mass production. Initially a crude
+      machine, it underwent significant improvements over several years, particularly
+      under the guidance of Christopher Latham Sholes and his associates.
+    type: definition
+  - content: Key milestones in its development include the addition of various mechanical
+      improvements to increase reliability and usability, such as the adoption of
+      the QWERTY keyboard and enhancements to the printing mechanism. In 1873, Sholes
+      signed a manufacturing contract with E. Remington and Sons, a company known
+      for gunsmithing, which enabled the typewriter's large-scale production.
+    type: examples
+  - content: The successful development and commercialization of the typewriter revolutionized
+      office work by making written communication faster and more legible. Its mass
+      production in 1874 allowed for widespread adoption, influencing business practices,
+      education, and the emergence of new professional roles, particularly for women
+      as typists. The collaboration with Remington also exemplifies how expertise
+      from unrelated industries can drive technological innovation.
+    type: implications
+  - content: The development of the Sholes and Glidden typewriter is connected to
+      broader trends in industrialization, mechanization, and the professionalization
+      of office work. It set the stage for future advancements in information technology
+      and is a precursor to modern word processing systems.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: E. Remington and Sons, originally a gunsmithing company, was contracted
+      in 1873 to manufacture the Sholes and Glidden typewriter, leading to its mass
+      production and commercial success.
+    options:
+    - E. Remington and Sons
+    - IBM
+    - Royal Typewriter Company
+    - Underwood Typewriter Company
+    question_text: Which company was responsible for the first mass production of
+      the Sholes and Glidden typewriter?
+  index: 126
+  key_concept: development
+  name: development

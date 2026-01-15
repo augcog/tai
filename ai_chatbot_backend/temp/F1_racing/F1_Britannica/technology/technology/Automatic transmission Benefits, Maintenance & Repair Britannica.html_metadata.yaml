@@ -1,0 +1,125 @@
+URL: https://www.britannica.com/technology/automatic-transmission
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article explaining the mechanics, components, and
+  operation of automatic transmissions in automobiles, including fluid couplings,
+  torque converters, and planetary gear systems.
+file_name: Automatic transmission Benefits, Maintenance & Repair Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Automatic transmission Benefits,
+  Maintenance & Repair Britannica.html
+file_uuid: f5b95a4c-408c-5a1e-879d-c942a36da89c
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: The fluid drive (fluid coupling or torque converter) allows for smooth
+    gear shifting and enables the vehicle to idle while the brake is on, by permitting
+    slippage at low speeds and acting as a solid connection at high speeds.
+  knowledge_areas:
+  - automatic transmission
+  - fluid drive
+  options:
+  - To directly connect the engine to the wheels at all times
+  - To allow smooth gear shifting and enable idling while the brake is on
+  - To manually control the speed of the vehicle
+  - To prevent the transmission from changing gears automatically
+  question_id: 1
+  question_text: What is the main purpose of the fluid drive in an automatic transmission
+    system?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Planetary gears are the mechanism that allows automatic transmissions
+    to provide multiple gear ratios, enabling the vehicle to operate efficiently at
+    different speeds.
+  knowledge_areas:
+  - automatic transmission
+  - planetary gears
+  options:
+  - Planetary gears
+  - Stator
+  - Accelerator pedal
+  - Brake pedal
+  question_id: 2
+  question_text: Which component in an automatic transmission is primarily responsible
+    for providing multiple gear ratios?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: A hydraulic torque converter uses a stator to redirect oil flow and
+    increase torque at low speeds, unlike a simple fluid coupling which only transmits
+    torque through churning oil between two turbines.
+  knowledge_areas:
+  - automatic transmission
+  - hydraulic torque converter
+  - fluid coupling
+  options:
+  - It eliminates all slippage at low speeds
+  - It uses a stator to increase torque at low speeds
+  - It only operates at high speeds
+  - It does not use oil to transmit power
+  question_id: 3
+  question_text: How does a hydraulic torque converter differ from a simple fluid
+    coupling in an automatic transmission?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The speed-sensitive governing device changes the position of valves
+    that control the flow of hydraulic fluid, which in turn manages the shifting of
+    gears in the transmission.
+  knowledge_areas:
+  - automatic transmission
+  - governing device
+  - hydraulic fluid control
+  options:
+  - It controls the accelerator pedal
+  - It changes the position of valves that control hydraulic fluid flow for shifting
+    gears
+  - It locks the transmission in a single gear
+  - It operates the brakes automatically
+  question_id: 4
+  question_text: What role does the speed-sensitive governing device play in an automatic
+    transmission?
+  question_type: recap
+sections:
+- aspects:
+  - content: An automatic transmission is a mechanical system in automobiles composed
+      of gears, brakes, clutches, a fluid drive, and governing devices that automatically
+      change the speed ratio between the engine and the wheels. Unlike manual transmissions,
+      it does not require the driver to manually shift gears; instead, it uses a combination
+      of mechanical and hydraulic systems to perform this task automatically.
+    type: definition
+  - content: When the transmission is set to the drive position, the driver only needs
+      to use the accelerator pedal. As the car accelerates, the transmission automatically
+      shifts through its range of forward gears, moving from low to high ratios, and
+      connects the engine shaft and drive shaft via the fluid drive. As the vehicle
+      slows down, the transmission shifts back from high to low gear without driver
+      intervention.
+    type: operation
+  - content: The fully automatic transmission was introduced in 1939 and has since
+      become either optional or standard equipment in most passenger cars. Its widespread
+      adoption reflects its convenience and the reduction of driver workload compared
+      to manual transmissions.
+    type: historical context
+  - content: Key components include planetary gears, which provide multiple gear ratios,
+      and a speed-sensitive governing device that regulates hydraulic fluid flow to
+      control gear changes. The fluid drive, which may be a fluid coupling or torque
+      converter, is essential for smooth operation and automatic shifting.
+    type: components
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: An automatic transmission automatically changes the speed ratio between
+      the engine and wheels using a combination of mechanical and hydraulic systems,
+      unlike manual transmissions where the driver selects the gear. The other options
+      either describe manual transmissions or misunderstand the function.
+    options:
+    - It allows the driver to manually select each gear.
+    - It automatically changes the speed ratio between the engine and wheels using
+      mechanical and hydraulic systems.
+    - It provides power directly from the engine to the wheels without any gear changes.
+    - It only operates at a single, fixed gear ratio.
+    question_text: Which of the following best describes the primary function of an
+      automatic transmission in an automobile?
+  index: 129
+  key_concept: automatic transmission
+  name: automatic transmission

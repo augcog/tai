@@ -1,0 +1,290 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A team profile page for the Racing Bulls F1 team, highlighting current
+  drivers, season and historical statistics, team structure, and recent developments,
+  along with related media and partner information.
+file_name: Racing Bulls – F1 Racing Team – Lawson, Hadjar.html
+file_path: F1_racing/F1_Official/teams/en/teams/Racing Bulls – F1 Racing Team – Lawson,
+  Hadjar.html
+file_uuid: 3c2013d5-b0d3-5a57-816e-f6b9fee23e81
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Racing Bulls finished 6th in 2025, with rookie Isack Hadjar achieving
+    a podium at Zandvoort, marking their first in five years.
+  knowledge_areas:
+  - Statistics
+  - DRIVERS
+  options:
+  - 6th place; Isack Hadjar
+  - 1st place; Liam Lawson
+  - 8th place; Daniel Ricciardo
+  - 5th place; Yuki Tsunoda
+  question_id: 1
+  question_text: What was Racing Bulls' finishing position in the 2025 F1 Constructors'
+    Championship, and which driver secured their first podium in five years?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Racing Bulls originated from Minardi, became Toro Rosso as a Red Bull
+    junior team, and now functions as a constructor with a focus on developing young
+    drivers.
+  knowledge_areas:
+  - Racing Bulls
+  - Team Profile
+  options:
+  - Formed from Minardi in 2006 as a Red Bull junior team, now an independent constructor
+    focused on talent development.
+  - A founding F1 team with multiple world championships since the 1950s.
+  - A team created solely for Red Bull Racing’s engine development.
+  - A recent merger between two Italian racing teams.
+  question_id: 2
+  question_text: Which of the following statements best describes Racing Bulls’ origins
+    and current role in Formula 1?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Racing Bulls is based in Faenza, Italy, led by Alan Permane, and uses
+    Honda RBPT power units for the 2025 season.
+  knowledge_areas:
+  - Team Profile
+  options:
+  - Based in Faenza, led by Alan Permane, using Honda RBPT power units.
+  - Based in Woking, led by Zak Brown, using Mercedes power units.
+  - Based in Maranello, led by Frederic Vasseur, using Ferrari power units.
+  - Based in Milton Keynes, led by Christian Horner, using Renault power units.
+  question_id: 3
+  question_text: Which technical and organizational details are correct for Racing
+    Bulls in 2025?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Racing Bulls’ partners, including global brands, contribute financially,
+    technically, and through marketing, which is vital for the team's competitiveness
+    and visibility.
+  knowledge_areas:
+  - OUR PARTNERS
+  options:
+  - They provide essential funding, technical expertise, and global marketing reach.
+  - They only supply local catering and hospitality services.
+  - They are limited to providing team uniforms.
+  - They focus exclusively on engine supply from Italian companies.
+  question_id: 4
+  question_text: How do Racing Bulls’ commercial and technical partnerships contribute
+    to the team’s operations?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Racing Bulls’ selection of Lawson and Hadjar, both from the Red Bull
+    junior system, exemplifies their commitment to developing young talent and their
+    strategic role within the Red Bull F1 ecosystem.
+  knowledge_areas:
+  - DRIVERS
+  - Racing Bulls
+  options:
+  - Both drivers are young talents from the Red Bull development program, highlighting
+    the team's focus on nurturing future stars.
+  - The team only recruits veteran world champions from rival teams.
+  - The lineup is chosen by fan vote each season.
+  - Drivers are selected exclusively from Italian Formula 3 teams.
+  question_id: 5
+  question_text: In what ways does Racing Bulls’ driver lineup reflect the team’s
+    ethos and strategic connections within F1?
+  question_type: recap
+sections:
+- aspects:
+  - content: Racing Bulls is a Formula 1 team, previously known as Toro Rosso, AlphaTauri,
+      and RB, originating from the Minardi team and established in 2006. The team
+      was initially created as a development ground for Red Bull's young drivers,
+      with its most notable early success being Sebastian Vettel's win in 2008. Over
+      time, Racing Bulls evolved from a 'junior' or 'B team' into a constructor with
+      its own competitive ambitions, reflecting a broader ethos of nurturing talent
+      in F1.
+    type: Definition and Historical Context
+  - content: The team has shown a clear upward trajectory, with a significant improvement
+      in the 2025 season, finishing 6th in the standings and achieving its first podium
+      in five years, thanks to rookie Isack Hadjar. Leadership changes have also marked
+      recent years, with Alan Permane taking over as Team Principal in 2025 after
+      Laurent Mekies moved to Red Bull Racing. The team’s identity and performance
+      have been shaped by these transitions and by its ongoing commitment to developing
+      young drivers.
+    type: Recent Developments and Trajectory
+  - content: Racing Bulls maintains strong connections to Red Bull Racing, serving
+      as both a proving ground for talent and a competitive entity in its own right.
+      Its evolution reflects broader trends in F1, where 'sister teams' can transition
+      to independent constructors. The team’s history is intertwined with the careers
+      of several notable drivers, such as Sebastian Vettel, and it continues to play
+      a significant role in the sport’s driver development ecosystem.
+    type: Connections and Influence in F1
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Racing Bulls originated from Minardi in 2006 as a Red Bull junior
+      team and has since evolved into a constructor with its own ambitions, unlike
+      the other options which misrepresent its history or purpose.
+    options:
+    - A team established in 2006 from Minardi, initially as a Red Bull junior squad,
+      now a constructor in its own right.
+    - A historic F1 team with continuous operations since the 1950s and multiple world
+      championships.
+    - A new entrant in 2025 formed by merging two existing F1 teams.
+    - A team created solely for Red Bull Racing’s engine development program.
+    question_text: Which of the following best describes the origins and evolution
+      of the Racing Bulls F1 team?
+  index: 59
+  key_concept: Racing Bulls
+  name: Racing Bulls
+- aspects:
+  - content: For the 2025 season, Racing Bulls’ driver lineup consists of Liam Lawson
+      from New Zealand and Isack Hadjar from France. Lawson, who replaced Daniel Ricciardo
+      in the latter part of 2024, and Hadjar, a rookie, represent the team’s ongoing
+      focus on young, promising talent. Both drivers are products of the Red Bull
+      driver development program, which has historically been a pipeline for future
+      F1 stars.
+    type: Current Lineup and Background
+  - content: The drivers are central to Racing Bulls' competitive strategy and public
+      image. Isack Hadjar notably secured a podium finish at Zandvoort in 2025, marking
+      a significant achievement for both his career and the team. Lawson’s consistent
+      point-scoring performances have also contributed to the team’s improved standings.
+      Their development and results are closely watched as indicators of the team’s
+      ability to nurture and maximize young talent.
+    type: Role and Impact
+  - content: Both Lawson and Hadjar are part of a larger network of drivers who have
+      risen through the Red Bull junior ranks, underscoring the interconnectedness
+      of F1’s talent development systems. Their progress is not only important for
+      Racing Bulls but also for potential future placements in top-tier teams like
+      Red Bull Racing, highlighting the strategic importance of driver development
+      within the organization.
+    type: Connections to Broader F1 Ecosystem
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Lawson and Hadjar are the 2025 Racing Bulls drivers, both having
+      progressed through the Red Bull junior development system, which emphasizes
+      the team’s focus on nurturing young talent.
+    options:
+    - Liam Lawson and Isack Hadjar, both developed through the Red Bull junior program.
+    - Daniel Ricciardo and Yuki Tsunoda, both experienced F1 veterans.
+    - Max Verstappen and Sergio Perez, both former world champions.
+    - Charles Leclerc and Lando Norris, both from Ferrari’s academy.
+    question_text: Who are the Racing Bulls drivers for the 2025 F1 season, and what
+      is significant about their backgrounds?
+  index: 67
+  key_concept: DRIVERS
+  name: DRIVERS
+- aspects:
+  - content: In the 2025 season, Racing Bulls finished 6th in the constructors' standings
+      with 92 points. They participated in 24 Grand Prix races, scoring 88 points
+      with one podium finish and 17 top-10 results, though without any race wins or
+      pole positions. The team also competed in 6 sprint races, earning 4 points and
+      achieving 7 top-10 finishes. Notably, the team suffered 6 DNFs (Did Not Finish),
+      reflecting both competitiveness and areas for reliability improvement.
+    type: 2025 Season Performance
+  - content: Over its history, Racing Bulls has entered 399 Grand Prix events, accumulating
+      947 points. The team’s highest race finish is first place, achieved twice, and
+      its best grid position is also first, achieved once. Despite these highlights,
+      the team has yet to secure a World Championship, with a total of 6 podium finishes
+      and one pole position in its history.
+    type: Historical Team Achievements
+  - content: The statistical record illustrates Racing Bulls’ position as a competitive
+      midfield team with occasional standout performances, such as podiums and a rare
+      race win. The improvement in 2025, including a return to the podium, signals
+      progress and growing competitiveness. These statistics are crucial for assessing
+      the team’s trajectory, potential, and areas for further development compared
+      to rivals.
+    type: Implications and Comparative Context
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Racing Bulls finished 6th in 2025, with 1 podium, no wins, 17 top-10s,
+      and 6 DNFs, reflecting a solid midfield performance with some reliability issues.
+    options:
+    - 6th in the standings, 1 podium, 0 wins, 17 top-10s, 6 DNFs.
+    - 1st in the standings, 6 wins, 5 podiums, 0 DNFs.
+    - 10th in the standings, 0 podiums, 1 win, 24 DNFs.
+    - 2nd in the standings, 2 wins, 10 podiums, 1 DNF.
+    question_text: Which of the following accurately reflects Racing Bulls' performance
+      in the 2025 F1 season?
+  index: 89
+  key_concept: Statistics
+  name: Statistics
+- aspects:
+  - content: The full name of the team is Visa Cash App Racing Bulls Formula One Team,
+      based in Faenza, Italy. The team is led by Team Chief Alan Permane and Technical
+      Chief Tim Goss, with Ayumu Iwasa serving as reserve driver. The chassis used
+      is the VCARB 02, and the power unit is supplied by Honda RBPT. The team’s identity
+      is shaped by its Italian base, technical partnerships, and its ongoing mission
+      to develop young talent.
+    type: Organizational Structure and Identity
+  - content: Racing Bulls first entered F1 in 1985, tracing its roots back to Minardi,
+      but was formally established in its current developmental role in 2006. The
+      team has undergone several rebrandings (Toro Rosso, AlphaTauri, RB) and continues
+      to be a key part of the Red Bull racing ecosystem. Its history is marked by
+      a blend of nurturing future stars and striving for independent competitive success.
+    type: Founding and Evolution
+  - content: The team’s technical package for 2025 includes the VCARB 02 chassis and
+      Honda RBPT power unit, reflecting ongoing technological collaboration with Honda.
+      The leadership team has changed in recent years, with Alan Permane taking over
+      as Team Principal in 2025. The combination of technical expertise, strong leadership,
+      and a focus on youth development positions Racing Bulls as a dynamic and evolving
+      participant in F1.
+    type: Technical and Competitive Details
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Racing Bulls is based in Faenza, led by Alan Permane, uses Honda
+      RBPT power, and maintains a focus on developing young drivers, distinguishing
+      it from other F1 teams.
+    options:
+    - Base in Faenza, Italy; Alan Permane as Team Chief; Honda RBPT power unit; focus
+      on young driver development.
+    - Base in Milton Keynes, UK; Christian Horner as Team Chief; Mercedes power unit;
+      focus on veteran drivers.
+    - Base in Maranello, Italy; Frederic Vasseur as Team Chief; Ferrari power unit;
+      focus on championship titles.
+    - Base in Woking, UK; Zak Brown as Team Chief; Renault power unit; focus on esports.
+    question_text: What are key elements of the Racing Bulls team profile for 2025?
+  index: 174
+  key_concept: Team Profile
+  name: Team Profile
+- aspects:
+  - content: Racing Bulls, like all F1 teams, relies on a network of commercial and
+      technical partners to support its operations, development, and marketing. Partners
+      provide financial backing, technological expertise, and brand association, which
+      are essential for the team's competitiveness and visibility in the global F1
+      landscape.
+    type: Definition and Role of Partners
+  - content: The team's partners include a diverse array of global brands such as
+      LVMH, Pirelli, Aramco, Heineken, AWS, Lenovo, DHL, Qatar Airways, MSC, Crypto.com,
+      Salesforce, Louis Vuitton, TAG Heuer, Moet Hennessy, American Express, Santander,
+      Allwyn, Globant, Las Vegas Convention and Visitors Authority, Paramount+, Barilla,
+      Liqui Moly, Nestle, PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds. These
+      partners represent industries ranging from luxury goods and technology to logistics,
+      finance, and consumer products.
+    type: Examples and Diversity of Partnerships
+  - content: Partnerships are critical for funding the high costs of F1 competition
+      and for facilitating innovation through technical collaborations (e.g., with
+      AWS or Honda). They also enhance the team's global reach and fan engagement
+      via co-marketing initiatives. The diversity and prestige of Racing Bulls’ partners
+      reflect the team’s commercial appeal and its integration into the broader business
+      ecosystem of Formula 1.
+    type: Implications and Strategic Importance
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Racing Bulls’ partners are diverse, global brands from various sectors,
+      contributing financial, technical, and marketing support, which is essential
+      for F1 team operations.
+    options:
+    - They include a wide range of global brands from luxury, technology, logistics,
+      and finance, providing both funding and technical support.
+    - All partners are exclusively Italian automotive suppliers focused on engine
+      development.
+    - The team relies only on one title sponsor for all its financial needs.
+    - Partners are limited to local Faenza-based companies with no global presence.
+    question_text: Which statement best summarizes the role and diversity of Racing
+      Bulls' partners?
+  index: 271
+  key_concept: OUR PARTNERS
+  name: OUR PARTNERS

@@ -1,0 +1,208 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page listing the 1975 Formula 1 race results, including winners,
+  teams, dates, and race details, as well as information about official F1 partners
+  and app download options.
+file_name: 1975 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1975/1975 RACE RESULTS.html
+file_uuid: cf2127a3-baca-546f-8f34-de37ea43cc24
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Niki Lauda, driving for Ferrari, secured the most race wins in the
+    1975 season, making this team-driver combination the most successful that year.
+  knowledge_areas:
+  - 1975 Formula 1 Race Results
+  options:
+  - Ferrari and Niki Lauda
+  - McLaren Ford and Emerson Fittipaldi
+  - Brabham Ford and Carlos Pace
+  - March Ford and Vittorio Brambilla
+  question_id: 1
+  question_text: Which team and driver combination achieved the highest number of
+    race wins in the 1975 Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: DHL is recognized globally for logistics and shipping and is listed
+    as an official F1 partner in the provided section.
+  knowledge_areas:
+  - Official F1 Partners
+  options:
+  - Heineken
+  - DHL
+  - AWS
+  - Pirelli
+  question_id: 2
+  question_text: Which of the following companies is listed as an official F1 partner
+    and is known for logistics and shipping?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App is designed to provide live race updates, news,
+    schedules, and exclusive F1 content to fans, as described in the relevant section.
+  knowledge_areas:
+  - Official F1 App Availability
+  options:
+  - Providing live race updates and exclusive F1 content
+  - Selling F1 merchandise
+  - Broadcasting races on television
+  - Organizing hospitality events
+  question_id: 3
+  question_text: What are the primary functions of the Official F1 App as described
+    in the document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Official F1 partners benefit primarily through enhanced brand visibility,
+    prestige, and access to F1's global audience, as explained in the section on partners.
+  knowledge_areas:
+  - Official F1 Partners
+  options:
+  - Enhanced brand visibility and access to a global audience
+  - Ownership of F1 teams
+  - Exclusive rights to broadcast races
+  - Direct involvement in race regulations
+  question_id: 4
+  question_text: How do official F1 partners benefit from their association with Formula
+    1, according to the document?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The 'OUR PARTNERS' section lists all current official F1 partners,
+    including their logos and links to their websites.
+  knowledge_areas:
+  - Official F1 Partners
+  options:
+  - 1975 RACE RESULTS
+  - OUR PARTNERS
+  - Download the Official F1 App
+  - Driver Standings
+  question_id: 5
+  question_text: Which section would you consult to find out which companies are currently
+    official partners of Formula 1?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1975 Formula 1 Race Results section provides a tabular summary of
+      each Grand Prix held during the 1975 season, listing the race location, date,
+      winning driver, their team, number of laps, and total race time. This format
+      is standard for presenting F1 season results and allows for easy comparison
+      across races and drivers. The table structure supports both historical analysis
+      and statistical review of the season.
+    type: Definition and Structure
+  - content: Key examples from the 1975 season include Niki Lauda's multiple victories
+      for Ferrari (Monaco, Belgium, Sweden, France, United States), Emerson Fittipaldi's
+      wins for McLaren Ford (Argentina, Great Britain), and Carlos Pace's win for
+      Brabham Ford in Brazil. The results highlight the competitive landscape, with
+      several teams and drivers achieving race wins. The diversity of winners, such
+      as Jochen Mass, James Hunt, Carlos Reutemann, Vittorio Brambilla, and Clay Regazzoni,
+      illustrates the unpredictability and competitiveness of the season.
+    type: Examples and Notable Outcomes
+  - content: These results are crucial for understanding the championship standings,
+      team strategies, and the evolution of F1 technology and competition in the mid-1970s.
+      The 1975 season is notable for Ferrari's resurgence, driven by Niki Lauda's
+      performance, and for the presence of legendary drivers and teams. The race outcomes
+      also impacted the drivers' and constructors' championship points, influencing
+      the broader narrative of F1 history.
+    type: Implications and Context
+  - content: The race results serve as foundational data for statistical analysis,
+      historical documentaries, and fan engagement. They connect to other F1 resources,
+      such as driver and team standings, season reviews, and technical analyses. Researchers
+      and enthusiasts use these results to track performance trends, analyze race
+      strategies, and study the impact of regulations and innovations on race outcomes.
+    type: Connections and Use Cases
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Niki Lauda won the most races in the 1975 season, with victories
+      in Monaco, Belgium, Sweden, France, and the United States, making him the season's
+      standout driver.
+    options:
+    - Emerson Fittipaldi
+    - Niki Lauda
+    - James Hunt
+    - Carlos Pace
+    question_text: Which driver won the most races in the 1975 Formula 1 season according
+      to the provided results?
+  index: 147
+  key_concept: 1975 Formula 1 Race Results
+  name: 1975 RACE RESULTS
+- aspects:
+  - content: Official F1 Partners are companies and brands that have established formal
+      sponsorship or partnership agreements with Formula 1. These partnerships involve
+      financial support, co-marketing, and the provision of products or services to
+      the sport. The partners' logos and links are prominently displayed, reflecting
+      their integral role in the business and operational aspects of F1.
+    type: Definition and Role
+  - content: Examples of official partners include luxury brands (LVMH, Louis Vuitton),
+      technology companies (AWS, Lenovo, Salesforce), automotive and logistics firms
+      (Pirelli, DHL, Aggreko), beverage brands (Heineken, Moet Hennessy, PepsiCo),
+      and financial institutions (American Express, Santander). These partners span
+      diverse industries, demonstrating F1's global appeal and commercial reach.
+    type: Examples and Categories
+  - content: Partnerships provide significant revenue streams for Formula 1, enabling
+      technological innovation, event logistics, and fan engagement initiatives. For
+      partners, association with F1 enhances brand visibility, prestige, and access
+      to a global audience. These relationships often extend to exclusive products,
+      hospitality experiences, and collaborative marketing campaigns.
+    type: Implications and Benefits
+  - content: The presence of diverse partners reflects F1's status as a premier international
+      sporting platform. Partnerships influence everything from race operations (e.g.,
+      Pirelli supplying tires, DHL managing logistics) to fan experiences (e.g., branded
+      events, digital engagement). The synergy between F1 and its partners is essential
+      for the sport's financial sustainability and innovation.
+    type: Connections and Influence
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not listed among the official F1 partners; AWS, Heineken,
+      and DHL are all mentioned as current partners.
+    options:
+    - AWS
+    - Heineken
+    - Nike
+    - DHL
+    question_text: Which of the following is NOT listed as an official F1 partner
+      in the provided section?
+  index: 166
+  key_concept: Official F1 Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application designed to provide fans
+      with real-time race updates, news, schedules, and exclusive content related
+      to Formula 1. It serves as a digital platform for enhancing fan engagement and
+      providing direct access to F1 information on smartphones and tablets.
+    type: Definition and Purpose
+  - content: The app is available for download on both the Apple App Store and Google
+      Play, ensuring compatibility with iOS and Android devices. The section provides
+      direct links to these platforms, facilitating easy access for users worldwide.
+    type: Access and Platforms
+  - content: Typical features of the app include live timing, driver and team profiles,
+      race schedules, news updates, and multimedia content such as videos and interviews.
+      Fans use the app to follow races in real time, receive push notifications, and
+      access exclusive behind-the-scenes content.
+    type: Use Cases and Features
+  - content: The app represents F1's commitment to digital transformation and fan-centric
+      services. It connects to broader digital initiatives, such as F1 TV and social
+      media platforms, and is part of the sport's strategy to reach younger and more
+      tech-savvy audiences. The app also supports partner promotions and integrates
+      with other F1 digital products.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App is available for download on both the Apple App
+      Store and Google Play, making it accessible to users of both iOS and Android
+      devices.
+    options:
+    - Apple App Store and Google Play
+    - Microsoft Store and Amazon Appstore
+    - Only Apple App Store
+    - Only Google Play
+    question_text: On which platforms can fans download the Official F1 App according
+      to the provided section?
+  index: 176
+  key_concept: Official F1 App Availability
+  name: Download the Official F1 App

@@ -1,0 +1,251 @@
+URL: https://www.britannica.com/technology/Internet/Society-and-the-Internet#ref255531
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article section examining the societal impact of
+  the Internet, focusing on its historical origins, the development of online communities,
+  and the transformation of communication practices.
+file_name: Internet - Globalization, Communication, Education Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Internet/Internet - Globalization,
+  Communication, Education Britannica.html
+file_uuid: fb0bd59a-7666-56b9-a331-387e2bbefce3
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The article highlights the convergence of U.S. military networking
+    efforts (ARPANET) and the personal computer revolution as the dual origins of
+    the Internet.
+  knowledge_areas:
+  - Two agendas
+  - Society and the Internet
+  options:
+  - Military networking and the personal computer revolution
+  - Television and radio broadcasting
+  - Mobile phone development and satellite technology
+  - Social media and e-commerce
+  question_id: 1
+  question_text: Which two technological agendas were foundational in the creation
+    of the Internet?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The WELL was an early electronic bulletin board system notable for
+    its subject-based forums, democratic moderation, and influence on later online
+    communities.
+  knowledge_areas:
+  - The WELL
+  - History, community, and communications
+  options:
+  - A military research project for secure communication
+  - An early online community with subject-based forums and democratic moderation
+  - The first commercial Internet service provider
+  - A government-run data center for scientific research
+  question_id: 2
+  question_text: What was the WELL, and why is it significant in Internet history?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Instant broadcast communication enables rapid, large-scale organization
+    for social, political, and emergency events, as shown by examples like the WTO
+    protests and disaster relief efforts.
+  knowledge_areas:
+  - Instant broadcast communication
+  - Society and the Internet
+  options:
+  - It has made traditional mail more popular.
+  - It enables rapid organization of protests and disaster response efforts.
+  - It restricts information sharing to academic circles.
+  - It is only used for entertainment and flash mobs.
+  question_id: 3
+  question_text: Which of the following best illustrates the impact of instant broadcast
+    communication on society?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The counterculture and electronic hobbyist movements in the Bay Area
+    promoted collaborative, democratized access and innovation, shaping the participatory
+    culture of the Internet.
+  knowledge_areas:
+  - Two agendas
+  - Society and the Internet
+  options:
+  - By promoting centralized control of computing resources
+  - By encouraging collaborative, democratized access to computers and networking
+  - By restricting computer use to government agencies
+  - By focusing solely on commercial applications
+  question_id: 4
+  question_text: How did the counterculture movement in the San Francisco Bay Area
+    influence the development of the Internet?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The WELL's structure—subject-based forums, democratic moderation, and
+    facilitation of real-world connections—became a template for later online communities.
+  knowledge_areas:
+  - The WELL
+  - History, community, and communications
+  options:
+  - By requiring physical attendance at meetings
+  - By using subject-based forums, democratic moderation, and fostering real-world
+    connections
+  - By focusing exclusively on commercial transactions
+  - By limiting membership to professionals and academics
+  question_id: 5
+  question_text: In what ways did the WELL serve as a model for subsequent online
+    communities?
+  question_type: recap
+sections:
+- aspects:
+  - content: This concept refers to the broad and transformative effects of the Internet
+      on societies worldwide, shifting from a technical tool to an integral part of
+      daily life. The Internet is not just a medium for information exchange but a
+      lived environment where people work, socialize, and even experience aspects
+      of their lives online. Its ubiquity has made it a fundamental infrastructure
+      comparable to electricity or telephony.
+    type: Definition and Scope
+  - content: 'By the early 2000s, Internet adoption rates soared: 68% of American
+      adults and 90% of teenagers had used it, with similar or higher rates in Europe
+      and parts of Asia. However, there were significant disparities, with countries
+      like Taiwan and Japan achieving over 50% penetration, while India and Vietnam
+      lagged below 10%. South Korea led in broadband connectivity, illustrating both
+      the rapid spread and uneven global distribution of Internet access.'
+    type: Global Penetration and Statistics
+  - content: The Internet's integration into daily routines has changed how individuals,
+      corporations, and governments interact. It enables virtual realities and environments
+      for work and socialization, blurring the lines between physical and digital
+      existence. This shift raises new questions about community, identity, and the
+      nature of human interaction in a digital age.
+    type: Implications and Lived Experience
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The article emphasizes that the Internet has evolved from a technical
+      tool to a lived environment affecting all aspects of society. It is not limited
+      to technical or research use, nor is it only present in developed countries,
+      though access does vary globally.
+    options:
+    - It is primarily a technical tool for data transfer.
+    - It has become a lived environment integral to daily life.
+    - Its use is limited to government and academic research.
+    - It is only accessible in developed countries.
+    question_text: Which of the following best describes the societal impact of the
+      Internet according to the article?
+  index: 180
+  key_concept: Society and the Internet
+  name: Society and the Internet
+- aspects:
+  - content: 'The Internet emerged from the convergence of two distinct technological
+      agendas: the U.S. military''s Cold War networking efforts and the personal computer
+      (PC) revolution. DARPA''s ARPANET project in the 1970s aimed to create a robust,
+      decentralized network for transferring large data files among government and
+      research labs, laying the groundwork for modern networking.'
+    type: Historical Origins
+  - content: The introduction of affordable personal computers like the Apple II (1977)
+      and the IBM PC (1981) made computing accessible to individuals and small businesses.
+      The standardization of PC hardware and operating systems, especially by IBM,
+      facilitated widespread adoption and compatibility, fueling the growth of networked
+      computing.
+    type: Personal Computing Revolution
+  - content: The Bay Area's counterculture and electronic hobbyist movements played
+      a crucial role in democratizing computing, challenging the centralized 'priesthood'
+      of mainframes. This grassroots ethos encouraged collaborative innovation and
+      the spread of computing to the masses, setting the stage for the participatory
+      culture of the Internet.
+    type: Cultural and Social Context
+  - content: The dual origins—military robustness and personal empowerment—shaped
+      the Internet's architecture and culture. This synthesis enabled both secure,
+      resilient networking and user-driven innovation, influencing everything from
+      online communities to the open-source movement.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The article identifies the U.S. military's networking (ARPANET) and
+      the personal computer revolution as the foundational agendas that converged
+      to create the modern Internet.
+    options:
+    - Corporate expansion and mobile technology
+    - Military networking and the personal computer revolution
+    - Television broadcasting and print media
+    - Social media and online gaming
+    question_text: What are the two main agendas that led to the development of the
+      Internet?
+  index: 304
+  key_concept: Two agendas
+  name: Two agendas
+- aspects:
+  - content: The WELL (Whole Earth 'Lectronic Link) was one of the earliest electronic
+      bulletin board systems (BBS), founded in 1985 by Stewart Brand. It served as
+      a pioneering online community where users could participate in subject-focused
+      forums, laying the groundwork for modern online social interaction.
+    type: Definition and Significance
+  - content: 'The WELL exemplified features now common in online communities: geographic
+      irrelevance, collective problem-solving, and emotional support. For instance,
+      members rallied to help a parent whose child was diagnosed with leukemia, demonstrating
+      the Internet''s capacity to marshal resources and provide community beyond physical
+      boundaries.'
+    type: Community Features and Culture
+  - content: WELL forums were moderated to maintain focus and civility, with mechanisms
+      to discipline disruptive users and the freedom to create new forums if disagreements
+      arose. This democratic, self-organizing structure influenced later developments
+      in online governance and community management.
+    type: Moderation and Governance
+  - content: The WELL became a template for diverse online communities, from religious
+      and political groups to hobbyist forums. Its model of subject-based discussion,
+      user moderation, and real-world meetups foreshadowed the rise of chat rooms,
+      social networks, and specialized online groups.
+    type: Legacy and Influence
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The WELL was notable for its subject-based forums, democratic moderation,
+      and open, community-driven participation, rather than geographic or commercial
+      restrictions.
+    options:
+    - Strict geographic membership requirements
+    - Subject-based forums and democratic moderation
+    - Exclusive access for academic researchers
+    - Focus on commercial transactions
+    question_text: Which of the following features distinguished the WELL as an early
+      online community?
+  index: 312
+  key_concept: The WELL
+  name: The [WELL](https://www.britannica.com/topic/The-WELL-Internet-community "https://www.britannica.com/topic/The-WELL-Internet-community")
+- aspects:
+  - content: Instant broadcast communication refers to the rapid, mass dissemination
+      of information and coordination via Internet tools such as email, instant messaging
+      (IM), and social media. These technologies have replaced or supplemented traditional
+      communication forms like postal mail and phone calls.
+    type: Definition and Evolution
+  - content: Email and IM have enabled everything from 'smart mobs'—spontaneous gatherings
+      organized online—to large-scale protests, disaster response, and performance
+      art. Notable examples include the 1999 WTO protests in Seattle and the 2011
+      Egyptian revolution, both coordinated using online platforms.
+    type: Examples and Use Cases
+  - content: The speed and reach of Internet communication have transformed social
+      organization, activism, and even emergency response. Social media has empowered
+      grassroots movements, facilitated charitable giving, and allowed for rapid information
+      sharing during crises, although its effectiveness can be limited by infrastructure
+      failures.
+    type: Social and Political Implications
+  - content: While the Internet can facilitate communication during disasters, its
+      utility depends on the survival of supporting infrastructure. For example, during
+      9/11, email was more reliable than phone calls, but in the Haiti earthquake,
+      text messaging filled gaps for those without Internet access. Flash mobs illustrate
+      the playful as well as serious uses of instant communication.
+    type: Edge Cases and Limitations
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Instant broadcast communication enables rapid, large-scale organization
+      and coordination, as demonstrated by protests and disaster responses. It is
+      not limited to entertainment or local participation.
+    options:
+    - It has made events slower to organize due to technical barriers.
+    - It allows rapid, large-scale mobilization and coordination across distances.
+    - It restricts participation to local communities only.
+    - It is only used for entertainment purposes like flash mobs.
+    question_text: How has instant broadcast communication via the Internet changed
+      the organization of social and political events?
+  index: 324
+  key_concept: Instant broadcast communication
+  name: Instant broadcast communication

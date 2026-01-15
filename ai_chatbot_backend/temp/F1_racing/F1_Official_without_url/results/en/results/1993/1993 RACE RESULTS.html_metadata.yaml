@@ -1,0 +1,202 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A summary page from the official Formula 1 website presenting the
+  1993 F1 race results, a list of official partners, and promotional information about
+  the official F1 app.
+file_name: 1993 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1993/1993 RACE RESULTS.html
+file_uuid: b3ee4aa8-a60a-55fb-9f47-22c4766c7aa9
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Williams Renault won the majority of races in 1993, with victories
+    by Alain Prost and Damon Hill, as shown in the season results.
+  knowledge_areas:
+  - 1993 Formula 1 Race Results
+  options:
+  - Williams Renault
+  - McLaren Ford
+  - Benetton Ford
+  - Ferrari
+  question_id: 1
+  question_text: Which team achieved the most race wins in the 1993 Formula 1 season
+    according to the results table?
+  question_type: recap
+- correct_answers:
+  - 3
+  explanation: Nigel Mansell did not win a Grand Prix in 1993; the winners listed
+    are Prost, Senna, Hill, and Schumacher.
+  knowledge_areas:
+  - 1993 Formula 1 Race Results
+  options:
+  - Ayrton Senna
+  - Damon Hill
+  - Michael Schumacher
+  - Nigel Mansell
+  question_id: 2
+  question_text: Which of the following drivers did NOT win a Grand Prix in the 1993
+    season?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: TAG Heuer is listed as an official partner, while Adidas, Sony, and
+    Shell are not mentioned in the provided partner list.
+  knowledge_areas:
+  - Formula 1 Official Partners
+  options:
+  - TAG Heuer
+  - Adidas
+  - Sony
+  - Shell
+  question_id: 3
+  question_text: Which of the following brands is featured as a Formula 1 official
+    partner in the document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app is promoted as providing live timing, news, and exclusive content,
+    not as a primary ticket sales or video streaming platform.
+  knowledge_areas:
+  - Official F1 App Promotion
+  options:
+  - To provide live timing, news, and exclusive F1 content
+  - To sell tickets for upcoming races
+  - To stream full race replays for free
+  - To offer behind-the-scenes team interviews only
+  question_id: 4
+  question_text: What is the main purpose of the Official F1 App as described in the
+    document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Partners provide financial and technological support, while the app
+    enhances digital engagement, together improving the overall fan experience.
+  knowledge_areas:
+  - Formula 1 Official Partners
+  - Official F1 App Promotion
+  options:
+  - By funding teams and providing digital engagement platforms
+  - By determining race results and driver standings
+  - By organizing race schedules and qualifying sessions
+  - By manufacturing F1 cars and engines
+  question_id: 5
+  question_text: How do the official partners and the F1 app collectively contribute
+    to the fan experience according to the document?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1993 Formula 1 Race Results refer to the compiled outcomes of each
+      Grand Prix event held during the 1993 FIA Formula One World Championship season.
+      This includes the race winners, their teams, the number of laps completed, and
+      the total race time for each event.
+    type: Definition
+  - content: Examples from the 1993 season include Alain Prost winning the South African
+      Grand Prix for Williams Renault, Ayrton Senna winning the Brazilian Grand Prix
+      for McLaren Ford, and Michael Schumacher taking victory in Portugal for Benetton
+      Ford. Each result lists the Grand Prix, date, winner, team, laps, and time.
+    type: Examples
+  - content: These results are crucial for determining championship standings for
+      both drivers and teams. The 1993 season is notable for the dominance of Williams
+      Renault and the fierce rivalry between Alain Prost and Ayrton Senna. The results
+      table also serves as a historical record, providing context for the evolution
+      of teams, driver careers, and technological advancements in F1.
+    type: Implications and Context
+  - content: The race results connect to broader F1 topics such as driver and team
+      standings, season-long strategies, and the impact of individual race outcomes
+      on the championship. They are also linked to statistical analysis, fan engagement,
+      and the commercial aspects of the sport, such as sponsorship and media coverage.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Alain Prost won the most races in 1993, driving for Williams Renault.
+      Ayrton Senna and Damon Hill also won several races, but Prost had the highest
+      number of victories.
+    options:
+    - Ayrton Senna
+    - Alain Prost
+    - Damon Hill
+    - Michael Schumacher
+    question_text: Which driver won the most races in the 1993 Formula 1 season?
+  index: 149
+  key_concept: 1993 Formula 1 Race Results
+  name: 1993 RACE RESULTS
+- aspects:
+  - content: Formula 1 Official Partners are companies and brands that have formal
+      sponsorship agreements with Formula 1, providing financial support and often
+      engaging in co-marketing activities. These partnerships are integral to the
+      commercial ecosystem of the sport.
+    type: Definition
+  - content: Examples of official partners listed include LVMH, Pirelli, Aramco, Heineken,
+      AWS, Lenovo, DHL, Qatar Airways, MSC Cruises, Crypto.com, Salesforce, Louis
+      Vuitton, TAG Heuer, Moet Hennessy, American Express, Santander, Allwyn, Globant,
+      Las Vegas Convention and Visitors Authority, Paramount+, Barilla, Liqui Moly,
+      Nestle, PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds. Each of these
+      brands is featured with logos and links to their websites.
+    type: Examples
+  - content: Official partners play a significant role in funding the sport, enabling
+      technological innovation, and enhancing the fan experience through activations
+      and promotions. These relationships often extend beyond simple sponsorship,
+      involving collaborative projects, product integration (like Pirelli supplying
+      tires), and global marketing campaigns.
+    type: Implications and Context
+  - content: Partnerships are connected to the financial sustainability of F1, the
+      globalization of the brand, and the integration of technology and lifestyle
+      elements into the sport. They also influence the visibility of F1 in different
+      markets and are often reflected in on-track branding, team liveries, and digital
+      content.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not listed as an official partner in the provided list, while
+      Pirelli, Heineken, and AWS are all featured sponsors.
+    options:
+    - Pirelli
+    - Heineken
+    - Nike
+    - AWS
+    question_text: Which of the following is NOT listed as an official Formula 1 partner
+      in the document?
+  index: 170
+  key_concept: Formula 1 Official Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application provided by Formula 1, offering
+      fans access to live timing, news, schedules, and exclusive content related to
+      the F1 World Championship. It is available for download on both the Apple App
+      Store and Google Play.
+    type: Definition
+  - content: The document provides direct download links for the app on both iOS and
+      Android platforms, indicating its accessibility to a wide audience. The app
+      typically includes features such as live race data, driver and team profiles,
+      push notifications, and multimedia content.
+    type: Examples
+  - content: The promotion of the official app reflects F1's strategy to enhance fan
+      engagement and digital presence. By offering real-time data and exclusive updates,
+      the app helps fans stay connected to the sport, even when not watching live
+      broadcasts. It also serves as a platform for further commercial opportunities,
+      such as in-app advertising and premium content.
+    type: Implications and Context
+  - content: The app is part of F1's broader digital ecosystem, linking to social
+      media, official websites, and other digital products like F1 TV. It complements
+      the experience of following race results and news, as seen in the other sections
+      of the document.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The app is primarily promoted as a source for live race timing, news,
+      and exclusive content. While it may link to merchandise or fantasy, its core
+      function is delivering official F1 information and updates.
+    options:
+    - Providing live race timing and news
+    - Selling team merchandise directly
+    - Broadcasting live video of all races for free
+    - Managing fantasy F1 teams
+    question_text: What is a primary function of the Official F1 App as promoted in
+      the document?
+  index: 180
+  key_concept: Official F1 App Promotion
+  name: Download the Official F1 App

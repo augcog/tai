@@ -1,0 +1,296 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A webpage presenting the official 1983 Formula 1 race results, including
+  a table of Grand Prix winners, race details, and information about F1's commercial
+  partners and official app.
+file_name: 1983 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1983/1983 RACE RESULTS.html
+file_uuid: 7803e71a-4502-5793-9555-247ead653e1b
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The official race results table lists the Grand Prix date, but does
+    not include weather conditions, pit stops, or qualifying positions.
+  knowledge_areas:
+  - 1983 Formula 1 Race Calendar and Results
+  options:
+  - Grand Prix date
+  - Weather conditions
+  - Number of pit stops
+  - Driver's qualifying position
+  question_id: 1
+  question_text: Which of the following details is always included in the official
+    1983 Formula 1 race results table?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Nelson Piquet and Riccardo Patrese both won races for Brabham BMW in
+    1983.
+  knowledge_areas:
+  - F1 Race Winners and Teams in 1983
+  options:
+  - Nelson Piquet and Riccardo Patrese
+  - Alain Prost and Patrick Tambay
+  - Rene Arnoux and Michele Alboreto
+  - John Watson and Keke Rosberg
+  question_id: 2
+  question_text: Which drivers won races for Brabham BMW during the 1983 season?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The 1983 season included races on multiple continents, highlighting
+    F1's international presence.
+  knowledge_areas:
+  - Season Structure and Grand Prix Locations
+  options:
+  - By holding races only in Europe
+  - By including Grand Prix events in North America, South America, Europe, and Africa
+  - By having only one race per continent
+  - By rotating circuits every year
+  question_id: 3
+  question_text: How does the 1983 F1 season structure demonstrate the sport's global
+    reach?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Heineken is listed among the official F1 commercial partners; the others
+    are not mentioned in the provided section.
+  knowledge_areas:
+  - F1 Commercial Partners and Sponsorship
+  options:
+  - Heineken
+  - Honda
+  - Shell
+  - Sony
+  question_id: 4
+  question_text: Which of the following brands is listed as an official F1 partner
+    in the document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App is available on both the Apple App Store and Google
+    Play Store, and its main function is to provide live timing, race data, and related
+    content.
+  knowledge_areas:
+  - Official F1 App Availability
+  options:
+  - Apple App Store and Google Play Store; providing live timing and race data
+  - Microsoft Store and Amazon Appstore; offering exclusive F1 merchandise
+  - Apple App Store only; broadcasting live race video
+  - Google Play Store only; organizing fan events
+  question_id: 5
+  question_text: Which platforms offer the Official F1 App for download, and what
+    is its primary function?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1983 Formula 1 Race Calendar and Results refer to the official listing
+      and outcomes of all Grand Prix events held during the 1983 Formula One World
+      Championship season. This includes the names, dates, locations, winners, teams,
+      number of laps, and total race times for each event. The results are typically
+      presented in a tabular format for clarity and comparison.
+    type: Definition
+  - content: For instance, the Brazilian Grand Prix on March 13 was won by Nelson
+      Piquet driving for Brabham BMW, completing 63 laps in 1:48:27.731. Another example
+      is the French Grand Prix on April 17, where Alain Prost claimed victory for
+      Renault over 54 laps. The table lists 15 races, each with unique winners, teams,
+      and race durations.
+    type: Examples
+  - content: These results are used by fans, historians, and analysts to track the
+      progression of the season, compare driver and team performances, and analyze
+      trends such as dominance by certain teams or drivers. They are also referenced
+      for statistical records, media reporting, and regulatory documentation.
+    type: Use Cases
+  - content: The race results determine the allocation of championship points, influencing
+      both driver and constructor standings. They also impact team strategies, sponsorships,
+      and the historical legacy of drivers and teams. Patterns in results can reveal
+      competitive dynamics, technological advances, or regulatory impacts in the sport.
+    type: Implications
+  - content: The 1983 results connect to broader F1 history, allowing comparison with
+      other seasons and forming part of the official archive. They are linked to related
+      data such as driver and team standings, awards like fastest laps, and are often
+      cross-referenced in statistical databases and F1 media content.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: The official race results table lists the Grand Prix winner, their
+      team, and the number of laps completed, but does not include weather conditions.
+    options:
+    - Grand Prix winner's name
+    - Team of the winning driver
+    - Weather conditions during the race
+    - Number of laps completed
+    question_text: Which of the following information is NOT typically included in
+      the official 1983 Formula 1 race results table?
+  index: 148
+  key_concept: 1983 Formula 1 Race Calendar and Results
+  name: 1983 RACE RESULTS
+- aspects:
+  - content: This concept refers to the identification of drivers and their respective
+      teams who won each Grand Prix during the 1983 Formula One season. The table
+      provides a clear record of which driver and team triumphed at each event.
+    type: Definition
+  - content: Notable winners include Nelson Piquet (Brabham BMW), Alain Prost (Renault),
+      Rene Arnoux (Ferrari), and Riccardo Patrese (Brabham BMW). For example, Alain
+      Prost won the French, Belgian, British, and Austrian Grands Prix for Renault,
+      while Rene Arnoux secured victories for Ferrari in Canada, Germany, and the
+      Netherlands.
+    type: Examples
+  - content: The distribution of winners and teams reflects the competitive landscape
+      of the 1983 season, with certain teams like Brabham BMW, Renault, and Ferrari
+      achieving multiple victories. This can indicate the relative performance and
+      reliability of cars, as well as driver skill and team strategy.
+    type: Context
+  - content: Understanding which drivers and teams won races helps explain the championship
+      standings and the eventual World Champion. Multiple wins by a driver or team
+      often correlate with higher positions in the overall rankings and greater influence
+      in the sport's history.
+    type: Implications
+  - content: Race winners and teams are directly connected to the championship points
+      system, driver and constructor standings, and are frequently referenced in historical
+      analyses, documentaries, and F1 statistics. This information also feeds into
+      fan discussions and media coverage.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    - 2
+    explanation: Both Brabham BMW (Nelson Piquet and Riccardo Patrese) and Ferrari
+      (Patrick Tambay and Rene Arnoux) had more than one driver win races in 1983.
+    options:
+    - Brabham BMW
+    - Renault
+    - Ferrari
+    - McLaren Ford
+    question_text: Which team had multiple different drivers win races during the
+      1983 season, according to the race results?
+  index: 148
+  key_concept: F1 Race Winners and Teams in 1983
+  name: 1983 RACE RESULTS
+- aspects:
+  - content: Season structure refers to the organization of the 1983 Formula One World
+      Championship, including the number of races, their chronological order, and
+      the geographical locations where each Grand Prix took place. The calendar is
+      a key component in understanding the flow and logistics of the season.
+    type: Definition
+  - content: The 1983 season included 15 Grand Prix events held in countries such
+      as Brazil, the United States (West and Detroit), France, San Marino, Monaco,
+      Belgium, Canada, Great Britain, Germany, Austria, Netherlands, Italy, a European
+      GP in Great Britain, and South Africa. The season started in Brazil on March
+      13 and concluded in South Africa on October 15.
+    type: Examples
+  - content: The selection and sequence of Grand Prix locations reflect the international
+      nature of Formula 1, logistical considerations, and the sport's historical ties
+      to certain circuits. The inclusion of multiple races in the United States and
+      Great Britain demonstrates the importance of those markets.
+    type: Context
+  - content: The structure and locations of the races affect team travel, car setup
+      for different tracks, and fan engagement across different regions. They also
+      influence championship dynamics, as certain tracks may favor specific teams
+      or drivers due to technical or climatic factors.
+    type: Implications
+  - content: The race calendar is linked to broader F1 operations, including scheduling,
+      broadcasting, and commercial partnerships. It also interacts with team logistics,
+      driver preparation, and the historical evolution of the championship calendar.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The 1983 season featured races in various countries across different
+      continents, including South America, North America, Europe, and Africa.
+    options:
+    - All races were held in Europe.
+    - The season included Grand Prix events on multiple continents.
+    - Each country hosted only one race.
+    - The season started and ended in the same country.
+    question_text: Which of the following statements best describes the structure
+      of the 1983 Formula 1 season?
+  index: 148
+  key_concept: Season Structure and Grand Prix Locations
+  name: 1983 RACE RESULTS
+- aspects:
+  - content: F1 commercial partners and sponsors are companies and brands that have
+      official business relationships with Formula 1, providing financial support,
+      products, or services in exchange for marketing exposure and association with
+      the sport. These partnerships are essential for the commercial viability and
+      global reach of F1.
+    type: Definition
+  - content: Major partners listed include LVMH, Pirelli, Aramco, Heineken, AWS, Lenovo,
+      DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton, TAG Heuer, Moet
+      Hennessy, American Express, Santander, Allwyn, Globant, Las Vegas Convention
+      and Visitors Authority, Paramount+, Barilla, Liqui Moly, Nestle, PwC, PepsiCo,
+      Puma, TATA, Aggreko, BBS, and McDonalds. These brands represent a diverse range
+      of industries, from luxury goods to technology and logistics.
+    type: Examples
+  - content: Sponsorships are used for brand visibility through car liveries, trackside
+      advertising, event naming rights, and digital content. Partners may also provide
+      technical expertise (e.g., AWS for data analytics), products (e.g., Pirelli
+      tires), or hospitality services. These relationships enhance the fan experience
+      and support F1's technological innovation.
+    type: Use Cases
+  - content: Commercial partnerships are vital for F1's financial health, enabling
+      investment in new technologies, safety improvements, and global expansion. They
+      also shape the public image of the sport and can influence its sustainability
+      and inclusivity initiatives.
+    type: Implications
+  - content: F1's partners are connected to team sponsorships, race event branding,
+      and fan engagement strategies. Their presence is visible across F1 media, merchandise,
+      and at live events, and they often collaborate on promotional campaigns and
+      activations.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Toyota is not listed as a commercial partner in the provided section,
+      while AWS, Pirelli, and Heineken are.
+    options:
+    - AWS
+    - Pirelli
+    - Toyota
+    - Heineken
+    question_text: Which of the following is NOT an example of a Formula 1 commercial
+      partner listed in the document?
+  index: 168
+  key_concept: F1 Commercial Partners and Sponsorship
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application provided by Formula 1, offering
+      fans access to live timing, race data, news, and exclusive content. It is an
+      official digital platform designed to enhance the fan experience and engagement
+      with the sport.
+    type: Definition
+  - content: The app is available for download on both the Apple App Store and Google
+      Play Store, making it accessible to users of iOS and Android devices. It provides
+      features such as live race updates, driver and team information, and interactive
+      content.
+    type: Examples
+  - content: Fans use the app to follow races in real-time, receive notifications
+      about news and results, and access multimedia content. It serves as a companion
+      during race weekends and a source of information throughout the season.
+    type: Use Cases
+  - content: The availability of the app on major platforms increases F1's digital
+      reach and allows for more personalized fan engagement. It also provides opportunities
+      for data collection, targeted marketing, and integration with other F1 digital
+      services.
+    type: Implications
+  - content: The app is linked to F1's broader digital ecosystem, including its website,
+      social media, and streaming services. It supports the sport's strategy to modernize
+      fan interactions and expand its global audience.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App is primarily described as offering live timing,
+      race data, and related content, not as a merchandise store or event organizer.
+    options:
+    - Providing live timing and race data
+    - Selling official F1 merchandise
+    - Broadcasting live race video
+    - Organizing fan meet-and-greet events
+    question_text: What is a primary function of the Official F1 App as described
+      in the document?
+  index: 178
+  key_concept: Official F1 App Availability
+  name: Download the Official F1 App

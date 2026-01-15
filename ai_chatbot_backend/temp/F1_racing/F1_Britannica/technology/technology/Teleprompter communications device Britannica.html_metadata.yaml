@@ -1,0 +1,161 @@
+URL: https://www.britannica.com/technology/teleprompter
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Britannica encyclopedia entry on the teleprompter, including its
+  function as a communications device and a case study of its use by Donald Trump
+  during the 2016 U.S. presidential campaign.
+file_name: Teleprompter communications device Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Teleprompter communications
+  device Britannica.html
+file_uuid: 5190f0e4-c3b8-571a-8e29-d0fe388e00d0
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: A teleprompter is designed to display a prepared script in a way that
+    allows the speaker to maintain eye contact with the audience or camera, ensuring
+    smooth and confident delivery.
+  knowledge_areas:
+  - teleprompter
+  - definition
+  options:
+  - To display a script for the speaker while allowing eye contact with the audience
+  - To record the speaker's voice for later playback
+  - To provide background music during presentations
+  - To translate speeches in real-time
+  question_id: 1
+  question_text: What is the primary function of a teleprompter in public speaking?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Trump's use of the teleprompter helped ensure that his speeches maintained
+    a substantive policy framework, particularly aimed at appealing to middle-class
+    voters in Midwestern states.
+  knowledge_areas:
+  - use by Trump
+  - implications
+  options:
+  - His speeches became less structured and more spontaneous
+  - He was able to deliver consistent, policy-focused messages to targeted voter groups
+  - He stopped campaigning in Midwestern states
+  - His speeches were primarily focused on entertainment
+  question_id: 2
+  question_text: Which of the following was a key effect of Donald Trump's use of
+    a teleprompter during his 2016 general election campaign?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Teleprompters are widely used in television broadcasting, political
+    addresses, and live events to facilitate smooth delivery of scripted content.
+  knowledge_areas:
+  - teleprompter
+  - examples
+  options:
+  - Television news broadcasts, political speeches, and live events
+  - Only in private meetings
+  - Primarily in music concerts
+  - For translating foreign language films
+  question_id: 3
+  question_text: In which types of settings are teleprompters commonly used?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The adoption of teleprompters in politics exemplifies the trend toward
+    leveraging technology for message control and targeted communication.
+  knowledge_areas:
+  - teleprompter
+  - use by Trump
+  - connections
+  options:
+  - It shows a move away from technology in politics
+  - It reflects the increasing use of technology to deliver precise, controlled messaging
+  - It eliminates the need for any public speaking skills
+  - It is only relevant for entertainment industries
+  question_id: 4
+  question_text: How does the use of a teleprompter relate to the broader trends in
+    political communication?
+  question_type: recap
+sections:
+- aspects:
+  - content: A teleprompter is a communications device that displays a prepared script
+      or text in front of a camera lens, allowing speakers or presenters to read their
+      lines while maintaining direct eye contact with the audience or camera. It is
+      widely used in television broadcasting, political speeches, and live events
+      to facilitate smooth and confident delivery of information. The device typically
+      consists of a monitor and a reflective glass positioned so that the text is
+      visible to the speaker but invisible to the audience.
+    type: definition
+  - content: Teleprompters are used by news anchors to read news stories seamlessly
+      on live television, by politicians during public addresses to ensure message
+      consistency, and by actors or hosts during award shows or live events. For instance,
+      during presidential debates or campaign speeches, candidates often use teleprompters
+      to maintain focus and avoid misstatements.
+    type: examples
+  - content: The use of teleprompters can enhance the professionalism and clarity
+      of a speech, help speakers avoid errors or omissions, and ensure that complex
+      policy points are communicated accurately. However, reliance on teleprompters
+      may sometimes be criticized as making speakers appear less spontaneous or overly
+      scripted, potentially impacting public perception.
+    type: implications
+  - content: Teleprompters are related to other communication technologies such as
+      cue cards and earpieces, but they offer the advantage of allowing for direct
+      eye contact with the audience. Their development reflects broader trends in
+      media and politics toward the integration of technology to optimize public communication.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: A teleprompter's main function is to display a script in a way that
+      allows the speaker to maintain eye contact with the audience or camera, ensuring
+      smooth delivery. It is not primarily used for recording audio, amplifying sound,
+      or translating speeches.
+    options:
+    - To record audio during live events
+    - To display a prepared script for a speaker while maintaining eye contact with
+      the audience
+    - To amplify a speaker's voice in large venues
+    - To provide real-time translation of speeches
+    question_text: Which of the following best describes the primary function of a
+      teleprompter?
+  index: 118
+  key_concept: teleprompter
+  name: teleprompter
+- aspects:
+  - content: During the 2016 United States presidential election, Donald Trump made
+      notable use of the teleprompter in his general election campaign speeches. This
+      marked a strategic shift, as Trump had previously been known for his unscripted
+      speaking style during the primaries.
+    type: context
+  - content: The use of the teleprompter ensured that Trump's speeches maintained
+      a substantive policy framework, focusing on his core strategy of appealing to
+      middle-class, mostly white voters in Midwestern states affected by globalization
+      and job losses. This approach helped deliver consistent messaging and targeted
+      communication to key demographics.
+    type: implications
+  - content: Trump's teleprompter-assisted speeches were delivered in critical swing
+      states such as Ohio, Iowa, Michigan, Wisconsin, and Pennsylvania. The use of
+      the device allowed for energetic campaigning while ensuring that policy points
+      were not lost or misrepresented.
+    type: examples
+  - content: Trump's adoption of the teleprompter reflects a broader trend in modern
+      political campaigning, where technology is leveraged to craft and deliver precise,
+      impactful messages. It also highlights the balance between authenticity and
+      message control in political communication.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The teleprompter was used to ensure that Trump's speeches had a substantive
+      policy framework, particularly aimed at appealing to middle-class voters in
+      Midwestern states. It did not reduce policy focus, limit campaign locations,
+      or serve primarily for translation.
+    options:
+    - It made his speeches less focused on policy.
+    - It ensured every speech had a substantive policy framework targeting key voter
+      groups.
+    - It limited his ability to campaign in Midwestern states.
+    - It was used mainly for translating his speeches into other languages.
+    question_text: How did the use of a teleprompter influence Donald Trump's campaign
+      speeches during the 2016 general election?
+  index: 128
+  key_concept: use by Trump
+  name: use by Trump

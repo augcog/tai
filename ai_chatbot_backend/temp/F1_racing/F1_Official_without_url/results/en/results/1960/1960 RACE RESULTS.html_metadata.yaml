@@ -1,0 +1,206 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page summary providing the official 1960 Formula 1 race results,
+  a list of F1's commercial partners, and links to download the official F1 mobile
+  app.
+file_name: 1960 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1960/1960 RACE RESULTS.html
+file_uuid: af36af41-83a5-5b10-af4e-0eb7d753cb9e
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Cooper Climax, largely through the efforts of Jack Brabham, won the
+    majority of races in 1960, demonstrating their dominance that season.
+  knowledge_areas:
+  - 1960 Formula 1 Race Results
+  options:
+  - Ferrari
+  - Cooper Climax
+  - Lotus Climax
+  - Watson Offenhauser
+  question_id: 1
+  question_text: Which team won the majority of races in the 1960 Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: AWS (Amazon Web Services) is a technology partner providing data analytics
+    and cloud computing services to F1, while Barilla is a food brand, Heineken a
+    beverage sponsor, and MSC a logistics company.
+  knowledge_areas:
+  - F1 Commercial Partners
+  options:
+  - AWS
+  - Barilla
+  - Heineken
+  - MSC
+  question_id: 2
+  question_text: Which of the following companies is a technology partner of Formula
+    1?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The Italian Grand Prix was won by Phil Hill driving for Ferrari, not
+    Cooper Climax. The other listed races were won by Jack Brabham for Cooper Climax.
+  knowledge_areas:
+  - 1960 Formula 1 Race Results
+  options:
+  - French Grand Prix
+  - Italian Grand Prix
+  - Portuguese Grand Prix
+  - Belgian Grand Prix
+  question_id: 3
+  question_text: Which race in the 1960 season was won by a driver NOT racing for
+    Cooper Climax?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 Mobile App is designed for fans to access live race
+    data, news, and schedules. Supplying tires, managing logistics, and sponsoring
+    events are handled by other partners.
+  knowledge_areas:
+  - Official F1 Mobile App
+  options:
+  - To provide live race data and official F1 news
+  - To supply racing tires to teams
+  - To manage F1 team logistics
+  - To sponsor Grand Prix events
+  question_id: 4
+  question_text: What is the main purpose of the Official F1 Mobile App?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: F1 partners like AWS, DHL, and Heineken contribute technical expertise,
+    logistics, and fan engagement, in addition to financial support. They do not participate
+    as drivers, circuit designers, or race officials.
+  knowledge_areas:
+  - F1 Commercial Partners
+  - Official F1 Mobile App
+  options:
+  - By providing technical solutions, logistics, and fan engagement initiatives
+  - By driving in races
+  - By designing race circuits
+  - By determining race results
+  question_id: 5
+  question_text: How do F1 commercial partners contribute to the sport beyond financial
+    sponsorship?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1960 Formula 1 race results refer to the official outcomes of each
+      Grand Prix event held during the 1960 F1 World Championship season, including
+      information such as the Grand Prix location, date, winner, team, number of laps,
+      and winning time. This data serves as a historical record for the season and
+      is essential for understanding the competitive landscape of Formula 1 during
+      that year.
+    type: Definition
+  - content: Examples from the 1960 season include Bruce McLaren winning the Argentine
+      Grand Prix for Cooper Climax, Stirling Moss winning the Monaco Grand Prix for
+      Lotus Climax, and Jack Brabham securing victories in the Netherlands, Belgium,
+      France, Great Britain, and Portugal, all for Cooper Climax. Phil Hill won the
+      Italian Grand Prix for Ferrari, and Jim Rathmann won the Indianapolis 500 for
+      Watson Offenhauser.
+    type: Examples
+  - content: The results highlight the dominance of certain drivers and teams, such
+      as Jack Brabham and Cooper Climax, who won multiple races. These outcomes influenced
+      the championship standings and the historical reputation of both drivers and
+      constructors. The data also reflects the diversity of circuits and the international
+      nature of the championship, with races held across Europe, the Americas, and
+      Monaco.
+    type: Implications
+  - content: These results are directly connected to the broader historical context
+      of Formula 1, illustrating technological trends (such as the rise of rear-engined
+      cars), the evolution of race strategies, and the emergence of legendary drivers.
+      They also serve as a reference point for comparing modern F1 seasons and understanding
+      the development of the sport over time.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Jack Brabham won the most races in the 1960 season, securing victories
+      in the Netherlands, Belgium, France, Great Britain, and Portugal. Stirling Moss,
+      Bruce McLaren, and Phil Hill each won fewer races.
+    options:
+    - Stirling Moss
+    - Jack Brabham
+    - Bruce McLaren
+    - Phil Hill
+    question_text: Which driver won the most races in the 1960 Formula 1 season?
+  index: 147
+  key_concept: 1960 Formula 1 Race Results
+  name: 1960 RACE RESULTS
+- aspects:
+  - content: F1 commercial partners are companies and brands that have formal sponsorship
+      or business relationships with Formula 1. These partnerships can include financial
+      sponsorship, technical collaborations, and marketing agreements, and they are
+      crucial for the commercial and operational success of the sport.
+    type: Definition
+  - content: Notable F1 partners listed include luxury brands (LVMH, Louis Vuitton),
+      technology companies (AWS, Lenovo, Salesforce), logistics (DHL), tire suppliers
+      (Pirelli), airlines (Qatar Airways), beverage companies (Heineken, Moet Hennessy,
+      PepsiCo), and many others such as TAG Heuer, American Express, Santander, and
+      Crypto.com. Each partner typically has a visible presence at events and in F1
+      media.
+    type: Examples
+  - content: 'Partners contribute in various ways: Pirelli supplies tires for all
+      teams, AWS provides cloud computing and data analytics, DHL manages logistics,
+      and Heineken sponsors races and fan engagement initiatives. These collaborations
+      enhance the technological, logistical, and entertainment aspects of Formula
+      1.'
+    type: Use Cases
+  - content: Commercial partnerships provide essential funding and resources, enabling
+      F1 to maintain its global reach and technological advancement. They also shape
+      the fan experience through branded content, promotions, and innovative services.
+      The diversity of partners reflects F1's appeal across multiple industries and
+      markets.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not listed among the official F1 partners in the provided
+      section, while Pirelli, AWS, and Heineken are all mentioned as partners.
+    options:
+    - Pirelli
+    - AWS
+    - Nike
+    - Heineken
+    question_text: Which of the following is NOT listed as an official Formula 1 partner?
+  index: 162
+  key_concept: F1 Commercial Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 Mobile App is a smartphone application provided by Formula
+      1, available for download on both the Apple App Store and Google Play. It serves
+      as a digital platform for fans to access live race data, news, schedules, and
+      exclusive content related to the F1 World Championship.
+    type: Definition
+  - content: Fans use the app to follow live timing during races, receive notifications
+      about breaking news or schedule changes, watch highlights, and access detailed
+      information about drivers, teams, and circuits. The app enhances fan engagement
+      by providing real-time updates and interactive features.
+    type: Use Cases
+  - content: The app represents F1's commitment to digital innovation and global fan
+      outreach. By offering a centralized source for official information and multimedia,
+      it increases accessibility and strengthens the connection between the sport
+      and its worldwide audience.
+    type: Implications
+  - content: The app ties into F1's broader digital ecosystem, complementing its website,
+      social media channels, and F1 TV streaming service. It is part of a trend in
+      major sports toward direct-to-consumer digital engagement, offering fans a personalized
+      and immersive experience.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The Official F1 Mobile App is intended for fans to access live race
+      data, news, and other official content. Supplying tires, managing logistics,
+      and designing cars are functions of other F1 partners or teams.
+    options:
+    - Supplying tires to F1 teams
+    - Providing live race data and news to fans
+    - Managing team logistics
+    - Designing F1 race cars
+    question_text: What is a primary function of the Official F1 Mobile App?
+  index: 172
+  key_concept: Official F1 Mobile App
+  name: Download the Official F1 App

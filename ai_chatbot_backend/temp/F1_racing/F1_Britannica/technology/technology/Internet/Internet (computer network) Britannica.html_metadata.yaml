@@ -1,0 +1,253 @@
+URL: https://www.britannica.com/technology/Internet/images-videos
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Britannica media resource page for the Internet, featuring curated
+  videos, images, and interactives that illustrate key concepts such as how the Internet
+  works, its history, net neutrality, the dark web, cyberbullying, and the impact
+  of Internet language.
+file_name: Internet (computer network) Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Internet/Internet (computer
+  network) Britannica.html
+file_uuid: 1e8a08b9-0109-5168-b820-9e84a94d67f0
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Protocols like TCP/IP are essential for the reliable transmission of
+    data across interconnected networks, making global communication possible.
+  knowledge_areas:
+  - How the Internet Works
+  options:
+  - To ensure data packets are transmitted reliably across networks
+  - To block access to unauthorized websites
+  - To provide entertainment content
+  - To create computer viruses
+  question_id: 1
+  question_text: What is the primary function of the protocols like TCP/IP in the
+    functioning of the Internet?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: ARPANET was the pioneering network that developed the core technologies
+    and protocols that evolved into the modern Internet.
+  knowledge_areas:
+  - History and Invention of the Internet
+  options:
+  - ARPANET
+  - Facebook
+  - Google
+  - World Wide Web
+  question_id: 2
+  question_text: Which historical project laid the groundwork for the modern Internet?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Net neutrality requires ISPs to provide equal access to all data, without
+    favoritism or discrimination.
+  knowledge_areas:
+  - Net Neutrality
+  options:
+  - The principle that ISPs must treat all Internet data equally
+  - A method for encrypting data
+  - A tool for blocking harmful websites
+  - A government agency regulating the Internet
+  question_id: 3
+  question_text: 'Net neutrality is best described as:'
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The dark web is a small, specialized part of the web that is not indexed
+    by standard search engines and is accessible only with specific tools.
+  knowledge_areas:
+  - Dark Web and Internet Safety
+  options:
+  - It is not indexed by standard search engines and requires special access.
+  - It contains the most popular websites like Google and Facebook.
+  - It is safer and more regulated than the surface web.
+  - It is accessible to everyone without restrictions.
+  question_id: 4
+  question_text: Which of the following best distinguishes the dark web from the surface
+    web?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Internet has created new forms of language and communication, as
+    well as challenges like cyberbullying, but has not eliminated traditional communication
+    or restricted information access.
+  knowledge_areas:
+  - Impact of the Internet on Communication and Society
+  options:
+  - By introducing new language forms and enabling phenomena like cyberbullying
+  - By eliminating all forms of written communication
+  - By making face-to-face conversation obsolete
+  - By restricting access to global information
+  question_id: 5
+  question_text: How has the Internet influenced modern communication and social interaction?
+  question_type: recap
+sections:
+- aspects:
+  - content: How the Internet works refers to the fundamental processes and protocols
+      that enable digital communication and data transfer between computers and devices
+      globally. It involves the transmission of data packets through interconnected
+      networks using standardized protocols such as TCP/IP.
+    type: Definition
+  - content: A video titled 'How does the Internet really work?' illustrates the journey
+      of a data packet from a user's device to its destination, showing how routers,
+      switches, and servers cooperate to ensure data arrives correctly and efficiently.
+    type: Example
+  - content: Understanding how the Internet works is crucial for cybersecurity, network
+      management, and troubleshooting. It underpins all online activities, from web
+      browsing to streaming, and highlights the importance of net infrastructure and
+      protocol standardization.
+    type: Implications
+  - content: This concept connects with topics such as net neutrality, the dark web,
+      and cyberbullying, as all rely on the underlying structure and openness of the
+      Internet for their existence and regulation.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Internet works by transmitting data packets using protocols like
+      TCP/IP across a global network of interconnected devices, not by limiting communication
+      to local areas, relying only on wireless, or centralizing all data.
+    options:
+    - It transmits data packets using standardized protocols across interconnected
+      networks.
+    - It only allows communication between computers in the same building.
+    - It relies solely on wireless signals to connect devices.
+    - It stores all information on a single central server.
+    question_text: Which of the following best describes how the Internet works?
+  index: 201
+  key_concept: How the Internet Works
+  name: Videos
+- aspects:
+  - content: The history and invention of the Internet covers the development from
+      early networking projects like ARPANET to the creation of a global, publicly
+      accessible network. It includes technological, social, and political milestones
+      that shaped its evolution.
+    type: Definition
+  - content: The video 'How was the Internet invented?' discusses key events such
+      as the launch of ARPANET, the introduction of TCP/IP protocols, and the eventual
+      expansion to commercial and personal use in the late 20th century.
+    type: Example
+  - content: The Internet's invention was driven by the need for reliable communication
+      during the Cold War and was later propelled by academic and commercial interests.
+      It reflects the intersection of government, academia, and private sector innovation.
+    type: Context
+  - content: Understanding the Internet's history helps contextualize current debates
+      over regulation, privacy, and access. It also reveals how technological advancements
+      can have widespread societal impact.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: ARPANET was the foundational project that led to the development
+      of the Internet, while the World Wide Web is a later application, and Google
+      and Pegasus Spyware are much more recent.
+    options:
+    - ARPANET
+    - World Wide Web
+    - Google
+    - Pegasus Spyware
+    question_text: Which early project is most closely associated with the invention
+      of the Internet?
+  index: 201
+  key_concept: History and Invention of the Internet
+  name: Videos
+- aspects:
+  - content: Net neutrality is the principle that Internet service providers (ISPs)
+      must treat all data on the Internet equally, without discriminating or charging
+      differently based on user, content, website, or platform.
+    type: Definition
+  - content: A video titled 'What is net neutrality?' explains that under net neutrality,
+      ISPs cannot prioritize streaming services like Netflix over others or slow down
+      access to competing platforms.
+    type: Example
+  - content: Net neutrality affects access to information, competition among online
+      services, and the openness of the Internet. Its regulation is a subject of political
+      debate, with significant consequences for consumers and businesses.
+    type: Implications
+  - content: Net neutrality is closely linked to digital rights, freedom of expression,
+      and the economic structure of online services. Changes in net neutrality laws
+      can impact innovation and user experience.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Net neutrality requires ISPs to treat all data equally, not to block,
+      prioritize, or charge differentially for specific content or services.
+    options:
+    - To treat all data equally regardless of source or content
+    - To block access to certain websites
+    - To prioritize their own streaming services
+    - To charge more for social media access
+    question_text: What does net neutrality require of Internet service providers?
+  index: 201
+  key_concept: Net Neutrality
+  name: Videos
+- aspects:
+  - content: The dark web is a part of the World Wide Web that is not indexed by standard
+      search engines and requires specific software, configurations, or authorization
+      to access. It is often associated with anonymity and illicit activities.
+    type: Definition
+  - content: The video 'What is the dark web?' distinguishes between the surface web,
+      deep web, and dark web, noting that the dark web is a small portion of the total
+      web but has a high profile due to its association with illegal marketplaces
+      and privacy tools.
+    type: Example
+  - content: While the dark web offers privacy and can be used for legitimate purposes,
+      it also poses significant risks, including exposure to illegal content, cybercrime,
+      and malware. Understanding its nature is vital for Internet safety and policy.
+    type: Implications
+  - content: The dark web is linked to broader discussions about Internet regulation,
+      cybersecurity, privacy rights, and law enforcement challenges. Its existence
+      highlights the dual-use nature of Internet technologies.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The dark web is a small, specialized segment of the web that is not
+      accessible via standard search engines and is often used for both privacy and
+      illicit activities.
+    options:
+    - It is a small, unindexed part of the web requiring special access, often associated
+      with anonymity.
+    - It is the entire World Wide Web.
+    - It is the most commonly used part of the Internet.
+    - It is accessible through any standard search engine.
+    question_text: Which statement best describes the dark web?
+  index: 201
+  key_concept: Dark Web and Internet Safety
+  name: Videos
+- aspects:
+  - content: This concept explores how the Internet has transformed communication
+      styles, language, and social interactions, both online and offline. It includes
+      phenomena like cyberbullying and the evolution of 'Internet English.'
+    type: Definition
+  - content: Videos such as 'How to tackle cyberbullying' and 'Discover how internet
+      English affects the spoken English language' provide concrete cases of how digital
+      platforms facilitate new forms of communication and social challenges.
+    type: Example
+  - content: The Internet's impact on communication includes the rapid spread of information,
+      new linguistic trends, and the emergence of online harassment. These changes
+      have profound effects on education, mental health, and cultural norms.
+    type: Implications
+  - content: This topic connects with Internet safety, digital literacy, and the societal
+      responsibilities of technology companies. It also relates to net neutrality
+      and the broader accessibility of digital platforms.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Internet has led to new communication forms, including cyberbullying
+      and evolving language, but has not eliminated privacy issues, restricted information,
+      or ended in-person communication.
+    options:
+    - The emergence of cyberbullying and new forms of language
+    - The elimination of all privacy concerns
+    - The restriction of information flow
+    - The end of face-to-face communication
+    question_text: Which of the following is an effect of the Internet on communication
+      and society?
+  index: 201
+  key_concept: Impact of the Internet on Communication and Society
+  name: Videos

@@ -1,0 +1,228 @@
+URL: https://www.britannica.com/technology/weapon
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Britannica encyclopedia entry providing an overview of weapons,
+  including their definition, classification, types (offensive and defensive), means
+  of delivery, and related key concepts.
+file_name: Weapon Definition, Classification, & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Weapon Definition, Classification,
+  & Facts Britannica.html
+file_uuid: 8def8eef-c806-5031-8dd1-4683ad5e9238
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: The article defines a weapon as an instrument used in combat for the
+    purpose of killing, injuring, or defeating an enemy.
+  knowledge_areas:
+  - Definition and Purpose of Weapons
+  options:
+  - To provide entertainment
+  - To kill, injure, or defeat an enemy
+  - To build structures
+  - To signal for help
+  question_id: 1
+  question_text: What is the primary purpose of a weapon as defined in the Britannica
+    article?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: A crossbow is a missile weapon powered by mechanical means, as opposed
+    to a javelin (muscle-powered) or a sword/helmet (not missile weapons).
+  knowledge_areas:
+  - Classification of Weapons
+  options:
+  - Sword
+  - Crossbow
+  - Javelin
+  - Helmet
+  question_id: 2
+  question_text: Which of the following is an example of a missile weapon powered
+    by mechanical means?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Conventional weapons destroy by kinetic or chemical energy, while nonconventional
+    weapons include nuclear, chemical, and biological types.
+  knowledge_areas:
+  - Classification of Weapons
+  options:
+  - Conventional weapons are always handheld; nonconventional are not.
+  - Conventional weapons destroy by kinetic or chemical energy; nonconventional include
+    nuclear, chemical, and biological weapons.
+  - Nonconventional weapons are used only for defense.
+  - Conventional weapons are made before the 20th century.
+  question_id: 3
+  question_text: Which of the following best describes the difference between conventional
+    and nonconventional weapons?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Weapon platforms include a variety of vehicles such as tanks and aircraft
+    carriers, and are not limited to naval warfare or stationary positions.
+  knowledge_areas:
+  - Weapon Platforms and Delivery Systems
+  options:
+  - Weapon platforms are only used in naval warfare.
+  - Weapon platforms include vehicles like tanks and aircraft carriers.
+  - Weapon platforms are always stationary.
+  - Weapon platforms are a type of missile.
+  question_id: 4
+  question_text: Which of the following statements about weapon platforms is correct
+    according to the article?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The article notes that some equipment, like tanks, can serve both offensive
+    and defensive purposes, illustrating the overlap.
+  knowledge_areas:
+  - Offensive and Defensive Weapons
+  options:
+  - By stating all weapons are only offensive.
+  - By giving examples such as tanks that serve both offensive and defensive roles.
+  - By saying defensive weapons are obsolete.
+  - By listing only ancient weapons as defensive.
+  question_id: 5
+  question_text: How does the article illustrate the overlap between offensive and
+    defensive weapons?
+  question_type: recap
+sections:
+- aspects:
+  - content: A weapon is defined as an instrument used in combat for the purpose of
+      killing, injuring, or defeating an enemy. This broad definition encompasses
+      both offensive and defensive tools utilized in warfare or conflict.
+    type: Definition
+  - content: Examples of weapons range from handheld shock weapons such as clubs,
+      maces, and swords to missile weapons like javelins, slings, and bows and arrows.
+      The diversity of weapons illustrates the evolution of combat tools from simple
+      implements to complex machinery.
+    type: Examples
+  - content: The definition of weapons extends beyond mere objects of violence; it
+      includes any tool designed to give a tactical advantage in conflict. This implies
+      a wide scope, covering both ancient and modern instruments, and blurring the
+      line between offensive and defensive equipment.
+    type: Implications
+  - content: Weapons are central to the study of military technology and have shaped
+      the course of history by influencing the outcomes of wars and the development
+      of societies. Their purpose is not limited to killing but includes injuring
+      or incapacitating enemies, which connects to broader concepts of strategy and
+      defense.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Britannica article defines a weapon as any instrument used in
+      combat for the purpose of killing, injuring, or defeating an enemy, which includes
+      both offensive and defensive tools. The other options are either too narrow
+      or incorrect.
+    options:
+    - Any instrument used in combat to kill, injure, or defeat an enemy.
+    - A tool exclusively designed for hunting animals.
+    - A device used only for defensive purposes.
+    - Any object made of metal.
+    question_text: Which of the following best defines a weapon according to the Britannica
+      article?
+  index: 140
+  key_concept: Definition and Purpose of Weapons
+  name: weapon
+- aspects:
+  - content: Weapons can be classified as shock weapons (handheld, such as clubs and
+      swords), missile weapons (projectiles powered by muscle, mechanical, or chemical
+      means), and by their destructive mechanisms (kinetic or chemical energy). This
+      classification helps in understanding the diverse nature of weaponry across
+      different eras.
+    type: Types
+  - content: Shock weapons include clubs, maces, and swords. Missile weapons include
+      javelins, slings, bows and arrows (muscle-powered), crossbows and catapults
+      (mechanical-powered), and rockets, missiles, cannons, rifles, and pistols (chemical-powered).
+    type: Examples
+  - content: Conventional weapons destroy primarily by kinetic or chemical energy,
+      such as bullets, bombs, and grenades. Nonconventional weapons include nuclear,
+      chemical, and biological weapons, which have distinct mechanisms and implications
+      for warfare.
+    type: Conventional vs. Nonconventional
+  - content: Understanding weapon classification is crucial for military strategy,
+      international law, and arms control. The distinction between conventional and
+      nonconventional weapons is especially significant in discussions of weapons
+      of mass destruction and humanitarian law.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: The article discusses means of power, destructive mechanism, and
+      the distinction between conventional and nonconventional weapons, but does not
+      classify weapons by color.
+    options:
+    - Means of power (muscle, mechanical, chemical)
+    - Destructive mechanism (kinetic or chemical energy)
+    - Color of the weapon
+    - Conventional vs. nonconventional
+    question_text: Which of the following is NOT a classification criterion for weapons
+      mentioned in the article?
+  index: 140
+  key_concept: Classification of Weapons
+  name: weapon
+- aspects:
+  - content: Offensive weapons are designed to attack and inflict harm, such as swords,
+      guns, and bombs. Defensive weapons, while sometimes overlooked, include fortifications,
+      armor, and helmets, which are intended to protect individuals or groups from
+      harm.
+    type: Definition and Distinction
+  - content: Offensive examples include missiles, firearms, and chemical or nuclear
+      bombs. Defensive examples are fortifications (walls, bunkers), personal armor
+      (body armor, helmets), and shields.
+    type: Examples
+  - content: The line between offensive and defensive weapons can be blurred, as some
+      equipment may serve both purposes depending on context. For example, a tank
+      provides both firepower (offensive) and protection (defensive).
+    type: Implications
+  - content: This distinction is important in military strategy, arms control treaties,
+      and ethical debates about warfare. The evolution of weapons often leads to corresponding
+      advancements in defensive technologies.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: The article lists helmets as examples of defensive weapons, while
+      swords, missiles, and bombs are offensive.
+    options:
+    - A sword
+    - A missile
+    - A helmet
+    - A bomb
+    question_text: Which of the following would be considered a defensive weapon according
+      to the article?
+  index: 140
+  key_concept: Offensive and Defensive Weapons
+  name: weapon
+- aspects:
+  - content: Weapon platforms are vehicles or structures designed to carry and deliver
+      weapons. These platforms enhance the effectiveness, range, and mobility of weapons
+      in combat.
+    type: Definition
+  - content: Naval platforms include ships of the line, battleships, submarines, and
+      aircraft carriers. Aerial platforms include fighters, bombers, and helicopters.
+      Ground platforms include chariots and tanks.
+    type: Examples
+  - content: The development of weapon platforms has revolutionized warfare by allowing
+      weapons to be deployed over greater distances and in more varied environments.
+      This has strategic implications for force projection and military logistics.
+    type: Implications
+  - content: Weapon platforms are closely linked to technological advancements in
+      transportation and engineering. Their evolution reflects changes in military
+      tactics and the increasing complexity of warfare.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: The article mentions submarines, tanks, and aircraft carriers as
+      weapon platforms but does not mention bicycles.
+    options:
+    - Submarine
+    - Tank
+    - Bicycle
+    - Aircraft carrier
+    question_text: Which of the following is NOT listed as a weapon platform in the
+      article?
+  index: 140
+  key_concept: Weapon Platforms and Delivery Systems
+  name: weapon

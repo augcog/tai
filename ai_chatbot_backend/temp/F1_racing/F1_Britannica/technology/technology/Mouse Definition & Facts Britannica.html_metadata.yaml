@@ -1,0 +1,241 @@
+URL: https://www.britannica.com/technology/mouse-computer-device
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Britannica encyclopedia entry defining the computer mouse, its
+  functions, types (mechanical and optical), and its invention by Douglas Engelbart.
+file_name: Mouse Definition & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Mouse Definition & Facts
+  Britannica.html
+file_uuid: ee5cf856-ec83-5150-8c0d-143fc8538237
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: A computer mouse is designed to translate hand movements into cursor
+    movement, enabling interaction with graphical elements on the screen.
+  knowledge_areas:
+  - 'Computer mouse: definition and function'
+  options:
+  - To process data internally
+  - To translate hand movements into cursor movement on the display
+  - To store and retrieve files
+  - To provide internet access
+  question_id: 1
+  question_text: What is the primary function of a computer mouse in relation to a
+    graphical user interface?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Mechanical mice use a ball to detect movement, while optical mice use
+    light sensors. The other statements are incorrect or irrelevant.
+  knowledge_areas:
+  - 'Types of computer mice: mechanical and optical'
+  options:
+  - Mechanical mice use a ball for movement detection; optical mice use light sensors
+  - Mechanical mice are always wireless; optical mice are always wired
+  - Mechanical mice have more buttons than optical mice
+  - Optical mice require more maintenance than mechanical mice
+  question_id: 2
+  question_text: Which of the following best distinguishes a mechanical mouse from
+    an optical mouse?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Clicking and dragging is used to move files or select multiple items,
+    while single- and double-clicking are for selection or opening, and scrolling
+    is for navigation.
+  knowledge_areas:
+  - 'Mouse input actions: clicking and dragging'
+  options:
+  - Single-clicking
+  - Double-clicking
+  - Clicking and dragging
+  - Scrolling
+  question_id: 3
+  question_text: Which mouse action is essential for moving files or selecting multiple
+    items within a graphical user interface?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Douglas Engelbart invented the mouse to improve the efficiency of human-computer
+    interaction, particularly for graphical information manipulation.
+  knowledge_areas:
+  - 'Historical development: invention by Douglas Engelbart'
+  options:
+  - Steve Jobs, to make computers more affordable
+  - Douglas Engelbart, to improve human-computer interaction
+  - Bill Gates, to enhance programming languages
+  - Alan Turing, to develop encryption devices
+  question_id: 4
+  question_text: Who invented the computer mouse, and what was the motivation behind
+    its invention?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The mouse enabled direct manipulation of graphical elements, paving
+    the way for graphical user interfaces and making computers more accessible. It
+    did not replace all other input devices or limit computer use.
+  knowledge_areas:
+  - 'Computer mouse: definition and function'
+  - 'Historical development: invention by Douglas Engelbart'
+  options:
+  - It made text-based command lines obsolete by enabling direct manipulation of graphical
+    elements
+  - It increased the need for frequent computer maintenance
+  - It replaced all other input devices
+  - It limited the use of computers to only office environments
+  question_id: 5
+  question_text: How did the invention of the mouse influence the development of modern
+    computing interfaces?
+  question_type: recap
+sections:
+- aspects:
+  - content: A computer mouse is a hand-controlled electromechanical device designed
+      for interacting with a digital computer, particularly those equipped with a
+      graphical user interface (GUI). It translates physical movement across a flat
+      surface into corresponding cursor movement on the computer display. The mouse
+      typically features one or more buttons that allow users to execute commands
+      and manipulate on-screen items.
+    type: Definition
+  - content: Examples of mouse usage include selecting text in a document, activating
+      programs by clicking icons, or moving files and folders around the desktop using
+      click-and-drag operations. The mouse is essential for tasks requiring precision
+      and speed in GUI environments, such as graphic design or gaming.
+    type: Examples
+  - content: The mouse is widely used in personal computing, office environments,
+      and creative industries. It enables intuitive navigation and control in software
+      applications, from word processors to complex design tools. Its role is especially
+      prominent in operating systems that rely on graphical interfaces, such as Windows,
+      macOS, and Linux distributions with desktop environments.
+    type: Use Cases
+  - content: The invention and adoption of the mouse revolutionized human-computer
+      interaction by making computers more accessible and user-friendly. It shifted
+      the paradigm from text-based command-line input to direct manipulation of graphical
+      elements, paving the way for modern GUIs. The mouse's functionality is closely
+      related to other input devices like trackpads and touchscreens, which build
+      upon the same principles of direct manipulation.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The primary function of a computer mouse is to translate hand movements
+      into cursor movement on a screen, enabling interaction with graphical user interfaces.
+      It does not process data, store files, or provide internet connectivity.
+    options:
+    - Processing data within the computer's CPU
+    - Translating hand movements into cursor movement on a screen
+    - Storing files and documents
+    - Providing wireless internet connectivity
+    question_text: Which of the following best describes the primary function of a
+      computer mouse?
+  index: 150
+  key_concept: 'Computer mouse: definition and function'
+  name: mouse
+- aspects:
+  - content: Computer mice are generally classified into mechanical and optical types
+      based on how they detect movement. Mechanical mice use a rolling ball that physically
+      moves internal sensors, converting the ball's motion into electrical signals
+      that control the cursor. Optical mice, in contrast, use a light-emitting diode
+      (LED) or laser to detect movement by tracking changes in the surface beneath
+      the mouse.
+    type: Definition and Mechanisms
+  - content: A classic example of a mechanical mouse is the early IBM PC mouse, which
+      required regular cleaning of the ball and internal rollers. Modern optical mice,
+      such as those produced by Logitech or Microsoft, use infrared LEDs or lasers
+      and do not have moving parts, making them more reliable and maintenance-free.
+    type: Examples
+  - content: Mechanical mice were common in the 1980s and 1990s but have largely been
+      replaced by optical mice due to the latter's superior accuracy, lower maintenance,
+      and ability to work on a wider range of surfaces. Optical mice are now standard
+      in most computing environments, from offices to gaming setups, due to their
+      precision and durability.
+    type: Use Cases and Practical Implications
+  - content: Mechanical mice can struggle with dirt and debris, which can interfere
+      with the ball's movement and require frequent cleaning. Optical mice, while
+      more robust, may have difficulty tracking on highly reflective or transparent
+      surfaces, requiring the use of mouse pads or special surfaces in some cases.
+    type: Edge Cases and Limitations
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Mechanical mice detect movement using a physical ball, whereas optical
+      mice use light sensors (LED or laser). The other options are incorrect as both
+      types can be wired or wireless, button count is not determined by type, and
+      mechanical mice require more cleaning than optical mice.
+    options:
+    - Mechanical mice use a ball to detect movement, while optical mice use light
+      sensors
+    - Mechanical mice are wireless, while optical mice are always wired
+    - Mechanical mice have more buttons than optical mice
+    - Optical mice require frequent cleaning, while mechanical mice do not
+    question_text: What is the main difference between mechanical and optical mice?
+  index: 150
+  key_concept: 'Types of computer mice: mechanical and optical'
+  name: mouse
+- aspects:
+  - content: Mouse input actions refer to the various ways users interact with the
+      computer using the mouse's buttons. Clicking involves quickly pressing and releasing
+      a button to select or activate items. Clicking and dragging involves holding
+      down a button while moving the mouse, allowing users to move objects or select
+      multiple items within a graphical user interface.
+    type: Definition
+  - content: Single-clicking can open files or select icons, while double-clicking
+      may launch applications. Clicking and dragging is commonly used to move files
+      between folders, highlight text in documents, or draw shapes in graphic design
+      programs.
+    type: Examples
+  - content: These input actions are fundamental to the usability of graphical user
+      interfaces, enabling intuitive control and manipulation of digital objects.
+      Mastery of clicking and dragging is essential for efficient computer use, especially
+      in productivity and creative software. These actions are also foundational for
+      accessibility features and alternative input methods, such as touchscreens and
+      stylus devices.
+    type: Implications and Context
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Clicking and dragging enables users to move items on the screen by
+      holding down a mouse button while moving the device. Single- and double-clicking
+      select or open items, while scrolling moves the view but not objects.
+    options:
+    - Single-clicking
+    - Double-clicking
+    - Clicking and dragging
+    - Scrolling
+    question_text: Which mouse action allows you to move an item on the screen from
+      one place to another?
+  index: 150
+  key_concept: 'Mouse input actions: clicking and dragging'
+  name: mouse
+- aspects:
+  - content: The computer mouse was invented by American engineer Douglas Engelbart
+      in 1963–64 as part of his research into improving human-computer interaction.
+      Engelbart's invention was motivated by the need for more efficient ways to interact
+      with computers beyond keyboard input, particularly for manipulating graphical
+      information.
+    type: Historical Context and Definition
+  - content: The first mouse prototype, built by Engelbart and his team at the Stanford
+      Research Institute, consisted of a wooden shell with two perpendicular metal
+      wheels to detect movement. This early device was demonstrated in 'The Mother
+      of All Demos' in 1968, showcasing its potential in graphical computing.
+    type: Examples and Early Prototypes
+  - content: Engelbart's invention laid the groundwork for the widespread adoption
+      of graphical user interfaces in personal computing. The mouse became a standard
+      input device, fundamentally changing how users interact with computers. Its
+      influence extends to the development of related devices, such as trackballs,
+      touchpads, and touchscreens, all of which build on the concept of direct manipulation.
+    type: Implications and Influence
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Douglas Engelbart invented the computer mouse in 1963–64. The other
+      individuals and dates are not associated with the invention of the mouse.
+    options:
+    - Bill Gates, 1980–81
+    - Steve Jobs, 1976–77
+    - Douglas Engelbart, 1963–64
+    - Alan Turing, 1945–46
+    question_text: Who is credited with inventing the computer mouse, and in what
+      years was it developed?
+  index: 150
+  key_concept: 'Historical development: invention by Douglas Engelbart'
+  name: mouse

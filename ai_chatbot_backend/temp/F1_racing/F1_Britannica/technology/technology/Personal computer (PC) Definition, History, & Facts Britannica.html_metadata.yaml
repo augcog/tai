@@ -1,0 +1,239 @@
+URL: https://www.britannica.com/technology/personal-computer
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedic article outlining the definition, history, and technological
+  evolution of the personal computer, including key milestones such as the rise of
+  Apple, the IBM PC, and the development of the graphical user interface (GUI).
+file_name: Personal computer (PC) Definition, History, & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Personal computer (PC) Definition,
+  History, & Facts Britannica.html
+file_uuid: 37529356-bbd5-5979-a506-fa77643dce85
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: A personal computer is intended for individual use and includes components
+    such as a CPU, memory, and peripherals. Large computers for multiple users are
+    mainframes.
+  knowledge_areas:
+  - personal computer
+  options:
+  - A large computer designed for multiple simultaneous users
+  - A digital computer designed for use by one person at a time, typically with a
+    CPU, memory, and peripherals
+  - A device primarily used for industrial automation
+  - A computer that only runs graphical user interfaces
+  question_id: 1
+  question_text: Which of the following best defines a personal computer (PC)?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Large-scale integration made it possible to build powerful microprocessors
+    on a single chip, drastically reducing the cost and size of computers.
+  knowledge_areas:
+  - From hobby computers to Apple
+  options:
+  - The invention of the Internet
+  - Large-scale integration allowing powerful microprocessors on a single chip
+  - The development of color monitors
+  - The creation of wireless networking
+  question_id: 2
+  question_text: What key technological development in the 1970s enabled the creation
+    of affordable personal computers for individuals?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The IBM PC's superior performance, memory, and IBM's support, along
+    with the widespread adoption of its hardware and software, led to its standardization.
+  knowledge_areas:
+  - IBM PC
+  options:
+  - It was the first to feature a graphical user interface
+  - It was faster, had more memory, and was supported by IBM's sales network; its
+    hardware and software became widely adopted as standards
+  - It was only available to government agencies
+  - It was the cheapest computer on the market
+  question_id: 3
+  question_text: Why did the IBM PC become the industry standard for personal computers
+    in the 1980s?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: GUIs standardized and simplified user interactions, making computers
+    accessible to a much broader audience, including non-technical users.
+  knowledge_areas:
+  - GUI
+  options:
+  - It made computers accessible only to programmers
+  - It standardized user interactions and made computers easier for non-technical
+    users
+  - It reduced the variety of available software
+  - It eliminated the need for operating systems
+  question_id: 4
+  question_text: What was a major impact of the introduction of graphical user interfaces
+    (GUIs) in personal computing?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Application software like VisiCalc and Lotus 1-2-3 gave personal computers
+    practical value for business and personal use, greatly increasing their popularity.
+  knowledge_areas:
+  - From hobby computers to Apple
+  - IBM PC
+  options:
+  - By increasing the cost of computers
+  - By providing practical uses such as spreadsheets, which drove adoption in business
+    and personal contexts
+  - By restricting computers to educational use only
+  - By making computers less user-friendly
+  question_id: 5
+  question_text: How did the introduction of application software like VisiCalc and
+    Lotus 1-2-3 contribute to the popularity of personal computers?
+  question_type: recap
+sections:
+- aspects:
+  - content: A personal computer (PC) is a digital computer designed for use by only
+      one person at a time. It typically consists of a central processing unit (CPU)
+      with arithmetic, logic, and control circuitry on an integrated circuit, main
+      memory such as RAM, auxiliary memory like hard disks or optical discs, and various
+      peripheral devices including a display, keyboard, mouse, and printer. PCs are
+      distinct from larger systems like mainframes or minicomputers, which are designed
+      for multiple users or specialized tasks.
+    type: definition
+  - content: The basic architecture of a personal computer includes a CPU for processing,
+      main memory (RAM) for active data, and auxiliary storage (e.g., hard disks,
+      CD-ROMs, DVD-ROMs) for long-term data retention. Peripheral devices expand functionality,
+      enabling input (keyboard, mouse), output (display, printer), and data exchange.
+      The integration of these components on a single platform made PCs affordable
+      and accessible for individual users.
+    type: components and architecture
+  - content: Personal computers are widely used for a variety of tasks, including
+      word processing, spreadsheets, communication, gaming, and multimedia. Their
+      accessibility has transformed education, business, and personal productivity,
+      enabling individuals to perform complex tasks that previously required expensive,
+      centralized computing resources. The PC revolution democratized computing power
+      and fostered innovation in software and hardware.
+    type: uses and implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: A mainframe terminal is not a core component of a personal computer;
+      it is associated with larger, centralized computing systems. CPUs, RAM, and
+      peripherals are standard in PCs.
+    options:
+    - Central processing unit (CPU)
+    - Mainframe terminal
+    - Random-access memory (RAM)
+    - Peripheral devices such as a keyboard and mouse
+    question_text: Which of the following is NOT typically considered a core component
+      of a personal computer?
+  index: 163
+  key_concept: personal computer
+  name: personal computer
+- aspects:
+  - content: The era of personal computing began in the 1970s with the advent of microprocessors,
+      which allowed for the creation of affordable, small computers suitable for individual
+      use. Early hobbyist computers like the Altair 8800 (using the Intel 8080 microprocessor)
+      were popular among enthusiasts but had limited commercial appeal due to their
+      complexity and lack of user-friendly features.
+    type: historical context
+  - content: 'The personal computer industry truly took off in 1977 with the introduction
+      of three mass-produced, preassembled computers: the Apple II, Tandy Radio Shack
+      TRS-80, and Commodore PET. These machines used 8-bit microprocessors and had
+      limited memory but were much cheaper than mainframes, making them accessible
+      to individuals, small businesses, and schools. The TRS-80’s affordability and
+      distribution through Radio Shack stores made it a market leader, while the Apple
+      II gained popularity as the host for VisiCalc, the first electronic spreadsheet.'
+    type: key developments and examples
+  - content: The shift from hobbyist kits to preassembled, user-friendly computers
+      marked the start of the PC industry. These early machines made computing accessible
+      to a much broader audience and spurred the development of application software,
+      which in turn increased the utility and appeal of personal computers. The success
+      of these systems set the stage for further innovation and competition in the
+      industry.
+    type: implications and impact
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: The TRS-80's commercial success was due to its affordable price and
+      widespread availability through Radio Shack stores, making it accessible to
+      the general public.
+    options:
+    - Its use of a 16-bit microprocessor
+    - Its ability to connect to the Internet
+    - Its low price and availability through Radio Shack stores
+    - Its exclusive use in government organizations
+    question_text: What was a primary factor in the commercial success of the TRS-80
+      compared to earlier hobbyist computers like the Altair?
+  index: 283
+  key_concept: From hobby computers to Apple
+  name: From hobby computers to Apple
+- aspects:
+  - content: The IBM Personal Computer (PC) was introduced in 1981 by IBM, the dominant
+      computer manufacturer at the time. It featured a significantly faster processor,
+      greater memory capacity (about ten times that of competitors), and was supported
+      by IBM’s extensive sales and support network. The standard operating system
+      was MS-DOS, supplied by Microsoft.
+    type: introduction and features
+  - content: The IBM PC rapidly became the world's most popular personal computer,
+      setting industry standards for both hardware (Intel 8088 microprocessor) and
+      software (MS-DOS operating system). Its architecture was widely copied, giving
+      rise to 'IBM compatibles' and 'IBM clones,' which either competed on enhanced
+      features or lower price, respectively. This standardization fostered a large
+      ecosystem of compatible hardware and software.
+    type: industry impact and standardization
+  - content: The IBM PC was the platform for influential software such as Lotus 1-2-3,
+      a leading spreadsheet program that contributed to its widespread adoption in
+      business. The availability of powerful applications further cemented the IBM
+      PC's position as the dominant platform in the personal computing market.
+    type: software and applications
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: The IBM PC stood out due to its higher memory capacity, faster performance,
+      and the adoption of industry-standard components like the Intel 8088 and MS-DOS.
+    options:
+    - It used an 8-bit microprocessor and cassette storage
+    - It was primarily sold to hobbyists
+    - It had greater memory capacity, faster performance, and industry-standard components
+    - It was the first computer to use a graphical user interface
+    question_text: What distinguished the IBM PC from its competitors when it was
+      introduced in 1981?
+  index: 309
+  key_concept: IBM PC
+  name: '[IBM PC](https://www.britannica.com/technology/IBM-PC "https://www.britannica.com/technology/IBM-PC")'
+- aspects:
+  - content: A graphical user interface (GUI) is a display format that allows users
+      to interact with a computer using visual elements like icons, windows, and menus,
+      typically manipulated with a mouse. This contrasts with earlier text-based interfaces
+      that required users to type commands. GUIs standardize interactions, making
+      software easier to use and learn.
+    type: definition and features
+  - content: Apple introduced the Lisa computer in 1983, the first personal computer
+      with a GUI, which allowed users to perform tasks by pointing and clicking rather
+      than typing commands. The Lisa’s GUI became the foundation for the Macintosh,
+      released in 1984, which was particularly successful in desktop publishing due
+      to its ability to display text and graphics as they would appear when printed.
+    type: historical development and examples
+  - content: The GUI concept was widely adopted by other manufacturers and became
+      a defining feature of modern personal computers. Microsoft introduced Windows
+      in 1985, bringing GUI capabilities to MS-DOS-based PCs and eventually establishing
+      Windows as the dominant operating environment. GUIs revolutionized usability,
+      making computers accessible to non-technical users and enabling new categories
+      of software.
+    type: industry influence and legacy
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The main advantage of a GUI is that it enables users to interact
+      with the computer using visual elements like icons and menus, rather than requiring
+      typed commands.
+    options:
+    - It allows users to interact using icons and menus instead of typing commands
+    - It increases the computer's processing speed
+    - It eliminates the need for a central processing unit
+    - It restricts user interaction to programming languages only
+    question_text: Which of the following best describes the primary advantage of
+      a graphical user interface (GUI) over earlier text-based interfaces?
+  index: 317
+  key_concept: GUI
+  name: '[GUI](https://www.britannica.com/technology/graphical-user-interface "https://www.britannica.com/technology/graphical-user-interface")'

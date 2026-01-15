@@ -1,0 +1,253 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page profile for the Mercedes F1 team, covering driver lineup,
+  2025 season statistics, historical achievements, team structure, and related media
+  content.
+file_name: Mercedes – F1 Racing Team – Russell, Antonelli.html
+file_path: F1_racing/F1_Official/teams/en/teams/Mercedes – F1 Racing Team – Russell,
+  Antonelli.html
+file_uuid: 2545f93c-479d-5742-adc6-e8a3bd12ba67
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: George Russell and Kimi Antonelli were the main drivers for Mercedes
+    in 2025. The other pairs belong to different teams or previous Mercedes lineups.
+  knowledge_areas:
+  - DRIVERS
+  options:
+  - Lewis Hamilton and Nico Rosberg
+  - George Russell and Kimi Antonelli
+  - Charles Leclerc and Carlos Sainz
+  - Lando Norris and Oscar Piastri
+  question_id: 1
+  question_text: Which two drivers formed the Mercedes F1 team lineup in 2025?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Mercedes finished 2nd in the 2025 Constructors' Championship with 2
+    Grand Prix wins.
+  knowledge_areas:
+  - Statistics
+  options:
+  - 1st place, 10 wins
+  - 2nd place, 2 wins
+  - 4th place, 0 wins
+  - 3rd place, 5 wins
+  question_id: 2
+  question_text: What was Mercedes' final position in the 2025 F1 Constructors' Championship
+    and how many Grand Prix wins did they achieve?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Toto Wolff leads Mercedes, which is headquartered in Brackley, UK.
+    The other options correspond to different teams.
+  knowledge_areas:
+  - Team Profile
+  options:
+  - Toto Wolff, Brackley
+  - Christian Horner, Milton Keynes
+  - Mattia Binotto, Maranello
+  - Zak Brown, Woking
+  question_id: 3
+  question_text: Who is the Team Chief of Mercedes and what is the team's technical
+    base location?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Mercedes is recognized as a dominant force in F1, especially during
+    the turbo-hybrid era, with multiple championships and a robust technical and organizational
+    structure.
+  knowledge_areas:
+  - Mercedes
+  - Team Profile
+  options:
+  - A new team with no significant results
+  - A dominant force in the modern era, with multiple championships and a strong technical
+    structure
+  - A team that only participates in sprint races
+  - A team that has never won a Grand Prix
+  question_id: 4
+  question_text: Which of the following best characterizes Mercedes' recent history
+    in Formula 1?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The Related Videos section offers personal interviews, incident analysis,
+    and driver reactions, giving fans a deeper understanding of the team's season
+    beyond technical data.
+  knowledge_areas:
+  - Related Videos
+  options:
+  - Only technical specifications of the car
+  - Personal interviews, race incident analysis, and driver reactions
+  - Live race commentary only
+  - Historical footage from the 1970s
+  question_id: 5
+  question_text: What types of insights do the 'Related Videos' provide about the
+    Mercedes F1 team?
+  question_type: recap
+sections:
+- aspects:
+  - content: Mercedes refers to the Mercedes-AMG PETRONAS Formula One Team, a leading
+      constructor in the Formula 1 World Championship. The team is based in Brackley,
+      United Kingdom, and is renowned for its technical excellence, competitive history,
+      and significant influence on modern F1.
+    type: definition
+  - content: Mercedes' modern F1 journey began with its return as a works team in
+      2010, building on a legacy that stretches back to its first entry in 1970. The
+      team quickly rose to prominence, notably after signing Michael Schumacher and
+      later forming a dominant partnership between Nico Rosberg and Lewis Hamilton.
+      This era saw Mercedes become one of the most successful teams in F1, particularly
+      during the turbo-hybrid era, where they won multiple consecutive constructors'
+      and drivers' championships.
+    type: historical context
+  - content: Mercedes' dominance has shaped the competitive landscape of Formula 1,
+      prompting rivals like Red Bull and Ferrari to innovate in response. The team's
+      technical partnerships, leadership under Toto Wolff, and consistent investment
+      in talent and technology have set benchmarks for operational excellence. Their
+      ongoing rivalry with other top teams continues to drive the evolution of F1
+      engineering and strategy.
+    type: implications and connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Mercedes is a historically dominant team with multiple championships,
+      based in the UK. They are not new to F1, not based in Italy, and compete in
+      both Grands Prix and sprint races.
+    options:
+    - A new entrant to F1 in 2025
+    - A historically dominant team with multiple championships
+    - A team based in Italy with no constructors' titles
+    - A team that only competes in sprint races
+    question_text: Which of the following best describes the Mercedes team in Formula
+      1?
+  index: 59
+  key_concept: Mercedes
+  name: Mercedes
+- aspects:
+  - content: 'The DRIVERS section identifies the primary race drivers for Mercedes
+      in the 2025 season: George Russell and Kimi Antonelli. These individuals are
+      responsible for competing in all scheduled Grands Prix and sprint events for
+      the team.'
+    type: definition
+  - content: George Russell, a proven race-winner from Great Britain, has assumed
+      the role of team leader in 2025, while Kimi Antonelli, an Italian rookie, joins
+      as his teammate. Their partnership represents a blend of experience and emerging
+      talent, a common strategy among top teams to balance immediate results with
+      long-term development.
+    type: examples and context
+  - content: Driver selection impacts team dynamics, performance, and development
+      direction. Russell's leadership and Antonelli's growth are crucial for Mercedes'
+      competitiveness, especially following Lewis Hamilton's departure. The team's
+      ability to nurture young talent while maintaining high performance is central
+      to its ongoing success.
+    type: implications and connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: For 2025, Mercedes' main drivers are George Russell and Kimi Antonelli.
+      Hamilton and Rosberg were previous drivers, while Leclerc/Sainz and Verstappen/Perez
+      race for other teams.
+    options:
+    - Lewis Hamilton and Nico Rosberg
+    - George Russell and Kimi Antonelli
+    - Charles Leclerc and Carlos Sainz
+    - Max Verstappen and Sergio Perez
+    question_text: Who are the main race drivers for Mercedes in the 2025 F1 season?
+  index: 67
+  key_concept: DRIVERS
+  name: DRIVERS
+- aspects:
+  - content: The Statistics section provides quantitative data on Mercedes' performance
+      in the 2025 season, including race results, points, podiums, wins, poles, and
+      other key metrics for both Grand Prix and sprint events.
+    type: definition
+  - content: In 2025, Mercedes finished 2nd in the championship with 469 points, achieved
+      2 Grand Prix wins, 12 podiums, 2 pole positions, and 3 fastest laps. In sprint
+      races, they scored 45 points, earned 4 sprint podiums, and 1 sprint pole. These
+      figures illustrate the team's consistency and competitiveness, even if not dominant.
+    type: examples
+  - content: These statistics are vital for analyzing team performance, driver contributions,
+      and strategic effectiveness. They also provide context for comparing Mercedes
+      to rival teams like McLaren and Red Bull, and for evaluating the impact of driver
+      changes and technical developments.
+    type: implications and connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Mercedes finished second in 2025, with 2 wins and 12 podiums. They
+      did participate in sprint races and did not finish first or fourth with no podiums.
+    options:
+    - First place in the championship with 10 wins
+    - Second place in the championship with 2 wins and 12 podiums
+    - Fourth place with no podiums
+    - Did not participate in sprint races
+    question_text: Which of the following statistics correctly reflects Mercedes'
+      2025 F1 season performance?
+  index: 89
+  key_concept: Statistics
+  name: Statistics
+- aspects:
+  - content: The Team Profile offers a detailed overview of Mercedes' organizational
+      structure, technical details, and historical background. It includes information
+      such as full team name, base location, leadership, technical chiefs, chassis,
+      power unit, and reserve driver.
+    type: definition
+  - content: Mercedes-AMG PETRONAS Formula One Team is based in Brackley, UK, with
+      Toto Wolff as Team Chief and James Allison as Technical Chief. The team uses
+      the W16 chassis and Mercedes power unit, with Fred Vesti as reserve driver.
+      Their first entry was in 1970, and the modern works team began in 2010.
+    type: examples and context
+  - content: Understanding the team profile is essential for grasping how leadership,
+      technical expertise, and infrastructure contribute to on-track success. The
+      roles of key personnel like Wolff and Allison are critical in shaping strategy
+      and innovation, while the technical base and reserve driver system ensure operational
+      resilience.
+    type: implications and connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Toto Wolff is the Team Chief of Mercedes, which is based in Brackley,
+      UK. The other options refer to chiefs and locations of different F1 teams.
+    options:
+    - Christian Horner, Milton Keynes
+    - Toto Wolff, Brackley
+    - Mattia Binotto, Maranello
+    - Zak Brown, Woking
+    question_text: Who is the Team Chief of Mercedes and where is the team based?
+  index: 174
+  key_concept: Team Profile
+  name: Team Profile
+- aspects:
+  - content: The Related Videos section features multimedia content highlighting key
+      moments, driver interviews, and race incidents involving Mercedes drivers, particularly
+      George Russell and Kimi Antonelli.
+    type: definition
+  - content: Video topics include Russell's reflections on race performances, Antonelli
+      discussing his rookie challenges, notable incidents such as Antonelli's pit
+      lane collision, and public appearances at events like the Abu Dhabi GP. These
+      videos provide personal insights and behind-the-scenes perspectives not captured
+      in raw statistics.
+    type: examples and context
+  - content: Such media content enriches fan engagement, offers narrative depth to
+      the team's season, and humanizes drivers by showing their reactions and growth.
+      It also serves as a valuable resource for understanding the psychological and
+      emotional aspects of competition, complementing technical and statistical analysis.
+    type: implications and connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The Related Videos section includes driver interviews, race highlights,
+      and incident analysis, providing current and relevant multimedia content about
+      the team's season.
+    options:
+    - Technical manuals for car assembly
+    - Driver interviews, race highlights, and incident analysis
+    - Live timing data only
+    - Historical documentaries about pre-1970 racing
+    question_text: What type of content is featured in the 'Related Videos' section
+      for Mercedes?
+  index: 228
+  key_concept: Related Videos
+  name: Related Videos

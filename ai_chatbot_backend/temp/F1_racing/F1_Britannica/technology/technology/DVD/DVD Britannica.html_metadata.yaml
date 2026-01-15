@@ -1,0 +1,192 @@
+URL: https://www.britannica.com/technology/DVD/additional-info#history
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A reference and edit history page for the Encyclopedia Britannica
+  article on DVD, including related topics, contributors, and a detailed log of editorial
+  changes and sources.
+file_name: DVD Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/DVD/DVD Britannica.html
+file_uuid: deb9fdaf-4c46-5ba1-8111-26a0db439c1e
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The 'Assorted References' section lists related topics and articles,
+    offering readers avenues to explore the technical, historical, and practical context
+    of DVDs.
+  knowledge_areas:
+  - Assorted References
+  - related topics
+  - DVD context
+  options:
+  - Assorted References
+  - Article Contributors
+  - Article History
+  - Primary Contributors
+  question_id: 1
+  question_text: Which section provides a curated list of related topics and articles
+    to help readers explore the broader context of DVD technology?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The Article Contributors section identifies the individuals and editorial
+    teams responsible for creating and maintaining the article, ensuring its credibility.
+  knowledge_areas:
+  - Article Contributors
+  - editorial responsibility
+  options:
+  - To list all DVD manufacturers
+  - To document individuals responsible for writing and editing the article
+  - To provide a timeline of DVD technological advances
+  - To compare DVD and Blu-ray formats
+  question_id: 2
+  question_text: What is the primary function of the Article Contributors section
+    in the DVD article?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The Article History section enhances reliability by documenting all
+    major edits, updates, and sources, allowing users to verify the article's development
+    and accuracy.
+  knowledge_areas:
+  - Article History
+  - transparency
+  - editorial process
+  options:
+  - By listing all DVD region codes
+  - By providing a chronological record of edits, updates, and sources
+  - By offering user-generated content
+  - By summarizing the technical specifications of DVDs
+  question_id: 3
+  question_text: How does the Article History section contribute to the reliability
+    of the DVD article?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Assorted References helps readers explore related topics, while Article
+    History provides a transparent record of changes and updates to the article.
+  knowledge_areas:
+  - Assorted References
+  - Article History
+  - section functions
+  options:
+  - Assorted References lists contributors, while Article History lists related topics.
+  - Both sections provide editorial guidelines.
+  - Assorted References offers related topics for further study, while Article History
+    documents the evolution of the article.
+  - Both sections are only accessible to editors.
+  question_id: 4
+  question_text: Which of the following best describes the relationship between the
+    Assorted References and Article History sections?
+  question_type: recap
+sections:
+- aspects:
+  - content: Assorted References in this context refers to a curated collection of
+      related articles and subtopics that provide additional information or context
+      about DVDs. These references are selected to help readers explore the broader
+      technical, historical, and practical aspects of DVD technology.
+    type: Definition
+  - content: 'The section includes links to articles on topics such as compact discs,
+      astronomical data storage, CD-ROMs, copy protection, data compression, digital
+      rights management, motion pictures, optical storage, and video recording. For
+      example, ''compact disc: DVD'' discusses the relationship between CDs and DVDs,
+      while ''data compression'' explains a key technology enabling DVD storage efficiency.'
+    type: Examples
+  - content: These references are useful for students or researchers who want to understand
+      the multifaceted role of DVDs in technology and media. They can be used to compare
+      DVDs with other storage technologies, explore legal and technical challenges
+      like copy protection, or examine the evolution of video recording.
+    type: Use Cases
+  - content: By providing a network of related topics, this section encourages interdisciplinary
+      learning and demonstrates how DVD technology intersects with fields such as
+      computer science, media studies, and intellectual property law. It highlights
+      the importance of understanding both the technical underpinnings and societal
+      impacts of digital storage media.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Wireless networking is not listed among the assorted references,
+      while data compression, digital rights management, and copy protection are all
+      specifically mentioned as related topics.
+    options:
+    - Data compression
+    - Digital rights management
+    - Wireless networking
+    - Copy protection
+    question_text: Which of the following topics is NOT directly listed as an assorted
+      reference related to DVDs in the article?
+  index: 146
+  key_concept: Assorted References
+  name: Assorted References
+- aspects:
+  - content: Article Contributors refers to the individuals and editorial teams responsible
+      for writing, editing, and maintaining the accuracy of the Encyclopedia Britannica
+      article on DVD. This includes both primary and other contributors.
+    type: Definition
+  - content: The section distinguishes between primary contributors, such as the Editors
+      of Encyclopaedia Britannica, who oversee content creation and verification,
+      and other named editors and contributors who have provided expertise or updates
+      to the article. These roles ensure the article's reliability and comprehensiveness.
+    type: Context
+  - content: Understanding the list of contributors is important for evaluating the
+      credibility and authority of the information. It also provides transparency
+      about the editorial process and the expertise behind the article, which is critical
+      in academic and reference contexts.
+    type: Implications
+  - content: This concept connects to broader issues of authorship, editorial standards,
+      and the collaborative nature of encyclopedic knowledge production. It also relates
+      to the tracking of contributions in digital knowledge repositories.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The Editors of Encyclopaedia Britannica are primarily responsible
+      for overseeing content creation, verification, and editing, ensuring the article's
+      accuracy and reliability.
+    options:
+    - They provide technical support for the website.
+    - They oversee content creation, verification, and editing.
+    - They write opinion pieces about DVDs.
+    - They design the layout of the article.
+    question_text: What is the main role of the Editors of Encyclopaedia Britannica
+      as primary contributors to the DVD article?
+  index: 170
+  key_concept: Article Contributors
+  name: Article Contributors
+- aspects:
+  - content: Article History is a chronological record of all significant edits, updates,
+      and additions made to the DVD article. It documents the type of change, a brief
+      description, the contributor responsible, and the date of the edit.
+    type: Definition
+  - content: Examples of changes include adding new web sources (e.g., 'IOPscience
+      - Physics World - DVDs in the spotlight'), correcting terminology (e.g., changing
+      'disk' to 'disc'), adding media, and thoroughly revising the article. Each entry
+      specifies the contributor and the date, such as 'Media added' by Meg Matthias
+      on Sep 18, 2025.
+    type: Examples
+  - content: The edit history provides transparency and accountability, allowing readers
+      to trace the evolution of the article, identify when information was added or
+      corrected, and see the breadth of sources consulted. This is vital for academic
+      integrity and for users who need to cite the most current or original information.
+    type: Implications
+  - content: This concept is related to digital version control, editorial transparency,
+      and the process of collaborative knowledge building. It also connects to the
+      broader practice of maintaining revision histories in academic publishing and
+      online encyclopedias.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The Article History section documents all significant edits, updates,
+      and sources, providing transparency and allowing users to trace the development
+      and reliability of the article.
+    options:
+    - It provides a list of all DVD models ever produced.
+    - It shows a record of edits, updates, and sources, ensuring transparency.
+    - It contains user reviews of DVD technology.
+    - It displays advertisements for DVD products.
+    question_text: Why is the Article History section important for users of the DVD
+      article?
+  index: 192
+  key_concept: Article History
+  name: Article History

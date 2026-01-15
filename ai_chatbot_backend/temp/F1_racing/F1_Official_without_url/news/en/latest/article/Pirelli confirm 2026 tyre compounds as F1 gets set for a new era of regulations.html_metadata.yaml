@@ -1,0 +1,142 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A news article announcing Pirelli's confirmation of the 2026 Formula
+  1 tyre compounds, discussing the technical details of the new tyre range, regulatory
+  context, and implications for the upcoming season.
+file_name: Pirelli confirm 2026 tyre compounds as F1 gets set for a new era of regulations.html
+file_path: F1_racing/F1_Official/news/en/latest/article/Pirelli confirm 2026 tyre
+  compounds as F1 gets set for a new era of regulations.html
+file_uuid: a4050e54-43c3-5c40-a5a2-31d25e9d99cc
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: The C6 compound is being removed, so only C1 to C5 will be available.
+    There is no C7, the wheel size remains 18 inches (but slightly narrower), and
+    only three compounds are chosen per race.
+  knowledge_areas:
+  - 2026 Pirelli F1 Tyre Compounds
+  options:
+  - Introduction of a new C7 compound
+  - Removal of the C6 compound, leaving C1 to C5
+  - Switch to 16-inch wheels
+  - Teams can use all compounds in every race
+  question_id: 1
+  question_text: What is the main change to Pirelli's tyre compound range for the
+    2026 Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Pirelli used simulations, forecast data, and development testing with
+    mule cars to validate the compounds for the new technical regulations.
+  knowledge_areas:
+  - 2026 Pirelli F1 Tyre Compounds
+  options:
+  - By using only historical race data
+  - Through simulations, forecast data, and mule car testing
+  - By allowing teams to vote on their preferred compounds
+  - By randomly selecting compounds
+  question_id: 2
+  question_text: How did Pirelli determine the appropriate tyre compounds for the
+    2026 season?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: By narrowing the range, Pirelli aims to force teams to make more distinct
+    strategy choices, increasing variability and tactical interest in races.
+  knowledge_areas:
+  - 2026 Pirelli F1 Tyre Compounds
+  options:
+  - To make all races use the same strategy
+  - To create clearer strategic differences between tyre choices
+  - To eliminate pit stops
+  - To reduce the number of wet weather tyres
+  question_id: 3
+  question_text: What is one intended effect of narrowing the tyre compound range
+    for 2026?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The 2026 tyres will be slightly narrower but still use 18-inch wheels,
+    aligning with new car regulations.
+  knowledge_areas:
+  - 2026 Pirelli F1 Tyre Compounds
+  options:
+  - They are larger in diameter
+  - They are slightly narrower but remain 18 inches
+  - They are made entirely of a new material
+  - They have no tread pattern
+  question_id: 4
+  question_text: In what way are the 2026 F1 tyres physically different from previous
+    years?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: The tyre compound update was developed in close collaboration with
+    teams and the FIA, using simulation data to ensure compatibility with new car
+    and power unit regulations.
+  knowledge_areas:
+  - 2026 Pirelli F1 Tyre Compounds
+  options:
+  - It is unrelated to other technical regulations
+  - It was developed in isolation from team and FIA input
+  - It integrates with new car and power unit regulations, using team simulations
+  - It only affects wet weather racing
+  question_id: 5
+  question_text: How does the tyre compound update reflect broader changes in Formula
+    1 for 2026?
+  question_type: recap
+sections:
+- aspects:
+  - content: For the 2026 Formula 1 season, Pirelli has confirmed that teams will
+      use a selection of three compounds per race, chosen from a range of five (C1
+      to C5), with the C6 compound being discontinued. This structure maintains the
+      practice from previous seasons but with a narrower selection, reflecting both
+      regulatory changes and technical feedback. The compounds are differentiated
+      by their rubber composition, which affects grip, durability, and optimal operating
+      conditions.
+    type: Definition and Structure
+  - content: The selection of the 2026 tyre compounds was based on extensive data
+      analysis from recent tests, including a significant session in Mexico City and
+      further validation in Abu Dhabi. Pirelli utilized forecast data and simulations
+      provided by F1 teams, focusing on the anticipated loads and speeds of the next-generation
+      cars. Testing included the use of 'mule cars'—vehicles modified to simulate
+      the 2026 car characteristics—ensuring the compounds meet performance and safety
+      targets.
+    type: Development Process and Testing
+  - content: The removal of the C6 compound, which was previously used at circuits
+      like Imola and Monaco, is intended to create clearer strategic differences between
+      tyre choices. By narrowing the compound range, Pirelli aims to enhance the tactical
+      element of races, forcing teams to make more distinct decisions regarding tyre
+      selection, stint lengths, and pit stop timing. The expectation is that this
+      will increase on-track variability and potentially influence race outcomes.
+    type: Implications for Race Strategy
+  - content: 'In addition to the compound changes, the 2026 season will see cars running
+      on slightly narrower 18-inch tyres compared to previous years. This change aligns
+      with broader technical regulations aimed at reducing drag and adapting to new
+      car designs. The tyre development objectives remain consistent with previous
+      seasons: ensuring safety, performance, and adaptability across a 24-race calendar.'
+    type: Technical Adjustments for 2026
+  - content: The tyre compound update is part of a larger regulatory overhaul for
+      2026, which includes new car specifications and power unit rules. Tyre development
+      had to anticipate these changes, integrating simulation data and feedback from
+      teams to ensure compatibility. The collaborative process between Pirelli, the
+      FIA, and F1 teams exemplifies the interconnected nature of technical and sporting
+      regulations in modern Formula 1.
+    type: Connections to Broader F1 Regulation Changes
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The C6 compound is being discontinued for 2026, so only C1 to C5
+      will be available. Tyres will be slightly narrower, not wider, and compound
+      selection is subject to FIA approval.
+    options:
+    - Teams can choose from six compounds (C1 to C6) at each race.
+    - The C6 compound will not be available in 2026.
+    - All tyres will be wider than in 2025.
+    - Tyre selection is independent of FIA approval.
+    question_text: Which of the following statements about the 2026 Pirelli F1 tyre
+      compounds is correct?
+  index: 53
+  key_concept: 2026 Pirelli F1 Tyre Compounds
+  name: Pirelli confirm 2026 tyre compounds as F1 gets set for a new era of regulations

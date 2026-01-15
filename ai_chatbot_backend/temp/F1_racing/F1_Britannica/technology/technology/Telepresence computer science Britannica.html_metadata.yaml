@@ -1,0 +1,149 @@
+URL: https://www.britannica.com/technology/telepresence
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Britannica article overviewing telepresence in computer science,
+  with a focus on its definition and application in virtual reality environments.
+file_name: Telepresence computer science Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Telepresence computer science
+  Britannica.html
+file_uuid: c9fe4488-eae2-553e-9d25-fb271eac736d
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Telepresence is designed to create the illusion of being present elsewhere,
+    not to improve internet speed, data storage, or encryption.
+  knowledge_areas:
+  - telepresence
+  options:
+  - To provide the sensation of being present in a remote or virtual location.
+  - To increase the speed of internet connections.
+  - To store and retrieve large datasets efficiently.
+  - To encrypt sensitive information during transmission.
+  question_id: 1
+  question_text: What is the primary goal of telepresence technology in computer science?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Motion sensors enable real-time adjustment of the virtual environment,
+    which is essential for the illusion of presence.
+  knowledge_areas:
+  - application in virtual reality
+  - telepresence
+  options:
+  - Motion sensors that track user movements in real time.
+  - High-capacity hard drives for storing virtual environments.
+  - Voice recognition software for user interaction.
+  - Firewalls for protecting user privacy.
+  question_id: 2
+  question_text: In virtual reality systems, which technology is most critical for
+    achieving telepresence?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: While telepresence is used in surgery, VR, and exploration, data encryption
+    is a separate technology.
+  knowledge_areas:
+  - telepresence
+  - application in virtual reality
+  options:
+  - Remote robotic surgery.
+  - Virtual architectural walkthroughs.
+  - Data encryption for secure emails.
+  - Remote underwater exploration.
+  question_id: 3
+  question_text: Which of the following is NOT a typical application of telepresence?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Telepresence and VR both focus on immersion and altering the user's
+    sense of location, not data analysis, encryption, or AI.
+  knowledge_areas:
+  - telepresence
+  - application in virtual reality
+  options:
+  - Both aim to create an immersive sense of presence in a location different from
+    the user's physical one.
+  - Both are primarily used for data analysis.
+  - Both require large-scale data encryption.
+  - Both are types of artificial intelligence.
+  question_id: 4
+  question_text: How are telepresence and virtual reality related in terms of user
+    experience?
+  question_type: recap
+sections:
+- aspects:
+  - content: Telepresence refers to a technological capability that allows a person
+      to experience the sensation of being present at a location other than their
+      true physical location, typically through the use of computer science and communication
+      technologies. This is achieved by transmitting sensory information—such as visual,
+      auditory, and sometimes tactile cues—between the remote environment and the
+      user. Telepresence systems aim to create a convincing illusion of 'being there,'
+      bridging the gap between the user and the remote environment.
+    type: definition
+  - content: Common examples of telepresence include video conferencing systems that
+      allow participants to interact as if they were in the same room, and advanced
+      robotic surgery setups where a surgeon operates on a patient from a distant
+      location. In industrial settings, telepresence can be used for remote inspection
+      or manipulation in hazardous environments, such as underwater exploration or
+      space missions.
+    type: examples
+  - content: Telepresence has significant implications for remote work, education,
+      healthcare, and entertainment, enabling collaboration and interaction without
+      the need for physical travel. It is closely related to concepts like virtual
+      reality and augmented reality, as all seek to alter or extend the user's perception
+      of location and presence. The effectiveness of telepresence depends on low-latency
+      communication and high-fidelity sensory feedback to maintain the illusion of
+      immediacy and immersion.
+    type: implications and connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Telepresence is specifically about creating the sensation of being
+      present at a different location via sensory transmission, not data storage,
+      AI, or encryption.
+    options:
+    - A technology that enables a user to feel present at a remote location through
+      transmitted sensory information.
+    - A system for storing large amounts of data remotely.
+    - A type of artificial intelligence used for data analysis.
+    - A method for encrypting communication between two computers.
+    question_text: Which of the following best describes telepresence in computer
+      science?
+  index: 118
+  key_concept: telepresence
+  name: telepresence
+- aspects:
+  - content: In the context of virtual reality (VR), telepresence is the illusion
+      of 'being there' in a simulated environment, achieved by tracking the user's
+      movements and updating the virtual scene accordingly in real time. Motion sensors
+      detect the user's head or body movements and the system instantly adjusts the
+      visual display to match the new perspective, reinforcing the sense of immersion
+      and presence.
+    type: definition and mechanism
+  - content: 'A classic example is a VR headset that allows a user to look around
+      a virtual room: as the user turns their head, the view changes correspondingly,
+      making it feel as if they are physically inside the simulated space. Early head-mounted
+      displays, such as those developed by Ivan Sutherland in the 1960s, laid the
+      groundwork for modern VR telepresence systems.'
+    type: examples
+  - content: Telepresence in VR enables applications such as virtual tourism, remote
+      training, architectural walkthroughs, and immersive gaming. It allows users
+      to explore and interact with environments that may be inaccessible, dangerous,
+      or purely imaginary. The real-time responsiveness of the system is critical
+      for maintaining the illusion of presence and preventing motion sickness.
+    type: implications and use cases
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Telepresence in VR relies on real-time motion tracking and instant
+      viewpoint adjustment, which creates the immersive effect of 'being there.'
+    options:
+    - By instantly updating the user's viewpoint based on their movements.
+    - By storing the user's data for future sessions.
+    - By encrypting the user's communications.
+    - By analyzing the user's behavior for marketing purposes.
+    question_text: How does telepresence enhance the experience of virtual reality
+      environments?
+  index: 128
+  key_concept: application in virtual reality
+  name: application in virtual reality

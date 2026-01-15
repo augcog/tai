@@ -1,0 +1,202 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page summarizing the 1950 Formula 1 race results, listing
+  winners, teams, and race details, along with sections on official partners and links
+  to download the F1 app.
+file_name: 1950 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1950/1950 RACE RESULTS.html
+file_uuid: 4495c76d-5f19-5aac-8f22-cadf5190239a
+recap_questions:
+- correct_answers:
+  - 0
+  - 1
+  explanation: Both Juan Manuel Fangio and Nino Farina won multiple races in 1950,
+    making them the most successful drivers of that season. Johnnie Parsons only won
+    the Indianapolis 500, and Ascari did not win any race that year.
+  knowledge_areas:
+  - 1950 Formula 1 Race Results
+  options:
+  - Juan Manuel Fangio
+  - Nino Farina
+  - Johnnie Parsons
+  - Alberto Ascari
+  question_id: 1
+  question_text: Which driver won the most races in the 1950 Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Alfa Romeo dominated the 1950 season, winning all but the Indianapolis
+    500, which was won by Kurtis Kraft Offenhauser.
+  knowledge_areas:
+  - 1950 Formula 1 Race Results
+  options:
+  - Alfa Romeo
+  - Ferrari
+  - Kurtis Kraft Offenhauser
+  - Mercedes
+  question_id: 2
+  question_text: Which team dominated the 1950 Formula 1 season based on race wins?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Sony is not listed among the official partners, while DHL, AWS, and
+    Heineken are.
+  knowledge_areas:
+  - Formula 1 Official Partners
+  options:
+  - DHL
+  - AWS
+  - Sony
+  - Heineken
+  question_id: 3
+  question_text: Which of the following is NOT an official Formula 1 partner listed
+    in the document?
+  question_type: recap
+- correct_answers:
+  - 0
+  - 2
+  explanation: The app provides live race timing and exclusive F1 content, but does
+    not offer car purchasing or driver training modules.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - Live race timing
+  - Car purchasing options
+  - Exclusive F1 content
+  - Driver training modules
+  question_id: 4
+  question_text: What are two main features of the Official F1 App as described?
+  question_type: recap
+- correct_answers:
+  - 0
+  - 2
+  explanation: Partners provide financial and technical support, enhance the fan experience,
+    and contribute to global marketing. They do not supply race cars or determine
+    race outcomes.
+  knowledge_areas:
+  - Formula 1 Official Partners
+  options:
+  - By providing financial support and technical collaboration
+  - By supplying race cars to teams
+  - By enhancing fan experience and global marketing
+  - By determining race outcomes
+  question_id: 5
+  question_text: How do official partners contribute to the Formula 1 ecosystem according
+    to the document?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1950 Formula 1 Race Results refer to the official outcomes of each
+      Grand Prix in the inaugural season of the FIA Formula One World Championship.
+      This includes data such as the race location, date, winning driver, winning
+      team, number of laps, and total race time for each event.
+    type: definition
+  - content: For example, the British Grand Prix on 13 May 1950 was won by Nino Farina
+      driving for Alfa Romeo, completing 70 laps in 2:13:23.600. Similarly, the Monaco
+      Grand Prix was won by Juan Manuel Fangio, also for Alfa Romeo, with a time of
+      3:13:18.700 over 100 laps. Another notable example is the Indianapolis 500,
+      which was part of the championship and won by Johnnie Parsons in a Kurtis Kraft
+      Offenhauser.
+    type: examples
+  - content: These results are historically significant as they represent the very
+      first season of the modern Formula 1 World Championship. The dominance of Alfa
+      Romeo, with drivers like Nino Farina and Juan Manuel Fangio, set the stage for
+      the evolution of teams and technology in motorsport. The inclusion of the Indianapolis
+      500 also reflects the early attempts at making the championship international,
+      despite differing regulations.
+    type: implications
+  - content: The 1950 results connect to the broader history of Formula 1, showing
+      the origins of the points system, the importance of team and driver consistency,
+      and the evolution of race formats. They also provide context for analyzing how
+      the sport has changed in terms of race duration, technology, and global reach.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    - 1
+    explanation: Both Nino Farina and Juan Manuel Fangio, driving for Alfa Romeo,
+      won multiple races in 1950, making Alfa Romeo the dominant team. Johnnie Parsons
+      won only the Indianapolis 500, and Ferrari did not win any races that season.
+    options:
+    - Alfa Romeo - Nino Farina
+    - Alfa Romeo - Juan Manuel Fangio
+    - Kurtis Kraft Offenhauser - Johnnie Parsons
+    - Ferrari - Alberto Ascari
+    question_text: Which team and driver combination won the most races in the 1950
+      Formula 1 season?
+  index: 140
+  key_concept: 1950 Formula 1 Race Results
+  name: 1950 RACE RESULTS
+- aspects:
+  - content: Formula 1 Official Partners are companies and brands that have formal
+      sponsorship or commercial agreements with the Formula 1 organization. These
+      partnerships can involve financial support, technology collaboration, branding,
+      and promotional activities.
+    type: definition
+  - content: Examples of official partners include LVMH, Pirelli, Aramco, Heineken,
+      AWS, Lenovo, DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton,
+      TAG Heuer, Moet Hennessy, American Express, Santander, Allwyn, Globant, and
+      others. Each partner typically has its logo displayed on F1 materials and may
+      provide products or services to the sport.
+    type: examples
+  - content: These partnerships are used to enhance the commercial viability of Formula
+      1, provide technical innovations (such as AWS for data analytics or Pirelli
+      for tires), and expand the global reach of both F1 and the partner brands. For
+      example, DHL manages logistics for race events, while Heineken sponsors race
+      weekends and fan engagement initiatives.
+    type: use case
+  - content: Official partnerships are crucial for the financial sustainability and
+      technological advancement of Formula 1. They enable the sport to invest in safety,
+      broadcast technology, and fan experiences, while also offering partners a global
+      marketing platform. The diversity of partners reflects F1's international appeal
+      and its integration with various industries.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: Pirelli, Heineken, and PepsiCo are all listed among the official
+      partners, but Sony is not mentioned anywhere in the provided list.
+    options:
+    - Pirelli
+    - Heineken
+    - PepsiCo
+    - Sony
+    question_text: Which of the following companies is NOT listed as an official Formula
+      1 partner in the document?
+  index: 152
+  key_concept: Formula 1 Official Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application developed for fans of Formula
+      1, offering live timing, news, race schedules, and exclusive content. It is
+      available for download on both the Apple App Store and Google Play Store.
+    type: definition
+  - content: The app is used by fans to follow live race data, access real-time leaderboards,
+      receive push notifications about race events, and stay updated on F1 news. It
+      serves as an essential tool for enthusiasts who want to engage with the sport
+      beyond traditional TV broadcasts.
+    type: use case
+  - content: The availability of the official app reflects Formula 1's commitment
+      to digital engagement and fan experience. It allows F1 to reach a younger, tech-savvy
+      audience and provides sponsors with new advertising and data collection opportunities.
+      The app also supports global accessibility, making it easier for fans worldwide
+      to stay connected to the sport.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 0
+    - 2
+    explanation: The app is described as providing live timing, news, exclusive content,
+      and race schedules. It does not sell cars or specifically mention downloading
+      race highlights.
+    options:
+    - Providing live race timing and news
+    - Selling Formula 1 cars
+    - Offering exclusive F1 content and race schedules
+    - Allowing fans to download race highlights
+    question_text: What are the primary purposes of the Official F1 App as described
+      in the document?
+  index: 162
+  key_concept: Official F1 App
+  name: Download the Official F1 App

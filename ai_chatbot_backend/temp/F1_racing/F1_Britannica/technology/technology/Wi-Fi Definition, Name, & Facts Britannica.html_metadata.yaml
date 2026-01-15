@@ -1,0 +1,239 @@
+URL: https://www.britannica.com/technology/Wi-Fi
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article explaining Wi-Fi, covering its definition,
+  technical standards, naming origin, and practical advantages for wireless networking.
+file_name: Wi-Fi Definition, Name, & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Wi-Fi Definition, Name, &
+  Facts Britannica.html
+file_uuid: f35eac05-d3e8-5492-8065-dd8217432759
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Wi-Fi uses radio waves to provide high-speed wireless data transfer
+    for devices over short distances. It does not use fiber optics or infrared, nor
+    is it limited to government networks.
+  knowledge_areas:
+  - Wi-Fi technology and operation
+  options:
+  - To provide high-speed wireless data transfer over short distances using radio
+    waves.
+  - To connect devices using fiber optic cables.
+  - To transmit data exclusively through infrared signals.
+  - To enable only government networks to communicate.
+  question_id: 1
+  question_text: What is the main function of Wi-Fi technology?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The IEEE approved the original 802.11 standard for Wi-Fi in 1997. The
+    FCC's 1985 ruling opened frequency bands, but did not establish the standard.
+  knowledge_areas:
+  - Establishment of Wi-Fi standards (802.11)
+  options:
+  - Institute of Electrical and Electronics Engineers (IEEE), 1997
+  - Federal Communications Commission (FCC), 1985
+  - Wi-Fi Alliance, 2019
+  - International Telecommunication Union (ITU), 2001
+  question_id: 2
+  question_text: Which organization established the original standard for Wi-Fi, and
+    in what year was it approved?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The term 'Wi-Fi' was created by a marketing firm for its resonance
+    with 'hi-fi' and does not stand for 'wireless fidelity' or any technical phrase.
+  knowledge_areas:
+  - Origin and meaning of the term 'Wi-Fi'
+  options:
+  - It is an abbreviation for 'wireless fidelity.'
+  - It was created for marketing purposes and does not stand for any technical term.
+  - It refers to fiber optic wireless networks.
+  - It is a scientific acronym for wireless Internet.
+  question_id: 3
+  question_text: Why was the term 'Wi-Fi' chosen, and what does it actually mean?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Wi-Fi allows for wireless networking, increasing flexibility and accessibility
+    in both private and public spaces, and supports a wide range of devices.
+  knowledge_areas:
+  - Advantages and applications of Wi-Fi
+  options:
+  - It allows networks to operate without cables, increasing flexibility.
+  - It requires all devices to be connected by wires.
+  - It restricts Internet access to desktop computers only.
+  - It can only be used in private homes, not public spaces.
+  question_id: 4
+  question_text: Which of the following is a key advantage of Wi-Fi in modern society?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The 802.11 standard enabled interoperability between devices from different
+    manufacturers, which was essential for the widespread adoption and growth of Wi-Fi
+    technology.
+  knowledge_areas:
+  - Establishment of Wi-Fi standards (802.11)
+  - Advantages and applications of Wi-Fi
+  options:
+  - It enabled devices from different manufacturers to work together, promoting widespread
+    adoption.
+  - It limited Wi-Fi use to a single brand of devices.
+  - It slowed down the growth of wireless technology.
+  - It required all networks to use wired connections.
+  question_id: 5
+  question_text: How did the development of a common Wi-Fi standard (802.11) impact
+    the adoption of wireless networking?
+  question_type: recap
+sections:
+- aspects:
+  - content: Wi-Fi is a networking technology that utilizes radio waves to enable
+      high-speed data transfer over short distances, typically within local area networks.
+      It allows devices such as computers, smartphones, and tablets to access broadband
+      Internet wirelessly, eliminating the need for physical cables.
+    type: Definition
+  - content: Wi-Fi operates by dividing available frequency bands into multiple channels
+      that overlap in frequency. To minimize interference and maximize efficiency,
+      Wi-Fi uses channels that are far apart and employs a 'spread spectrum' technique,
+      breaking a signal into pieces and transmitting them over multiple frequencies.
+      This approach allows for lower power transmission per frequency and enables
+      multiple devices to use the same transmitter. Wi-Fi signals can be affected
+      by obstacles, leading to multipath interference, which is mitigated by using
+      multiple transmission methods.
+    type: Technical Operation
+  - content: Wi-Fi is commonly used in homes, businesses, and public spaces to provide
+      wireless Internet access. Devices connect to Wi-Fi hotspots, which are areas
+      with Wi-Fi coverage, such as airports, coffee shops, and hotels. Some cities
+      offer free citywide Wi-Fi networks, and Wi-Fi Direct enables device-to-device
+      connections without a LAN.
+    type: Examples and Use Cases
+  - content: The adoption of Wi-Fi has transformed how people access the Internet,
+      making connectivity more flexible and mobile. Its compatibility with a wide
+      range of devices and environments has made it integral to modern computing and
+      communication. Wi-Fi is closely related to other networking technologies like
+      Ethernet and Bluetooth, but it is distinct in its use of radio waves for wireless
+      local networking.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Wi-Fi uses radio waves and spread spectrum techniques to transmit
+      data wirelessly over multiple frequencies. It does not use infrared light or
+      fiber optic cables, and it does not require devices to be physically wired together.
+    options:
+    - It uses radio waves and spread spectrum techniques to send data over multiple
+      frequencies.
+    - It relies solely on infrared light to communicate between devices.
+    - It uses fiber optic cables to transmit high-speed signals.
+    - It can only connect devices that are physically wired together.
+    question_text: Which of the following best describes how Wi-Fi transmits data?
+  index: 141
+  key_concept: Wi-Fi technology and operation
+  name: Wi-Fi
+- aspects:
+  - content: Prior to the establishment of a common standard, wireless networking
+      technology was fragmented, with devices from different manufacturers often being
+      incompatible. The U.S. Federal Communications Commission's 1985 decision to
+      open certain radio frequency bands for unlicensed use set the stage for innovation
+      in wireless networking.
+    type: Historical Context
+  - content: A committee of industry leaders developed a standardized protocol for
+      wireless networking, resulting in the 802.11 standard, which was approved by
+      the Institute of Electrical and Electronics Engineers (IEEE) in 1997. This standard
+      provided a foundation for interoperability among devices from different manufacturers.
+    type: Standardization Process
+  - content: The original 802.11 standard allowed for a maximum data transmission
+      rate of 2 Mbps. Subsequent standards, such as 802.11ax (Wi-Fi 6), have dramatically
+      increased theoretical maximum speeds, reaching up to 9.6 Gbps. These advancements
+      have enabled Wi-Fi to keep pace with growing demands for bandwidth and connectivity.
+    type: Evolution of Standards
+  - content: The creation of a common standard was crucial for widespread adoption
+      and compatibility, fostering the growth of the Wi-Fi ecosystem. It allowed consumers
+      and businesses to confidently purchase devices knowing they would work together,
+      driving innovation and market expansion.
+    type: Implications and Industry Impact
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The IEEE 802.11 standard established a common protocol for wireless
+      networking, allowing devices from different manufacturers to work together.
+      It did not limit Wi-Fi to government use, involve fiber optic cables, or require
+      brand uniformity.
+    options:
+    - It established a common protocol that enabled device interoperability.
+    - It limited Wi-Fi to government use only.
+    - It introduced the use of fiber optic cables for wireless networking.
+    - It was the first standard to require all devices to use the same brand.
+    - correct_answer
+    question_text: What was the significance of the IEEE 802.11 standard for Wi-Fi?
+  index: 141
+  key_concept: Establishment of Wi-Fi standards (802.11)
+  name: Wi-Fi
+- aspects:
+  - content: The term 'Wi-Fi' was coined by the Wireless Ethernet Compatibility Alliance
+      (WECA), a global nonprofit organization formed to promote the new wireless standard.
+      The name was created by a marketing firm for its resemblance to 'hi-fi' (high-fidelity),
+      aiming for a catchy and familiar-sounding term.
+    type: Etymology and Naming
+  - content: Despite common misconceptions, 'Wi-Fi' is not an abbreviation for 'wireless
+      fidelity.' The name was selected primarily for marketing appeal and does not
+      stand for any technical phrase.
+    type: Clarification of Meaning
+  - content: WECA, now known as the Wi-Fi Alliance, played a key role in promoting
+      the standard and ensuring widespread adoption. The organization's branding efforts
+      helped establish Wi-Fi as a household term.
+    type: Organizational Context
+  - content: The successful branding of Wi-Fi contributed to its rapid popularization
+      and acceptance. The term's similarity to 'hi-fi' helped associate it with quality
+      and modern technology, aiding consumer recognition.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The term 'Wi-Fi' was coined by a marketing firm for the Wireless
+      Ethernet Compatibility Alliance and does not stand for 'wireless fidelity' or
+      'wireless Internet.' It was not related to fiber optic networks.
+    options:
+    - '''Wi-Fi'' stands for ''wireless fidelity.'''
+    - It was created by a marketing firm for the Wireless Ethernet Compatibility Alliance.
+    - It is an abbreviation for 'wireless Internet.'
+    - It was first used to describe fiber optic networks.
+    question_text: Which statement about the origin of the term 'Wi-Fi' is correct?
+  index: 141
+  key_concept: Origin and meaning of the term 'Wi-Fi'
+  name: Wi-Fi
+- aspects:
+  - content: Wi-Fi enables local area networks (LANs) to function without the need
+      for cables, providing greater flexibility and convenience in both home and business
+      environments. It allows multiple devices to connect wirelessly to the Internet
+      or each other within the coverage area.
+    type: Practical Benefits
+  - content: Wi-Fi provides wireless broadband Internet access for a wide range of
+      devices, such as laptops, smartphones, tablets, and gaming consoles. Users can
+      access the Internet from various locations, including public hotspots in airports,
+      hotels, and coffee shops, as well as citywide networks in some urban areas.
+    type: Accessibility and Mobility
+  - content: Common use cases include home networking, business environments, and
+      public hotspots. Wi-Fi Direct technology allows devices to connect directly
+      without a central network, expanding its utility for peer-to-peer applications.
+    type: Examples and Use Cases
+  - content: The widespread adoption of Wi-Fi has facilitated the growth of mobile
+      computing and the proliferation of Internet-connected devices. It has enabled
+      new business models, improved productivity, and contributed to the digital transformation
+      of society.
+    type: Implications for Society
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Wi-Fi does not require devices to be in direct line of sight; it
+      can transmit signals through walls and obstacles. The other options are true
+      advantages of Wi-Fi.
+    options:
+    - It eliminates the need for physical network cables.
+    - It allows devices to connect wirelessly in public hotspots.
+    - It requires all devices to be in direct line of sight.
+    - It enables citywide wireless Internet coverage in some areas.
+    question_text: Which of the following is NOT an advantage of Wi-Fi?
+  index: 141
+  key_concept: Advantages and applications of Wi-Fi
+  name: Wi-Fi

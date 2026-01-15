@@ -1,0 +1,142 @@
+URL: https://www.britannica.com/technology/tablero
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A brief encyclopedia entry introducing the architectural term 'tablero'
+  and its role in the talud-tablero motif, with a focus on its significance in Mesoamerican,
+  especially Teotihuacán, architecture.
+file_name: Tablero architecture Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Tablero architecture Britannica.html
+file_uuid: cbf0a02a-8ab7-5a9f-abda-9e5344809693
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The tablero is the rectangular frontal panel, often framed and recessed,
+    found in the talud-tablero motif.
+  knowledge_areas:
+  - tablero
+  - Mesoamerican architecture
+  options:
+  - A rectangular frontal panel often framed and recessed.
+  - A type of stone used in construction.
+  - A ceremonial plaza.
+  - A sloping base supporting a pyramid.
+  question_id: 1
+  question_text: What is the 'tablero' in Mesoamerican architecture?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Teotihuacán is renowned for its extensive use of the talud-tablero
+    motif in its monumental architecture.
+  knowledge_areas:
+  - talud-tablero motif
+  - Mesoamerican architecture
+  options:
+  - Chichen Itza
+  - Teotihuacán
+  - Machu Picchu
+  - Cuzco
+  question_id: 2
+  question_text: Which ancient city is most closely associated with the talud-tablero
+    motif?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The motif is characterized by alternating sloping (talud) and rectangular
+    (tablero) sections on each tier of the pyramid.
+  knowledge_areas:
+  - talud-tablero motif
+  - tablero
+  options:
+  - As alternating sloping and rectangular sections on each tier.
+  - As a single flat surface covering the pyramid.
+  - As decorative carvings only at the pyramid's base.
+  - As underground chambers beneath the pyramid.
+  question_id: 3
+  question_text: How does the talud-tablero motif typically appear in the construction
+    of stepped pyramids?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The adoption of the tablero motif in other regions suggests Teotihuacán's
+    cultural and political influence across Mesoamerica.
+  knowledge_areas:
+  - tablero
+  - talud-tablero motif
+  - Mesoamerican architecture
+  options:
+  - It suggests cultural and political connections with other regions.
+  - It shows the lack of architectural innovation in Teotihuacán.
+  - It was used only for practical, not symbolic, purposes.
+  - It was unique to Teotihuacán and never adopted elsewhere.
+  question_id: 4
+  question_text: What might the widespread use of the tablero element in Mesoamerican
+    architecture indicate about Teotihuacán's influence?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 'tablero' is an architectural element characterized by a rectangular
+      frontal panel, often found in Mesoamerican stepped pyramids. It is typically
+      set above a sloping surface called the talud, forming part of the distinctive
+      talud-tablero motif. The tablero is usually surrounded by a projecting frame,
+      which both highlights and protects the recessed panel.
+    type: Definition
+  - content: The tablero is prominently featured in the architecture of Teotihuacán,
+      one of the most influential pre-Columbian cities in Mesoamerica. It appears
+      on each tier of stepped pyramids, such as the Pyramid of the Sun and the Pyramid
+      of the Moon. The motif has been identified in other Mesoamerican sites, demonstrating
+      its cultural diffusion and importance.
+    type: Examples and Context
+  - content: The use of the tablero in monumental architecture reflects both aesthetic
+      and symbolic values, possibly representing cosmological or societal hierarchies.
+      Its widespread adoption suggests strong cultural and political connections between
+      Teotihuacán and other Mesoamerican civilizations. The tablero also serves as
+      a marker for identifying the influence of Teotihuacán in distant regions.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The tablero is specifically the rectangular frontal panel set above
+      a sloping base (talud), forming part of the talud-tablero motif. It is not a
+      structural support, entrance, or exclusively decorative element.
+    options:
+    - It acts as a rectangular frontal panel above a sloping base.
+    - It supports the entire pyramid structure from below.
+    - It serves as an entrance to the pyramid's inner chambers.
+    - It is used exclusively for decorative mosaics.
+    question_text: What is the primary architectural function of the 'tablero' in
+      Mesoamerican stepped pyramids?
+  index: 118
+  key_concept: tablero
+  name: tablero
+- aspects:
+  - content: The talud-tablero motif is an architectural style in which a sloping
+      surface (talud) is surmounted by a rectangular panel (tablero). This motif is
+      repeated in tiers, especially in the construction of stepped pyramids.
+    type: Definition
+  - content: This motif is most famously associated with Teotihuacán, where it is
+      seen on major pyramids and platforms. It also appears in other Mesoamerican
+      sites, such as Tikal and Cholula, indicating its diffusion and adaptation across
+      cultures.
+    type: Examples and Use Cases
+  - content: The talud-tablero motif likely held symbolic significance, possibly representing
+      the interface between the earthly and the divine. Its repetition in monumental
+      architecture may have reinforced political or religious authority, and its adoption
+      by other cultures suggests admiration or emulation of Teotihuacán's prestige.
+    type: Implications and Symbolism
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The talud-tablero motif consists of a sloping wall (talud) topped
+      by a rectangular panel (tablero), a feature repeated in tiers on many Mesoamerican
+      pyramids, especially in Teotihuacán.
+    options:
+    - A series of arches supporting a dome.
+    - A sloping wall (talud) topped by a rectangular panel (tablero), repeated in
+      tiers.
+    - A flat roof supported by columns.
+    - A decorative frieze running along the pyramid base.
+    question_text: Which statement best describes the talud-tablero motif in Mesoamerican
+      architecture?
+  index: 128
+  key_concept: talud-tablero motif
+  name: Mesoamerican architecture

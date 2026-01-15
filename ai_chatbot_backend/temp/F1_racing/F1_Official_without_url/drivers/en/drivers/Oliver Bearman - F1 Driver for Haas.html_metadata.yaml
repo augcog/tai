@@ -1,0 +1,250 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Formula 1 driver profile page for Oliver Bearman, covering his
+  biography, career progression, season and career statistics, and media content including
+  videos and articles about his performances and milestones.
+file_name: Oliver Bearman - F1 Driver for Haas.html
+file_path: F1_racing/F1_Official/drivers/en/drivers/Oliver Bearman - F1 Driver for
+  Haas.html
+file_uuid: 649c6465-ced1-52b2-979c-898e9c5ce005
+recap_questions:
+- correct_answers:
+  - 2
+  explanation: Bearman joined the Haas F1 Team as a full-time driver for the 2025
+    season, following his successful substitute appearances and reserve duties.
+  knowledge_areas:
+  - Oliver Bearman Profile
+  - Biography and Career Progression
+  options:
+  - Ferrari
+  - Red Bull Racing
+  - Haas F1 Team
+  - Mercedes
+  question_id: 1
+  question_text: Which team did Oliver Bearman secure a full-time Formula 1 seat with
+    for the 2025 season?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Bearman's best finish is 4th place, achieved once during his F1 career
+    up to and including the 2025 season.
+  knowledge_areas:
+  - Season and Career Statistics
+  options:
+  - 1st
+  - 2nd
+  - 4th
+  - 10th
+  question_id: 2
+  question_text: What was Oliver Bearman's highest race finish in his Formula 1 career
+    as of the 2025 season?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Bearman is highlighted in articles and videos as a standout rookie,
+    with recognition from peers and team leaders.
+  knowledge_areas:
+  - Media Coverage and Recognition
+  - Peer and Industry Recognition
+  options:
+  - He is regularly featured in technical engineering documentaries.
+  - He is recognized as a promising rookie by peers, team bosses, and featured in
+    season reviews.
+  - He is primarily known for his off-track business ventures.
+  - He is a leading figure in F1 rule development.
+  question_id: 3
+  question_text: Which of the following best describes the media and industry recognition
+    Oliver Bearman has received?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Bearman debuted in F1 by substituting for Carlos Sainz at Ferrari during
+    the 2024 Saudi Arabian Grand Prix.
+  knowledge_areas:
+  - Biography and Career Progression
+  options:
+  - As a full-time Haas driver at the start of 2025.
+  - As a substitute for Carlos Sainz with Ferrari in Saudi Arabia 2024.
+  - After winning the F2 championship.
+  - By replacing Esteban Ocon at Haas in 2025.
+  question_id: 4
+  question_text: How did Oliver Bearman first make his Formula 1 race debut?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Bearman did not win a Grand Prix in 2025; his season included 9 top-10s,
+    3 DNFs, and 41 points.
+  knowledge_areas:
+  - Season and Career Statistics
+  options:
+  - 9 Grand Prix top-10 finishes
+  - A Grand Prix win
+  - 3 DNFs
+  - 41 season points
+  question_id: 5
+  question_text: Which of the following is NOT part of Bearman's 2025 season statistics?
+  question_type: recap
+sections:
+- aspects:
+  - content: Oliver Bearman is a British Formula 1 driver who races for the Haas F1
+      Team, with car number 87. He is recognized as a rising talent in the sport,
+      having moved up through the ranks of junior formulae and securing a seat in
+      F1 after notable performances as a reserve and substitute driver.
+    type: Definition
+  - content: Bearman’s profile includes his nationality (British), association with
+      the Haas F1 Team, and his status as a Ferrari reserve driver prior to his full-time
+      F1 debut. His journey reflects the modern path for young drivers, involving
+      significant roles as a reserve and substitute before earning a permanent seat.
+    type: Context
+  - content: Bearman's rapid rise to F1 underscores the importance of junior series
+      success and adaptability in high-pressure scenarios, such as substituting for
+      ill or banned drivers. His early impact has positioned him as a potential future
+      candidate for top teams, notably Ferrari.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Oliver Bearman drives for the Haas F1 Team and uses car number 87,
+      as detailed in his profile section.
+    options:
+    - Ferrari, 16
+    - Haas F1 Team, 87
+    - Red Bull Racing, 33
+    - Mercedes, 44
+    question_text: Which team does Oliver Bearman drive for in Formula 1, and what
+      is his car number?
+  index: 59
+  key_concept: Oliver Bearman Profile
+  name: OliverBearman
+- aspects:
+  - content: Season and career statistics encompass quantitative measures of Bearman's
+      performance, such as races entered, points scored, podiums, poles, DNFs, and
+      best finishes, both for the current season and his overall F1 career.
+    type: Definition
+  - content: In the 2025 season, Bearman achieved 41 points and a season position
+      of 13th, with 24 Grand Prix races, 9 top-10 finishes, and 3 DNFs. His career
+      stats include 27 Grand Prix entries, 48 career points, a highest race finish
+      of 4th, and no podiums or pole positions.
+    type: Examples
+  - content: These statistics reflect Bearman’s consistency, improvement, and reliability
+      as a driver. Despite not yet achieving a podium, his ability to score points
+      and secure top-10 finishes demonstrates competitiveness and potential for further
+      growth.
+    type: Implications
+  - content: Statistical performance is a key metric for driver evaluation, contract
+      negotiations, and comparison with teammates and rivals. Bearman’s stats are
+      particularly notable when compared to more experienced drivers like Esteban
+      Ocon, whom he outscored.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Bearman's highest race finish is 4th, but he has not won a Grand
+      Prix, has no podiums, and has experienced DNFs.
+    options:
+    - He has won a Grand Prix.
+    - He has achieved a highest race finish of 4th.
+    - He has more than 5 podiums.
+    - He has never had a DNF.
+    question_text: Which of the following is true about Oliver Bearman's career statistics?
+  index: 71
+  key_concept: Season and Career Statistics
+  name: STATISTICS
+- aspects:
+  - content: The biography section details Bearman’s personal background, including
+      his date and place of birth, and provides a narrative of his progression from
+      junior formulae to Formula 1.
+    type: Definition
+  - content: Born on May 8, 2005, in Chelmsford, England, Bearman made his F1 debut
+      in Saudi Arabia 2024 as a substitute for Carlos Sainz. He previously competed
+      in F2 with Prema Racing, winning four races and finishing sixth in the standings.
+    type: Examples
+  - content: 'Bearman’s career trajectory exemplifies the modern F1 development pipeline:
+      success in F2, F1 test runs, FP1 outings, and reserve duties leading to a full-time
+      seat. His ability to adapt and perform under pressure was highlighted by his
+      points-scoring F1 debut.'
+    type: Context
+  - content: His biography illustrates the value of versatility, resilience, and seizing
+      opportunities—such as stepping in for an ill or banned driver—to advance in
+      F1. His early performances have positioned him as a promising candidate for
+      future top-team opportunities.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Bearman’s strong debut as a substitute, along with his reserve and
+      test performances, led to his full-time seat with Haas.
+    options:
+    - By winning the F2 championship.
+    - By scoring points as a substitute for Carlos Sainz and impressing during reserve
+      duties.
+    - By being the son of a former F1 driver.
+    - By winning a Grand Prix in his debut season.
+    question_text: How did Oliver Bearman secure his full-time F1 seat with Haas?
+  index: 155
+  key_concept: Biography and Career Progression
+  name: Biography
+- aspects:
+  - content: This section compiles video content highlighting Bearman’s season reviews,
+      race performances, interviews, and key moments, providing multimedia insights
+      into his career and public persona.
+    type: Definition
+  - content: Featured videos include 'The F1 Rookies' Season Review,' reactions to
+      penalties, analysis of qualifying sessions, and coverage of Bearman’s emotional
+      responses to race events, such as his P4 run in FP2 and frustrations with pit
+      stops.
+    type: Examples
+  - content: Media coverage enhances Bearman’s visibility, shapes his public image,
+      and provides fans and analysts with deeper understanding of his on-track decisions,
+      mindset, and development.
+    type: Implications
+  - content: Media narratives can influence team perceptions, sponsor interest, and
+      fan support. Bearman’s frequent presence in F1 media suggests recognition as
+      a notable rookie and a driver to watch.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The videos focus on Bearman's season, race reactions, and interviews,
+      not technical, historical, or gaming content.
+    options:
+    - Season reviews, race reactions, and driver interviews.
+    - Technical car development documentaries.
+    - Historical F1 championship recaps.
+    - F1 video game tutorials.
+    question_text: Which type of content is included in the 'Related Videos' section
+      for Oliver Bearman?
+  index: 193
+  key_concept: Media Coverage and Recognition
+  name: Related Videos
+- aspects:
+  - content: This section aggregates articles that discuss Bearman’s ranking among
+      drivers, his impact as a rookie, and evaluations by peers and team bosses.
+    type: Definition
+  - content: Articles include 'The top 10 drivers of 2025 – as chosen by the drivers,'
+      'How Bearman went from super-sub to star rookie in 2025,' and year-end reports
+      analyzing Haas’ season and Bearman’s contributions.
+    type: Examples
+  - content: Recognition from peers and team leaders is a significant indicator of
+      a driver’s reputation, potential, and value within the F1 community. Positive
+      coverage can influence contract opportunities and career trajectory.
+    type: Implications
+  - content: Peer and industry recognition ties into statistical performance and media
+      coverage, reinforcing Bearman’s standing as one of the most promising new drivers
+      in the sport.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The articles focus on Bearman’s status as a top rookie and how he
+      is viewed by other drivers and team bosses.
+    options:
+    - His technical engineering skills.
+    - His recognition as a top rookie and evaluations by peers and team bosses.
+    - His off-track business ventures.
+    - His involvement in F1 rule changes.
+    question_text: What do the related articles about Oliver Bearman primarily highlight?
+  index: 227
+  key_concept: Peer and Industry Recognition
+  name: Related Articles

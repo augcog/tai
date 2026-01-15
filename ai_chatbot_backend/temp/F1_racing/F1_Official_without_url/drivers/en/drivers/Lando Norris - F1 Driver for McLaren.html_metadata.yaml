@@ -1,0 +1,242 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A profile page for Lando Norris, McLaren F1 driver, covering his
+  2025 season and career statistics, biography, notable achievements, and related
+  media content.
+file_name: Lando Norris - F1 Driver for McLaren.html
+file_path: F1_racing/F1_Official/drivers/en/drivers/Lando Norris - F1 Driver for McLaren.html
+file_uuid: d972520b-9ab9-533b-986c-e1805b3351f8
+recap_questions:
+- correct_answers:
+  - 2
+  explanation: Norris has raced exclusively for McLaren since his F1 debut in 2019,
+    reflecting the team's investment in his career.
+  knowledge_areas:
+  - Lando Norris Profile
+  options:
+  - Ferrari
+  - Red Bull Racing
+  - McLaren
+  - Mercedes
+  question_id: 1
+  question_text: Which team has Lando Norris driven for since his Formula 1 debut?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Norris achieved 7 Grand Prix wins in the 2025 season, which was crucial
+    to his championship victory.
+  knowledge_areas:
+  - 2025 Season Performance
+  options:
+  - '3'
+  - '7'
+  - '11'
+  - '0'
+  question_id: 2
+  question_text: How many Grand Prix wins did Lando Norris secure during the 2025
+    F1 season?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: By 2025, Norris had entered 152 Grands Prix, achieved 44 podiums, and
+    won 1 World Championship.
+  knowledge_areas:
+  - Career Achievements
+  options:
+  - 152 Grands Prix entered, 44 podiums, 1 World Championship
+  - 50 Grands Prix entered, 10 podiums, 0 Championships
+  - 200 Grands Prix entered, 30 podiums, 2 Championships
+  - 100 Grands Prix entered, 20 podiums, 1 Championship
+  question_id: 3
+  question_text: Which of the following best summarizes Lando Norris's career achievements
+    by the end of 2025?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Norris was born in Bristol, England, and is popular for his modest
+    charm and artistic side, including designing his own race gear.
+  knowledge_areas:
+  - Biography and Personal Background
+  options:
+  - London, England; known for his aggressive racing style
+  - Bristol, England; known for his modest charm and artistic hobbies
+  - Manchester, England; known for his technical engineering skills
+  - Edinburgh, Scotland; known for his media controversies
+  question_id: 4
+  question_text: Where was Lando Norris born, and how does his personality contribute
+    to his popularity?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The 'Related Videos' section features onboards, highlights, interviews,
+    and award moments focused on Norris's career.
+  knowledge_areas:
+  - Media and Recognition
+  options:
+  - Technical car design breakdowns
+  - Iconic onboards, race highlights, and award moments
+  - Historical documentaries about F1
+  - Interviews with team principals only
+  question_id: 5
+  question_text: Which of the following best describes the type of content found in
+    the 'Related Videos' section for Lando Norris?
+  question_type: recap
+sections:
+- aspects:
+  - content: Lando Norris is a British racing driver who competes in Formula 1 for
+      the McLaren team. He is recognized for his youthful entry into the sport, his
+      technical skill, and his engaging personality both on and off the track.
+    type: definition
+  - content: Norris has been associated with McLaren since his junior career and was
+      promoted to their F1 team in 2019. His career trajectory has been marked by
+      rapid development, consistent performance, and a growing reputation as one of
+      the sport's leading talents.
+    type: context
+  - content: Norris’s rise reflects the increasing trend of teams investing in young
+      drivers with strong junior records. His success has implications for McLaren’s
+      competitiveness and the broader landscape of driver development in F1.
+    type: implications
+  - content: His career is often compared with other young drivers like Max Verstappen
+      and Charles Leclerc, highlighting a generational shift in F1. Norris’s profile
+      also connects to McLaren’s resurgence as a top team.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Lando Norris has been a McLaren driver since his F1 debut, reflecting
+      the team's commitment to developing young talent.
+    options:
+    - Ferrari
+    - Red Bull Racing
+    - McLaren
+    - Mercedes
+    question_text: Which team has Lando Norris raced for throughout his Formula 1
+      career?
+  index: 59
+  key_concept: Lando Norris Profile
+  name: LandoNorris
+- aspects:
+  - content: The 2025 season performance refers to Norris’s results and achievements
+      in the 2025 Formula 1 World Championship, including race wins, podiums, poles,
+      and points.
+    type: definition
+  - content: In 2025, Norris secured 7 Grand Prix wins, 18 podiums, 7 pole positions,
+      and finished 1st in the season standings with 423 points. He also achieved 2
+      Sprint wins and 4 Sprint podiums.
+    type: examples
+  - content: His dominant season established him as the World Champion and was pivotal
+      in McLaren winning the Constructors’ Championship for the first time since 1998.
+      It also demonstrated his ability to overcome setbacks, notably a 34-point deficit
+      late in the season.
+    type: implications
+  - content: Norris’s season is contextualized by intense competition with Max Verstappen
+      and Oscar Piastri, and his performance is a case study in resilience and peak
+      athletic performance under pressure.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Norris won 7 Grand Prix races in 2025, marking his most successful
+      season to date.
+    options:
+    - '3'
+    - '7'
+    - '11'
+    - '0'
+    question_text: How many Grand Prix wins did Lando Norris achieve in the 2025 season?
+  index: 73
+  key_concept: 2025 Season Performance
+  name: SEASON
+- aspects:
+  - content: Career achievements summarize Norris’s cumulative performance in Formula
+      1, including races entered, total points, podiums, pole positions, and championship
+      titles.
+    type: definition
+  - content: By 2025, Norris had entered 152 Grands Prix, scored 1430 career points,
+      achieved 44 podiums, 16 pole positions, and won 1 World Championship. His highest
+      race finish is 1st place, achieved 11 times.
+    type: examples
+  - content: These statistics highlight Norris’s consistency and growth, underlining
+      his status as one of the leading drivers of his generation. His achievements
+      contribute to McLaren’s legacy and competitiveness in F1.
+    type: implications
+  - content: Norris’s career stats are often compared with other top drivers, providing
+      benchmarks for evaluating driver performance and career progression in modern
+      F1.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: By 2025, Norris had entered 152 Grands Prix, achieved 44 podiums,
+      and won 1 World Championship.
+    options:
+    - 152 Grands Prix entered, 44 podiums, 1 World Championship
+    - 50 Grands Prix entered, 10 podiums, 0 Championships
+    - 200 Grands Prix entered, 30 podiums, 2 Championships
+    - 100 Grands Prix entered, 20 podiums, 1 Championship
+    question_text: Which of the following best summarizes Lando Norris's career achievements
+      by 2025?
+  index: 129
+  key_concept: Career Achievements
+  name: CAREER STATS
+- aspects:
+  - content: This section covers Norris’s personal history, including his date and
+      place of birth, early career, and personality traits.
+    type: definition
+  - content: Born on November 13, 1999, in Bristol, England, Norris was fast-tracked
+      into F1 after a standout junior career. He is known for his flair, fighting
+      spirit, and artistic hobbies such as designing and painting his own race gear.
+    type: examples
+  - content: Norris’s background and personality have contributed to his popularity
+      among fans and his effectiveness as a team leader. His artistic side and modesty
+      set him apart in the high-pressure world of F1.
+    type: implications
+  - content: His biography illustrates the modern F1 driver as both an athlete and
+      a public figure, blending sporting excellence with personal branding and media
+      engagement.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Lando Norris was born in Bristol, England, as stated in his biography.
+    options:
+    - London, England
+    - Bristol, England
+    - Manchester, England
+    - Edinburgh, Scotland
+    question_text: Where was Lando Norris born?
+  index: 155
+  key_concept: Biography and Personal Background
+  name: Biography
+- aspects:
+  - content: This concept encompasses Norris’s presence in media, including video
+      highlights, interviews, analysis, and awards coverage.
+    type: definition
+  - content: Videos include iconic onboards, McLaren’s 2025 season highlights, Norris
+      receiving the Drivers’ Championship trophy, and analysis of his performance
+      in the Abu Dhabi season finale.
+    type: examples
+  - content: Media coverage amplifies Norris’s profile, providing fans and analysts
+      with insights into his driving style, racecraft, and personality. It also cements
+      his status as a leading figure in contemporary F1.
+    type: implications
+  - content: Recognition through media and awards connects Norris to the broader F1
+      narrative, influencing public perception and contributing to the sport’s global
+      appeal.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The 'Related Videos' section features iconic onboards, race highlights,
+      interviews, and award moments focusing on Norris.
+    options:
+    - Technical car design breakdowns
+    - Iconic onboards and race highlights
+    - Historical documentaries about F1
+    - Interviews with team principals only
+    question_text: Which type of content is frequently featured in the 'Related Videos'
+      section for Lando Norris?
+  index: 195
+  key_concept: Media and Recognition
+  name: Related Videos

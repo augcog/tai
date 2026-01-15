@@ -1,0 +1,270 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A promotional web page for the F1 Unlocked Las Vegas competition,
+  including details on membership benefits, related F1 articles, official partners,
+  and app download information.
+file_name: Win the ultimate Las Vegas prize with F1 Unlocked.html
+file_path: F1_racing/F1_Official/news/en/latest/article/Win the ultimate Las Vegas
+  prize with F1 Unlocked.html
+file_uuid: c90e236f-2c3b-59cf-9888-2189ca95574b
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The competition is primarily a promotional tool for F1 Unlocked, aiming
+    to engage fans with exclusive experiences.
+  knowledge_areas:
+  - F1 Unlocked Las Vegas Competition
+  - F1 Unlocked Membership Benefits
+  options:
+  - To promote F1 Unlocked membership and offer exclusive fan experiences
+  - To announce new technical regulations
+  - To provide live race commentary
+  - To reveal new F1 partners
+  question_id: 1
+  question_text: What is the main goal of the F1 Unlocked Las Vegas Competition?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: F1 Unlocked offers exclusive content, not guaranteed tickets, car ownership,
+    or management roles.
+  knowledge_areas:
+  - F1 Unlocked Membership Benefits
+  options:
+  - Curated insider content
+  - Guaranteed free race tickets
+  - Ownership of an F1 car
+  - Appointment as a team principal
+  question_id: 2
+  question_text: Which of the following is a benefit of F1 Unlocked membership?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The section focuses on news, interviews, and reviews, not technical
+    or commercial documents.
+  knowledge_areas:
+  - Related F1 News and Articles
+  options:
+  - Driver and team news, interviews, and season reviews
+  - Technical car blueprints
+  - Official merchandise catalogs
+  - Live telemetry data
+  question_id: 3
+  question_text: What type of information is found in the 'Related Articles' section?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Official partners are sponsors who support F1 through funding and collaboration,
+    not regulators, team owners, or logistics-only providers.
+  knowledge_areas:
+  - Official F1 Partners
+  options:
+  - They are responsible for enforcing race rules.
+  - They are sponsors providing funding and collaborative support.
+  - They own the F1 teams.
+  - They are only involved in race-day logistics.
+  question_id: 4
+  question_text: Which statement best characterizes Official F1 Partners?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app is part of a broader digital ecosystem, linking F1's various
+    platforms for enhanced engagement.
+  knowledge_areas:
+  - Official F1 App
+  - F1 Unlocked Membership Benefits
+  options:
+  - It connects with F1 Unlocked, F1 TV, and social media for a comprehensive fan
+    experience.
+  - It allows users to buy F1 cars directly.
+  - It replaces the need for F1 Unlocked membership.
+  - It is only available during race weekends.
+  question_id: 5
+  question_text: How does the Official F1 App integrate with other F1 digital initiatives?
+  question_type: recap
+sections:
+- aspects:
+  - content: The F1 Unlocked Las Vegas Competition is a promotional event where participants
+      could enter for a chance to win an exclusive experience at the Las Vegas Grand
+      Prix. The competition is part of F1 Unlocked, Formula 1's membership program
+      aimed at engaging fans with special opportunities.
+    type: definition
+  - content: An example of the competition is the chance to be the 'guest of honour'
+      at the Las Vegas GP, which merges the excitement of Formula 1 with the vibrant
+      atmosphere of Las Vegas. Past similar competitions have included VIP paddock
+      tours, meet-and-greets with drivers, and access to exclusive F1 events.
+    type: examples
+  - content: The primary use case is to incentivize fans to sign up for F1 Unlocked,
+      thereby increasing engagement and building a dedicated fan base. It also serves
+      to promote the Las Vegas GP as a marquee event on the F1 calendar.
+    type: use case
+  - content: By offering such high-profile prizes, F1 can boost its marketing reach
+      and generate excitement around both the race and the F1 Unlocked platform. This
+      approach also helps gather data on F1 fans, which can be used for targeted marketing
+      and future promotions.
+    type: implications
+  - content: The competition leverages the popularity of the Las Vegas GP and the
+      global appeal of Formula 1. It exemplifies how sports organizations use experiential
+      marketing to foster loyalty and attract new audiences.
+    type: context
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The competition was designed to promote F1 Unlocked and engage fans
+      by offering exclusive experiences, not to announce drivers, regulations, or
+      partners.
+    options:
+    - To promote F1 Unlocked membership and engage fans with exclusive experiences
+    - To announce the 2026 F1 driver lineup
+    - To provide technical updates on F1 regulations
+    - To showcase F1's official partners
+    question_text: What was the main purpose of the F1 Unlocked Las Vegas Competition?
+  index: 53
+  key_concept: F1 Unlocked Las Vegas Competition
+  name: WIN TICKETS TO AN EPIC VEGAS WEEKEND
+- aspects:
+  - content: F1 Unlocked is Formula 1's official free membership program, providing
+      fans with exclusive content, experiences, and rewards. Membership is open to
+      anyone who signs up via the official F1 website.
+    type: definition
+  - content: Benefits include curated insider content such as behind-the-scenes videos,
+      interviews, and race analyses; VIP experiences like paddock access or hospitality
+      packages; and member-only rewards such as discounts, early ticket access, and
+      special offers.
+    type: examples
+  - content: F1 Unlocked is used to deepen fan engagement by offering tangible and
+      intangible perks. It encourages fans to remain active within the F1 digital
+      ecosystem and increases the likelihood of repeat event attendance and merchandise
+      purchases.
+    type: use case
+  - content: The program helps F1 collect valuable user data, tailor marketing strategies,
+      and foster a sense of community among fans. It also differentiates F1 from other
+      sports by emphasizing digital engagement and exclusive access.
+    type: implications
+  - content: F1 Unlocked connects with other digital F1 initiatives, such as F1 TV
+      and the official F1 app, creating an integrated fan experience across platforms.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: F1 Unlocked offers curated content, VIP experiences, and rewards,
+      but does not guarantee race tickets for every member.
+    options:
+    - Curated insider content
+    - Exclusive access and VIP experiences
+    - Guaranteed race tickets for every member
+    - Member rewards and offers
+    question_text: Which of the following is NOT a benefit of F1 Unlocked membership
+      as described?
+  index: 61
+  key_concept: F1 Unlocked Membership Benefits
+  name: This competition is now closed
+- aspects:
+  - content: The 'Related Articles' section provides links to recent news, interviews,
+      and reports about F1 drivers, teams, and events. This section is designed to
+      keep fans updated on the latest happenings in the world of Formula 1.
+    type: definition
+  - content: Examples include articles such as 'Albon names moment he's most proud
+      of from 2025,' 'Aston Martin’s best and worst moments from 2025,' and 'Who are
+      the 2026 F1 drivers?' These cover driver achievements, team performance reviews,
+      and future season previews.
+    type: examples
+  - content: Fans use this section to stay informed about key storylines, driver changes,
+      team strategies, and off-track developments. It serves as a resource for both
+      casual viewers and dedicated followers seeking comprehensive coverage.
+    type: use case
+  - content: By aggregating relevant news, F1 enhances fan engagement and encourages
+      longer site visits. It also supports F1's media strategy by promoting official
+      content and driving traffic to in-depth articles.
+    type: implications
+  - content: This section is closely linked with F1's broader digital content strategy,
+      including social media, video features, and the F1 app, ensuring fans have multiple
+      touchpoints for information.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The 'Related Articles' section focuses on news, interviews, and reviews,
+      not technical rules, merchandise, or live data.
+    options:
+    - Technical regulations and rulebooks
+    - Recent news, interviews, and season reviews
+    - Exclusive merchandise offers
+    - Live race timing data
+    question_text: What type of content is primarily found in the 'Related Articles'
+      section?
+  index: 87
+  key_concept: Related F1 News and Articles
+  name: Related Articles
+- aspects:
+  - content: Official F1 Partners are companies that have formal sponsorship or partnership
+      agreements with Formula 1, contributing financially and through brand collaboration.
+      These partners span a wide range of industries, including luxury goods, technology,
+      automotive, and consumer products.
+    type: definition
+  - content: Examples of partners include LVMH, Pirelli, Aramco, Heineken, AWS, Lenovo,
+      DHL, Qatar Airways, and many others. Each partner may have a specific role,
+      such as providing official tires (Pirelli), logistics (DHL), or technology solutions
+      (AWS).
+    type: examples
+  - content: Partnerships allow F1 to secure funding, enhance event operations, and
+      offer fans added value through co-branded experiences and promotions. Partners
+      often activate their sponsorships with F1-themed marketing campaigns and on-site
+      activations at races.
+    type: use case
+  - content: These partnerships are crucial for F1's financial health and global reach.
+      They also enable technological innovation, sustainability initiatives, and improved
+      fan experiences through collaborative projects.
+    type: implications
+  - content: F1 partners are integrated into race weekends, digital content, and fan
+      engagement initiatives, reinforcing the symbiotic relationship between sport
+      and commerce.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Official F1 Partners are sponsors who contribute funding and collaborate
+      on projects, not car providers, regulators, or ambassadors.
+    options:
+    - They are companies that provide race cars for F1 teams.
+    - They are sponsors that support F1 through funding and collaborative projects.
+    - They are regulatory bodies overseeing F1 rules.
+    - They are former F1 drivers acting as ambassadors.
+    question_text: Which statement best describes the role of Official F1 Partners?
+  index: 96
+  key_concept: Official F1 Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application available for iOS and Android,
+      offering fans real-time race data, news, schedules, and exclusive content. It
+      is an essential digital tool for following Formula 1 on the go.
+    type: definition
+  - content: Features include live timing, driver and team profiles, push notifications
+      for breaking news, and multimedia content such as videos and interviews. The
+      app also integrates with F1 TV for premium subscribers.
+    type: examples
+  - content: Fans use the app to track live races, access personalized updates, and
+      stay connected with the F1 community. It is particularly useful during race
+      weekends for up-to-the-minute information.
+    type: use case
+  - content: The app enhances fan engagement by providing a seamless digital experience,
+      increasing F1's global accessibility. It also serves as a platform for promoting
+      F1 Unlocked and other digital initiatives.
+    type: implications
+  - content: The app is part of F1's broader digital ecosystem, linking with F1 Unlocked,
+      F1 TV, and social media channels to provide a comprehensive fan experience.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The app provides live timing, news, and exclusive content, not car
+      design, contract tools, or car sales.
+    options:
+    - Live timing and race data, news, and exclusive content
+    - Car design software
+    - Driver contract negotiation tools
+    - Official race car purchases
+    question_text: What are some primary features of the Official F1 App?
+  index: 106
+  key_concept: Official F1 App
+  name: Download the Official F1 App

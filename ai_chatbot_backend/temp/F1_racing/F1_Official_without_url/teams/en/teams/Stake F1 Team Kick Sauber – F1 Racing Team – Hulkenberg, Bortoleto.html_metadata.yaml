@@ -1,0 +1,251 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page profile for the Stake F1 Team Kick Sauber, covering its
+  drivers, 2025 season statistics, historical team summary, organizational profile,
+  media, and sponsors.
+file_name: Stake F1 Team Kick Sauber – F1 Racing Team – Hulkenberg, Bortoleto.html
+file_path: F1_racing/F1_Official/teams/en/teams/Stake F1 Team Kick Sauber – F1 Racing
+  Team – Hulkenberg, Bortoleto.html
+file_uuid: b5edcf15-bac4-57f9-a199-0cb81104504e
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Nico Hulkenberg and Gabriel Bortoleto were the official drivers for
+    Kick Sauber in 2025.
+  knowledge_areas:
+  - DRIVERS
+  options:
+  - Nico Hulkenberg and Gabriel Bortoleto
+  - Lewis Hamilton and Charles Leclerc
+  - Max Verstappen and Sergio Perez
+  - Lando Norris and Oscar Piastri
+  question_id: 1
+  question_text: Which two drivers represented Kick Sauber during the 2025 F1 season?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Kick Sauber finished 9th in the standings with 70 points in 2025.
+  knowledge_areas:
+  - 2025 SEASON
+  options:
+  - 1st, 300 points
+  - 5th, 150 points
+  - 9th, 70 points
+  - 12th, 0 points
+  question_id: 2
+  question_text: What was Kick Sauber's final position and points total in the 2025
+    F1 Constructors' Championship?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Kick Sauber has a history of name and ownership changes, including
+    Sauber, BMW Sauber, Alfa Romeo, and soon Audi.
+  knowledge_areas:
+  - Kick Sauber
+  - Team Profile
+  options:
+  - It has always been an independent Swiss team with no manufacturer ties.
+  - It was previously known as Sauber and Alfa Romeo, and will become Audi in 2026.
+  - It has never changed its team name or sponsors.
+  - It has won multiple world championships.
+  question_id: 3
+  question_text: Which of the following statements accurately describes Kick Sauber's
+    history and future in F1?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Kick Sauber has achieved 1 Grand Prix win and 27 podiums in its F1
+    history.
+  knowledge_areas:
+  - Team Summary
+  options:
+  - 1 win, 27 podiums
+  - 10 wins, 100 podiums
+  - 0 wins, 0 podiums
+  - 5 wins, 50 podiums
+  question_id: 4
+  question_text: How many Grand Prix wins and podiums has Kick Sauber achieved in
+    its F1 history?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Kick Sauber is based in Hinwil, Switzerland, led by Jonathan Wheatley,
+    and uses a Ferrari power unit.
+  knowledge_areas:
+  - Team Profile
+  options:
+  - Based in Hinwil, Switzerland, led by Jonathan Wheatley, using a Ferrari power
+    unit.
+  - Based in Maranello, Italy, led by Toto Wolff, using a Mercedes power unit.
+  - Based in Milton Keynes, UK, led by Christian Horner, using a Honda power unit.
+  - Based in Stuttgart, Germany, led by Peter Sauber, using a BMW power unit.
+  question_id: 5
+  question_text: Which of the following best summarizes the organizational and technical
+    structure of Kick Sauber in 2025?
+  question_type: recap
+sections:
+- aspects:
+  - content: Kick Sauber, officially known as Stake F1 Team Kick Sauber, is a Formula
+      1 racing team based in Hinwil, Switzerland. The team has undergone several name
+      and ownership changes over its history, including periods as Sauber, BMW Sauber,
+      Alfa Romeo, and is set to become the Audi works team in 2026. Its identity reflects
+      both its Swiss heritage and its adaptability to changing commercial and technical
+      partnerships.
+    type: Definition and Identity
+  - content: Founded by Peter Sauber, the team entered Formula 1 in 1993 after success
+      in world sportscars. It has a reputation for developing young talent, notably
+      Michael Schumacher and Heinz-Harald Frentzen. Under BMW ownership, the team
+      achieved its only F1 victory and several podiums. More recently, it competed
+      as Alfa Romeo before adopting the Kick Sauber name in 2024 with a new title
+      sponsor.
+    type: Historical Context
+  - content: Kick Sauber is recognized as a mainstay on the F1 grid, known for producing
+      competitive cars and nurturing future stars. The team is respected for its technical
+      resilience and for providing opportunities to drivers and engineers, contributing
+      to the broader F1 ecosystem. Its transition to Audi in 2026 is seen as a significant
+      step for both the team and the sport.
+    type: Reputation and Role in F1
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Kick Sauber began as Sauber, became BMW Sauber, then Alfa Romeo,
+      and is set to become Audi in 2026, reflecting significant changes in name and
+      ownership.
+    options:
+    - It has always competed under the same name and ownership.
+    - It started as a Swiss team, became BMW Sauber, then Alfa Romeo, and is set to
+      become Audi.
+    - It has never changed its technical partnerships.
+    - It was founded in 2005 and has only raced as Kick Sauber.
+    question_text: Which of the following best describes the evolution of the Kick
+      Sauber F1 team?
+  index: 59
+  key_concept: Kick Sauber
+  name: Kick Sauber
+- aspects:
+  - content: 'For the 2025 season, Kick Sauber fields Nico Hulkenberg (Germany) and
+      Gabriel Bortoleto (Brazil) as its main drivers. Both drivers bring unique backgrounds:
+      Hulkenberg is an experienced F1 veteran, while Bortoleto is a rookie making
+      his debut at the top level. The team also has a reserve driver, though the specific
+      name is not listed in the provided content.'
+    type: Current Lineup
+  - content: Kick Sauber has a tradition of nurturing young talent, as seen with Bortoleto’s
+      promotion. The team balances experience and youth, leveraging Hulkenberg’s technical
+      feedback and racecraft alongside Bortoleto’s potential and learning curve. This
+      approach aligns with the team’s historical emphasis on developing drivers for
+      the future.
+    type: Driver Development and Recruitment
+  - content: The combination of an experienced driver and a rookie can influence the
+      team’s performance dynamics. Hulkenberg’s feedback aids car development and
+      race strategy, while Bortoleto’s progression is monitored for long-term potential.
+      This mix can lead to both immediate results and future growth, but may also
+      present challenges in consistency and rookie adaptation.
+    type: Implications for Team Performance
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Nico Hulkenberg and Gabriel Bortoleto are the listed drivers for
+      Kick Sauber in 2025.
+    options:
+    - Nico Hulkenberg and Gabriel Bortoleto
+    - Lewis Hamilton and Max Verstappen
+    - Charles Leclerc and Lando Norris
+    - Pierre Gasly and Yuki Tsunoda
+    question_text: Who are the primary drivers for Kick Sauber in the 2025 F1 season?
+  index: 67
+  key_concept: DRIVERS
+  name: DRIVERS
+- aspects:
+  - content: In the 2025 F1 season, Kick Sauber finished 9th in the constructors'
+      standings, earning 70 points. The team participated in 24 Grand Prix races,
+      achieving 1 podium, 14 top-10 finishes, but no wins, poles, or fastest laps.
+      There were 7 DNFs (Did Not Finish), indicating some reliability or incident
+      issues.
+    type: Season Performance Metrics
+  - content: Kick Sauber took part in 6 sprint races during the season but did not
+      score any points, podiums, wins, or poles in these shorter-format events. Only
+      2 top-10 finishes were recorded in sprints, suggesting the team struggled to
+      capitalize on these opportunities.
+    type: Sprint Race Results
+  - content: The 2025 results reflect a mid-to-lower-tier performance, with occasional
+      highlights such as a podium but overall limited competitiveness. The high number
+      of DNFs may point to mechanical or operational challenges. The lack of sprint
+      points further underscores the need for improvement in both qualifying pace
+      and race execution.
+    type: Implications and Analysis
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Kick Sauber achieved 1 podium, 70 points, and finished 9th, indicating
+      a season with some highlights but overall mid-pack performance.
+    options:
+    - Multiple race wins and championship contention
+    - Consistent podium finishes in every race
+    - A single podium, 70 points, and 9th in the standings
+    - Zero points and last place in the championship
+    question_text: Which statistic best summarizes Kick Sauber's 2025 F1 season performance?
+  index: 91
+  key_concept: 2025 SEASON
+  name: 2025 SEASON
+- aspects:
+  - content: Over its F1 history, Kick Sauber (including previous guises) has entered
+      615 Grand Prix events, accumulating 1088 points. The team has achieved 1 race
+      win, 27 podiums, and 1 pole position, but has never won a constructors' or drivers'
+      championship. Its highest race and grid positions are both 1st, achieved once.
+    type: Historical Performance
+  - content: The team's longevity is notable, having been a fixture on the grid since
+      1993. Despite limited top-level success, its consistent participation and ability
+      to secure points and occasional podiums demonstrate resilience and adaptability
+      in a highly competitive environment.
+    type: Long-Term Consistency
+  - content: Compared to F1's leading teams, Kick Sauber's record is modest, but its
+      ability to survive and occasionally excel highlights the challenges of competing
+      against larger, better-funded rivals. Its single win and pole are significant
+      milestones for a team of its size and resources.
+    type: Comparative Context
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Kick Sauber has achieved 1 Grand Prix win in its history, as indicated
+      in the team summary.
+    options:
+    - '0'
+    - '1'
+    - '10'
+    - '27'
+    question_text: How many Grand Prix wins has Kick Sauber achieved in its F1 history?
+  index: 149
+  key_concept: Team Summary
+  name: Team Summary
+- aspects:
+  - content: Stake F1 Team Kick Sauber is headquartered in Hinwil, Switzerland. The
+      team’s leadership includes Jonathan Wheatley as Team Chief and James Key as
+      Technical Chief. The team uses the C45 chassis and is powered by a Ferrari engine,
+      indicating technical partnerships that shape its competitive potential.
+    type: Organizational Structure
+  - content: Peter Sauber’s legacy is central to the team’s identity, especially his
+      role in nurturing young drivers who later became F1 stars. The team’s reputation
+      for developing talent continues, as seen with recent drivers and its ongoing
+      commitment to youth in motorsport.
+    type: Legacy and Driver Development
+  - content: The team has recently undergone branding changes, racing as Alfa Romeo
+      before adopting the Kick Sauber name in 2024. Looking ahead, it is set to become
+      the Audi works team in 2026, marking a significant shift in resources, identity,
+      and expectations within the F1 landscape.
+    type: Recent and Upcoming Changes
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Kick Sauber is based in Hinwil, Switzerland, and Jonathan Wheatley
+      is the Team Chief.
+    options:
+    - Milan, Italy; Toto Wolff
+    - Hinwil, Switzerland; Jonathan Wheatley
+    - Brackley, UK; Christian Horner
+    - Stuttgart, Germany; Peter Sauber
+    question_text: Where is the Kick Sauber F1 team based and who is its current Team
+      Chief?
+  index: 174
+  key_concept: Team Profile
+  name: Team Profile

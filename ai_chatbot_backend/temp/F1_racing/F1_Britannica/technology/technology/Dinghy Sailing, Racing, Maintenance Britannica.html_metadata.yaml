@@ -1,0 +1,128 @@
+URL: https://www.britannica.com/technology/dinghy
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article entry describing the dinghy, its definitions,
+  uses, types, and characteristics, including its roles in transportation, racing,
+  and as a life raft.
+file_name: Dinghy Sailing, Racing, Maintenance Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Dinghy Sailing, Racing, Maintenance
+  Britannica.html
+file_uuid: cce989bd-92eb-5fe0-9781-b68ef96286c0
+recap_questions:
+- correct_answers:
+  - 2
+  explanation: The article specifies that dinghies are small boats used for transport,
+    racing, and as life rafts, but does not describe them as large cargo ships.
+  knowledge_areas:
+  - Dinghy
+  - Uses and Contexts
+  - Types and Characteristics
+  options:
+  - A small boat used for coastal transport in India
+  - A powered boat with a pointed bow and transom stern
+  - A large ocean-crossing cargo ship
+  - An inflatable life raft
+  question_id: 1
+  question_text: Which of the following is NOT a typical use or form of a dinghy as
+    described in the article?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Racing dinghies are equipped with sails, a rudder, and sometimes a
+    centreboard, as described in the article. The other options are not characteristic
+    of dinghies.
+  knowledge_areas:
+  - Types and Characteristics
+  - Dinghy
+  options:
+  - Multiple sails, a rudder, and sometimes a centreboard
+  - A steam engine and iron hull
+  - Cargo holds and cranes
+  - A deep keel and large crew
+  question_id: 2
+  question_text: What features are commonly found on a racing dinghy?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The article specifically mentions the use of dinghies for carrying
+    passengers or cargo along the coasts of India, especially in sheltered waters.
+  knowledge_areas:
+  - Uses and Contexts
+  - Examples and Variations
+  options:
+  - In the sheltered waters along the coasts of India
+  - On transatlantic shipping routes
+  - In deep-sea fishing operations
+  - As luxury yachts in the Mediterranean
+  question_id: 3
+  question_text: In which context are dinghies commonly used to carry passengers or
+    cargo, according to the article?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Inflatable dinghies are highlighted in the article as small, portable
+    life rafts, emphasizing their role in maritime safety.
+  knowledge_areas:
+  - Dinghy
+  - Connections and Implications
+  - Examples and Variations
+  options:
+  - They are used exclusively for sport.
+  - They serve as small, portable life rafts for maritime safety.
+  - They are the main form of transportation for ocean crossings.
+  - They are only used in freshwater lakes.
+  question_id: 4
+  question_text: How does the article describe the significance of inflatable dinghies?
+  question_type: recap
+sections:
+- aspects:
+  - content: A dinghy is defined as any of various small boats, which can be either
+      rowboats or sailboats. The term encompasses a range of vessel types, from simple
+      manually-powered boats to small sailing craft. In some contexts, the word 'dinghy'
+      also refers to small, inflatable life rafts.
+    type: Definition
+  - content: Dinghies can be rowboats, sailboats, or powered boats. Common features
+      include a pointed bow, transom stern, and round bottom, especially in powered
+      variants. Racing dinghies are typically equipped with one or more sails, a rudder
+      for steering, and sometimes a centreboard for stability and maneuverability.
+      Inflatable dinghies are used as life rafts and are distinguished by their lightweight,
+      portable construction.
+    type: Types and Characteristics
+  - content: 'Dinghies serve multiple purposes: in India, they are used to carry passengers
+      or cargo along coastal and sheltered waters. Internationally, they often function
+      as small ship''s boats, providing transport between ship and shore or other
+      vessels. In recreational contexts, dinghies are popular for racing, requiring
+      specialized equipment. Their use as life rafts highlights their importance in
+      maritime safety.'
+    type: Uses and Contexts
+  - content: Examples of dinghies include traditional wooden rowboats used for short
+      coastal trips, small sailing dinghies used in competitive racing, and inflatable
+      dinghies carried as emergency life rafts on larger ships. The design and outfitting
+      of a dinghy depend on its intended use, with racing dinghies often being lightweight
+      and agile, while cargo dinghies prioritize stability and load capacity.
+    type: Examples and Variations
+  - content: The dinghy's versatility connects it to broader themes in maritime technology,
+      recreation, and safety. Its design evolution reflects advances in materials
+      and naval architecture. As both a practical tool for transport and a platform
+      for sport, the dinghy illustrates how small craft can fulfill diverse roles.
+      Its use as a life raft underscores its significance in emergency preparedness
+      and survival at sea.
+    type: Connections and Implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The article describes dinghies as a variety of small boats, including
+      rowboats, sailboats for racing, powered boats, and inflatable life rafts, used
+      for transport, racing, and safety. Options 1, 3, and 4 are incorrect because
+      they are too narrow or inaccurate.
+    options:
+    - Dinghies are only small sailboats used for racing.
+    - Dinghies include small boats used for transport, racing, and as inflatable life
+      rafts.
+    - Dinghies are exclusively powered boats with pointed bows.
+    - Dinghies are large cargo ships used for ocean crossings.
+    question_text: Which of the following best describes the main uses and types of
+      dinghies as outlined in the article?
+  index: 135
+  key_concept: Dinghy
+  name: dinghy

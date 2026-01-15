@@ -1,0 +1,194 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page listing the 1963 Formula 1 race results, including winners,
+  teams, and race details, along with sections on commercial partners and official
+  app downloads.
+file_name: 1963 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1963/1963 RACE RESULTS.html
+file_uuid: bb2b5e5a-009e-57ce-bff3-84b7984fe2ce
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Jim Clark, driving for Lotus Climax, won the majority of races in the
+    1963 season, making this the dominant team and driver combination.
+  knowledge_areas:
+  - 1963 Formula 1 Race Results
+  options:
+  - Graham Hill with BRM
+  - Jim Clark with Lotus Climax
+  - John Surtees with Ferrari
+  - Jack Brabham with Brabham
+  question_id: 1
+  question_text: Which team and driver combination dominated the 1963 Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Official partners provide financial and logistical support through
+    sponsorship, enabling the sport's operations and growth.
+  knowledge_areas:
+  - Formula 1 Official Partners
+  options:
+  - To provide technical regulations
+  - To offer financial and logistical support through sponsorship
+  - To race as guest drivers
+  - To design the race tracks
+  question_id: 2
+  question_text: What is the main function of Formula 1's official partners?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: The app provides live timing, information, and notifications, but does
+    not allow users to drive a Formula 1 car.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - Live race timing
+  - Driver and team information
+  - Ability to drive a Formula 1 car
+  - Push notifications for news
+  question_id: 3
+  question_text: Which of the following is NOT typically a feature of the Official
+    F1 App?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Partners enhance fan engagement through branded content and sponsorship
+    activations, while the app provides real-time information and interactive features,
+    collectively improving the fan experience.
+  knowledge_areas:
+  - Formula 1 Official Partners
+  - Official F1 App
+  options:
+  - Both provide live race commentary
+  - Both are unrelated to fan engagement
+  - Partners offer branded content and the app delivers real-time updates and interactive
+    features
+  - Both design the race cars
+  question_id: 4
+  question_text: How do official partners and the Official F1 App both contribute
+    to the Formula 1 fan experience?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1963 Formula 1 Race Results refer to the official outcomes of each
+      Grand Prix event held during the 1963 Formula One World Championship season.
+      This includes data such as the Grand Prix name, date, winning driver, team,
+      number of laps, and total race time.
+    type: Definition
+  - content: For instance, Jim Clark, driving for Lotus Climax, won several races
+      including Belgium, Netherlands, France, Great Britain, Italy, Mexico, and South
+      Africa. Graham Hill, driving for BRM, won the Monaco and United States Grand
+      Prix, while John Surtees won the German Grand Prix for Ferrari.
+    type: Examples
+  - content: These results are used for historical record-keeping, statistical analysis,
+      and for fans or researchers interested in the progression of the Formula 1 World
+      Championship. They provide context for championship standings and the performance
+      of teams and drivers.
+    type: Use Cases
+  - content: The dominance of Jim Clark and Lotus Climax in 1963 is evident from the
+      results, indicating a period of technical and driver superiority. The data also
+      highlights the international nature of the championship, with races across Europe,
+      North America, and Africa.
+    type: Implications
+  - content: These results are directly connected to the annual championship standings,
+      team strategies, and technological advancements in Formula 1. They also serve
+      as a basis for comparison with other seasons and for analyzing trends in motorsport
+      history.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Jim Clark won the majority of races in the 1963 season, as indicated
+      by his victories in Belgium, Netherlands, France, Great Britain, Italy, Mexico,
+      and South Africa. Graham Hill and John Surtees each won fewer races, and Jack
+      Brabham is not listed as a winner in the 1963 results.
+    options:
+    - Graham Hill
+    - Jim Clark
+    - John Surtees
+    - Jack Brabham
+    question_text: Which driver won the most races in the 1963 Formula 1 season?
+  index: 147
+  key_concept: 1963 Formula 1 Race Results
+  name: 1963 RACE RESULTS
+- aspects:
+  - content: Formula 1 Official Partners are companies and brands that have formal
+      sponsorship or partnership agreements with Formula 1, often providing financial
+      support, products, or services in exchange for marketing exposure and association
+      with the sport.
+    type: Definition
+  - content: Examples of partners listed include LVMH, Pirelli, Aramco, Heineken,
+      AWS, Lenovo, DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton,
+      TAG Heuer, Moet Hennessy, American Express, Santander, Allwyn, Globant, Las
+      Vegas Convention and Visitors Authority, Paramount+, Barilla, Liqui Moly, Nestle,
+      PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds.
+    type: Examples
+  - content: These partnerships are crucial for the financial health of Formula 1,
+      enabling the organization to fund events, develop technology, and expand its
+      global reach. Partners benefit from brand visibility, exclusive hospitality,
+      and engagement with a global audience.
+    type: Use Cases
+  - content: The diversity of partners reflects Formula 1's appeal across multiple
+      industries, from luxury goods to technology and logistics. This commercial ecosystem
+      supports the sport's sustainability and growth, and shapes the fan experience
+      through branded content and activations.
+    type: Implications
+  - content: Official partners are closely linked to event sponsorship, team deals,
+      and technological innovation within the sport. Their involvement can influence
+      marketing strategies, fan engagement, and even the technical direction of Formula
+      1.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Official partners primarily sponsor and support Formula 1 financially
+      and logistically, providing resources, products, and services in exchange for
+      marketing exposure. They do not drive cars or provide commentary.
+    options:
+    - To provide race commentary
+    - To sponsor and support the sport financially and logistically
+    - To drive the race cars
+    - To organize fan meetups
+    question_text: What is the primary role of Formula 1's official partners?
+  index: 162
+  key_concept: Formula 1 Official Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application provided by Formula 1, available
+      for download on platforms such as the Apple App Store and Google Play. It offers
+      fans access to live timing, race data, news, schedules, and other exclusive
+      content.
+    type: Definition
+  - content: The app can be downloaded from the Apple App Store or Google Play Store,
+      allowing users to follow live race updates, view driver and team information,
+      and access multimedia content related to the F1 season.
+    type: Examples
+  - content: Fans use the Official F1 App to stay updated on race weekends, track
+      live timing and positions, receive push notifications about breaking news, and
+      interact with interactive features such as fantasy games and polls.
+    type: Use Cases
+  - content: The app enhances fan engagement by providing real-time data and a personalized
+      experience, helping Formula 1 maintain a strong digital presence and reach a
+      global audience. It also supports the sport's commercial strategy by integrating
+      partner content and promotions.
+    type: Implications
+  - content: The app is connected to Formula 1's broader digital ecosystem, which
+      includes social media, official websites, and streaming services like F1 TV.
+      It plays a role in modernizing the fan experience and integrating technology
+      into sports consumption.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App provides live timing and race data, among other
+      features. It does not offer free race tickets or direct access to drive a car.
+    options:
+    - Live timing and race data
+    - Free race tickets
+    - Access to drive a Formula 1 car
+    - Merchandise discounts only
+    question_text: What is a key feature of the Official F1 App?
+  index: 172
+  key_concept: Official F1 App
+  name: Download the Official F1 App

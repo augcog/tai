@@ -1,0 +1,280 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Formula 1 driver profile page for Gabriel Bortoleto, covering
+  his biography, career progression, detailed season and career statistics, and related
+  media content.
+file_name: Gabriel Bortoleto - F1 Driver for Stake F1 Team Kick Sauber.html
+file_path: F1_racing/F1_Official/drivers/en/drivers/Gabriel Bortoleto - F1 Driver
+  for Stake F1 Team Kick Sauber.html
+file_uuid: 7cf3069a-29b9-5999-b9df-a75267541f47
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Bortoleto's rapid rise is due to his F3 and F2 titles, impressive rookie
+    season, and mentorship from Fernando Alonso. The other options are not supported
+    by his career history.
+  knowledge_areas:
+  - Gabriel Bortoleto
+  - Biography and Career Progression
+  options:
+  - Multiple F1 world championships and engineering background
+  - Back-to-back F3 and F2 titles, strong rookie performances, and support from Fernando
+    Alonso
+  - Decade-long experience as a test driver
+  - Winning the most sprint races in F2 history
+  question_id: 1
+  question_text: What are the key achievements that led Gabriel Bortoleto to secure
+    a full-time Formula 1 seat with Kick Sauber?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Bortoleto's rookie season was marked by 19 points, five top-10s, no
+    podiums, and five DNFs. The other options are inaccurate.
+  knowledge_areas:
+  - Season and Career Statistics
+  options:
+  - 19 points, five top-10 finishes, no podiums, and five DNFs
+  - Multiple race wins and podiums
+  - No points scored and only DNFs
+  - More sprint wins than Grand Prix points
+  question_id: 2
+  question_text: Which of the following best describes Gabriel Bortoleto's rookie
+    F1 season statistics?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Media content helps rookies like Bortoleto reflect, connect with fans,
+    and enhance their reputation, which is important for career development.
+  knowledge_areas:
+  - Related Media Content
+  - Biography and Career Progression
+  options:
+  - It is only for entertainment and has no real impact.
+  - It helps drivers reflect on their performance, engage with fans, and build their
+    public profile.
+  - It is used exclusively by teams for technical analysis.
+  - It is irrelevant to a driver's career progression.
+  question_id: 3
+  question_text: How does related media content, such as interviews and race reviews,
+    benefit a rookie Formula 1 driver like Gabriel Bortoleto?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Sponsors are critical for providing financial resources, technology,
+    and brand visibility, which directly affect team and driver success.
+  knowledge_areas:
+  - Team and Sponsorship Context
+  options:
+  - They provide essential funding, technology, and branding support.
+  - They only organize fan events.
+  - They have no influence on team operations.
+  - They are responsible for race regulations.
+  question_id: 4
+  question_text: What role do sponsors and commercial partners play in the context
+    of a Formula 1 team and its drivers?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Bortoleto is a rookie F1 driver, F2 champion, carries Brazilian hopes,
+    and has strong team backing. The other options misrepresent his profile.
+  knowledge_areas:
+  - Gabriel Bortoleto
+  - Biography and Career Progression
+  - Season and Career Statistics
+  options:
+  - Veteran status, multiple world championships, and engineering expertise
+  - Rookie season, Brazilian national pride, F2 championship, and strong team support
+  - Long-term test driver with no race experience
+  - Primarily a media personality
+  question_id: 5
+  question_text: Which combination of factors best illustrates Gabriel Bortoleto's
+    profile as an F1 driver?
+  question_type: recap
+sections:
+- aspects:
+  - content: Gabriel Bortoleto is a Brazilian Formula 1 driver who races for the Stake
+      F1 Team Kick Sauber. He is recognized as a promising young talent in the sport,
+      being the first Brazilian to compete full-time in F1 since Felipe Massa in 2017.
+    type: definition
+  - content: Bortoleto's career includes championship victories in both Formula 3
+      and Formula 2, notably winning back-to-back titles in 2023 and 2024. His rapid
+      progression through the junior ranks and his ability to adapt quickly to higher
+      levels of competition have marked him as a standout among his peers.
+    type: career highlights
+  - content: As the first full-time Brazilian F1 driver in nearly a decade, Bortoleto
+      carries significant national expectations. He aims to make his country proud,
+      following in the footsteps of legendary Brazilian drivers like Ayrton Senna
+      and Felipe Massa.
+    type: national significance
+  - content: Bortoleto joined Kick Sauber after being released from McLaren’s development
+      program, following a team-wide review by new boss Mattia Binotto. He races alongside
+      veteran Nico Hulkenberg, contributing to a blend of youth and experience in
+      the team.
+    type: team context
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: 'Option 2 is correct because Bortoleto is both a recent F2 champion
+      and the first full-time Brazilian F1 driver since Felipe Massa. The other options
+      are incorrect: he is not a veteran world champion, he has raced internationally,
+      and he is not known for engineering.'
+    options:
+    - He is a veteran driver with multiple F1 world championships.
+    - He is the first Brazilian to compete full-time in F1 since Felipe Massa and
+      a recent F2 champion.
+    - He has never raced outside of Brazil.
+    - He is primarily known for his engineering work in F1.
+    question_text: Which of the following statements best describes Gabriel Bortoleto's
+      significance in Formula 1?
+  index: 59
+  key_concept: Gabriel Bortoleto
+  name: GabrielBortoleto
+- aspects:
+  - content: Season and career statistics detail a driver's performance metrics, including
+      race results, points scored, podiums, pole positions, fastest laps, and DNFs
+      (Did Not Finish) for both the current season and across their F1 career.
+    type: definition
+  - content: In the 2025 season, Bortoleto finished 19th in the standings with 19
+      points from 24 Grand Prix races. He achieved five top-10 finishes, but did not
+      secure any podiums, wins, or pole positions. He also experienced five DNFs and
+      participated in six sprint races, scoring no points in sprints.
+    type: 2025 season performance
+  - content: Bortoleto's F1 career so far includes 24 Grand Prix entries, 19 career
+      points, a highest race finish of 6th place, and a highest grid position of 7th
+      (achieved three times). He has yet to achieve a podium, pole position, or world
+      championship, and has five DNFs.
+    type: career overview
+  - content: These statistics reflect a typical rookie season in F1, where adaptation
+      and consistency are crucial. While lacking headline results, Bortoleto’s multiple
+      top-10 finishes and competitive qualifying performances suggest potential for
+      growth, especially as he gains more experience and as his team transitions to
+      Audi for 2026.
+    type: implications and context
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: 'Option 2 accurately summarizes Bortoleto''s 2025 season: 19 points,
+      five top-10s, and no podiums. Options 1, 3, and 4 are incorrect as he had no
+      wins or podiums, did finish races, and had no sprint wins.'
+    options:
+    - He won multiple races and finished in the top 3 overall.
+    - He scored 19 points, had five top-10 finishes, and no podiums.
+    - He did not finish any races.
+    - He achieved more sprint wins than Grand Prix wins.
+    question_text: Which of the following best summarizes Gabriel Bortoleto's 2025
+      F1 season statistics?
+  index: 71
+  key_concept: Season and Career Statistics
+  name: STATISTICS
+- aspects:
+  - content: Gabriel Bortoleto was born on October 14, 2004, in São Paulo, Brazil.
+      He began karting at age seven, quickly winning local championships, and by age
+      eleven, moved to Europe to pursue international karting success, following the
+      path of his idol Ayrton Senna.
+    type: early life and development
+  - content: Bortoleto competed in Italian F4 and Formula Regional, gaining experience
+      and recognition through 2021 and 2022. His performance led to being signed by
+      Fernando Alonso’s A14 management company, a significant endorsement in motorsport.
+    type: junior racing achievements
+  - content: After winning F3 and F2 titles in consecutive years (2023 and 2024),
+      including a notable victory from last to first at Monza, Bortoleto became a
+      sought-after prospect for F1 teams. He was released from McLaren’s development
+      program to join Kick Sauber for the 2025 season.
+    type: transition to F1
+  - content: Bortoleto’s debut F1 season included both setbacks, such as a crash-filled
+      home Grand Prix, and successes, like five top-10 finishes. His performance was
+      strong enough to secure a place with Audi for their first season as a works
+      team in 2026.
+    type: rookie season narrative
+  - content: Being managed by two-time world champion Fernando Alonso provided Bortoleto
+      with guidance and support during his transition from junior categories to F1,
+      helping him navigate the pressures and expectations of top-level motorsport.
+    type: influences and mentorship
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: 'Option 1 is correct: Bortoleto''s early karting achievements, junior
+      racing titles, and support from Fernando Alonso were key to his F1 promotion.
+      The other options do not reflect his actual career path.'
+    options:
+    - Early karting success, international junior titles, and mentorship from Fernando
+      Alonso.
+    - A background in engineering and team management.
+    - Primarily his performance in sprint races.
+    - Long-term experience as a test driver in F1.
+    question_text: Which factors contributed most to Gabriel Bortoleto's rapid rise
+      to Formula 1?
+  index: 155
+  key_concept: Biography and Career Progression
+  name: Biography
+- aspects:
+  - content: Related media content includes video interviews, race reviews, and driver
+      reflections that provide additional context to a driver's season and career.
+      For Bortoleto, these include season reviews, personal reflections on his rookie
+      year, and race-specific analyses.
+    type: definition and examples
+  - content: These videos offer insights into Bortoleto’s mindset, adaptation to F1,
+      and key moments such as qualifying achievements and race strategies. They serve
+      as valuable resources for understanding the challenges and learning curve faced
+      by rookie drivers.
+    type: educational value
+  - content: Media content can shape public perception and provide a platform for
+      drivers to communicate directly with fans. For rookies like Bortoleto, positive
+      media exposure can enhance reputation, attract sponsors, and build a fanbase.
+    type: practical implications
+  - content: The presence of multiple video features and interviews indicates Bortoleto’s
+      growing profile within F1, reflecting both his on-track performances and his
+      ability to engage with the media, an important skill for modern drivers.
+    type: connections to career development
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: 'Option 2 is correct: media content helps shape public perception,
+      offers educational value, and assists in building a following. The other options
+      are incorrect as they underestimate the role of media in a driver''s career.'
+    options:
+    - They are only used for team internal reviews.
+    - They help shape public perception, provide learning insights, and build a fanbase.
+    - They have no impact on a driver's career.
+    - They are exclusively for entertainment purposes.
+    question_text: How do related media content and videos contribute to a rookie
+      driver's career in Formula 1?
+  index: 191
+  key_concept: Related Media Content
+  name: Related Videos
+- aspects:
+  - content: Team and sponsorship context refers to the network of commercial partners
+      and sponsors that support F1 teams and drivers. These partnerships provide financial
+      backing, technological support, and brand visibility.
+    type: definition
+  - content: Kick Sauber, Bortoleto's team, is supported by major sponsors such as
+      LVMH, Pirelli, AWS, DHL, and others. These brands are prominently displayed
+      on team cars, driver suits, and promotional materials, reflecting their investment
+      in the sport.
+    type: examples
+  - content: Strong sponsorship enables teams to invest in car development, facilities,
+      and personnel, directly impacting performance. For drivers, sponsor relationships
+      can influence career opportunities, personal branding, and post-racing prospects.
+    type: implications for drivers
+  - content: Sponsorship is integral to the F1 business model, with commercial partnerships
+      forming a significant portion of team revenue. The visibility and prestige associated
+      with F1 attract global brands, making driver marketability and team results
+      crucial for sustaining these relationships.
+    type: connections to F1 business model
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: 'Option 1 is correct: sponsors provide critical funding and resources
+      that impact team and driver success. The other options are incorrect as they
+      do not capture the full scope of sponsorship influence in F1.'
+    options:
+    - They provide essential financial and technological support to teams and drivers.
+    - They only supply merchandise for fans.
+    - They have no influence on team performance.
+    - They are only involved in organizing race events.
+    question_text: Why are team sponsors and commercial partners important in Formula
+      1?
+  index: 236
+  key_concept: Team and Sponsorship Context
+  name: OUR PARTNERS

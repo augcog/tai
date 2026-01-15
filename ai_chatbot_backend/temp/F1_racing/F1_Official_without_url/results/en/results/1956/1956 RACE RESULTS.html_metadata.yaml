@@ -1,0 +1,217 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page listing the official 1956 Formula 1 race results, with
+  a table of winners, teams, and race details, plus sections on F1's commercial partners
+  and links to download the official F1 app.
+file_name: 1956 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1956/1956 RACE RESULTS.html
+file_uuid: dff3c375-780b-5c94-ab31-33fb3dc1af93
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Ferrari drivers won the majority of the races in 1956, with victories
+    by Fangio, Musso, and Collins.
+  knowledge_areas:
+  - 1956 Formula 1 Race Results
+  options:
+  - Ferrari
+  - Maserati
+  - Watson Offenhauser
+  - Mercedes
+  question_id: 1
+  question_text: Which team had the most race wins in the 1956 Formula 1 season according
+    to the official results?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Nike is not listed as an official F1 partner, whereas TAG Heuer, AWS,
+    and Pirelli are.
+  knowledge_areas:
+  - F1 Partners and Sponsorship
+  options:
+  - TAG Heuer
+  - AWS
+  - Nike
+  - Pirelli
+  question_id: 2
+  question_text: Which of the following is NOT an official F1 partner listed in the
+    'OUR PARTNERS' section?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App offers live timing, race updates, news, and multimedia
+    content, but does not provide manufacturing, ownership, or training features.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - Live timing and race updates
+  - Car manufacturing tutorials
+  - Team ownership opportunities
+  - Driver training programs
+  question_id: 3
+  question_text: What features does the Official F1 App provide to fans?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: F1 partners gain brand exposure and access to the sport's global audience;
+    they do not receive race wins, team ownership, or exclusive broadcasting rights
+    as a direct result.
+  knowledge_areas:
+  - F1 Partners and Sponsorship
+  options:
+  - Brand exposure and access to a global audience
+  - Guaranteed race wins
+  - Ownership of F1 teams
+  - Exclusive rights to race broadcasting
+  question_id: 4
+  question_text: How do F1 partners benefit from their association with the sport?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: The most accurate integrated statement is that F1's historical results
+    are promoted and accessible via digital platforms, with support from official
+    partners.
+  knowledge_areas:
+  - 1956 Formula 1 Race Results
+  - F1 Partners and Sponsorship
+  - Official F1 App
+  options:
+  - Ferrari's success in 1956 led to increased sponsorship from companies like Pirelli
+    and AWS.
+  - The Official F1 App was first launched in 1956 to report race results.
+  - F1's historical race results, such as those from 1956, are promoted and made accessible
+    through digital platforms supported by official partners.
+  - Pat Flaherty's win at Indianapolis resulted in a new technical partnership with
+    McDonalds.
+  question_id: 5
+  question_text: Which of the following statements best integrates information about
+    the 1956 race results and F1's commercial partnerships?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1956 Formula 1 Race Results refer to the official outcomes of each
+      Grand Prix held during the 1956 season, including information on race winners,
+      their teams, race dates, locations, number of laps, and completion times. This
+      data forms the historical record for one of the early years of the Formula 1
+      World Championship, providing insight into the competitive landscape of that
+      era.
+    type: Definition
+  - content: Examples from the 1956 season include Juan Manuel Fangio winning multiple
+      races for Ferrari (such as the British and German Grands Prix), Stirling Moss
+      winning for Maserati at Monaco and Italy, and Pat Flaherty winning the Indianapolis
+      500 for Watson Offenhauser. The results table lists each Grand Prix, the winner's
+      name and team, the number of laps completed, and the total race time, offering
+      a snapshot of race dynamics and driver performance.
+    type: Examples
+  - content: The race results are crucial for determining championship standings,
+      historical comparisons, and understanding team and driver dominance. They also
+      reflect the technological and strategic developments of the time, such as Ferrari's
+      strong performance and the inclusion of the Indianapolis 500 in the World Championship
+      calendar. These results are often referenced for statistical analysis and to
+      trace the evolution of the sport.
+    type: Implications
+  - content: The 1956 season is part of the early history of Formula 1, a period marked
+      by rapid changes in car design, team composition, and driver skill. The results
+      connect to broader themes such as the rise of legendary drivers (e.g., Fangio
+      and Moss), the internationalization of the championship, and the role of different
+      manufacturers. This data is foundational for fans, historians, and analysts
+      studying the sport's development.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Juan Manuel Fangio won three races (Great Britain, Germany, and one
+      in Argentina), more than any other driver listed for the 1956 season.
+    options:
+    - Stirling Moss
+    - Juan Manuel Fangio
+    - Peter Collins
+    - Pat Flaherty
+    question_text: Which driver won the most races in the 1956 Formula 1 season according
+      to the official results?
+  index: 145
+  key_concept: 1956 Formula 1 Race Results
+  name: 1956 RACE RESULTS
+- aspects:
+  - content: F1 partners and sponsors are companies and brands that collaborate with
+      Formula 1 for mutual commercial benefit, brand exposure, and association with
+      the sport. These partnerships can include title sponsorships, official suppliers,
+      and global promotional activities.
+    type: Definition
+  - content: Examples of F1 partners listed include LVMH, Pirelli, Aramco, Heineken,
+      AWS, Lenovo, DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton,
+      TAG Heuer, Moet Hennessy, American Express, Santander, Allwyn, Globant, Las
+      Vegas Convention and Visitors Authority, Paramount+, Barilla, Liqui Moly, Nestle,
+      PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds. These brands represent
+      a wide range of industries, from luxury goods and technology to logistics and
+      food services.
+    type: Examples
+  - content: Partnerships provide F1 with financial support, technical innovation,
+      and global marketing reach. For example, Pirelli supplies tires, AWS provides
+      cloud computing and data analytics, and DHL manages logistics. In return, partners
+      gain visibility through branding on cars, tracks, and digital platforms, as
+      well as access to F1’s global audience. These relationships are vital for the
+      commercial sustainability and technological advancement of the sport.
+    type: Use Cases and Implications
+  - content: Sponsorship in F1 has evolved from simple logo placement to integrated
+      marketing and technical collaborations. The diversity of partners reflects F1's
+      global appeal and its role as a platform for innovation and luxury branding.
+      These partnerships are also connected to broader trends in sports marketing
+      and the increasing importance of data, sustainability, and fan engagement in
+      modern motorsport.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not listed among the official F1 partners in the 'OUR PARTNERS'
+      section, whereas Pirelli, Heineken, and AWS are.
+    options:
+    - Pirelli
+    - Heineken
+    - Nike
+    - AWS
+    question_text: Which of the following companies is NOT listed as an official F1
+      partner in the provided section?
+  index: 159
+  key_concept: F1 Partners and Sponsorship
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application available on major platforms
+      (App Store and Google Play) that provides users with access to live timing,
+      news, schedules, driver and team information, and exclusive content related
+      to Formula 1.
+    type: Definition
+  - content: The app offers features such as live race timing, real-time driver and
+      team standings, push notifications for breaking news, and multimedia content
+      including videos and interviews. Users can also view race calendars, detailed
+      statistics, and receive personalized updates.
+    type: Examples
+  - content: The app enhances fan engagement by delivering instant access to race
+      data and F1 news, making it easier for enthusiasts to follow the sport on the
+      go. It also serves as a platform for F1 to gather user data, promote merchandise,
+      and increase viewership for digital content like F1 TV. The app's availability
+      on both iOS and Android broadens its reach.
+    type: Use Cases and Implications
+  - content: The development of the Official F1 App reflects the digital transformation
+      of sports, where mobile platforms are essential for real-time engagement and
+      global fanbase expansion. It connects to other digital initiatives such as F1
+      TV and social media, forming part of F1's broader strategy to modernize fan
+      interaction and data-driven marketing.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App is primarily designed to provide live timing,
+      news, and updates to fans, not for engineering simulation, recruitment, or sponsorship
+      management.
+    options:
+    - Live race timing and news updates
+    - Car design and engineering simulation
+    - Driver recruitment
+    - Sponsorship management
+    question_text: What is a primary function of the Official F1 App as described
+      in the source?
+  index: 169
+  key_concept: Official F1 App
+  name: Download the Official F1 App

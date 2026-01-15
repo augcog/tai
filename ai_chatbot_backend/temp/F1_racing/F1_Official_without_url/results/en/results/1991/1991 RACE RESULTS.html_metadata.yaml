@@ -1,0 +1,201 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: This file is a web page summary for the 1991 Formula 1 season, featuring
+  detailed race results, an overview of official F1 partners, and information on how
+  to download the official F1 mobile app.
+file_name: 1991 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1991/1991 RACE RESULTS.html
+file_uuid: e9dad11e-de76-5f26-a720-7f25df5361f1
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Ayrton Senna won the most races in the 1991 season, as shown by his
+    multiple victories in the race results table.
+  knowledge_areas:
+  - 1991 Formula 1 Race Results
+  options:
+  - Ayrton Senna
+  - Nigel Mansell
+  - Riccardo Patrese
+  - Gerhard Berger
+  question_id: 1
+  question_text: Which driver won the most races in the 1991 Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: McLaren Honda and Williams Renault drivers won the vast majority of
+    races in 1991, indicating their dominance.
+  knowledge_areas:
+  - 1991 Formula 1 Race Results
+  options:
+  - McLaren Honda and Williams Renault
+  - Benetton Ford and Ferrari
+  - Red Bull Racing and Mercedes
+  - Haas F1 Team and Alpine
+  question_id: 2
+  question_text: Which teams were most dominant in the 1991 F1 season based on the
+    number of race wins?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Nike is not among the official partners listed; the others are present
+    in the partner section.
+  knowledge_areas:
+  - Official F1 Partners
+  options:
+  - Pirelli
+  - AWS
+  - Nike
+  - Heineken
+  question_id: 3
+  question_text: Which of the following companies is NOT listed as an official F1
+    partner on the 1991 Race Results page?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App is designed to provide fans with live race data,
+    news, and exclusive content.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - Providing live race data and news
+  - Selling exclusive F1 merchandise
+  - Offering travel packages
+  - Managing team logistics
+  question_id: 4
+  question_text: What is the main purpose of the Official F1 App as described in the
+    document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Official F1 partners contribute through financial support, technological
+    collaboration, and brand promotion, enhancing the sport's operations and fan engagement.
+  knowledge_areas:
+  - Official F1 Partners
+  - 1991 Formula 1 Race Results
+  options:
+  - By providing financial support, technology, and brand promotion
+  - By managing race strategy for teams
+  - By designing race circuits
+  - By officiating the races
+  question_id: 5
+  question_text: How do official F1 partners contribute to the sport, according to
+    the information provided?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1991 Formula 1 Race Results section provides a comprehensive listing
+      of all Grand Prix events held during the 1991 season, including key data such
+      as race dates, winners, teams, number of laps, and winning times. This data
+      is organized in a tabular format for clarity and ease of comparison. The section
+      serves as an official historical record of the season's competitive outcomes.
+    type: definition
+  - content: For instance, Ayrton Senna won the United States Grand Prix on March
+      10th, 1991, driving for McLaren Honda, completing 81 laps in 2:00:47.828. Other
+      notable examples include Nigel Mansell's victories for Williams Renault in France,
+      Great Britain, Germany, Italy, and Spain. The table also highlights less frequent
+      winners, such as Nelson Piquet (Benetton Ford) in Canada and Gerhard Berger
+      (McLaren Honda) in Japan.
+    type: examples
+  - content: The results provide insights into team and driver dominance during the
+      1991 season, with McLaren Honda and Williams Renault securing the majority of
+      wins. This dominance reflects the technical and strategic superiority of these
+      teams during that era. The data can be used for statistical analysis, performance
+      trends, and historical comparisons with other seasons.
+    type: implications
+  - content: These results are closely connected to other F1 statistics, such as driver
+      and constructor standings, fastest laps, and championship points. They also
+      serve as a basis for understanding the evolution of team strategies, technological
+      advancements, and the competitive landscape of Formula 1 in the early 1990s.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Ayrton Senna, driving for McLaren Honda, won the most races in the
+      1991 season, as indicated by multiple victories listed in the race results table.
+    options:
+    - Ayrton Senna and McLaren Honda
+    - Nigel Mansell and Williams Renault
+    - Nelson Piquet and Benetton Ford
+    - Gerhard Berger and McLaren Honda
+    question_text: Which team and driver combination won the most races in the 1991
+      Formula 1 season?
+  index: 153
+  key_concept: 1991 Formula 1 Race Results
+  name: 1991 RACE RESULTS
+- aspects:
+  - content: Official F1 Partners are companies and brands that have established formal
+      sponsorship or partnership agreements with Formula 1. These partnerships typically
+      involve financial support, product integration, and brand promotion in exchange
+      for global exposure through the F1 platform.
+    type: definition
+  - content: Examples of official partners include LVMH, Pirelli, Aramco, Heineken,
+      AWS, Lenovo, DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton,
+      TAG Heuer, Moet Hennessy, American Express, Santander, Allwyn, Globant, Las
+      Vegas Convention and Visitors Authority, Paramount+, Barilla, Liqui Moly, Nestle,
+      PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds. Each partner is featured
+      with its logo and a link to its website.
+    type: examples
+  - content: These partnerships enhance the F1 experience for fans and stakeholders
+      by integrating advanced technology (e.g., AWS for data analytics), providing
+      essential products (e.g., Pirelli for tires), and supporting event logistics
+      (e.g., DHL for shipping). They also enable cross-promotional campaigns and exclusive
+      fan offers.
+    type: use case
+  - content: The presence of high-profile partners underscores the commercial appeal
+      and global reach of Formula 1. These partnerships contribute significantly to
+      the financial stability and technological advancement of the sport, while also
+      shaping fan engagement and the overall F1 brand image.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not listed among the official partners shown; the other options
+      are present in the partner section.
+    options:
+    - Pirelli
+    - AWS
+    - Nike
+    - Heineken
+    question_text: Which of the following is NOT listed as an official F1 partner
+      in the 1991 Race Results page?
+  index: 174
+  key_concept: Official F1 Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application provided by Formula 1, available
+      for download on major platforms such as the Apple App Store and Google Play.
+      It is designed to offer fans real-time access to race data, news, schedules,
+      and exclusive content.
+    type: definition
+  - content: Key features of the app include live timing, detailed race data, driver
+      and team profiles, news updates, and access to video highlights. The app is
+      intended to enhance the fan experience by providing comprehensive coverage and
+      interactive engagement during race weekends and throughout the season.
+    type: features
+  - content: The app reflects Formula 1's commitment to digital transformation and
+      fan engagement. By offering a centralized platform for information and media,
+      F1 can reach a broader, tech-savvy audience and foster greater loyalty and interaction
+      among fans.
+    type: implications
+  - content: The app complements other digital initiatives such as F1 TV and the official
+      website, creating a multi-channel ecosystem for fans. It also leverages partnerships
+      with technology companies to deliver advanced features like live telemetry and
+      personalized notifications.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The app is designed primarily to provide fans with live race data,
+      news, and exclusive content, as indicated in the download section.
+    options:
+    - To provide live race data and news to fans
+    - To sell merchandise exclusively
+    - To offer betting services
+    - To manage team logistics
+    question_text: What is the primary function of the Official F1 App as described
+      in the 1991 Race Results page?
+  index: 184
+  key_concept: Official F1 App
+  name: Download the Official F1 App

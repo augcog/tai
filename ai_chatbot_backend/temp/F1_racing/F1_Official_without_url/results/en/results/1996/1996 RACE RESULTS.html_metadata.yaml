@@ -1,0 +1,207 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page documenting the 1996 Formula 1 race results, including
+  a summary table of Grand Prix winners, information about official F1 partners, and
+  links to download the official F1 app.
+file_name: 1996 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1996/1996 RACE RESULTS.html
+file_uuid: b5da5138-d56b-5fc0-ac16-f51db1544310
+recap_questions:
+- correct_answers:
+  - 2
+  explanation: Damon Hill won the most races in the 1996 season, as evidenced by his
+    multiple victories listed in the race results table.
+  knowledge_areas:
+  - 1996 Formula 1 Race Results
+  options:
+  - Jacques Villeneuve
+  - Michael Schumacher
+  - Damon Hill
+  - Olivier Panis
+  question_id: 1
+  question_text: Which driver won the most races in the 1996 Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: TAG Heuer, a luxury watch brand, is listed among the official F1 partners,
+    while the others represent different industries (tires, technology, beverages).
+  knowledge_areas:
+  - Official F1 Partners
+  options:
+  - TAG Heuer
+  - Pirelli
+  - AWS
+  - Heineken
+  question_id: 2
+  question_text: Which of the following companies is listed as both a luxury brand
+    and an official F1 partner?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App focuses on delivering live race timing, news, and
+    exclusive F1 content, rather than merchandise, gaming, or hospitality booking.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - To provide live timing, news, and exclusive content
+  - To sell official F1 merchandise
+  - To offer fantasy gaming experiences
+  - To book hospitality packages
+  question_id: 3
+  question_text: What is the main function of the Official F1 App as described in
+    the document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Williams Renault and Ferrari were the only teams with multiple race
+    wins, while Ligier Mugen Honda had a single win and McLaren had none.
+  knowledge_areas:
+  - 1996 Formula 1 Race Results
+  options:
+  - Williams Renault and Ferrari
+  - McLaren and Williams Renault
+  - Ferrari and Ligier Mugen Honda
+  - Ligier Mugen Honda and McLaren
+  question_id: 4
+  question_text: Which two teams had drivers who won races in the 1996 Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Official F1 partners contribute through financial investment, technology
+    provision, and essential services, not by managing teams, selecting venues, or
+    officiating.
+  knowledge_areas:
+  - Official F1 Partners
+  options:
+  - By providing financial support, technology, and services
+  - By managing team strategies
+  - By selecting race venues
+  - By officiating races
+  question_id: 5
+  question_text: How do official F1 partners contribute to the sport, according to
+    the document?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1996 Formula 1 Race Results refer to the official outcomes of each
+      Grand Prix event held during the 1996 F1 World Championship season. These results
+      include the winner, their team, the number of laps completed, and the total
+      race time for each event.
+    type: Definition
+  - content: For instance, Damon Hill won the Australian Grand Prix on March 10th
+      for Williams Renault, completing 58 laps in 1:32:50.491. Other notable winners
+      include Jacques Villeneuve for Williams Renault and Michael Schumacher for Ferrari,
+      with victories in races such as Europe, Spain, Belgium, and Italy.
+    type: Examples
+  - content: The results are presented in a tabular format, listing each Grand Prix
+      by country, date, winner, team, laps, and time. This season was notable for
+      Williams Renault's dominance, with both Damon Hill and Jacques Villeneuve securing
+      multiple wins. The table also provides direct links to detailed race results
+      for each event.
+    type: Context
+  - content: These results are critical for understanding the championship standings,
+      team performance, and the competitive landscape of the 1996 season. They also
+      serve as a historical record for fans, analysts, and researchers studying trends
+      in F1 racing.
+    type: Implications
+  - content: The race results connect to broader F1 topics such as driver and team
+      standings, technological advancements, and changes in regulations. They also
+      provide context for award distributions and are linked to archives spanning
+      from 1950 to the present.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Williams Renault drivers (Damon Hill and Jacques Villeneuve) won
+      the majority of the races in 1996, indicating the team's dominance. Ferrari
+      and Ligier Mugen Honda each had fewer wins, and McLaren did not win any races
+      that year.
+    options:
+    - Ferrari
+    - Williams Renault
+    - Ligier Mugen Honda
+    - McLaren
+    question_text: Which team dominated the 1996 Formula 1 season based on the number
+      of race wins?
+  index: 153
+  key_concept: 1996 Formula 1 Race Results
+  name: 1996 RACE RESULTS
+- aspects:
+  - content: Official F1 Partners are companies and brands that have formal sponsorship
+      or collaboration agreements with Formula 1, supporting the sport through financial
+      investment, technology, or services.
+    type: Definition
+  - content: Examples of partners include LVMH, Pirelli, Aramco, Heineken, AWS, Lenovo,
+      DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton, TAG Heuer, Moet
+      Hennessy, American Express, Santander, Allwyn, Globant, and others. Each partner
+      typically has its logo displayed and a link to its website.
+    type: Examples
+  - content: 'Partners contribute in various ways: Pirelli supplies tires, AWS provides
+      cloud computing and analytics, DHL manages logistics, and Heineken sponsors
+      events. These partnerships enhance the sport''s operations, fan engagement,
+      and global reach.'
+    type: Use Cases
+  - content: Partnerships are vital for the commercial success and technological advancement
+      of Formula 1. They enable innovation, improve race logistics, and provide financial
+      stability, while also offering marketing opportunities for the partners.
+    type: Implications
+  - content: The list of partners reflects F1's global brand and its integration with
+      industries such as technology, luxury goods, logistics, and consumer products.
+      These relationships often influence fan experiences, event quality, and the
+      sport's sustainability initiatives.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not mentioned among the official F1 partners in the provided
+      list, whereas Pirelli, AWS, and DHL are all listed.
+    options:
+    - Pirelli
+    - AWS
+    - Nike
+    - DHL
+    question_text: Which of the following is NOT listed as an official F1 partner
+      in the document?
+  index: 174
+  key_concept: Official F1 Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application offered by Formula 1, available
+      for download on iOS and Android platforms. It provides fans with access to live
+      timing, news, schedules, and exclusive content related to Formula 1.
+    type: Definition
+  - content: The app can be downloaded from the Apple App Store or Google Play Store,
+      as indicated by the direct links and store badges provided in the section. Users
+      can access features such as live race data, driver and team profiles, and notifications
+      about upcoming events.
+    type: Examples
+  - content: Fans use the app to stay updated on race weekends, track session timings,
+      follow their favorite drivers and teams, and receive breaking news. The app
+      enhances the at-home and on-the-go F1 experience by providing real-time information
+      and multimedia content.
+    type: Use Cases
+  - content: The app represents Formula 1's commitment to digital engagement and fan
+      accessibility. By offering official information and interactive features, it
+      strengthens the connection between the sport and its global audience.
+    type: Implications
+  - content: The app is part of F1's broader digital ecosystem, complementing the
+      official website, F1 TV, and social media channels. It integrates with other
+      F1 products and services, creating a unified fan experience across platforms.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App provides live race timing, updates, and news,
+      but does not offer discounted tickets, coaching, or car customization as primary
+      features.
+    options:
+    - Live race timing and updates
+    - Discounted race tickets
+    - Driver coaching services
+    - Car customization tools
+    question_text: What is a primary feature of the Official F1 App as described in
+      the document?
+  index: 184
+  key_concept: Official F1 App
+  name: Download the Official F1 App

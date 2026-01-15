@@ -1,0 +1,247 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web article introducing a quiz about the 2025 Formula 1 season,
+  accompanied by related links, sponsor listings, and app download prompts. The main
+  topics include the 2025 F1 season recap, related news articles, F1's commercial
+  partners, and digital engagement options.
+file_name: 'THE BIG QUIZ OF 2025: 20 questions on the 2025 Formula 1 season.html'
+file_path: 'F1_racing/F1_Official/news/en/latest/article/THE BIG QUIZ OF 2025: 20
+  questions on the 2025 Formula 1 season.html'
+file_uuid: 0a801458-2705-58e8-bde1-a4215ed8a1a3
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Lando Norris secured his first Drivers' Championship in 2025, narrowly
+    beating Max Verstappen by two points.
+  knowledge_areas:
+  - 2025 Formula 1 Season Recap and Quiz
+  options:
+  - Lando Norris, by two points over Max Verstappen
+  - Max Verstappen, by five points over Lando Norris
+  - Charles Leclerc, by one point over Oscar Piastri
+  - Lewis Hamilton, by three points over George Russell
+  question_id: 1
+  question_text: Who won the 2025 Formula 1 Drivers' Championship, and by what margin?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The 'Related Articles' section features a mix of team reports, driver-focused
+    articles, and predictions for the upcoming season.
+  knowledge_areas:
+  - Related F1 News and Analysis
+  options:
+  - Team reports, driver features, and season predictions
+  - Only technical regulations for 2026
+  - Historical F1 documentaries
+  - Live race commentary only
+  question_id: 2
+  question_text: What types of content are included in the 'Related Articles' section?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Apple is not mentioned as an F1 partner, while Pirelli, Heineken, and
+    DHL are.
+  knowledge_areas:
+  - F1 Commercial Partners
+  options:
+  - Pirelli
+  - Heineken
+  - Apple
+  - DHL
+  question_id: 3
+  question_text: Which brand is NOT listed among the official F1 partners in the article?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app is promoted as a tool for fans to access news, schedules, and
+    live race updates.
+  knowledge_areas:
+  - F1 Digital Engagement and App Promotion
+  options:
+  - To provide mobile access to F1 news, schedules, and live updates
+  - To sell F1 merchandise
+  - To list F1's commercial partners
+  - To provide technical rulebooks
+  question_id: 4
+  question_text: What is the main function of the official F1 app as promoted in the
+    article?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The quiz offers interactive recap while the related articles provide
+    deeper analysis and context, together supporting fan engagement and knowledge
+    retention.
+  knowledge_areas:
+  - 2025 Formula 1 Season Recap and Quiz
+  - Related F1 News and Analysis
+  options:
+  - By providing interactive content and in-depth analysis for fans to recap and explore
+    the season
+  - By selling tickets for the next season
+  - By listing only technical regulations
+  - By offering live race streaming
+  question_id: 5
+  question_text: How do the quiz and related articles work together to enhance fan
+    engagement with F1's 2025 season?
+  question_type: recap
+sections:
+- aspects:
+  - content: This section introduces a quiz focused on the major events, outcomes,
+      and highlights of the 2025 Formula 1 season. It serves as both a knowledge check
+      and a summary of the season's most significant moments, such as championship
+      results and standout performances.
+    type: Definition
+  - content: The article references Lando Norris clinching his first Drivers' Championship
+      by narrowly defeating Max Verstappen, and mentions the dramatic conclusion of
+      the season at the Abu Dhabi Grand Prix. These examples encapsulate the competitive
+      narrative and key storylines of the year.
+    type: Examples
+  - content: The quiz is designed for fans to test their memory and understanding
+      of the 2025 season, making it suitable for both casual followers and dedicated
+      enthusiasts. It can be used as a learning tool, a form of entertainment, or
+      a way to engage with the F1 community.
+    type: Use Cases
+  - content: By recapping the season and providing a quiz, the section reinforces
+      fan engagement and encourages deeper retention of recent F1 history. It also
+      highlights the importance of interactive content in sports media for maintaining
+      audience interest during the off-season.
+    type: Implications
+  - content: This concept connects to broader themes in sports journalism, such as
+      season reviews, fan interaction, and the use of quizzes to drive traffic and
+      engagement on digital platforms. It also ties into the ongoing narrative of
+      driver rivalries and championship battles.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Lando Norris won his maiden Drivers' Championship in 2025, securing
+      the title by just two points over Max Verstappen, as highlighted in the article's
+      season recap.
+    options:
+    - Lando Norris, by two points over Max Verstappen
+    - Max Verstappen, by five points over Lando Norris
+    - Charles Leclerc, by one point over Oscar Piastri
+    - Lewis Hamilton, by three points over George Russell
+    question_text: Who clinched the 2025 Formula 1 Drivers' Championship, and by what
+      margin over the runner-up?
+  index: 53
+  key_concept: 2025 Formula 1 Season Recap and Quiz
+  name: 'THE BIG QUIZ OF 2025: 20 questions on the 2025 Formula 1 season'
+- aspects:
+  - content: This section aggregates links to recent and relevant articles that provide
+      additional context, analysis, and commentary on the 2025 and upcoming 2026 Formula
+      1 seasons. It functions as a curated news feed for readers seeking more in-depth
+      information.
+    type: Definition
+  - content: Articles include predictions for the 2026 season, end-of-year team reports
+      for Racing Bulls and Red Bull, and features on drivers such as Oscar Piastri
+      and Lando Norris. These examples offer a range of perspectives from statistical
+      analysis to narrative-driven commentary.
+    type: Examples
+  - content: Readers can use this section to explore broader trends, team and driver
+      performance reviews, and expert opinions. It is particularly useful for fans
+      who want to stay informed about ongoing developments and historical context
+      within F1.
+    type: Use Cases
+  - content: By providing easy access to related articles, this section encourages
+      deeper engagement with the F1 ecosystem and supports a culture of continuous
+      learning and discussion among fans. It also helps establish the website as a
+      comprehensive resource for F1 content.
+    type: Implications
+  - content: This concept is closely linked to the main quiz and recap, as it offers
+      supplementary material that can enhance a reader's understanding of the quiz
+      topics. It also demonstrates the interconnectedness of news, analysis, and fan
+      interaction in sports media.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The 'Related Articles' section highlights a mix of end-of-year team
+      reports, driver-focused features, and predictions for the upcoming season, providing
+      a broad spectrum of F1 news and analysis.
+    options:
+    - Team end-of-year reports, driver features, and season predictions
+    - Only technical regulations for 2026
+    - Historical F1 documentaries
+    - Live race commentary only
+    question_text: Which types of content are featured in the 'Related Articles' section?
+  index: 91
+  key_concept: Related F1 News and Analysis
+  name: Related Articles
+- aspects:
+  - content: This section lists the official commercial partners and sponsors associated
+      with Formula 1, highlighting the brands that support and collaborate with the
+      sport at a global level.
+    type: Definition
+  - content: Notable partners include LVMH, Pirelli, Aramco, Heineken, AWS, Lenovo,
+      DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton, TAG Heuer, Moet
+      Hennessy, American Express, Santander, and more. These brands represent a diverse
+      range of industries, from luxury goods to technology and logistics.
+    type: Examples
+  - content: The partner list serves both promotional and informational purposes,
+      showcasing the scale and diversity of F1's commercial relationships. Fans and
+      business stakeholders can use it to understand the sport's financial ecosystem
+      and brand affiliations.
+    type: Use Cases
+  - content: The presence of high-profile partners underscores F1's status as a premier
+      global sporting property. Sponsorship deals provide essential funding, technological
+      innovation, and marketing reach, influencing everything from race operations
+      to fan experiences.
+    type: Implications
+  - content: This concept is connected to broader discussions of sports marketing,
+      sponsorship activation, and the economic foundations of major sporting leagues.
+      It also ties into the fan experience, as many partners offer exclusive promotions
+      or branded content.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Apple is not mentioned among the official F1 partners in the provided
+      partner list, whereas Pirelli, Heineken, and DHL are all included.
+    options:
+    - Pirelli
+    - Heineken
+    - Apple
+    - DHL
+    question_text: Which of the following is NOT listed as an official F1 partner
+      in the article?
+  index: 100
+  key_concept: F1 Commercial Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: This section promotes the official Formula 1 mobile application, offering
+      fans a way to access schedules, news, live timing, and exclusive content through
+      their smartphones.
+    type: Definition
+  - content: The app is available on both the Apple App Store and Google Play, catering
+      to a wide audience. Features typically include live race updates, driver and
+      team profiles, video highlights, and push notifications for breaking news.
+    type: Examples
+  - content: Fans can use the app to follow races in real time, receive personalized
+      updates, and access exclusive multimedia content. It is especially useful for
+      those who want to stay connected to F1 while on the go.
+    type: Use Cases
+  - content: The promotion of the app reflects F1's commitment to digital transformation
+      and fan engagement. By offering a robust mobile experience, F1 broadens its
+      reach and deepens its relationship with tech-savvy audiences.
+    type: Implications
+  - content: This concept is linked to trends in sports media, where mobile platforms
+      are increasingly central to content delivery and fan interaction. It also complements
+      other engagement strategies, such as quizzes and exclusive member content.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The section specifically promotes the official F1 app, emphasizing
+      its role in delivering news, schedules, and live updates to fans' mobile devices.
+    options:
+    - To provide fans with mobile access to F1 news, schedules, and live updates
+    - To sell F1 merchandise
+    - To list F1's commercial partners
+    - To announce technical rule changes
+    question_text: What is the primary purpose of the 'Download the Official F1 App'
+      section?
+  index: 110
+  key_concept: F1 Digital Engagement and App Promotion
+  name: Download the Official F1 App

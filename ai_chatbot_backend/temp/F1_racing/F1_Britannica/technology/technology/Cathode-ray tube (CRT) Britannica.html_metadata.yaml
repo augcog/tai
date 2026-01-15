@@ -1,0 +1,154 @@
+URL: https://www.britannica.com/technology/cathode-ray-tube
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia entry describing the technology and function of
+  the cathode-ray tube (CRT), including its structure, operation, display modes, and
+  applications in image display.
+file_name: Cathode-ray tube (CRT) Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Cathode-ray tube (CRT) Britannica.html
+file_uuid: 0e99f732-3f43-5eff-9043-3227b8824a79
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Electron guns in CRTs are responsible for emitting and directing electron
+    beams that strike the phosphor screen, producing visible images. They do not handle
+    audio, power supply, or vacuum creation.
+  knowledge_areas:
+  - CRT operation
+  - Electron guns
+  options:
+  - To generate and direct electron beams toward the phosphor-coated screen
+  - To produce sound waves for audio output
+  - To control the power supply to the CRT
+  - To create a vacuum inside the tube
+  question_id: 1
+  question_text: What is the primary purpose of the electron guns in a cathode-ray
+    tube (CRT)?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The shadow mask or grille is used to align electron beams so each gun
+    excites only its corresponding color phosphor, preventing color 'spillage' to
+    adjacent pixels.
+  knowledge_areas:
+  - CRT structure
+  - Color display technology
+  options:
+  - Deflection coils
+  - Shadow mask or grille
+  - Vacuum envelope
+  - Phosphor coating
+  question_id: 2
+  question_text: Which component in a color CRT ensures that each electron gun excites
+    only its designated color phosphor on the screen?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: OLED is a flat-panel display technology, not associated with CRTs,
+    while CGA, VGA, and SVGA are all video standards historically used with CRTs.
+  knowledge_areas:
+  - Display modes
+  - CRT applications
+  options:
+  - CGA (Color Graphics Adapter)
+  - VGA (Video Graphics Array)
+  - OLED (Organic Light-Emitting Diode)
+  - SVGA (Super Video Graphics Array)
+  question_id: 3
+  question_text: Which of the following display standards is NOT associated with CRT
+    technology?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Multicolored images in a CRT are created by three electron guns, each
+    corresponding to red, green, or blue phosphors, whose outputs are combined through
+    precise targeting.
+  knowledge_areas:
+  - CRT color technology
+  - Image formation
+  options:
+  - By using a single electron gun to scan the screen at high speed
+  - By combining the outputs of three electron guns (red, green, blue) and directing
+    them to specific phosphors
+  - By reflecting ambient light off a colored filter
+  - By heating the phosphor coating to emit different wavelengths
+  question_id: 4
+  question_text: How does a CRT produce a multicolored image on the screen?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Flat-panel displays replaced CRTs primarily due to their advantages
+    in size, weight, energy efficiency, and environmental friendliness, not because
+    CRTs were incapable of color or too expensive.
+  knowledge_areas:
+  - CRT limitations
+  - Technological evolution
+  options:
+  - CRTs were too expensive to manufacture
+  - Flat-panel displays offered reduced size, weight, energy consumption, and environmental
+    impact
+  - CRTs could not display color images
+  - Flat-panel displays used the same electron beam principle as CRTs
+  question_id: 5
+  question_text: Which of the following best explains why CRT technology was eventually
+    replaced by flat-panel displays?
+  question_type: recap
+sections:
+- aspects:
+  - content: A cathode-ray tube (CRT) is a vacuum tube that displays images by directing
+      beams of electrons onto a phosphorescent screen, causing it to emit visible
+      light. The CRT is also known as the Braun tube, and it was a foundational technology
+      for electronic visual displays throughout the 20th century. Its core components
+      include an electron gun, a vacuum envelope, deflection systems, and a phosphor-coated
+      screen.
+    type: Definition
+  - content: CRTs operate by emitting electrons from one or more electron guns, which
+      are then accelerated and focused into a narrow beam. This beam is directed toward
+      specific locations on the screen by magnetic or electrostatic deflection coils.
+      When the electron beam strikes the phosphor coating, the energy is converted
+      into visible light, creating an image. In color CRTs, three electron guns (for
+      red, green, and blue) are used, and their beams are precisely aimed to generate
+      full-color images through additive color mixing.
+    type: Function and Operation
+  - content: CRTs support a range of display modes, including monochrome (single electron
+      gun) and color (three electron guns) configurations. Common video standards
+      associated with CRTs include CGA (Color Graphics Adapter), VGA (Video Graphics
+      Array), XGA (Extended Graphics Array), and SVGA (Super Video Graphics Array),
+      each offering different resolutions and color capabilities. These standards
+      were instrumental in the evolution of computer graphics and television display
+      technologies.
+    type: Display Modes and Standards
+  - content: CRTs were widely used in television sets, computer monitors, oscilloscopes,
+      and radar displays. For example, in color-television CRTs, three electron guns
+      fire electrons toward a phosphor-coated screen, with a grille or shadow mask
+      ensuring that each gun excites only its designated color phosphor. The technology
+      enabled the development of early video games, broadcast television, and scientific
+      instrumentation requiring real-time graphical output.
+    type: Practical Examples and Applications
+  - content: The CRT was a transformative technology, enabling the widespread adoption
+      of electronic visual displays in both consumer and professional settings. Its
+      operation illustrates principles of electron physics, electromagnetism, and
+      materials science. The transition from CRTs to flat-panel displays (such as
+      LCD and OLED) marked a significant technological shift, driven by CRT limitations
+      in size, weight, energy consumption, and environmental concerns related to disposal.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    - 2
+    explanation: 'Options 0 and 2 are correct: CRTs use electron beams (option 0)
+      and, in color models, three electron guns for RGB images (option 2). Option
+      1 describes LCD technology, not CRTs. Option 3 is incorrect because a vacuum
+      is essential for CRT operation.'
+    options:
+    - A CRT uses electron beams directed by magnetic fields to illuminate a phosphorescent
+      screen.
+    - A CRT generates images using liquid crystals manipulated by electric fields.
+    - A CRT employs three electron guns in color displays to produce red, green, and
+      blue images.
+    - A CRT requires no vacuum for its operation.
+    question_text: Which of the following statements accurately describes the function
+      and structure of a cathode-ray tube (CRT)?
+  index: 137
+  key_concept: Cathode-ray tube (CRT) technology
+  name: cathode-ray tube

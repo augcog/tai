@@ -1,0 +1,148 @@
+URL: https://www.britannica.com/technology/sport-utility-vehicle
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Britannica entry on sport utility vehicles (SUVs), with a focus
+  on their definition, cultural perception, and historical development within the
+  broader context of automotive history.
+file_name: Sport utility vehicle automobile Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Sport utility vehicle automobile
+  Britannica.html
+file_uuid: 8b18a9c4-8072-50dd-8d0a-dd70be4b5ea9
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: SUVs are characterized by their ability to handle off-road and varied
+    terrain, often featuring higher ground clearance. They are not defined by two
+    wheels or luxury branding.
+  knowledge_areas:
+  - sport utility vehicle
+  options:
+  - Low ground clearance
+  - Optimized for off-road and varied terrain
+  - Two-wheeled design
+  - Exclusively luxury branding
+  question_id: 1
+  question_text: Which of the following is a defining feature of a sport utility vehicle
+    (SUV)?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Luxury brands such as Cadillac and Porsche entered the SUV segment
+    as its popularity increased, reflecting the broad appeal of SUVs.
+  knowledge_areas:
+  - automotive history
+  - sport utility vehicle
+  options:
+  - Cadillac and Porsche
+  - Harley-Davidson and Ducati
+  - Boeing and Airbus
+  - Rolex and Omega
+  question_id: 2
+  question_text: Which brands have expanded into the SUV market as the segment grew
+    in popularity?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: SUVs have faced criticism for being seen as frivolous fashion statements
+    and for their resource use, particularly regarding environmental impact.
+  knowledge_areas:
+  - automotive history
+  - sport utility vehicle
+  options:
+  - They are considered highly fuel-efficient.
+  - They are praised for their minimal environmental impact.
+  - They are derided as frivolous fashion statements and unwise use of resources.
+  - They are universally celebrated for practicality.
+  question_id: 3
+  question_text: What societal criticism has been directed at SUVs according to the
+    source?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Stable fuel prices made it more feasible for consumers to buy and use
+    larger, less fuel-efficient vehicles like SUVs, fueling the segment's growth.
+  knowledge_areas:
+  - automotive history
+  options:
+  - They discouraged the purchase of larger vehicles.
+  - They contributed to the rise in popularity of SUVs.
+  - They led to a decline in luxury vehicle sales.
+  - They caused a shift back to station wagons.
+  question_id: 4
+  question_text: How did stable fuel prices in the mid-1980s influence the automotive
+    market?
+  question_type: recap
+sections:
+- aspects:
+  - content: A sport utility vehicle (SUV) is a type of automobile characterized by
+      a higher ground clearance, a boxy body style, and the capability to operate
+      on a variety of terrains. SUVs typically combine features of road-going passenger
+      cars with features from off-road vehicles, such as raised clearance and four-wheel
+      drive. The term 'SUV' is used generically to refer to a broad range of vehicles
+      that may include both traditional body-on-frame designs and more modern unibody
+      constructions.
+    type: Definition
+  - content: Examples of SUVs include the Jeep Compass, Ford Explorer, and Toyota
+      Land Cruiser. The category has expanded to include both compact and full-size
+      models, as well as luxury SUVs from brands like Cadillac and Porsche. These
+      vehicles are often used for family transport, outdoor recreation, and, increasingly,
+      as status symbols in urban environments.
+    type: Examples
+  - content: The SUV segment has significant implications for automotive design, consumer
+      preferences, and environmental impact. Their popularity has influenced manufacturers
+      to prioritize versatility and perceived safety, sometimes at the expense of
+      fuel efficiency. SUVs are also connected to broader trends in automotive history,
+      such as the shift from station wagons and vans to more rugged-looking vehicles.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: SUVs are defined by their combination of passenger car features with
+      off-road capabilities, such as higher ground clearance and sometimes four-wheel
+      drive. The other options describe different vehicle types.
+    options:
+    - A low-riding, two-door sports car designed for speed.
+    - A vehicle combining passenger car features with off-road capabilities like higher
+      ground clearance.
+    - A compact sedan optimized for city driving.
+    - A motorcycle designed for long-distance touring.
+    question_text: Which of the following best describes a sport utility vehicle (SUV)?
+  index: 122
+  key_concept: sport utility vehicle
+  name: sport utility vehicle
+- aspects:
+  - content: The history of the automobile encompasses the evolution of vehicle types,
+      technological advancements, and changing consumer preferences. The SUV is a
+      relatively recent development in this history, emerging as a distinct category
+      in the late 20th century. Its rise reflects broader trends in the automotive
+      industry, such as the movement away from station wagons and vans toward vehicles
+      perceived as more versatile and fashionable.
+    type: Context
+  - content: SUVs became increasingly popular in the 1980s and 1990s, aided by stable
+      fuel prices and changing societal values. Initially, SUVs were utilitarian,
+      but over time, the segment expanded to include luxury models and a wider range
+      of sizes. The SUV craze reached brands traditionally associated with luxury,
+      like Cadillac and Porsche, illustrating the segment's broad appeal.
+    type: Development and Trends
+  - content: The widespread adoption of SUVs has been both celebrated and criticized.
+      Some view SUVs as frivolous fashion statements and an unwise use of resources,
+      particularly in light of their environmental impact and fuel consumption. Others
+      appreciate their practicality, perceived safety, and status symbol value. The
+      SUV phenomenon is thus both a reflection of and a contributor to changing social
+      and economic conditions.
+    type: Societal Impact and Criticism
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The SUV craze was aided by stable fuel prices in the mid-1980s, making
+      it more feasible for consumers to purchase and operate larger, less fuel-efficient
+      vehicles.
+    options:
+    - Increasing fuel prices
+    - Stable fuel prices
+    - Declining interest in luxury vehicles
+    - Government bans on station wagons
+    question_text: What factor contributed to the SUV craze in the mid-1980s?
+  index: 134
+  key_concept: automotive history
+  name: automotive history

@@ -1,0 +1,240 @@
+URL: https://www.britannica.com/technology/motorcycle/additional-info
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A reference and edit history page for the Britannica motorcycle
+  article, including related articles, recommended readings, contributor information,
+  and a detailed revision log.
+file_name: motorcycle Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/motorcycle/motorcycle Britannica.html
+file_uuid: 6b1e4d1e-c6a1-5acb-a00c-3c3173501548
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: The 'Assorted References' section specifically offers cross-references
+    to related topics such as Honda's design and the Tourist Trophy races.
+  knowledge_areas:
+  - Assorted References
+  - cross-referencing
+  - motorcycle-related topics
+  options:
+  - Additional Reading
+  - Assorted References
+  - Article Contributors
+  - Article History
+  question_id: 1
+  question_text: Which of the following sections provides curated links to related
+    topics and subtopics connected to motorcycles?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Gaetano Cocco's book is noted for its clear presentation of technical
+    aspects, including components and motion theory.
+  knowledge_areas:
+  - Additional Reading
+  - technical resources
+  - motorcycle design
+  options:
+  - Motorcycle Design and Technology by Gaetano Cocco
+  - Harley-Davidson 100 Years by Tod Rafferty
+  - The Encyclopedia of the Motorcycle by Hugo Wilson
+  - From Motorcycle to Superbike by Eric Thompson and Laurie Caddell
+  question_id: 2
+  question_text: Which resource would best help a student seeking technical knowledge
+    about motorcycle components and handling?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: This section lists both primary and secondary contributors, as well
+    as editorial staff, responsible for the article's content.
+  knowledge_areas:
+  - Article Contributors
+  - authorship
+  - editorial transparency
+  options:
+  - To list recommended readings
+  - To provide a revision log
+  - To acknowledge individuals who contributed to the article
+  - To link to related articles
+  question_id: 3
+  question_text: What is the primary function of the 'Article Contributors' section?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The 'Article History' section logs all significant changes, ensuring
+    transparency and allowing readers to track the evolution and accuracy of the article.
+  knowledge_areas:
+  - Article History
+  - revision tracking
+  - content reliability
+  options:
+  - By offering a list of books for further reading
+  - By documenting all major edits, corrections, and additions
+  - By listing the article's main contributors
+  - By providing links to related topics
+  question_id: 4
+  question_text: How does the 'Article History' section contribute to the reliability
+    of the Britannica motorcycle article?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Article Contributors allow readers to verify the expertise behind the
+    article, while Article History enables tracing of content development and updates.
+  knowledge_areas:
+  - Article Contributors
+  - Article History
+  - content authority
+  - revision tracking
+  options:
+  - Assorted References and Additional Reading
+  - Article Contributors and Article History
+  - Additional Reading and Article Contributors
+  - Assorted References and Article History
+  question_id: 5
+  question_text: Which two sections together help a reader both verify the article’s
+    authority and trace its development over time?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 'Assorted References' section provides links to related topics and
+      specific subtopics connected to motorcycles, such as design innovations by Honda,
+      the Tourist Trophy races, and the use of goggles in motorcycling. This section
+      serves as a curated collection of cross-references within the Britannica ecosystem,
+      enhancing the depth of research for readers.
+    type: definition
+  - content: Examples listed include references to the Honda Motor Company and its
+      founder Soichiro Honda, highlighting their impact on motorcycle design. The
+      Tourist Trophy races are cited, emphasizing the role of competitive racing in
+      motorcycle history. The inclusion of goggles as a reference points to the importance
+      of safety gear and its technological evolution alongside motorcycles.
+    type: examples
+  - content: By providing these assorted references, Britannica enables users to explore
+      the broader context of motorcycles, from corporate innovation to racing culture
+      and safety equipment. This interconnected approach supports interdisciplinary
+      learning and encourages further exploration beyond the main article.
+    type: implications
+  - content: The references connect motorcycles to broader themes in technology, sports,
+      and safety, illustrating how the subject intersects with industrial design,
+      motorsport history, and personal protective equipment.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: The 'Assorted References' section specifically lists design by Honda,
+      Tourist Trophy races, and use of goggles, but does not mention motorcycle emissions
+      standards, which are covered elsewhere.
+    options:
+    - Design by Honda
+    - Tourist Trophy races
+    - Use of goggles
+    - Motorcycle emissions standards
+    question_text: Which of the following topics is NOT directly referenced in the
+      'Assorted References' section related to motorcycles?
+  index: 151
+  key_concept: Assorted References
+  name: Assorted References
+- aspects:
+  - content: The 'Additional Reading' section offers a curated bibliography of books
+      and guides for readers seeking more in-depth information about motorcycles.
+      These sources range from encyclopedic visual guides to histories of specific
+      brands and technical manuals.
+    type: definition
+  - content: Notable examples include Hugo Wilson's 'The Encyclopedia of the Motorcycle,'
+      which provides a visual overview of motorcycle models, and Tod Rafferty's 'Harley-Davidson
+      100 Years,' which focuses on the history of the iconic brand. Gaetano Cocco's
+      'Motorcycle Design and Technology' offers technical insights into components
+      and handling, while Darwin Holmstrom's guide covers practical aspects such as
+      maintenance and safety.
+    type: examples
+  - content: This section is particularly useful for students, historians, engineers,
+      and enthusiasts who wish to expand their knowledge beyond the article. It supports
+      academic research, hobbyist interests, and technical learning.
+    type: use cases
+  - content: Providing these readings encourages self-directed learning and supports
+      a deeper, multifaceted understanding of motorcycles, from design and history
+      to practical use and maintenance.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Gaetano Cocco's 'Motorcycle Design and Technology' is specifically
+      noted for its clear presentation of motorcycle components, motion theory, and
+      design, with an emphasis on handling.
+    options:
+    - The Encyclopedia of the Motorcycle by Hugo Wilson
+    - From Motorcycle to Superbike by Eric Thompson and Laurie Caddell
+    - Motorcycle Design and Technology by Gaetano Cocco
+    - Harley-Davidson 100 Years by Tod Rafferty
+    question_text: Which book listed in 'Additional Reading' is most focused on the
+      technical aspects of motorcycle components and handling?
+  index: 163
+  key_concept: Additional Reading
+  name: Additional Reading
+- aspects:
+  - content: The 'Article Contributors' section lists individuals who have contributed
+      content, expertise, or editorial oversight to the Britannica motorcycle article.
+      This includes both primary and secondary contributors, as well as editorial
+      staff.
+    type: definition
+  - content: Primary contributors include George C. Cromer, who is identified with
+      a professional background at General Motors. Other contributors such as 'Great
+      Museums' and a range of Britannica editors, including Yamini Chauhan and Robert
+      Curley, are also acknowledged.
+    type: examples
+  - content: Listing contributors provides transparency and accountability, allowing
+      readers to assess the expertise and authority behind the article. It also reflects
+      collaborative knowledge production, combining subject matter experts and editorial
+      professionals.
+    type: implications
+  - content: This section connects to the broader practices of academic publishing
+      and knowledge curation, where attribution and editorial oversight are essential
+      for credibility.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: George C. Cromer is explicitly identified as the primary contributor,
+      with a background at General Motors.
+    options:
+    - Great Museums
+    - George C. Cromer
+    - Yamini Chauhan
+    - Robert Curley
+    question_text: Who is listed as the primary contributor to the Britannica motorcycle
+      article?
+  index: 169
+  key_concept: Article Contributors
+  name: Article Contributors
+- aspects:
+  - content: The 'Article History' section provides a chronological log of all significant
+      edits, updates, and additions made to the Britannica motorcycle article. Each
+      entry records the type of change, a brief description, the contributor responsible,
+      and the date.
+    type: definition
+  - content: Examples include the addition of new web resources, corrections such
+      as changing 'carbon dioxide' to 'carbon monoxide' in emissions standards, inclusion
+      of new material about EU emission standards, and periodic updates to the bibliography
+      and media.
+    type: examples
+  - content: This detailed revision log ensures transparency in the evolution of the
+      article, allowing readers to track content accuracy and see how the article
+      responds to new developments, corrections, and scholarly input.
+    type: implications
+  - content: The history log is analogous to version control in academic publishing
+      and software development, supporting trust in the content and providing a model
+      for responsible information stewardship.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: The 'Article History' section is dedicated to recording all major
+      edits, updates, and additions to the article, ensuring transparency and accountability.
+    options:
+    - To provide a list of recommended books
+    - To link to related topics
+    - To log revisions and updates to the article
+    - To list the article's main contributors
+    question_text: What is the main purpose of the 'Article History' section in the
+      Britannica motorcycle article?
+  index: 195
+  key_concept: Article History
+  name: Article History

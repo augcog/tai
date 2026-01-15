@@ -1,0 +1,264 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A comprehensive driver profile page for Lewis Hamilton, focusing
+  on his 2025 season with Ferrari, career statistics, biographical background, recent
+  media coverage, and related F1 news and partnerships.
+file_name: Lewis Hamilton - F1 Driver for Ferrari.html
+file_path: F1_racing/F1_Official/drivers/en/drivers/Lewis Hamilton - F1 Driver for
+  Ferrari.html
+file_uuid: 99747c9c-95ec-5f7f-8509-6523b9b793f7
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Hamilton's F1 career has included stints with McLaren, Mercedes, and
+    Ferrari. He has not driven for Red Bull, Williams, or Renault.
+  knowledge_areas:
+  - Lewis Hamilton
+  - Biography and Personal Background
+  options:
+  - McLaren, Mercedes, Ferrari
+  - Red Bull, Mercedes, Ferrari
+  - Williams, McLaren, Ferrari
+  - Renault, Mercedes, Red Bull
+  question_id: 1
+  question_text: Which teams has Lewis Hamilton raced for in Formula 1 as of the 2025
+    season?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Hamilton did not win any Grand Prix or podiums in 2025 but finished
+    6th overall, showing consistency in top-10 finishes.
+  knowledge_areas:
+  - 2025 Season Performance
+  options:
+  - He won multiple Grand Prix races and finished first in the championship.
+  - He achieved no Grand Prix wins or podiums but finished 6th overall with consistent
+    top-10 finishes.
+  - He did not finish any races and scored zero points.
+  - He won the sprint championship but not the main championship.
+  question_id: 2
+  question_text: How did Lewis Hamilton perform in the 2025 F1 season with Ferrari?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Hamilton has achieved 7 World Championships and 105 Grand Prix wins
+    by 2025.
+  knowledge_areas:
+  - Career Statistics
+  options:
+  - 5 World Championships, 80 wins
+  - 7 World Championships, 105 wins
+  - 6 World Championships, 90 wins
+  - 8 World Championships, 110 wins
+  question_id: 3
+  question_text: By 2025, what are Lewis Hamilton's career totals for World Championships
+    and Grand Prix wins?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: '''Still I Rise'' is Hamilton''s motto, reflecting his resilience and
+    determination.'
+  knowledge_areas:
+  - Biography and Personal Background
+  options:
+  - '''Never Give Up'''
+  - '''Still I Rise'''
+  - '''No Limits'''
+  - '''Born to Race'''
+  question_id: 4
+  question_text: Which phrase best captures Lewis Hamilton's personal philosophy and
+    is featured on his helmet?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The media coverage emphasizes Hamilton's challenges, adaptation to
+    Ferrari, and his ongoing optimism rather than victories or retirement.
+  knowledge_areas:
+  - Media Coverage and F1 Community
+  - 2025 Season Performance
+  options:
+  - Consistent race wins and dominance
+  - Struggles, adaptation to Ferrari, and optimism for improvement
+  - Retirement announcements
+  - Technical explanations of car design
+  question_id: 5
+  question_text: What themes are most prominent in the media coverage of Hamilton's
+    2025 season?
+  question_type: recap
+sections:
+- aspects:
+  - content: Lewis Hamilton is a British Formula 1 racing driver, widely regarded
+      as one of the sport's all-time greats. As of the 2025 season, he drives for
+      Scuderia Ferrari, having previously raced for McLaren and Mercedes. He is known
+      for his record-breaking achievements and his influence both on and off the track.
+    type: definition
+  - content: Hamilton's career includes seven World Championships, over 100 Grand
+      Prix wins, and more than 100 pole positions, surpassing legends like Michael
+      Schumacher and Ayrton Senna. He is celebrated for his consistency, adaptability
+      across teams, and for setting new standards in performance and professionalism
+      in F1.
+    type: career highlights
+  - content: Beyond racing, Hamilton is recognized for breaking stereotypes in motorsport,
+      being vocal on social issues, and promoting diversity and inclusion. His 'Still
+      I Rise' motto reflects his resilience and determination, inspiring fans and
+      fellow athletes globally.
+    type: cultural impact
+  - content: In 2025, Hamilton is in his debut season with Ferrari, marking a significant
+      transition after a long tenure at Mercedes. Despite a challenging season without
+      podium finishes, his reputation and influence remain strong, and he continues
+      to be a central figure in F1.
+    type: current context
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Hamilton began his career with McLaren, moved to Mercedes, and joined
+      Ferrari for the 2025 season. He has not raced for Red Bull, Williams, or Renault.
+    options:
+    - McLaren, Mercedes, Ferrari
+    - Red Bull, Mercedes, Ferrari
+    - Williams, McLaren, Ferrari
+    - Renault, Mercedes, Red Bull
+    question_text: Which teams has Lewis Hamilton raced for in Formula 1 up to and
+      including the 2025 season?
+  index: 59
+  key_concept: Lewis Hamilton
+  name: LewisHamilton
+- aspects:
+  - content: In the 2025 Formula 1 season, Lewis Hamilton finished 6th in the drivers'
+      standings with 156 points. This season marked his first with Ferrari and was
+      notably challenging, as he did not secure any Grand Prix wins or podiums, though
+      he achieved 19 top-10 finishes out of 24 races.
+    type: season summary
+  - content: Hamilton's 2025 stats include 24 Grand Prix races with 135 points, 0
+      wins, 0 podiums, and 1 fastest lap. He had 2 DNFs (Did Not Finish) and participated
+      in 6 sprint races, winning 1 and reaching the podium twice. These results reflect
+      a competitive but not dominant season compared to his previous standards.
+    type: statistical analysis
+  - content: The lack of wins and podiums highlights the adaptation phase both for
+      Hamilton and Ferrari, suggesting technical or strategic challenges. Despite
+      this, his consistent top-10 finishes and sprint race success indicate resilience
+      and ongoing competitiveness.
+    type: context and implications
+  - content: Compared to prior years, especially his championship-winning campaigns,
+      2025 represents a downturn in results. However, the season is significant for
+      marking a new chapter in his career and testing his ability to drive performance
+      improvements within a new team environment.
+    type: comparison to previous seasons
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Hamilton had no Grand Prix wins or podiums in 2025, but his consistent
+      top-10 finishes placed him 6th overall. He did win a sprint race but not the
+      sprint championship.
+    options:
+    - He won multiple Grand Prix races and finished first in the championship.
+    - He achieved no Grand Prix wins or podiums but finished 6th overall with consistent
+      top-10 finishes.
+    - He did not finish any races and scored zero points.
+    - He won the sprint championship but not the main championship.
+    question_text: Which of the following best describes Lewis Hamilton's 2025 F1
+      season with Ferrari?
+  index: 73
+  key_concept: 2025 Season Performance
+  name: SEASON
+- aspects:
+  - content: Career statistics encompass a driver's cumulative achievements across
+      all Formula 1 seasons. For Hamilton, these include races entered, points scored,
+      wins, podiums, pole positions, fastest laps, DNFs, and world championships.
+    type: definition and scope
+  - content: 'Hamilton''s career stats as of 2025 are extraordinary: 380 Grand Prix
+      entries, 5018.5 career points, 105 race wins, 202 podiums, 104 pole positions,
+      and 7 world championships. He has also recorded 34 DNFs and achieved the highest
+      grid position 104 times.'
+    type: key figures
+  - content: These numbers place Hamilton at or near the top of all major F1 records,
+      surpassing previous benchmarks set by Michael Schumacher and Ayrton Senna. His
+      longevity and sustained performance are hallmarks of his legacy.
+    type: historical context
+  - content: Hamilton's statistical dominance cements his status as an F1 legend.
+      His records are used as benchmarks for current and future drivers, and his achievements
+      have redefined expectations of what is possible in the sport.
+    type: implications and legacy
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Hamilton has won 7 World Championships and 105 Grand Prix races by
+      2025, according to the career statistics provided.
+    options:
+    - 5 World Championships, 80 wins
+    - 7 World Championships, 105 wins
+    - 6 World Championships, 90 wins
+    - 8 World Championships, 110 wins
+    question_text: How many World Championships and Grand Prix wins has Lewis Hamilton
+      achieved by 2025?
+  index: 129
+  key_concept: Career Statistics
+  name: CAREER STATS
+- aspects:
+  - content: Lewis Hamilton was born on January 7, 1985, in Stevenage, England. His
+      early exposure to motorsport and rapid progression through karting and junior
+      racing categories set the foundation for his F1 career.
+    type: early life
+  - content: Hamilton's motto, 'Still I Rise,' reflects his resilience and determination
+      in the face of adversity. He is known for his individuality, refusing to conform
+      to traditional stereotypes of racing drivers, and for being a role model for
+      diversity and inclusion in motorsport.
+    type: personal philosophy and identity
+  - content: Hamilton's F1 journey began with a record-breaking rookie season in 2007.
+      He has since driven for McLaren, Mercedes, and Ferrari, consistently performing
+      at the highest level and becoming a central figure in the sport.
+    type: career progression
+  - content: Hamilton is widely respected by his peers for his skill, work ethic,
+      and sportsmanship. He has earned the title 'Sir Lewis Hamilton' in recognition
+      of his contributions to motorsport and society.
+    type: reputation and peer respect
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: '''Still I Rise'' is Hamilton''s personal motto, symbolizing his
+      resilience and featured prominently on his helmet and as a tattoo.'
+    options:
+    - '''Never Give Up'''
+    - '''Still I Rise'''
+    - '''No Limits'''
+    - '''Born to Race'''
+    question_text: What phrase is associated with Lewis Hamilton's personal philosophy
+      and is featured on his helmet?
+  index: 155
+  key_concept: Biography and Personal Background
+  name: Biography
+- aspects:
+  - content: The 'Related Videos' section highlights key moments from Hamilton's 2025
+      season, including post-race interviews, qualifying sessions, and reflections
+      on his performance. These videos provide insights into his mindset, challenges,
+      and adaptation to Ferrari.
+    type: media representation
+  - content: Videos feature Hamilton's interactions with teammates (e.g., Charles
+      Leclerc), commentary on the Ferrari team environment, and his responses to setbacks,
+      illustrating his leadership and influence within the F1 paddock.
+    type: community and peer interactions
+  - content: These media pieces serve to engage fans, offering behind-the-scenes perspectives
+      and humanizing the driver beyond race results. They also document his ongoing
+      optimism and commitment to improvement.
+    type: fan engagement
+  - content: Media coverage frames Hamilton's 2025 season as a period of transition
+      and resilience, emphasizing both the difficulties faced and his determination
+      to succeed with Ferrari. This narrative reinforces his status as a central figure
+      in F1's evolving story.
+    type: narrative framing
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The videos focus on Hamilton's challenges, adaptation to a new team,
+      and his ongoing optimism, rather than race wins or retirement.
+    options:
+    - Consistent race wins and dominance
+    - Struggles, adaptation to Ferrari, and optimism for improvement
+    - Retirement announcements
+    - Technical explanations of car design
+    question_text: What themes are commonly highlighted in the videos related to Lewis
+      Hamilton's 2025 season?
+  index: 189
+  key_concept: Media Coverage and F1 Community
+  name: Related Videos

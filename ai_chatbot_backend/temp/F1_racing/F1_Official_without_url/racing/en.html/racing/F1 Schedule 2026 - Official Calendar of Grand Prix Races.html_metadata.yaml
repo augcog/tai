@@ -1,0 +1,248 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: This is an official web page outlining the 2026 FIA Formula One
+  World Championship race calendar, including detailed event dates, locations, and
+  sponsors, as well as sections highlighting F1's commercial partners and promoting
+  the official F1 mobile app.
+file_name: F1 Schedule 2026 - Official Calendar of Grand Prix Races.html
+file_path: F1_racing/F1_Official/racing/en.html/racing/F1 Schedule 2026 - Official
+  Calendar of Grand Prix Races.html
+file_uuid: 180be7da-2301-5451-8162-4c00956a9e74
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: The calendar includes both pre-season testing and Grand Prix races
+    held worldwide. It does not limit itself to Europe, nor is it a list of sponsors
+    or driver statistics.
+  knowledge_areas:
+  - 2026 F1 Race Calendar
+  options:
+  - Only European Grand Prix events
+  - Pre-season testing sessions and global Grand Prix races
+  - A list of F1 team sponsors only
+  - Driver statistics for the 2026 season
+  question_id: 1
+  question_text: Which of the following is included in the 2026 FIA Formula One World
+    Championship Race Calendar?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Sponsors are prominently featured in the official names of many races,
+    such as 'FORMULA 1 QATAR AIRWAYS AUSTRALIAN GRAND PRIX 2026.'
+  knowledge_areas:
+  - F1 Event Sponsorship
+  options:
+  - By naming rights in official event titles
+  - Through exclusive team uniforms
+  - Only in digital advertisements
+  - By sponsoring only the final race
+  question_id: 2
+  question_text: How are sponsors integrated into the 2026 F1 Race Calendar?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: F1's commercial partners contribute in multiple ways, including financial
+    backing, technology, logistics, and global promotion.
+  knowledge_areas:
+  - F1 Commercial Partners
+  options:
+  - They only provide technical support to teams.
+  - They offer financial, technological, and promotional support across the sport.
+  - They are only involved in ticket sales.
+  - They are not mentioned in official F1 materials.
+  question_id: 3
+  question_text: Which of the following best describes the role of F1's commercial
+    partners?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app is designed for fan engagement, offering live timing, news,
+    and interactive features, not for engineering, sales, or exclusive broadcasting.
+  knowledge_areas:
+  - F1 App and Digital Engagement
+  options:
+  - To provide fans with live race timing and news updates
+  - To manage race car engineering
+  - To sell official F1 merchandise directly
+  - To broadcast races exclusively in Europe
+  question_id: 4
+  question_text: What is a key purpose of the Official F1 App as promoted in the document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Sponsors and commercial partners are directly integrated into the race
+    calendar through naming rights and branding, demonstrating their importance to
+    the sport's structure and presentation.
+  knowledge_areas:
+  - 2026 F1 Race Calendar
+  - F1 Event Sponsorship
+  - F1 Commercial Partners
+  options:
+  - Sponsors and partners are integrated into the calendar through event titles and
+    branding, reflecting their financial and promotional roles.
+  - They operate independently with no overlap.
+  - Only the calendar is relevant to fans; sponsorship and partners are internal matters.
+  - Event sponsorship does not affect the official race calendar.
+  question_id: 5
+  question_text: How do the F1 Race Calendar, event sponsorship, and commercial partners
+    interrelate?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 2026 F1 Race Calendar is the official schedule of all events, including
+      pre-season testing and Grand Prix races, that constitute the FIA Formula One
+      World Championship for the 2026 season. It provides the sequence, dates, and
+      locations of each race, serving as the backbone for the season's competitive
+      structure.
+    type: Definition
+  - content: The calendar lists events such as pre-season testing in Bahrain (Feb
+      11-13 and Feb 18-20), the Australian Grand Prix (Mar 6-8), the Chinese Grand
+      Prix (Mar 13-15), and continues through to the Abu Dhabi Grand Prix (Dec 4-6).
+      Each event is associated with a specific circuit and often a title sponsor,
+      such as the 'FORMULA 1 QATAR AIRWAYS AUSTRALIAN GRAND PRIX 2026'.
+    type: Examples
+  - content: The calendar dictates the logistical planning for teams, drivers, and
+      organizers, impacting travel, car development timelines, and race strategies.
+      It also affects global broadcasting schedules, fan engagement, and regional
+      economic activity in host cities. The sequence and spacing of races can influence
+      competitive balance and the physical demands on participants.
+    type: Implications
+  - content: The race calendar is closely linked to other aspects of F1, such as driver
+      and team standings, regulatory changes (like the 2026 regulations), and the
+      involvement of sponsors. It also interacts with global sporting calendars and
+      can be influenced by factors like weather, geopolitics, and commercial considerations.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    - 3
+    explanation: The 2026 F1 Race Calendar includes both pre-season testing and Grand
+      Prix events (option 1 is incorrect, option 2 is correct), covers a global set
+      of locations (option 0 is incorrect), mentions sponsors in event titles (option
+      2 is incorrect), and spans from February to December (option 3 is correct).
+    options:
+    - It only includes European races.
+    - It lists both pre-season testing and Grand Prix events.
+    - It does not mention event sponsors.
+    - It covers races from February to December.
+    question_text: Which of the following is true about the 2026 F1 Race Calendar?
+  index: 61
+  key_concept: 2026 F1 Race Calendar
+  name: 2026 FIA FORMULA ONE WORLD CHAMPIONSHIP™ RACE CALENDAR
+- aspects:
+  - content: F1 Event Sponsorship refers to the practice of companies partnering with
+      Formula One to have their brands associated with specific races or the series
+      as a whole. Sponsors often have naming rights for Grand Prix events, which are
+      reflected in the official event titles.
+    type: Definition
+  - content: Examples from the 2026 calendar include 'FORMULA 1 QATAR AIRWAYS AUSTRALIAN
+      GRAND PRIX 2026', 'FORMULA 1 HEINEKEN CHINESE GRAND PRIX 2026', and 'FORMULA
+      1 ARAMCO JAPANESE GRAND PRIX 2026'. These titles indicate the primary sponsors
+      for each event, with companies such as Qatar Airways, Heineken, and Aramco prominently
+      featured.
+    type: Examples
+  - content: Sponsorship provides significant financial support to the sport, enabling
+      events to be staged at a high level and contributing to the commercial viability
+      of F1. It also offers brands global exposure, as F1 has a massive international
+      audience. The presence of sponsors in event titles reflects the integration
+      of commercial interests into the sport’s identity.
+    type: Implications
+  - content: Event sponsorship is connected to broader marketing strategies of both
+      F1 and its partners, influencing fan experiences, promotional activities, and
+      even the design of circuits and hospitality areas. It also ties into the overall
+      sponsorship ecosystem described in the 'OUR PARTNERS' section.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Sponsorship is integrated into the official titles of many races,
+      such as the 'FORMULA 1 QATAR AIRWAYS AUSTRALIAN GRAND PRIX 2026', making option
+      0 correct. The other options are incorrect as sponsors are explicitly included
+      in event names.
+    options:
+    - As part of the official race names.
+    - Only on team uniforms.
+    - Not mentioned at all.
+    - Only in advertisements, not event titles.
+    question_text: How does sponsorship appear in the 2026 F1 Race Calendar?
+  index: 61
+  key_concept: F1 Event Sponsorship
+  name: 2026 FIA FORMULA ONE WORLD CHAMPIONSHIP™ RACE CALENDAR
+- aspects:
+  - content: F1 Commercial Partners are companies that have entered into official
+      partnerships with Formula One, often receiving branding opportunities, hospitality
+      access, and association with the sport’s global image. These partners span various
+      industries, including luxury, technology, logistics, and consumer goods.
+    type: Definition
+  - content: Major partners listed include LVMH, Pirelli, Aramco, Heineken, AWS, Lenovo,
+      DHL, Qatar Airways, MSC Cruises, Salesforce, Louis Vuitton, TAG Heuer, Moet
+      Hennessy, American Express, Santander, Allwyn, Crypto.com, and many others.
+      Each partner may have a unique role, such as tire supplier (Pirelli), timekeeping
+      (TAG Heuer), or cloud computing (AWS).
+    type: Examples
+  - content: These partnerships provide crucial funding and resources for Formula
+      One operations and innovation. They also allow F1 to leverage the expertise
+      and global reach of its partners, enhancing the fan experience, technological
+      development, and logistical efficiency. For partners, the association with F1
+      boosts brand prestige and access to a worldwide audience.
+    type: Implications
+  - content: Many partners are also event sponsors, and their involvement can extend
+      to team sponsorships, digital platforms, and special initiatives. The integration
+      of partner brands is visible in race titles, on-track advertising, and digital
+      content, making commercial partnerships a foundational element of the modern
+      F1 ecosystem.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: F1's commercial partners play multifaceted roles, including funding,
+      technological support, logistics, and global promotion (option 1 is correct).
+      The other options are too narrow or incorrect.
+    options:
+    - They only provide tires for the races.
+    - They fund, support, and promote the sport across various domains.
+    - They are limited to advertising during TV broadcasts.
+    - They are only involved with team management.
+    question_text: Which statement best describes the role of F1's commercial partners?
+  index: 233
+  key_concept: F1 Commercial Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application available for iOS and Android
+      devices, designed to provide fans with real-time information, news, live timing,
+      and interactive features related to Formula One.
+    type: Definition
+  - content: The app can be downloaded from the Apple App Store and Google Play Store.
+      It offers features such as live race timing, driver and team data, news updates,
+      and access to exclusive content. Fans can use the app to follow the 2026 race
+      calendar, view results, and receive notifications about their favorite teams
+      and drivers.
+    type: Examples
+  - content: The app enhances fan engagement by making F1 content accessible on mobile
+      devices, allowing real-time interaction with live events regardless of location.
+      It supports the sport’s digital strategy and helps build a global, connected
+      fan community. The app also serves as a platform for partner promotions and
+      exclusive digital experiences.
+    type: Implications
+  - content: Digital engagement through the app is linked to F1's broader media and
+      marketing efforts, integrating with social media, streaming platforms (like
+      F1 TV), and interactive features such as fantasy leagues and gaming. It complements
+      traditional broadcast coverage and is a key tool for reaching younger, tech-savvy
+      audiences.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The Official F1 App is designed to deliver live race timing, news,
+      and interactive content to fans, making option 1 correct. The other options
+      do not reflect its purpose.
+    options:
+    - Selling car parts to teams.
+    - Providing live race timing and news to fans.
+    - Broadcasting only archived races.
+    - Managing team logistics.
+    question_text: What is a primary function of the Official F1 App?
+  index: 243
+  key_concept: F1 App and Digital Engagement
+  name: Download the Official F1 App

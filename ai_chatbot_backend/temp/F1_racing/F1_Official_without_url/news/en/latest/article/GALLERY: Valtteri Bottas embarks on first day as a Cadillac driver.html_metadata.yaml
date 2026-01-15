@@ -1,0 +1,222 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Formula 1 news article and gallery documenting Valtteri Bottas's
+  first day as a Cadillac F1 driver, with related links to recent F1 news, team reports,
+  partners, and app download information.
+file_name: 'GALLERY: Valtteri Bottas embarks on first day as a Cadillac driver.html'
+file_path: 'F1_racing/F1_Official/news/en/latest/article/GALLERY: Valtteri Bottas
+  embarks on first day as a Cadillac driver.html'
+file_uuid: 07059b20-ab2c-5f15-9870-1202b1f5b3d6
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The article details Bottas's move from Mercedes reserve driver to Cadillac
+    F1 driver, not retirement, a Red Bull advisory role, or Williams management.
+  knowledge_areas:
+  - Bottas joins Cadillac F1
+  options:
+  - He moved from a reserve driver role at Mercedes to a full-time seat at Cadillac
+    F1.
+  - He retired from Formula 1 after the 2025 season.
+  - He became a technical advisor for Red Bull.
+  - He switched to a managerial role at Williams.
+  question_id: 1
+  question_text: Which of the following best describes Valtteri Bottas's transition
+    as covered in the article?
+  question_type: recap
+- correct_answers:
+  - 0
+  - 2
+  explanation: The section highlights commercial, technology, and logistics partners,
+    not regulations or driver statistics.
+  knowledge_areas:
+  - F1 commercial partnerships
+  options:
+  - Highlighting F1's commercial sponsors
+  - Providing technical race regulations
+  - Showcasing technology and logistics partners
+  - Listing driver statistics
+  question_id: 2
+  question_text: What are some of the key functions of the 'OUR PARTNERS' section
+    on the F1 website?
+  question_type: recap
+- correct_answers:
+  - 0
+  - 2
+  explanation: The section includes team reports and driver market updates, not just
+    technical rules or advertisements.
+  knowledge_areas:
+  - Related F1 news and season context
+  options:
+  - It includes end-of-year team performance reports.
+  - It focuses exclusively on technical rule changes.
+  - It provides updates on the 2026 driver market.
+  - It only features race ticket advertisements.
+  question_id: 3
+  question_text: Which statements accurately reflect the broader context provided
+    by the 'Related Articles' section?
+  question_type: recap
+- correct_answers:
+  - 0
+  - 1
+  explanation: The app enhances engagement through live data and exclusive content,
+    not by offering team management or car design features.
+  knowledge_areas:
+  - Official F1 App promotion
+  options:
+  - By offering live timing and race data
+  - By providing exclusive news and multimedia
+  - By allowing direct team management
+  - By enabling car design customization
+  question_id: 4
+  question_text: How does the Official F1 App contribute to fan engagement according
+    to the article?
+  question_type: recap
+sections:
+- aspects:
+  - content: Valtteri Bottas, a seasoned Formula 1 driver, has officially joined the
+      newly formed Cadillac F1 team, marking a significant transition in his career.
+      This move comes as Cadillac prepares for its debut in Formula 1, with Bottas
+      leaving his previous role as a Mercedes reserve driver. His partnership with
+      Sergio Perez at Cadillac is set to begin with the 2026 season, reflecting the
+      team's ambitions and Bottas's desire to return to the grid as a full-time driver.
+    type: Definition and Context
+  - content: Bottas's first day included a seat fitting at Silverstone and introductions
+      to his new team members, illustrating the practical steps involved in integrating
+      a driver into a new F1 outfit. The article features a gallery of images documenting
+      these moments, emphasizing the ceremonial and operational aspects of a driver's
+      onboarding process. Bottas expressed excitement and pride, highlighting the
+      emotional significance of joining a team at the start of its F1 journey.
+    type: Examples and Details
+  - content: Bottas's move to Cadillac underscores the dynamic nature of F1 driver
+      careers and the strategic importance of experienced drivers for new teams. His
+      experience is expected to aid Cadillac's development, especially during the
+      critical pre-season testing phase. The partnership with Sergio Perez suggests
+      a blend of veteran talent aimed at accelerating the team's competitiveness.
+      This transition also connects to broader themes of team building, adaptation,
+      and the challenges faced by new entrants in Formula 1.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    - 2
+    explanation: Bottas's first day included a seat fitting at Silverstone and meeting
+      his new team members. There is no mention of him driving in a race or testing
+      the car on track at this stage.
+    options:
+    - Participated in a seat fitting at Silverstone
+    - Drove in the first race for Cadillac
+    - Met new team colleagues
+    - Tested the new Cadillac F1 car on track
+    question_text: What were some key activities Valtteri Bottas undertook on his
+      first day with the Cadillac F1 team?
+  index: 53
+  key_concept: Bottas joins Cadillac F1
+  name: 'GALLERY: Bottas embarks on first day as a Cadillac driver'
+- aspects:
+  - content: The 'Related Articles' section links to recent news items and reports
+      relevant to the current F1 landscape, including team performance reviews, driver
+      changes, and season highlights. This contextualizes Bottas's move within broader
+      developments in the sport, such as team strategies, driver line-ups for 2026,
+      and significant events from the 2025 season.
+    type: Definition and Context
+  - content: Examples of related articles include end-of-year reports for teams like
+      Williams and Red Bull, discussions about the 2026 F1 driver roster, and summaries
+      of key moments from the 2025 season. Other articles address specific incidents,
+      such as Oscar Piastri's expectations regarding Lando Norris's championship and
+      the decision to demote Yuki Tsunoda. These articles provide a comprehensive
+      view of the competitive and organizational shifts occurring in F1.
+    type: Examples and Details
+  - content: These news items help readers understand the competitive environment
+      into which Cadillac and Bottas are entering. Team performance reviews and driver
+      market changes influence strategic decisions for teams and drivers alike. The
+      inclusion of such articles facilitates a holistic understanding of F1 as a dynamic,
+      interconnected sporting ecosystem where individual moves, like Bottas's, are
+      part of larger trends.
+    type: Connections and Implications
+  check_in_question:
+    correct_answer:
+    - 0
+    - 2
+    explanation: '''Related Articles'' includes team performance reviews and driver
+      market updates, but does not focus on technical regulations for 2027 or race
+      ticket promotions.'
+    options:
+    - Team performance reviews
+    - Technical regulations for 2027
+    - Driver market updates
+    - Race ticket promotions
+    question_text: Which types of topics are covered in the 'Related Articles' section?
+  index: 93
+  key_concept: Related F1 news and season context
+  name: Related Articles
+- aspects:
+  - content: The 'OUR PARTNERS' section lists the major commercial sponsors and partners
+      of Formula 1, reflecting the sport's reliance on corporate relationships for
+      financial support, technological innovation, and global marketing reach. These
+      partnerships are integral to the business model of F1, supporting everything
+      from logistics to fan engagement.
+    type: Definition and Context
+  - content: Notable partners include luxury brands (Louis Vuitton, LVMH), technology
+      companies (AWS, Lenovo), logistics firms (DHL), beverage companies (Heineken,
+      Moet Hennessy), and financial institutions (Santander, American Express). These
+      brands are featured with logos and links, demonstrating their visibility and
+      promotional roles within F1. The diversity of sponsors illustrates F1's broad
+      commercial appeal.
+    type: Examples and Details
+  - content: Commercial partnerships enable F1 teams and organizers to fund operations,
+      develop technology, and enhance the fan experience. These relationships often
+      lead to co-branded initiatives, technical collaborations, and global advertising
+      campaigns. Understanding the partner ecosystem is essential for grasping the
+      economic and promotional dynamics that underpin the sport.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The 'OUR PARTNERS' section is dedicated to highlighting the commercial
+      sponsors and partners that support Formula 1, not technical specs, race dates,
+      or results.
+    options:
+    - To provide technical specifications of F1 cars
+    - To showcase major commercial sponsors and partners
+    - To list upcoming race dates
+    - To display results from previous seasons
+    question_text: What is the primary purpose of the 'OUR PARTNERS' section on the
+      F1 website?
+  index: 102
+  key_concept: F1 commercial partnerships
+  name: OUR PARTNERS
+- aspects:
+  - content: This section promotes the Official F1 App, which is available for download
+      on major app platforms. The app is designed to provide fans with real-time race
+      data, news, schedules, and exclusive content, enhancing the digital engagement
+      experience for F1 enthusiasts.
+    type: Definition and Context
+  - content: The section includes download links for the Apple App Store and Google
+      Play, making the app accessible to users across different mobile operating systems.
+      The app is positioned as a central hub for live timing, race positions, news
+      updates, and multimedia content, serving both casual fans and dedicated followers.
+    type: Examples and Details
+  - content: The promotion of the F1 App reflects the sport's commitment to digital
+      transformation and fan engagement. By offering a comprehensive digital platform,
+      F1 aims to increase accessibility, foster community, and deliver personalized
+      experiences. The app also serves as a marketing and data collection tool, supporting
+      broader commercial and strategic objectives.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    - 2
+    explanation: The Official F1 App is promoted for its live race data, timing, and
+      exclusive news/multimedia content, not for car customization or direct merchandise
+      purchasing.
+    options:
+    - Live race data and timing
+    - Car customization tools
+    - Exclusive news and multimedia content
+    - Merchandise purchasing
+    question_text: What are the main features promoted for the Official F1 App?
+  index: 112
+  key_concept: Official F1 App promotion
+  name: Download the Official F1 App

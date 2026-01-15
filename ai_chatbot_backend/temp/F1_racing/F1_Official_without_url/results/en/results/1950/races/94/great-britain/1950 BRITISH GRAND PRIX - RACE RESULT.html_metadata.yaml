@@ -1,0 +1,229 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page displaying the official race results for the 1950 British
+  Grand Prix at Silverstone, including finishing positions, drivers, teams, laps,
+  and points, as well as information about F1 partners and app download links.
+file_name: 1950 BRITISH GRAND PRIX - RACE RESULT.html
+file_path: F1_racing/F1_Official/results/en/results/1950/races/94/great-britain/1950
+  BRITISH GRAND PRIX - RACE RESULT.html
+file_uuid: a07631dc-7f6b-5070-b8c4-12b54ad7000c
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Nino Farina won the 1950 British Grand Prix driving for Alfa Romeo.
+    Luigi Fagioli also drove for Alfa Romeo, not Maserati, and Reg Parnell was third
+    for Alfa Romeo, not Talbot-Lago. Fangio did not win and was not with Ferrari.
+  knowledge_areas:
+  - 1950 British Grand Prix Race Results
+  options:
+  - Nino Farina, Alfa Romeo
+  - Luigi Fagioli, Maserati
+  - Reg Parnell, Talbot-Lago
+  - Juan Manuel Fangio, Ferrari
+  question_id: 1
+  question_text: Who won the 1950 British Grand Prix, and which team did he represent?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The 1950 British Grand Prix was the first race of the modern F1 World
+    Championship, establishing the format and points system still influential today.
+    The other options are historically inaccurate.
+  knowledge_areas:
+  - 1950 British Grand Prix Race Results
+  - Context
+  options:
+  - It was the first race of the modern Formula One World Championship, setting the
+    format for future races.
+  - It was the last race before the introduction of turbocharged engines.
+  - It marked the first victory for Ferrari in Formula One.
+  - It was the only race held at Silverstone in the 20th century.
+  question_id: 2
+  question_text: Which of the following best describes the significance of the 1950
+    British Grand Prix results?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Pirelli, AWS, and Heineken are all listed as F1 partners or sponsors,
+    while the other brands are not mentioned in the partner section of the page.
+  knowledge_areas:
+  - F1 Partners and Sponsorship
+  options:
+  - Pirelli, AWS, Heineken
+  - Nike, Adidas, Samsung
+  - Sony, Apple, Google
+  - Honda, Bridgestone, Shell
+  question_id: 3
+  question_text: Which brands are mentioned as official F1 partners or sponsors on
+    the 1950 British Grand Prix results page?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App is promoted for its live timing, news, and exclusive
+    content features. It is not primarily for merchandise, qualifying streams only,
+    or coaching.
+  knowledge_areas:
+  - Official F1 App Promotion
+  options:
+  - Providing live race timing, news, and exclusive content.
+  - Selling team merchandise directly.
+  - Streaming only qualifying sessions.
+  - Offering driver coaching services.
+  question_id: 4
+  question_text: What is the main function of the Official F1 App as highlighted on
+    the page?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: F1 partners and sponsors contribute financially and through services,
+    and their diversity demonstrates the sport's broad commercial reach and value
+    as a marketing platform. They do not determine winners, supply all engines, or
+    limit their involvement to hospitality.
+  knowledge_areas:
+  - F1 Partners and Sponsorship
+  - Implications
+  options:
+  - They provide financial support and services, reflecting F1's global commercial
+    appeal.
+  - They determine race winners through sponsorship deals.
+  - They supply all car engines used in the championship.
+  - They are only involved in hospitality and catering at races.
+  question_id: 5
+  question_text: How do F1 partners and sponsors contribute to the sport, and what
+    does their diversity indicate?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1950 British Grand Prix race results refer to the official finishing
+      order, times, and points awarded to drivers and teams at the inaugural Formula
+      One World Championship race, held at Silverstone Circuit on May 13, 1950. This
+      event marked the beginning of the modern Formula One era and set the precedent
+      for subsequent championship races.
+    type: Definition
+  - content: Nino Farina (Alfa Romeo) won the race, completing 70 laps in 2:13:23.600
+      and earning 9 points. Luigi Fagioli (Alfa Romeo) finished second, 2.6 seconds
+      behind, and Reg Parnell (Alfa Romeo) was third, 52 seconds behind the leader.
+      Other notable finishers included Yves Giraud-Cabantous and Louis Rosier, both
+      driving for Talbot-Lago, who finished fourth and fifth, respectively.
+    type: Examples
+  - content: This race was significant as the first ever Formula One World Championship
+      event, establishing the format for future races, including the points system
+      and team representation. The dominance of Alfa Romeo, with a 1-2-3 finish, highlighted
+      the competitive landscape at the time. The event also featured a mix of manufacturers,
+      including Talbot-Lago, ERA, Maserati, and Alta.
+    type: Context
+  - content: The results not only determined the initial standings for the 1950 season
+      but also demonstrated the technical and strategic superiority of certain teams,
+      especially Alfa Romeo. The points distribution (9 for first, 6 for second, etc.)
+      influenced championship strategies and set a standard for future scoring systems.
+      Non-classified (NC) drivers and those who did not finish (DNF) highlighted the
+      mechanical unreliability and challenges of early F1 racing.
+    type: Implications
+  - content: These results are foundational in F1 history, connecting to the evolution
+      of race formats, championship structures, and the development of teams and driver
+      careers. The race is often referenced in discussions about the origins of Formula
+      One, the progression of car technology, and the historical performance of teams
+      like Alfa Romeo.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Alfa Romeo drivers finished in the top three positions, demonstrating
+      the team's dominance and technical superiority in the inaugural F1 World Championship
+      event. Ferrari and Maserati were present but did not achieve similar results,
+      and Talbot-Lago finished lower in the order.
+    options:
+    - Alfa Romeo; it shows their dominance in early F1.
+    - Ferrari; it highlights their early technical superiority.
+    - Maserati; it suggests a balanced field.
+    - Talbot-Lago; it indicates strong French engineering.
+    question_text: Which team secured the top three positions in the 1950 British
+      Grand Prix, and what does this indicate about the competitive landscape of that
+      era?
+  index: 151
+  key_concept: 1950 British Grand Prix Race Results
+  name: 1950 BRITISH GRAND PRIX - RACE RESULT
+- aspects:
+  - content: F1 partners and sponsors are companies and brands that form official
+      commercial relationships with Formula 1, providing financial support, products,
+      or services in exchange for advertising, branding, and promotional opportunities
+      within the sport.
+    type: Definition
+  - content: Major F1 partners listed include LVMH, Pirelli, Aramco, Heineken, AWS,
+      Lenovo, DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton, TAG
+      Heuer, Moet Hennessy, American Express, Santander, Allwyn, Globant, Las Vegas
+      Convention and Visitors Authority, Paramount+, Barilla, Liqui Moly, Nestle,
+      PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds. These brands are visible
+      on cars, tracks, and digital media.
+    type: Examples
+  - content: Sponsorship is essential to the financial viability of Formula 1, enabling
+      teams and the organization to fund operations, technological development, and
+      global events. The presence of luxury, technology, logistics, and consumer brands
+      reflects F1's international appeal and its value as a marketing platform.
+    type: Implications
+  - content: The list of partners demonstrates the diversity of industries involved
+      in F1, from tire suppliers (Pirelli) and fuel companies (Aramco) to technology
+      firms (AWS, Lenovo) and luxury brands (LVMH, Louis Vuitton). This broad sponsorship
+      base is a hallmark of modern professional motorsport.
+    type: Context
+  - content: Sponsorship links F1 to global commerce, technology, and lifestyle trends.
+      The evolution of partnerships over time mirrors changes in the sport's audience,
+      technological needs, and marketing strategies. Sponsorship deals can also impact
+      team performance, branding, and even race locations.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not listed among the official F1 partners or sponsors on
+      the page, while Pirelli, AWS, and Heineken are all present as partners.
+    options:
+    - Pirelli
+    - AWS
+    - Nike
+    - Heineken
+    question_text: Which of the following is NOT listed as an official F1 partner
+      or sponsor on the 1950 British Grand Prix results page?
+  index: 183
+  key_concept: F1 Partners and Sponsorship
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application provided by Formula 1, offering
+      fans access to live timing, news, race schedules, and exclusive content related
+      to the F1 World Championship. It is available for download on both the Apple
+      App Store and Google Play.
+    type: Definition
+  - content: The app provides features such as live race tracking, session status
+      updates, driver and team information, and access to multimedia content. It is
+      promoted on the official F1 website with direct download links for iOS and Android
+      devices.
+    type: Examples
+  - content: The app enhances fan engagement by delivering real-time data and interactive
+      features, allowing users to follow races closely and access information anywhere.
+      It also serves as a marketing and data collection tool for Formula 1, helping
+      to build a global digital community.
+    type: Implications
+  - content: The promotion of the app reflects the growing importance of digital platforms
+      in sports entertainment. As F1's global audience expands, mobile access to live
+      content and statistics becomes increasingly vital for maintaining fan interest
+      and relevance.
+    type: Context
+  - content: The app connects fans to the broader F1 ecosystem, including news, schedules,
+      and partner promotions. It also integrates with other digital initiatives, such
+      as F1 TV and fantasy gaming, reflecting the sport's digital transformation.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App is promoted as a source for live timing, news,
+      and exclusive content, enhancing the fan experience. It is not primarily for
+      ticket sales, engineering data, or exclusively historical race streaming.
+    options:
+    - To provide live timing, news, and exclusive F1 content to fans.
+    - To sell race tickets directly to spectators.
+    - To offer behind-the-scenes team engineering data.
+    - To stream only historical F1 races.
+    question_text: What is the primary purpose of the Official F1 App as promoted
+      on the race results page?
+  index: 193
+  key_concept: Official F1 App Promotion
+  name: Download the Official F1 App

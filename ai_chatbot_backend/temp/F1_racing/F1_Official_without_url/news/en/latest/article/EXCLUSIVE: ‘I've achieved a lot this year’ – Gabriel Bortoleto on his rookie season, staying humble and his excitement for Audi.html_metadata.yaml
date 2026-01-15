@@ -1,0 +1,251 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: This is an F1 news interview article featuring Gabriel Bortoleto
+  reflecting on his rookie Formula 1 season, including his performance, attitude,
+  and anticipation for Audi's entry; the file also includes related F1 news links,
+  a list of official partners, and promotional app download information.
+file_name: 'EXCLUSIVE: ‘I''ve achieved a lot this year’ – Gabriel Bortoleto on his
+  rookie season, staying humble and his excitement for Audi.html'
+file_path: 'F1_racing/F1_Official/news/en/latest/article/EXCLUSIVE: ‘I''ve achieved
+  a lot this year’ – Gabriel Bortoleto on his rookie season, staying humble and his
+  excitement for Audi.html'
+file_uuid: 8844bd7e-f400-5fc8-9b38-39936253ed33
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Bortoleto outperformed his experienced teammate in qualifying, demonstrating
+    impressive one-lap pace, even though he was outscored in race points.
+  knowledge_areas:
+  - Gabriel Bortoleto's Rookie F1 Season Reflection
+  options:
+  - He won the qualifying head-to-head against Nico Hulkenberg.
+  - He won more races than any other rookie.
+  - He scored more points than his teammate.
+  - He set the fastest lap in every race.
+  question_id: 1
+  question_text: What notable achievement did Gabriel Bortoleto accomplish during
+    his rookie F1 season despite being outscored by his teammate?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: The 'Related Articles' section provides links to other news stories,
+    interviews, and analyses relevant to F1.
+  knowledge_areas:
+  - Related F1 News and Analysis
+  options:
+  - OUR PARTNERS
+  - Download the Official F1 App
+  - Related Articles
+  - 'EXCLUSIVE: ‘I''ve achieved a lot this year’ – Bortoleto on his rookie season,
+    staying humble and his excitement for Audi'
+  question_id: 2
+  question_text: Which section of the article connects readers to broader F1 news,
+    interviews, and analytical content?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: F1 Official Partners support the sport through funding, technology,
+    and logistics, gaining marketing benefits in return.
+  knowledge_areas:
+  - F1 Official Partners
+  options:
+  - To provide live race commentary.
+  - To sponsor individual drivers only.
+  - To offer financial, technological, or logistical support to F1 in return for marketing
+    exposure.
+  - To enforce F1 sporting regulations.
+  question_id: 3
+  question_text: What is the primary role of F1 Official Partners as highlighted in
+    the article?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app delivers live data, news, and exclusive content, making it
+    a key digital engagement tool for fans.
+  knowledge_areas:
+  - F1 App Promotion
+  options:
+  - By offering live race data, news, and exclusive content.
+  - By allowing fans to vote on race outcomes.
+  - By selling F1 team shares.
+  - By providing driver fitness programs.
+  question_id: 4
+  question_text: How does the Official F1 App enhance the fan experience according
+    to the article?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The article situates Bortoleto's individual achievements within the
+    larger context of F1's evolving landscape, including team changes, technological
+    innovation, and news coverage.
+  knowledge_areas:
+  - Gabriel Bortoleto's Rookie F1 Season Reflection
+  - Related F1 News and Analysis
+  - F1 Official Partners
+  options:
+  - Bortoleto's qualifying performance and anticipation for Audi's entry reflect both
+    individual growth and the dynamic changes within F1, as highlighted by related
+    news and technological partnerships.
+  - Bortoleto's season was isolated from other F1 developments and had little impact
+    on the sport.
+  - The article focuses solely on F1's technical regulations.
+  - Only the list of partners is relevant to Bortoleto's performance.
+  question_id: 5
+  question_text: Which of the following statements best integrates the themes of Bortoleto's
+    rookie season and the broader F1 ecosystem as presented in the article?
+  question_type: recap
+sections:
+- aspects:
+  - content: Gabriel Bortoleto's rookie F1 season refers to his first year competing
+      as a full-time Formula 1 driver, specifically with the Kick Sauber team. The
+      reflection encompasses his personal evaluation of achievements, challenges,
+      and growth throughout the 2025 season.
+    type: Definition
+  - content: Despite being outscored in points by his veteran teammate Nico Hulkenberg
+      (51 to 19), Bortoleto's performance is considered impressive due to his lack
+      of experience compared to Hulkenberg's 250+ Grands Prix. Notably, Bortoleto
+      excelled in qualifying, winning the head-to-head against a teammate renowned
+      for one-lap pace, which highlights his raw speed and adaptability under pressure.
+    type: Performance Analysis
+  - content: Bortoleto's rookie year is set against the backdrop of entering F1 at
+      a young age (21) and facing a steep learning curve. His ability to remain humble
+      and content, as described in the interview, demonstrates maturity and psychological
+      resilience. The experience gained in 24 races this season is foundational for
+      his future career, especially as he looks forward to the new opportunities presented
+      by Audi's entry into the sport.
+    type: Context and Implications
+  - content: 'Comparing Bortoleto’s results to those of his teammate provides context:
+      while he lagged in race points, his qualifying success is a significant achievement
+      for a rookie. This mirrors the experiences of other young drivers who initially
+      struggle with race craft but show promise in raw pace, such as Charles Leclerc
+      or George Russell in their debut seasons.'
+    type: Examples and Comparisons
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: 'Bortoleto was outscored in points by Nico Hulkenberg but managed
+      to win the qualifying head-to-head, demonstrating impressive one-lap pace for
+      a rookie. The other options are incorrect: he did not dominate overall, did
+      not show little promise, and was less experienced than his teammate.'
+    options:
+    - He dominated both qualifying and race points over his teammate.
+    - He struggled in all aspects and showed little promise.
+    - He was outscored in points but outperformed a veteran teammate in qualifying.
+    - He had more experience than his teammate and easily adapted to F1.
+    question_text: Which of the following best characterizes Gabriel Bortoleto's rookie
+      F1 season as described in the article?
+  index: 53
+  key_concept: Gabriel Bortoleto's Rookie F1 Season Reflection
+  name: 'EXCLUSIVE: ‘I''ve achieved a lot this year’ – Bortoleto on his rookie season,
+    staying humble and his excitement for Audi'
+- aspects:
+  - content: The 'Related Articles' section provides links to other recent news stories,
+      interviews, and analytical pieces relevant to the current F1 season and its
+      drivers, teams, and developments.
+    type: Definition
+  - content: Examples include interviews with other drivers (e.g., Lindblad), season
+      reviews (e.g., 'Every twist and turn from a dramatic 2025 title battle'), team
+      performance analyses (e.g., Aston Martin’s best and worst moments), and previews
+      of upcoming seasons or team changes (e.g., Vasseur on Ferrari's 2026 hopes,
+      Cadillac’s entry to F1).
+    type: Examples
+  - content: This section is used by readers to deepen their understanding of the
+      F1 landscape, track ongoing narratives, and compare the experiences and performances
+      of different drivers and teams. It serves as a resource for both casual fans
+      and dedicated followers seeking comprehensive coverage.
+    type: Use Cases
+  - content: The related articles connect the reader to broader F1 themes such as
+      rookie development, team strategies, and major regulatory or organizational
+      changes. They also provide context for the main article by situating Bortoleto’s
+      experience within the wider competitive and historical framework of F1.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The 'Related Articles' section is designed to guide readers to additional
+      news, interviews, and analytical content about F1 teams, drivers, and major
+      developments, not technical specs, ads, or rules.
+    options:
+    - To provide technical specifications for F1 cars.
+    - To offer links to recent news, interviews, and analysis about F1 teams and drivers.
+    - To display advertisements for F1 sponsors.
+    - To list the official F1 rules and regulations.
+    question_text: What is the primary purpose of the 'Related Articles' section in
+      the context of the F1 website?
+  index: 93
+  key_concept: Related F1 News and Analysis
+  name: Related Articles
+- aspects:
+  - content: F1 Official Partners are companies and brands that have formal sponsorship
+      or partnership agreements with Formula 1, providing financial support, products,
+      or services in exchange for marketing exposure and association with the sport.
+    type: Definition
+  - content: Examples of F1 partners listed include luxury brands (LVMH, Louis Vuitton),
+      technology firms (AWS, Lenovo), automotive and logistics companies (Pirelli,
+      DHL), airlines (Qatar Airways), beverage companies (Heineken, Moet Hennessy),
+      and financial institutions (Santander, American Express).
+    type: Examples
+  - content: These partnerships are crucial for the financial sustainability and global
+      reach of Formula 1. They enable technological advancements (e.g., AWS cloud
+      computing for data analysis), enhance event logistics (DHL), and promote the
+      sport through joint marketing campaigns. Fans may also benefit from exclusive
+      offers or experiences provided by these partners.
+    type: Implications and Use Cases
+  - content: The presence of such a diverse array of partners highlights F1's status
+      as a global, multifaceted enterprise. The partnerships connect the sport to
+      various industries and markets, reinforcing its image and expanding its audience
+      beyond traditional motorsport fans.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Official partners contribute resources such as funding, technology,
+      or logistics in return for promotional benefits. They are not limited to sponsoring
+      drivers, enforcing rules, or selling merchandise.
+    options:
+    - They are companies that sponsor individual drivers only.
+    - They provide financial, technological, or logistical support to F1 in exchange
+      for marketing and branding opportunities.
+    - They are responsible for enforcing F1 race regulations.
+    - They only sell F1 merchandise at races.
+    question_text: Which of the following statements best describes the role of F1
+      Official Partners?
+  index: 102
+  key_concept: F1 Official Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The 'Download the Official F1 App' section promotes the official mobile
+      application for Formula 1, available on both the Apple App Store and Google
+      Play.
+    type: Definition
+  - content: The app provides fans with live timing, race data, news, schedules, driver
+      and team profiles, and exclusive content. It is designed to enhance fan engagement
+      by offering real-time updates and interactive features during race weekends
+      and throughout the F1 season.
+    type: Use Cases
+  - content: Through the app, users can follow live race positions, gap to leader,
+      and session statuses. The app may also offer notifications for breaking news,
+      access to video highlights, and integration with F1 TV for live streaming.
+    type: Examples
+  - content: The app is an integral part of F1’s digital strategy, aiming to connect
+      with a global audience and provide a seamless, immersive fan experience. It
+      complements the website and social media channels, making F1 content accessible
+      on-the-go and fostering community engagement.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App's main function is to deliver live race data,
+      news, and exclusive content to fans, not to sell cars, manage contracts, or
+      enforce rules.
+    options:
+    - To provide live race data and exclusive F1 content to fans.
+    - To allow fans to purchase F1 cars.
+    - To manage F1 driver contracts.
+    - To enforce F1 technical regulations.
+    question_text: What is a key function of the Official F1 App as promoted in the
+      article?
+  index: 112
+  key_concept: F1 App Promotion
+  name: Download the Official F1 App

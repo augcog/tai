@@ -1,0 +1,157 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A webpage footer and promotional section from the official Formula
+  1 website, featuring a list of F1's commercial partners and download links for the
+  official F1 mobile app.
+file_name: Valtteri Bottas News and Videos | Formula 1.html
+file_path: F1_racing/F1_Official/news/en/latest/tags/Valtteri Bottas News and Videos
+  | Formula 1.html
+file_uuid: 587e4cd8-e3f4-5e71-b356-616280f837d1
+recap_questions:
+- correct_answers:
+  - 2
+  explanation: F1 commercial partners are large, global corporations in sectors like
+    luxury, logistics, and technology, not local amateur clubs.
+  knowledge_areas:
+  - Formula 1 Commercial Partners
+  options:
+  - A global luxury brand
+  - A major logistics company
+  - A local amateur racing club
+  - A technology corporation
+  question_id: 1
+  question_text: Which of the following is NOT typically a Formula 1 commercial partner,
+    based on the section 'OUR PARTNERS'?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Official partners gain global brand exposure and the prestige of association
+    with F1, not direct control over races, regulations, or financial returns from
+    ticket sales.
+  knowledge_areas:
+  - Formula 1 Commercial Partners
+  options:
+  - Exclusive rights to host races and supply all engines
+  - Financial returns from ticket sales and merchandise
+  - Global brand exposure and association with F1's prestige
+  - Direct control over F1 regulations
+  question_id: 2
+  question_text: What are two main benefits that companies receive from becoming official
+    partners of Formula 1?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app's core function is delivering live race timing and news to
+    fans, not financial transactions, event organization, or pit access.
+  knowledge_areas:
+  - Official F1 Mobile App
+  options:
+  - Live race timing and news updates
+  - Direct purchase of F1 team shares
+  - Organizing amateur racing events
+  - Providing in-person pit lane access
+  question_id: 3
+  question_text: Which feature is most central to the Official F1 Mobile App?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: 'Both the app and partnerships expand F1''s global presence: the app
+    through digital fan engagement, and partnerships through international branding.'
+  knowledge_areas:
+  - Official F1 Mobile App
+  - Formula 1 Commercial Partners
+  options:
+  - By providing technical regulations to teams
+  - By enhancing fan engagement and offering worldwide brand exposure
+  - By managing all on-track activities
+  - By selecting drivers for each team
+  question_id: 4
+  question_text: How do the Official F1 Mobile App and F1's commercial partnerships
+    both contribute to the sport's global reach?
+  question_type: recap
+sections:
+- aspects:
+  - content: Formula 1 commercial partners are corporations and brands that have established
+      official sponsorship or partnership agreements with Formula 1, contributing
+      financially or through services and products in exchange for global brand exposure
+      and association with the sport. These partnerships are critical for the commercial
+      viability and international reach of the F1 championship.
+    type: Definition
+  - content: The list of F1 partners includes luxury brands (LVMH, Louis Vuitton),
+      technology companies (AWS, Lenovo), logistics and travel firms (DHL, Qatar Airways),
+      beverage brands (Heineken, Moet Hennessy), financial institutions (Santander,
+      American Express), and other global corporations such as Pirelli, Aramco, MSC,
+      Salesforce, Crypto.com, and T-Mobile. Each partner typically receives prominent
+      branding at events, on digital platforms, and sometimes on cars and team apparel.
+    type: Examples
+  - content: These partnerships provide essential funding and resources for the operation
+      and promotion of Formula 1 events worldwide. In return, partners gain access
+      to a massive international audience, exclusive hospitality opportunities, and
+      the prestige of being associated with one of the world's premier sporting competitions.
+      The diversity of partners also reflects F1's global appeal and its integration
+      with various industries.
+    type: Practical Implications
+  - content: Sponsorship in F1 has evolved from simple logo placements to multifaceted
+      collaborations involving technology sharing, sustainability initiatives, and
+      fan engagement programs. For example, AWS provides cloud computing and data
+      analytics to enhance race strategy and broadcast graphics, while Pirelli is
+      the exclusive tire supplier. The presence of luxury and lifestyle brands underscores
+      F1's positioning as both a sporting and cultural phenomenon.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Commercial partners primarily provide financial backing and receive
+      branding opportunities in return, rather than supplying all car components,
+      managing events, or training drivers.
+    options:
+    - They supply all F1 car components.
+    - They provide financial support and gain brand exposure through association with
+      F1.
+    - They manage all F1 race events.
+    - They are responsible for driver training.
+    question_text: Which of the following best describes the role of commercial partners
+      in Formula 1?
+  index: 93
+  key_concept: Formula 1 Commercial Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 Mobile App is a digital application available for download
+      on mobile devices, designed to provide fans with real-time updates, news, live
+      timing, and exclusive content related to Formula 1. It serves as the primary
+      mobile platform for engaging with the sport outside of traditional broadcasts.
+    type: Definition
+  - content: The app offers live race timing, driver and team profiles, news articles,
+      video highlights, event schedules, and push notifications for breaking news.
+      Fans use the app to follow races in real time, access exclusive interviews,
+      and stay informed about the latest developments in the F1 world. It is available
+      for both iOS and Android platforms, ensuring accessibility for a wide audience.
+    type: Features and Use Cases
+  - content: The app enhances fan engagement by providing a one-stop source for F1
+      information, increasing accessibility to the sport regardless of geographic
+      location. It also allows F1 to collect user data and preferences, enabling targeted
+      content delivery and marketing. The app's integration with F1 TV and other digital
+      services further expands its utility.
+    type: Practical Implications
+  - content: The F1 app represents the broader digital transformation of sports media,
+      where mobile platforms play a crucial role in fan interaction and content distribution.
+      It connects with other F1 digital products, such as F1 Fantasy and F1 TV, and
+      reflects the sport's commitment to innovation and global outreach. The app also
+      supports F1's commercial strategy by offering advertising space and promoting
+      partner brands.
+    type: Connections and Technological Context
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The app is designed to deliver real-time race data, news, and exclusive
+      content to fans, not to sell car parts, manage logistics, or replace TV broadcasts.
+    options:
+    - To provide live race timing, news, and exclusive content to fans.
+    - To sell F1 car parts directly to consumers.
+    - To manage team logistics during race weekends.
+    - To replace all television broadcasts of F1 races.
+    question_text: What is the primary purpose of the Official F1 Mobile App?
+  index: 103
+  key_concept: Official F1 Mobile App
+  name: Download the Official F1 App

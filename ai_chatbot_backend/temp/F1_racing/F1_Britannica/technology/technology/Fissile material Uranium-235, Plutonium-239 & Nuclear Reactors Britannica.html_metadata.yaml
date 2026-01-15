@@ -1,0 +1,122 @@
+URL: https://www.britannica.com/technology/fissile-material
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia entry explaining the definition, main types, and
+  production routes of fissile materials in nuclear physics, focusing on uranium-235,
+  plutonium-239, uranium-233, and their relationship to fertile materials.
+file_name: Fissile material Uranium-235, Plutonium-239 & Nuclear Reactors Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Fissile material Uranium-235,
+  Plutonium-239 & Nuclear Reactors Britannica.html
+file_uuid: 7c52d527-14dd-59b2-87be-61b36f29038c
+recap_questions:
+- correct_answers:
+  - 2
+  explanation: Uranium-238 is a fertile material, not a fissile one. Uranium-235,
+    plutonium-239, and uranium-233 are all principal fissile materials discussed in
+    the article.
+  knowledge_areas:
+  - Fissile material
+  - Examples
+  options:
+  - Uranium-235
+  - Plutonium-239
+  - Uranium-238
+  - Uranium-233
+  question_id: 1
+  question_text: Which of the following is NOT a principal fissile material mentioned
+    in the Britannica article?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Fissile materials can undergo fission with low-energy (thermal) neutrons
+    and sustain a chain reaction, whereas fertile materials cannot but can be converted
+    into fissile materials through neutron absorption.
+  knowledge_areas:
+  - Fissile material
+  - Connections to Related Concepts
+  options:
+  - Fissile materials can undergo fission with low-energy neutrons, while fertile
+    materials cannot.
+  - Fissile materials are always naturally occurring, while fertile materials are
+    always artificial.
+  - Fertile materials can sustain a chain reaction without conversion.
+  - Fissile materials cannot be used in nuclear reactors.
+  question_id: 2
+  question_text: What distinguishes fissile materials from fertile materials in the
+    context of nuclear physics?
+  question_type: recap
+- correct_answers:
+  - 3
+  explanation: Uranium-238 can be converted into plutonium-239, and thorium-232 can
+    be converted into uranium-233, both through neutron absorption and decay processes.
+    Both A and B are correct.
+  knowledge_areas:
+  - Fissile material
+  - Examples
+  - Connections to Related Concepts
+  options:
+  - Uranium-238 → Plutonium-239
+  - Thorium-232 → Uranium-233
+  - Uranium-235 → Thorium-232
+  - Both A and B
+  question_id: 3
+  question_text: Which of the following pairs correctly matches a fertile material
+    with the fissile material it can produce?
+  question_type: recap
+sections:
+- aspects:
+  - content: Fissile material refers to any species of atomic nucleus that can undergo
+      the fission reaction when struck by a neutron. In nuclear physics, this property
+      is critical because it allows for the release of substantial amounts of energy,
+      which is harnessed in nuclear reactors and weapons. Fissile materials can sustain
+      a chain reaction, especially with low-energy (thermal) neutrons, distinguishing
+      them from other nuclear materials.
+    type: Definition
+  - content: The principal fissile materials are uranium-235, plutonium-239, and uranium-233.
+      Uranium-235 is naturally occurring but only makes up about 0.7% of natural uranium.
+      Plutonium-239 and uranium-233 are not found in nature in significant quantities
+      and are produced artificially from fertile materials. Each of these isotopes
+      can sustain a nuclear chain reaction, making them suitable for use in nuclear
+      reactors and weapons.
+    type: Examples
+  - content: Fissile materials are essential for the operation of both nuclear reactors
+      and nuclear weapons. In reactors, they serve as the fuel that undergoes fission
+      to release energy for electricity generation. In nuclear weapons, their ability
+      to rapidly sustain a chain reaction is exploited for explosive yields. The selection
+      of fissile material depends on factors such as availability, ease of enrichment
+      or production, and reactor design.
+    type: Use Cases
+  - content: The presence and control of fissile materials have significant implications
+      for energy policy, nonproliferation, and international security. Their production,
+      handling, and storage are tightly regulated to prevent diversion for weapons
+      use. The distinction between fissile and fertile materials also underpins the
+      design of breeder reactors, which aim to convert fertile into fissile materials
+      for more efficient fuel use.
+    type: Implications and Context
+  - content: Fissile materials are closely related to fertile materials, which cannot
+      undergo fission with low-energy neutrons but can be converted into fissile isotopes
+      through neutron absorption and subsequent decay. Understanding the interplay
+      between fissile and fertile materials is fundamental to nuclear fuel cycles,
+      reactor design, and strategies for managing nuclear waste and proliferation
+      risks.
+    type: Connections to Related Concepts
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Fissile material is defined as a material whose atomic nuclei can
+      undergo fission upon absorbing a neutron, and it can sustain a chain reaction,
+      especially with low-energy (thermal) neutrons. Option 2 describes fertile material,
+      option 3 is too vague, and option 4 is incorrect because fissile materials can
+      react with low-energy neutrons.
+    options:
+    - A material that can undergo fission after absorbing a neutron, sustaining a
+      chain reaction.
+    - A material that cannot undergo fission with low-energy neutrons but can be converted
+      into a fissile isotope.
+    - A material that is naturally radioactive but does not participate in chain reactions.
+    - A material that only undergoes fission with high-energy neutrons and cannot
+      sustain a chain reaction.
+    question_text: Which of the following statements best describes fissile material?
+  index: 126
+  key_concept: Fissile material
+  name: fissile material

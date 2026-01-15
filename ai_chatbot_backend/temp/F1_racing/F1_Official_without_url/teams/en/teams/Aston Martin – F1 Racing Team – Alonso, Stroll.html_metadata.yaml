@@ -1,0 +1,270 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A detailed team profile page for Aston Martin's Formula 1 team,
+  covering current drivers, team statistics, recent performance summaries, technical
+  and management staff, and related media content.
+file_name: Aston Martin – F1 Racing Team – Alonso, Stroll.html
+file_path: F1_racing/F1_Official/teams/en/teams/Aston Martin – F1 Racing Team – Alonso,
+  Stroll.html
+file_uuid: 242b8927-6391-5eda-8d48-53c5a69385fc
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Fernando Alonso and Lance Stroll are the confirmed drivers for Aston
+    Martin in 2025.
+  knowledge_areas:
+  - 'Driver Line-up: Fernando Alonso & Lance Stroll'
+  options:
+  - Fernando Alonso and Lance Stroll
+  - Lewis Hamilton and George Russell
+  - Charles Leclerc and Carlos Sainz
+  - Max Verstappen and Sergio Perez
+  question_id: 1
+  question_text: Which two drivers comprise Aston Martin's 2025 Formula 1 line-up?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Aston Martin finished 7th in the 2025 Constructors' Championship, scoring
+    89 points.
+  knowledge_areas:
+  - 2025 Season Performance and Statistics
+  options:
+  - 3rd place, 200 points
+  - 1st place, 350 points
+  - 7th place, 89 points
+  - 5th place, 120 points
+  question_id: 2
+  question_text: What was Aston Martin's final position in the 2025 Constructors'
+    Championship and how many points did they score?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Andy Cowell (Team Chief) and Enrico Cardile (Technical Chief) are key
+    leaders for Aston Martin in 2025.
+  knowledge_areas:
+  - Team Organization and Technical Structure
+  options:
+  - Andy Cowell and Enrico Cardile
+  - Christian Horner and Adrian Newey
+  - Toto Wolff and James Allison
+  - Mattia Binotto and Laurent Mekies
+  question_id: 3
+  question_text: Which technical and management leaders are associated with Aston
+    Martin's 2025 team structure?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Aston Martin leverages media, digital engagement, and global partnerships
+    to support its F1 operations.
+  knowledge_areas:
+  - Media, Partnerships, and Community Engagement
+  options:
+  - By avoiding media exposure and focusing only on racing.
+  - By producing media content, engaging fans digitally, and partnering with major
+    sponsors.
+  - By only selling merchandise at race tracks.
+  - By limiting sponsorships to local companies.
+  question_id: 4
+  question_text: How does Aston Martin's approach to media and partnerships contribute
+    to its Formula 1 operations?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Aston Martin's F1 team has a legacy including Jordan and Racing Point,
+    and is recognized for its resilience and technical progress.
+  knowledge_areas:
+  - Aston Martin F1 Team Overview
+  options:
+  - A new team in 2025 with no prior F1 experience.
+  - A team with roots in Jordan and Racing Point, known for resilience and technical
+    innovation.
+  - A team that has won multiple world championships since its debut.
+  - A team based in Italy, powered by Ferrari engines.
+  question_id: 5
+  question_text: Which of the following best describes Aston Martin's historical and
+    competitive context in Formula 1?
+  question_type: recap
+sections:
+- aspects:
+  - content: The Aston Martin F1 Team is a British Formula 1 constructor based in
+      Silverstone, United Kingdom, competing in the FIA Formula One World Championship.
+      The team is officially known as the Aston Martin Aramco Formula One Team and
+      is recognized for its heritage, having roots in previous guises such as Jordan
+      and Racing Point.
+    type: Definition
+  - content: Aston Martin's initial involvement in Formula 1 dates back over half
+      a century, but that foray lasted only five races. The modern team's lineage
+      includes successful periods as Jordan and Racing Point, notably achieving a
+      Grand Prix win in 2020. The current era began in 2018, marking a more serious
+      and sustained commitment to F1.
+    type: Historical Context
+  - content: As of the 2025 season, Aston Martin fields drivers Fernando Alonso and
+      Lance Stroll, with a technical and management team led by Andy Cowell and Enrico
+      Cardile. The team is known for its resilience and ability to 'punch above their
+      weight,' attracting high-profile talent such as Adrian Newey, who is set to
+      become Team Principal in 2026.
+    type: Current Status
+  - content: Aston Martin's F1 presence is closely tied to its branding and commercial
+      partnerships, with a significant relationship with Aramco and technical collaboration
+      with Mercedes for its power units. The team is part of a highly competitive
+      midfield and is watched closely for its strategic moves and technical innovations.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: 'Option 2 is correct: Aston Martin is a British team with a heritage
+      tracing back to Jordan and Racing Point, currently featuring notable drivers
+      and technical leaders. The other options contain factual errors about location,
+      history, achievements, and technical partnerships.'
+    options:
+    - A new team with no prior F1 history, based in Italy.
+    - A British team with roots in Jordan and Racing Point, currently competing with
+      high-profile drivers and technical staff.
+    - A team that has won multiple world championships since 2018.
+    - A team exclusively powered by Ferrari engines and based in Germany.
+    question_text: Which of the following statements best describes the Aston Martin
+      F1 Team's background and current position?
+  index: 59
+  key_concept: Aston Martin F1 Team Overview
+  name: Aston Martin
+- aspects:
+  - content: Aston Martin's 2025 driver lineup consists of Fernando Alonso, a two-time
+      world champion from Spain, and Lance Stroll, a Canadian driver. Both bring a
+      mix of experience and youth to the team, with Alonso known for his racecraft
+      and Stroll for his consistency and adaptability.
+    type: Current Drivers
+  - content: Fernando Alonso is widely regarded as one of the most talented and experienced
+      drivers in F1, having competed for multiple top teams and securing world titles.
+      Lance Stroll, son of team owner Lawrence Stroll, has demonstrated strong performances,
+      particularly in variable conditions, and has contributed significantly to the
+      team's points tally.
+    type: Driver Profiles
+  - content: Alonso's leadership and technical feedback are invaluable for car development,
+      while Stroll provides stability and continuity. Their combined efforts are crucial
+      for Aston Martin's competitiveness in both the constructors' and drivers' championships.
+    type: Role and Impact
+  - content: The pairing reflects Aston Martin's strategy of blending proven talent
+      with long-term investment in driver development. The presence of a reserve driver,
+      Stoffel Vandoorne, further strengthens the team's depth.
+    type: Connections to Team Strategy
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Fernando Alonso and Lance Stroll are the main drivers for Aston Martin
+      in 2025. The other pairs drive for different teams.
+    options:
+    - Lewis Hamilton and George Russell
+    - Charles Leclerc and Carlos Sainz
+    - Fernando Alonso and Lance Stroll
+    - Max Verstappen and Sergio Perez
+    question_text: Who are the primary drivers for Aston Martin in the 2025 Formula
+      1 season?
+  index: 67
+  key_concept: 'Driver Line-up: Fernando Alonso & Lance Stroll'
+  name: DRIVERS
+- aspects:
+  - content: In the 2025 season, Aston Martin ranked 7th in the constructors' standings,
+      accumulating 89 points. This reflects a competitive but challenging season amid
+      a tight midfield battle.
+    type: Season Standings
+  - content: The team participated in 24 Grand Prix races, earning 80 points, with
+      no wins, podiums, or pole positions. Sixteen top 10 finishes and seven DNFs
+      highlight both consistency and reliability issues.
+    type: Race Results
+  - content: Aston Martin also competed in six sprint races, collecting nine points,
+      with six top 10 finishes but no wins or podiums. Sprint races offer additional
+      opportunities for points but also present strategic challenges.
+    type: Sprint Race Outcomes
+  - content: The statistics illustrate the team's struggle to convert potential into
+      podiums, emphasizing the importance of reliability and incremental improvements.
+      The data also reflects the competitive nature of the midfield, where small margins
+      can significantly impact standings.
+    type: Implications and Context
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Aston Martin finished 7th in the standings, had no wins or podiums,
+      and faced reliability challenges. The other options are inaccurate based on
+      the provided statistics.
+    options:
+    - They won multiple races and finished in the top 3 in the championship.
+    - They struggled with reliability, finished 7th, and had no podiums or wins.
+    - They dominated the sprint races and won the constructors' title.
+    - They did not participate in any Grand Prix races.
+    question_text: Which of the following best summarizes Aston Martin's 2025 season
+      performance?
+  index: 89
+  key_concept: 2025 Season Performance and Statistics
+  name: Statistics
+- aspects:
+  - content: The team is led by Team Chief Andy Cowell and Technical Chief Enrico
+      Cardile, with Adrian Newey joining as a major technical figure, set to become
+      Team Principal in 2026. This leadership structure is designed to leverage both
+      managerial expertise and technical innovation.
+    type: Management and Technical Leadership
+  - content: Aston Martin's 2025 car, the AMR25, utilizes a Mercedes power unit, reflecting
+      a technical partnership that provides access to competitive engine technology.
+      The chassis and engineering are overseen by a team with deep experience in F1.
+    type: Technical Specifications
+  - content: The team operates out of Silverstone, UK, a hub for motorsport engineering
+      and innovation. This location offers proximity to key suppliers, talent, and
+      the Silverstone circuit, which is frequently used for testing and development.
+    type: Team Base and Facilities
+  - content: Aston Martin's organizational structure has evolved to attract top technical
+      talent and align with long-term strategic goals, such as adapting to new regulations
+      and improving competitiveness. The team also maintains a reserve driver, Stoffel
+      Vandoorne, to ensure depth and flexibility.
+    type: Historical and Strategic Context
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Aston Martin is based in Silverstone, uses Mercedes power units,
+      and is led by Andy Cowell and Enrico Cardile. The other options describe different
+      teams or incorrect details.
+    options:
+    - Team based in Italy, powered by Honda, led by Christian Horner.
+    - Team based in Silverstone, powered by Mercedes, with Andy Cowell and Enrico
+      Cardile in leadership roles.
+    - Team based in Germany, using Renault engines, managed by Toto Wolff.
+    - Team based in Spain, using Ferrari engines, led by Mattia Binotto.
+    question_text: What are the key components of Aston Martin's team organization
+      and technical structure for the 2025 season?
+  index: 174
+  key_concept: Team Organization and Technical Structure
+  name: Team Profile
+- aspects:
+  - content: The team actively produces and features a variety of media content, including
+      race highlights, driver interviews, technical features, and behind-the-scenes
+      stories. These videos serve to engage fans, provide insights into team operations,
+      and highlight key moments from the season.
+    type: Media Content
+  - content: Aston Martin's success is supported by a broad array of commercial partners
+      and sponsors, such as Aramco, Pirelli, AWS, and others. These relationships
+      are crucial for funding, technical collaboration, and global brand visibility.
+    type: Partnerships
+  - content: The team leverages digital platforms, official apps, and social media
+      to connect with fans worldwide. Initiatives like the F1 app, interactive content,
+      and merchandise sales foster a strong community and enhance the fan experience.
+    type: Fan and Community Engagement
+  - content: Effective media and partnership strategies not only generate revenue
+      but also attract talent and sponsors, contributing to long-term competitiveness.
+      Community engagement helps build brand loyalty and a global supporter base.
+    type: Implications for Team Growth
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Aston Martin uses media, digital platforms, and partnerships to engage
+      fans and support operations. The other options are contrary to the team's actual
+      strategies.
+    options:
+    - By focusing solely on on-track performance and avoiding media exposure.
+    - Through a combination of media content, digital engagement, and partnerships
+      with major sponsors.
+    - By limiting partnerships to local businesses and not producing any video content.
+    - By not participating in any community or fan engagement activities.
+    question_text: How does Aston Martin engage with fans and partners to support
+      its Formula 1 operations?
+  index: 226
+  key_concept: Media, Partnerships, and Community Engagement
+  name: Related Videos

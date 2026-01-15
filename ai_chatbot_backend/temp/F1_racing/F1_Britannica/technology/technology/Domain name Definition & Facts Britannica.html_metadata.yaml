@@ -1,0 +1,135 @@
+URL: https://www.britannica.com/technology/domain-name
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article entry defining 'domain name' and explaining
+  its structure, purpose, assignment, and relation to Internet addressing.
+file_name: Domain name Definition & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Domain name Definition &
+  Facts Britannica.html
+file_uuid: faf7c625-69b3-5324-bf46-2ec3f1fba6a5
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: A domain name's main function is to provide a human-friendly address
+    that is mapped to an IP address, making it easier for users to access online resources.
+  knowledge_areas:
+  - Domain Name Structure and Function
+  options:
+  - To serve as a human-readable address mapped to an IP address
+  - To directly route data packets between servers
+  - To identify the physical location of a server
+  - To encrypt web traffic
+  question_id: 1
+  question_text: What is the primary function of a domain name on the Internet?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: '''www'' is the third-level domain, specifying the particular host
+    server (often for the World Wide Web) at the given address.'
+  knowledge_areas:
+  - Domain Name Structure and Function
+  options:
+  - '''com'''
+  - '''britannica'''
+  - '''www'''
+  - '''britannica.com'''
+  question_id: 2
+  question_text: Which part of a typical domain name like 'www.britannica.com' identifies
+    the specific host server?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: ICANN is the global organization responsible for accrediting registrars
+    and managing the domain name system.
+  knowledge_areas:
+  - Domain Name Structure and Function
+  options:
+  - The World Wide Web Consortium (W3C)
+  - Internet Corporation for Assigned Names and Numbers (ICANN)
+  - Internet Engineering Task Force (IETF)
+  - Uniform Resource Locator Authority (URLA)
+  question_id: 3
+  question_text: Who is responsible for accrediting domain name registrars and overseeing
+    the domain name system?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: In 2011, ICANN announced the expansion of TLDs to include nearly any
+    new top-level domain name in any language.
+  knowledge_areas:
+  - Domain Name Structure and Function
+  options:
+  - '1995'
+  - '2001'
+  - '2011'
+  - '2018'
+  question_id: 4
+  question_text: In what year did ICANN announce a major expansion of top-level domains,
+    allowing nearly any new TLD in any language?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Domain names are mapped to IP addresses, and URLs incorporate domain
+    names to indicate the specific location of resources on the Internet.
+  knowledge_areas:
+  - Domain Name Structure and Function
+  options:
+  - Domain names are a type of IP address, while URLs are unrelated.
+  - Domain names are mapped to IP addresses, and URLs use domain names to specify
+    resource locations.
+  - IP addresses are mapped to URLs, and domain names are not involved.
+  - URLs are only used for email addresses, not web addresses.
+  question_id: 5
+  question_text: How are domain names, IP addresses, and URLs related in the context
+    of Internet addressing?
+  question_type: recap
+sections:
+- aspects:
+  - content: A domain name is the address of a computer, organization, or other entity
+      on the Internet. It serves as a human-readable identifier that is mapped to
+      an IP address, allowing users to access resources online without memorizing
+      numerical IP addresses.
+    type: Definition
+  - content: 'Domain names are typically organized in a hierarchical, three-level
+      format: ''server.organization.type.'' The top-level domain (TLD) usually indicates
+      the type of organization (e.g., ''com'' for commercial, ''edu'' for educational).
+      The second level combines the TLD with the organization''s name (e.g., ''britannica.com''),
+      while the third level specifies a particular host server (e.g., ''www'' in ''www.britannica.com'').'
+    type: Structure
+  - content: Each domain name must be unique on the Internet and is ultimately mapped
+      to an IP address. However, it is possible for multiple domain names to map to
+      the same IP address, enabling different domain names to point to the same server
+      or website. This mapping is essential for routing Internet traffic and providing
+      distinct online identities.
+    type: Mapping and Uniqueness
+  - content: Domain names must be assigned by registrars accredited by the Internet
+      Corporation for Assigned Names and Numbers (ICANN), ensuring global uniqueness
+      and proper management. ICANN is responsible for overseeing the domain name system
+      and has expanded the number of available TLDs to accommodate diverse needs and
+      languages.
+    type: Assignment and Regulation
+  - content: In 2011, ICANN announced a significant expansion of TLDs, allowing for
+      nearly any new top-level domain name in any language, reflecting the growing
+      complexity and globalization of the Internet. Domain names are closely related
+      to URLs (Uniform Resource Locators), which specify the exact location of resources
+      on the Internet, and to IP addresses, which are the numerical counterparts to
+      domain names.
+    type: Evolution and Related Concepts
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Option 2 is correct because domain names must be unique and are assigned
+      by registrars accredited by ICANN. Option 1 is incorrect because domain names
+      are human-readable addresses, not numerical IP addresses. Option 3 is incorrect
+      because TLDs usually indicate type of organization, not geographic location.
+      Option 4 is incorrect because multiple domain names can map to the same IP address.
+    options:
+    - A domain name is a numerical address used directly by computers to route Internet
+      traffic.
+    - Each domain name must be unique and is assigned by an ICANN-accredited registrar.
+    - The top-level domain always indicates the geographic location of the server.
+    - Multiple domain names cannot point to the same IP address.
+    question_text: Which of the following statements about domain names is correct?
+  index: 124
+  key_concept: Domain Name Structure and Function
+  name: domain name

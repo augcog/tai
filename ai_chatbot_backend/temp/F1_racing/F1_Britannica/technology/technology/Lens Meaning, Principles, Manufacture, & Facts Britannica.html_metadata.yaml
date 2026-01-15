@@ -1,0 +1,146 @@
+URL: https://www.britannica.com/technology/lens-optics
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article overviewing the definition, structure, and
+  optical principles of lenses, including types, image formation, aberrations, and
+  applications in various optical instruments.
+file_name: Lens Meaning, Principles, Manufacture, & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Lens Meaning, Principles,
+  Manufacture, & Facts Britannica.html
+file_uuid: 450ebc20-6f26-5bdb-a6c1-0cb4a197a8e9
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: The curvature of the lens surfaces (convex or concave) determines whether
+    a lens converges or diverges light. Color, weight, and temperature are not relevant
+    to this optical property.
+  knowledge_areas:
+  - 'Lens: Definition and Structure'
+  options:
+  - Its color
+  - The curvature of its surfaces
+  - Its weight
+  - The temperature at which it was made
+  question_id: 1
+  question_text: Which property of a lens determines whether it converges or diverges
+    light?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The focal length is defined as the distance from the center of the
+    lens to the focal point, where the image of a distant object is formed.
+  knowledge_areas:
+  - 'Optical Principles: Refraction and Focusing'
+  options:
+  - The distance from the lens center to the point where a distant object's image
+    is formed
+  - The thickness of the lens at its center
+  - The diameter of the lens
+  - The distance between two lens elements in a compound lens
+  question_id: 2
+  question_text: What is the focal length of a lens?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Microscope objectives often use compound lenses with multiple elements
+    to correct aberrations, while eyeglasses, contact lenses, and magnifiers typically
+    use single lenses.
+  knowledge_areas:
+  - 'Lens: Definition and Structure'
+  - Applications
+  options:
+  - Eyeglasses
+  - Contact lenses
+  - Microscope objectives with eight or more elements
+  - Pocket magnifiers
+  question_id: 3
+  question_text: Which of the following is NOT a typical use of a single lens?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: A real image is formed when a lens converges light rays to a point
+    that can be projected on a screen, while a virtual image is formed when rays appear
+    to diverge from a point behind the lens and can only be seen by looking through
+    the lens.
+  knowledge_areas:
+  - 'Optical Principles: Refraction and Focusing'
+  - Image Formation
+  options:
+  - By absorbing light for a real image and reflecting for a virtual image
+  - By converging rays to a point for a real image and causing rays to appear to diverge
+    for a virtual image
+  - By changing its color
+  - By vibrating at different frequencies
+  question_id: 4
+  question_text: How does a lens form a real image versus a virtual image?
+  question_type: recap
+sections:
+- aspects:
+  - content: A lens is a piece of transparent material, typically glass or plastic,
+      with two polished surfaces, at least one of which is curved (either convex or
+      concave). Its primary function is to form an image of an object by focusing
+      rays of light that pass through it. Lenses are fundamental components in optics,
+      enabling the manipulation of light for various purposes.
+    type: Definition
+  - content: 'Lenses are classified based on the curvature of their surfaces: biconvex,
+      plano-convex, concavo-convex (converging meniscus), biconcave, plano-concave,
+      and convexo-concave (diverging meniscus). The curves are usually spherical,
+      meaning the radius of curvature is constant. These structural differences determine
+      whether a lens converges or diverges light.'
+    type: Types and Classification
+  - content: Single lenses are used in everyday items such as eyeglasses, contact
+      lenses, magnifiers, and simple cameras. More complex arrangements, called compound
+      lenses, are used in cameras, microscopes, and telescopes to achieve higher image
+      quality and correct for aberrations. The size of lenses can vary significantly,
+      from tiny microscope elements to large telescope objectives.
+    type: Examples and Applications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Lenses are classified by the curvature of their surfaces (e.g., biconvex,
+      plano-concave), which determines their optical properties. Color, temperature,
+      and weight are not primary classification features.
+    options:
+    - The color of the lens material
+    - The curvature of the lens surfaces
+    - The temperature at which the lens is manufactured
+    - The weight of the lens
+    question_text: Which of the following best describes the primary structural feature
+      that distinguishes different types of lenses?
+  index: 144
+  key_concept: 'Lens: Definition and Structure'
+  name: lens
+- aspects:
+  - content: 'Lenses focus light by exploiting the principle of refraction: light
+      travels more slowly in the lens material than in air, causing it to bend at
+      the interfaces. This bending occurs at both surfaces of the lens, changing the
+      direction of the light rays and enabling the formation of images.'
+    type: Refraction Mechanism
+  - content: The focal point (principal focus) is where parallel rays of light either
+      converge (for convex lenses) or appear to diverge from (for concave lenses)
+      after passing through the lens. The focal length is the distance from the center
+      of the lens to this point, and it determines the size and nature of the image
+      formed. Long-focus lenses produce larger images of distant objects, while short-focus
+      lenses produce smaller images.
+    type: Focal Point and Focal Length
+  - content: Depending on the lens type and object distance, lenses can form real
+      images (which can be projected onto a screen) or virtual images (which can only
+      be seen by looking through the lens, as in a magnifying glass or microscope).
+      The characteristics of the image—such as size, orientation, and type—depend
+      on the focal length and the object's position relative to the lens.
+    type: 'Image Formation: Real and Virtual Images'
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Light bends at the interface between air and the lens material due
+      to a change in speed (slower in the lens), which is the principle of refraction.
+      Absorption and reflection are not responsible for focusing.
+    options:
+    - Because light speeds up in the lens material
+    - Because the lens absorbs some of the light
+    - Because light travels more slowly in the lens than in air, causing refraction
+    - Because the lens reflects all incident light
+    question_text: What is the main reason light bends when passing through a lens?
+  index: 260
+  key_concept: 'Optical Principles: Refraction and Focusing'
+  name: Optical principles for lenses

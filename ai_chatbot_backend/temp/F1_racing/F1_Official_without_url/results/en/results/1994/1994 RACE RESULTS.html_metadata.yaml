@@ -1,0 +1,186 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page summarizing the 1994 Formula 1 World Championship race
+  results, listing race winners, teams, and dates, along with promotional sections
+  for F1 partners and the official F1 app.
+file_name: 1994 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1994/1994 RACE RESULTS.html
+file_uuid: 9861fb7c-e3f4-5d6e-a37f-53df4a7a59f3
+recap_questions:
+- correct_answers:
+  - 2
+  explanation: Michael Schumacher's victories in 1994 were all achieved while driving
+    for Benetton Ford, as indicated in the race results table.
+  knowledge_areas:
+  - 1994 Formula 1 Race Results
+  options:
+  - Williams Renault
+  - Ferrari
+  - Benetton Ford
+  - McLaren
+  question_id: 1
+  question_text: Which team did Michael Schumacher drive for during his multiple race
+    wins in the 1994 Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: AWS is listed as an F1 partner, contributing both technology and sponsorship,
+    whereas the other brands and roles do not match the actual partners or their contributions.
+  knowledge_areas:
+  - F1 Partners and Sponsors
+  options:
+  - AWS; providing technological expertise and sponsorship
+  - Google; managing team logistics
+  - Tesla; supplying race cars
+  - Nike; designing driver suits
+  question_id: 2
+  question_text: Which of the following brands is featured as an F1 partner, and what
+    role do such partners play in the sport?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App is promoted for features like live timing and race
+    schedules, not for exclusive merchandise sales, voting, or only historical content.
+  knowledge_areas:
+  - Official F1 App Promotion
+  options:
+  - Providing live timing and race schedules
+  - Selling team merchandise exclusively
+  - Allowing fans to vote for race winners
+  - Streaming only historical races
+  question_id: 3
+  question_text: What is a key function of the Official F1 App as described in the
+    document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: F1 partners often leverage digital platforms like the Official F1 App
+    to reach fans with branded content and promotions, integrating their presence
+    beyond traditional trackside advertising.
+  knowledge_areas:
+  - F1 Partners and Sponsors
+  - Official F1 App Promotion
+  options:
+  - Partners use the app to promote their brands and engage with fans through digital
+    content.
+  - Partners are only involved in on-track advertising.
+  - The app is unrelated to F1 partners.
+  - Partners manage the technical development of the app.
+  question_id: 4
+  question_text: Which of the following best describes the relationship between F1
+    partners and the digital platforms such as the Official F1 App?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1994 Formula 1 Race Results section provides a comprehensive tabular
+      summary of each Grand Prix held in the 1994 season, including the event name,
+      date, winning driver, team, number of laps, and total race time. This data serves
+      as the official record for the outcomes of every race in that year's championship.
+    type: Definition
+  - content: For instance, Michael Schumacher won the Brazilian Grand Prix on March
+      27 for Benetton Ford, completing 71 laps in 1:35:38.759. Damon Hill, driving
+      for Williams Renault, won the Spanish Grand Prix on May 29, while Gerhard Berger
+      took victory for Ferrari at the German Grand Prix on July 31. The table lists
+      every race winner, their team, and the specific performance details for all
+      16 rounds.
+    type: Examples
+  - content: These results are crucial for determining the allocation of championship
+      points, influencing both the Drivers' and Constructors' standings. The dominance
+      of certain drivers, such as Schumacher and Hill, reflects broader competitive
+      trends and team performance throughout the season. The results also provide
+      historical context for analyzing changes in team strategies, driver careers,
+      and technological developments in F1.
+    type: Implications
+  - content: This section connects to broader F1 history, as the 1994 season was notable
+      for significant regulatory changes and tragic events, including the deaths of
+      Ayrton Senna and Roland Ratzenberger. The results are also linked to the annual
+      archives, allowing comparison with other seasons, and are referenced in discussions
+      of F1 records, statistics, and legacy.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Michael Schumacher won the most races in the 1994 season, as indicated
+      by his frequent appearance as the winner in the results table.
+    options:
+    - Damon Hill
+    - Michael Schumacher
+    - Nigel Mansell
+    - Gerhard Berger
+    question_text: Which driver won the most races in the 1994 Formula 1 season?
+  index: 153
+  key_concept: 1994 Formula 1 Race Results
+  name: 1994 RACE RESULTS
+- aspects:
+  - content: The 'OUR PARTNERS' section highlights the official sponsors and business
+      collaborators of Formula 1. These organizations provide financial support, technological
+      expertise, and brand association, playing a vital role in the commercial ecosystem
+      of the sport.
+    type: Definition
+  - content: Key partners include luxury brands (LVMH, Louis Vuitton), technology
+      firms (AWS, Lenovo), beverage companies (Heineken, Moet Hennessy), logistics
+      (DHL), airlines (Qatar Airways), financial services (American Express, Santander),
+      and various consumer brands (Puma, McDonalds, PepsiCo). Each partner's logo
+      and a link to their official site are displayed.
+    type: Examples
+  - content: Sponsorships and partnerships are essential for the financial sustainability
+      of F1, funding team operations, event logistics, and technological innovation.
+      They also enhance the global visibility of both F1 and the partner brands through
+      co-marketing and exclusive event activations.
+    type: Implications
+  - content: These partnerships tie into the broader business model of professional
+      sports, where brand sponsorship is a major revenue stream. They also influence
+      fan engagement, as many sponsors offer F1-themed promotions, products, or experiences,
+      and are often integrated into race broadcasts and digital platforms.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Microsoft is not listed among the F1 partners in this document, whereas
+      AWS, Pirelli, and Heineken are all present.
+    options:
+    - AWS
+    - Pirelli
+    - Microsoft
+    - Heineken
+    question_text: Which of the following is NOT listed as a Formula 1 partner in
+      the document?
+  index: 174
+  key_concept: F1 Partners and Sponsors
+  name: OUR PARTNERS
+- aspects:
+  - content: The 'Download the Official F1 App' section promotes the official mobile
+      application for Formula 1, available on both the Apple App Store and Google
+      Play. The app is designed to enhance fan engagement and provide real-time access
+      to F1 content.
+    type: Definition
+  - content: The section includes direct download links to the app on both major mobile
+      platforms. The app typically offers features such as live timing, news updates,
+      race schedules, driver and team profiles, and exclusive video content.
+    type: Examples
+  - content: The app serves as a key digital touchpoint for F1, allowing fans to stay
+      connected with the sport anywhere and anytime. It supports F1's strategy to
+      grow its global audience, collect user data, and offer personalized content
+      and push notifications.
+    type: Implications
+  - content: This initiative aligns with broader trends in sports digitalization,
+      where official apps are used to supplement broadcast coverage, deepen fan loyalty,
+      and drive engagement with sponsors and partners through targeted in-app promotions.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The Official F1 App is promoted as a tool for fans to access live
+      content, news, and updates, not for purchasing cars, applying for jobs, or managing
+      logistics.
+    options:
+    - To buy F1 cars
+    - To access live F1 content and updates
+    - To apply for F1 jobs
+    - To manage team logistics
+    question_text: What is the primary purpose of the Official F1 App as promoted
+      in the document?
+  index: 184
+  key_concept: Official F1 App Promotion
+  name: Download the Official F1 App

@@ -1,0 +1,212 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A webpage summarizing the 1973 Formula 1 race results, including
+  a table of Grand Prix winners, team affiliations, and race details, along with sections
+  highlighting official partners and app download information.
+file_name: 1973 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1973/1973 RACE RESULTS.html
+file_uuid: 9210ecaa-b0bc-53f1-961f-a60ac8c7156e
+recap_questions:
+- correct_answers:
+  - 2
+  explanation: Tyrrell Ford, primarily driven by Jackie Stewart, secured the most
+    wins in the 1973 season, as indicated by the number of victories listed in the
+    results table.
+  knowledge_areas:
+  - 1973 Formula 1 Race Results
+  options:
+  - Lotus Ford
+  - McLaren Ford
+  - Tyrrell Ford
+  - Ferrari
+  question_id: 1
+  question_text: Which team had the most Grand Prix wins in the 1973 Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Official partners gain significant global brand exposure and marketing
+    opportunities through their association with F1, rather than exclusive racing
+    rights or team ownership.
+  knowledge_areas:
+  - F1 Official Partners
+  options:
+  - Exclusive rights to race in F1
+  - Global brand exposure and marketing opportunities
+  - Ownership of F1 teams
+  - Guaranteed race victories
+  question_id: 2
+  question_text: Which of the following is a primary benefit for companies partnering
+    with Formula 1 as official partners?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Jackie Stewart won the 1973 Monaco Grand Prix driving for Tyrrell Ford,
+    as indicated in the race results table.
+  knowledge_areas:
+  - 1973 Formula 1 Race Results
+  options:
+  - Emerson Fittipaldi for Lotus Ford
+  - Jackie Stewart for Tyrrell Ford
+  - Ronnie Peterson for Lotus Ford
+  - Peter Revson for McLaren Ford
+  question_id: 3
+  question_text: Which driver won the 1973 Monaco Grand Prix, and for which team?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App is designed to provide fans with live timing, news,
+    and schedules, enhancing their engagement with the sport.
+  knowledge_areas:
+  - Official F1 App Availability
+  options:
+  - To provide live race timing, news, and schedules to fans
+  - To allow drivers to communicate with their teams
+  - To broadcast live races exclusively
+  - To manage team finances
+  question_id: 4
+  question_text: What is the primary function of the Official F1 App as described
+    in the document?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Race results contribute to the visibility and marketing value of F1,
+    which in turn benefits official partners through increased exposure and association
+    with successful teams and drivers.
+  knowledge_areas:
+  - 1973 Formula 1 Race Results
+  - F1 Official Partners
+  options:
+  - Partners directly determine race outcomes
+  - Race results influence the marketing value and exposure for official partners
+  - Only race winners can become partners
+  - There is no connection between race results and partnerships
+  question_id: 5
+  question_text: How are the concepts of F1 race results and official partners interconnected
+    in the context of the sport?
+  question_type: recap
+sections:
+- aspects:
+  - content: The '1973 Formula 1 Race Results' refers to the official outcomes of
+      all Grand Prix races held during the 1973 Formula One World Championship season.
+      This includes information about the date, location, winning driver, team, number
+      of laps completed, and total race time for each event.
+    type: definition
+  - content: For example, Emerson Fittipaldi, driving for Lotus Ford, won the Argentine
+      Grand Prix on January 28, completing 96 laps in 1:56:18.220. Jackie Stewart,
+      representing Tyrrell Ford, won several races including the South African Grand
+      Prix and the Monaco Grand Prix. Ronnie Peterson, Peter Revson, and Denny Hulme
+      were among other race winners.
+    type: examples
+  - content: These results are used for historical reference, statistical analysis,
+      and determining championship standings. Motorsport historians, fans, and analysts
+      rely on such data to compare driver and team performance across seasons. Teams
+      and sponsors also use race results for marketing and legacy purposes.
+    type: use cases
+  - content: The race results directly impact the allocation of points towards the
+      drivers' and constructors' championships, influencing career trajectories and
+      team strategies. They also affect sponsorship deals, media coverage, and the
+      historical reputation of drivers and teams.
+    type: implications
+  - content: 1973 race results connect to broader topics like F1 championship history,
+      technological evolution in motorsport, and the legacy of legendary drivers and
+      teams. They are linked with other data such as qualifying results, fastest laps,
+      and season-long standings.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Jackie Stewart won the most races in the 1973 season, securing victories
+      in South Africa, Belgium, Monaco, the Netherlands, and Germany. Fittipaldi and
+      Peterson also won multiple races, but Stewart had the highest count.
+    options:
+    - Emerson Fittipaldi
+    - Jackie Stewart
+    - Ronnie Peterson
+    - Denny Hulme
+    question_text: Which of the following drivers won the most Grand Prix races during
+      the 1973 Formula 1 season?
+  index: 160
+  key_concept: 1973 Formula 1 Race Results
+  name: 1973 RACE RESULTS
+- aspects:
+  - content: F1 Official Partners are corporations and brands that have formal sponsorship
+      or partnership agreements with Formula 1. These partnerships often involve marketing,
+      branding, and collaborative business initiatives within the sport.
+    type: definition
+  - content: Examples of F1 partners listed include LVMH, Pirelli, Aramco, Heineken,
+      AWS, Lenovo, DHL, Qatar Airways, MSC, Salesforce, Louis Vuitton, TAG Heuer,
+      Moet Hennessy, American Express, Santander, Allwyn, Crypto.com, and more. These
+      companies represent diverse sectors such as luxury goods, technology, logistics,
+      beverages, and financial services.
+    type: examples
+  - content: Partners gain global exposure through branding on cars, tracks, and digital
+      platforms, and may provide products or services directly to the F1 ecosystem
+      (e.g., Pirelli supplies tires, AWS provides cloud computing). Partnerships can
+      also involve exclusive fan experiences, hospitality, and co-branded promotions.
+    type: use cases
+  - content: These relationships are crucial for the financial sustainability of F1
+      and help drive technological innovation, fan engagement, and global expansion.
+      They also shape the commercial landscape of the sport, influencing everything
+      from event logistics to broadcast technology.
+    type: implications
+  - content: F1 partnerships are interconnected with team sponsorships, race event
+      organization, and broader sports marketing strategies. They also reflect trends
+      in global business, such as the increasing role of technology firms and luxury
+      brands in sports sponsorship.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Microsoft is not mentioned among the official partners in the section,
+      whereas Pirelli, TAG Heuer, and Heineken are all listed.
+    options:
+    - Pirelli
+    - TAG Heuer
+    - Microsoft
+    - Heineken
+    question_text: Which of the following companies is NOT listed as an official F1
+      partner in the provided section?
+  index: 180
+  key_concept: F1 Official Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application provided by Formula 1, offering
+      fans access to live timing, news, schedules, and exclusive content related to
+      the sport. It is designed to enhance the fan experience by delivering real-time
+      information and interactive features.
+    type: definition
+  - content: The app is available for download on major platforms, specifically the
+      Apple App Store and Google Play Store. Users can access features such as live
+      race timing, driver and team stats, news updates, and personalized notifications.
+    type: examples
+  - content: Fans use the app to follow races in real time, receive push notifications
+      about their favorite teams or drivers, and stay updated on the latest F1 news
+      and schedules. It also serves as a hub for digital engagement, including fantasy
+      leagues and exclusive video content.
+    type: use cases
+  - content: The app's availability on both iOS and Android platforms ensures accessibility
+      for a global audience. It represents F1's commitment to digital transformation
+      and fan engagement, providing a direct channel for communication and data collection.
+    type: implications
+  - content: The app is part of F1's broader digital ecosystem, connecting with official
+      websites, social media, and streaming services like F1 TV. It also ties into
+      fan engagement strategies and the commercialization of digital content in modern
+      sports.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: The document provides download links for both the Apple App Store
+      and Google Play Store, indicating that the app is available on both major mobile
+      platforms.
+    options:
+    - Apple App Store only
+    - Google Play Store only
+    - Both Apple App Store and Google Play Store
+    - Neither platform
+    question_text: On which platforms can fans download the Official F1 App according
+      to the document?
+  index: 190
+  key_concept: Official F1 App Availability
+  name: Download the Official F1 App

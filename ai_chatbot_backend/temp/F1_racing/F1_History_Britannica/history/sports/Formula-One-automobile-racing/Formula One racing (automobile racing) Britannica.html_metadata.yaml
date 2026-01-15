@@ -1,0 +1,234 @@
+URL: https://www.britannica.com/sports/Formula-One-automobile-racing/images-videos
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A media gallery page from Britannica featuring images and captions
+  of notable Formula One drivers, races, and historic moments, highlighting key figures
+  and events in F1 history.
+file_name: Formula One racing (automobile racing) Britannica.html
+file_path: F1_racing/F1_History_Britannica/history/sports/Formula-One-automobile-racing/Formula
+  One racing (automobile racing) Britannica.html
+file_uuid: 8fe612bc-ce8f-5989-8cec-1a714fcb0475
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Lewis Hamilton is shown in the gallery celebrating his seventh World
+    Championship, a feat matched only by Michael Schumacher, while the others have
+    fewer titles.
+  knowledge_areas:
+  - Notable Formula One Drivers
+  options:
+  - Lewis Hamilton
+  - Lando Norris
+  - Nelson Piquet
+  - Jack Brabham
+  question_id: 1
+  question_text: Which of the following drivers is featured in the gallery as a seven-time
+    Formula One World Champion?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The 2016 British Grand Prix podium features Lewis Hamilton, Nico Rosberg,
+    and Max Verstappen, marking a key moment for both drivers.
+  knowledge_areas:
+  - Historic Formula One Races and Podiums
+  options:
+  - 2018 Singapore Grand Prix
+  - 2016 British Grand Prix
+  - 2010 European Grand Prix
+  - 1988 French Grand Prix
+  question_id: 2
+  question_text: Which image in the gallery captures a significant podium moment involving
+    both Lewis Hamilton and Max Verstappen?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The gallery features drivers from various countries, including Britain,
+    Germany, Brazil, Argentina, and the Netherlands, showing the sport's international
+    diversity.
+  knowledge_areas:
+  - Team Associations and Nationalities
+  options:
+  - All drivers are British.
+  - Drivers come from Europe and South America.
+  - Only German drivers are depicted.
+  - All drivers are from the same team.
+  question_id: 3
+  question_text: Which of the following best illustrates the diversity of nationalities
+    among Formula One drivers in the gallery?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The gallery includes a mix of historic and modern images, illustrating
+    changes in photographic technology and style over the decades.
+  knowledge_areas:
+  - Evolution of Formula One Imagery
+  options:
+  - By showing only modern digital photos.
+  - By including both vintage and contemporary images.
+  - By focusing exclusively on car technology.
+  - By omitting images of podium celebrations.
+  question_id: 4
+  question_text: How does the gallery demonstrate the evolution of Formula One imagery?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Drivers' legacies are often tied to their achievements in historic
+    races and podium moments, making these two concepts closely linked.
+  knowledge_areas:
+  - Notable Formula One Drivers
+  - Historic Formula One Races and Podiums
+  options:
+  - Notable Formula One Drivers and Historic Formula One Races and Podiums
+  - Team Associations and Evolution of Imagery
+  - Podium Celebrations and Team Sponsorships
+  - Race Car Engineering and Nationalities
+  question_id: 5
+  question_text: Which two concepts are most closely connected when considering how
+    drivers' legacies are remembered in Formula One history?
+  question_type: recap
+sections:
+- aspects:
+  - content: Notable Formula One drivers are individuals who have achieved significant
+      recognition in the sport due to their talent, championship wins, or historical
+      impact. The gallery includes figures such as Lewis Hamilton, Max Verstappen,
+      Michael Schumacher, Ayrton Senna, Sebastian Vettel, Juan Manuel Fangio, Nelson
+      Piquet, Jack Brabham, Stirling Moss, and Giuseppe Farina.
+    type: Definition
+  - content: Examples include Lewis Hamilton, who has won seven World Drivers' Championships;
+      Michael Schumacher, also a seven-time champion; Max Verstappen, the 2021 World
+      Champion; Ayrton Senna, a three-time champion known for his skill in wet conditions;
+      Juan Manuel Fangio, a five-time champion from the early era; and Giuseppe Farina,
+      the first official F1 Drivers' Champion.
+    type: Examples
+  - content: These drivers have shaped the history and culture of Formula One, setting
+      records, pushing technological advancements, and inspiring future generations.
+      Their successes often coincide with significant developments in car engineering,
+      team strategies, and global popularity of the sport.
+    type: Implications
+  - content: The prominence of these drivers is often contextualized by their era,
+      the teams they raced for (such as Mercedes, Ferrari, McLaren, Red Bull), and
+      the level of competition they faced. Their legacies are celebrated through media,
+      awards, and continued references in popular culture.
+    type: Context
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Stirling Moss, although a legendary driver, never won a Formula One
+      World Drivers' Championship, while the others listed are all champions.
+    options:
+    - Lewis Hamilton
+    - Stirling Moss
+    - Michael Schumacher
+    - Sebastian Vettel
+    question_text: Which of the following drivers is NOT depicted in the gallery as
+      a Formula One World Champion?
+  index: 175
+  key_concept: Notable Formula One Drivers
+  name: Images
+- aspects:
+  - content: Historic Formula One races and podiums refer to significant events and
+      moments in F1 history, often captured in images that show race action, winners'
+      celebrations, and key turning points in the sport.
+    type: Definition
+  - content: Examples from the gallery include the 2018 Singapore Grand Prix with
+      Max Verstappen leading, the 2016 British Grand Prix podium with Lewis Hamilton,
+      Nico Rosberg, and Max Verstappen, the 1988 French Grand Prix podium with Alain
+      Prost, Ayrton Senna, and Michele Alboreto, and Lewis Hamilton's celebration
+      after winning the 2020 Turkish Grand Prix to secure his seventh title.
+    type: Examples
+  - content: These moments are emblematic of competitive excellence and are often
+      used to illustrate the drama, prestige, and international appeal of Formula
+      One. They also highlight the evolution of race formats, safety standards, and
+      the global expansion of the Grand Prix calendar.
+    type: Implications
+  - content: Historic races and podiums are closely tied to the achievements of notable
+      drivers and teams, serving as milestones in their careers. They also reflect
+      changes in regulations, technology, and the increasing diversity of race locations
+      over time.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Lewis Hamilton clinched his seventh World Championship at the 2020
+      Turkish Grand Prix, as depicted in the gallery.
+    options:
+    - 2016 British Grand Prix
+    - 2018 Singapore Grand Prix
+    - 2020 Turkish Grand Prix
+    - 2010 European Grand Prix
+    question_text: Which event marked Lewis Hamilton's seventh Formula One World Championship
+      title?
+  index: 175
+  key_concept: Historic Formula One Races and Podiums
+  name: Images
+- aspects:
+  - content: Team associations and nationalities refer to the connections between
+      drivers, the teams they race for, and their countries of origin. These factors
+      are central to F1's identity, with teams like Mercedes, McLaren, Red Bull, and
+      Ferrari being prominent, and drivers hailing from diverse nations.
+    type: Definition
+  - content: The gallery features Lewis Hamilton (British, Mercedes), Max Verstappen
+      (Dutch, Red Bull), Lando Norris (British, McLaren), Michael Schumacher (German,
+      Ferrari), Ayrton Senna (Brazilian, McLaren), and Juan Manuel Fangio (Argentine,
+      various teams).
+    type: Examples
+  - content: Nationalities and team affiliations contribute to fan loyalty, sponsorships,
+      and international interest. The diversity of backgrounds among drivers and teams
+      enhances the global appeal of Formula One and fosters rivalries that define
+      eras.
+    type: Implications
+  - content: Team and national identities are often highlighted in media coverage,
+      race commentary, and marketing. They also influence the development of young
+      drivers through national motorsports programs and team academies.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Lando Norris is correctly matched with McLaren; the other pairings
+      are incorrect based on the gallery's information.
+    options:
+    - Max Verstappen – Mercedes
+    - Lando Norris – McLaren
+    - Michael Schumacher – Red Bull
+    - Ayrton Senna – Ferrari
+    question_text: Which driver-team pairing is correctly matched according to the
+      gallery?
+  index: 175
+  key_concept: Team Associations and Nationalities
+  name: Images
+- aspects:
+  - content: The evolution of Formula One imagery refers to the progression of photographic
+      and media representation of the sport, from early black-and-white photos to
+      modern high-resolution, action-packed images capturing the speed, technology,
+      and personalities of F1.
+    type: Definition
+  - content: The gallery displays a range of images, including vintage shots of Juan
+      Manuel Fangio and Niki Lauda, podium celebrations from the 1980s, and recent
+      high-definition photos of drivers like Max Verstappen and Lewis Hamilton, illustrating
+      changes in photographic technology and style.
+    type: Examples
+  - content: Advances in imagery have made Formula One more accessible and engaging
+      for fans worldwide, enhancing storytelling, marketing, and documentation of
+      the sport's history. Visual media play a key role in shaping public perception
+      and preserving iconic moments.
+    type: Implications
+  - content: The imagery connects to broader trends in sports media, such as the use
+      of social media, live broadcasting, and digital archives. It also reflects changes
+      in F1's branding, sponsorship visibility, and the increasing importance of visual
+      identity for teams and drivers.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: The gallery demonstrates the evolution of F1 imagery, showing both
+      vintage and modern photos that reflect advancements in technology and style.
+    options:
+    - It has remained unchanged since the 1950s.
+    - It now includes only podium celebrations.
+    - It reflects technological and stylistic advancements over time.
+    - It excludes vintage photographs.
+    question_text: What does the gallery reveal about the evolution of Formula One
+      imagery?
+  index: 175
+  key_concept: Evolution of Formula One Imagery
+  name: Images

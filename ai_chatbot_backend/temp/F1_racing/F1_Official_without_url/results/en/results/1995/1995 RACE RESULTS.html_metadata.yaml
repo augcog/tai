@@ -1,0 +1,218 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page summarizing the 1995 Formula 1 race results, including
+  a table of Grand Prix winners, and sections on F1's official partners and app download
+  information.
+file_name: 1995 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1995/1995 RACE RESULTS.html
+file_uuid: e4524e0b-912f-5553-83e4-b81f43d5a2fc
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Benetton Renault, with Michael Schumacher and Johnny Herbert as drivers,
+    secured the majority of race wins in 1995, as seen in the results table.
+  knowledge_areas:
+  - 1995 Formula 1 Race Results
+  options:
+  - Ferrari
+  - Benetton Renault
+  - Williams Renault
+  - McLaren
+  question_id: 1
+  question_text: Which team had the most race wins in the 1995 Formula 1 season according
+    to the results table?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Official partners like Pirelli supply tires, and DHL handles logistics
+    for F1, while other options are not typical partner roles.
+  knowledge_areas:
+  - F1 Official Partners
+  options:
+  - Supplying tires and logistics
+  - Organizing driver training
+  - Managing race regulations
+  - Designing race tracks
+  question_id: 2
+  question_text: Which of the following is a key role played by F1's official partners?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The content specifies the Apple App Store and Google Play as the platforms
+    for downloading the Official F1 App.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - Apple App Store and Google Play
+  - Microsoft Store
+  - Amazon Appstore
+  - Steam
+  question_id: 3
+  question_text: What platforms are mentioned for downloading the Official F1 App?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: F1 partners like Pirelli (tires) and AWS (data analytics) support the
+    operational and technological aspects that underpin race events, but do not influence
+    the outcome directly.
+  knowledge_areas:
+  - 1995 Formula 1 Race Results
+  - F1 Official Partners
+  options:
+  - Partners supply technology and logistics that support race operations
+  - Partners determine race winners
+  - Partners drive the cars
+  - Partners design the championship trophy
+  question_id: 4
+  question_text: How do the 1995 race results connect to the role of F1's official
+    partners?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app's main purpose is to deliver real-time race information, news,
+    and exclusive content to F1 fans.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - To provide fans with real-time race updates and exclusive content
+  - To sell official F1 merchandise
+  - To organize fan meetups
+  - To offer live betting on races
+  question_id: 5
+  question_text: Which of the following best describes the main purpose of the Official
+    F1 App?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1995 Formula 1 Race Results section provides a comprehensive summary
+      of each Grand Prix held during the 1995 F1 season, including details such as
+      the race location, date, winning driver, their team, the number of laps completed,
+      and the total race time. This data forms the core historical record for the
+      season's competitive outcomes.
+    type: Definition
+  - content: Examples from the table include Michael Schumacher winning the Brazilian
+      Grand Prix for Benetton Renault on March 26th, and Damon Hill securing victory
+      at the Argentine Grand Prix for Williams Renault on April 9th. The table lists
+      all 17 races, with winners such as Jean Alesi (Ferrari, Canada), Johnny Herbert
+      (Benetton Renault, Great Britain and Italy), and David Coulthard (Williams Renault,
+      Portugal).
+    type: Examples
+  - content: This information is used by historians, statisticians, and fans to analyze
+      driver and team performance, identify trends such as dominance by certain drivers
+      or teams (e.g., Benetton Renault and Williams Renault), and to compare the 1995
+      season with other years. It is also essential for compiling championship points
+      and standings.
+    type: Use Cases
+  - content: The results highlight the competitive landscape of the 1995 season, showing
+      the prevalence of certain teams and the distribution of race wins. For instance,
+      Michael Schumacher's multiple victories contributed to his championship success,
+      while the results also reflect the technical and strategic strengths of teams
+      like Benetton Renault and Williams Renault.
+    type: Implications
+  - content: These results connect to broader F1 concepts such as team strategies,
+      driver skill, car reliability, and the impact of circuits on race outcomes.
+      They also tie into the annual driver and team standings, and can be cross-referenced
+      with other statistical records like pole positions and fastest laps.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Michael Schumacher won the most races in 1995, as indicated by his
+      repeated presence as the winner in the race results table. Damon Hill and Johnny
+      Herbert also won multiple races, but not as many as Schumacher.
+    options:
+    - Damon Hill
+    - Michael Schumacher
+    - Jean Alesi
+    - Johnny Herbert
+    question_text: Which driver won the most Grand Prix races in the 1995 Formula
+      1 season?
+  index: 154
+  key_concept: 1995 Formula 1 Race Results
+  name: 1995 RACE RESULTS
+- aspects:
+  - content: The 'OUR PARTNERS' section lists the official sponsors and partners associated
+      with Formula 1, including multinational corporations from various industries
+      such as luxury goods, technology, logistics, beverages, and financial services.
+      These partners provide financial support, products, and services integral to
+      the operation and global promotion of Formula 1.
+    type: Definition
+  - content: Notable examples include LVMH (luxury goods), Pirelli (tire supplier),
+      Aramco (energy), Heineken (beverages), AWS (cloud computing), Lenovo (technology),
+      DHL (logistics), and Qatar Airways (airline). The section also features brands
+      like TAG Heuer (watches), Santander (banking), and McDonalds (food services).
+    type: Examples
+  - content: These partnerships are leveraged for branding, advertising, and technological
+      collaboration. For instance, Pirelli supplies all F1 tires, AWS provides data
+      analytics for race strategies, and DHL manages global logistics for transporting
+      equipment. Fans may also interact with partner brands through promotions and
+      co-branded content.
+    type: Use Cases
+  - content: Official partners play a critical role in the financial sustainability
+      and technological advancement of Formula 1. Their involvement enables the sport
+      to maintain high operational standards, invest in innovation, and expand its
+      global reach. The diversity of partners also reflects F1's broad commercial
+      appeal.
+    type: Implications
+  - content: These partnerships connect F1 to global business networks, influence
+      fan engagement through marketing campaigns, and sometimes impact regulations
+      (e.g., tire specifications by Pirelli). They also facilitate cross-industry
+      innovation, such as data-driven performance analysis or sustainable energy initiatives.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Apple is not listed among the official partners in the section, while
+      Pirelli, Heineken, and AWS are all featured as F1 partners.
+    options:
+    - Pirelli
+    - Heineken
+    - Apple
+    - AWS
+    question_text: Which of the following companies is NOT listed as an official partner
+      of Formula 1 in the provided content?
+  index: 176
+  key_concept: F1 Official Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The 'Download the Official F1 App' section promotes the official mobile
+      application for Formula 1, available on both the Apple App Store and Google
+      Play. The app is designed to provide fans with real-time updates, live timing,
+      news, and exclusive content related to Formula 1.
+    type: Definition
+  - content: Examples of app features include live race timing, driver and team statistics,
+      push notifications for breaking news, and access to video highlights. The app
+      is accessible via direct download links for iOS and Android devices, making
+      it widely available to the global fanbase.
+    type: Examples
+  - content: Fans use the app to follow races live, track their favorite drivers and
+      teams, and stay informed about schedule changes or major announcements. The
+      app also serves as a hub for accessing F1 TV (where available), fantasy leagues,
+      and interactive features like polls or quizzes.
+    type: Use Cases
+  - content: The official app enhances fan engagement by providing a centralized,
+      interactive platform for F1 content. It supports the sport's digital transformation,
+      increases accessibility, and helps build a more connected global community of
+      fans. The app's data-driven features also deepen understanding of race dynamics.
+    type: Implications
+  - content: The app links to other digital F1 services, such as F1 TV and fantasy
+      gaming. It complements the official website and social media channels, ensuring
+      fans have multiple touchpoints for content. The app's integration with live
+      data also connects fans directly to the unfolding action at each Grand Prix.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The app's main function is to provide live race timing, updates,
+      news, and exclusive content, rather than selling cars or offering training courses.
+    options:
+    - Providing live race timing and updates
+    - Selling F1 cars
+    - Broadcasting only historical races
+    - Offering driver training courses
+    question_text: What is one primary function of the Official F1 App as described
+      in the content?
+  index: 186
+  key_concept: Official F1 App
+  name: Download the Official F1 App

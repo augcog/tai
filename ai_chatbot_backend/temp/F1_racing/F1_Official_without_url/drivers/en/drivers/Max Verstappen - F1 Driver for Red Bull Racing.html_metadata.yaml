@@ -1,0 +1,266 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Formula 1 driver profile page for Max Verstappen, featuring his
+  season and career statistics, biographical background, recent media, and related
+  F1 news and resources.
+file_name: Max Verstappen - F1 Driver for Red Bull Racing.html
+file_path: F1_racing/F1_Official/drivers/en/drivers/Max Verstappen - F1 Driver for
+  Red Bull Racing.html
+file_uuid: e3385821-4ddc-5eca-acf3-d72a56ca68ce
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Max Verstappen races for Red Bull Racing and uses car number 1, as
+    indicated in his profile and throughout the statistics section.
+  knowledge_areas:
+  - Max Verstappen Profile
+  - Season and Career Statistics
+  options:
+  - Red Bull Racing, number 1
+  - Mercedes, number 44
+  - Ferrari, number 16
+  - McLaren, number 4
+  question_id: 1
+  question_text: Which team does Max Verstappen currently represent in Formula 1,
+    and what is his car number?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Verstappen has won 4 world championships, with his first title coming
+    in 2021 after a dramatic final-round battle.
+  knowledge_areas:
+  - Season and Career Statistics
+  - Biography and Career Progression
+  options:
+  - 3 championships, 2019
+  - 4 championships, 2021
+  - 5 championships, 2025
+  - 2 championships, 2020
+  question_id: 2
+  question_text: How many world championships has Verstappen won, and in which year
+    did he secure his first title?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Verstappen made history as F1's youngest competitor, points scorer,
+    and race winner, as detailed in his biography.
+  knowledge_areas:
+  - Biography and Career Progression
+  options:
+  - He was the oldest debutant and scored points after several seasons.
+  - He became the youngest ever competitor, points scorer, and race winner.
+  - He started with Mercedes and switched to Red Bull in 2022.
+  - He won his first championship in his rookie year.
+  question_id: 3
+  question_text: Which of the following best describes Verstappen's early impact on
+    Formula 1?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The related videos focus on the 2025 Abu Dhabi Grand Prix, where Verstappen
+    won the race but narrowly missed out on the championship.
+  knowledge_areas:
+  - Recent Media Coverage
+  - Season and Career Statistics
+  options:
+  - 2025 Abu Dhabi Grand Prix, Verstappen wins but misses the title
+  - 2024 Monaco Grand Prix, Verstappen retires
+  - 2025 British Grand Prix, Verstappen secures pole and victory
+  - 2026 Australian Grand Prix, Verstappen debuts for a new team
+  question_id: 4
+  question_text: Which recent event is highlighted in the related videos, and what
+    was Verstappen's outcome?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Verstappen's racing pedigree comes from his father, Jos Verstappen,
+    a former F1 driver, and his mother, Sophie Kumpen, a successful kart racer, as
+    highlighted in the biography.
+  knowledge_areas:
+  - Biography and Career Progression
+  options:
+  - He is the first in his family to race professionally.
+  - His father was a former F1 driver and his mother was a successful karter.
+  - His uncle owns Red Bull Racing.
+  - His family discouraged his involvement in motorsport.
+  question_id: 5
+  question_text: How does Verstappen's family background contribute to his racing
+    career, according to the biography?
+  question_type: recap
+sections:
+- aspects:
+  - content: The Max Verstappen Profile refers to the comprehensive overview of Max
+      Verstappen as a Formula 1 driver, including his nationality, team affiliation,
+      and basic identifiers such as racing number and current status. It encapsulates
+      his role as a Red Bull Racing driver representing the Netherlands, recognized
+      by car number 1.
+    type: Definition
+  - content: This profile serves as the introductory section for fans and researchers
+      seeking information about Verstappen's identity in the F1 paddock. It situates
+      him within the current F1 grid, highlighting his prominence and the branding
+      associated with his image and career.
+    type: Context
+  - content: Having a dedicated profile emphasizes Verstappen's significance in the
+      sport, both as a top competitor and as a marketable athlete. It also facilitates
+      access to his merchandise and media, enhancing fan engagement and commercial
+      opportunities.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Max Verstappen is the lead driver for Red Bull Racing, as indicated
+      in his profile and throughout the statistics and biography sections.
+    options:
+    - Ferrari
+    - Red Bull Racing
+    - Mercedes
+    - McLaren
+    question_text: Which team does Max Verstappen currently race for in Formula 1?
+  index: 59
+  key_concept: Max Verstappen Profile
+  name: MaxVerstappen
+- aspects:
+  - content: Season and Career Statistics refer to the quantitative record of Verstappen's
+      performance in Formula 1, split into current season results and all-time career
+      achievements. These include metrics such as race wins, podiums, pole positions,
+      points, DNFs (Did Not Finish), and world championships.
+    type: Definition
+  - content: For the 2025 season, Verstappen finished 2nd with 421 points, 8 Grand
+      Prix wins, 15 podiums, and 8 poles. Career-wise, he has entered 233 Grands Prix,
+      scored 3444.5 points, achieved 71 race wins, 127 podiums, 48 poles, and secured
+      4 world championships. These statistics are further broken down into Grand Prix
+      and Sprint race formats.
+    type: Examples
+  - content: These statistics showcase Verstappen's consistency, competitiveness,
+      and dominance in recent F1 seasons. They provide a basis for comparing his performance
+      to other drivers and evaluating his place in F1 history. The data also highlight
+      his evolution from a young talent to a multiple world champion.
+    type: Implications
+  - content: The statistics connect to broader F1 themes such as the importance of
+      consistency, adaptability to different race formats (Grand Prix vs. Sprint),
+      and the impact of DNFs on championship outcomes. They also relate to team performance
+      and technological advancements in the sport.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: The career statistics section lists 4 world championships for Verstappen,
+      reflecting his sustained success in the sport.
+    options:
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+    question_text: How many world championships has Max Verstappen won according to
+      his career statistics?
+  index: 71
+  key_concept: Season and Career Statistics
+  name: STATISTICS
+- aspects:
+  - content: The Biography section provides a narrative account of Verstappen's personal
+      background, early career, and progression through Formula 1. It includes details
+      about his birth, family, personality, and key milestones.
+    type: Definition
+  - content: Verstappen debuted in F1 at age 17, becoming the youngest competitor
+      and later the youngest points scorer and race winner. Notable moments include
+      his first win in Barcelona 2016, a dramatic podium in Brazil, and his championship-winning
+      drives in 2021, 2022, 2023, and 2024. His aggressive racing style and growth
+      in maturity are highlighted.
+    type: Examples
+  - content: The biography illustrates how Verstappen's upbringing in a racing family
+      (son of Jos Verstappen and Sophie Kumpen) contributed to his rapid rise. It
+      also explores how his personality traits—competitive drive, willingness to speak
+      his mind, and occasional shyness—shape his public image and racing approach.
+    type: Implications
+  - content: This section connects Verstappen's personal development to broader themes
+      in sports psychology, such as resilience, learning from mistakes, and the influence
+      of family legacy. It also provides context for understanding his statistical
+      achievements and on-track behavior.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The biography states that Verstappen became the youngest race winner
+      at 18 years and 228 days old, a record-setting achievement.
+    options:
+    - 17 years and 3 days
+    - 18 years and 228 days
+    - 19 years and 100 days
+    - 20 years exactly
+    question_text: At what age did Max Verstappen become Formula 1's youngest race
+      winner?
+  index: 155
+  key_concept: Biography and Career Progression
+  name: Biography
+- aspects:
+  - content: Recent Media Coverage refers to the curated selection of videos highlighting
+      Verstappen's recent races, season analyses, and key moments from the 2025 F1
+      season. These include expert analyses, race highlights, and post-race interviews.
+    type: Definition
+  - content: Featured videos include Jolyon Palmer's analysis of the Abu Dhabi season
+      showdown, a documentary-style recap of the 2025 World Drivers' Championship,
+      Verstappen's post-race reactions, and highlights from the Abu Dhabi Grand Prix
+      where Verstappen won but narrowly missed the title.
+    type: Examples
+  - content: These videos provide fans and analysts with insights into Verstappen's
+      performance, strategic decisions, and emotional responses during critical moments.
+      They also serve as educational tools for understanding race dynamics and the
+      factors influencing championship outcomes.
+    type: Implications
+  - content: The media coverage is closely linked to the statistical and biographical
+      content, offering visual and narrative context to the numbers and milestones.
+      It also connects to broader F1 narratives, such as title rivalries and the evolving
+      competitive landscape.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: The related videos focus on the 2025 season and Verstappen's performances;
+      there is no technical breakdown of the 2026 car included.
+    options:
+    - Analysis of the 2025 title fight
+    - Verstappen's reaction to missing the title
+    - Highlights from the Abu Dhabi Grand Prix
+    - Technical breakdown of Red Bull's 2026 car
+    question_text: Which of the following topics is NOT covered in the related videos
+      section?
+  index: 193
+  key_concept: Recent Media Coverage
+  name: Related Videos
+- aspects:
+  - content: F1 News and Partnerships encompasses the collection of recent articles
+      and official partner listings relevant to Verstappen and the broader Formula
+      1 ecosystem. This includes news about upcoming seasons, team developments, and
+      sponsor relationships.
+    type: Definition
+  - content: Recent articles cover topics such as predictions for the 2026 season,
+      rankings of top drivers, Red Bull's 2025 performance reviews, and detailed timelines
+      of the 2025 title battle. The partners section lists major sponsors like LVMH,
+      Pirelli, Aramco, and others, reflecting the commercial side of F1.
+    type: Examples
+  - content: These resources keep fans informed about the latest developments in the
+      sport and highlight the importance of commercial partnerships in sustaining
+      and promoting F1. They also provide context for Verstappen's career within the
+      shifting landscape of teams, regulations, and sponsorships.
+    type: Implications
+  - content: The news and partnerships sections bridge the gap between on-track action
+      and off-track business, showing how driver performance, team strategy, and commercial
+      interests are interconnected in modern Formula 1.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The related articles include predictions for the 2026 F1 season,
+      as well as other news and commercial information relevant to Verstappen and
+      the sport.
+    options:
+    - 2026 season predictions
+    - Verstappen's karting career
+    - Technical details of F1 engines
+    - Rules for F1 fantasy gaming
+    question_text: Which of the following is a key area covered in the related articles
+      and partners sections?
+  index: 227
+  key_concept: F1 News and Partnerships
+  name: Related Articles

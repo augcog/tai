@@ -1,0 +1,266 @@
+URL: https://www.britannica.com/technology/pyramid-architecture/images-videos
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A media gallery from Britannica featuring videos, images, and interactives
+  about pyramid architecture, highlighting iconic pyramids from Egypt, Mesoamerica,
+  and modern adaptations such as the Louvre Pyramid.
+file_name: pyramid (architecture) Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/pyramid-architecture/pyramid
+  (architecture) Britannica.html
+file_uuid: 657fc13f-fa63-5a13-b9df-29e4ad841e6f
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: The media gallery is a curated collection of videos, images, and interactives
+    highlighting pyramids from Egypt, Mesoamerica, and modern times.
+  knowledge_areas:
+  - Media gallery structure
+  - Cultural diversity of pyramids
+  options:
+  - In-depth textual analysis of pyramid construction
+  - A collection of multimedia resources showcasing pyramids from various cultures
+  - A database of ancient Egyptian hieroglyphs
+  - A virtual reality tour of modern architecture
+  question_id: 1
+  question_text: Which of the following best describes the main focus of the Britannica
+    pyramid media gallery?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: The Louvre Pyramid in Paris, designed by I.M. Pei, is a modern reinterpretation
+    of the pyramid form and is featured in the gallery.
+  knowledge_areas:
+  - Modern pyramid architecture
+  - Image gallery content
+  options:
+  - Pyramid of Khafre
+  - Pyramid of the Sun
+  - Louvre Pyramid
+  - Step Pyramid of Djoser
+  question_id: 2
+  question_text: Which pyramid is an example of modern pyramid architecture featured
+    in the image gallery?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The gallery highlights that Egyptian pyramids were mainly tombs, while
+    Mesoamerican pyramids were frequently used as temples.
+  knowledge_areas:
+  - Egyptian pyramids
+  - Mesoamerican pyramids
+  - Comparative architecture
+  options:
+  - Egyptian pyramids are primarily tombs, while Mesoamerican pyramids often served
+    as temples.
+  - Mesoamerican pyramids are built entirely from mud bricks.
+  - Egyptian pyramids are located in South America.
+  - Mesoamerican pyramids are always taller than Egyptian pyramids.
+  question_id: 3
+  question_text: What is a key distinction between Egyptian and Mesoamerican pyramids
+    as presented in the gallery?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The interactive visually compares the heights of pyramids and other
+    monuments, helping users grasp the scale and magnitude of these structures.
+  knowledge_areas:
+  - Interactives
+  - Scale comparison
+  - Educational media
+  options:
+  - By providing detailed construction blueprints
+  - By comparing the scale of pyramids to other famous monuments
+  - By offering audio guides on pyramid history
+  - By simulating the building process of a pyramid
+  question_id: 4
+  question_text: How does the interactive 'How tall is tall?' enhance understanding
+    of pyramid architecture?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Videos and Images offer rich visual content that supports visual learning
+    about pyramid architecture.
+  knowledge_areas:
+  - Visual learning
+  - Media types
+  - Pyramid architecture
+  options:
+  - Videos and Images
+  - Interactives and Text Articles
+  - Images and Audio Interviews
+  - Videos and Biographies
+  question_id: 5
+  question_text: Which two sections of the media gallery provide resources that best
+    support visual learners interested in pyramid architecture?
+  question_type: recap
+sections:
+- aspects:
+  - content: This section includes short documentary-style videos that provide visual
+      and narrative explorations of pyramid architecture, particularly focusing on
+      the Great Pyramid of Khufu and other significant Egyptian sites. Videos serve
+      as dynamic educational tools, combining imagery, narration, and historical context.
+    type: Definition
+  - content: Examples include a video tour inside the Great Pyramid of Khufu, revealing
+      its internal structure, and a travelogue along the Nile that highlights the
+      Pyramids of Giza among other ancient Egyptian monuments. These videos offer
+      both architectural insights and cultural context.
+    type: Examples
+  - content: Videos are used to visually demonstrate the scale, construction, and
+      purpose of pyramids, making abstract or distant historical concepts more tangible.
+      They are particularly effective for engaging students and general audiences
+      in understanding ancient engineering and cultural achievements.
+    type: Use Cases
+  - content: The use of videos in educational resources enhances comprehension by
+      providing multisensory input, supporting different learning styles. Videos can
+      also stimulate interest in further study of ancient civilizations and their
+      architectural innovations.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The videos section primarily consists of short documentary-style
+      explorations, not written analysis, 3D models, or audio interviews.
+    options:
+    - In-depth written analysis of pyramid construction techniques
+    - Short documentary-style explorations of pyramid architecture
+    - Interactive 3D models of pyramids
+    - Audio interviews with modern architects
+    question_text: Which of the following is a key feature of the videos section in
+      Britannica's pyramid media gallery?
+  index: 176
+  key_concept: Videos on Pyramid Architecture
+  name: Videos
+- aspects:
+  - content: This concept encompasses the most famous pyramids of Egypt, such as the
+      Great Pyramid of Khufu, the Pyramid of Khafre, the Step Pyramid of Djoser, and
+      the Blunted (Bent) Pyramid. These structures are monumental tombs built during
+      the ancient Egyptian civilization.
+    type: Definition
+  - content: The gallery includes images of the Pyramids of Giza, the Step Pyramid
+      at Ṣaqqārah, the Blunted Pyramid at Dahshūr, and cross-sectional diagrams of
+      the Great Pyramid. Each image is accompanied by a brief description and often
+      credits the photographer or source.
+    type: Examples
+  - content: Egyptian pyramids were constructed as royal tombs and are among the oldest
+      and most enduring symbols of ancient engineering. Their orientation, scale,
+      and architectural evolution reflect religious beliefs, political power, and
+      technological advancements.
+    type: Context
+  - content: These pyramids are often compared to other monumental structures worldwide
+      and are frequently referenced in studies of ancient architecture, engineering,
+      and archaeology. They are also central to Egyptology and the broader study of
+      ancient civilizations.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: El Castillo is a Mayan pyramid in Mexico, not an Egyptian pyramid.
+    options:
+    - Great Pyramid of Khufu
+    - Step Pyramid of Djoser
+    - Blunted (Bent) Pyramid
+    - El Castillo at Chichén Itzá
+    question_text: Which pyramid is NOT featured among the iconic Egyptian pyramids
+      in the Britannica gallery?
+  index: 194
+  key_concept: Iconic Pyramids of Egypt
+  name: Images
+- aspects:
+  - content: Mesoamerican pyramids are monumental structures built by pre-Columbian
+      civilizations such as the Maya, Aztec, and others in present-day Mexico and
+      Central America. Unlike Egyptian pyramids, these often served as temples rather
+      than tombs.
+    type: Definition
+  - content: The gallery features the Pyramid of the Sun at Teotihuacán, El Castillo
+      at Chichén Itzá, and pyramids at Tikal, Guatemala. These images highlight the
+      architectural diversity and cultural significance of pyramids across the Americas.
+    type: Examples
+  - content: Mesoamerican pyramids were used for religious ceremonies, astronomical
+      observations, and as centers of political power. Their stepped designs and alignment
+      with celestial events demonstrate advanced knowledge of mathematics and astronomy.
+    type: Use Cases
+  - content: Comparing Mesoamerican and Egyptian pyramids reveals differences in purpose,
+      design, and cultural context, offering insights into how distinct civilizations
+      independently developed monumental architecture.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Egyptian pyramids primarily served as tombs, while Mesoamerican pyramids
+      often functioned as temples.
+    options:
+    - Egyptian pyramids are made of wood, Mesoamerican of stone
+    - Egyptian pyramids served as tombs, Mesoamerican as temples
+    - Mesoamerican pyramids are older than Egyptian pyramids
+    - Both were used exclusively for astronomical purposes
+    question_text: What is a primary difference between Egyptian and Mesoamerican
+      pyramids as highlighted in the gallery?
+  index: 194
+  key_concept: Mesoamerican Pyramids
+  name: Images
+- aspects:
+  - content: Modern pyramid architecture refers to contemporary structures inspired
+      by the geometric form of ancient pyramids, often constructed with modern materials
+      and serving new functions such as museums or cultural centers.
+    type: Definition
+  - content: The Louvre Pyramid in Paris, designed by I.M. Pei, is a prominent example,
+      combining glass and steel to create a striking entrance to the historic museum.
+      The gallery includes several images of the Louvre Pyramid from different perspectives.
+    type: Examples
+  - content: Modern pyramid structures symbolize a blend of tradition and innovation,
+      reinterpreting ancient forms for present-day purposes. They often spark debates
+      about architectural heritage and the integration of new designs in historic
+      contexts.
+    type: Implications
+  - content: The Louvre Pyramid connects the legacy of ancient monumental architecture
+      with modern engineering and aesthetics, illustrating the enduring influence
+      of the pyramid shape across cultures and eras.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The Louvre Pyramid, designed by I.M. Pei, is specifically featured
+      in the image gallery.
+    options:
+    - The Transamerica Pyramid
+    - The Louvre Pyramid
+    - The Luxor Hotel Pyramid
+    - The Pyramid of Cestius
+    question_text: Which modern pyramid is featured in the Britannica gallery as an
+      example of contemporary pyramid architecture?
+  index: 194
+  key_concept: Modern Pyramid Architecture
+  name: Images
+- aspects:
+  - content: Interactive media in this context refers to digital tools or graphics
+      that allow users to engage with content dynamically, such as comparing the sizes
+      of pyramids and other monumental structures.
+    type: Definition
+  - content: The gallery includes an interactive titled 'How tall is tall?' which
+      visually compares the heights of famous statues and pyramids, providing a sense
+      of scale that static images or text alone cannot convey.
+    type: Examples
+  - content: Interactives are valuable for visual learners and for illustrating abstract
+      concepts like scale, proportion, and relative size. They can be used in classrooms
+      or self-directed study to enhance understanding of architectural magnitude.
+    type: Use Cases
+  - content: By enabling users to manipulate or explore data, interactives foster
+      deeper engagement and retention of information. They also help contextualize
+      historical achievements in architecture by relating them to familiar modern
+      structures.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The interactive is designed to visually compare the heights of pyramids
+      and other famous structures.
+    options:
+    - To show the construction process of pyramids
+    - To compare the heights of pyramids and other monuments
+    - To provide a timeline of pyramid construction
+    - To simulate building a pyramid
+    question_text: What is the main educational purpose of the interactive 'How tall
+      is tall?' in the pyramid media gallery?
+  index: 406
+  key_concept: 'Interactive Media: Size Comparisons'
+  name: Interactives

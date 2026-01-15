@@ -1,0 +1,232 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page summarizing the 1961 Formula 1 race results, listing
+  race winners, teams, and dates, along with sections on F1's commercial partners
+  and official app download links.
+file_name: 1961 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1961/1961 RACE RESULTS.html
+file_uuid: fc3783ff-ef30-52cf-9ecb-154b5c590f1c
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: According to the 1961 race results, Wolfgang von Trips, Phil Hill,
+    and Giancarlo Baghetti won races for Ferrari. Moss and Ireland drove for Lotus
+    Climax, while the other options list drivers not associated with Ferrari wins
+    in 1961.
+  knowledge_areas:
+  - 1961 Formula 1 Race Results
+  options:
+  - Stirling Moss and Innes Ireland
+  - Wolfgang von Trips, Phil Hill, and Giancarlo Baghetti
+  - Jim Clark and Graham Hill
+  - Jack Brabham and Bruce McLaren
+  question_id: 1
+  question_text: Which drivers won races for Ferrari during the 1961 Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: F1's commercial partners are companies and brands that sponsor the
+    sport, providing financial, technological, or logistical support in exchange for
+    marketing exposure.
+  knowledge_areas:
+  - F1 Commercial Partners
+  options:
+  - They are drivers who compete in races.
+  - They are companies that sponsor and support F1 through financial and technological
+    means.
+  - They are teams that design and build F1 cars.
+  - They are fans who attend every race.
+  question_id: 2
+  question_text: Which of the following best describes the role of F1's commercial
+    partners?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App provides live race timing and integrates with F1
+    TV for streaming content, as described in the document.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - Live race timing and access to F1 TV content
+  - Car customization and driver training
+  - Team management and race engineering
+  - Historical memorabilia sales and ticketing
+  question_id: 3
+  question_text: What are two key features of the Official F1 App mentioned in the
+    document?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The 1961 results offer historical data that reveal trends in team and
+    driver performance, contributing to our understanding of F1's competitive evolution.
+  knowledge_areas:
+  - 1961 Formula 1 Race Results
+  - connections
+  options:
+  - They show the emergence of digital media in F1.
+  - They provide insight into team and driver dominance during the early decades of
+    the sport.
+  - They list all commercial partners since 1950.
+  - They explain the rules for fantasy gaming.
+  question_id: 4
+  question_text: How do the 1961 race results connect to the broader history of Formula
+    1?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Pirelli is known as the official tire supplier to F1, which aligns
+    with the sponsorship roles listed. The other options do not accurately match the
+    sponsor's typical area of contribution.
+  knowledge_areas:
+  - F1 Commercial Partners
+  - connections
+  options:
+  - Pirelli – Tire supply
+  - Heineken – Engine manufacturing
+  - AWS – Hospitality services
+  - TAG Heuer – Driver training
+  question_id: 5
+  question_text: Which of the following pairs correctly matches a sponsor with its
+    likely area of contribution to F1, based on the document?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1961 Formula 1 Race Results section provides a tabular summary of
+      each Grand Prix held in the 1961 season, including the Grand Prix name, date,
+      winner, team, number of laps, and total race time. This serves as an official
+      historical record of race outcomes for that year, reflecting the competitive
+      landscape and key drivers and teams of the era.
+    type: definition
+  - content: Examples from the 1961 season include Stirling Moss winning the Monaco
+      Grand Prix for Lotus Climax, Wolfgang von Trips and Phil Hill each securing
+      victories for Ferrari in multiple races, and Innes Ireland winning the United
+      States Grand Prix for Lotus Climax. The table also details the number of laps
+      and specific times, such as Moss's 2:45:50.100 in Monaco and Hill's 2:03:13.000
+      in Italy.
+    type: examples
+  - content: The results provide insight into the dominance of certain teams, particularly
+      Ferrari and Lotus Climax, during the 1961 season. They also highlight the international
+      nature of the championship, with races across Europe and the United States,
+      and offer data for analyzing trends in team and driver performance over time.
+    type: implications
+  - content: These results are part of the official Formula 1 archives and are used
+      by historians, statisticians, and fans to track the evolution of the sport.
+      The 1961 season is notable for its competitive field and for being part of the
+      early decades of the Formula 1 World Championship, reflecting both technological
+      and sporting developments of that era.
+    type: context
+  - content: The 1961 race results connect to broader themes in F1 history, such as
+      the rise of legendary drivers, the impact of team strategies, and the changing
+      regulations and technologies of the sport. Comparing these results to other
+      seasons can reveal shifts in dominance, the emergence of new talent, and the
+      influence of external factors like safety and engineering advancements.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Ferrari drivers won the majority of races in the 1961 season, as
+      indicated by the table listing victories for Wolfgang von Trips, Phil Hill,
+      and Giancarlo Baghetti. Lotus Climax also had wins, but not as many as Ferrari.
+      BRM and Cooper did not win any races according to the provided results.
+    options:
+    - Lotus Climax
+    - Ferrari
+    - BRM
+    - Cooper
+    question_text: Which team won the most races in the 1961 Formula 1 season according
+      to the results table?
+  index: 141
+  key_concept: 1961 Formula 1 Race Results
+  name: 1961 RACE RESULTS
+- aspects:
+  - content: F1 Commercial Partners are companies and brands that have official sponsorship
+      agreements with Formula 1, providing financial support, products, or services
+      in exchange for marketing exposure and association with the sport. These partnerships
+      are crucial for the commercial ecosystem of F1, enabling technological innovation,
+      event organization, and global promotion.
+    type: definition
+  - content: Examples of F1 partners listed include luxury brands like LVMH and Louis
+      Vuitton, technology companies such as AWS and Lenovo, logistics providers like
+      DHL, beverage companies including Heineken and Moet Hennessy, and financial
+      services firms such as American Express and Santander. Each partner typically
+      has a specific role, such as tire supplier (Pirelli), technology partner (AWS),
+      or official timekeeper (TAG Heuer).
+    type: examples
+  - content: The presence of high-profile partners reflects F1's global reach and
+      prestige, as well as the sport's reliance on commercial revenue streams. These
+      partnerships often lead to co-branded initiatives, technological advancements,
+      and enhanced fan experiences, but also influence the business priorities and
+      marketing strategies of the sport.
+    type: implications
+  - content: Sponsorship in F1 has evolved over decades, from simple logo placements
+      to integrated partnerships involving digital platforms, sustainability projects,
+      and global campaigns. The diversity of partners mirrors F1's audience, which
+      spans multiple continents and demographics, and the increasing importance of
+      technology and sustainability in motorsport.
+    type: context
+  - content: F1's commercial partners are connected to broader trends in sports marketing,
+      global branding, and technological innovation. They also relate to the financial
+      health of teams, as some sponsors are directly associated with specific teams,
+      and to regulatory aspects, as the FIA oversees sponsorship standards and ethical
+      considerations.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not mentioned among the official F1 partners in the provided
+      section. Heineken, AWS, and Pirelli are all listed as partners with specific
+      roles in the sport.
+    options:
+    - Heineken
+    - AWS
+    - Nike
+    - Pirelli
+    question_text: Which of the following is NOT listed as an official F1 partner
+      in the document?
+  index: 154
+  key_concept: F1 Commercial Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application available for download on
+      iOS and Android platforms, designed to provide Formula 1 fans with access to
+      live timing, news, schedules, and exclusive content. It serves as a digital
+      companion for following races, drivers, teams, and F1-related media.
+    type: definition
+  - content: The app can be downloaded from the Apple App Store or Google Play, as
+      indicated by the provided links and icons. Features may include live race tracking,
+      driver and team profiles, push notifications for race updates, and integration
+      with F1 TV for streaming content.
+    type: examples
+  - content: The app enhances fan engagement by making real-time information and multimedia
+      content accessible on mobile devices. It also supports F1's digital transformation
+      strategy, broadening its audience reach and enabling personalized experiences.
+      The app's data and interactivity can influence how fans consume and interact
+      with the sport.
+    type: implications
+  - content: The development of the Official F1 App reflects the increasing importance
+      of digital platforms in sports entertainment. As fans demand more immediate
+      and interactive access to information, such apps become central to F1's fan
+      engagement and commercial strategies.
+    type: context
+  - content: The app connects to F1's broader digital ecosystem, including F1 TV,
+      fantasy gaming, and social media channels. It also links to commercial partnerships,
+      as sponsors may feature within the app, and to data analytics, as user interaction
+      informs marketing and content decisions.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App is primarily designed to provide live race timing,
+      news, and updates to fans. It does not sell car parts, exclusively broadcast
+      historical races, or organize local fan meetups according to the provided description.
+    options:
+    - Providing live race timing and updates
+    - Selling car parts
+    - Broadcasting only historical races
+    - Organizing local fan meetups
+    question_text: What is a primary function of the Official F1 App as described
+      in the document?
+  index: 164
+  key_concept: Official F1 App
+  name: Download the Official F1 App

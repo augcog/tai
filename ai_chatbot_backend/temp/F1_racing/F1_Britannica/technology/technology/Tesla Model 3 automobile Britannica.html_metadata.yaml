@@ -1,0 +1,149 @@
+URL: https://www.britannica.com/technology/Tesla-Model-3
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Britannica encyclopedia entry summarizing the Tesla Model 3, focusing
+  on its features, production history, and significance within Tesla, Inc.
+file_name: Tesla Model 3 automobile Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Tesla Model 3 automobile
+  Britannica.html
+file_uuid: 5270ff9c-c319-5eb7-8ebb-564ecdcf85b7
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The Tesla Model 3 is known for its minimalistic interior, where most
+    controls are managed through a single 15-inch central touchscreen, rather than
+    physical buttons or a traditional dashboard.
+  knowledge_areas:
+  - Tesla Model 3 Features and Specifications
+  options:
+  - It uses a 15-inch central touchscreen for most controls.
+  - It relies mainly on physical buttons and dials.
+  - It features a traditional analog dashboard.
+  - It has voice-only controls for all functions.
+  question_id: 1
+  question_text: Which of the following best describes the Tesla Model 3's approach
+    to interior controls?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Model 3's lower price and mass-market focus made electric vehicles
+    accessible to more consumers, significantly expanding Tesla's reach.
+  knowledge_areas:
+  - Production and Market Introduction
+  options:
+  - It made electric vehicles more accessible to a wider range of consumers.
+  - It was the first electric vehicle ever produced.
+  - It replaced all other Tesla models.
+  - It introduced diesel-electric hybrid technology.
+  question_id: 2
+  question_text: What was a significant market impact of the Tesla Model 3's introduction?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Model 3 is notable for its range of up to 353 miles on a single
+    charge and a starting price of $35,000 at launch.
+  knowledge_areas:
+  - Tesla Model 3 Features and Specifications
+  - Production and Market Introduction
+  options:
+  - It offers a range of up to 353 miles and started at $35,000.
+  - It offers a range of 100 miles and started at $60,000.
+  - It offers a range of 500 miles and started at $80,000.
+  - It offers a range of 200 miles and started at $25,000.
+  question_id: 3
+  question_text: Which of the following statements about the Tesla Model 3's range
+    and price is correct?
+  question_type: recap
+sections:
+- aspects:
+  - content: The Tesla Model 3 is a four-door electric sedan produced by Tesla, Inc.,
+      designed to be a more affordable option in the company's lineup. It was introduced
+      as a mass-market vehicle intended to broaden Tesla's customer base and make
+      electric vehicles more accessible.
+    type: Definition
+  - content: The Model 3 is notable for its range of up to 353 miles (568 km) on a
+      single charge, which is competitive among electric vehicles in its class. It
+      features an all-glass roof, providing a spacious and open feel for passengers.
+      Most of the car's controls are centralized on a 15-inch (38-cm) touchscreen,
+      reflecting Tesla's emphasis on minimalistic interior design and digital interfaces.
+    type: Key Features
+  - content: Examples of the Model 3's innovation include its use of a single, large
+      touchscreen for nearly all vehicle functions, eliminating the need for traditional
+      buttons and dials. The all-glass roof is both a stylistic and functional choice,
+      offering improved aesthetics and increased natural light. In the context of
+      the electric vehicle market, the Model 3 set new standards for range and technology
+      integration at its price point.
+    type: Examples and Context
+  - content: The Model 3's affordability and high range have made it a popular choice
+      for consumers transitioning to electric vehicles. Its design and technology
+      have influenced other automakers to adopt similar approaches to user interfaces
+      and vehicle architecture. The car is commonly used for daily commuting, ride-sharing
+      services, and as a family vehicle due to its practicality and efficiency.
+    type: Implications and Use Cases
+  - content: The Model 3 is closely connected to Tesla's broader mission of accelerating
+      the transition to sustainable energy. It shares technological advancements with
+      other Tesla models, such as battery technology and software-driven controls.
+      Its success has contributed to the company's growth and the increasing adoption
+      of electric vehicles worldwide.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    - 2
+    explanation: The Tesla Model 3 is characterized by its all-glass roof, a 15-inch
+      touchscreen for most controls, and a range of up to 353 miles. It does not use
+      a diesel engine, manual transmission, or a traditional dashboard with many physical
+      buttons.
+    options:
+    - All-glass roof and a 15-inch central touchscreen
+    - Diesel engine and manual transmission
+    - Range of up to 353 miles on a single charge
+    - Traditional dashboard with many physical buttons
+    question_text: Which of the following are key features of the Tesla Model 3 as
+      described in the Britannica entry?
+  index: 118
+  key_concept: Tesla Model 3 Features and Specifications
+  name: Tesla Model 3
+- aspects:
+  - content: Production of the Tesla Model 3 began in 2017, marking a significant
+      milestone in Tesla's strategy to offer a more affordable electric vehicle to
+      the mass market. The car's starting price was set at $35,000, making it one
+      of the most competitively priced electric vehicles with a long range at the
+      time.
+    type: Definition and Timeline
+  - content: The Model 3's launch followed the earlier, more expensive Tesla models
+      such as the Model S and Model X. Its introduction represented a shift in Tesla's
+      approach, aiming to reach a broader consumer base. The $35,000 price point was
+      a key selling feature, as it undercut many competitors in the electric vehicle
+      segment.
+    type: Examples and Context
+  - content: By offering the Model 3 at a lower price, Tesla was able to significantly
+      increase its production volume and sales, making electric vehicles more mainstream.
+      This move also pressured other automakers to accelerate their own electric vehicle
+      development and pricing strategies.
+    type: Implications
+  - content: The affordability and availability of the Model 3 made it accessible
+      to a wider range of consumers, including those who previously could not afford
+      electric vehicles. It became a popular choice for both individual owners and
+      fleet operators, such as ride-sharing companies.
+    type: Use Cases and Impact
+  - content: The Model 3's production and market introduction are closely tied to
+      Tesla's overall growth and its mission to promote sustainable energy. The success
+      of the Model 3 paved the way for future models and contributed to Tesla's reputation
+      as a leader in electric vehicle innovation.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Production of the Tesla Model 3 began in 2017 with a starting price
+      of $35,000, making it a more affordable option in Tesla's lineup.
+    options:
+    - 2015, $50,000
+    - 2017, $35,000
+    - 2019, $60,000
+    - 2016, $45,000
+    question_text: When did production of the Tesla Model 3 begin, and what was its
+      starting price?
+  index: 128
+  key_concept: Production and Market Introduction
+  name: Tesla, Inc.

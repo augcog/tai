@@ -1,0 +1,264 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A comprehensive team profile page for Red Bull Racing in Formula
+  1, detailing drivers (Max Verstappen, Yuki Tsunoda), 2025 season statistics, team
+  history, leadership, technical details, and related media.
+file_name: Red Bull – F1 Racing Team – Verstappen, Tsunoda.html
+file_path: F1_racing/F1_Official/teams/en/teams/Red Bull – F1 Racing Team – Verstappen,
+  Tsunoda.html
+file_uuid: 7a2791f3-4f97-5187-b87a-c0e5a6e44da9
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Max Verstappen and Yuki Tsunoda were the official drivers for Red Bull
+    Racing in 2025; the other options list drivers from different teams.
+  knowledge_areas:
+  - DRIVERS
+  options:
+  - Max Verstappen and Yuki Tsunoda
+  - Sergio Perez and Lewis Hamilton
+  - Charles Leclerc and Lando Norris
+  - Pierre Gasly and Esteban Ocon
+  question_id: 1
+  question_text: Which two drivers represented Red Bull Racing in the 2025 Formula
+    1 season?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Red Bull Racing has won 6 world championships by the end of the 2025
+    season, according to the provided team statistics.
+  knowledge_areas:
+  - Statistics
+  options:
+  - '6'
+  - '4'
+  - '10'
+  - '2'
+  question_id: 2
+  question_text: As of the end of the 2025 season, how many world championships has
+    Red Bull Racing won?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: In 2025, Laurent Mekies replaced Christian Horner as Team Chief, and
+    Adrian Newey, the long-time design chief, signed for Aston Martin.
+  knowledge_areas:
+  - Team Profile
+  options:
+  - Laurent Mekies became Team Chief, and Adrian Newey left for Aston Martin.
+  - Christian Horner remained Team Chief, and Pierre Gasly joined as Technical Chief.
+  - Lewis Hamilton became Team Chief, and the team switched to Mercedes engines.
+  - Adrian Newey became Team Principal, and the team left Formula 1.
+  question_id: 3
+  question_text: Which leadership and technical changes occurred at Red Bull Racing
+    during the 2025 season?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Red Bull Racing finished 3rd with 8 Grand Prix wins, 15 podiums, and
+    showed resilience after a challenging start to the season.
+  knowledge_areas:
+  - Statistics
+  - Team Profile
+  options:
+  - Finished 3rd overall, 8 Grand Prix wins, and strong recovery after a tough start.
+  - Dominated the season with every race win and no DNFs.
+  - Failed to score any podiums and finished last in the standings.
+  - Won the constructors' championship with a record points tally.
+  question_id: 4
+  question_text: Which of the following best summarizes Red Bull Racing's 2025 season
+    performance?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Related Videos section offers race highlights, interviews, and
+    analytical content that contextualizes the team's season and performance.
+  knowledge_areas:
+  - Related Videos
+  - Red Bull Racing
+  options:
+  - They provide visual highlights, driver interviews, and analysis of key moments.
+  - They only show advertisements for sponsors.
+  - They focus exclusively on technical regulations.
+  - They are unrelated to the team's performance.
+  question_id: 5
+  question_text: How do the Related Videos enhance understanding of Red Bull Racing's
+    2025 season?
+  question_type: recap
+sections:
+- aspects:
+  - content: Red Bull Racing is a leading Formula 1 team, officially known as Oracle
+      Red Bull Racing, based in Milton Keynes, United Kingdom. The team has been a
+      major force in F1 since its entry as a works team in 2004, having previously
+      participated as a sponsor. Red Bull Racing is renowned for its innovative approach,
+      competitive spirit, and significant achievements in the sport, including multiple
+      world championships.
+    type: Definition and Overview
+  - content: Red Bull Racing's rise to prominence began with its first podium in 2006,
+      followed by a breakthrough in 2009 with six victories and a second-place finish
+      in the constructors’ standings. The team dominated the early 2010s, securing
+      four consecutive drivers’ and constructors’ titles (2010-2013) with Sebastian
+      Vettel, who became the youngest quadruple champion in F1 history. The team has
+      since continued to be a top contender, with recent successes led by Max Verstappen.
+    type: Historical Context and Achievements
+  - content: The team is managed by Team Chief Laurent Mekies (as of 2025), following
+      the departure of Christian Horner. Technical leadership is provided by Pierre
+      Waché, and the team utilizes the RB21 chassis and Honda RBPT power unit. The
+      organizational structure emphasizes technical innovation and adaptability, which
+      has been key to Red Bull Racing's sustained competitiveness.
+    type: Organizational Structure and Leadership
+  - content: Red Bull Racing is supported by a wide network of commercial and technical
+      partners, including major brands like Oracle, Honda, and a variety of global
+      sponsors. These partnerships provide financial backing, technical resources,
+      and brand visibility, contributing to the team's ability to compete at the highest
+      level.
+    type: Connections and Partnerships
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Red Bull Racing entered F1 as a works team in 2004, achieved their
+      first podium in 2006, and went on to win multiple championships, especially
+      between 2010 and 2013. The other options are incorrect as they misrepresent
+      the team's history and achievements.
+    options:
+    - They entered as a works team in 2004 and quickly achieved multiple championships.
+    - They have always been a mid-field team with no major titles.
+    - They started as an engine supplier before becoming a team.
+    - They only entered Formula 1 in 2018.
+    question_text: Which of the following best describes Red Bull Racing's entry and
+      rise in Formula 1?
+  index: 59
+  key_concept: Red Bull Racing
+  name: Red Bull Racing
+- aspects:
+  - content: For the 2025 season, Red Bull Racing's driver lineup consists of Max
+      Verstappen from the Netherlands and Yuki Tsunoda from Japan. Both drivers bring
+      unique strengths and backgrounds to the team, with Verstappen being a multiple
+      world champion and Tsunoda recognized for his speed and adaptability.
+    type: Current Drivers and Nationalities
+  - content: Drivers are central to a team's success in Formula 1, not only for their
+      on-track performance but also for their contributions to car development and
+      team morale. Verstappen's leadership and consistency have been pivotal in Red
+      Bull's recent successes, while Tsunoda's technical feedback and racecraft add
+      depth to the team's competitive edge.
+    type: Role and Impact
+  - content: In recent seasons, Verstappen has consistently delivered race wins, podiums,
+      and strong championship finishes, while Tsunoda has demonstrated growth and
+      reliability. The synergy between the two drivers influences race strategies
+      and the overall performance of the team during both Grand Prix and Sprint events.
+    type: Recent Performance and Dynamics
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: For the 2025 season, Red Bull Racing's drivers are Max Verstappen
+      and Yuki Tsunoda. The other options list drivers from different teams.
+    options:
+    - Max Verstappen and Yuki Tsunoda
+    - Sergio Perez and Pierre Gasly
+    - Lewis Hamilton and Charles Leclerc
+    - Lando Norris and Oscar Piastri
+    question_text: Who are the primary drivers for Red Bull Racing in the 2025 Formula
+      1 season?
+  index: 67
+  key_concept: DRIVERS
+  name: DRIVERS
+- aspects:
+  - content: Red Bull Racing finished 3rd in the 2025 season, accumulating 451 points.
+      The team participated in 24 Grand Prix races, scoring 410 points, securing 8
+      wins, 15 podiums, 8 pole positions, 30 top 10 finishes, 3 DHL Fastest Laps,
+      and 3 DNFs. In Sprint races, they competed in 6 events, earning 41 points, with
+      2 wins, 3 podiums, 1 pole, and 8 top 10s.
+    type: 2025 Season Performance Metrics
+  - content: As of 2025, Red Bull Racing has entered 418 Grands Prix, amassed 8,288
+      points, achieved 130 race wins, 233 podiums, 111 pole positions, and 6 world
+      championships. Their highest race finish is 1st, which they have achieved 130
+      times, and their highest grid position is also 1st, achieved 111 times.
+    type: Team Historical Records
+  - content: These statistics reflect Red Bull Racing’s sustained competitiveness
+      and ability to challenge for both race wins and championships. The team's performance
+      in both traditional Grand Prix and Sprint formats demonstrates adaptability
+      and strategic depth. Their historical records place them among the most successful
+      teams in modern F1.
+    type: Significance and Implications
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Red Bull Racing has achieved 130 Grand Prix wins and 6 world championships
+      as of the 2025 season, according to the provided statistics.
+    options:
+    - 130 wins and 6 championships
+    - 50 wins and 2 championships
+    - 200 wins and 10 championships
+    - 80 wins and 4 championships
+    question_text: How many Grand Prix wins and world championships has Red Bull Racing
+      achieved as of the 2025 season?
+  index: 89
+  key_concept: Statistics
+  name: Statistics
+- aspects:
+  - content: The full team name is Oracle Red Bull Racing, with its base in Milton
+      Keynes, United Kingdom. The team is led by Team Chief Laurent Mekies and Technical
+      Chief Pierre Waché. The RB21 chassis and Honda RBPT power unit are used for
+      the 2025 season, reflecting ongoing technical partnerships and development.
+    type: Technical and Organizational Details
+  - content: Red Bull Racing formally entered F1 in 2004, building on experience as
+      a sponsor. Key milestones include their first podium in 2006, a surge in performance
+      in 2009, and a dominant era from 2010-2013. The team has adapted to changes
+      in regulations, leadership, and technical staff, such as the 2025 leadership
+      change from Christian Horner to Laurent Mekies.
+    type: Evolution and Milestones
+  - content: Recent years have seen significant events, including the departure of
+      long-time design chief Adrian Newey to Aston Martin and leadership changes.
+      Despite these transitions, the team has maintained a high level of performance,
+      with Verstappen leading a strong recovery in 2025 after a challenging start.
+    type: Recent Developments
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Laurent Mekies is the Team Chief for 2025, with the team using the
+      RB21 chassis and Honda RBPT power unit. The other options are either outdated
+      or incorrect.
+    options:
+    - Laurent Mekies; RB21 chassis and Honda RBPT power unit
+    - Christian Horner; RB20 chassis and Renault power unit
+    - Adrian Newey; RB19 chassis and Mercedes power unit
+    - Pierre Waché; RB18 chassis and Ferrari power unit
+    question_text: Who is the Team Chief of Red Bull Racing for the 2025 season, and
+      what chassis and power unit do they use?
+  index: 174
+  key_concept: Team Profile
+  name: Team Profile
+- aspects:
+  - content: The related videos section features highlights and analysis from the
+      2025 season, including McLaren’s performance, the unfolding of the World Drivers'
+      Championship, and key moments involving Red Bull Racing drivers. Videos also
+      cover personal reflections from drivers like Verstappen and Tsunoda, as well
+      as race-specific highlights such as the Abu Dhabi Grand Prix.
+    type: Content and Themes
+  - content: These videos provide insights into race strategies, driver emotions,
+      and technical performance, serving as valuable resources for understanding the
+      dynamics of a Formula 1 season. They also offer behind-the-scenes perspectives
+      and expert commentary, which can deepen a viewer’s appreciation of the sport.
+    type: Educational and Analytical Value
+  - content: The video content is directly linked to Red Bull Racing’s season narrative,
+      including their successes, challenges, and the broader context of the championship
+      battle. Such media complements statistical data and written summaries by visually
+      illustrating key events and turning points.
+    type: Connections to Team Performance
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Related Videos section includes race highlights, driver interviews,
+      and analysis of the 2025 season's key moments, providing a multimedia perspective
+      on the team's performance.
+    options:
+    - Race highlights, driver interviews, and analysis of key championship moments
+    - Technical manuals and car blueprints
+    - Historical documentaries unrelated to the current season
+    - Only advertisements for Red Bull products
+    question_text: What types of content are featured in the Related Videos section
+      for Red Bull Racing's 2025 season?
+  index: 225
+  key_concept: Related Videos
+  name: Related Videos

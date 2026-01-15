@@ -1,0 +1,255 @@
+URL: https://www.britannica.com/technology/website
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article entry from Britannica defining 'website',
+  explaining its structure, components, hosting, and related technologies in the context
+  of computer science and mass communication.
+file_name: Website Definition & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Website Definition & Facts
+  Britannica.html
+file_uuid: 213f4093-bf94-5a4a-9cca-d87ad1cdb9cf
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: A website is a collection of files and resources accessible through
+    the Web, typically organized around a homepage. The other options describe unrelated
+    concepts.
+  knowledge_areas:
+  - Definition and Structure of a Website
+  options:
+  - A collection of files and resources accessible via the World Wide Web and organized
+    around a homepage.
+  - A single document stored on a user's desktop.
+  - A physical server room in a data center.
+  - A type of stand-alone software application.
+  question_id: 1
+  question_text: Which of the following best defines a website?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Websites are typically built using HTML, image files like GIF and JPEG,
+    and scripting languages such as Perl, PHP, and Java. The other options do not
+    represent standard web technologies.
+  knowledge_areas:
+  - Files and Technologies Used in Websites
+  options:
+  - HTML, GIF, JPEG, Perl, PHP, Java
+  - PDF, DOCX, XLSX only
+  - Executable files and device drivers
+  - Printed documents and handwritten notes
+  question_id: 2
+  question_text: Which file types and technologies are commonly used to build websites?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Websites are accessed by entering a URL in a browser or clicking hyperlinks,
+    which triggers HTTP requests to web servers. The other options do not describe
+    standard website access methods.
+  knowledge_areas:
+  - Website Hosting and Access
+  options:
+  - By entering a URL in a browser or clicking a hyperlink, which requests files from
+    web servers via HTTP.
+  - By inserting a CD-ROM into their computer.
+  - By downloading files from email attachments.
+  - By connecting to Bluetooth devices.
+  question_id: 3
+  question_text: How are websites typically accessed by users?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: A website's homepage typically acts as a table of contents or index,
+    providing links to other sections. The other options are not relevant to the homepage's
+    function.
+  knowledge_areas:
+  - Definition and Structure of a Website
+  options:
+  - To serve as a table of contents or index linking to other sections of the site.
+  - To store all backup files.
+  - To run antivirus scans.
+  - To provide physical access to the server.
+  question_id: 4
+  question_text: What is a key function of a website's homepage?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Websites are key tools for mass communication, enabling the rapid and
+    interactive distribution of information to broad audiences. The other options
+    do not describe this function.
+  knowledge_areas:
+  - Role of Websites in Mass Communication
+  options:
+  - They distribute information and media to large audiences quickly and interactively.
+  - They are used only for private, offline storage.
+  - They operate without the use of the Internet.
+  - They require physical attendance for access.
+  question_id: 5
+  question_text: In what way do websites serve as vehicles for mass communication?
+  question_type: recap
+sections:
+- aspects:
+  - content: A website is defined as a collection of files and related resources accessible
+      via the World Wide Web and the Internet through a domain name. It is organized
+      around a homepage, also known as a landing page, which serves as the main entry
+      point and index for the site. The website acts as a central hub for information,
+      communication, and digital interaction.
+    type: Definition
+  - content: Websites typically contain HTML documents, graphic image files (such
+      as GIF and JPEG), and scripted programs in languages like Perl, PHP, or Java.
+      The organization of a website can range from a single HTML file to thousands
+      of interconnected files, all accessible through hypertext or hyperlinks. The
+      homepage generally functions as a table of contents, providing links to other
+      sections of the site.
+    type: Components and Organization
+  - content: Examples of websites include informational portals, e-commerce stores,
+      news outlets, wikis, and personal blogs. Each type of website is structured
+      to meet the needs of its intended audience, such as providing news updates,
+      facilitating online shopping, or enabling collaborative content editing. The
+      flexible structure of websites allows for a wide range of use cases in education,
+      business, entertainment, and more.
+    type: Examples and Use Cases
+  - content: Websites are fundamental to mass communication and mass media in the
+      digital age. Their structure supports the rapid dissemination of information
+      and facilitates global connectivity. The organization of files and resources,
+      as well as the use of hyperlinks, allows for efficient navigation and user engagement.
+      Websites are closely connected to concepts like the World Wide Web, Internet,
+      and digital content management.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: A website is a collection of files and related resources, organized
+      around a homepage and accessible through a domain name on the Internet. The
+      other options describe unrelated concepts or are inaccurate.
+    options:
+    - A collection of files and resources organized around a homepage, accessible
+      via a domain name.
+    - A single document stored on a local computer with no external links.
+    - A software application installed on a user's device for offline use.
+    - A physical location where computer servers are stored.
+    question_text: Which of the following best describes the structure and function
+      of a website?
+  index: 124
+  key_concept: Definition and Structure of a Website
+  name: website
+- aspects:
+  - content: Websites are composed of various types of files, primarily HTML documents
+      that structure the content. Associated files include graphic images (such as
+      GIF and JPEG formats) and scripts written in programming languages like Perl,
+      PHP, and Java. These files collectively enable the visual, interactive, and
+      functional aspects of a website.
+    type: Definition and Types of Files
+  - content: A typical website might include HTML files for each page, images for
+      logos and illustrations, and scripts for features like contact forms or dynamic
+      content. For example, an e-commerce site may use PHP scripts to process orders
+      and display products, while a blog may use JavaScript for interactive comments
+      sections.
+    type: Examples
+  - content: The choice of file types and technologies impacts website performance,
+      security, and compatibility. For instance, using optimized image formats improves
+      loading speed, while secure scripting practices help prevent vulnerabilities.
+      The integration of various technologies allows websites to offer rich multimedia
+      content and interactive experiences.
+    type: Technological Implications
+  - content: The files and technologies used in websites are closely related to web
+      development, web design, and Internet protocols. Understanding the role of HTML,
+      scripting languages, and image formats is essential for creating effective and
+      accessible websites. These technologies also connect to broader topics like
+      content management systems and web standards.
+    type: Connections to Related Concepts
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Websites typically consist of HTML documents, image files such as
+      GIF and JPEG, and scripted programs in languages like Perl, PHP, or Java. The
+      other options do not accurately represent the standard technologies used in
+      websites.
+    options:
+    - HTML documents, image files (GIF, JPEG), and scripted programs (Perl, PHP, Java)
+    - PDF documents, spreadsheets, and word processing files only
+    - Executable files and system drivers
+    - Audio CDs and printed manuals
+    question_text: Which combination of file types and technologies is most commonly
+      found in websites?
+  index: 124
+  key_concept: Files and Technologies Used in Websites
+  name: website
+- aspects:
+  - content: Websites are hosted on one or more web servers, which are computers configured
+      to deliver website files to client devices upon request. Access to websites
+      is facilitated by the HTTP protocol, which governs the transfer of data between
+      servers and clients. The physical location of website files can be distributed
+      across multiple servers in different geographic locations, despite the term
+      'site' suggesting a single location.
+    type: Definition and Mechanisms
+  - content: A popular website like Britannica may use multiple servers globally to
+      ensure fast access for users worldwide. Smaller websites might be hosted on
+      a single server or through shared hosting services. Accessing a website typically
+      involves entering its URL into a browser or clicking a hyperlink, which initiates
+      a request to the server for the desired content.
+    type: Examples and Practical Scenarios
+  - content: Distributed hosting improves reliability and scalability, allowing websites
+      to handle high traffic and minimize downtime. However, it also introduces challenges
+      in synchronization, security, and maintenance. Edge cases include content delivery
+      networks (CDNs) that cache website resources closer to users, and dynamic hosting
+      environments that allocate resources based on demand.
+    type: Implications and Edge Cases
+  - content: Website hosting and access are closely linked to concepts such as web
+      servers, HTTP/HTTPS protocols, domain names, and URLs. Understanding these mechanisms
+      is fundamental to web development, network administration, and cybersecurity.
+    type: Connections to Related Concepts
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Websites are accessed through web servers using the HTTP protocol,
+      and users typically specify the desired resource by entering a URL in a browser
+      or clicking a hyperlink. The other options do not describe standard website
+      access methods.
+    options:
+    - Through web servers using the HTTP protocol, specified by a URL entered in a
+      browser or via hyperlink.
+    - By direct file transfer using USB drives.
+    - By opening files stored only on the user's local computer.
+    - By sending printed pages through postal mail.
+    question_text: How are websites typically accessed and delivered to users?
+  index: 124
+  key_concept: Website Hosting and Access
+  name: website
+- aspects:
+  - content: Websites are among the foremost vehicles for mass communication and mass
+      media in the modern era. They enable the distribution of information, ideas,
+      and media to a global audience efficiently and interactively. The structure
+      and accessibility of websites make them powerful tools for reaching large and
+      diverse populations.
+    type: Definition and Context
+  - content: News websites, social media platforms, government portals, and educational
+      resources are all examples of websites that play significant roles in mass communication.
+      For instance, a news website can instantly update millions of users about current
+      events, while a government website can provide public services and information.
+    type: Examples
+  - content: The widespread use of websites has transformed how information is shared
+      and consumed. They facilitate real-time updates, user interaction, and multimedia
+      integration, which traditional mass media cannot match. However, this also raises
+      issues such as information overload, digital divides, and challenges in verifying
+      content authenticity.
+    type: Implications and Societal Impact
+  - content: Websites' role in mass communication is closely tied to related concepts
+      like the World Wide Web, Internet, digital literacy, and media studies. Understanding
+      these connections is essential for analyzing modern communication patterns and
+      the evolution of media.
+    type: Connections to Related Concepts
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Websites serve as key platforms for mass communication by distributing
+      information and media to large audiences efficiently and interactively. The
+      other options do not reflect the mass communication function of websites.
+    options:
+    - Distributing information and media to a wide audience efficiently and interactively.
+    - Serving only as private data storage for individuals.
+    - Providing physical meeting places for communities.
+    - Operating as standalone computer programs without Internet access.
+    question_text: What is a primary role of websites in the context of mass communication?
+  index: 124
+  key_concept: Role of Websites in Mass Communication
+  name: website

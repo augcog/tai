@@ -1,0 +1,217 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page presenting the 1957 Formula 1 race results, including
+  a summary table of Grand Prix winners, and sections highlighting official F1 partners
+  and app download options.
+file_name: 1957 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1957/1957 RACE RESULTS.html
+file_uuid: dd862ac6-adee-5005-8f0e-1171d577fd9c
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Juan Manuel Fangio won the most races in 1957, driving for Maserati.
+    While Moss and Brooks also had wins, Fangio's dominance is clear from the results
+    table.
+  knowledge_areas:
+  - 1957 Formula 1 Grand Prix Results
+  options:
+  - Stirling Moss, Vanwall
+  - Juan Manuel Fangio, Maserati
+  - Sam Hanks, Epperly Offenhauser
+  - Tony Brooks, Vanwall
+  question_id: 1
+  question_text: Which driver achieved the most victories in the 1957 Formula 1 season,
+    and which team did he represent?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Heineken is listed among the official partners, while Nike, Sony, and
+    Apple are not mentioned in the partner section.
+  knowledge_areas:
+  - Official F1 Partners
+  options:
+  - Nike
+  - Heineken
+  - Sony
+  - Apple
+  question_id: 2
+  question_text: Which of the following companies is listed as an official Formula
+    1 partner on the 1957 results page?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App is available on both the Apple App Store and Google
+    Play, as indicated by the download buttons and links.
+  knowledge_areas:
+  - Official F1 App Availability
+  options:
+  - Apple App Store and Google Play
+  - Google Play and Windows Store
+  - Amazon Appstore and Apple App Store
+  - Only Apple App Store
+  question_id: 3
+  question_text: What are two platforms where fans can download the Official F1 App?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Official partners are companies that support F1 through various means,
+    including sponsorship, products, or services, and receive marketing exposure in
+    return. They are not limited to financial support or technology companies alone.
+  knowledge_areas:
+  - Official F1 Partners
+  options:
+  - They provide only financial support with no marketing involvement.
+  - They are companies that support F1 through sponsorship, products, or services
+    in exchange for marketing exposure.
+  - They are exclusively technology companies providing data analytics.
+  - They are teams competing in the championship.
+  question_id: 4
+  question_text: Which of the following best describes the role of official partners
+    in Formula 1?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Race results supply the historical and competitive context, official
+    partners provide resources and innovations, and the app delivers digital access
+    and engagement, all of which collectively enhance the experience for modern F1
+    fans.
+  knowledge_areas:
+  - 1957 Formula 1 Grand Prix Results
+  - Official F1 Partners
+  - Official F1 App Availability
+  options:
+  - Only the race results are relevant to fans.
+  - Partners and the app are unrelated to race results.
+  - Race results provide historical context, partners enable financial and technological
+    support, and the app offers digital access, together enhancing fan engagement.
+  - The app replaces the need for race results and partners.
+  question_id: 5
+  question_text: How do the 1957 race results, official partners, and the F1 App collectively
+    contribute to the modern Formula 1 fan experience?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1957 Formula 1 Grand Prix Results refer to the official outcomes
+      of each World Championship race held during the 1957 season, listing the Grand
+      Prix events, dates, winning drivers, their teams, number of laps, and race completion
+      times. This data forms the historical record for the season and is used for
+      championship standings and statistical analysis.
+    type: Definition
+  - content: For example, Juan Manuel Fangio won the Argentine, Monaco, France, and
+      Germany Grand Prix races for Maserati, while Stirling Moss and Tony Brooks won
+      races for Vanwall. The Indianapolis 500 was won by Sam Hanks driving an Epperly
+      Offenhauser. Each entry in the table specifies the race location, date, winner,
+      team, laps, and time, such as Fangio's 100-lap, 3:00:55.900 victory in Argentina.
+    type: Examples
+  - content: These results determine the allocation of championship points, influence
+      driver and team reputations, and provide a basis for historical comparison across
+      seasons. The dominance of certain drivers and teams, such as Fangio and Maserati,
+      is evident from multiple victories, shaping the narrative of the season and
+      impacting future team strategies and driver careers.
+    type: Implications
+  - content: The 1957 season is part of the early era of Formula 1, characterized
+      by evolving technology, international participation, and the inclusion of unique
+      events like the Indianapolis 500. The results are contextualized within the
+      broader championship, reflecting the competitive landscape and the significance
+      of each Grand Prix in motorsport history.
+    type: Context
+  - content: This results table connects to other aspects of F1 history, such as driver
+      and team standings, technological advancements, and the evolution of race formats.
+      It also relates to statistical records, Hall of Fame entries, and the development
+      of F1 as a global sport.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Juan Manuel Fangio won the most races in the 1957 season, driving
+      for Maserati. Stirling Moss and Tony Brooks also won races, but not as many
+      as Fangio. Sam Hanks only won the Indianapolis 500.
+    options:
+    - Stirling Moss, Vanwall
+    - Juan Manuel Fangio, Maserati
+    - Sam Hanks, Epperly Offenhauser
+    - Tony Brooks, Ferrari
+    question_text: Which driver won the most races in the 1957 Formula 1 season, and
+      for which team did he primarily drive?
+  index: 145
+  key_concept: 1957 Formula 1 Grand Prix Results
+  name: 1957 RACE RESULTS
+- aspects:
+  - content: Official F1 Partners are companies and brands that have established formal
+      sponsorship or partnership agreements with Formula 1, providing financial support,
+      products, or services in exchange for marketing exposure and association with
+      the sport.
+    type: Definition
+  - content: Examples include luxury brands like LVMH and Louis Vuitton, technology
+      companies such as AWS and Lenovo, and consumer brands like Heineken, DHL, and
+      Qatar Airways. These partners are featured prominently on the F1 website, at
+      events, and often on team liveries and promotional materials.
+    type: Examples
+  - content: Partnerships are used for co-branded campaigns, technological collaborations
+      (e.g., AWS providing data analytics), and enhancing the fan experience (e.g.,
+      Heineken sponsoring fan zones). Partners may also provide essential event logistics,
+      hospitality, and sustainability initiatives.
+    type: Use Cases
+  - content: These partnerships are crucial for the financial health and global reach
+      of Formula 1, enabling technological innovation, improved fan engagement, and
+      expanded media presence. The diversity of partners reflects F1’s appeal across
+      industries and markets.
+    type: Implications
+  - content: Official partners are linked to team sponsorships, event organization,
+      and the broader commercial ecosystem of motorsport. Their involvement often
+      influences race operations, promotional strategies, and the adoption of new
+      technologies within the sport.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: Nike is not listed among the official partners on the page, whereas
+      Heineken, AWS, and PepsiCo are all present in the partner section.
+    options:
+    - Heineken
+    - AWS
+    - PepsiCo
+    - Nike
+    question_text: Which of the following is NOT listed as an official F1 partner
+      in the 1957 race results page?
+  index: 159
+  key_concept: Official F1 Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application provided by Formula 1 for
+      fans to access live timing, news, schedules, and multimedia content related
+      to the sport. It is available for download on major mobile platforms.
+    type: Definition
+  - content: The app can be downloaded from the Apple App Store for iOS devices and
+      from Google Play for Android devices. It provides features such as live race
+      tracking, driver and team information, and push notifications for breaking news.
+    type: Examples
+  - content: Fans use the app to follow races in real time, receive updates on standings,
+      access exclusive video content, and manage their F1 TV subscriptions. The app
+      enhances fan engagement by offering interactive features and personalized notifications.
+    type: Use Cases
+  - content: The availability of the app on both major platforms ensures accessibility
+      for a global audience, supporting F1’s digital strategy and expanding its fan
+      base. The app serves as a central hub for official information and multimedia,
+      increasing user retention and brand loyalty.
+    type: Implications
+  - content: The F1 App is integrated with other digital offerings such as F1 TV,
+      social media, and fantasy gaming. It complements the official website and live
+      event experiences, forming part of F1’s broader digital ecosystem.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The app is available on both the Apple App Store for iOS and Google
+      Play for Android, as indicated by the download links and icons on the page.
+    options:
+    - Apple App Store and Google Play
+    - Windows Store and Google Play
+    - Amazon Appstore and Apple App Store
+    - Only Apple App Store
+    question_text: On which platforms can fans download the Official F1 App according
+      to the page?
+  index: 169
+  key_concept: Official F1 App Availability
+  name: Download the Official F1 App

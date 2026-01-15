@@ -1,0 +1,281 @@
+URL: https://www.britannica.com/technology/internal-combustion-engine
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Britannica encyclopedia article providing a comprehensive overview
+  of internal-combustion engines, including their definition, types, thermodynamic
+  operation, comparison to external-combustion engines, and examples of applications.
+file_name: Internal-combustion engine Definition & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Internal-combustion engine
+  Definition & Facts Britannica.html
+file_uuid: 1230ce71-063c-5959-b268-841ace8128f6
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Internal-combustion engines combust fuel within the engine, using the
+    resulting hot gases to perform work, while external-combustion engines combust
+    fuel outside the working fluid.
+  knowledge_areas:
+  - Definition and Working Principle
+  - Comparison with External-Combustion Engines
+  options:
+  - Combustion occurs outside the engine in both types.
+  - Combustion occurs within the engine in internal-combustion engines.
+  - Only external-combustion engines use fuel.
+  - Internal-combustion engines use water as the working fluid.
+  question_id: 1
+  question_text: What distinguishes an internal-combustion engine from an external-combustion
+    engine?
+  question_type: recap
+- correct_answers:
+  - 0
+  - 3
+  explanation: Jet engines are continuous-combustion engines, and gasoline piston
+    engines are intermittent-combustion engines.
+  knowledge_areas:
+  - Types of Internal-Combustion Engines
+  options:
+  - Continuous-combustion engine – jet engine
+  - Intermittent-combustion engine – gas turbine
+  - Continuous-combustion engine – diesel engine
+  - Intermittent-combustion engine – gasoline piston engine
+  question_id: 2
+  question_text: Which of the following is a correct pairing of engine type and example?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Intermittent-combustion engines operate through a series of successive,
+    repeating cycles such as intake, compression, combustion, and exhaust.
+  knowledge_areas:
+  - Thermodynamic Operation and Cycles
+  options:
+  - Simultaneous and continuous
+  - Random and unpredictable
+  - Successive and cyclic
+  - Only during engine shutdown
+  question_id: 3
+  question_text: Which thermodynamic event sequence characterizes an intermittent-combustion
+    engine?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Steam locomotives use external-combustion (steam) engines, while the
+    other options are powered by internal-combustion engines.
+  knowledge_areas:
+  - Applications and Industry Relevance
+  options:
+  - Automobiles
+  - Aircraft gas turbines
+  - Steam locomotives
+  - Rocket-propulsion systems
+  question_id: 4
+  question_text: Which of the following is NOT a typical application of internal-combustion
+    engines?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Continuous-combustion engines operate with a steady, ongoing combustion
+    process, whereas intermittent-combustion engines combust fuel in discrete, repeated
+    cycles.
+  knowledge_areas:
+  - Types of Internal-Combustion Engines
+  - Thermodynamic Operation and Cycles
+  options:
+  - Continuous-combustion engines maintain a steady flow of fuel and oxidizer, while
+    intermittent-combustion engines operate in cycles with periodic ignition.
+  - Both types only operate in vehicles.
+  - Intermittent-combustion engines have no moving parts.
+  - Continuous-combustion engines are only used in rockets.
+  question_id: 5
+  question_text: How does the operation of a continuous-combustion engine differ from
+    that of an intermittent-combustion engine?
+  question_type: recap
+sections:
+- aspects:
+  - content: An internal-combustion engine is a type of device in which the reactants
+      of combustion (oxidizer and fuel) and the products of combustion serve as the
+      working fluids. The engine derives its energy from the heat released during
+      the combustion of the fuel-oxidizer mixture, which occurs within the engine
+      itself as part of its thermodynamic cycle. This distinguishes internal-combustion
+      engines from external-combustion engines, where combustion occurs outside the
+      working fluid.
+    type: Definition
+  - content: Examples of internal-combustion engines include gasoline engines, diesel
+      engines, gas-turbine engines, and rocket-propulsion systems. Each of these utilizes
+      the fundamental principle of combusting fuel within the engine to generate hot
+      gases that perform mechanical work.
+    type: Examples
+  - content: The hot gaseous products of combustion act on moving surfaces such as
+      pistons, turbine blades, or nozzles to generate useful work. This direct conversion
+      of chemical energy to mechanical work makes internal-combustion engines highly
+      efficient for mobile and compact power generation, contributing to their widespread
+      use in transportation and industry.
+    type: Practical Implications
+  - content: Internal-combustion engines are central to the fields of thermodynamics
+      and mechanical engineering. Their operation involves principles of energy conversion,
+      heat transfer, and fluid dynamics. They are contrasted with external-combustion
+      engines like steam engines, where energy transfer to the working fluid occurs
+      via heat exchangers.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Internal-combustion engines perform combustion inside the engine,
+      using the resulting hot gases to do work. This distinguishes them from external-combustion
+      engines, where combustion is separate from the working fluid.
+    options:
+    - Combustion occurs outside the engine, heating a separate working fluid.
+    - Combustion occurs within the engine, and the products of combustion directly
+      perform work.
+    - The engine uses only electricity to generate motion.
+    - The engine relies on external heat exchangers to transfer energy.
+    question_text: Which of the following best describes the working principle of
+      an internal-combustion engine?
+  index: 149
+  key_concept: Definition and Working Principle
+  name: internal-combustion engine
+- aspects:
+  - content: 'Internal-combustion engines are classified into two main groups: continuous-combustion
+      engines and intermittent-combustion engines. The distinction is based on how
+      fuel and oxidizer are introduced and how combustion occurs within the engine.'
+    type: Definition
+  - content: Continuous-combustion engines, such as jet engines and gas turbines,
+      maintain a steady flow of fuel and oxidizer with a stable flame. Intermittent-combustion
+      engines, such as gasoline piston engines and diesel engines, operate in cycles
+      with periodic ignition and combustion events.
+    type: Examples
+  - content: Continuous-combustion engines are often used in aviation and power generation
+      due to their ability to produce sustained thrust or power. Intermittent-combustion
+      engines are widely used in automobiles, trucks, and other vehicles where cyclic
+      operation is suitable for variable load and speed.
+    type: Use Cases
+  - content: The type of internal-combustion engine used affects efficiency, emissions,
+      and suitability for specific applications. For example, jet engines are optimized
+      for high-speed, high-altitude flight, while piston engines are more adaptable
+      for ground vehicles.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 2
+    - 3
+    explanation: Gas turbines are examples of continuous-combustion engines, while
+      diesel engines are intermittent-combustion engines. Gasoline piston engines
+      are also intermittent, and jet engines are continuous.
+    options:
+    - Continuous-combustion engine – gasoline piston engine
+    - Intermittent-combustion engine – jet engine
+    - Continuous-combustion engine – gas turbine
+    - Intermittent-combustion engine – diesel engine
+    question_text: Which of the following pairs correctly matches the engine type
+      with an example?
+  index: 149
+  key_concept: Types of Internal-Combustion Engines
+  name: internal-combustion engine
+- aspects:
+  - content: The operation of internal-combustion engines can be described in terms
+      of thermodynamic events or cycles. In continuous-combustion engines, these events
+      occur simultaneously, while in intermittent-combustion engines, they occur in
+      succession and repeat with each cycle.
+    type: Definition
+  - content: In a four-stroke gasoline engine, the cycle includes intake, compression,
+      combustion (power), and exhaust strokes. In gas turbines, air and fuel are continuously
+      compressed, combusted, and expanded to produce work.
+    type: Examples
+  - content: Understanding the thermodynamic cycles is crucial for analyzing engine
+      efficiency, power output, and emissions. The cycles are governed by the laws
+      of thermodynamics, particularly the conservation of energy and the increase
+      of entropy.
+    type: Connections
+  - content: The nature of the thermodynamic cycle impacts engine design, fuel efficiency,
+      and environmental performance. For instance, optimizing the compression ratio
+      in a piston engine can improve thermal efficiency but may require higher octane
+      fuels.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: In intermittent-combustion engines, thermodynamic events such as
+      intake, compression, combustion, and exhaust occur in a repeating sequence for
+      each cycle, unlike the simultaneous processes in continuous-combustion engines.
+    options:
+    - They occur simultaneously and continuously.
+    - They occur in succession and repeat with each cycle.
+    - They do not involve combustion.
+    - They only occur during engine startup.
+    question_text: In an intermittent-combustion engine, how do the thermodynamic
+      events differ from those in a continuous-combustion engine?
+  index: 149
+  key_concept: Thermodynamic Operation and Cycles
+  name: internal-combustion engine
+- aspects:
+  - content: Internal-combustion engines perform combustion within the engine, using
+      the products of combustion as the working fluid. In contrast, external-combustion
+      engines, such as steam engines, combust fuel outside the working fluid, which
+      is then heated via a heat exchanger.
+    type: Definition
+  - content: Steam engines are classic examples of external-combustion engines, where
+      water is heated externally to produce steam that drives pistons or turbines.
+      Internal-combustion engines include gasoline, diesel, and jet engines.
+    type: Examples
+  - content: Internal-combustion engines generally offer higher efficiency and more
+      compact designs for mobile applications, while external-combustion engines can
+      use a wider variety of fuels and are often used in stationary power plants.
+    type: Implications
+  - content: The distinction between internal and external combustion is fundamental
+      in thermodynamics and mechanical engineering, influencing engine design, fuel
+      choice, and application domains.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Internal-combustion engines combust fuel inside the engine and use
+      the resulting hot gases to perform work. External-combustion engines combust
+      fuel outside the working fluid, transferring heat indirectly.
+    options:
+    - Internal-combustion engines combust fuel outside the engine.
+    - External-combustion engines use the products of combustion as the working fluid.
+    - Internal-combustion engines combust fuel inside the engine, directly using the
+      hot gases for work.
+    - External-combustion engines are always more efficient than internal-combustion
+      engines.
+    question_text: Which statement correctly differentiates internal-combustion engines
+      from external-combustion engines?
+  index: 149
+  key_concept: Comparison with External-Combustion Engines
+  name: internal-combustion engine
+- aspects:
+  - content: Internal-combustion engines are used in a vast range of applications,
+      including automobiles, trucks, aircraft, ships, power plants, and even space
+      vehicles. Gasoline-powered four-stroke spark-ignition engines are the most common
+      in ground transportation, while gas turbines dominate in aviation.
+    type: Examples
+  - content: The dominance of internal-combustion engines in transportation and industry
+      is due to their high power-to-weight ratio, compactness, and ability to deliver
+      variable power output. They have enabled the development of modern mobility
+      and global trade.
+    type: Context
+  - content: The widespread use of internal-combustion engines has significant economic,
+      environmental, and technological implications. Their emissions contribute to
+      air pollution and climate change, prompting ongoing research into cleaner alternatives
+      and emission control technologies.
+    type: Implications
+  - content: Internal-combustion engines are closely linked to advancements in fuel
+      technology, materials science, and environmental policy. Their future is being
+      shaped by trends such as electrification, renewable fuels, and stricter emission
+      standards.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Steam locomotives use external-combustion engines (steam engines),
+      not internal-combustion engines. Automobiles, aircraft gas turbines, and rocket-propulsion
+      systems all use internal-combustion engines.
+    options:
+    - Automobiles
+    - Aircraft gas turbines
+    - Steam locomotives
+    - Rocket-propulsion systems
+    question_text: Which of the following is NOT a typical application of internal-combustion
+      engines?
+  index: 149
+  key_concept: Applications and Industry Relevance
+  name: internal-combustion engine

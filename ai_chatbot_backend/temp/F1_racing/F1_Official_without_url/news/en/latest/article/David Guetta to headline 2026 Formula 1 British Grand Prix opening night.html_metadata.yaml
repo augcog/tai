@@ -1,0 +1,272 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A news announcement article detailing David Guetta's exclusive headline
+  performance at the 2026 British Grand Prix opening night, with contextual information
+  on Silverstone's evolving role as a music and cultural venue, and supplementary
+  sections on related F1 news, official partners, and app promotion.
+file_name: David Guetta to headline 2026 Formula 1 British Grand Prix opening night.html
+file_path: F1_racing/F1_Official/news/en/latest/article/David Guetta to headline 2026
+  Formula 1 British Grand Prix opening night.html
+file_uuid: 4722fa65-90cf-5bd2-84d9-715228c774ea
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: David Guetta is the headliner, and the uniqueness comes from it being
+    his sole UK show on the MONOLITH tour.
+  knowledge_areas:
+  - David Guetta's Exclusive 2026 British Grand Prix Headline Performance
+  options:
+  - David Guetta; it is his only UK appearance on the MONOLITH tour.
+  - Stormzy; he is debuting a new album.
+  - Kings of Leon; they are reuniting for the event.
+  - Fatboy Slim; it is his first time performing at Silverstone.
+  question_id: 1
+  question_text: Which artist is scheduled to headline the opening night of the 2026
+    British Grand Prix, and what makes this performance unique?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Silverstone is diversifying its offerings to include music, art, and
+    innovation, making it a year-round cultural destination.
+  knowledge_areas:
+  - Silverstone's Evolution as a Cultural and Entertainment Venue
+  options:
+  - By offering a year-round program of concerts, festivals, and cultural events.
+  - By hosting only Formula 1 races.
+  - By removing all non-racing activities.
+  - By limiting access to motorsport professionals.
+  question_id: 2
+  question_text: How is Silverstone expanding its role beyond being a motorsport venue?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Music integration transforms the event into a multi-day festival, appealing
+    to both motorsport and music fans.
+  knowledge_areas:
+  - Integration of Music and Entertainment with Formula 1 Events
+  options:
+  - It attracts a broader audience and enhances the festival atmosphere.
+  - It shortens the race schedule.
+  - It restricts the event to music fans only.
+  - It eliminates the need for racing sessions.
+  question_id: 3
+  question_text: What is one major benefit of integrating music headliners with Formula
+    1 events like the British Grand Prix?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The 'Related Articles' section focuses on F1 news, not on specific
+    details about David Guetta's tour.
+  knowledge_areas:
+  - Related F1 News and Upcoming Developments
+  options:
+  - Pre-season testing dates for F1 2026
+  - David Guetta's MONOLITH tour details
+  - Driver signings for the 2026 season
+  - Team car reveal announcements
+  question_id: 4
+  question_text: Which of the following is NOT a topic covered in the 'Related Articles'
+    section?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The partners section showcases F1's sponsors and promotes digital engagement
+    through the official app, both vital for fan experience and the sport's global
+    reach.
+  knowledge_areas:
+  - F1 Official Partners and Digital Engagement
+  options:
+  - To highlight the brands supporting F1 and promote the official app for enhanced
+    fan experience.
+  - To announce race winners and distribute prizes.
+  - To provide technical regulations for teams.
+  - To list all Formula 1 drivers.
+  question_id: 5
+  question_text: What is the purpose of the F1 Official Partners section and how does
+    it relate to digital engagement?
+  question_type: recap
+sections:
+- aspects:
+  - content: David Guetta, a globally recognized French DJ and producer, has been
+      announced as the headline act for the opening night of the 2026 British Grand
+      Prix at Silverstone. This performance is set for July 2, 2026, and will be part
+      of his MONOLITH world tour. Notably, this will be his only UK appearance that
+      summer, making the event highly exclusive for fans.
+    type: Definition and Announcement
+  - content: Guetta's booking reflects Silverstone's ambition to be more than a motorsport
+      venue, emphasizing its status as a leading entertainment destination in the
+      UK. The event is positioned as a major highlight on both the British sporting
+      and music calendar, underlining the growing intersection between high-profile
+      sports and live music experiences.
+    type: Significance and Context
+  - content: David Guetta joins a roster of prestigious past headliners at the British
+      Grand Prix, such as Stormzy, RAYE, Sam Fender, Kings of Leon, Fatboy Slim, and
+      Becky Hill. His performance is anticipated to feature his signature high-energy
+      set, global hits, and festival-level production, continuing the tradition of
+      major artists elevating the Grand Prix weekend.
+    type: Examples and Precedents
+  - content: The exclusive nature of Guetta's appearance is expected to drive significant
+      fan engagement and ticket sales, enhancing the overall appeal of the Grand Prix
+      weekend. The integration of world-class music acts with F1 racing creates a
+      multi-faceted event experience, potentially attracting a broader demographic
+      and reinforcing Silverstone's reputation as a cultural hub.
+    type: Implications for Fans and F1
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Guetta's set at Silverstone is his only UK appearance on the MONOLITH
+      tour, making it a unique and exclusive event. While Stormzy and Kings of Leon
+      are past headliners, they are not performing with him. DJs have headlined before,
+      and the event is at Silverstone, not Monaco.
+    options:
+    - It is part of his only UK appearance on the MONOLITH tour.
+    - He will be performing alongside Stormzy and Kings of Leon.
+    - It marks the first time a DJ headlines the British Grand Prix.
+    - It will take place at the Monaco Grand Prix.
+    question_text: What makes David Guetta's performance at the 2026 British Grand
+      Prix particularly notable?
+  index: 61
+  key_concept: David Guetta's Exclusive 2026 British Grand Prix Headline Performance
+  name: David Guetta to headline 2026 British Grand Prix opening night
+- aspects:
+  - content: Silverstone, traditionally known as the home of British motorsport, is
+      increasingly positioning itself as a year-round cultural destination. This involves
+      hosting not only motorsport events but also major concerts, lifestyle festivals,
+      exhibitions, and community events.
+    type: Definition and Strategic Direction
+  - content: The venue has attracted record crowds, with 500,000 attendees in the
+      previous summer, and has featured headline performances from internationally
+      acclaimed artists. The expansion of its music and arts program is a deliberate
+      strategy to offer fans a world-class experience beyond racing.
+    type: Examples and Expansion
+  - content: By broadening its entertainment offerings, Silverstone is redefining
+      what a modern Grand Prix circuit can be. This approach aims to increase visitor
+      numbers, diversify revenue streams, and establish the circuit as a leading UK
+      destination for both sport and culture.
+    type: Implications and Connections
+  - content: Silverstone's evolution is part of a wider trend in global sports venues,
+      where integrating music, art, and innovation enhances the fan experience and
+      venue utilization. The announcement hints at further headliners and expanded
+      programming, signaling ongoing commitment to this multi-dimensional model.
+    type: Context and Future Developments
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Silverstone is actively expanding its cultural and entertainment
+      offerings, including concerts, festivals, and exhibitions, to become a year-round
+      destination, not just a motorsport venue.
+    options:
+    - By expanding its music and arts programming and hosting year-round cultural
+      events.
+    - By focusing exclusively on Formula 1 racing.
+    - By limiting access to only motorsport fans.
+    - By discontinuing community events.
+    question_text: How is Silverstone redefining its role beyond motorsport?
+  index: 61
+  key_concept: Silverstone's Evolution as a Cultural and Entertainment Venue
+  name: David Guetta to headline 2026 British Grand Prix opening night
+- aspects:
+  - content: The integration of high-profile music acts into Formula 1 weekends is
+      a growing practice, with headline performances scheduled alongside racing events.
+      This creates a festival-like atmosphere, enhancing the overall event experience
+      for attendees.
+    type: Definition and Practice
+  - content: Recent British Grand Prix weekends have featured artists such as Stormzy,
+      RAYE, Sam Fender, Kings of Leon, Fatboy Slim, and Becky Hill. These acts perform
+      on main stages at Silverstone, drawing music fans as well as motorsport enthusiasts.
+    type: Examples and Historical Context
+  - content: By offering diverse entertainment options, Formula 1 events appeal to
+      a broader audience, increase dwell time at the venue, and generate additional
+      revenue streams. The music integration helps position F1 weekends as comprehensive
+      cultural experiences.
+    type: Implications for Fan Engagement
+  - content: This approach mirrors a wider movement in sports and entertainment, where
+      major events are designed as multi-day festivals with varied programming. It
+      reflects changing consumer expectations for live events, where value is measured
+      by the range and quality of experiences offered.
+    type: Connections to Broader Trends
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Music headliners create a festival atmosphere, drawing in wider audiences
+      and enhancing the event experience, rather than reducing or replacing racing
+      activities.
+    options:
+    - It transforms the event into a multi-day festival, attracting broader audiences.
+    - It reduces the number of racing sessions.
+    - It limits the event to only motorsport fans.
+    - It replaces traditional F1 activities.
+    question_text: What is a key benefit of integrating music headliners into Formula
+      1 Grand Prix weekends?
+  index: 61
+  key_concept: Integration of Music and Entertainment with Formula 1 Events
+  name: David Guetta to headline 2026 British Grand Prix opening night
+- aspects:
+  - content: The 'Related Articles' section provides links to recent F1 news stories,
+      including updates on drivers, teams, venues, and key dates for the upcoming
+      2026 season. These articles offer context and supplementary information relevant
+      to fans planning to attend or follow the Grand Prix.
+    type: Definition and Content Overview
+  - content: Highlighted articles include coverage of Red Bull F1 graduates, the opening
+      of F1 Arcade in Atlanta, driver rivalries (such as Norris and Hamilton), pre-season
+      testing schedules, team announcements (e.g., Mercedes' 2026 car reveal), and
+      driver signings (e.g., Zhou Guanyu joining Cadillac as reserve driver).
+    type: Examples of Topics Covered
+  - content: This section helps fans stay informed about the broader F1 landscape,
+      including team dynamics, technological developments, and season preparations.
+      It serves as a resource for those seeking a comprehensive understanding of the
+      sport's current events.
+    type: Implications for F1 Enthusiasts
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: While the 'Related Articles' section covers pre-season testing, driver
+      signings, and team car reveals, it does not focus on the specifics of David
+      Guetta's MONOLITH tour, which is detailed in the main article.
+    options:
+    - Pre-season testing dates for F1 2026
+    - David Guetta's MONOLITH tour details
+    - Driver signings for the 2026 season
+    - Team car reveal announcements
+    question_text: Which of the following topics is NOT covered in the 'Related Articles'
+      section?
+  index: 101
+  key_concept: Related F1 News and Upcoming Developments
+  name: Related Articles
+- aspects:
+  - content: The 'OUR PARTNERS' section lists the official sponsors and partners of
+      Formula 1, including global brands such as LVMH, Pirelli, Aramco, Heineken,
+      AWS, Lenovo, DHL, and others. These partners provide financial support, technological
+      expertise, and promotional collaboration for the sport.
+    type: Definition and Role of Partners
+  - content: The partner list demonstrates the diversity of industries involved in
+      F1, ranging from luxury goods and technology to logistics, beverages, and finance.
+      Each partner typically has a visible presence at events and through digital
+      platforms.
+    type: Examples and Sponsorship Diversity
+  - content: The section also promotes the official F1 app, which is available on
+      major app stores. The app offers features such as live timing, news, and personalized
+      content, enhancing fan engagement and providing up-to-date information for followers
+      of the sport.
+    type: Digital Engagement and App Promotion
+  - content: Strong partnerships and digital tools are essential for F1's continued
+      growth, global reach, and fan engagement. They enable the sport to offer enhanced
+      experiences, leverage cutting-edge technology, and maintain its position as
+      a premier international sporting property.
+    type: Implications for F1's Global Brand
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The 'OUR PARTNERS' section highlights the brands that sponsor and
+      collaborate with F1, underlining their importance in supporting the sport's
+      operations and global presence.
+    options:
+    - To showcase the brands that support and collaborate with Formula 1.
+    - To announce new driver signings.
+    - To provide race results.
+    - To list all past Grand Prix winners.
+    question_text: What is the primary function of the F1 Official Partners section?
+  index: 110
+  key_concept: F1 Official Partners and Digital Engagement
+  name: OUR PARTNERS

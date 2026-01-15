@@ -1,0 +1,170 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page footer and sidebar section from the Formula 1 website,
+  listing official partners and providing download links for the F1 mobile app.
+file_name: Audi News and Videos | Formula 1.html
+file_path: F1_racing/F1_Official/news/en/latest/tags/Audi News and Videos | Formula
+  1.html
+file_uuid: 65e4d3b7-2d54-5124-bb4d-1e2caa56a776
+recap_questions:
+- correct_answers:
+  - 2
+  explanation: Red Bull Racing is a Formula 1 team, not a corporate partner or sponsor
+    like Heineken, AWS, or Pirelli, which are listed as official partners.
+  knowledge_areas:
+  - Official F1 Partners
+  options:
+  - Heineken
+  - AWS
+  - Red Bull Racing
+  - Pirelli
+  question_id: 1
+  question_text: Which of the following is NOT typically an Official F1 Partner as
+    listed on the Formula 1 website?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app enhances the fan experience by offering live timing, news,
+    and exclusive multimedia content, not by selling merchandise, providing training,
+    or broadcasting only historical races.
+  knowledge_areas:
+  - F1 App Availability
+  options:
+  - By providing live race timing and exclusive content
+  - By allowing fans to purchase team merchandise directly
+  - By offering driver training modules
+  - By broadcasting only historical races
+  question_id: 2
+  question_text: How does the Official F1 App enhance the fan experience?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: A diverse set of partners brings financial resources, technology, and
+    global marketing, which are critical for the sport's growth and innovation, not
+    for budget equality, race limitation, or exclusive automotive involvement.
+  knowledge_areas:
+  - Official F1 Partners
+  options:
+  - It ensures all teams have equal budgets.
+  - It provides financial support, technological innovation, and broadens the sport's
+    global reach.
+  - It limits the number of races per season.
+  - It guarantees every partner is from the automotive sector.
+  question_id: 3
+  question_text: Which of the following best explains the importance of having a diverse
+    set of Official F1 Partners?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: The Official F1 App is available on both major mobile platforms, ensuring
+    accessibility for iOS and Android users.
+  knowledge_areas:
+  - F1 App Availability
+  options:
+  - Only on the Apple App Store
+  - Only on the Google Play Store
+  - Both the Apple App Store and Google Play Store
+  - Only on desktop computers
+  question_id: 4
+  question_text: Which platforms is the Official F1 App available on?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Official partners support the sport financially and technologically,
+    while the app enables direct digital engagement with fans, both critical to F1's
+    global outreach.
+  knowledge_areas:
+  - Official F1 Partners
+  - F1 App Availability
+  options:
+  - Partners provide funding, while the app offers digital access and content to fans
+    worldwide.
+  - Partners design the app, while the app manages race logistics.
+  - The app replaces the need for partners.
+  - Partners and the app are unrelated to fan engagement.
+  question_id: 5
+  question_text: How do Official F1 Partners and the Official F1 App together contribute
+    to Formula 1's global fan engagement strategy?
+  question_type: recap
+sections:
+- aspects:
+  - content: Official F1 Partners are companies and brands that have established formal
+      sponsorship or partnership agreements with Formula 1. These partnerships typically
+      involve financial support, branding rights, and collaborative marketing campaigns,
+      and they play a crucial role in the commercial ecosystem of the sport.
+    type: Definition
+  - content: Notable F1 partners include LVMH, Pirelli, Aramco, Heineken, AWS, Lenovo,
+      DHL, Qatar Airways, MSC Cruises, Crypto.com, Salesforce, Louis Vuitton, TAG
+      Heuer, Moet Hennessy, American Express, Santander, Allwyn, Globant, Las Vegas
+      Convention and Visitors Authority, Paramount+, Barilla, Liqui Moly, Nestle,
+      PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds. Each of these brands
+      is featured with their logo and a link to their official website, demonstrating
+      their active involvement.
+    type: Examples
+  - content: The presence of a diverse range of partners reflects Formula 1's global
+      reach and its appeal to various industries, including luxury goods, technology,
+      finance, travel, and consumer products. These partnerships are vital for funding
+      the sport, enabling technological advancements, and enhancing fan engagement
+      through co-branded experiences and promotions.
+    type: Implications
+  - content: Partnerships in F1 are closely linked to marketing, brand visibility,
+      and technological innovation. For example, AWS provides cloud computing for
+      data analytics, while Pirelli supplies all the tires used in races. The integration
+      of these brands into the F1 ecosystem demonstrates the symbiotic relationship
+      between sport and commerce.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Official F1 Partners are brands with formal agreements that contribute
+      financially and participate in marketing collaborations, not just car parts
+      suppliers, luxury brands, or logistics providers.
+    options:
+    - They are companies that supply only car parts to F1 teams.
+    - They are brands that have formal agreements with F1, contributing financially
+      and through marketing collaborations.
+    - They are exclusive to the luxury goods sector.
+    - They are only involved in race-day logistics.
+    question_text: Which of the following statements best describes the role of Official
+      F1 Partners?
+  index: 85
+  key_concept: Official F1 Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application developed by Formula 1, providing
+      fans with access to live timing, news, schedules, and exclusive content related
+      to the sport. It serves as a digital companion for F1 enthusiasts, offering
+      real-time updates and interactive features.
+    type: Definition
+  - content: The app is available for download on both the Apple App Store and Google
+      Play Store, ensuring accessibility for users of iOS and Android devices. The
+      download section features direct links and recognizable platform logos, making
+      it easy for fans to find and install the app.
+    type: Examples
+  - content: Fans use the Official F1 App to follow live races, track driver and team
+      standings, receive breaking news, and access multimedia content such as videos
+      and interviews. The app enhances the viewing experience by providing supplementary
+      data and interactive tools during race weekends.
+    type: Use Cases
+  - content: The widespread availability of the app on major mobile platforms demonstrates
+      Formula 1's commitment to digital engagement and global fan outreach. It allows
+      F1 to reach a broader audience, especially younger and tech-savvy fans, and
+      supports the sport's strategy of increasing year-round engagement beyond traditional
+      broadcasts.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App is designed to provide fans with live timing,
+      news, and exclusive content, not to sell parts, manage logistics, or focus solely
+      on historical statistics.
+    options:
+    - To provide live timing, news, and exclusive F1 content to fans.
+    - To sell race car parts directly to consumers.
+    - To manage team logistics and race engineering.
+    - To offer only historical race statistics.
+    question_text: What is a primary function of the Official F1 App?
+  index: 95
+  key_concept: F1 App Availability
+  name: Download the Official F1 App

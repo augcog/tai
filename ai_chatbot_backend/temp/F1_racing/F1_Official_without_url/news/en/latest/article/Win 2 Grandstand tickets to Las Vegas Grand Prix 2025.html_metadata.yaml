@@ -1,0 +1,271 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page announcing and describing a competition to win two grandstand
+  tickets to the 2025 Las Vegas Grand Prix, including details about F1 Unlocked membership
+  benefits, related F1 articles, official partners, and app download links.
+file_name: Win 2 Grandstand tickets to Las Vegas Grand Prix 2025.html
+file_path: F1_racing/F1_Official/news/en/latest/article/Win 2 Grandstand tickets to
+  Las Vegas Grand Prix 2025.html
+file_uuid: 595c8f86-265d-5481-9c6a-3c4d654ffd99
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Entry requires signing up or signing in to F1 Unlocked; the other options
+    are not required for entry.
+  knowledge_areas:
+  - Las Vegas Grand Prix 2025 Ticket Competition
+  - F1 Unlocked Membership Benefits
+  options:
+  - Signing up or signing in to F1 Unlocked
+  - Purchasing team merchandise
+  - Attending a previous Grand Prix
+  - Following F1 on social media
+  question_id: 1
+  question_text: What is the primary method for entering the competition to win Las
+    Vegas Grand Prix 2025 tickets?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: F1 Unlocked offers exclusive access to VIP experiences, but does not
+    guarantee free tickets, merchandise discounts, or automatic race entry.
+  knowledge_areas:
+  - F1 Unlocked Membership Benefits
+  options:
+  - Exclusive access to VIP experiences
+  - Guaranteed free race tickets
+  - Discounts on all F1 merchandise
+  - Automatic entry to all F1 races
+  question_id: 2
+  question_text: Which of the following is a benefit of F1 Unlocked membership?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The 'Related Articles' section features season recaps, quizzes, and
+    interviews.
+  knowledge_areas:
+  - Related F1 Articles and Content
+  options:
+  - OUR PARTNERS
+  - Related Articles
+  - Download the Official F1 App
+  - Win 2 Grandstand tickets to Las Vegas Grand Prix 2025
+  question_id: 3
+  question_text: Which section provides fans with season recaps, quizzes, and interviews?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Sony is not listed as an official F1 partner; the others are mentioned.
+  knowledge_areas:
+  - Official F1 Partners
+  options:
+  - AWS
+  - Sony
+  - Heineken
+  - Pirelli
+  question_id: 4
+  question_text: Which of the following is NOT listed as an official F1 partner on
+    the page?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Both F1 Unlocked and the Official F1 App are digital platforms that
+    provide exclusive content, engagement opportunities, and access to competitions
+    or live race data, enhancing the overall fan experience.
+  knowledge_areas:
+  - F1 Unlocked Membership Benefits
+  - Official F1 App Availability
+  options:
+  - They both provide exclusive content, digital engagement, and access to competitions
+    or live data.
+  - They both offer discounts on race tickets.
+  - They both guarantee VIP paddock access at every race.
+  - They both allow fans to join F1 Esports teams directly.
+  question_id: 5
+  question_text: How do the F1 Unlocked membership and the Official F1 App work together
+    to enhance the fan experience?
+  question_type: recap
+sections:
+- aspects:
+  - content: The Las Vegas Grand Prix 2025 Ticket Competition is a promotional prize
+      draw organized by F1 Unlocked, offering participants the chance to win a pair
+      of 3-day grandstand tickets to the Las Vegas Grand Prix, scheduled for November
+      20-22, 2025. The competition is open to individuals over the age of 21, with
+      entry requiring sign-up or sign-in to the F1 Unlocked platform.
+    type: Definition
+  - content: To enter, participants must sign up for F1 Unlocked at the specified
+      webpage or sign in if already a member. The competition is only open to individuals
+      aged 21 and above, and entries must be submitted before 11:59am (GMT) on Thursday,
+      November 6th, 2025. Terms and conditions apply, which typically include restrictions
+      on eligibility such as age and possibly geographic location.
+    type: Entry Process & Eligibility
+  - content: The prize consists of two grandstand tickets valid for all three days
+      of the Las Vegas Grand Prix, providing winners with access to one of the most
+      anticipated events on the F1 calendar. Winning this competition allows fans
+      to experience the race live, which is often considered a premium and exclusive
+      opportunity due to high ticket demand and limited availability.
+    type: Prize Details & Implications
+  - content: This competition is part of F1's broader fan engagement strategy, leveraging
+      high-profile events like the Las Vegas Grand Prix to promote digital membership
+      platforms. It connects to F1 Unlocked's goal of increasing user registrations
+      and deepening fan loyalty through exclusive offers and experiences.
+    type: Context & Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The only requirements mentioned are to sign up or sign in to F1 Unlocked
+      and be over 21 years old. Purchasing merchandise, attending a previous Grand
+      Prix, or subscribing to YouTube are not required for entry.
+    options:
+    - Sign up or sign in to F1 Unlocked and be over 21 years old
+    - Purchase F1 merchandise
+    - Attend a previous Grand Prix in person
+    - Subscribe to the official F1 YouTube channel
+    question_text: What are the main requirements to enter the competition for Las
+      Vegas Grand Prix 2025 grandstand tickets?
+  index: 53
+  key_concept: Las Vegas Grand Prix 2025 Ticket Competition
+  name: Win 2 Grandstand tickets to Las Vegas Grand Prix 2025
+- aspects:
+  - content: F1 Unlocked is a free digital membership program provided by Formula
+      1, designed to offer fans exclusive access to curated content, VIP experiences,
+      and special member rewards. Membership is open to all eligible fans who register
+      through the official F1 website.
+    type: Definition
+  - content: Members receive curated insider content, such as behind-the-scenes stories
+      and analysis, opportunities to participate in exclusive competitions (like ticket
+      giveaways), VIP experiences at F1 events, and access to special offers and rewards.
+      These benefits are intended to bring fans closer to the sport and provide unique
+      engagement opportunities.
+    type: Examples of Benefits
+  - content: F1 Unlocked serves as a platform for deepening fan engagement, enabling
+      Formula 1 to build a direct relationship with its audience. For fans, the membership
+      provides tangible value through both digital content and real-world experiences,
+      such as the chance to win event tickets or participate in member-only activities.
+    type: Use Cases & Implications
+  - content: F1 Unlocked is part of Formula 1's digital transformation strategy, aiming
+      to grow its fanbase and gather insights into fan preferences. It connects to
+      broader trends in sports marketing, where digital memberships and loyalty programs
+      are used to enhance the fan experience and drive long-term engagement.
+    type: Connections & Context
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: While curated content, VIP experiences, and member rewards are explicitly
+      mentioned, discounted team merchandise is not listed as a benefit in the provided
+      content.
+    options:
+    - Curated insider content
+    - Exclusive access and VIP experiences
+    - Discounted team merchandise
+    - Member rewards and offers
+    question_text: Which of the following is NOT listed as a benefit of F1 Unlocked
+      membership?
+  index: 65
+  key_concept: F1 Unlocked Membership Benefits
+  name: This competition is now closed
+- aspects:
+  - content: The 'Related Articles' section features a curated list of recent and
+      relevant Formula 1 articles, including season recaps, quizzes, exclusive interviews,
+      and previews of upcoming events. These articles are linked for easy access and
+      often include images and publication dates.
+    type: Definition
+  - content: Examples include 'The key moments of an unforgettable 2025 season,' '20
+      quiz questions on the 2025 Formula 1 season,' 'Every twist and turn from a dramatic
+      2025 title battle,' and exclusive interviews with drivers like Antonelli and
+      Bortoleto. There are also previews for the 2026 season, such as pre-season testing
+      dates.
+    type: Examples
+  - content: This section serves as a resource for fans to stay informed about recent
+      events, test their knowledge, and gain deeper insights into the sport. It encourages
+      ongoing engagement with the F1 website and helps fans contextualize current
+      competitions and news within the broader narrative of the season.
+    type: Use Cases & Implications
+  - content: Related articles connect fans to the latest developments in F1, providing
+      continuity and context for ongoing competitions and promotions. This content
+      strategy supports F1's goal of maintaining high levels of fan engagement year-round.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The 'Related Articles' section includes season recaps, quizzes, interviews,
+      and previews of upcoming events, not just technical regulations or advertisements.
+    options:
+    - Season recaps, quizzes, interviews, and event previews
+    - Technical regulations only
+    - Merchandise advertisements
+    - Historical race car specifications
+    question_text: What type of content is featured in the 'Related Articles' section?
+  index: 91
+  key_concept: Related F1 Articles and Content
+  name: Related Articles
+- aspects:
+  - content: The 'OUR PARTNERS' section highlights the official corporate partners
+      and sponsors of Formula 1. These partners represent a range of industries, including
+      luxury goods, technology, automotive, logistics, beverages, and financial services.
+    type: Definition
+  - content: Notable partners include LVMH, Pirelli, Aramco, Heineken, AWS, Lenovo,
+      DHL, Qatar Airways, MSC Cruises, Crypto.com, Salesforce, Louis Vuitton, TAG
+      Heuer, Moet Hennessy, American Express, Santander, Allwyn, Globant, Las Vegas
+      Convention and Visitors Authority, Paramount+, Barilla, Liqui Moly, Nestle,
+      PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds. Each partner's logo and
+      a link to their website are provided.
+    type: Examples
+  - content: Partnerships with global brands provide vital financial support and resources
+      to F1, enabling the sport to maintain its high production values and global
+      reach. These relationships also enhance the fan experience through co-branded
+      events, promotions, and technological innovations, such as AWS data analytics
+      or DHL logistics solutions.
+    type: Implications & Connections
+  - content: The diversity and prestige of F1's partners reflect the sport's international
+      appeal and commercial strength. These partnerships often extend beyond sponsorship
+      to include collaborative marketing campaigns, product integration, and fan engagement
+      initiatives.
+    type: Context
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Sony is not mentioned among the official F1 partners in the provided
+      content, while Pirelli, AWS, and Heineken are.
+    options:
+    - Pirelli
+    - AWS
+    - Sony
+    - Heineken
+    question_text: Which of the following companies is NOT listed as an official F1
+      partner in the provided content?
+  index: 100
+  key_concept: Official F1 Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The 'Download the Official F1 App' section provides information and links
+      for fans to download the official Formula 1 mobile application. The app is available
+      on both the Apple App Store and Google Play Store.
+    type: Definition
+  - content: The app offers features such as live timing, race schedules, news updates,
+      driver and team information, and other digital content designed to enhance the
+      F1 fan experience. Download links are provided for both iOS and Android platforms.
+    type: Examples & Features
+  - content: The app serves as a central hub for fans to access real-time race data
+      and exclusive content on the go. It supports F1's strategy of digital engagement,
+      allowing fans to stay connected to the sport regardless of location.
+    type: Use Cases & Implications
+  - content: The app complements other digital initiatives like F1 Unlocked, providing
+      a seamless multi-platform experience for fans. It also integrates with live
+      event coverage and membership benefits, reinforcing Formula 1's digital ecosystem.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The content provides links to both the Apple App Store and the Google
+      Play Store for downloading the official F1 app.
+    options:
+    - Apple App Store and Google Play Store
+    - Only from the F1 website
+    - Directly from team websites
+    - Amazon Appstore only
+    question_text: Where can fans download the official F1 app according to the provided
+      content?
+  index: 110
+  key_concept: Official F1 App Availability
+  name: Download the Official F1 App

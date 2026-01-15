@@ -1,0 +1,145 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A website footer and sidebar content from the official Formula 1
+  website, focusing on sponsor partnerships and promoting the official F1 mobile application.
+file_name: F1 Unlocked News and Videos | Formula 1.html
+file_path: F1_racing/F1_Official/news/en/latest/tags/F1 Unlocked News and Videos |
+  Formula 1.html
+file_uuid: 4481e05c-e299-5c39-ab7a-7fa6e0b9b1f8
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Sponsors gain exposure, prestige, and marketing opportunities, but
+    they do not influence sporting outcomes or race results.
+  knowledge_areas:
+  - Formula 1 Sponsor Partnerships
+  options:
+  - Brand exposure to a global audience
+  - Direct control over race results
+  - Association with the prestige of F1
+  - Opportunities for co-branded marketing
+  question_id: 1
+  question_text: Which of the following is NOT a typical benefit for companies partnering
+    as official sponsors with Formula 1?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: AWS is a technology company listed as a sponsor on the F1 website.
+    The others are organizations from different sports.
+  knowledge_areas:
+  - Formula 1 Sponsor Partnerships
+  options:
+  - AWS
+  - FIFA
+  - NHL
+  - NBA
+  question_id: 2
+  question_text: Which of the following brands is an example of a Formula 1 sponsor?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app provides fans with live data, news, and engagement tools; it
+    does not handle team management, sponsorships, or TV broadcasting.
+  knowledge_areas:
+  - Official F1 Mobile Application
+  options:
+  - Live race data, news updates, and interactive fan features
+  - Team management and driver contracts
+  - Sponsorship negotiations
+  - Broadcasting races on television
+  question_id: 3
+  question_text: What are the main features offered by the Official F1 Mobile Application?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app increases digital engagement, while sponsors provide financial
+    and marketing support, both crucial for F1's worldwide presence.
+  knowledge_areas:
+  - Formula 1 Sponsor Partnerships
+  - Official F1 Mobile Application
+  options:
+  - By combining digital engagement with financial and marketing support
+  - By determining race regulations
+  - By managing all F1 teams
+  - By setting ticket prices for all races
+  question_id: 4
+  question_text: How do the Official F1 App and sponsor partnerships together contribute
+    to Formula 1's global reach?
+  question_type: recap
+sections:
+- aspects:
+  - content: Formula 1 sponsor partnerships refer to the formal relationships established
+      between Formula 1 and various global companies that provide financial support,
+      products, or services in exchange for brand exposure and association with the
+      sport. These partnerships are integral to the business model of Formula 1, enabling
+      the sport to maintain high operational standards and global reach.
+    type: Definition
+  - content: Notable sponsors include luxury brands like LVMH and Louis Vuitton, technology
+      companies such as AWS and Lenovo, financial institutions like Santander and
+      American Express, and consumer brands such as Heineken and McDonalds. Each sponsor
+      typically has its logo displayed on the F1 website, cars, team apparel, or at
+      race venues, and often runs co-branded marketing campaigns.
+    type: Examples
+  - content: Sponsorships provide Formula 1 with essential revenue streams, supporting
+      everything from event logistics to technological innovation. In return, sponsors
+      gain access to a global audience, brand prestige, and opportunities for unique
+      customer engagement. The diversity of sponsors also reflects F1's broad appeal
+      across different industries and markets.
+    type: Implications
+  - content: The presence of such a wide array of sponsors demonstrates the commercial
+      scale and international nature of Formula 1. Partnerships are carefully curated
+      to align with the sport's image and values, and they often evolve as the sport
+      enters new markets or adopts new technologies.
+    type: Context
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Sponsor partnerships primarily provide financial backing and brand
+      exposure opportunities for both F1 and the sponsors. They do not control sporting
+      decisions, team operations, or regulatory enforcement.
+    options:
+    - They provide financial and brand support in exchange for exposure.
+    - They determine the race calendar and driver lineups.
+    - They own and operate all F1 teams.
+    - They are responsible for enforcing racing regulations.
+    question_text: Which of the following best describes the role of sponsor partnerships
+      in Formula 1?
+  index: 85
+  key_concept: Formula 1 Sponsor Partnerships
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 Mobile Application is a software tool available for download
+      on iOS and Android platforms, designed to provide fans with real-time updates,
+      news, race data, and interactive features related to Formula 1.
+    type: Definition
+  - content: Users can access live timing, session status, race positions, gap to
+      leader, and other telemetry data directly from their mobile devices. The app
+      also serves as a hub for F1 news, videos, schedules, and exclusive content,
+      enhancing the fan experience both during race weekends and throughout the season.
+    type: Use Cases
+  - content: By offering an official app, Formula 1 increases fan engagement, provides
+      a direct communication channel, and gathers user data for marketing and development
+      purposes. The app's accessibility via major app stores ensures broad reach and
+      convenience for a global audience.
+    type: Implications
+  - content: The app complements other digital F1 products such as F1 TV and fantasy
+      gaming, creating an integrated digital ecosystem. It also reflects the sport's
+      commitment to technological innovation and adapting to changing media consumption
+      habits.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The main purpose of the Official F1 Mobile Application is to deliver
+      live race information, news, and fan engagement features. It does not handle
+      sponsorships, regulations, or car sales.
+    options:
+    - Managing team sponsorship deals
+    - Providing live race data and news to fans
+    - Enforcing race regulations
+    - Selling F1 cars to consumers
+    question_text: What is a primary function of the Official F1 Mobile Application?
+  index: 95
+  key_concept: Official F1 Mobile Application
+  name: Download the Official F1 App

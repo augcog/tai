@@ -1,0 +1,126 @@
+URL: https://www.britannica.com/technology/wireless-communications
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Britannica encyclopedia article entry introducing wireless communications,
+  covering the definition, key technologies, types of devices, and examples of wireless
+  systems.
+file_name: Wireless communications Mobile Network, Radio Signals & Network Security
+  Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Wireless communications Mobile
+  Network, Radio Signals & Network Security Britannica.html
+file_uuid: a62aa851-dd7c-5b4c-92ad-41eb9b7a3dab
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Wireless communications are defined by their use of electromagnetic
+    or acoustic waves to transmit data without physical wires, unlike fiber optics
+    or copper cables.
+  knowledge_areas:
+  - Wireless communications definition and technologies
+  options:
+  - Use of electromagnetic or acoustic waves instead of physical wires
+  - Ability to transmit data at the highest possible speed
+  - Reliance on fiber optics for long-distance transmission
+  - Requirement for direct line-of-sight between devices
+  question_id: 1
+  question_text: What is the primary characteristic that distinguishes wireless communications
+    from other forms of data transmission?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Microwave transmitters send data wirelessly using electromagnetic waves,
+    while the other options rely on physical cables.
+  knowledge_areas:
+  - Wireless communications definition and technologies
+  options:
+  - Ethernet-connected desktop computer
+  - Microwave transmitter
+  - Wired landline telephone
+  - Coaxial cable television connection
+  question_id: 2
+  question_text: Which of the following devices is an example of wireless communication
+    technology?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: WML was specifically created to support the transfer and display of
+    text on narrow-band devices such as cellular phones and pagers, optimizing for
+    their limited bandwidth and display capabilities.
+  knowledge_areas:
+  - Wireless communications definition and technologies
+  options:
+  - Broadband routers
+  - Narrow-band devices like cellular phones and pagers
+  - Fiber optic switches
+  - Desktop computers
+  question_id: 3
+  question_text: Wireless Markup Language (WML) was designed for which type of devices?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Wireless communications, through technologies like satellites and wireless
+    modems, have made it possible to access the Internet from nearly any location,
+    vastly expanding global connectivity.
+  knowledge_areas:
+  - Wireless communications definition and technologies
+  options:
+  - It has restricted access to the Internet to urban areas only.
+  - It has enabled access to the Internet from virtually anywhere in the world.
+  - It has eliminated the need for electromagnetic waves in data transmission.
+  - It has made fiber optics obsolete for all communications.
+  question_id: 4
+  question_text: How has the development of wireless communications impacted global
+    connectivity?
+  question_type: recap
+sections:
+- aspects:
+  - content: Wireless communications refers to systems that transmit signals or data
+      without the use of physical wires, cables, or fibre optics. Instead, these systems
+      utilize electromagnetic waves—such as radio-frequency, infrared, or microwave—or
+      even acoustic waves to convey information. This broad definition encompasses
+      a wide range of technologies and applications, all unified by the absence of
+      a physical transmission medium.
+    type: Definition
+  - content: Common examples of wireless communications include cell phones, which
+      use radio-frequency waves to connect to cellular networks; two-way radios, which
+      enable direct voice communication over radio channels; remote garage-door openers,
+      which use radio signals to trigger mechanisms; television remote controls, often
+      using infrared signals; and GPS receivers, which rely on satellite-based radio
+      signals for positioning. Each of these devices exemplifies a different use case
+      and technology within the wireless communications domain.
+    type: Examples
+  - content: Wireless technologies span a spectrum of electromagnetic waves, from
+      low-frequency radio waves to high-frequency microwaves and infrared. The choice
+      of frequency band affects range, data rate, and susceptibility to interference.
+      Technologies like wireless modems, microwave transmitters, and satellites have
+      enabled global connectivity, making it possible to access digital resources
+      such as the Internet from virtually anywhere. The development of specialized
+      languages like Wireless Markup Language (WML) for narrow-band devices highlights
+      the need to optimize content and protocols for wireless environments.
+    type: Technological Context
+  - content: The shift from wired to wireless communications has had profound implications
+      for mobility, accessibility, and the proliferation of connected devices. Wireless
+      systems have enabled the rapid growth of mobile computing, the Internet of Things
+      (IoT), and pervasive connectivity. They also introduce new challenges, such
+      as security, spectrum management, and the need for robust protocols that can
+      handle variable signal quality. Wireless communication is foundational for modern
+      telecommunications and is deeply interconnected with advances in networking,
+      electronics, and computer science.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Fiber optic cable transmission uses physical cables to transmit data
+      using light and is therefore a wired communication method, whereas the other
+      options use electromagnetic waves without physical wires, fitting the definition
+      of wireless communication.
+    options:
+    - Fiber optic cable transmission
+    - Cell phone radio signals
+    - Infrared television remote controls
+    - GPS satellite receivers
+    question_text: Which of the following is NOT typically considered a form of wireless
+      communication as described in the article?
+  index: 134
+  key_concept: Wireless communications definition and technologies
+  name: wireless communications

@@ -1,0 +1,213 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A webpage containing the 1958 Formula 1 race results, a list of
+  official F1 partners, and promotional links to download the Official F1 App.
+file_name: 1958 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1958/1958 RACE RESULTS.html
+file_uuid: 3ac5255d-2782-5366-9dfa-f2479b4ba7a9
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Vanwall is listed as the winning team in the majority of 1958 races,
+    with drivers like Stirling Moss and Tony Brooks securing multiple victories for
+    the team.
+  knowledge_areas:
+  - 1958 Formula 1 Race Results
+  options:
+  - Ferrari
+  - Vanwall
+  - Cooper Climax
+  - Epperly Offenhauser
+  question_id: 1
+  question_text: Which team had the most race wins in the 1958 Formula 1 season according
+    to the results table?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Supplying race tires is a benefit provided by Pirelli, one of F1's
+    official partners. The other options are not described as partner benefits.
+  knowledge_areas:
+  - F1 Official Partners
+  options:
+  - Supplying race tires
+  - Designing race circuits
+  - Managing driver contracts
+  - Selecting race winners
+  question_id: 2
+  question_text: Which of the following is a benefit provided by F1's official partners
+    as described in the document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app enhances engagement by delivering real-time race data, schedules,
+    and exclusive content, not by offering driving experiences or managing tickets/strategies.
+  knowledge_areas:
+  - Official F1 App Promotion
+  options:
+  - By offering real-time race data and exclusive content
+  - By allowing fans to drive F1 cars
+  - By providing free race tickets
+  - By managing team strategies
+  question_id: 3
+  question_text: How does the Official F1 App enhance fan engagement according to
+    the document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: F1's official partners contribute resources, technology, or services
+    and, in return, receive promotional and branding opportunities, as described in
+    the document.
+  knowledge_areas:
+  - F1 Official Partners
+  options:
+  - Partners provide resources and receive branding opportunities in return.
+  - Partners determine race outcomes.
+  - Partners own the F1 teams.
+  - Partners are only involved in ticket sales.
+  question_id: 4
+  question_text: Which of the following statements best describes the relationship
+    between F1 and its official partners?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The Official F1 App is part of F1's digital strategy and often integrates
+    content and promotions from official partners, connecting these two concepts.
+  knowledge_areas:
+  - F1 Official Partners
+  - Official F1 App Promotion
+  options:
+  - 1958 Race Results and Official F1 App Promotion
+  - F1 Official Partners and Official F1 App Promotion
+  - 1958 Race Results and F1 Official Partners
+  - None of the above
+  question_id: 5
+  question_text: Which two key concepts from the document are directly connected through
+    F1's digital strategy?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1958 Formula 1 Race Results refer to the official record of outcomes
+      for each Grand Prix event held during the 1958 FIA Formula One World Championship
+      season. This includes details such as the race location, date, winning driver,
+      team, number of laps, and the total race time.
+    type: Definition
+  - content: For example, Stirling Moss won the 1958 Argentine Grand Prix driving
+      a Cooper Climax, completing 80 laps in 2:19:33.700. Another notable result is
+      Maurice Trintignant's victory at Monaco, also in a Cooper Climax, and Mike Hawthorn's
+      win for Ferrari in France. The results table lists all races, such as Belgium,
+      Germany, Portugal, Italy, and Morocco, along with their respective winners and
+      teams.
+    type: Examples
+  - content: The 1958 season is significant in F1 history as it was part of the early
+      years of the World Championship, featuring legendary drivers and teams. The
+      season's structure, with races across multiple countries, illustrates the global
+      nature of the sport even at that time. The results also reflect the competitive
+      landscape, with teams like Vanwall, Ferrari, and Cooper Climax frequently appearing
+      as winners.
+    type: Context
+  - content: The race results are critical for determining the championship standings
+      for both drivers and constructors. They also provide insight into the performance
+      trends of different teams and drivers throughout the season, influencing historical
+      assessments of dominance and competitiveness in F1.
+    type: Implications
+  - content: These results connect directly to broader F1 themes such as driver and
+      team statistics, historical championship narratives, and the evolution of racing
+      technology and strategy. They also link to the F1 archive, where results from
+      other years can be compared for longitudinal analysis.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Stirling Moss won the most races in the 1958 season, as indicated
+      by multiple victories listed in the results table (Argentina, Netherlands, Portugal,
+      Morocco).
+    options:
+    - Stirling Moss
+    - Tony Brooks
+    - Mike Hawthorn
+    - Maurice Trintignant
+    question_text: Which driver won the most races in the 1958 Formula 1 season according
+      to the official results?
+  index: 156
+  key_concept: 1958 Formula 1 Race Results
+  name: 1958 RACE RESULTS
+- aspects:
+  - content: F1 Official Partners are companies and brands that have formal sponsorship
+      or partnership agreements with Formula 1, contributing resources, technology,
+      or services in exchange for branding and promotional opportunities.
+    type: Definition
+  - content: Examples of official partners include LVMH, Pirelli, Aramco, Heineken,
+      AWS, Lenovo, DHL, Qatar Airways, MSC, Salesforce, Louis Vuitton, TAG Heuer,
+      and others. Each partner is typically associated with a specific sector, such
+      as luxury goods, technology, logistics, or beverages.
+    type: Examples
+  - content: These partnerships often result in visible branding at race events, on
+      cars, and in digital media. For instance, Pirelli is the exclusive tire supplier,
+      while AWS provides data analytics. Partners like DHL handle logistics, and Heineken
+      sponsors fan engagement initiatives.
+    type: Use Cases
+  - content: Official partners play a crucial role in the financial sustainability
+      and technological advancement of F1. Their involvement enables the sport to
+      access cutting-edge technologies, global marketing channels, and operational
+      support, which enhances the overall spectacle and reach of F1.
+    type: Implications
+  - content: The network of partners reflects the commercial and global nature of
+      modern F1, linking the sport to industries such as IT, transportation, luxury
+      goods, and consumer services. These relationships also influence fan experiences,
+      media coverage, and the development of F1 technology.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not listed among the official F1 partners in the document,
+      whereas Pirelli, AWS, and TAG Heuer are explicitly mentioned.
+    options:
+    - Pirelli
+    - AWS
+    - Nike
+    - TAG Heuer
+    question_text: Which of the following is NOT listed as an official F1 partner
+      in the provided document?
+  index: 172
+  key_concept: F1 Official Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application endorsed and distributed
+      by Formula 1, designed to provide fans with real-time information, news, schedules,
+      and exclusive content related to the sport.
+    type: Definition
+  - content: The app is available for download on both the Apple App Store and Google
+      Play. It offers features such as live timing, race schedules, driver profiles,
+      news updates, and interactive content for fans.
+    type: Examples
+  - content: Fans use the app to follow live race data, receive push notifications
+      about events, access multimedia content, and stay updated on F1 news. It also
+      serves as a platform for engaging with fantasy leagues and gaming features linked
+      to the F1 ecosystem.
+    type: Use Cases
+  - content: The app enhances the fan experience by providing instant access to comprehensive
+      F1 information, fostering greater engagement and loyalty. It also acts as a
+      channel for F1 to collect user data and tailor content and marketing strategies.
+    type: Implications
+  - content: The app is part of F1's broader digital strategy, connecting fans to
+      other official platforms such as F1 TV, online stores, and social media. It
+      also integrates with partner promotions and may offer exclusive content or offers
+      from F1 sponsors.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App is primarily described as providing live race
+      timing, schedules, and related F1 content, not as a platform for car sales,
+      non-F1 broadcasts, or driver training.
+    options:
+    - Providing live race timing and schedules
+    - Selling official F1 cars
+    - Broadcasting non-F1 sports events
+    - Organizing driver training sessions
+    question_text: What is a primary function of the Official F1 App as described
+      in the document?
+  index: 182
+  key_concept: Official F1 App Promotion
+  name: Download the Official F1 App

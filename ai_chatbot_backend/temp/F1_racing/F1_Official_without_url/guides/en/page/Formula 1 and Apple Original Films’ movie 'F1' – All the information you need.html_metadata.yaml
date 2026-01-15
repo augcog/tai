@@ -1,0 +1,281 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page providing an overview of 'F1 The Movie', covering its
+  release, behind-the-scenes content, soundtrack, and related promotional information,
+  as well as details about F1's official partners and app.
+file_name: Formula 1 and Apple Original Films’ movie 'F1' – All the information you
+  need.html
+file_path: F1_racing/F1_Official/guides/en/page/Formula 1 and Apple Original Films’
+  movie 'F1' – All the information you need.html
+file_uuid: 23d8289f-9817-5c30-9659-e45dc37c7025
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: '''F1 The Movie'' is unique in being a feature film that emphasizes
+    authenticity and direct collaboration with the F1 community, unlike documentaries
+    or games.'
+  knowledge_areas:
+  - F1 The Movie Release and Content
+  - Behind-the-Scenes and Authenticity
+  options:
+  - It is a feature film focused on authenticity and collaboration with real F1 teams
+    and drivers.
+  - It is a documentary series about F1 regulations.
+  - It is a video game adaptation of Formula 1.
+  - It is an exclusive interview series with F1 sponsors.
+  question_id: 1
+  question_text: What distinguishes 'F1 The Movie' from other Formula 1 media content?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The movie's authenticity was achieved by involving real F1 drivers
+    and filming at real F1 events, not by relying solely on CGI or fictional elements.
+  knowledge_areas:
+  - Behind-the-Scenes and Authenticity
+  options:
+  - Filming on sound stages with CGI cars
+  - Involving real F1 drivers and filming at actual F1 events
+  - Using only fictional teams and locations
+  - Focusing on sponsor advertisements
+  question_id: 2
+  question_text: Which of the following contributed most to the authenticity of 'F1
+    The Movie'?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Premieres and promotional events generate publicity and broaden the
+    movie's appeal to both motorsport fans and general audiences.
+  knowledge_areas:
+  - Premieres, Reactions, and Promotional Events
+  options:
+  - By replacing the need for a soundtrack
+  - By generating media attention and connecting the film to both motorsport and mainstream
+    audiences
+  - By focusing only on technical racing details
+  - By limiting the movie's audience to F1 insiders
+  question_id: 3
+  question_text: How do premieres and promotional events enhance the impact of 'F1
+    The Movie'?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Fans can engage further through official merchandise and the soundtrack,
+    both of which are promoted alongside the movie.
+  knowledge_areas:
+  - Soundtrack and Merchandise
+  options:
+  - By purchasing official APXGP merchandise and listening to the soundtrack album
+  - By attending live F1 races only
+  - By downloading leaked versions online
+  - By joining F1 as professional drivers
+  question_id: 4
+  question_text: What are two ways fans can engage with 'F1 The Movie' beyond watching
+    it in cinemas?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: F1 partners are global brands involved in supporting the sport and
+    its media, and the official app offers comprehensive content for fans.
+  knowledge_areas:
+  - F1 Partners and Official App
+  options:
+  - F1 partners are unrelated to media promotions, and the app is only for ticket
+    sales.
+  - F1 partners include global brands that support both the sport and its media initiatives,
+    while the app provides fans with news, schedules, and updates.
+  - Only F1 drivers are considered partners, and the app is not publicly available.
+  - The app is solely for streaming the movie.
+  question_id: 5
+  question_text: Which statement accurately describes the relationship between F1's
+    partners, the official app, and the promotion of 'F1 The Movie'?
+  question_type: recap
+sections:
+- aspects:
+  - content: '''F1 The Movie'' is a cinematic production created by Formula 1 in collaboration
+      with Apple Original Films. It is a feature-length film released in cinemas,
+      aiming to authentically depict the world of Formula 1 racing through both narrative
+      and technical realism.'
+    type: Definition
+  - content: The movie stars Brad Pitt as Sonny Hayes and Damson Idris, and features
+      real F1 drivers and teams. The film includes high-profile premieres in London
+      and New York, with exclusive interviews and behind-the-scenes content highlighting
+      the involvement of the F1 community.
+    type: Examples
+  - content: The film serves as both entertainment for general audiences and as a
+      promotional tool for Formula 1, aiming to attract new fans and deepen engagement
+      with existing ones by offering an inside look at racing culture and the technical
+      challenges of the sport.
+    type: Use Cases
+  - content: By striving for authenticity, 'F1 The Movie' bridges the gap between
+      Hollywood storytelling and real motorsport, potentially setting a new standard
+      for sports films. Its release may influence the perception of Formula 1 globally
+      and increase interest in the sport.
+    type: Implications
+  - content: The movie is part of a broader trend of sports organizations collaborating
+      with major film studios to expand their cultural footprint. It connects to other
+      F1 media initiatives, such as documentaries and series, and leverages the sport's
+      global popularity.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: '''F1 The Movie'' is a feature film that aims to authentically depict
+      Formula 1 racing, not a documentary, game, or sponsor-focused video.'
+    options:
+    - A documentary about F1 regulations
+    - A feature film depicting Formula 1 racing with an emphasis on authenticity
+    - A video game adaptation of F1
+    - A behind-the-scenes look at F1 sponsors
+    question_text: Which of the following best describes the main focus of 'F1 The
+      Movie'?
+  index: 61
+  key_concept: F1 The Movie Release and Content
+  name: '''F1 The Movie'''
+- aspects:
+  - content: Behind-the-scenes content refers to the documentation and discussion
+      of the filmmaking process, including how racing sequences were shot and the
+      efforts made to ensure realism in the movie.
+    type: Definition
+  - content: Director Joseph Kosinski and actors, including Brad Pitt, discuss the
+      complexity of filming realistic racing scenes. The involvement of real F1 drivers
+      and teams, as well as granting unprecedented access to actual F1 events and
+      equipment, are highlighted.
+    type: Examples
+  - content: This content is used to promote the movie’s credibility and appeal to
+      motorsport enthusiasts, demonstrating the lengths taken to avoid Hollywood clichés
+      and instead represent the sport accurately.
+    type: Use Cases
+  - content: The authenticity achieved through behind-the-scenes work may attract
+      both F1 fans and general audiences, setting a benchmark for future sports films
+      and potentially strengthening the relationship between the film and motorsport
+      industries.
+    type: Implications
+  - content: Authenticity in sports films is often scrutinized by fans; by involving
+      F1 drivers like Lewis Hamilton and using real F1 circuits and cars, the film
+      connects deeply with the sport’s culture and community.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: The filmmakers ensured authenticity by involving real F1 drivers
+      and filming at actual F1 events, not by relying solely on CGI or fictional elements.
+    options:
+    - Using only computer-generated imagery for all racing scenes
+    - Filming entirely on sound stages
+    - Involving real F1 drivers and filming at actual F1 events
+    - Focusing only on fictional teams and locations
+    question_text: What was a key strategy used by the filmmakers to ensure authenticity
+      in 'F1 The Movie'?
+  index: 61
+  key_concept: Behind-the-Scenes and Authenticity
+  name: '''F1 The Movie'''
+- aspects:
+  - content: Premieres and promotional events are organized launches and special screenings
+      of the film, often attended by stars, industry figures, and media to generate
+      publicity and audience interest.
+    type: Definition
+  - content: The movie had high-profile premieres in London and New York, with appearances
+      by stars such as Brad Pitt and Damson Idris. F1 drivers attended private screenings,
+      and their reactions were shared with fans.
+    type: Examples
+  - content: These events are used to build hype before and after the movie’s release,
+      provide exclusive content for media coverage, and connect the film to both motorsport
+      and mainstream entertainment audiences.
+    type: Use Cases
+  - content: Positive reactions from F1 drivers and celebrities can influence public
+      perception and drive box office success. Such events also reinforce the film’s
+      connection to the real world of F1.
+    type: Implications
+  - content: Premieres and promotional events are standard in the film industry but
+      take on special significance here due to the crossover between sports and entertainment,
+      leveraging the global reach of both Formula 1 and Hollywood.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: While premieres, private screenings, and interviews were mentioned,
+      there was no mention of a live race occurring during the movie premiere.
+    options:
+    - London and New York premieres
+    - Private screenings for F1 drivers
+    - A live race during the movie premiere
+    - Exclusive interviews with cast and crew
+    question_text: Which of the following was NOT mentioned as a promotional activity
+      for 'F1 The Movie'?
+  index: 61
+  key_concept: Premieres, Reactions, and Promotional Events
+  name: '''F1 The Movie'''
+- aspects:
+  - content: The soundtrack refers to the collection of music featured in the film,
+      often released as an album, while merchandise includes official products related
+      to the movie or its fictional elements, such as team apparel.
+    type: Definition
+  - content: Artists like Ed Sheeran, ROSÉ, and RAYE contribute to 'F1 THE ALBUM',
+      released alongside the movie. Official merchandise for the fictional APXGP team
+      is available for fans to purchase.
+    type: Examples
+  - content: Soundtracks and merchandise serve as additional revenue streams and engagement
+      tools, allowing fans to connect with the film beyond the cinema and express
+      their support for its characters or themes.
+    type: Use Cases
+  - content: A well-curated soundtrack can enhance the movie’s emotional impact and
+      cultural reach, while merchandise can foster a sense of community among fans
+      and extend the film’s brand.
+    type: Implications
+  - content: These practices are common in major film releases, particularly those
+      with strong fan bases. The inclusion of well-known musical artists and unique
+      merchandise connects the film to broader pop culture trends.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The movie engages fans through a soundtrack album and official merchandise,
+      not through a video game, live races, or a documentary series.
+    options:
+    - By offering a video game adaptation
+    - Through a soundtrack album and official team merchandise
+    - By organizing live F1 races for fans
+    - By releasing a documentary series
+    question_text: How does 'F1 The Movie' engage fans outside of the cinema experience?
+  index: 61
+  key_concept: Soundtrack and Merchandise
+  name: '''F1 The Movie'''
+- aspects:
+  - content: F1 partners are companies that sponsor or collaborate with Formula 1,
+      providing financial support, products, or services. The Official F1 App is a
+      digital platform offering news, schedules, results, and other content to fans.
+    type: Definition
+  - content: Partners include brands like LVMH, Pirelli, Aramco, Heineken, AWS, Lenovo,
+      DHL, and many others. The Official F1 App is available on both the App Store
+      and Google Play, providing users with real-time updates and exclusive content.
+    type: Examples
+  - content: Partnerships enable F1 to leverage global brands for marketing and technological
+      innovation, while the app allows fans to stay connected to the sport, access
+      live timing, and receive personalized updates.
+    type: Use Cases
+  - content: Strong partnerships and a robust digital presence are essential for maintaining
+      F1’s commercial success and expanding its global audience. The app also serves
+      as a key engagement tool in the digital age.
+    type: Implications
+  - content: Sponsorship is a cornerstone of modern sports economics, and digital
+      apps are increasingly vital for fan engagement. These elements support the sport’s
+      ecosystem and are often promoted alongside major media releases like 'F1 The
+      Movie.'
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: F1 partners include a wide range of global brands, and the official
+      app delivers news and updates to fans on multiple platforms.
+    options:
+    - Only racing teams are considered official partners
+    - The F1 app is only available for iOS devices
+    - F1 partners include major global brands, and the app provides fans with news
+      and updates
+    - Partners have no role in promoting F1 media content
+    question_text: Which of the following is TRUE about F1's official partners and
+      app?
+  index: 165
+  key_concept: F1 Partners and Official App
+  name: OUR PARTNERS

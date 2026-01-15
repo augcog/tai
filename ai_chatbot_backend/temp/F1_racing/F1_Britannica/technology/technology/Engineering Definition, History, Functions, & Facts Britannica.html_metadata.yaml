@@ -1,0 +1,215 @@
+URL: https://www.britannica.com/technology/engineering#ref135829
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article providing an overview of engineering, including
+  its definition, historical development, and the main functions performed by engineers.
+file_name: Engineering Definition, History, Functions, & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Engineering Definition, History,
+  Functions, & Facts Britannica.html
+file_uuid: cf326336-762e-5b35-8388-9f3be95c2e5b
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The article clearly states that scientists seek to know (theoretical
+    knowledge), while engineers seek to do (practical application).
+  knowledge_areas:
+  - Definition and Scope of Engineering
+  options:
+  - Scientists focus on theoretical knowledge; engineers focus on practical application.
+  - Scientists build structures; engineers conduct experiments.
+  - Engineers are concerned only with safety; scientists are not.
+  - Engineers have no ethical responsibilities.
+  question_id: 1
+  question_text: What is the primary distinction between the roles of scientists and
+    engineers, according to the article?
+  question_type: recap
+- correct_answers:
+  - 3
+  explanation: Legislation is not mentioned as a core engineering function; the others
+    are explicitly listed.
+  knowledge_areas:
+  - Engineering Functions
+  options:
+  - Research
+  - Development
+  - Operation
+  - Legislation
+  question_id: 2
+  question_text: Which of the following is NOT listed as a major function of engineering?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Imhotep, builder of the Step Pyramid, is cited as the first engineer
+    known by name and achievement.
+  knowledge_areas:
+  - Historical Development of Engineering
+  options:
+  - James Watt
+  - Imhotep
+  - Vitruvius
+  - Alessandro Volta
+  question_id: 3
+  question_text: Which historical figure is recognized as the first engineer known
+    by name and achievement?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Environmental engineering expanded the field to address sustainability,
+    renewable energy, and pollution control.
+  knowledge_areas:
+  - Historical Development of Engineering
+  - Definition and Scope of Engineering
+  options:
+  - It shifted focus to theoretical mathematics.
+  - It emphasized sustainability, renewable energy, and pollution control.
+  - It eliminated the need for civil engineering.
+  - It restricted engineering to electronics only.
+  question_id: 4
+  question_text: How did the rise of environmental engineering in the late 20th and
+    early 21st centuries change the focus of the engineering profession?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The article emphasizes that advances in one field (e.g., electrical
+    engineering) often spurred the development of new disciplines and technologies,
+    showing interconnectedness.
+  knowledge_areas:
+  - Historical Development of Engineering
+  - Engineering Functions
+  options:
+  - Civil engineering emerged independently of all other fields.
+  - Advances in one field, such as electrical engineering, often led to the development
+    of new disciplines and technologies.
+  - Mechanical engineering and chemical engineering have no overlap.
+  - Engineering has always focused solely on military applications.
+  question_id: 5
+  question_text: Which of the following best illustrates the interconnectedness of
+    engineering disciplines throughout history?
+  question_type: recap
+sections:
+- aspects:
+  - content: Engineering is the application of scientific principles to the optimal
+      conversion of natural resources for human use. It is defined as the creative
+      application of science to design, develop, construct, operate, and forecast
+      the behavior of structures, machines, apparatus, or processes, with due regard
+      to function, economics, and safety. The field encompasses a vast body of specialized
+      knowledge and requires extensive training for professional practice.
+    type: Definition
+  - content: Examples of engineering activities include designing bridges, developing
+      manufacturing processes, constructing water supply systems, and operating power
+      plants. In Great Britain, the term can also refer more broadly to the manufacture
+      or assembly of engines and machine parts.
+    type: Examples
+  - content: Engineers must balance conflicting requirements such as efficiency, cost,
+      safety, and performance, often under constraints of limited resources. The solutions
+      they devise are considered optimal when they best satisfy these competing demands.
+      Their work has significant social and environmental impacts, requiring ethical
+      responsibility to the public.
+    type: Implications
+  - content: Engineering is closely linked to science, particularly physics, chemistry,
+      and mathematics, but differs in its focus on practical problem-solving. While
+      scientists seek to expand knowledge, engineers apply that knowledge to real-world
+      challenges. The profession is regulated through standards and professional societies
+      to ensure public safety and ethical practice.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Engineering is primarily concerned with the creative application
+      of scientific principles to solve practical problems, not just theoretical exploration
+      or manufacturing engines.
+    options:
+    - Theoretical exploration of natural phenomena
+    - Creative application of scientific principles to solve practical problems
+    - Manufacturing only engines and machine parts
+    - Developing philosophical theories about technology
+    question_text: Which of the following best describes the primary focus of engineering?
+  index: 153
+  key_concept: Definition and Scope of Engineering
+  name: engineering
+- aspects:
+  - content: The first known engineer was Imhotep, builder of the Step Pyramid in
+      ancient Egypt around 2550 BCE. Early engineers in Egypt, Persia, Greece, and
+      Rome achieved remarkable feats in civil engineering, such as aqueducts, temples,
+      and road systems, using empirical methods and basic scientific knowledge.
+    type: Early History
+  - content: Medieval European engineers advanced construction techniques with innovations
+      like the Gothic arch and flying buttress. In Asia, independent but parallel
+      developments in hydraulics, metallurgy, and city planning led to sophisticated
+      civilizations, as seen in the Mongol empire's impressive cities.
+    type: Medieval and Asian Contributions
+  - content: Civil engineering became a distinct discipline in the 18th century with
+      the founding of professional societies and schools. The 19th century saw the
+      rise of mechanical engineering, driven by industrial advances and inventions
+      such as James Watt’s steam engine.
+    type: Emergence of Disciplines
+  - content: The 19th and 20th centuries brought about electrical, electronics, and
+      chemical engineering as new fields, spurred by discoveries in electricity and
+      industrial chemistry. The late 20th and early 21st centuries saw the growth
+      of environmental engineering, focusing on sustainability, renewable energy,
+      and pollution control.
+    type: Modern Expansion
+  - content: Engineering’s historical evolution reflects society’s changing needs
+      and technological advances. Each new discipline emerged in response to specific
+      challenges, and the field’s expansion has profoundly shaped infrastructure,
+      industry, and the environment.
+    type: Connections and Impact
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Electrical engineering developed as a result of advances in electricity
+      and electronics, especially in the 19th and 20th centuries. Other options are
+      incorrect or misleading.
+    options:
+    - Mechanical engineering was the first engineering discipline to emerge.
+    - Environmental engineering has existed since ancient times.
+    - The growth of electrical engineering was influenced by discoveries in electricity
+      and electronics.
+    - Engineering developed only in Europe and did not have parallel developments
+      elsewhere.
+    question_text: Which statement about the history of engineering is correct?
+  index: 153
+  key_concept: Historical Development of Engineering
+  name: engineering
+- aspects:
+  - content: Engineering functions encompass a range of activities common to all branches,
+      including research, development, design, construction, production, operation,
+      and management. Each function plays a distinct role in bringing scientific knowledge
+      to practical use.
+    type: Overview
+  - content: Research engineers use scientific methods and inductive reasoning to
+      discover new principles and processes. Development engineers apply research
+      findings to create prototypes or working models, bridging the gap between theory
+      and practical application.
+    type: Research and Development
+  - content: Design involves selecting methods, materials, and shapes to meet technical
+      and performance requirements. Construction engineers manage the preparation
+      of sites, oversee material placement, and coordinate personnel and equipment
+      to achieve safe and economical results.
+    type: Design and Construction
+  - content: Production engineers focus on plant layout, equipment selection, process
+      integration, and quality assurance through testing and inspection. Operating
+      engineers control and supervise complex systems to ensure reliable, efficient,
+      and economic performance.
+    type: Production and Operation
+  - content: Engineers may also analyze customer requirements, recommend solutions,
+      and resolve related issues, especially in industries where technical and economic
+      considerations must be balanced. Management functions require both technical
+      expertise and organizational skills.
+    type: Management and Customer Relations
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Development engineers apply the results of research to create practical
+      working models or prototypes, distinguishing this function from pure research
+      or design.
+    options:
+    - Research
+    - Development
+    - Design
+    - Operation
+    question_text: Which engineering function involves applying research findings
+      to create working models or prototypes?
+  index: 153
+  key_concept: Engineering Functions
+  name: engineering

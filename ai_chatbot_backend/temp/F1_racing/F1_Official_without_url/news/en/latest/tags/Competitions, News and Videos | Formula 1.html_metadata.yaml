@@ -1,0 +1,167 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A section of the Formula 1 website listing official partners and
+  providing links to download the official F1 app, focusing on sponsorship and digital
+  engagement aspects.
+file_name: Competitions, News and Videos | Formula 1.html
+file_path: F1_racing/F1_Official/news/en/latest/tags/Competitions, News and Videos
+  | Formula 1.html
+file_uuid: 45b2b84b-9f98-5d05-a57c-64dd459ffe0d
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Brands partnering with F1 gain access to a global fanbase, co-branding,
+    and unique promotional opportunities, but do not receive broadcasting rights,
+    team ownership, or control over regulations.
+  knowledge_areas:
+  - Official F1 Partners
+  options:
+  - Access to a global fanbase and co-branding opportunities
+  - Exclusive rights to broadcast races
+  - Ownership of a Formula 1 team
+  - Control over race regulations
+  question_id: 1
+  question_text: Which of the following is a direct benefit for a brand partnering
+    with Formula 1, as described in the partners section?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: AWS (Amazon Web Services) is listed as an official F1 partner and is
+    recognized for its cloud computing and analytics services.
+  knowledge_areas:
+  - Official F1 Partners
+  options:
+  - AWS
+  - Barilla
+  - TAG Heuer
+  - MSC
+  question_id: 2
+  question_text: Which of these companies is listed as an official F1 partner and
+    is known for providing cloud computing and analytics services?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The F1 app's primary function is to provide live timing, race updates,
+    news, and other interactive features to enhance the fan experience.
+  knowledge_areas:
+  - F1 App Download Options
+  options:
+  - Providing live timing and race updates
+  - Selling team merchandise exclusively
+  - Offering driver training programs
+  - Streaming only classic races
+  question_id: 3
+  question_text: What is a primary function of the official F1 app as promoted in
+    the 'Download the Official F1 App' section?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Pirelli supplies tires and DHL manages logistics, both providing essential
+    operational support in addition to financial sponsorship.
+  knowledge_areas:
+  - Official F1 Partners
+  options:
+  - By supplying critical products and services such as tires and logistics
+  - By designing race tracks
+  - By managing team operations
+  - By setting driver salaries
+  question_id: 4
+  question_text: How do official partners like Pirelli and DHL contribute to Formula
+    1 beyond financial sponsorship?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app supports F1's commercial strategy through in-app purchases,
+    advertising, and the collection of user data for targeted marketing.
+  knowledge_areas:
+  - F1 App Download Options
+  options:
+  - It enables in-app purchases, advertising, and data-driven marketing
+  - It replaces all TV broadcasts
+  - It allows fans to vote on race outcomes
+  - It provides free merchandise to all users
+  question_id: 5
+  question_text: In what way does the official F1 app support the sport's commercial
+    strategy, according to the material?
+  question_type: recap
+sections:
+- aspects:
+  - content: Official F1 Partners are companies or brands that have established formal
+      sponsorship or partnership agreements with Formula 1. These partnerships typically
+      involve financial support, co-branding opportunities, and promotional collaborations
+      that benefit both the sport and the partner organizations.
+    type: Definition
+  - content: The list of partners includes a diverse range of global brands such as
+      LVMH, Pirelli, Aramco, Heineken, AWS, Lenovo, DHL, Qatar Airways, MSC, Crypto.com,
+      Salesforce, Louis Vuitton, TAG Heuer, Moet Hennessy, American Express, Santander,
+      Allwyn, Globant, Las Vegas Convention and Visitors Authority, Paramount+, Barilla,
+      Liqui Moly, Nestle, PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds. Each
+      of these brands is featured with logos and links to their respective websites,
+      highlighting their visibility and engagement with the F1 audience.
+    type: Examples
+  - content: Partnerships with such prominent brands provide Formula 1 with significant
+      financial resources, technological advancements, and global marketing reach.
+      These collaborations can influence the fan experience, event logistics, and
+      even aspects of race operations (e.g., Pirelli as the official tire supplier,
+      DHL for logistics). For partners, association with F1 offers brand prestige,
+      access to a global fanbase, and unique promotional opportunities.
+    type: Implications
+  - content: Sponsorship is a cornerstone of modern motorsport economics, with F1
+      serving as a leading example of how global sports leverage partnerships. The
+      diversity of industries represented—ranging from luxury goods and technology
+      to logistics and food—demonstrates F1's broad commercial appeal. These partnerships
+      often extend beyond simple logo placement, encompassing joint marketing campaigns,
+      product integration, and co-hosted events.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Nike is not mentioned as an official F1 partner in the provided list,
+      while AWS, Pirelli, and Heineken are all included as partners.
+    options:
+    - AWS
+    - Nike
+    - Pirelli
+    - Heineken
+    question_text: Which of the following brands is NOT listed as an official Formula
+      1 partner in the provided section?
+  index: 82
+  key_concept: Official F1 Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The 'Download the Official F1 App' section provides users with direct
+      links to download the official Formula 1 mobile application. This app is available
+      on major platforms such as the Apple App Store and Google Play Store.
+    type: Definition
+  - content: The F1 app allows fans to access live timing, race results, news, schedules,
+      and exclusive content directly from their mobile devices. It enhances the fan
+      experience by providing real-time updates, interactive features, and personalized
+      notifications about races, drivers, and teams.
+    type: Use Cases
+  - content: By promoting the official app, Formula 1 aims to increase digital engagement,
+      reach a broader audience, and offer fans a centralized platform for all F1-related
+      information. The app also serves as a tool for marketing, data collection, and
+      fan analytics, which can be leveraged for targeted promotions and improved user
+      experience.
+    type: Practical Implications
+  - content: The app complements other digital initiatives by Formula 1, such as F1
+      TV and social media channels, creating an integrated digital ecosystem. It also
+      supports the sport's commercial strategy by offering in-app purchases, exclusive
+      content, and advertising opportunities for partners.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The section specifically provides links to the Apple App Store and
+      Google Play Store for downloading the official F1 app.
+    options:
+    - Apple App Store and Google Play Store
+    - Microsoft Store and Amazon Appstore
+    - Huawei AppGallery and Samsung Galaxy Store
+    - F1 Official Website and Facebook
+    question_text: What are the two main platforms where users can download the official
+      F1 app, as mentioned in the section?
+  index: 92
+  key_concept: F1 App Download Options
+  name: Download the Official F1 App

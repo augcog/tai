@@ -1,0 +1,302 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page listing the 1976 Formula 1 race results, with a summary
+  table of each Grand Prix, winners, teams, and race details, plus sections on F1's
+  commercial partners and a prompt to download the official F1 mobile app.
+file_name: 1976 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1976/1976 RACE RESULTS.html
+file_uuid: 5af0c657-9365-57de-a42b-2e9210f7b80c
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: The 1976 F1 season featured a global calendar with races in Europe,
+    Asia, North America, South America, and Africa, highlighting the sport's international
+    reach.
+  knowledge_areas:
+  - Grand Prix Calendar and International Scope
+  options:
+  - All races were held in Europe.
+  - Races took place across several continents including Europe, Asia, North America,
+    South America, and Africa.
+  - The season was limited to North America and Asia.
+  - Only three countries hosted races.
+  question_id: 1
+  question_text: Which of the following best summarizes the international scope of
+    the 1976 Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Niki Lauda and James Hunt were the main contenders for the 1976 championship,
+    each winning multiple races and being at the center of the season's dramatic narrative.
+  knowledge_areas:
+  - 1976 Formula 1 Race Results
+  - F1 Teams and Constructors in 1976
+  options:
+  - Niki Lauda and James Hunt
+  - Mario Andretti and Ronnie Peterson
+  - John Watson and Clay Regazzoni
+  - Jody Scheckter and Pierre Gasly
+  question_id: 2
+  question_text: Which two drivers were most central to the 1976 championship battle,
+    according to the race results?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: F1's commercial partners come from diverse industries, including technology
+    (AWS), luxury goods (LVMH), logistics (DHL), and beverages (Heineken), not just
+    automotive or tire companies.
+  knowledge_areas:
+  - F1 Commercial Partners and Sponsors
+  options:
+  - F1 partners only with automotive companies.
+  - F1's sponsors include a wide range of industries such as technology, luxury goods,
+    logistics, and beverages.
+  - F1 does not have any official sponsors.
+  - All F1 sponsors are tire manufacturers.
+  question_id: 3
+  question_text: Which of the following statements about F1 commercial partners is
+    correct?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The official F1 app provides live race timing, news, and exclusive
+    content, serving as a digital hub for fans. It does not directly sell merchandise,
+    arrange travel, or offer betting.
+  knowledge_areas:
+  - Official F1 Mobile App
+  options:
+  - Broadcasting live race timing and providing exclusive F1 content
+  - Selling team merchandise directly
+  - Arranging travel packages for fans
+  - Offering betting services on races
+  question_id: 4
+  question_text: What is a primary function of the official F1 mobile app as described
+    in the document?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: F1 teams and constructors play a vital role in the sport, as their
+    engineering, car design, and strategic decisions directly affect race outcomes
+    and championship standings, as seen in the 1976 season.
+  knowledge_areas:
+  - F1 Teams and Constructors in 1976
+  - 1976 Formula 1 Race Results
+  options:
+  - Only the drivers' abilities matter in F1.
+  - Team strategies, car design, and reliability are critical to race and championship
+    success.
+  - Teams have no impact on race results.
+  - All teams use identical cars, so results are random.
+  question_id: 5
+  question_text: How do F1 teams and constructors influence the outcome of a season,
+    as illustrated by the 1976 results?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1976 Formula 1 Race Results refer to the official list of outcomes
+      for each Grand Prix (GP) held during the 1976 F1 World Championship season.
+      This includes the name of each race, date, winning driver, their team, number
+      of laps completed, and the total race time.
+    type: Definition
+  - content: Notable examples from the 1976 season include Niki Lauda winning the
+      Brazilian, South African, Belgian, and Monaco GPs for Ferrari, James Hunt winning
+      the Spanish, French, German, Dutch, Canadian, and USA East GPs for McLaren Ford,
+      and Mario Andretti clinching the Japanese GP for Lotus Ford. Each race entry
+      provides a snapshot of the competitive landscape, such as John Watson's win
+      for Penske Ford in Austria and Ronnie Peterson's for March Ford in Italy.
+    type: Examples
+  - content: These results are used for historical analysis, statistical comparison,
+      and understanding the progression of the championship throughout the season.
+      They serve as a reference for fans, historians, and analysts studying driver
+      and team performance, race strategies, and the evolution of the sport.
+    type: Use Cases
+  - content: The 1976 results had significant implications for the championship standings,
+      most famously the dramatic title battle between Niki Lauda and James Hunt. The
+      data also reflects the importance of team reliability, driver skill, and the
+      impact of external factors such as weather and accidents, as seen in races like
+      the German GP at the Nürburgring.
+    type: Implications
+  - content: These results connect to broader themes in F1 such as technological innovation
+      (e.g., the Tyrrell P34 six-wheeler winning in Sweden), the role of constructors,
+      and the global expansion of the sport. They are also linked to the F1 archive,
+      which allows for comparison across years and the study of trends in team and
+      driver dominance.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: James Hunt won six races in the 1976 season, which is more than any
+      other driver listed in the results table. Niki Lauda won five, Mario Andretti
+      won one, and Clay Regazzoni won one.
+    options:
+    - James Hunt
+    - Niki Lauda
+    - Mario Andretti
+    - Clay Regazzoni
+    question_text: Which driver won the most races in the 1976 Formula 1 season according
+      to the results table?
+  index: 153
+  key_concept: 1976 Formula 1 Race Results
+  name: 1976 RACE RESULTS
+- aspects:
+  - content: F1 teams and constructors in 1976 refer to the organizations responsible
+      for designing, building, and entering cars in the Formula 1 World Championship.
+      Each team fields one or more drivers and is a critical component of the competition.
+    type: Definition
+  - content: Key teams in 1976 included Ferrari (with drivers like Niki Lauda and
+      Clay Regazzoni), McLaren Ford (James Hunt), Tyrrell Ford (Jody Scheckter), Lotus
+      Ford (Mario Andretti), Penske Ford (John Watson), and March Ford (Ronnie Peterson).
+      These teams varied in resources, technical expertise, and competitive success.
+    type: Examples
+  - content: Understanding the teams helps explain race outcomes, as team strategies,
+      car development, and reliability play major roles in success. For instance,
+      Ferrari's strong performance with Lauda and Regazzoni, and McLaren's competitiveness
+      with Hunt, were pivotal in the title fight.
+    type: Use Cases
+  - content: The diversity of teams and constructors in 1976 illustrates the competitive
+      and technological landscape of F1 at the time. Teams' engineering choices, such
+      as the Tyrrell P34's unique six-wheel design, had direct impacts on race results
+      and the evolution of F1 technology.
+    type: Implications
+  - content: F1 teams are linked to driver careers, sponsor relationships, and the
+      broader economic and sporting context of Formula 1. Team performance in 1976
+      also contributed to the historical legacy and future development of these organizations
+      within the sport.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Niki Lauda drove for Ferrari during his 1976 Grand Prix victories,
+      as indicated in the results table.
+    options:
+    - McLaren Ford
+    - Ferrari
+    - Lotus Ford
+    - Tyrrell Ford
+    question_text: Which team did Niki Lauda drive for during his 1976 Grand Prix
+      victories?
+  index: 153
+  key_concept: F1 Teams and Constructors in 1976
+  name: 1976 RACE RESULTS
+- aspects:
+  - content: The Grand Prix calendar refers to the schedule of races held as part
+      of the Formula 1 World Championship in a given year. The international scope
+      highlights the global nature of the sport, with races held across multiple continents
+      and countries.
+    type: Definition
+  - content: In 1976, the calendar included races in Brazil, South Africa, USA (West
+      and East), Spain, Belgium, Monaco, Sweden, France, Great Britain, Germany, Austria,
+      Netherlands, Italy, Canada, and Japan. This demonstrates the sport's reach,
+      with events in Europe, North America, South America, Asia, and Africa.
+    type: Examples
+  - content: The calendar structure is used for logistical planning, team and driver
+      preparation, and fan engagement. It also affects championship dynamics, as different
+      circuits present unique challenges and opportunities for teams and drivers.
+    type: Use Cases
+  - content: The international calendar increases the sport's exposure, commercial
+      value, and cultural diversity. It also introduces variables such as travel fatigue,
+      climate adaptation, and local fan bases, all of which influence performance
+      and the championship outcome.
+    type: Implications
+  - content: The global nature of the F1 calendar connects to the sport's marketing,
+      sponsorship, and regulatory frameworks. It also ties into the historical development
+      of F1 as a worldwide competition, with new venues and markets emerging over
+      time.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Oceania did not host a Grand Prix in 1976. The season included races
+      in Europe (multiple countries), Asia (Japan), North America (USA and Canada),
+      South America (Brazil), and Africa (South Africa), but not Oceania.
+    options:
+    - Europe
+    - Asia
+    - Oceania
+    - North America
+    question_text: Which of the following continents did NOT host a Grand Prix in
+      the 1976 F1 season?
+  index: 153
+  key_concept: Grand Prix Calendar and International Scope
+  name: 1976 RACE RESULTS
+- aspects:
+  - content: F1 commercial partners and sponsors are companies or organizations that
+      provide financial support, products, or services to Formula 1 in exchange for
+      branding, marketing, and promotional opportunities. These partnerships are crucial
+      for the sport's economic sustainability.
+    type: Definition
+  - content: The 2024 F1 partner list includes luxury brands (LVMH, Louis Vuitton),
+      technology firms (AWS, Lenovo), tire suppliers (Pirelli), logistics (DHL), airlines
+      (Qatar Airways), beverage companies (Heineken, Moet Hennessy, PepsiCo), financial
+      services (Santander, American Express), and more. These sponsors are visible
+      through logos, advertising, and event naming rights.
+    type: Examples
+  - content: Sponsorships fund team operations, event organization, and technological
+      development. Partners benefit from global exposure, association with high performance,
+      and access to F1's affluent and international audience. For example, Pirelli
+      as the official tire supplier gains exclusive branding and product integration.
+    type: Use Cases
+  - content: Commercial partnerships shape the financial landscape of F1, influencing
+      everything from team budgets to fan experiences. They also affect the sport's
+      image and its ability to innovate, as sponsors often drive technological and
+      marketing initiatives.
+    type: Implications
+  - content: F1's commercial ecosystem connects to broader trends in sports marketing,
+      globalization, and brand strategy. The evolution of sponsorship reflects shifts
+      in consumer behavior, technology adoption, and the growing importance of digital
+      and experiential marketing in sports.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not listed among the F1 partners or sponsors in the provided
+      section, while Heineken, AWS, and Pirelli are all included.
+    options:
+    - Heineken
+    - AWS
+    - Nike
+    - Pirelli
+    question_text: Which of the following is NOT listed as an F1 partner or sponsor
+      in the provided section?
+  index: 174
+  key_concept: F1 Commercial Partners and Sponsors
+  name: OUR PARTNERS
+- aspects:
+  - content: The official F1 mobile app is a digital application available for iOS
+      and Android devices, designed to provide fans with real-time updates, news,
+      race schedules, results, and exclusive content related to Formula 1.
+    type: Definition
+  - content: The app can be downloaded from the Apple App Store or Google Play. It
+      offers features such as live timing, driver and team profiles, race highlights,
+      and push notifications for major events. Fans can use it to follow races, access
+      historical data, and receive personalized content.
+    type: Examples
+  - content: The app serves as a central hub for fan engagement, allowing users to
+      stay informed about the latest developments, interact with multimedia content,
+      and enhance their race viewing experience. It also supports F1's digital strategy
+      by collecting user data and driving engagement.
+    type: Use Cases
+  - content: The app reflects F1's commitment to digital transformation and global
+      fan outreach. It enables the sport to reach younger audiences, provide value-added
+      services, and create new revenue streams through premium features or advertising.
+    type: Implications
+  - content: The app is part of F1's broader ecosystem of digital products, including
+      F1 TV and social media platforms. It connects fans to the sport regardless of
+      location, complementing traditional broadcasting and live attendance.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The official F1 mobile app provides live race timing and updates,
+      along with news and exclusive F1 content. It does not sell car insurance, book
+      hotel rooms, or offer driver coaching services.
+    options:
+    - Providing live race timing and updates
+    - Selling car insurance
+    - Booking hotel rooms
+    - Offering driver coaching services
+    question_text: What is one main function of the official F1 mobile app?
+  index: 184
+  key_concept: Official F1 Mobile App
+  name: Download the Official F1 App

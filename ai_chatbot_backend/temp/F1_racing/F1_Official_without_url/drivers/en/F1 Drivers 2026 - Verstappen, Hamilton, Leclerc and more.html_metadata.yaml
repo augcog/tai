@@ -1,0 +1,206 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page listing the official F1 drivers for the 2026 season,
+  with sections on team line-ups, major commercial partners, and links to download
+  the official F1 app.
+file_name: F1 Drivers 2026 - Verstappen, Hamilton, Leclerc and more.html
+file_path: F1_racing/F1_Official/drivers/en/F1 Drivers 2026 - Verstappen, Hamilton,
+  Leclerc and more.html
+file_uuid: aae2cc1b-424a-537b-9335-891b1564e965
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: The section lists all current drivers for each team in the 2026 season,
+    including their nationalities and links to their profiles, not just champions
+    or drivers from select teams.
+  knowledge_areas:
+  - F1 Drivers 2026
+  - team line-ups
+  - driver diversity
+  options:
+  - It lists only the championship-winning drivers.
+  - It provides a comprehensive team-by-team roster of all 2026 F1 drivers, including
+    nationalities and profile links.
+  - It focuses exclusively on technical regulations for 2026.
+  - It presents only the drivers from Ferrari and Mercedes.
+  question_id: 1
+  question_text: Which of the following best describes the structure of the F1 Drivers
+    2026 section?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Commercial partners contribute to F1 by offering financial backing,
+    technical expertise (like AWS’s data services), and marketing support, but they
+    do not hire drivers, manage schedules, or manufacture cars.
+  knowledge_areas:
+  - OUR PARTNERS
+  - F1 business model
+  - sponsorship
+  options:
+  - They provide financial, technical, and marketing support to the sport.
+  - They are responsible for hiring drivers.
+  - They manage the official race schedule.
+  - They manufacture all F1 cars.
+  question_id: 2
+  question_text: What role do commercial partners like Pirelli, AWS, and Heineken
+    play in Formula 1?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app enhances fan engagement through live data, news, interactive
+    content, and access to digital services, not through contract management, merchandise
+    production, or technical race operations.
+  knowledge_areas:
+  - Download the Official F1 App
+  - fan engagement
+  - digital platforms
+  options:
+  - By providing live race data, interactive features, and exclusive content.
+  - By organizing driver contracts.
+  - By manufacturing F1 merchandise.
+  - By running the technical scrutineering at races.
+  question_id: 3
+  question_text: How does the Official F1 App enhance the fan experience?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Partners such as Pirelli and AWS provide support and services to all
+    teams and drivers, with no restrictions based on nationality or exclusivity, and
+    the app is publicly available.
+  knowledge_areas:
+  - F1 Drivers 2026
+  - OUR PARTNERS
+  - F1 business ecosystem
+  options:
+  - Only drivers from partner countries are allowed to compete in F1.
+  - Team and driver line-ups are independent of commercial partnerships.
+  - Commercial partners like Pirelli and AWS support all teams and drivers regardless
+    of nationality.
+  - The Official F1 App is only available to drivers and partners.
+  question_id: 4
+  question_text: Which of the following statements integrates knowledge of both the
+    F1 Drivers 2026 and OUR PARTNERS sections?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 'F1 Drivers 2026' section presents the complete roster of drivers
+      participating in the 2026 Formula 1 season. This includes established champions
+      like Max Verstappen, Lewis Hamilton, and Charles Leclerc, as well as emerging
+      talents such as Kimi Antonelli and Oliver Bearman. The list is organized by
+      teams, with each driver’s nationality and a link to their profile, reflecting
+      the global and competitive nature of the sport.
+    type: Definition and Overview
+  - content: 'The 2026 driver line-up features a mix of veteran drivers and newcomers
+      across various teams: for example, Fernando Alonso (Aston Martin, Spain), Gabriel
+      Bortoleto (Audi, Brazil), and Isack Hadjar (Red Bull Racing, France). This diversity
+      highlights F1’s international appeal and the dynamic changes in team compositions
+      from season to season, which can affect team strategies and fan engagement.'
+    type: Examples and Diversity
+  - content: Knowing the official driver line-up is crucial for fans, analysts, and
+      teams alike, as it directly impacts championship predictions, team rivalries,
+      and marketing efforts. The roster also reflects broader trends in F1, such as
+      the promotion of young talent and the shifting allegiances of high-profile drivers.
+      These changes can influence team performance, sponsorships, and the overall
+      narrative of the season.
+    type: Implications and Context
+  - content: The driver line-up is closely tied to team strategies, technical regulations,
+      and the F1 calendar. It also connects to fan activities such as fantasy leagues
+      and gaming, where up-to-date rosters are essential. The driver list is often
+      referenced in news articles, race previews, and statistical analyses throughout
+      the season.
+    type: Connections to Related Concepts
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The 2026 F1 driver line-up includes a mix of experienced champions
+      (like Hamilton and Verstappen) and new talents (like Antonelli and Bearman)
+      from a range of countries, reflecting the sport's international and dynamic
+      nature. The other options are incorrect because the line-up is not exclusively
+      European, drivers do change teams, and not all are past champions.
+    options:
+    - It consists exclusively of drivers from Europe.
+    - It features both experienced champions and new talents from various countries.
+    - All drivers remain with the same teams as in 2025.
+    - Only drivers who have previously won a championship are included.
+    question_text: Which of the following statements best describes the composition
+      of the F1 Drivers 2026 line-up?
+  index: 59
+  key_concept: F1 Drivers 2026
+  name: F1 Drivers 2026
+- aspects:
+  - content: '''OUR PARTNERS'' refers to the official commercial sponsors and partners
+      associated with Formula 1. This section showcases a wide array of companies
+      from different industries, such as luxury brands, technology, logistics, and
+      beverages, that contribute to the sport''s financial and operational ecosystem.'
+    type: Definition and Overview
+  - content: Notable partners include LVMH (luxury goods), Pirelli (tire supplier),
+      Aramco (energy), Heineken (beverages), AWS (cloud computing), DHL (logistics),
+      and Lenovo (technology). These partnerships represent the global reach and cross-industry
+      appeal of Formula 1, with each partner playing a unique role in supporting events,
+      technology, and marketing.
+    type: Examples and Industry Representation
+  - content: Partnerships are vital for the financial sustainability of F1, providing
+      revenue streams and technological advancements. For example, AWS supports data
+      analytics for race strategy, while Pirelli supplies tires to all teams. Sponsorship
+      visibility on cars, tracks, and media increases brand exposure and cements F1’s
+      status as a premier global sporting event.
+    type: Implications and Business Context
+  - content: These partners are integrated into nearly every aspect of F1, from race
+      logistics to fan engagement. The presence of diverse sponsors reflects the sport’s
+      appeal to a wide demographic and its reliance on commercial relationships for
+      innovation and event execution.
+    type: Connections to Sport Operations
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not listed among the 2026 F1 partners in the provided section,
+      whereas AWS, Heineken, and Pirelli are explicitly mentioned as official partners.
+    options:
+    - AWS
+    - Heineken
+    - Nike
+    - Pirelli
+    question_text: Which of the following companies is NOT listed as a 2026 F1 partner?
+  index: 285
+  key_concept: OUR PARTNERS
+  name: OUR PARTNERS
+- aspects:
+  - content: The 'Download the Official F1 App' section promotes the official mobile
+      application for Formula 1, available on both the Apple App Store and Google
+      Play. The app is designed to provide fans with real-time updates, race schedules,
+      driver profiles, and exclusive content, enhancing the fan experience beyond
+      traditional media.
+    type: Definition and Purpose
+  - content: Key features of the app include live timing data, news updates, video
+      highlights, and interactive content such as fantasy gaming and race predictions.
+      Fans can use the app to follow their favorite drivers and teams, access in-depth
+      statistics, and receive notifications about upcoming events. The app also serves
+      as a gateway to F1 TV and other digital services.
+    type: Features and Use Cases
+  - content: The app is a critical tool for increasing fan engagement, especially
+      among younger, tech-savvy audiences who consume sports content on mobile devices.
+      It allows F1 to maintain a direct relationship with its global fanbase, gather
+      user data for marketing, and promote digital products such as F1 TV subscriptions
+      and fantasy leagues.
+    type: Implications and Fan Engagement
+  - content: The official app is integrated with other F1 digital platforms, including
+      the website, social media channels, and gaming products. It complements live
+      broadcasts and on-site experiences, ensuring that fans have access to comprehensive
+      information and interactive features regardless of location.
+    type: Connections to Broader F1 Ecosystem
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The Official F1 App is primarily designed to provide live race data,
+      news, and interactive features for fans, not to supply tires, organize sponsorships,
+      or manufacture cars.
+    options:
+    - Supplying tires to F1 teams
+    - Providing live race data and fan engagement features
+    - Organizing team sponsorships
+    - Manufacturing F1 cars
+    question_text: What is a primary function of the Official F1 App?
+  index: 295
+  key_concept: Download the Official F1 App
+  name: Download the Official F1 App

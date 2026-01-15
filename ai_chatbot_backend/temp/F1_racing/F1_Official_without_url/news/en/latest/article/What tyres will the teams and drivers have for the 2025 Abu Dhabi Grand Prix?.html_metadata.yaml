@@ -1,0 +1,200 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An official Formula 1 news article detailing the Pirelli tyre compound
+  choices and strategic implications for the 2025 Abu Dhabi Grand Prix, including
+  tyre allocation rules, recent Yas Marina tyre performance, and related F1 content
+  links.
+file_name: What tyres will the teams and drivers have for the 2025 Abu Dhabi Grand
+  Prix?.html
+file_path: F1_racing/F1_Official/news/en/latest/article/What tyres will the teams
+  and drivers have for the 2025 Abu Dhabi Grand Prix?.html
+file_uuid: 47f6396a-ce6e-596f-bdbe-c187f522781c
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The compounds for Abu Dhabi are C3 (hard, white), C4 (medium, yellow),
+    and C5 (soft, red). The other options list incorrect combinations or colours.
+  knowledge_areas:
+  - 2025 Abu Dhabi Grand Prix Tyre Compounds
+  options:
+  - C3 (white), C4 (yellow), C5 (red)
+  - C1 (blue), C2 (green), C3 (red)
+  - C2 (white), C3 (yellow), C4 (red)
+  - C4 (white), C5 (yellow), C6 (red)
+  question_id: 1
+  question_text: Which tyre compounds has Pirelli selected for the 2025 Abu Dhabi
+    Grand Prix, and what are their corresponding colours?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: F1 rules require drivers to use at least two different types of slick
+    tyres during a dry race to encourage strategic diversity.
+  knowledge_areas:
+  - F1 Tyre Allocation Rules
+  options:
+  - Use at least one compound
+  - Use at least two different slick compounds
+  - Use all three compounds
+  - Use only soft tyres
+  question_id: 2
+  question_text: What is the minimum tyre usage requirement for drivers during a dry
+    race at the Abu Dhabi Grand Prix?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Recent tyre improvements have minimized graining at Yas Marina, with
+    degradation now mainly thermal and affecting the rear tyres, allowing for longer
+    stints.
+  knowledge_areas:
+  - Yas Marina Circuit Tyre Performance
+  options:
+  - Graining has increased, leading to more pit stops.
+  - Graining has been reduced, with degradation mainly thermal and manageable.
+  - Tyre failures have become common due to abrasive surfaces.
+  - Degradation is now mostly due to wet conditions.
+  question_id: 3
+  question_text: How have recent improvements in tyre construction affected graining
+    and degradation at Yas Marina Circuit?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Most top finishers in 2024 used a one-stop strategy, switching to hards
+    for the second stint, indicating tyre durability and the potential for similar
+    strategies in 2025.
+  knowledge_areas:
+  - Yas Marina Circuit Tyre Performance
+  - 2025 Abu Dhabi Grand Prix Tyre Compounds
+  options:
+  - Two-stop strategy with frequent use of softs
+  - One-stop strategy with hards for the second stint
+  - No pit stops due to tyre durability
+  - Multiple stops using only mediums
+  question_id: 4
+  question_text: In the 2024 Abu Dhabi Grand Prix, what was the most common pit strategy
+    among the top finishers, and what does this suggest for 2025?
+  question_type: recap
+sections:
+- aspects:
+  - content: For the 2025 Abu Dhabi Grand Prix, Pirelli has selected the C3 (hard),
+      C4 (medium), and C5 (soft) tyre compounds for use at the Yas Marina Circuit.
+      These compounds represent the hardest, medium, and softest options in Pirelli’s
+      F1 range, with C3 being the most durable and C5 offering the highest grip but
+      the fastest degradation. The selection is tailored to the circuit’s combination
+      of high-speed straights and technical sections.
+    type: Definition
+  - content: Each driver will receive two sets of hard tyres (white), three sets of
+      medium tyres (yellow), and eight sets of soft tyres (red) for the event. Additionally,
+      green-marked intermediate tyres and blue-marked full wet tyres are available
+      in case of rain. The allocation reflects the expectation that soft tyres may
+      play a larger role in race strategy due to reduced graining at Yas Marina.
+    type: Examples and Allocation
+  - content: The tyre allocation and compound selection influence race strategy, as
+      drivers must use at least two different slick compounds during a dry race. The
+      abundance of soft tyres suggests teams may consider aggressive strategies, especially
+      if tyre degradation remains low. An extra set of soft tyres is reserved for
+      drivers reaching Q3 in qualifying, incentivizing performance in earlier sessions.
+    type: Strategic Implications
+  - content: The compound selection for Abu Dhabi is consistent with choices made
+      for other circuits featuring a mix of fast and slow corners. The requirement
+      to use two different compounds is a standard F1 regulation aimed at promoting
+      strategic variety and on-track overtaking. The allocation system and compound
+      choices are part of broader efforts to balance performance, safety, and entertainment.
+    type: Connections to Other Races and Regulations
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Pirelli has selected the C3, C4, and C5 compounds for the Abu Dhabi
+      Grand Prix. F1 regulations require that, in dry conditions, each driver must
+      use at least two different slick compounds during the race. The other options
+      either list incorrect compound choices or incorrect usage requirements.
+    options:
+    - C1 (hard), C2 (medium), and C3 (soft); at least one compound must be used.
+    - C3 (hard), C4 (medium), and C5 (soft); at least two different slick compounds
+      must be used.
+    - C2 (hard), C3 (medium), and C4 (soft); at least three compounds must be used.
+    - C4 (hard), C5 (medium), and C6 (soft); only one compound is required.
+    question_text: Which tyre compounds will be available to teams and drivers for
+      the 2025 Abu Dhabi Grand Prix, and what is the minimum requirement for tyre
+      usage during a dry race?
+  index: 53
+  key_concept: 2025 Abu Dhabi Grand Prix Tyre Compounds
+  name: What tyres will the teams and drivers have for the 2025 Abu Dhabi Grand Prix?
+- aspects:
+  - content: Yas Marina Circuit features a blend of flat-out straights and tight,
+      technical corners, which places varying demands on tyre performance. The final
+      sector, in particular, requires significant traction, leading to thermal degradation,
+      especially on the rear tyres.
+    type: Track Characteristics
+  - content: Historically, the circuit has been known for causing tyre graining, but
+      recent improvements in tyre construction have limited this issue. In 2024 and
+      2025, graining was minimal, and tyre degradation was primarily thermal rather
+      than abrasive, allowing for longer stints and more flexible strategies.
+    type: Graining and Degradation Trends
+  - content: In the previous year’s race, 19 drivers started on medium tyres, with
+      only Lewis Hamilton opting for hards. The most effective strategy was a one-stop,
+      using hards for the second stint. Only one driver used softs solely to set the
+      fastest lap, and only Fernando Alonso among the top ten finishers made two pit
+      stops, illustrating the durability of the compounds at Yas Marina.
+    type: Recent Race Examples
+  - content: Given the limited graining and manageable degradation, teams may consider
+      using the soft compound in the race, not just in qualifying. The flexibility
+      in tyre choice could lead to more diverse strategies, with the potential for
+      aggressive stints on softer compounds if conditions allow.
+    type: Implications for 2025 Strategy
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Recent races at Yas Marina have shown minimal graining and mostly
+      thermal degradation, particularly on the rear tyres. This has allowed for longer
+      stints and may make the soft compound viable for race strategy. The other options
+      do not accurately reflect the circuit’s recent tyre performance.
+    options:
+    - High levels of graining and rapid degradation, requiring frequent pit stops.
+    - Minimal graining and primarily thermal degradation, enabling longer stints and
+      potential use of soft tyres in race strategy.
+    - Abrupt tyre failures due to abrasive surface, limiting compound choices.
+    - Consistent wet conditions, making wet tyres the primary race choice.
+    question_text: What tyre performance characteristics have been observed at Yas
+      Marina Circuit in recent years, and how might these affect race strategy for
+      the 2025 Abu Dhabi Grand Prix?
+  index: 53
+  key_concept: Yas Marina Circuit Tyre Performance
+  name: What tyres will the teams and drivers have for the 2025 Abu Dhabi Grand Prix?
+- aspects:
+  - content: 'Each driver receives a fixed allocation: two sets of hard, three sets
+      of medium, and eight sets of soft tyres for the Abu Dhabi Grand Prix. Additionally,
+      intermediate (green) and full wet (blue) tyres are available for inclement weather.
+      An extra set of softs is reserved for drivers who reach Q3 in qualifying.'
+    type: Allocation Structure
+  - content: FIA regulations mandate that, in dry races, drivers must use at least
+      two different types of slick tyres. This rule is designed to encourage strategic
+      diversity and prevent teams from running the entire race on a single compound.
+    type: Regulatory Requirements
+  - content: The allocation system affects how teams plan their qualifying and race
+      strategies. With more soft tyres available, teams can prioritize performance
+      in qualifying or attempt aggressive race strategies. The requirement to use
+      two compounds means teams must balance pace and durability.
+    type: Practical Implications
+  - content: If the race is declared wet, the requirement to use two slick compounds
+      is waived, and teams may use intermediates or wets as needed. The allocation
+      of extra softs for Q3 participants incentivizes strong qualifying performance.
+    type: Edge Cases and Exceptions
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: F1 rules require at least two different slick compounds to be used
+      in dry races, promoting strategic variety. If the race is declared wet, this
+      requirement is lifted, and teams can use intermediates or wets as needed. The
+      other options misstate the regulations.
+    options:
+    - Teams can use only one type of tyre in all conditions; no exceptions.
+    - Teams must use at least two different slick compounds in dry races, but this
+      requirement is waived if the race is declared wet.
+    - Teams are required to use all three compounds in every race.
+    - No allocation limits exist; teams can use unlimited tyres.
+    question_text: How does the F1 tyre allocation system for the 2025 Abu Dhabi Grand
+      Prix influence team strategy, and what exception exists for wet races?
+  index: 53
+  key_concept: F1 Tyre Allocation Rules
+  name: What tyres will the teams and drivers have for the 2025 Abu Dhabi Grand Prix?

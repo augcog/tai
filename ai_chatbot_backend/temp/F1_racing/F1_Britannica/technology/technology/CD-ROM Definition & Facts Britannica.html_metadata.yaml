@@ -1,0 +1,242 @@
+URL: https://www.britannica.com/technology/CD-ROM
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article explaining CD-ROMs, including their definition,
+  technology, historical development, storage capacity, limitations, and evolution
+  to later optical storage media.
+file_name: CD-ROM Definition & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/CD-ROM Definition & Facts
+  Britannica.html
+file_uuid: 6706b08d-daae-5d32-a247-e3c530b9684d
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: CD-ROMs use laser light to read binary data encoded as pits and lands
+    on the disc's surface, distinguishing them from magnetic or electronic storage
+    methods.
+  knowledge_areas:
+  - CD-ROM definition and technology
+  options:
+  - Magnetic fields detected by a read/write head
+  - Laser light interpreting pits and lands on an optical disc
+  - Electrical charges in silicon memory cells
+  - Mechanical switches toggling on and off
+  question_id: 1
+  question_text: What is the primary way data is stored and read on a CD-ROM?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: CD-ROMs offered much more storage than floppy disks and were inexpensive
+    to produce, making them ideal for distributing large programs and multimedia content.
+  knowledge_areas:
+  - Historical development and adoption
+  options:
+  - They were writable and rewritable by users
+  - They provided a low-cost, high-capacity alternative to floppy disks
+  - They were compatible with all audio CD players
+  - They were the only way to store text files
+  question_id: 2
+  question_text: Why did CD-ROMs become commercially successful in the mid-1980s?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: The read-only nature of standard CD-ROMs prevented users from recording
+    or rewriting data, which was addressed by the development of CD-R and CD-RW formats.
+  knowledge_areas:
+  - Limitations and evolution of optical storage
+  options:
+  - Incompatibility with computers
+  - High manufacturing costs
+  - Inability to record or rewrite data by users
+  - Limited audio playback quality
+  question_id: 3
+  question_text: What limitation of CD-ROMs led to the creation of CD-R and CD-RW
+    technologies?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The introduction of DVDs, Blu-ray discs, and the growth of digital
+    distribution channels rendered CD-ROMs less relevant due to their limited capacity.
+  knowledge_areas:
+  - Transition to higher-capacity optical media and decline
+  options:
+  - Introduction of magnetic tapes
+  - Development of higher-capacity optical media and digital distribution
+  - Increased use of floppy disks
+  - Advances in typewriter technology
+  question_id: 4
+  question_text: Which technological developments contributed most to the decline
+    of CD-ROMs?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The increasing demand for larger and more flexible storage solutions
+    led to both the evolution of optical media (DVD, Blu-ray) and the eventual shift
+    to digital distribution as technology advanced.
+  knowledge_areas:
+  - Limitations and evolution of optical storage
+  - Transition to higher-capacity optical media and decline
+  options:
+  - Both were driven by the need for larger, more flexible storage and faster access
+    to data
+  - CD-ROMs replaced digital distribution
+  - Digital distribution required the use of CD-ROMs
+  - Neither had any impact on multimedia content
+  question_id: 5
+  question_text: How are the evolution of CD-ROM technology and the rise of digital
+    distribution connected?
+  question_type: recap
+sections:
+- aspects:
+  - content: A CD-ROM (Compact Disc Read-Only Memory) is a type of computer memory
+      that uses an optical disc to store data. Unlike magnetic storage devices, CD-ROMs
+      are read using a low-power laser beam that detects binary data encoded as tiny
+      pits on the disc's surface. The data is then transferred to a computer for processing.
+      The 'read-only' designation means that data cannot be modified or erased after
+      it is written during manufacturing.
+    type: definition
+  - content: CD-ROMs utilize optical technology, specifically a laser beam, to read
+      data. The data is encoded in the form of microscopic pits and lands on the disc,
+      which the laser interprets as binary code. This method allows for precise and
+      reliable data retrieval, but it also means the data is fixed and cannot be altered.
+      The technology was adapted from the compact disc format originally developed
+      for digital audio.
+    type: technology
+  - content: CD-ROMs have been widely used to distribute computer software, multimedia
+      encyclopedias, large databases, and educational content. For example, early
+      versions of Microsoft Encarta and many computer games were distributed on CD-ROMs.
+      Their ability to store hundreds of megabytes made them ideal for content that
+      exceeded the capacity of floppy disks.
+    type: examples
+  - content: The introduction of CD-ROMs revolutionized data distribution by enabling
+      the mass production and widespread sharing of large digital files. However,
+      their read-only nature limited their use for data backup or personal data storage,
+      leading to the development of recordable and rewritable optical media.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: CD-ROMs use a laser to read binary data encoded as tiny pits on the
+      surface of an optical disc, not magnetic heads, electrical charges, or ink.
+    options:
+    - By using a magnetic head to write and read data on a spinning disk
+    - By using a laser to read binary data encoded as pits on an optical disc
+    - By electrically charging cells within a silicon chip
+    - By using ink to print data onto a paper surface
+    question_text: Which of the following best describes how a CD-ROM stores and retrieves
+      data?
+  index: 130
+  key_concept: CD-ROM definition and technology
+  name: CD-ROM
+- aspects:
+  - content: The standard compact disc was introduced in 1982 for digital audio, but
+      its digital storage capabilities led to its adaptation for computer use in the
+      mid-1980s. The computer industry quickly adopted the CD-ROM as a low-cost, high-capacity
+      storage medium for distributing large programs, graphics, and databases.
+    type: context
+  - content: CD-ROMs replaced floppy disks as the primary means of distributing large
+      software packages and multimedia content. For instance, encyclopedias, educational
+      games, and early multimedia applications were often shipped on CD-ROMs due to
+      their substantial storage capacity.
+    type: examples
+  - content: The rapid commercial acceptance of CD-ROMs was driven by their storage
+      capacity (680 MB) compared to floppy disks (1.4 MB). This allowed for more complex
+      and content-rich software, fostering the growth of multimedia computing and
+      more sophisticated applications.
+    type: implications
+  - content: The adoption of CD-ROMs is closely linked to the rise of multimedia PCs
+      in the 1990s and the increasing demand for rich content in education and entertainment.
+      Their success also paved the way for further innovations in optical storage.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: CD-ROMs were adopted because they provided much more storage capacity
+      (680 MB) compared to floppy disks (1.4 MB), enabling the distribution of large
+      programs and multimedia content.
+    options:
+    - They were less expensive to manufacture than floppy disks
+    - They offered much higher storage capacity than floppy disks
+    - They allowed users to record their own data easily
+    - They were compatible with all existing magnetic storage devices
+    question_text: Why did the computer industry adopt CD-ROMs in the mid-1980s?
+  index: 130
+  key_concept: Historical development and adoption
+  name: CD-ROM
+- aspects:
+  - content: CD-ROMs are inherently read-only, meaning users cannot modify or add
+      data once the disc is manufactured. This limitation made them unsuitable for
+      personal data storage or frequent updates. Attempts to create recordable magnetic-optical
+      hybrid devices were largely unsuccessful outside of publishing, due to incompatibility
+      with standard players.
+    type: limitations
+  - content: To address the need for writable optical media, CD-Recordable (CD-R)
+      and later CD-Rewritable (CD-RW) technologies were developed. CD-Rs use a light-sensitive
+      dye that can be permanently altered by a laser to store data, while CD-RWs use
+      a phase-change material that allows data to be rewritten multiple times. However,
+      these formats initially required computers to operate and were mainly used for
+      software distribution and data backup.
+    type: evolution
+  - content: The inability to rewrite data on standard CD-ROMs limited their versatility,
+      prompting the industry to seek more flexible solutions. The evolution to CD-R
+      and CD-RW enabled users to create their own discs, but adoption was initially
+      limited by hardware requirements and compatibility issues.
+    type: implications
+  - content: The development of writable optical media reflects broader trends in
+      data storage, including the demand for user-generated content and reliable backup
+      solutions. These advances also set the stage for later technologies like DVDs
+      and Blu-ray discs, which offered even greater capacity and flexibility.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Standard CD-ROMs are read-only and cannot be recorded or rewritten
+      by users, prompting the development of CD-R (write-once) and CD-RW (rewritable)
+      technologies.
+    options:
+    - They were too expensive to produce
+    - They could not be read by computers
+    - They were not recordable or rewritable by users
+    - They had less storage than floppy disks
+    question_text: What was a primary limitation of standard CD-ROMs that led to the
+      development of CD-R and CD-RW?
+  index: 130
+  key_concept: Limitations and evolution of optical storage
+  name: CD-ROM
+- aspects:
+  - content: As multimedia files grew larger, especially with the rise of computer
+      games, educational software, and high-definition video, the storage capacity
+      of CD-ROMs (680 MB) became insufficient. This led to the introduction of the
+      digital videodisc (DVD) in 1995 and Blu-ray in 2002, both offering substantially
+      greater storage.
+    type: context
+  - content: DVDs and Blu-ray discs could store several gigabytes of data, making
+      them suitable for full-length movies, extensive software suites, and high-definition
+      content. For example, feature films and complex video games transitioned from
+      CD-ROM to DVD and later Blu-ray formats.
+    type: examples
+  - content: The increased storage needs of modern applications outpaced the capacity
+      of CD-ROMs, resulting in their gradual obsolescence. The shift to DVDs and Blu-ray
+      reflected the ongoing demand for higher-capacity, faster, and more versatile
+      storage solutions.
+    type: implications
+  - content: The decline of CD-ROMs was further accelerated by advances in computer
+      hard drives and the proliferation of high-speed Internet, which enabled digital
+      distribution of large files. This marks a broader trend from physical to digital
+      media in data storage and distribution.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The introduction of DVDs and Blu-ray discs, which offered much greater
+      storage capacity, was a major factor in the decline of CD-ROM usage.
+    options:
+    - The inability to store audio files
+    - The introduction of higher-capacity media like DVD and Blu-ray
+    - The lack of compatibility with computers
+    - The rise of floppy disks with greater capacity
+    question_text: What was a major factor in the decline of CD-ROM usage in the 21st
+      century?
+  index: 130
+  key_concept: Transition to higher-capacity optical media and decline
+  name: CD-ROM

@@ -1,0 +1,250 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A promotional overview and landing page for the F1 Unlocked fan
+  membership program, highlighting exclusive content, VIP experiences, member rewards,
+  recent articles, official partners, and app downloads.
+file_name: Discover F1 Unlocked.html
+file_path: F1_racing/F1_Official/guides/en/page/Discover F1 Unlocked.html
+file_uuid: 0ad5b956-6195-58f2-a508-f6f48101c0db
+recap_questions:
+- correct_answers:
+  - 2
+  explanation: F1 Unlocked offers exclusive content, VIP experiences, and rewards,
+    but does not provide car upgrades to fans.
+  knowledge_areas:
+  - F1® UNLOCKED membership program
+  - Exclusive content and VIP experiences
+  options:
+  - Access to exclusive behind-the-scenes content
+  - Eligibility for VIP experiences and prize draws
+  - Free car upgrades for F1 fans
+  - Member-only rewards and discounts
+  question_id: 1
+  question_text: Which of the following is NOT a benefit offered by the F1® UNLOCKED
+    membership program?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The section features exclusive interviews, predictions, quizzes, and
+    features, not technical manuals or rulebooks.
+  knowledge_areas:
+  - Latest Unlocked Articles
+  options:
+  - Technical car manuals and engineering blueprints
+  - Exclusive interviews, predictions, quizzes, and features about teams and drivers
+  - Official FIA rulebooks
+  - Live race commentary transcripts only
+  question_id: 2
+  question_text: What type of articles are typically featured in the 'Latest Unlocked
+    Articles' section?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Partners support F1 through sponsorships, funding, and technology,
+    not by managing teams or designing cars.
+  knowledge_areas:
+  - F1 Official Partners
+  options:
+  - By providing essential funding, technology, and branded promotions
+  - By managing race strategies for teams
+  - By determining championship points
+  - By designing all F1 cars
+  question_id: 3
+  question_text: How do F1 Official Partners contribute to the sport and fan experience?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Both platforms provide access to exclusive content and updates, but
+    do not allow voting on outcomes or team management.
+  knowledge_areas:
+  - F1® UNLOCKED membership program
+  - Official F1 App
+  options:
+  - Ability to vote on race outcomes
+  - Access to exclusive digital content and updates
+  - Free travel to all Grand Prix events
+  - Direct management of F1 teams
+  question_id: 4
+  question_text: Which feature is shared by both the F1 Unlocked membership and the
+    Official F1 App?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The best experience comes from combining F1 Unlocked membership for
+    exclusive/VIP content and the Official F1 App for real-time updates.
+  knowledge_areas:
+  - F1® UNLOCKED membership program
+  - Exclusive content and VIP experiences
+  - Official F1 App
+  options:
+  - F1 Unlocked membership and the Official F1 App
+  - Only the Official F1 App
+  - Only the F1 Unlocked membership
+  - F1 Official Partners' websites
+  question_id: 5
+  question_text: A fan wants to maximize their F1 experience with exclusive content,
+    VIP event access, and real-time race updates on their phone. Which combination
+    of offerings should they use?
+  question_type: recap
+sections:
+- aspects:
+  - content: F1® UNLOCKED is the official Formula 1 fan membership program, designed
+      to enhance fan engagement by providing exclusive benefits and access. Membership
+      is free and open to all F1 fans, serving as a digital gateway to deeper involvement
+      in the sport. The program centralizes fan-focused offerings and is positioned
+      as the primary entry point for exclusive F1 experiences.
+    type: Definition
+  - content: The program offers a suite of member benefits, including exclusive behind-the-scenes
+      content, access to VIP experiences, and eligibility for special rewards and
+      discounts. Members can participate in unique prize draws, receive digital downloads,
+      and access early or exclusive sales on merchandise and event tickets. These
+      features are designed to foster a sense of community and reward fan loyalty.
+    type: Features and Benefits
+  - content: F1® UNLOCKED aligns with broader trends in sports marketing, where fan
+      engagement and digital membership platforms are increasingly used to build brand
+      loyalty and collect data. The program connects fans more closely with teams,
+      drivers, and the F1 ecosystem, and serves as a platform for partner promotions
+      and digital engagement strategies.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: F1® UNLOCKED is designed to enhance fan engagement by offering exclusive
+      content, VIP experiences, and rewards, not to stream races or manage team operations.
+    options:
+    - To provide free live streaming of all races
+    - To offer exclusive content, VIP experiences, and member rewards to fans
+    - To replace official F1 merchandise stores
+    - To manage F1 team operations
+    question_text: What is the primary purpose of the F1® UNLOCKED membership program?
+  index: 53
+  key_concept: F1® UNLOCKED membership program
+  name: F1® UNLOCKED
+- aspects:
+  - content: Members of F1 Unlocked gain access to exclusive content such as behind-the-scenes
+      features, interviews, and insights about teams and drivers that are not available
+      to the general public. Additionally, the program offers VIP experiences, including
+      unique event invitations, prize draws for Grand Prix tickets, hospitality packages,
+      and other insider opportunities.
+    type: Description
+  - content: Examples include special video features from the paddock, interviews
+      with drivers or team principals, and coverage of team preparations. VIP experiences
+      might involve attending a Grand Prix as a guest, participating in pit lane walks,
+      or winning exclusive F1 memorabilia. These experiences are often not accessible
+      through standard ticket purchases or general fan engagement.
+    type: Examples
+  - content: These offerings deepen fan loyalty and provide tangible incentives for
+      joining and remaining active in the membership program. They also differentiate
+      F1 Unlocked from generic sports fan clubs by providing access that is truly
+      unique and highly valued within the F1 community.
+    type: Practical Implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: F1 Unlocked offers exclusive content and VIP experiences, but does
+      not provide podium access, car upgrades, or influence over race results.
+    options:
+    - Guaranteed podium access at every race
+    - Exclusive behind-the-scenes content and VIP prize draws
+    - Free car upgrades for fans
+    - Direct voting on race outcomes
+    question_text: Which of the following is a benefit of F1 Unlocked membership?
+  index: 57
+  key_concept: Exclusive content and VIP experiences
+  name: F1 Unlocked gets you closer and gives you more
+- aspects:
+  - content: The Latest Unlocked Articles section curates recent editorial content,
+      interviews, predictions, quizzes, and exclusive features related to F1 and its
+      personalities. It serves as a dynamic newsfeed for members, highlighting timely
+      topics such as team strategies, driver insights, and upcoming season developments.
+    type: Content Overview
+  - content: Examples include interviews with team principals (e.g., Vasseur on Ferrari's
+      2026 prospects), bold season predictions by F1 journalists, comprehensive quizzes
+      on the past season, and rookie driver features. These articles are tailored
+      to inform, engage, and challenge fans, often providing perspectives not found
+      in mainstream coverage.
+    type: Examples and Relevance
+  - content: By offering regularly updated, member-focused content, this section encourages
+      frequent site visits and deeper engagement. The articles can also serve as conversation
+      starters within the F1 community, fostering discussion and speculation among
+      fans.
+    type: Implications for Fan Engagement
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The section provides exclusive articles, interviews, predictions,
+      and quizzes, not live broadcasts or technical manuals.
+    options:
+    - Live race broadcasts only
+    - Exclusive interviews, predictions, quizzes, and features
+    - Technical car manuals
+    - Official team management tools
+    question_text: What type of content can members find in the 'Latest Unlocked Articles'
+      section?
+  index: 77
+  key_concept: Latest Unlocked Articles
+  name: LATEST UNLOCKED ARTICLES
+- aspects:
+  - content: F1 Official Partners are corporations and brands that have formal sponsorship
+      and promotional relationships with Formula 1. These partners include a diverse
+      range of industries such as luxury goods, technology, logistics, beverages,
+      and financial services, each contributing to the sport's commercial success
+      and global reach.
+    type: Definition and Role
+  - content: Notable partners include LVMH, Pirelli, Aramco, Heineken, AWS, Lenovo,
+      DHL, Qatar Airways, and many others. These brands are integrated into the F1
+      ecosystem through trackside advertising, event sponsorship, branded experiences,
+      and sometimes technical collaborations (e.g., AWS providing data analytics).
+    type: Examples and Integration
+  - content: Partnerships provide essential funding and resources for the sport, enabling
+      technological innovation, global events, and enhanced fan experiences. For fans,
+      these partnerships can result in special promotions, branded merchandise, and
+      unique activations at races and online.
+    type: Implications for F1 and Fans
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: F1 Official Partners are companies that support the sport through
+      sponsorship, funding, and collaborative initiatives, not through regulatory
+      or team ownership roles.
+    options:
+    - They are former F1 drivers who mentor new talent
+    - They are companies that sponsor and support F1 through funding, technology,
+      and promotions
+    - They manage the rules and regulations of F1
+    - They own all F1 teams
+    question_text: Which statement best describes the role of F1 Official Partners?
+  index: 110
+  key_concept: F1 Official Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application available for iOS and Android,
+      designed to provide fans with real-time updates, live timing, news, and exclusive
+      content. It serves as a digital companion for following races, accessing schedules,
+      and engaging with F1 content on the go.
+    type: Function and Features
+  - content: Fans can use the app to track live race positions, view session statuses,
+      receive notifications about breaking news, and access exclusive digital downloads.
+      The app also offers interactive features like event trackers and personalized
+      content feeds.
+    type: Examples of Use
+  - content: The app extends the F1 Unlocked experience to mobile devices, ensuring
+      fans remain connected regardless of location. It also acts as a platform for
+      partner promotions and additional digital engagement, reinforcing F1's commitment
+      to technological innovation and fan accessibility.
+    type: Connections and Implications
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App delivers real-time updates and exclusive content,
+      but does not allow fans to control races or replace the membership program.
+    options:
+    - To provide real-time race updates, news, and exclusive content to fans
+    - To allow fans to control race strategies
+    - To offer free merchandise to all users
+    - To replace the F1 Unlocked membership program
+    question_text: What is a primary function of the Official F1 App?
+  index: 120
+  key_concept: Official F1 App
+  name: Download the Official F1 App

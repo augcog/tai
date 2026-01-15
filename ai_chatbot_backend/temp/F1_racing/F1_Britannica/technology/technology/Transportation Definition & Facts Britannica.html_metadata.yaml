@@ -1,0 +1,117 @@
+URL: https://www.britannica.com/technology/transportation-technology
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article entry defining transportation, highlighting
+  its role in moving goods and people, its significance as a marker of civilization
+  and technological progress, and referencing related topics and infrastructure.
+file_name: Transportation Definition & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Transportation Definition
+  & Facts Britannica.html
+file_uuid: 8d011709-054b-5dc9-9ebd-2e3a5310cdc1
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: The article defines transportation as the movement of goods and persons
+    from place to place, including the various means by which such movement is accomplished,
+    not just specific vehicles or legal regulations.
+  knowledge_areas:
+  - Definition and Scope of Transportation
+  options:
+  - The legal regulation of shipping goods overseas
+  - The movement of goods and people from place to place by various means
+  - The construction of roads and bridges
+  - The use of only modern vehicles for travel
+  question_id: 1
+  question_text: What is the primary definition of transportation according to the
+    Britannica article?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Transportation's ability to move large quantities of goods and people
+    efficiently, safely, and comfortably is a key indicator of societal advancement
+    and technological progress.
+  knowledge_areas:
+  - Definition and Scope of Transportation
+  options:
+  - Because it is only used in advanced societies
+  - Because it allows for the rapid and safe movement of large quantities of goods
+    and people over long distances
+  - Because it is regulated by international law
+  - Because it only involves the use of ships and airplanes
+  question_id: 2
+  question_text: Why is transportation considered an index of civilization and technological
+    progress?
+  question_type: recap
+- correct_answers:
+  - 3
+  explanation: While navigation, traffic control, and shipping are mentioned as related
+    topics, medical technology is not directly listed in the context of transportation.
+  knowledge_areas:
+  - Definition and Scope of Transportation
+  options:
+  - Navigation
+  - Traffic control
+  - Shipping
+  - Medical technology
+  question_id: 3
+  question_text: Which of the following is NOT directly listed as a related topic
+    to transportation in the Britannica article?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The article explains that transportation is connected to infrastructure
+    (roads, bridges, tunnels), legal domains (air law, maritime law), and technological
+    progress, making it a multidisciplinary field.
+  knowledge_areas:
+  - Definition and Scope of Transportation
+  options:
+  - It is unrelated to legal or engineering fields
+  - It intersects with infrastructure, legal domains, and technology such as roads,
+    bridges, and air law
+  - It is only about the movement of people, not goods
+  - It is limited to historical applications
+  question_id: 4
+  question_text: How does transportation connect to other fields according to the
+    article?
+  question_type: recap
+sections:
+- aspects:
+  - content: Transportation is defined as the movement of goods and persons from place
+      to place and encompasses the various means by which such movement is accomplished.
+      This includes both the physical conveyance and the systems or methods used to
+      facilitate travel and shipment.
+    type: Definition
+  - content: Examples of transportation include the use of vehicles such as cars,
+      trains, ships, and airplanes to move people and products across local, regional,
+      and global distances. The Panama Canal, as depicted in the article's images,
+      is a significant example of infrastructure enabling large-scale cargo movement.
+    type: Examples
+  - content: The ability to transport large quantities of goods or numbers of people
+      over long distances at high speeds in comfort and safety is an indicator of
+      societal advancement and technological progress. Efficient transportation systems
+      are vital for economic development, social connectivity, and the functioning
+      of modern civilization.
+    type: Implications
+  - content: Transportation is closely linked to topics such as navigation, traffic
+      control, shipping, and infrastructure like roads, bridges, and tunnels. It also
+      intersects with legal domains, including air law, maritime law, and the carriage
+      of goods.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The article defines transportation broadly as the movement of goods
+      and persons from place to place, including the various means by which this is
+      accomplished. It is not limited to urban travel, specific vehicles, or legal
+      aspects alone.
+    options:
+    - Only the movement of people within cities
+    - The movement of goods and persons from place to place, including various means
+      and systems
+    - Exclusive use of modern vehicles like airplanes and trains
+    - The legal regulations surrounding international shipping
+    question_text: Which of the following best describes the scope of transportation
+      as defined in the Britannica article?
+  index: 140
+  key_concept: Definition and Scope of Transportation
+  name: transportation

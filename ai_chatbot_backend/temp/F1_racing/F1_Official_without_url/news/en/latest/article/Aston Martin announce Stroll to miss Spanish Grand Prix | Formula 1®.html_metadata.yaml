@@ -1,0 +1,234 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Formula 1 news article reporting Aston Martin's announcement that
+  Lance Stroll will miss the 2025 Spanish Grand Prix due to a medical procedure, with
+  supporting context about his injury history, team standings, and related F1 content.
+file_name: Aston Martin announce Stroll to miss Spanish Grand Prix | Formula 1®.html
+file_path: F1_racing/F1_Official/news/en/latest/article/Aston Martin announce Stroll
+  to miss Spanish Grand Prix | Formula 1®.html
+file_uuid: f4dfffd7-42fb-5fa2-97c6-77e652d0c9ea
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: The article states that Stroll is missing the Spanish Grand Prix due
+    to a medical procedure for persistent pain in his hand and wrist.
+  knowledge_areas:
+  - Lance Stroll's Withdrawal from the Spanish Grand Prix
+  options:
+  - Team strategy changes
+  - Ongoing hand and wrist pain requiring a medical procedure
+  - Contract disputes
+  - Weather conditions
+  question_id: 1
+  question_text: What was the primary reason given for Lance Stroll missing the 2025
+    Spanish Grand Prix?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Stroll's 2023 cycling accident resulted in significant injuries that
+    required surgery and rehabilitation, with lingering effects into later seasons.
+  knowledge_areas:
+  - Stroll's Injury History and Recovery
+  options:
+  - It caused him to miss the entire 2023 season.
+  - It led to fractures and a broken toe, requiring surgery and affecting subsequent
+    seasons.
+  - It resulted in his retirement from F1.
+  - It had no impact on his racing schedule.
+  question_id: 2
+  question_text: How did Lance Stroll's 2023 cycling accident impact his F1 career?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Aston Martin is in eighth place in the Teams’ Standings according to
+    the article.
+  knowledge_areas:
+  - Aston Martin's 2025 Season Performance
+  options:
+  - First
+  - Eighth
+  - Last
+  - Third
+  question_id: 3
+  question_text: What is Aston Martin's position in the Teams’ Standings as of the
+    2025 Spanish Grand Prix?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Stroll became more cautious with his training program to prevent a
+    recurrence of his injuries.
+  knowledge_areas:
+  - Medical Considerations and Training Adjustments in F1
+  options:
+  - He intensified his training regimen.
+  - He adopted a more cautious approach to avoid repeat injuries.
+  - He stopped training altogether.
+  - He changed his racing style.
+  question_id: 4
+  question_text: Which of the following best describes the adjustments Lance Stroll
+    made to his training after his 2023 injury?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Stroll's absence means the team has one fewer opportunity to score
+    points, directly affecting their position in the Teams’ Standings.
+  knowledge_areas:
+  - Stroll's Injury History and Recovery
+  - Aston Martin's 2025 Season Performance
+  options:
+  - Stroll's injuries have no effect on team performance.
+  - Stroll's withdrawal due to injury reduces Aston Martin's chances to score points,
+    impacting their standing.
+  - Aston Martin is unaffected because they have a reserve driver.
+  - Stroll's injury history only affects his personal career, not the team.
+  question_id: 5
+  question_text: How are Lance Stroll's injury history and Aston Martin's team performance
+    interconnected in the context of the 2025 Spanish Grand Prix?
+  question_type: recap
+sections:
+- aspects:
+  - content: Lance Stroll, a Canadian Formula 1 driver for Aston Martin, has withdrawn
+      from the 2025 Spanish Grand Prix due to a medical procedure required for ongoing
+      hand and wrist pain. This decision was made after he participated in qualifying
+      but was unable to continue for the race weekend.
+    type: Definition
+  - content: Stroll's withdrawal follows his participation in qualifying at the Circuit
+      de Barcelona-Catalunya, where he finished 14th. The announcement came only hours
+      after qualifying, emphasizing the sudden nature of the decision and its impact
+      on the team's race strategy.
+    type: Context
+  - content: Stroll's absence affects Aston Martin's performance prospects for the
+      Spanish Grand Prix, as the team will have only one driver, Fernando Alonso,
+      competing. This could influence both the Drivers’ and Teams’ Championship standings,
+      especially as the team is currently in eighth place and Stroll himself is 11th
+      in the driver rankings.
+    type: Implications
+  - content: This incident is connected to Stroll's previous injury in 2023, where
+      he sustained fractures and a broken toe from a cycling accident, leading to
+      surgery and rehabilitation. The recurring nature of his injury highlights the
+      physical demands and risks associated with F1 racing.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Stroll withdrew due to ongoing pain in his hand and wrist, which
+      required a medical procedure, as confirmed by his medical team. There is no
+      mention of suspension, retirement, or a team transfer.
+    options:
+    - He was suspended for a rules violation.
+    - He experienced hand and wrist pain requiring a medical procedure.
+    - He decided to retire from Formula 1.
+    - He transferred to another team mid-season.
+    question_text: Why did Lance Stroll withdraw from the 2025 Spanish Grand Prix?
+  index: 53
+  key_concept: Lance Stroll's Withdrawal from the Spanish Grand Prix
+  name: Aston Martin announce Stroll to miss Spanish Grand Prix
+- aspects:
+  - content: Stroll's injury history refers to the series of physical setbacks he
+      has experienced, most notably a cycling accident in 2023 that resulted in fractures
+      and a broken toe, leading to surgery and a period of rehabilitation.
+    type: Definition
+  - content: After his 2023 accident, Stroll underwent surgery and was initially doubted
+      by his medical team to be fit for the season opener. Despite these challenges,
+      he returned in time for the Bahrain Grand Prix and finished sixth, demonstrating
+      resilience and determination.
+    type: Examples
+  - content: Chronic or recurring injuries can impact a driver's performance, training,
+      and career longevity. In Stroll's case, the pain in his hand and wrist persisted
+      for six weeks prior to the Spanish Grand Prix, necessitating further medical
+      intervention and affecting his ability to compete.
+    type: Implications
+  - content: Stroll's experience underscores the importance of physical fitness and
+      medical support in Formula 1. It also illustrates the potential for past injuries
+      to influence future participation and the need for adaptive training regimens,
+      as Stroll adopted a more cautious approach ahead of the 2024 season.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Stroll's hand and wrist issues are traced back to a cycling accident
+      in 2023, which led to fractures and a broken toe. The other options are not
+      supported by the article.
+    options:
+    - A cycling accident in 2023 resulting in fractures and a broken toe.
+    - A crash during the 2025 Spanish Grand Prix qualifying.
+    - A collision in the 2024 Monaco Grand Prix.
+    - A training incident in 2025 involving weightlifting.
+    question_text: What previous event contributed to Lance Stroll's ongoing hand
+      and wrist issues?
+  index: 53
+  key_concept: Stroll's Injury History and Recovery
+  name: Aston Martin announce Stroll to miss Spanish Grand Prix
+- aspects:
+  - content: Aston Martin's 2025 season performance refers to the team's results and
+      standings in the Formula 1 World Championship up to the Spanish Grand Prix,
+      including both individual and team achievements.
+    type: Definition
+  - content: As of the Spanish Grand Prix, Stroll is 11th in the Drivers’ Championship
+      with 14 points, while Aston Martin is eighth in the Teams’ Standings. Fernando
+      Alonso, Stroll's teammate, has not yet scored points and will start the Spanish
+      Grand Prix from 10th on the grid.
+    type: Examples
+  - content: The team's mid-field standing highlights the competitive nature of the
+      2025 season and the challenges faced by both drivers. Stroll's absence could
+      further hinder the team's ability to accumulate points, impacting their final
+      position in the championship.
+    type: Implications
+  - content: Team performance in Formula 1 is influenced by driver availability, reliability,
+      and strategic decisions. The loss of a driver for a race weekend can have significant
+      consequences for both immediate results and long-term championship prospects.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Aston Martin is eighth in the Teams’ Standings, and Stroll is 11th
+      in the Drivers’ Championship with 14 points. The other options are incorrect
+      based on the article's content.
+    options:
+    - They are leading both the Drivers’ and Teams’ Championships.
+    - They are in eighth place in the Teams’ Standings, with Stroll 11th in the Drivers’
+      Championship.
+    - They have not scored any points this season.
+    - They have won every race so far.
+    question_text: How has Aston Martin performed in the 2025 season up to the Spanish
+      Grand Prix?
+  index: 53
+  key_concept: Aston Martin's 2025 Season Performance
+  name: Aston Martin announce Stroll to miss Spanish Grand Prix
+- aspects:
+  - content: Medical considerations in F1 encompass the physical health, injury management,
+      and rehabilitation of drivers. Training adjustments refer to changes in a driver's
+      physical preparation to prevent injury recurrence and optimize performance.
+    type: Definition
+  - content: Stroll's medical team decided he should not race in Spain and recommended
+      a procedure to address his hand and wrist pain. Ahead of the 2024 season, Stroll
+      modified his training program to be more cautious, aiming to avoid a repeat
+      of his 2023 injuries.
+    type: Examples
+  - content: Effective medical oversight is critical in F1, as injuries can have long-term
+      effects on a driver's career and team results. Adjustments in training regimens
+      are necessary to accommodate recovery and reduce the risk of further injury,
+      balancing competitiveness with safety.
+    type: Implications
+  - content: This concept connects to broader themes in sports medicine, athlete management,
+      and the high physical demands unique to Formula 1. It also relates to the importance
+      of multidisciplinary support teams, including medical consultants and physiotherapists,
+      in elite motorsport.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Stroll made his training program more cautious ahead of the 2024
+      season to avoid repeating his 2023 injury experience. The other options are
+      not supported by the article.
+    options:
+    - He retired from racing.
+    - He adopted a more cautious approach to his training programme.
+    - He switched teams to reduce pressure.
+    - He ignored medical advice and continued as before.
+    question_text: What steps did Lance Stroll take to address his injury risks after
+      2023?
+  index: 53
+  key_concept: Medical Considerations and Training Adjustments in F1
+  name: Aston Martin announce Stroll to miss Spanish Grand Prix

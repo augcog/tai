@@ -1,0 +1,285 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A detailed event report summarizing each F1 team's Thursday practice
+  sessions at the 2025 Las Vegas Grand Prix, focusing on driver feedback, technical
+  challenges, tyre performance, and evolving track conditions.
+file_name: What the teams said – Thursday at the 2025 Las Vegas Grand Prix.html
+file_path: F1_racing/F1_Official/news/en/latest/article/What the teams said – Thursday
+  at the 2025 Las Vegas Grand Prix.html
+file_uuid: 5a019415-88ca-5e30-a467-350b98794f3d
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Teams struggled with session interruptions (red flags, rain), rapid
+    track evolution, and the challenge of managing tyre performance in cold, low-grip
+    conditions.
+  knowledge_areas:
+  - Session Interruptions and Data Limitations
+  - Track Evolution and Weather Disruptions
+  - Tyre Performance and Strategy
+  options:
+  - Regulatory changes and penalties
+  - Session interruptions, track evolution, and tyre management
+  - Driver injuries and car failures
+  - Limited team personnel
+  question_id: 1
+  question_text: What were the primary challenges teams faced during Thursday practice
+    at the 2025 Las Vegas Grand Prix?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Weather disruptions and evolving track conditions meant teams could
+    not gather complete or consistent data, making it harder to prepare for qualifying
+    and the race.
+  knowledge_areas:
+  - Session Interruptions and Data Limitations
+  - Track Evolution and Weather Disruptions
+  options:
+  - They had no significant effect on data collection
+  - They improved the reliability of long-run simulations
+  - They limited the amount and quality of useful data for setup and strategy
+  - They allowed all teams to complete their planned programs
+  question_id: 2
+  question_text: How did weather and track conditions impact the usefulness of practice
+    data collected on Thursday?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Both Kick Sauber's testing and Pirelli's analysis suggested the hard
+    tyre was close in pace to the medium and could offer strategic flexibility for
+    longer stints in the race.
+  knowledge_areas:
+  - Tyre Performance and Strategy
+  options:
+  - Because it was fastest in qualifying
+  - Because it showed competitive lap times and potential for longer stints in race
+    strategy
+  - Because it was the only tyre available
+  - Because it had the highest wear rates
+  question_id: 3
+  question_text: Why did teams like Kick Sauber and Pirelli focus on the hard tyre
+    during practice sessions?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Teams and drivers had to be flexible, adjusting car setups, focusing
+    on getting tyres into the right window, and helping drivers build confidence as
+    the track evolved.
+  knowledge_areas:
+  - Adaptation to Unique Circuit Conditions
+  options:
+  - By using the same setup as at every other track
+  - By adjusting setups, focusing on tyre warm-up, and building driver confidence
+    as grip improved
+  - By ignoring weather forecasts
+  - By prioritizing high-speed cornering only
+  question_id: 4
+  question_text: In what ways did teams and drivers adapt to the unique conditions
+    of the Las Vegas circuit?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Team performance and strategy were shaped by a combination of driver
+    feedback, evolving tyre and track conditions, and the impact of session interruptions.
+  knowledge_areas:
+  - Team Performance and Driver Feedback
+  - Tyre Performance and Strategy
+  - Track Evolution and Weather Disruptions
+  - Session Interruptions and Data Limitations
+  options:
+  - Sponsor announcements and media coverage
+  - Driver feedback, tyre performance, track evolution, and session interruptions
+  - Historical results from previous years
+  - Uniform weather and stable track conditions
+  question_id: 5
+  question_text: Which interconnected factors most influenced team performance and
+    strategic decisions on Thursday in Las Vegas?
+  question_type: recap
+sections:
+- aspects:
+  - content: This concept refers to the comprehensive assessment of how each Formula
+      1 team and their drivers performed during Thursday practice at the Las Vegas
+      Grand Prix, including lap times, session placements, and subjective feedback
+      from drivers and team principals.
+    type: Definition
+  - content: Examples include Leclerc topping FP1 for Ferrari, Norris leading FP2
+      for McLaren, and Albon's strong showing for Williams. Feedback such as Hamilton
+      noting car improvement between sessions or Piastri discussing lost time due
+      to red flags illustrates the interplay between performance data and driver experience.
+    type: Examples
+  - content: Driver feedback directly influences overnight setup changes, strategic
+      planning for qualifying, and team morale. Teams use both quantitative (lap times,
+      sector analysis) and qualitative (driver comfort, confidence) data to optimize
+      car performance for the unique conditions of the Las Vegas circuit.
+    type: Implications
+  - content: This theme connects to technical challenges (e.g., tyre management, track
+      evolution), weather disruptions, and intra-team comparisons, as drivers' feedback
+      often highlights areas for improvement and informs broader team strategy.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The main focus of the report is on each team's performance and the
+      feedback from drivers during Thursday practice, not on regulations, history,
+      or sponsorship.
+    options:
+    - Technical regulations for 2026
+    - Team performance and driver feedback during practice
+    - Historical F1 race results
+    - Sponsor announcements
+    question_text: Which of the following best summarizes the main focus of Thursday's
+      team reports from the Las Vegas Grand Prix?
+  index: 53
+  key_concept: Team Performance and Driver Feedback
+  name: What the teams said – Thursday in Las Vegas
+- aspects:
+  - content: Track evolution refers to the process by which a racing circuit's grip
+      and surface conditions change as cars lay down rubber, especially on street
+      circuits like Las Vegas that start 'green' and improve rapidly. Weather disruptions
+      include rain and temperature changes that further affect track state and session
+      flow.
+    type: Definition
+  - content: Pirelli noted significant track evolution due to the circuit being opened
+      to traffic shortly before practice, leading to initially dirty conditions. Light
+      rain and cold temperatures in FP2 disrupted running and made tyre warm-up difficult.
+      Red flags (caused by incidents or track issues) also interrupted long-run data
+      collection for several teams.
+    type: Examples
+  - content: Rapidly changing track conditions challenge teams to adapt car setups
+      and tyre strategies in real time. Weather disruptions can reduce practice time,
+      obscure true competitive order, and force teams to make setup decisions with
+      incomplete data. This increases uncertainty for qualifying and race performance.
+    type: Implications
+  - content: Track evolution and weather are closely linked to tyre performance, driver
+      feedback, and the ability to execute planned run programs. They also influence
+      the effectiveness of different tyre compounds and the accuracy of performance
+      comparisons between teams.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Rapid track evolution and weather disruptions (such as rain and cold
+      temperatures) were the primary sources of unpredictability, as noted by both
+      Pirelli and team engineers.
+    options:
+    - Consistent weather and stable track conditions
+    - Rapid track evolution and weather disruptions
+    - Strict adherence to pre-set run plans
+    - Uniform tyre performance across all teams
+    question_text: What factors contributed most to the unpredictability of Thursday's
+      practice sessions in Las Vegas?
+  index: 356
+  key_concept: Track Evolution and Weather Disruptions
+  name: Pirelli
+- aspects:
+  - content: This concept encompasses how different tyre compounds (hard, medium,
+      soft) performed under the unique conditions of the Las Vegas circuit, including
+      issues like graining, warm-up, and suitability for qualifying versus race stints.
+    type: Definition
+  - content: Pirelli observed graining on medium and soft compounds due to low track
+      temperatures, especially on the front axle. The hard tyre was tested by Kick
+      Sauber and showed competitive lap times, suggesting it may be optimal for race
+      strategy. Soft tyres were primarily used for qualifying simulations, with many
+      drivers unable to complete clean laps due to red flags.
+    type: Examples
+  - content: Understanding tyre behaviour is critical for optimizing qualifying and
+      race strategies. Teams must balance short-run pace with long-run durability,
+      adapt to evolving track grip, and anticipate how weather will affect compound
+      performance. Tyre choice can be a decisive factor in both qualifying position
+      and race outcome.
+    type: Implications
+  - content: Tyre performance is interdependent with track evolution, weather, and
+      car setup. Teams' ability to gather tyre data was hampered by session interruptions,
+      making strategic decisions more complex and risk-prone.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Pirelli noted that the hard tyre delivered lap times not far off
+      the mediums and could be key for longer stints and flexible strategies, making
+      it a strong race option.
+    options:
+    - It showed the highest wear rates
+    - It delivered lap times close to the mediums and could enable longer stints
+    - It was only used for qualifying simulations
+    - It was not tested by any team
+    question_text: Why did Pirelli suggest the hard tyre could be the ideal candidate
+      for Sunday's race in Las Vegas?
+  index: 356
+  key_concept: Tyre Performance and Strategy
+  name: Pirelli
+- aspects:
+  - content: Session interruptions refer to events such as red flags, rain, or incidents
+      that halt or disrupt practice sessions, limiting teams' ability to complete
+      planned run programs and gather essential data for setup and strategy.
+    type: Definition
+  - content: FP2 was disrupted by light rain and two red flags, preventing many teams
+      from completing long-run simulations or qualifying laps on soft tyres. McLaren's
+      Piastri and Ferrari's Hamilton were among those unable to set representative
+      times due to these interruptions.
+    type: Examples
+  - content: Limited data collection increases uncertainty for teams in making setup
+      and strategy decisions. Without sufficient long-run or soft tyre data, teams
+      must rely on incomplete information, increasing the risk of suboptimal choices
+      for qualifying and the race. This can lead to unexpected outcomes and greater
+      variability in performance.
+    type: Implications
+  - content: Session interruptions are closely tied to track evolution, tyre performance,
+      and driver feedback, as teams must adapt to dynamic circumstances and make the
+      most of limited opportunities to test changes or gather information.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Red flags and weather disruptions meant many teams could not complete
+      their full programs, forcing them to make decisions with less data than usual.
+    options:
+    - Teams completed all planned long runs and simulations
+    - Teams had to make setup and strategy decisions with limited data
+    - Session interruptions had no impact on data collection
+    - Teams ignored tyre performance data
+    question_text: How did session interruptions on Thursday affect team preparations
+      for qualifying and the race?
+  index: 90
+  key_concept: Session Interruptions and Data Limitations
+  name: McLaren
+- aspects:
+  - content: This concept highlights how teams and drivers adjusted to the specific
+      challenges posed by the Las Vegas street circuit, such as low grip, cold temperatures,
+      and rapid track evolution, which differ significantly from more traditional
+      F1 venues.
+    type: Definition
+  - content: Mercedes noted the importance of track evolution and the need for drivers
+      to build confidence as grip levels changed rapidly. Haas drivers described the
+      shock of low grip and the challenge of getting tyres up to temperature. Racing
+      Bulls and Aston Martin both commented on the need to adapt setups and driving
+      styles to the circuit's unique demands.
+    type: Examples
+  - content: Success at Las Vegas requires teams to be flexible in setup, responsive
+      to changing conditions, and proactive in gathering and interpreting limited
+      data. Drivers must quickly learn the track and adapt their approach to maximize
+      performance as conditions evolve. This adaptability can differentiate teams
+      that excel in dynamic environments from those that struggle.
+    type: Implications
+  - content: 'Adaptation is linked to all other key concepts: team performance, tyre
+      strategy, session interruptions, and track evolution. Teams that best integrate
+      feedback and data to respond to unique circuit conditions are more likely to
+      achieve strong results.'
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Teams needed to adapt to the unique combination of low grip, cold
+      temperatures, and rapidly evolving track conditions, which required real-time
+      adjustments and flexibility.
+    options:
+    - Relying exclusively on historical setup data
+    - Adjusting to low grip, cold temperatures, and rapid track evolution
+    - Ignoring driver feedback in favor of simulation models
+    - Focusing only on high-speed corners
+    question_text: Which of the following best describes the main adaptation teams
+      had to make for the Las Vegas circuit?
+  index: 152
+  key_concept: Adaptation to Unique Circuit Conditions
+  name: Mercedes

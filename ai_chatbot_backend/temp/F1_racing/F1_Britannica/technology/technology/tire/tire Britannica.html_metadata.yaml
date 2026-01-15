@@ -1,0 +1,239 @@
+URL: https://www.britannica.com/technology/tire/additional-info#history
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A reference and edit history page for the Britannica article on
+  tires, including links to related topics, major contributors, further readings,
+  and a detailed edit log.
+file_name: tire Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/tire/tire Britannica.html
+file_uuid: 69b4a6ea-5e2f-583d-a598-336997d0011d
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: '''Additional Reading'' is specifically designed to guide readers to
+    further academic resources on the topic.'
+  knowledge_areas:
+  - Additional Reading
+  options:
+  - Additional Reading
+  - Assorted References
+  - Article Contributors
+  - Article History
+  question_id: 1
+  question_text: Which section would you consult to find scholarly books and articles
+    for further study on tires?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The 'use in' section contains links to articles about tire applications
+    in automobiles, bicycles, and trucks.
+  knowledge_areas:
+  - use in
+  options:
+  - use in
+  - Assorted References
+  - Article History
+  - Primary Contributors
+  question_id: 2
+  question_text: If you wanted to explore how tires are used in different vehicles,
+    which section provides direct links to those contexts?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: '''Article History'' is dedicated to tracking all changes and updates
+    to the article, ensuring transparency and academic rigor.'
+  knowledge_areas:
+  - Article History
+  options:
+  - It tracks all significant edits, additions, and updates to the article.
+  - It lists the main companies involved in tire innovation.
+  - It provides definitions of tire-related terms.
+  - It summarizes the main contributors to the article.
+  question_id: 3
+  question_text: Which of the following best describes the function of the 'Article
+    History' section?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: '''Assorted References'' links to related Britannica content, whereas
+    ''Additional Reading'' points to external academic works.'
+  knowledge_areas:
+  - Assorted References
+  - Additional Reading
+  options:
+  - It provides cross-links to related Britannica articles, while 'Additional Reading'
+    lists external scholarly sources.
+  - It lists primary contributors, while 'Additional Reading' lists secondary contributors.
+  - It contains the article's edit history, while 'Additional Reading' lists recent
+    updates.
+  - It explains tire mechanics, while 'Additional Reading' covers tire history.
+  question_id: 4
+  question_text: How does the 'Assorted References' section differ from 'Additional
+    Reading'?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Editors of Encyclopaedia Britannica are the primary contributors
+    responsible for content accuracy, as listed under 'Primary Contributors' in the
+    'Article Contributors' section.
+  knowledge_areas:
+  - Article Contributors
+  options:
+  - The Editors of Encyclopaedia Britannica, listed under Primary Contributors
+  - Goodyear and Michelin engineers, listed under Assorted References
+  - Authors of the books in Additional Reading
+  - Government agencies, listed in Article History
+  question_id: 5
+  question_text: Which contributors are responsible for overseeing the accuracy and
+    quality of the tire article, and where can you find their names?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 'Assorted References' section provides cross-references to other
+      Britannica articles or sections that discuss the tire in various contexts, such
+      as its role in companies or technological innovations. This is a common feature
+      in encyclopedic works, serving as a navigational aid for readers seeking broader
+      or related information.
+    type: definition
+  - content: Examples listed include the Goodyear Tire & Rubber Company and innovations
+      by Michelin, each of which has played a significant role in the development
+      and commercialization of tire technology. These references allow readers to
+      explore the impact of specific companies and their contributions to the field.
+    type: examples
+  - content: By providing assorted references, Britannica encourages interdisciplinary
+      learning and contextual understanding, showing how tires intersect with business
+      history, technological advancement, and industrial innovation.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The 'Assorted References' section specifically mentions Goodyear
+      Tire & Rubber Company and Michelin for their roles in tire innovation.
+    options:
+    - Goodyear Tire & Rubber Company and Michelin
+    - Bridgestone and Pirelli
+    - Continental and Firestone
+    - Yokohama and Dunlop
+    question_text: Which companies are specifically mentioned in the 'Assorted References'
+      section for their contributions to tire technology?
+  index: 146
+  key_concept: Assorted References
+  name: Assorted References
+- aspects:
+  - content: The 'use in' section highlights the application of tires in different
+      types of vehicles, emphasizing their essential role in transportation technology.
+      It provides links to detailed discussions of tires in the contexts of automobiles,
+      bicycles, and trucks.
+    type: definition
+  - content: 'Concrete examples include ''automobile: Tires,'' ''bicycle: Wheels,''
+      and ''truck: Tires,'' each illustrating how tire design and function are adapted
+      to the specific requirements of various vehicle types.'
+    type: examples
+  - content: This section connects the general concept of tires to specialized engineering
+      topics, such as wheel design, load-bearing capacity, and vehicle safety, illustrating
+      the interdisciplinary nature of tire technology.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The section specifically provides links to articles on the use of
+      tires in automobiles, bicycles, and trucks.
+    options:
+    - Automobiles, bicycles, and trucks
+    - Trains, airplanes, and motorcycles
+    - Boats, scooters, and skateboards
+    - Helicopters, buses, and tractors
+    question_text: In which vehicle contexts does the 'use in' section provide links
+      for further exploration of tire applications?
+  index: 155
+  key_concept: use in
+  name: use in
+- aspects:
+  - content: The 'Additional Reading' section lists authoritative books and articles
+      for readers seeking more in-depth information about tire history, mechanics,
+      and materials science. This section is typical in academic and reference works
+      to guide further study.
+    type: definition
+  - content: Key works cited include Eric Tompkins' 'The History of the Pneumatic
+      Tyre,' Samuel K. Clark's 'Mechanics of Pneumatic Tires,' and contributions to
+      the 'Concise Encyclopedia of Composite Materials' and 'Science and Technology
+      of Rubber.' These texts cover both historical evolution and technical aspects
+      of tire design.
+    type: examples
+  - content: Providing additional readings supports academic research, encourages
+      deeper engagement, and allows students and professionals to explore specialized
+      topics such as composite materials and rubber technology in the context of tire
+      development.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: '''The Physics of Rolling Wheels by John Smith'' is not mentioned;
+      the other three are listed in the ''Additional Reading'' section.'
+    options:
+    - The History of the Pneumatic Tyre by Eric Tompkins
+    - Mechanics of Pneumatic Tires by Samuel K. Clark
+    - Science and Technology of Rubber by Mark, Erman, and Eirich
+    - The Physics of Rolling Wheels by John Smith
+    question_text: Which of the following books is NOT listed in the 'Additional Reading'
+      section for tires?
+  index: 166
+  key_concept: Additional Reading
+  name: Additional Reading
+- aspects:
+  - content: The 'Article Contributors' section identifies the individuals responsible
+      for writing, editing, and verifying the content of the article. It distinguishes
+      between primary contributors, typically the main authors or editors, and other
+      contributors who may have provided updates or additional information.
+    type: definition
+  - content: Primary contributors include 'The Editors of Encyclopaedia Britannica,'
+      who oversee content accuracy and quality. Other contributors listed are Aakanksha
+      Gaur, Gloria Lotha, Shiveta Singh, and Grace Young, each with editorial responsibilities.
+    type: examples
+  - content: This section demonstrates Britannica's editorial process, emphasizing
+      the collaborative and expert-driven nature of encyclopedia content creation,
+      and providing transparency about authorship and editorial oversight.
+    type: context
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Only 'The Editors of Encyclopaedia Britannica' are listed as primary
+      contributors; the others are additional contributors.
+    options:
+    - The Editors of Encyclopaedia Britannica
+    - Aakanksha Gaur and Gloria Lotha
+    - Shiveta Singh and Grace Young
+    - All of the above
+    question_text: Who are listed as primary contributors in the 'Article Contributors'
+      section?
+  index: 170
+  key_concept: Article Contributors
+  name: Article Contributors
+- aspects:
+  - content: The 'Article History' section provides a chronological log of significant
+      updates, edits, and additions to the article, including new references, media,
+      and contributors. This transparency is important for academic rigor and tracking
+      the evolution of knowledge.
+    type: definition
+  - content: Examples of updates include the addition of new web resources on tire
+      microplastics, modeling parameters, types of tires, and government safety information,
+      as well as media additions and database migrations.
+    type: examples
+  - content: Maintaining a detailed article history allows users to verify the currency
+      and reliability of information, trace the development of the article, and understand
+      the editorial process behind content updates.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The 'Article History' section is dedicated to documenting updates,
+      edits, and additions to the article.
+    options:
+    - To provide a log of updates and editorial changes
+    - To list all companies involved in tire manufacturing
+    - To summarize the main types of tires
+    - To explain the physics of tire rolling
+    question_text: What is the main purpose of the 'Article History' section?
+  index: 185
+  key_concept: Article History
+  name: Article History

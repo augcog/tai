@@ -1,0 +1,251 @@
+URL: https://www.britannica.com/technology/technology
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article providing an overview of technology, covering
+  its definition, historical evolution, major examples, practical applications, and
+  its impact on various aspects of human life.
+file_name: Technology Definition, Examples, Types, & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Technology Definition, Examples,
+  Types, & Facts Britannica.html
+file_uuid: cca3cfd1-409e-54d7-9d0b-3810d389b623
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Technology is defined as the application of scientific knowledge to
+    practical aims or the manipulation of the environment, not limited to electronics
+    or art.
+  knowledge_areas:
+  - Definition and Etymology of Technology
+  options:
+  - The study of natural phenomena.
+  - The application of scientific knowledge to practical aims or the manipulation
+    of the environment.
+  - The exclusive use of electronic devices.
+  - The process of artistic creation.
+  question_id: 1
+  question_text: What is the primary definition of technology as described in the
+    article?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The article traces technology from ancient tools to modern digital
+    systems, highlighting its broad historical evolution.
+  knowledge_areas:
+  - Historical Evolution and Scope of Technology
+  options:
+  - It has always referred to computers.
+  - It started with ancient stone tools and now includes complex systems like the
+    Internet.
+  - It only applies to the 21st century.
+  - It is limited to communication technologies.
+  question_id: 2
+  question_text: Which of the following best demonstrates how technology has evolved
+    over time?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Smartphones and processed foods are direct applications of technology,
+    while the other options are natural phenomena.
+  knowledge_areas:
+  - Major Examples and Applications of Technology
+  - Role of Technology in Society and Human Life
+  options:
+  - Smartphones and processed foods
+  - Natural weather patterns
+  - Unmodified plant growth
+  - The movement of tectonic plates
+  question_id: 3
+  question_text: Which of the following is an example of technology's application
+    in daily life, as discussed in the article?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Technology has a broad impact, shaping economies and daily life while
+    also presenting challenges and risks.
+  knowledge_areas:
+  - Role of Technology in Society and Human Life
+  options:
+  - Technology only benefits society without any drawbacks.
+  - Technology shapes economies, daily routines, and introduces both opportunities
+    and challenges.
+  - Technology is irrelevant to most people.
+  - Technology is only important for communication.
+  question_id: 4
+  question_text: Which statement best summarizes the impact of technology on society?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Engineering, agriculture, and medicine are all fields where technology
+    is applied, while literary criticism is not typically considered a technological
+    field.
+  knowledge_areas:
+  - Fields and Types of Technology
+  options:
+  - Engineering
+  - Agriculture
+  - Literary criticism
+  - Medicine
+  question_id: 5
+  question_text: Which of the following fields is NOT typically associated with technology
+    according to the article?
+  question_type: recap
+sections:
+- aspects:
+  - content: Technology is defined as the application of scientific knowledge to the
+      practical aims of human life, or to the change and manipulation of the human
+      environment. This broad definition encompasses both the tools and processes
+      developed to solve problems and improve living conditions.
+    type: Definition
+  - content: The word 'technology' is derived from the Greek terms 'technē' meaning
+      'art, craft' and 'logos' meaning 'word, speech.' The term first appeared in
+      English in the 17th century and has since evolved through various meanings to
+      its modern usage.
+    type: Etymology
+  - content: Understanding the definition and etymology of technology is essential
+      for appreciating its role in society. The term's evolution reflects the expanding
+      scope of human ingenuity and its impact on shaping environments. This foundational
+      understanding is crucial for distinguishing technology from pure science or
+      art.
+    type: Context and Implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The term 'technology' originates from the Greek words 'technē' (art,
+      craft) and 'logos' (word, speech), and its meaning has broadened over time to
+      encompass more than just electronic devices.
+    options:
+    - It comes from Latin words meaning 'logic of machines.'
+    - It is derived from Greek words meaning 'art, craft' and 'word, speech.'
+    - It was first used in the 21st century to describe computers.
+    - It refers exclusively to electronic devices.
+    question_text: Which of the following best describes the origin and meaning of
+      the term 'technology'?
+  index: 138
+  key_concept: Definition and Etymology of Technology
+  name: technology
+- aspects:
+  - content: Technology has evolved from simple stone tools in ancient times to complex
+      digital systems in the 21st century. This progression includes significant milestones
+      such as the Bessemer process for steelmaking, the invention of the personal
+      computer, and the development of the Internet.
+    type: Historical Overview
+  - content: The scope of technology is vast, encompassing fields such as energy production,
+      agriculture, construction, transportation, communication, manufacturing, medicine,
+      and artificial intelligence. Each of these domains has been transformed by technological
+      advancements.
+    type: Scope
+  - content: The historical evolution of technology highlights its central role in
+      shaping civilizations and driving societal change. Connections to related concepts,
+      such as the history of technology, illustrate how technological progress is
+      intertwined with economic, cultural, and scientific developments.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Technology encompasses a broad historical evolution from ancient
+      tools to modern complex systems and influences various fields beyond just electronics
+      or communication.
+    options:
+    - Technology only refers to modern electronic devices.
+    - Technology has evolved from ancient tools to modern systems, affecting many
+      aspects of life.
+    - The scope of technology is limited to communication devices.
+    - Technology has remained unchanged since its inception.
+    question_text: Which statement best reflects the historical evolution and scope
+      of technology?
+  index: 138
+  key_concept: Historical Evolution and Scope of Technology
+  name: technology
+- aspects:
+  - content: Examples of technology include stone tools, the Bessemer process, the
+      Apple II personal computer, the Internet, nuclear power, and elastomers like
+      rubber. These illustrate the diversity of technological inventions across different
+      eras and industries.
+    type: Examples
+  - content: Technology is applied in energy generation (coal mining, petroleum production,
+      nuclear power), food production (agriculture, dairy farming, livestock farming),
+      construction (bridges, dams, skyscrapers), transportation (automobiles, airplanes,
+      ships), and communication (Internet, telephones, printing).
+    type: Applications
+  - content: The application of technology has fundamentally transformed human society,
+      enabling mass production, global communication, efficient transportation, and
+      improved health outcomes. It also raises challenges such as environmental impact
+      and ethical considerations.
+    type: Implications and Impact
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: Purely natural phenomena are not considered technology; technology
+      refers to human-applied knowledge and inventions such as stone tools, the Bessemer
+      process, and computers.
+    options:
+    - Stone tools
+    - Bessemer process
+    - Personal computer
+    - Purely natural phenomena
+    question_text: Which of the following is NOT a major example or application of
+      technology mentioned in the article?
+  index: 138
+  key_concept: Major Examples and Applications of Technology
+  name: technology
+- aspects:
+  - content: Technology is essential to the production of food, energy, goods, and
+      services, and it underpins modern transportation, communication, and healthcare
+      systems. Its influence extends to shaping economic structures, cultural practices,
+      and even the physical environment.
+    type: Societal Impact
+  - content: Everyday examples include smartphones, processed foods, transportation
+      systems, and medical devices. These technologies have become integral to daily
+      routines and societal functioning.
+    type: Examples in Daily Life
+  - content: While technology improves quality of life and solves practical problems,
+      it also introduces challenges such as job displacement, privacy concerns, and
+      environmental degradation. The balance between technological benefits and risks
+      is a central issue in contemporary society.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Technology's influence is broad, shaping economies, daily life, and
+      introducing both positive and negative societal changes.
+    options:
+    - It has little effect on daily life.
+    - It is only relevant to scientists and engineers.
+    - It shapes economic structures, daily routines, and introduces both benefits
+      and challenges.
+    - It only affects communication systems.
+    question_text: How does technology influence society and human life according
+      to the article?
+  index: 138
+  key_concept: Role of Technology in Society and Human Life
+  name: technology
+- aspects:
+  - content: Technology encompasses numerous fields including engineering (aerospace,
+      chemical, civil, electrical, humanitarian, military, nuclear, petroleum, tissue),
+      manufacturing, medicine, agriculture, construction, and communications.
+    type: Fields
+  - content: Types of technology can be categorized by their purpose and application,
+      such as energy technologies, information and communication technologies, manufacturing
+      technologies, and biomedical technologies. Each type addresses specific human
+      needs and challenges.
+    type: Types
+  - content: Fields like artificial intelligence, nanotechnology, and telecommunication
+      represent cutting-edge areas that connect with traditional domains. For instance,
+      AI is foundational for innovations like autonomous vehicles and virtual assistants,
+      while nanotechnology opens new possibilities at the atomic scale.
+    type: Connections and Examples
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Technology covers a wide range of fields, including engineering,
+      manufacturing, medicine, agriculture, and more, not just communication devices.
+    options:
+    - Only communication devices and computers are considered technology.
+    - Technology includes engineering, manufacturing, medicine, agriculture, and more.
+    - Technology is limited to physical tools.
+    - Technology excludes any biological or medical applications.
+    question_text: Which of the following best illustrates the diversity of fields
+      and types of technology?
+  index: 138
+  key_concept: Fields and Types of Technology
+  name: technology

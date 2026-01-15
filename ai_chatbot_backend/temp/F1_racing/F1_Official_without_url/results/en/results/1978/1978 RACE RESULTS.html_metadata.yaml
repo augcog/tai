@@ -1,0 +1,210 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A summary webpage for the 1978 Formula 1 season race results, official
+  partners, and app download information, providing an overview of race winners, sponsor
+  brands, and digital engagement options.
+file_name: 1978 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1978/1978 RACE RESULTS.html
+file_uuid: bbbb5f93-444f-5a45-982b-842d6e775a7b
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Mario Andretti, driving for Lotus Ford, won the most races in the 1978
+    season, establishing both the driver and team as dominant forces that year.
+  knowledge_areas:
+  - 1978 Formula 1 Race Results
+  options:
+  - Lotus Ford - Mario Andretti
+  - Ferrari - Carlos Reutemann
+  - Brabham Alfa Romeo - Niki Lauda
+  - Ferrari - Gilles Villeneuve
+  question_id: 1
+  question_text: Which team and driver combination achieved the most race wins during
+    the 1978 Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 3
+  explanation: Microsoft is not mentioned among the official partners, while Pirelli,
+    AWS, and Heineken are all present in the partners list.
+  knowledge_areas:
+  - F1 Official Partners
+  options:
+  - Pirelli
+  - AWS
+  - Heineken
+  - Microsoft
+  question_id: 2
+  question_text: Which of the following is NOT listed as an official Formula 1 partner
+    in the provided content?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App is primarily intended to provide live timing, news,
+    and updates to fans, supporting engagement and information access.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - To provide live race timing, news, and updates
+  - To stream F1 races exclusively
+  - To sell F1 merchandise
+  - To organize F1 fantasy leagues
+  question_id: 3
+  question_text: What is the main purpose of the Official F1 App according to the
+    document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Official partners contribute through financial investment, technological
+    collaboration, and marketing, supporting the sport's commercial and operational
+    needs.
+  knowledge_areas:
+  - F1 Official Partners
+  options:
+  - By providing financial resources, technology, and marketing support
+  - By managing the race calendar
+  - By developing driver training programs
+  - By owning F1 teams
+  question_id: 4
+  question_text: How do F1's official partners contribute to the sport according to
+    the document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The document presents race results, official partners, and digital
+    engagement (via the app) as distinct but interconnected elements that together
+    enhance F1's global reach, financial stability, and fan interaction.
+  knowledge_areas:
+  - 1978 Formula 1 Race Results
+  - F1 Official Partners
+  - Official F1 App
+  options:
+  - Race results, partners, and digital engagement are separate but collectively support
+    the sport's growth and fan experience.
+  - Only race results are important for F1's success.
+  - Official partners are unrelated to digital engagement.
+  - Digital engagement replaces the need for official partners.
+  question_id: 5
+  question_text: Which of the following statements best describes the relationship
+    between F1 race results, official partners, and digital engagement as presented
+    in the document?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1978 Formula 1 Race Results section provides a comprehensive tabular
+      summary of each Grand Prix in the 1978 season, including the date, winning driver,
+      team, number of laps, and total race time. This data set is a historical record
+      for the season, reflecting the competitive outcomes across various international
+      circuits.
+    type: Definition
+  - content: For instance, Mario Andretti won multiple races for Lotus Ford, such
+      as the Argentine, Belgian, Spanish, French, German, and Dutch Grands Prix. Carlos
+      Reutemann, driving for Ferrari, also secured several victories, including in
+      Brazil, USA West, Great Britain, and USA East. Other notable winners include
+      Niki Lauda (Brabham Alfa Romeo), Patrick Depailler (Tyrrell Ford), Ronnie Peterson
+      (Lotus Ford), and Gilles Villeneuve (Ferrari).
+    type: Examples
+  - content: These results not only determine the championship standings for drivers
+      and teams but also influence team strategies, sponsorships, and historical legacies.
+      The distribution of wins among drivers and teams highlights the competitive
+      dynamics and technological advancements of the era, such as Lotus's dominance
+      with ground effect aerodynamics.
+    type: Implications
+  - content: The race results connect directly to broader F1 themes, such as the evolution
+      of car technology, team management, and the internationalization of the sport.
+      They also provide context for the development of driver careers and the shifting
+      power balance among manufacturers like Lotus, Ferrari, and Brabham.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Mario Andretti won the most races in the 1978 season, driving for
+      Lotus Ford. While Carlos Reutemann and Niki Lauda also won multiple races, Andretti's
+      victories were the most numerous and significant for the championship.
+    options:
+    - Carlos Reutemann for Ferrari
+    - Niki Lauda for Brabham Alfa Romeo
+    - Mario Andretti for Lotus Ford
+    - Gilles Villeneuve for Ferrari
+    question_text: Which driver won the most races in the 1978 Formula 1 season, and
+      for which team did he drive?
+  index: 153
+  key_concept: 1978 Formula 1 Race Results
+  name: 1978 RACE RESULTS
+- aspects:
+  - content: F1 Official Partners are global corporations and brands that sponsor
+      and support Formula 1 through financial investment, technology, and marketing
+      collaborations. This partnership network is essential for the commercial and
+      operational sustainability of the sport.
+    type: Definition
+  - content: Notable partners listed include LVMH, Pirelli, Aramco, Heineken, AWS,
+      Lenovo, DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton, TAG
+      Heuer, Moet Hennessy, American Express, Santander, Allwyn, Globant, Las Vegas
+      Convention and Visitors Authority, Paramount+, Barilla, Liqui Moly, Nestle,
+      PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds. These brands represent
+      a diverse array of industries, from luxury goods and technology to logistics
+      and food services.
+    type: Examples
+  - content: The involvement of high-profile partners brings significant financial
+      resources, technological advancements, and global exposure to Formula 1. These
+      partnerships enable the sport to innovate in areas such as data analytics (AWS),
+      tire technology (Pirelli), and logistics (DHL), while also enhancing fan engagement
+      through marketing and branded experiences.
+    type: Implications
+  - content: Corporate partnerships are deeply intertwined with F1’s global expansion,
+      media presence, and technological progress. The visibility of partner brands
+      at races and in digital content strengthens the commercial ecosystem of the
+      sport and reflects the mutual benefits of association with the F1 brand.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Microsoft is not listed among the official partners in the provided
+      section, whereas Pirelli, Heineken, and AWS are all named as partners.
+    options:
+    - Pirelli
+    - Heineken
+    - Microsoft
+    - AWS
+    question_text: Which of the following companies is NOT listed as an official partner
+      of Formula 1 in the provided section?
+  index: 174
+  key_concept: F1 Official Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application available for download on
+      both the Apple App Store and Google Play Store, designed to provide fans with
+      real-time information, news, and interactive features related to Formula 1.
+    type: Definition
+  - content: The app can be accessed by iOS users through the App Store and by Android
+      users via Google Play. It typically offers features such as live timing, race
+      results, news updates, driver and team information, and possibly exclusive video
+      content.
+    type: Examples
+  - content: The app enhances fan engagement by delivering instant access to race
+      data, standings, and multimedia content, making it easier for fans to follow
+      the sport regardless of location. It also serves as a platform for F1 to promote
+      its digital products and services, such as F1 TV subscriptions.
+    type: Implications
+  - content: The app is part of F1’s broader digital strategy, complementing its website,
+      social media presence, and streaming services. It reflects the sport’s adaptation
+      to changing media consumption habits and the importance of mobile technology
+      in modern fan experiences.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App's main purpose is to provide live timing, news,
+      and updates, enhancing the fan experience with real-time information. Merchandise
+      sales and fantasy leagues are separate services, and broadcasting races on TV
+      is not the app's function.
+    options:
+    - To provide live race timing, news, and updates to fans
+    - To sell F1 merchandise exclusively
+    - To organize F1 fantasy leagues
+    - To broadcast races on television
+    question_text: What is the primary function of the Official F1 App as described
+      in the document?
+  index: 184
+  key_concept: Official F1 App
+  name: Download the Official F1 App

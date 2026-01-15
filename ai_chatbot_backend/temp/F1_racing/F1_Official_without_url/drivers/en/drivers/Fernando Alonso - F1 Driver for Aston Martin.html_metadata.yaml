@@ -1,0 +1,232 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Formula 1 driver profile page for Fernando Alonso, covering his
+  2026 season statistics, career achievements, biographical background, recent news,
+  and media content.
+file_name: Fernando Alonso - F1 Driver for Aston Martin.html
+file_path: F1_racing/F1_Official/drivers/en/drivers/Fernando Alonso - F1 Driver for
+  Aston Martin.html
+file_uuid: f380a7fb-3a8a-5560-b556-5ee3d670698a
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Fernando Alonso is listed as an Aston Martin driver for the 2026 season.
+  knowledge_areas:
+  - Fernando Alonso
+  - 2026 Season Statistics
+  options:
+  - Ferrari
+  - Aston Martin
+  - Red Bull Racing
+  - Mercedes
+  question_id: 1
+  question_text: Which team does Fernando Alonso race for in the 2026 Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Alonso has won 2 World Championships, as indicated in his career statistics.
+  knowledge_areas:
+  - Career Achievements
+  options:
+  - '1'
+  - '2'
+  - '3'
+  - '5'
+  question_id: 2
+  question_text: How many World Championships has Fernando Alonso won in his career?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Alonso is described as fiercely competitive, tactically astute, and
+    highly adaptable.
+  knowledge_areas:
+  - Biography and Personal Qualities
+  options:
+  - Cautious and avoids risks
+  - Fiercely competitive and tactically brilliant
+  - Known for frequent team changes due to lack of adaptability
+  - Focused solely on qualifying performance
+  question_id: 3
+  question_text: Which of the following best describes Fernando Alonso's approach
+    and reputation in Formula 1 as highlighted in his biography?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Alonso has 106 career podiums according to the career stats section.
+  knowledge_areas:
+  - Career Achievements
+  options:
+  - '32'
+  - '83'
+  - '106'
+  - '2393'
+  question_id: 4
+  question_text: As of the 2026 season statistics, how many Grand Prix podiums has
+    Fernando Alonso achieved in his career?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The Related Videos section provides interviews, race highlights, and
+    insights into Alonso's recent performances.
+  knowledge_areas:
+  - Media and Public Engagement
+  options:
+  - Technical breakdowns of F1 cars
+  - Highlights and interviews about Alonso's recent races and performance
+  - Historical F1 rule changes
+  - Behind-the-scenes with F1 sponsors
+  question_id: 5
+  question_text: What is the main focus of the 'Related Videos' section on Fernando
+    Alonso's profile page?
+  question_type: recap
+sections:
+- aspects:
+  - content: Fernando Alonso is a Spanish Formula 1 driver currently racing for Aston
+      Martin. He is recognized as one of the most accomplished and enduring competitors
+      in F1 history, having started his career in the early 2000s and continuing to
+      compete at the highest level into the 2026 season.
+    type: definition
+  - content: Alonso is notable for breaking Michael Schumacher's dominance in F1 by
+      winning back-to-back world championships in the mid-2000s. His career spans
+      multiple teams, including Renault, McLaren, Ferrari, Alpine, and Aston Martin,
+      reflecting both his adaptability and the high regard in which he is held within
+      the sport.
+    type: context
+  - content: Alonso's presence in F1 has had a significant impact on the sport, inspiring
+      a generation of Spanish fans and drivers. His longevity, competitiveness, and
+      ability to return to podiums after career breaks demonstrate both his personal
+      determination and the evolving nature of F1 careers.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Fernando Alonso is racing for Aston Martin in the 2026 season, as
+      indicated by the profile and team affiliation.
+    options:
+    - Ferrari
+    - Aston Martin
+    - Red Bull Racing
+    - Alpine
+    question_text: Which team is Fernando Alonso driving for in the 2026 Formula 1
+      season?
+  index: 67
+  key_concept: Fernando Alonso
+  name: FernandoAlonso
+- aspects:
+  - content: The 2026 Season Statistics section details Fernando Alonso's performance
+      metrics for the ongoing or upcoming F1 season, including race starts, points,
+      wins, podiums, poles, fastest laps, DNFs (Did Not Finish), and sprint race results.
+    type: definition
+  - content: As of the current profile snapshot, Alonso has not yet scored any points,
+      wins, podiums, or other notable results in the 2026 season, reflecting either
+      the pre-season status or the very early stage of the championship.
+    type: context
+  - content: These statistics provide a baseline for tracking Alonso's progress throughout
+      the 2026 season and serve as a comparative reference against his previous years.
+      The absence of results so far highlights the anticipation for his performance
+      and the potential impact of team and regulation changes.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: According to the 2026 season statistics, Alonso currently has 0 Grand
+      Prix wins.
+    options:
+    - '0'
+    - '2'
+    - '5'
+    - '10'
+    question_text: How many Grand Prix wins does Fernando Alonso have in the 2026
+      season so far?
+  index: 81
+  key_concept: 2026 Season Statistics
+  name: 2026 SEASON
+- aspects:
+  - content: Career Achievements refer to the cumulative statistics and milestones
+      Fernando Alonso has reached over his entire F1 career, such as total Grand Prix
+      entries, points, wins, podiums, pole positions, world championships, and DNFs.
+    type: definition
+  - content: Alonso has entered 427 Grands Prix, scored 2,393 career points, achieved
+      32 race wins, 106 podiums, 22 pole positions, and won 2 World Championships.
+      He has also experienced 83 DNFs, reflecting both the length and intensity of
+      his career.
+    type: examples
+  - content: These achievements place Alonso among the most successful drivers in
+      F1 history. His record-breaking feats, such as being the youngest polesitter
+      and champion at the time, illustrate his early impact, while his continued presence
+      in the sport highlights his adaptability and resilience.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Fernando Alonso has won 2 World Championships during his F1 career,
+      as indicated in his career stats.
+    options:
+    - '0'
+    - '1'
+    - '2'
+    - '5'
+    question_text: How many World Championships has Fernando Alonso won in his career?
+  index: 139
+  key_concept: Career Achievements
+  name: CAREER STATS
+- aspects:
+  - content: The Biography section outlines Alonso's personal background, including
+      his birth date and place, and summarizes his journey and character traits as
+      an F1 driver.
+    type: definition
+  - content: Alonso is described as fiercely competitive, highly self-confident, and
+      possessing exceptional speed, tactical intelligence, race craft, and determination.
+      His quote, 'I never regret anything,' underscores his resilient mindset and
+      approach to both success and setbacks.
+    type: implications
+  - content: Alonso's career narrative includes breaking Schumacher's dominance, setting
+      multiple youngest-ever records, and making successful comebacks after time away
+      from F1. His adaptability is further emphasized by his success in other racing
+      disciplines, such as winning Le Mans, and his ability to return to podiums with
+      different teams.
+    type: context
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Alonso is characterized as fiercely competitive, confident, and known
+      for his tactical intelligence and adaptability, making option 2 correct.
+    options:
+    - Cautious and reserved
+    - Aggressive and fiercely competitive
+    - Uninterested in tactical thinking
+    - Reluctant to change teams
+    question_text: Which of the following best describes Fernando Alonso's racing
+      style and personal traits as highlighted in his biography?
+  index: 167
+  key_concept: Biography and Personal Qualities
+  name: Biography
+- aspects:
+  - content: This section features a curated list of recent video content related
+      to Fernando Alonso, including interviews, race analyses, and highlights of his
+      performances and experiences during the season.
+    type: definition
+  - content: Videos include Alonso discussing his goals for consistency and performance
+      in 2026, reactions to qualifying and race results, and reflections on specific
+      incidents such as recovering from a spin or making strategic setup changes.
+    type: examples
+  - content: These media appearances provide insights into Alonso's mindset, adaptability,
+      and ongoing relationship with fans and the F1 community. They also serve as
+      a resource for understanding his approach to challenges and his public persona.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The 'Related Videos' section features race analyses, interviews,
+      and highlights related to Alonso's recent F1 activities.
+    options:
+    - Technical car design tutorials
+    - Race analyses and driver interviews
+    - Historical documentaries on F1 circuits
+    - Cooking shows with F1 drivers
+    question_text: What type of content is found in the 'Related Videos' section for
+      Fernando Alonso?
+  index: 201
+  key_concept: Media and Public Engagement
+  name: Related Videos

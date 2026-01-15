@@ -1,0 +1,258 @@
+URL: https://www.britannica.com/sports/Formula-One-automobile-racing/additional-info
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A reference and edit history page for the Britannica article on
+  Formula One racing, including links to related topics, notable drivers' careers,
+  contributor credits, and a detailed article revision log.
+file_name: Formula One racing Britannica.html
+file_path: F1_racing/F1_History_Britannica/history/sports/Formula-One-automobile-racing/Formula
+  One racing Britannica.html
+file_uuid: ad8b68b1-15dc-5154-b153-76888af72a45
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: The 'career of' section specifically lists links to the biographies
+    of drivers such as Lewis Hamilton and Michael Schumacher.
+  knowledge_areas:
+  - career of
+  - section identification
+  options:
+  - Assorted References
+  - career of
+  - Article Contributors
+  - Article History
+  question_id: 1
+  question_text: Which of the following sections provides links to biographies of
+    notable Formula One drivers?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: '''Assorted References'' provides links to related topics and comparative
+    resources, not contributor lists or revision logs.'
+  knowledge_areas:
+  - Assorted References
+  - reference function
+  options:
+  - To list article contributors
+  - To provide related resources and cross-references
+  - To log article revisions
+  - To summarize driver achievements
+  question_id: 2
+  question_text: What is the main function of the 'Assorted References' section in
+    the Formula One racing article?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Max Simon is listed as the primary contributor; the others are additional
+    contributors or editors.
+  knowledge_areas:
+  - Article Contributors
+  - primary contributor
+  options:
+  - Max Simon
+  - Will Gosner
+  - Tracy Grant
+  - Mindy Johnston
+  question_id: 3
+  question_text: Who is identified as the primary contributor to the Formula One racing
+    article?
+  question_type: recap
+- correct_answers:
+  - 3
+  explanation: Article History provides a chronological record of all major updates,
+    including new photos and sections.
+  knowledge_areas:
+  - Article History
+  - revision tracking
+  options:
+  - Assorted References
+  - career of
+  - Article Contributors
+  - Article History
+  question_id: 4
+  question_text: Which section would you consult to verify when a new photo or section
+    was added to the Formula One racing article?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Together, these sections offer both broader context through references
+    and detailed biographical insights, enriching the article's coverage.
+  knowledge_areas:
+  - Assorted References
+  - career of
+  - article comprehensiveness
+  options:
+  - By providing both comparative context and in-depth biographical information
+  - By listing all article contributors
+  - By documenting every article revision
+  - By focusing solely on technical regulations
+  question_id: 5
+  question_text: How do the 'Assorted References' and 'career of' sections together
+    enhance the comprehensiveness of the Formula One racing article?
+  question_type: recap
+sections:
+- aspects:
+  - content: Assorted References in the context of this article refer to a collection
+      of related resources and cross-references that provide additional information
+      about Formula One racing. These references link to topics such as lists of champions,
+      comparisons with sports car racing, and the role of Formula One in the sports
+      culture of countries like the United Arab Emirates.
+    type: definition
+  - content: Examples include the 'List of Formula One Champions (Drivers’ and Constructors’)',
+      which provides historical data on championship winners, and references to sports
+      car racing for comparative analysis. Another example is the mention of the United
+      Arab Emirates, highlighting the country's engagement with Formula One as part
+      of its sports and recreation sector.
+    type: examples
+  - content: These assorted references are used by researchers, students, and enthusiasts
+      to deepen their understanding of Formula One through comparative studies, historical
+      analysis, and exploration of the sport's global influence. They serve as entry
+      points for exploring specific aspects of the sport, such as championship histories
+      or regional engagement.
+    type: use cases
+  - content: Including assorted references enhances the academic rigor and comprehensiveness
+      of the article, allowing readers to verify facts, explore broader contexts,
+      and understand Formula One's place within the larger world of motorsport and
+      international sporting culture.
+    type: implications
+  - content: These references connect Formula One to broader topics such as sports
+      history, international competitions, and the cultural significance of racing
+      in various countries. They also provide pathways to related articles and comparative
+      studies within the Britannica ecosystem.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: The first three options are explicitly mentioned as assorted references
+      in the article, while 'Detailed technical regulations of F1 engines' is not
+      listed in this section.
+    options:
+    - List of Formula One Champions (Drivers’ and Constructors’)
+    - Comparison with sports car racing
+    - 'United Arab Emirates: Sports and recreation'
+    - Detailed technical regulations of F1 engines
+    question_text: Which of the following is NOT an example of an 'Assorted Reference'
+      as listed in the Formula One racing article?
+  index: 154
+  key_concept: Assorted References
+  name: Assorted References
+- aspects:
+  - content: The 'career of' section provides direct links to biographical articles
+      about notable Formula One drivers, focusing on their individual careers and
+      achievements within the sport. This section highlights the importance of key
+      figures in shaping the history and culture of Formula One.
+    type: definition
+  - content: Drivers featured in this section include Lewis Hamilton, Phil Hill, Lando
+      Norris, and Michael Schumacher. Each link leads to a dedicated biography that
+      covers the driver's background, milestones, championship victories, and contributions
+      to the sport.
+    type: examples
+  - content: This section situates the drivers within the broader narrative of Formula
+      One, emphasizing how individual careers reflect changes in the sport's competitive
+      landscape, technological advancements, and international appeal. The inclusion
+      of multiple generations of drivers illustrates the sport's evolution.
+    type: context
+  - content: Highlighting driver careers allows readers to understand the human element
+      of Formula One, including the personal stories, rivalries, and legacies that
+      contribute to the sport's enduring popularity. It also provides context for
+      analyzing performance trends and the impact of individual talent on team success.
+    type: implications
+  - content: The 'career of' links connect Formula One to the field of sports biography,
+      enabling interdisciplinary study of athlete development, leadership, and the
+      influence of star power on global sports marketing.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: Lewis Hamilton, Phil Hill, and Lando Norris are all listed, but Fernando
+      Alonso is not mentioned in this section.
+    options:
+    - Lewis Hamilton
+    - Phil Hill
+    - Lando Norris
+    - Fernando Alonso
+    question_text: Which driver is NOT listed under the 'career of' section in the
+      Formula One racing article?
+  index: 165
+  key_concept: career of
+  name: career of
+- aspects:
+  - content: The 'Article Contributors' section identifies the individuals responsible
+      for writing, editing, and updating the Formula One racing article. It is divided
+      into 'Primary Contributors' and 'Other Encyclopedia Britannica Contributors,'
+      reflecting levels of involvement and editorial responsibility.
+    type: definition
+  - content: Max Simon is listed as a primary contributor, indicating significant
+      authorship or subject matter expertise. Other contributors include Will Gosner,
+      Tracy Grant, Mindy Johnston, and Tushaar Kuthiala, who have contributed through
+      editing or supplementary writing.
+    type: examples
+  - content: This section provides transparency and accountability in the creation
+      of the article, allowing readers to trace the expertise and editorial oversight
+      behind the content. It also highlights the collaborative nature of encyclopedia
+      publishing.
+    type: context
+  - content: Knowing the contributors can help readers assess the credibility and
+      reliability of the information. It also enables proper attribution and recognition
+      of scholarly or journalistic work, which is important in academic and professional
+      contexts.
+    type: implications
+  - content: Contributor sections are standard in reputable reference works and connect
+      to broader issues of authorship, editorial standards, and the peer review process
+      in knowledge dissemination.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Max Simon is specifically listed as the primary contributor, while
+      the others are additional contributors or editors.
+    options:
+    - Will Gosner
+    - Tushaar Kuthiala
+    - Max Simon
+    - Tracy Grant
+    question_text: Who is listed as the primary contributor to the Formula One racing
+      article?
+  index: 178
+  key_concept: Article Contributors
+  name: Article Contributors
+- aspects:
+  - content: The 'Article History' section is a chronological log of revisions, updates,
+      and additions made to the Formula One racing article. It records the type of
+      change, a brief description, the contributor responsible, and the date of the
+      update.
+    type: definition
+  - content: Examples of updates include the addition of a photo of 2025 F1 Drivers'
+      Champion Lando Norris, the creation of a slideshow of Drivers' Champions, the
+      inclusion of a section about the feeder Formulae series, and updates to the
+      Drivers section to include Ayrton Senna.
+    type: examples
+  - content: This section provides a transparent record of the article's evolution,
+      allowing readers to see how new information, corrections, and multimedia content
+      have been integrated over time. It reflects the dynamic and ongoing nature of
+      encyclopedia content management.
+    type: context
+  - content: Maintaining a detailed article history supports academic integrity and
+      trustworthiness by documenting when and how information is updated. It also
+      allows users to track the responsiveness of the encyclopedia to new developments
+      in the field.
+    type: implications
+  - content: Article histories are essential in digital publishing and connect to
+      broader themes of version control, editorial transparency, and the scholarly
+      practice of citing specific versions of reference materials.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The most recent change listed is the addition of a photo of 2025
+      F1 Drivers' Champion Lando Norris, dated Dec 08, 2025.
+    options:
+    - Added slideshow of Formula One Drivers' Champions
+    - Added photo of 2025 F1 Drivers' Champion Lando Norris
+    - Added a section about the feeder Formulae series
+    - Updated Drivers section to include Ayrton Senna
+    question_text: Which of the following changes was made most recently to the Formula
+      One racing article, according to the Article History?
+  index: 193
+  key_concept: Article History
+  name: Article History

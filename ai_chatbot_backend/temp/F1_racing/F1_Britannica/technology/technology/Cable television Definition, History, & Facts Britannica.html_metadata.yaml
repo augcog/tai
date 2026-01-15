@@ -1,0 +1,270 @@
+URL: https://www.britannica.com/technology/cable-television
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article on cable television, covering its definition,
+  historical development, technological features, services, and regulatory context.
+file_name: Cable television Definition, History, & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Cable television Definition,
+  History, & Facts Britannica.html
+file_uuid: c1f4c028-8264-5c14-86ae-b8d90a71fcaa
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Cable television was originally developed to enhance the reception
+    of television broadcasts in remote or obstructed areas where over-the-air signals
+    were inadequate.
+  knowledge_areas:
+  - Definition and Origins of Cable Television
+  options:
+  - To deliver internet services to homes
+  - To improve television signal reception in areas with poor broadcast quality
+  - To provide pay-per-view movies
+  - To introduce high-definition television
+  question_id: 1
+  question_text: What was the primary motivation for the initial development of cable
+    television systems in the United States?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Frequency-conversion devices allowed cable systems to deliver both
+    broadcast and nonbroadcast frequency channels, greatly expanding programming choices.
+  knowledge_areas:
+  - Expansion of Services and Channel Offerings
+  options:
+  - Satellite dishes for each subscriber
+  - Frequency-conversion devices
+  - Analog-only transmission
+  - Mandatory government regulation of channel numbers
+  question_id: 2
+  question_text: Which technological feature enabled cable television systems to offer
+    a wide variety of channels, including those outside traditional broadcast frequencies?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Two-way channel capability allows subscribers to interact with the
+    system, such as by participating in polls or accessing information, rather than
+    just passively receiving content.
+  knowledge_areas:
+  - Two-Way Channel Capability and Interactive Services
+  options:
+  - Watching only live sports events
+  - Participating in public-opinion polls via the cable connection
+  - Receiving only local news broadcasts
+  - Accessing analog-only channels
+  question_id: 3
+  question_text: Which of the following is an example of a two-way cable television
+    service?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Digital transmission and video compression increased the number of
+    channels and improved signal quality, making cable television more competitive
+    and appealing.
+  knowledge_areas:
+  - Technological Innovations in Cable Television
+  options:
+  - They made cable television obsolete
+  - They enabled more channels and higher-quality signals
+  - They limited cable television to rural areas
+  - They required all subscribers to use satellite dishes
+  question_id: 4
+  question_text: How did technological innovations like digital transmission and video
+    compression impact the cable television industry?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Deregulation allowed cable and telephone companies to enter each other's
+    markets, leading to greater competition and innovation in service offerings.
+  knowledge_areas:
+  - Regulation and Industry Evolution
+  options:
+  - Cable companies were restricted to television services only
+  - Cable and telephone companies could offer each other's services, increasing competition
+  - All cable services became free
+  - Cable television was replaced by satellite broadcasting
+  question_id: 5
+  question_text: What was a significant result of the deregulation of the cable-television
+    industry in the United States during the 1990s?
+  question_type: recap
+sections:
+- aspects:
+  - content: Cable television refers to any system that distributes television signals
+      via coaxial or fibre-optic cables, and can also include systems that distribute
+      signals solely via satellite. It is commonly known as community antenna television
+      (CATV), where a central antenna receives broadcast signals and retransmits them
+      to subscribers through a cable network.
+    type: Definition
+  - content: Cable television originated in the United States in the late 1940s, primarily
+      to improve the reception of commercial network broadcasts in areas where over-the-air
+      signals were weak due to geographic obstacles like hills or distance. By the
+      1960s, cable systems expanded into metropolitan areas to address signal degradation
+      caused by reflections from tall buildings.
+    type: Historical Context
+  - content: Early cable systems served remote rural communities and urban locations
+      with poor broadcast reception. Subscribers paid installation and monthly service
+      fees for access to improved signal quality and additional channels.
+    type: Examples and Use Cases
+  - content: Cable television is closely linked to the broader development of television
+      technology and communications infrastructure, and its evolution reflects changes
+      in both technology and media consumption patterns.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Cable television was initially developed to enhance television signal
+      reception in areas where over-the-air signals were weak or obstructed, such
+      as remote or hilly regions and later in cities with signal degradation from
+      tall buildings.
+    options:
+    - To provide high-definition content to urban subscribers
+    - To improve television signal reception in remote and obstructed areas
+    - To offer internet access to homes
+    - To replace satellite broadcasting
+    question_text: Which of the following best describes the original purpose of cable
+      television systems?
+  index: 124
+  key_concept: Definition and Origins of Cable Television
+  name: cable television
+- aspects:
+  - content: Since the mid-1970s, cable television systems have proliferated and diversified
+      their offerings beyond basic broadcast retransmission. They began to provide
+      a wide range of additional channels, including those outside the standard broadcast
+      frequencies, utilizing frequency-conversion devices for subscribers.
+    type: Service Expansion
+  - content: Expanded channel capacity enabled cable providers to offer programming
+      from distant cities, continuous weather and stock-market reports, community
+      and educational content, and exclusive pay-TV materials such as recent films
+      and sports events not available through other broadcasters.
+    type: Programming Variety
+  - content: The increase in available channels allowed for greater consumer choice
+      and niche programming, fundamentally changing the television viewing landscape
+      and fostering the growth of specialized content providers.
+    type: Practical Implications
+  - content: This expansion is linked to technological advances in signal transmission
+      and the evolving business models of television networks, paving the way for
+      future developments in digital and on-demand content delivery.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Frequency-conversion devices allowed cable systems to deliver signals
+      on both broadcast and nonbroadcast frequencies, greatly expanding the number
+      of channels available to subscribers.
+    options:
+    - Satellite dishes for every home
+    - Frequency-conversion devices connected to subscriber televisions
+    - Analog antennas with higher sensitivity
+    - Mandatory government regulation of channel numbers
+    question_text: What technological advancement enabled cable television systems
+      to offer more than 50 channels, including nonbroadcast frequencies?
+  index: 124
+  key_concept: Expansion of Services and Channel Offerings
+  name: cable television
+- aspects:
+  - content: Two-way channel capability refers to the ability of cable television
+      systems to allow communication from the subscriber back to the programming facility
+      or information center. This feature enables interactive services such as participation
+      in polls, accessing written and graphic information, and engaging with community
+      content.
+    type: Definition and Features
+  - content: Systems like videotex, introduced in Great Britain and West Germany,
+      allowed users to retrieve information such as reference citations, concert schedules,
+      and recipes. Modern two-way systems enable home computers to connect to networks,
+      access data banks, and interact with other users.
+    type: Examples
+  - content: The development of interactive cable services foreshadowed the rise of
+      internet-based interactivity and e-commerce, transforming the television from
+      a passive medium to one that supports user engagement and information retrieval.
+    type: Implications
+  - content: Two-way capability is a precursor to modern broadband internet services
+      and interactive digital television, highlighting the convergence of telecommunications
+      and media technologies.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Two-way channel capability allows subscribers to interact with programming
+      facilities, such as participating in polls or accessing information, distinguishing
+      it from traditional one-way broadcast services.
+    options:
+    - Broadcasting only local news
+    - Allowing viewers to participate in public-opinion polls via their TV connection
+    - Providing only analog signal transmission
+    - Limiting channel selection to five channels
+    question_text: Which of the following is an example of a service enabled by two-way
+      channel capability in cable television?
+  index: 124
+  key_concept: Two-Way Channel Capability and Interactive Services
+  name: cable television
+- aspects:
+  - content: Cable operators have experimented with and adopted technologies such
+      as video compression, digital transmission, and high-definition television (HDTV).
+      These innovations have increased the efficiency and quality of television signal
+      delivery, enabling more channels, better picture quality, and new services.
+    type: Advancements
+  - content: Digital transmission allows for clearer images and sound, while video
+      compression makes it possible to transmit more channels over the same bandwidth.
+      HDTV provides significantly higher resolution than standard-definition television,
+      enhancing the viewing experience.
+    type: Examples
+  - content: Technological progress in cable television has driven the industry toward
+      greater competitiveness with satellite and internet-based streaming services,
+      influencing consumer expectations for quality and variety.
+    type: Implications
+  - content: These innovations are part of the broader digital transformation in media,
+      connecting cable television to the evolution of telecommunications, internet
+      services, and the ongoing shift to digital content consumption.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Digital transmission and video compression technologies have allowed
+      cable systems to offer more channels with improved picture and sound quality,
+      enhancing the overall service provided to subscribers.
+    options:
+    - They reduced the number of available channels
+    - They enabled higher-quality signals and more channel offerings
+    - They made cable television exclusive to rural areas
+    - They eliminated the need for cable infrastructure
+    question_text: How have technological innovations such as digital transmission
+      and video compression affected cable television?
+  index: 124
+  key_concept: Technological Innovations in Cable Television
+  name: cable television
+- aspects:
+  - content: In the United States, government deregulation of the cable-television
+      industry in the 1990s permitted cable companies to expand their services, including
+      experimentation with telephony and allowing telephone companies to distribute
+      cable programming.
+    type: Regulatory Changes
+  - content: Deregulation fostered competition and innovation, leading to the convergence
+      of telecommunications and media industries. Cable operators diversified their
+      service offerings, including internet and phone services, further integrating
+      into the communications infrastructure.
+    type: Industry Impact
+  - content: The regulatory context of cable television illustrates the interplay
+      between government policy, technological capability, and market forces in shaping
+      the evolution of mass media.
+    type: Connections
+  - content: The shift toward deregulation and industry convergence has had lasting
+      effects on consumer choice, pricing, and the structure of the communications
+      industry, setting the stage for the modern era of bundled services and digital
+      convergence.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Deregulation allowed cable companies to experiment with telephony
+      and enabled telephone companies to provide cable programming, increasing competition
+      and service diversity.
+    options:
+    - Cable companies were restricted to only television services
+    - Cable and telephone companies could offer each other's services, fostering competition
+      and innovation
+    - The number of available channels was reduced
+    - Satellite television was banned
+    question_text: What was a major consequence of the deregulation of the cable-television
+      industry in the United States during the 1990s?
+  index: 124
+  key_concept: Regulation and Industry Evolution
+  name: cable television

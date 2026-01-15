@@ -1,0 +1,259 @@
+URL: https://www.britannica.com/technology/yacht/additional-info#history
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A reference and edit history page for the 'yacht' article on Britannica,
+  covering related topics, contributors, and a record of article updates.
+file_name: yacht Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/yacht/yacht Britannica.html
+file_uuid: 0caefa05-bbf4-5326-926b-54008789aa6e
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: The 'Article Contributors' section lists all individuals and editors
+    responsible for writing and editing the article.
+  knowledge_areas:
+  - Article Contributors
+  options:
+  - Assorted References
+  - Article Contributors
+  - Article History
+  - More Articles On This Topic
+  question_id: 1
+  question_text: Which section would you consult to find out who wrote or edited the
+    Britannica article on yachts?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The 'Article History' section documents all major updates, edits, the
+    contributors involved, and the dates of these changes.
+  knowledge_areas:
+  - Article History
+  options:
+  - A list of yacht races
+  - A chronological record of edits, updates, contributors, and dates
+  - A summary of yacht design principles
+  - A list of related articles
+  question_id: 2
+  question_text: What kind of information is provided in the 'Article History' section?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Primary Contributors have main responsibility for the article's content
+    and accuracy, while Other Contributors support by adding or updating specific
+    sections.
+  knowledge_areas:
+  - Primary Contributors
+  - Other Encyclopedia Britannica Contributors
+  options:
+  - Primary Contributors are responsible for main editorial oversight, while Others
+    provide additional content or edits.
+  - Both are responsible for the same tasks.
+  - Others oversee the article, while Primary Contributors only add images.
+  - Primary Contributors only write, while Others only edit.
+  question_id: 3
+  question_text: How do 'Primary Contributors' and 'Other Encyclopedia Britannica
+    Contributors' differ in their roles?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The 'Assorted References' section includes a reference to aerodynamic
+    principles as applied in fluid mechanics.
+  knowledge_areas:
+  - Assorted References
+  options:
+  - Aerodynamic principles in fluid mechanics
+  - History of Olympic sailing
+  - Famous yacht clubs
+  - Yacht racing courses
+  question_id: 4
+  question_text: Which of the following is an example of a topic found in the 'Assorted
+    References' section?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: An article history allows readers to see how the entry has evolved,
+    who contributed to changes, and when updates occurred, supporting transparency
+    and accountability.
+  knowledge_areas:
+  - Article History
+  - Article Contributors
+  options:
+  - It helps readers track content changes and ensures transparency about updates
+    and contributors.
+  - It lists all types of yachts ever built.
+  - It provides a summary of yacht races.
+  - It promotes the editors' social media profiles.
+  question_id: 5
+  question_text: Why is maintaining an 'Article History' important for an encyclopedia
+    entry?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 'Assorted References' section provides cross-references to related
+      topics and articles that are relevant to the subject of yachts. These include
+      references to aerodynamic principles in fluid mechanics, notable individuals
+      such as Ben Lexcen, and types of motorboats. This section is intended to guide
+      readers to further information that contextualizes or expands upon the main
+      article.
+    type: definition
+  - content: 'Concrete examples listed include the application of aerodynamic principles
+      in yacht design (as discussed in fluid mechanics: Lift), the biography and contributions
+      of Ben Lexcen to yachting, and the classification of motorboats. Each reference
+      links to a specific article or subtopic, demonstrating the interconnectedness
+      of knowledge within Britannica''s database.'
+    type: examples
+  - content: By providing these assorted references, Britannica encourages interdisciplinary
+      learning and deeper exploration. For instance, understanding aerodynamic principles
+      is crucial for comprehending yacht performance, while recognizing influential
+      figures like Ben Lexcen highlights the human element in technological advancement.
+      The reference to motorboat types broadens the scope from sail-powered to engine-powered
+      vessels.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: The 'Assorted References' section specifically mentions aerodynamic
+      principles, Ben Lexcen, and types of motorboats, but does not directly reference
+      the history of Olympic sailing.
+    options:
+    - Aerodynamic principles
+    - Ben Lexcen
+    - Types of motorboats
+    - History of Olympic sailing
+    question_text: Which of the following topics is NOT directly referenced in the
+      'Assorted References' section related to yachts?
+  index: 151
+  key_concept: Assorted References
+  name: Assorted References
+- aspects:
+  - content: The 'Article Contributors' section lists individuals and editorial teams
+      responsible for creating, editing, and updating the Britannica article on yachts.
+      This includes both primary contributors, such as the Editors of Encyclopaedia
+      Britannica, and other named contributors with expertise in relevant subject
+      areas.
+    type: definition
+  - content: Primary contributors are typically editorial staff with significant experience
+      or academic credentials, ensuring the reliability and accuracy of the content.
+      Additional contributors may include subject matter experts, writers, and editors
+      who have made specific contributions to the article's content or structure.
+    type: context
+  - content: Listing contributors enhances transparency and accountability, allowing
+      readers to assess the authority and expertise behind the information. It also
+      acknowledges the collaborative nature of encyclopedic content creation and the
+      ongoing effort to maintain high editorial standards.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The 'Article Contributors' section is intended to acknowledge those
+      who have written, edited, or otherwise contributed to the article's content,
+      ensuring transparency and credibility.
+    options:
+    - To provide a bibliography of sources
+    - To acknowledge individuals responsible for content creation and editing
+    - To list all readers who viewed the article
+    - To advertise related articles
+    question_text: What is the primary purpose of listing 'Article Contributors' in
+      the Britannica yacht article?
+  index: 162
+  key_concept: Article Contributors
+  name: Article Contributors
+- aspects:
+  - content: Primary contributors are the main editors or writers who have played
+      a significant role in developing the article. For the yacht article, this refers
+      specifically to 'The Editors of Encyclopaedia Britannica,' who oversee content
+      accuracy and quality.
+    type: definition
+  - content: Primary contributors are responsible for writing new content, verifying
+      facts, editing submissions from other contributors, and ensuring the article
+      meets Britannica's editorial standards. Their expertise is often based on years
+      of experience or advanced academic study in relevant fields.
+    type: role and responsibilities
+  - content: The work of primary contributors is complemented by other contributors
+      and subject matter experts. Their collaborative efforts ensure the article is
+      comprehensive, up-to-date, and authoritative, reflecting Britannica's commitment
+      to educational excellence.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The primary contributors are specifically listed as 'The Editors
+      of Encyclopaedia Britannica,' who are responsible for the article's main content
+      and editorial oversight.
+    options:
+    - The Editors of Encyclopaedia Britannica
+    - Adam Augustyn and Swati Chopra
+    - Ben Lexcen
+    - The general public
+    question_text: Who are identified as the primary contributors to the yacht article
+      on Britannica?
+  index: 164
+  key_concept: Primary Contributors
+  name: Primary Contributors
+- aspects:
+  - content: This section lists additional editors and writers who have contributed
+      to the article, either by providing specific content, editing, or updating information.
+      These individuals are named and linked to their Britannica profiles.
+    type: definition
+  - content: Contributors include Adam Augustyn, Swati Chopra, Aakanksha Gaur, Robert
+      Lewis, Gloria Lotha, Richard Pallardy, and Michael Ray. Each may have contributed
+      in different capacities, such as adding media, updating facts, or editing text.
+    type: examples
+  - content: The inclusion of multiple contributors reflects the collaborative and
+      evolving nature of encyclopedia entries. It also provides a way to trace the
+      expertise and editorial input behind specific updates or sections of the article.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: '''Other Encyclopedia Britannica Contributors'' supplement the work
+      of primary contributors by providing additional content, editing, and updates
+      as needed.'
+    options:
+    - They are the only authors of the article.
+    - They provide additional content, edits, or updates beyond the primary contributors.
+    - They are responsible for the entire editorial process.
+    - They only add images to the article.
+    question_text: Which statement best describes the role of 'Other Encyclopedia
+      Britannica Contributors' in the yacht article?
+  index: 170
+  key_concept: Other Encyclopedia Britannica Contributors
+  name: Other Encyclopedia Britannica Contributors
+- aspects:
+  - content: The 'Article History' section provides a chronological record of significant
+      updates, edits, and additions to the yacht article. Each entry includes the
+      type of change, a brief description, the contributor responsible, and the date
+      of the update.
+    type: definition
+  - content: Examples of updates include the addition of new external websites (e.g.,
+      CORE - Trends in the Master in Yacht Design, American Sailing - History of the
+      Yacht), the inclusion of new media such as images and videos, and the integration
+      of the article into the online database. Each update is attributed to a specific
+      contributor, such as Aakanksha Gaur or Gloria Lotha.
+    type: examples
+  - content: Maintaining a detailed article history ensures transparency and allows
+      readers to track the evolution of the article's content. It also highlights
+      the ongoing process of fact-checking, media enrichment, and responsiveness to
+      new information or user feedback.
+    type: implications
+  - content: The article history is directly linked to the contributors listed, as
+      it records their specific actions and updates. This fosters accountability and
+      provides a mechanism for quality assurance within the encyclopedia.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The 'Article History' section is designed to transparently record
+      all major changes, updates, and the contributors involved, ensuring readers
+      can track the development of the article over time.
+    options:
+    - To summarize the main content of the article
+    - To record and display all significant edits and updates, along with contributors
+      and dates
+    - To provide a list of yacht types
+    - To advertise Britannica's editorial staff
+    question_text: What is the main function of the 'Article History' section in the
+      Britannica yacht article?
+  index: 180
+  key_concept: Article History
+  name: Article History

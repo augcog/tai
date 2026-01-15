@@ -1,0 +1,265 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page summarizing the 1979 Formula 1 World Championship race
+  results, listing Grand Prix winners and teams, and providing information about F1's
+  commercial partners and official app.
+file_name: 1979 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1979/1979 RACE RESULTS.html
+file_uuid: 6551ea22-b1b3-550a-9ba1-465030e77012
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Both Williams Ford and Ferrari had multiple race wins in 1979, as shown
+    in the results table. The other options list teams not present or not dominant
+    that season.
+  knowledge_areas:
+  - 1979 Formula 1 Grand Prix Results
+  - F1 Team and Driver Representation in 1979
+  options:
+  - Williams Ford and Ferrari
+  - Renault and Haas
+  - McLaren and Red Bull
+  - Ligier Ford and Mercedes
+  question_id: 1
+  question_text: Which of the following teams had multiple race wins in the 1979 Formula
+    1 season?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Jacques Laffite won both the Argentine and Brazilian Grands Prix for
+    Ligier Ford in 1979.
+  knowledge_areas:
+  - 1979 Formula 1 Grand Prix Results
+  options:
+  - Jacques Laffite
+  - Jody Scheckter
+  - Gilles Villeneuve
+  - Alan Jones
+  question_id: 2
+  question_text: Which driver won Grands Prix for both the Argentine and Brazilian
+    rounds in 1979?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App is designed to provide live timing, news, and exclusive
+    F1 content, enhancing the digital fan experience.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - To provide live timing, news, and exclusive F1 content
+  - To organize in-person fan events
+  - To sell race car parts
+  - To broadcast other motorsports
+  question_id: 3
+  question_text: What is the main purpose of the Official F1 App according to the
+    source?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Nike is not listed among the official F1 partners in the provided section,
+    while AWS, Heineken, and Pirelli are.
+  knowledge_areas:
+  - F1 Commercial Partners
+  options:
+  - AWS
+  - Heineken
+  - Nike
+  - Pirelli
+  question_id: 4
+  question_text: Which of the following is NOT mentioned as an F1 commercial partner
+    in the 1979 results page?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Race results are fundamental in determining both driver and team championship
+    points, which in turn decide the season's standings and outcomes.
+  knowledge_areas:
+  - 1979 Formula 1 Grand Prix Results
+  - F1 Team and Driver Representation in 1979
+  options:
+  - They determine driver and team points for the season
+  - They only affect sponsorship deals
+  - They are unrelated to team strategies
+  - They are used solely for media coverage
+  question_id: 5
+  question_text: How do the 1979 race results connect to the overall F1 championship
+    and team standings?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1979 Formula 1 Grand Prix Results refer to the official record of
+      race outcomes for each event in the 1979 F1 World Championship season. This
+      includes information on the Grand Prix name, date, winning driver, their team,
+      the number of laps completed, and the total race time. These results form the
+      basis for determining championship standings and historical records.
+    type: definition
+  - content: For example, Jacques Laffite won the Argentine and Brazilian Grands Prix
+      for Ligier Ford, while Gilles Villeneuve secured victories in South Africa,
+      USA West, and USA East for Ferrari. Alan Jones won multiple races for Williams
+      Ford, including Germany, Austria, Netherlands, and Canada. Each entry records
+      specifics such as the number of laps (e.g., 53 laps in Argentina) and the winner's
+      race time (e.g., 1:36:03.210 for Argentina).
+    type: examples
+  - content: These results are critical for understanding the competitive landscape
+      of the 1979 season, revealing dominant teams and drivers. For instance, Ferrari
+      and Williams Ford had multiple wins, indicating their technical and strategic
+      superiority that year. The data also influences driver and team standings, sponsorships,
+      and historical analyses of the sport's evolution.
+    type: implications
+  - content: The 1979 season is part of the long-running Formula 1 World Championship,
+      which began in 1950. Each season's race results are archived for comparison
+      and statistical analysis. The structure of the results table reflects the standardized
+      reporting used by F1 to ensure consistency across decades.
+    type: context
+  - content: Race results are directly linked to other F1 data such as driver and
+      team standings, championship points, and awards (e.g., fastest laps). They also
+      connect to broader historical trends, such as the rise of certain manufacturers
+      (Ferrari, Williams) and the careers of notable drivers like Jody Scheckter and
+      Gilles Villeneuve.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Alan Jones was the most successful Williams Ford driver in 1979,
+      winning several Grands Prix including Germany, Austria, Netherlands, and Canada.
+      The other drivers either drove for different teams or had fewer wins for Williams
+      Ford.
+    options:
+    - Alan Jones
+    - Jody Scheckter
+    - Gilles Villeneuve
+    - Jacques Laffite
+    question_text: Which driver won the most races for Williams Ford during the 1979
+      Formula 1 season?
+  index: 148
+  key_concept: 1979 Formula 1 Grand Prix Results
+  name: 1979 RACE RESULTS
+- aspects:
+  - content: This concept covers the teams and drivers who participated and achieved
+      notable results in the 1979 Formula 1 season. The results table highlights winning
+      drivers and their respective teams, showing the competitive field and the distribution
+      of victories among teams.
+    type: definition
+  - content: Key teams included Ferrari, Ligier Ford, Williams Ford, and Renault.
+      Notable drivers were Jody Scheckter (Ferrari), Jacques Laffite (Ligier Ford),
+      Alan Jones (Williams Ford), and Jean-Pierre Jabouille (Renault). For instance,
+      Jody Scheckter won in Belgium, Monaco, and Italy for Ferrari, while Jean-Pierre
+      Jabouille secured the French Grand Prix for Renault.
+    type: examples
+  - content: Team and driver representation in race results demonstrates the distribution
+      of technical prowess, driver skill, and resource allocation among F1 teams.
+      It also reflects the impact of team strategies, car development, and reliability
+      on race outcomes. This information is essential for analyzing competitive dynamics
+      and historical performance trends.
+    type: implications
+  - content: The 1979 results reflect a period in F1 history characterized by intense
+      competition between established teams and emerging challengers. The presence
+      of multiple winning teams suggests a relatively balanced field, with no single
+      team dominating all races. This context is important for understanding shifts
+      in F1 technology and regulations.
+    type: context
+  - content: Team and driver data connects to broader F1 statistics, such as championship
+      points, podium finishes, and season standings. It also relates to technological
+      advancements, sponsorships, and the evolving careers of drivers and engineers
+      within the sport.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The 1979 results table lists Ferrari, Ligier Ford, Williams Ford,
+      and Renault as winning teams. The other options include teams not present or
+      not victorious in 1979.
+    options:
+    - Ferrari, Ligier Ford, Williams Ford, Renault
+    - McLaren, Red Bull, Mercedes, Haas
+    - Ferrari, Williams, McLaren, Lotus
+    - Ligier Ford, Renault, Haas, Red Bull
+    question_text: Which teams won races in the 1979 Formula 1 season according to
+      the results table?
+  index: 148
+  key_concept: F1 Team and Driver Representation in 1979
+  name: 1979 RACE RESULTS
+- aspects:
+  - content: F1 commercial partners are corporations and brands that sponsor or collaborate
+      with Formula 1, providing financial support, products, or services in exchange
+      for marketing and promotional opportunities. This partnership network is crucial
+      to the sport's economic model.
+    type: definition
+  - content: The list of partners includes luxury brands (LVMH, Louis Vuitton), technology
+      companies (AWS, Lenovo), logistics (DHL), airlines (Qatar Airways), beverages
+      (Heineken), and others such as Pirelli, Aramco, Crypto.com, and American Express.
+      Each partner typically has a visible presence at races, on cars, or in F1 media.
+    type: examples
+  - content: Commercial partnerships enable F1 to fund its global operations, enhance
+      event experiences, and maintain technological innovation. They also allow brands
+      to reach a worldwide audience, leveraging F1's popularity for marketing. The
+      diversity of partners reflects F1's broad appeal and financial ecosystem.
+    type: implications
+  - content: F1's reliance on high-profile sponsors is a longstanding tradition, with
+      partnerships evolving as the sport expands into new markets. The presence of
+      global brands underscores F1's status as a premier international sporting event,
+      and shifts in sponsorship often mirror broader economic or cultural trends.
+    type: context
+  - content: Commercial partners are linked to team sponsorships, event branding,
+      and technological collaborations (e.g., AWS for data analytics). They also connect
+      to fan engagement initiatives, hospitality, and the overall business model of
+      Formula 1.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not listed among the official F1 partners in the provided
+      section, while AWS, Heineken, and Pirelli are all present.
+    options:
+    - AWS
+    - Heineken
+    - Nike
+    - Pirelli
+    question_text: Which of the following brands is NOT listed as an official F1 partner
+      in the provided section?
+  index: 168
+  key_concept: F1 Commercial Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application provided by Formula 1, available
+      for download on both the Apple App Store and Google Play Store. It serves as
+      a digital platform for fans to access live timing, news, schedules, and exclusive
+      content related to F1.
+    type: definition
+  - content: Users can download the app to receive real-time race updates, view driver
+      and team statistics, access race schedules, and watch video highlights. The
+      app is promoted as the official source for F1 information, ensuring reliability
+      and comprehensive coverage.
+    type: examples
+  - content: The app enhances fan engagement by providing immediate access to data
+      and multimedia, supporting F1's digital strategy. It also allows the sport to
+      gather user analytics, tailor content, and offer premium features such as live
+      timing or in-depth analysis for subscribers.
+    type: implications
+  - content: The proliferation of official sports apps reflects a broader trend in
+      digital transformation, as major leagues seek to connect directly with global
+      audiences. The F1 App is part of F1's efforts to modernize its fan experience
+      and compete with other digital entertainment options.
+    type: context
+  - content: The app is connected to F1's broader media ecosystem, including F1 TV,
+      social media, and official websites. It also ties into commercial partnerships,
+      as sponsors may feature in app content or advertising.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App's primary function is to provide live race timing,
+      updates, and exclusive F1 content. While merchandise and tickets may be accessible
+      through links, the app is not described as a direct sales or non-F1 broadcasting
+      platform.
+    options:
+    - Providing live race timing and updates
+    - Selling team merchandise directly
+    - Offering in-person race tickets only
+    - Broadcasting non-F1 sports events
+    question_text: What is one primary function of the Official F1 App as described
+      in the source?
+  index: 178
+  key_concept: Official F1 App
+  name: Download the Official F1 App

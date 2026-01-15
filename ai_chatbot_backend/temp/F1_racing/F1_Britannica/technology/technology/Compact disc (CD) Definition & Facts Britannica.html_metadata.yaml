@@ -1,0 +1,239 @@
+URL: https://www.britannica.com/technology/compact-disc
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article explaining the compact disc (CD), including
+  its definition, physical characteristics, manufacturing and recording process, and
+  playback technology.
+file_name: Compact disc (CD) Definition & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Compact disc (CD) Definition
+  & Facts Britannica.html
+file_uuid: dc414add-3ff2-508e-93b3-a707636c0b97
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: A standard CD is composed of a polycarbonate substrate, a reflective
+    metallic layer (usually aluminum), and a protective acrylic coating. The other
+    options list incorrect or irrelevant materials.
+  knowledge_areas:
+  - Physical characteristics of CDs
+  options:
+  - Polycarbonate substrate, reflective metallic layer, protective acrylic coating
+  - Glass substrate, magnetic layer, paper label
+  - Plastic substrate, copper layer, rubber coating
+  - Polycarbonate substrate, silicon chip, adhesive layer
+  question_id: 1
+  question_text: Which of the following best describes the main structural components
+    of a standard compact disc?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The glass master is used to produce metal masters, which are then used
+    for mass replication of CDs. It is not a consumer product, nor does it store analog
+    signals or serve as a protective layer.
+  knowledge_areas:
+  - CD recording and replication process
+  options:
+  - To create an initial template for producing metal masters used in replication
+  - To serve as the final consumer product
+  - To store analog audio signals
+  - To act as a protective layer on the disc
+  question_id: 2
+  question_text: What is the primary function of the 'glass master' in the CD manufacturing
+    process?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The CD player scans the disc with a laser, detecting differences in
+    reflected light from pits and lands, which are interpreted as binary data and
+    converted to analog audio signals.
+  knowledge_areas:
+  - CD playback mechanism
+  options:
+  - By using a laser to detect reflected light differences, converting binary data
+    to analog audio
+  - By measuring disc temperature and translating it to sound
+  - By reading magnetic patterns embedded in the disc
+  - By counting disc rotations per minute
+  question_id: 3
+  question_text: How does a CD player convert the physical structure of pits and lands
+    into audio signals?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Sony and Philips co-invented the CD, which was first used for high-fidelity
+    music recording. The other options are incorrect.
+  knowledge_areas:
+  - 'compact disc: definition and historical context'
+  options:
+  - Sony Corporation and Philips Electronics NV; high-fidelity recorded music
+  - Apple Inc. and IBM; computer data storage
+  - Sony Corporation and Microsoft; video games
+  - Philips Electronics NV and Toshiba; analog video recording
+  question_id: 4
+  question_text: Which companies co-invented the compact disc, and what was its initial
+    primary use?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Advances in computer technology enabled direct digital file transfer
+    to computers, streamlining the CD production process and eliminating the need
+    for a digital tape master.
+  knowledge_areas:
+  - CD recording and replication process
+  - 'compact disc: definition and historical context'
+  options:
+  - They allowed digital files to be sent directly to computers, eliminating the need
+    for a digital tape master.
+  - They introduced analog recording methods for CDs.
+  - They made CDs obsolete by replacing them with floppy disks.
+  - They required all CDs to be produced manually.
+  question_id: 5
+  question_text: Explain how advances in computer technology during the 1990s changed
+    the process of CD recording and replication.
+  question_type: recap
+sections:
+- aspects:
+  - content: A compact disc (CD) is a molded plastic disc containing digital data
+      that is read using a laser beam for the reproduction of recorded sound and other
+      information. CDs are also known as digital audio discs, laser discs, or simply
+      CDs. The data is encoded in the form of microscopic pits and lands on the disc's
+      surface, which are interpreted as digital information.
+    type: definition
+  - content: The compact disc was co-invented by Philips Electronics NV and Sony Corporation
+      in 1980 and was commercially introduced in 1982. It rapidly replaced the phonograph
+      disc (record) as the dominant medium for high-fidelity recorded music. Over
+      time, the CD format expanded beyond audio to include data storage for computers
+      (CD-ROM) and entertainment systems (DVD).
+    type: historical context
+  - content: The introduction of the CD revolutionized the music and data storage
+      industries by providing a durable, high-quality, and easily reproducible medium.
+      Its digital nature allowed for error correction and high-fidelity sound reproduction,
+      influencing subsequent technologies such as DVD, Blu-ray, and digital downloads.
+      The CD also contributed to the decline of analog storage formats.
+    type: implications and connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Sony Corporation and Philips Electronics NV co-invented the compact
+      disc, which was initially used primarily for high-fidelity recorded music. The
+      other options either list incorrect companies or purposes.
+    options:
+    - Sony Corporation and Philips Electronics NV; high-fidelity recorded music
+    - Apple Inc. and IBM; computer data storage
+    - Sony Corporation and Microsoft; video games
+    - Philips Electronics NV and Toshiba; analog video recording
+    question_text: Which companies co-invented the compact disc, and what was its
+      primary initial use?
+  index: 169
+  key_concept: 'compact disc: definition and historical context'
+  name: compact disc
+- aspects:
+  - content: A standard CD is 120 mm (4.75 inches) in diameter and 1.2 mm (0.05 inch)
+      thick. It consists of a clear polycarbonate plastic substrate, a reflective
+      metallic layer (usually aluminum), and a clear protective acrylic coating. The
+      data is encoded as a series of microscopic pits and lands arranged in a spiral
+      track running from the inner hole to the outer edge of the disc.
+    type: definition and structure
+  - content: Besides the standard size, a smaller CD single with a diameter of 80
+      mm (3.1 inches) is also used for audio distribution. The pits can be as short
+      as 0.83 micrometres, and the tracks are spaced 1.6 micrometres apart. DVDs,
+      a related format, use a higher-powered laser and finer focus to achieve greater
+      storage capacity by resolving shorter pits and narrower tracks.
+    type: examples and variations
+  - content: The physical design of the CD allows for large amounts of data to be
+      stored in a compact, durable format. The use of polycarbonate plastic ensures
+      transparency and toughness, while the reflective metallic layer enables precise
+      reading by lasers. The spiral track and pit/land encoding are foundational to
+      optical disc technology and influenced later media such as DVDs and Blu-ray
+      discs.
+    type: implications and connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: A standard CD is made of a polycarbonate substrate, a reflective
+      metallic layer (usually aluminum), and a protective acrylic coating. The other
+      options include incorrect materials or components.
+    options:
+    - Polycarbonate substrate, reflective metallic layer, protective acrylic coating
+    - Glass substrate, magnetic layer, paper label
+    - Plastic substrate, copper layer, rubber coating
+    - Polycarbonate substrate, silicon chip, adhesive layer
+    question_text: What are the main structural layers of a standard compact disc?
+  index: 295
+  key_concept: Physical characteristics of CDs
+  name: Physical characteristics
+- aspects:
+  - content: CD recording and replication involve creating a 'glass master' from a
+      digital tape master, which is then used to produce metal masters, mothers, and
+      stampers for mass production. The process starts by modulating a blue laser
+      to etch pits in a photosensitive layer on a spinning glass disc, forming the
+      glass master. This is coated with nickel to create a metal master, which is
+      used to make mothers and stampers. Molten polycarbonate is then injected into
+      stampers to mold clear plastic discs, which are coated with aluminum and protected
+      with acrylic.
+    type: definition and process overview
+  - content: Initially, a digital tape master was required, but by the mid-1990s,
+      advances in computer technology allowed digital files to be sent directly from
+      recording devices to computers, bypassing the need for tape. This streamlined
+      the production process and enabled easier editing, storage, and transfer of
+      high-quality digital audio.
+    type: technological evolution
+  - content: The CD replication process enabled high-volume, low-cost production of
+      identical discs, ensuring consistent quality and widespread distribution. The
+      shift to computer-based mastering facilitated the rise of home recording and
+      independent music production. The process set standards for subsequent optical
+      media manufacturing, influencing the production of DVDs and Blu-ray discs.
+    type: implications and industry impact
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The 'glass master' is an initial template from which metal masters
+      are made for mass replication. It is not used as a consumer product, nor is
+      it a protective layer or an analog storage medium.
+    options:
+    - To create an initial template for producing metal masters used in mass replication
+    - To serve as the final product for consumer use
+    - To act as the protective layer on the disc
+    - To store analog audio signals for later conversion
+    question_text: What is the purpose of the 'glass master' in CD manufacturing?
+  index: 311
+  key_concept: CD recording and replication process
+  name: '[Recording](https://www.britannica.com/technology/digital-sound-recording
+    "https://www.britannica.com/technology/digital-sound-recording") and replication'
+- aspects:
+  - content: CD playback involves scanning the disc's spiral track with a low-intensity
+      infrared laser focused on the metallic reflective layer. The laser reads the
+      sequence of pits and lands, which represent binary data (0s and 1s). The disc's
+      rotation rate varies to maintain a constant scanning speed as the laser moves
+      from the center outward.
+    type: definition and operation
+  - content: When the laser strikes a land, light is reflected to a photodiode, generating
+      an electrical pulse. When it strikes a pit, destructive interference reduces
+      the reflected light, resulting in no pulse. The sequence of pulses is converted
+      from digital to analog form by a digital-to-analog converter (DAC), which also
+      corrects for errors due to surface blemishes or misalignment. This ensures accurate
+      audio reproduction.
+    type: technical details and error correction
+  - content: The optical scanning and digital encoding allow CDs to reproduce sound
+      with high fidelity and minimal degradation over time. The system's error correction
+      capabilities make CDs more reliable than analog media. The playback mechanism
+      established the foundation for later optical media technologies, such as DVD
+      and Blu-ray, which use similar principles but with higher data density.
+    type: implications and connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: 'A CD player uses a laser to detect differences in reflected light
+      intensity: lands reflect light to the photodiode, while pits cause destructive
+      interference, reducing the reflected light. The other options do not describe
+      the CD reading process.'
+    options:
+    - By detecting differences in reflected laser light intensity
+    - By measuring the temperature of the disc surface
+    - By reading magnetic fields encoded in the disc
+    - By sensing vibrations from the disc's rotation
+    question_text: How does a CD player distinguish between a 'pit' and a 'land' during
+      playback?
+  index: 339
+  key_concept: CD playback mechanism
+  name: Playback

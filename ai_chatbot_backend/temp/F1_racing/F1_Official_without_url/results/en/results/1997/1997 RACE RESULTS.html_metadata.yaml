@@ -1,0 +1,203 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page listing the 1997 Formula 1 race results, including Grand
+  Prix winners, teams, and race details, along with sections highlighting official
+  F1 partners and information about the official F1 app.
+file_name: 1997 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1997/1997 RACE RESULTS.html
+file_uuid: 52e118ee-8504-50a4-85aa-8db7cc56bd51
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Williams Renault, with drivers like Jacques Villeneuve and Heinz-Harald
+    Frentzen, secured the most race wins in the 1997 season.
+  knowledge_areas:
+  - 1997 Formula 1 Race Results
+  options:
+  - Ferrari
+  - Williams Renault
+  - McLaren Mercedes
+  - Benetton Renault
+  question_id: 1
+  question_text: Which team won the most races during the 1997 Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Heineken is listed as an official partner, while Nike, Coca-Cola, and
+    Sony are not mentioned in the partner section.
+  knowledge_areas:
+  - F1 Official Partners
+  options:
+  - Heineken
+  - Nike
+  - Coca-Cola
+  - Sony
+  question_id: 2
+  question_text: Which of the following brands was an official F1 partner in 1997,
+    as listed in the document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App provides live race timing and news updates, enhancing
+    the fan experience with real-time information.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - Live race timing and news updates
+  - Car customization tools and virtual racing
+  - Exclusive interviews and tire sales
+  - Driver coaching and merchandise discounts
+  question_id: 3
+  question_text: What are two main features provided by the Official F1 App?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Official partners contribute through funding, technology, and logistics,
+    which are essential for F1's commercial and operational success.
+  knowledge_areas:
+  - F1 Official Partners
+  options:
+  - By providing funding, technology, and logistical support
+  - By racing in the Grand Prix events
+  - By managing driver contracts
+  - By designing the race tracks
+  question_id: 4
+  question_text: How do F1's official partners contribute to the sport, according
+    to the document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The results table serves as an official historical record of each Grand
+    Prix's winner, team, laps, and time for the 1997 season.
+  knowledge_areas:
+  - 1997 Formula 1 Race Results
+  options:
+  - To provide a historical record of race winners, teams, and race details
+  - To advertise F1 merchandise
+  - To list F1's official partners
+  - To display app download links
+  question_id: 5
+  question_text: Which of the following best describes the primary purpose of the
+    1997 F1 race results table?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1997 Formula 1 Race Results refer to the official outcomes of each
+      Grand Prix held during the 1997 F1 World Championship season. This includes
+      the winner of each race, the team they represented, the number of laps completed,
+      and the total race time.
+    type: Definition
+  - content: Notable examples from the 1997 season include Jacques Villeneuve winning
+      multiple races for Williams Renault, Michael Schumacher securing victories for
+      Ferrari, and Mika Hakkinen winning the season finale in Europe for McLaren Mercedes.
+      Each result lists the Grand Prix (e.g., Australia, Brazil), date, winner, team,
+      laps, and time.
+    type: Examples
+  - content: These results are used for historical analysis, statistical records,
+      and determining championship standings for both drivers and constructors. They
+      are also referenced by fans, journalists, and analysts to compare performances
+      across seasons.
+    type: Use Cases
+  - content: The race outcomes directly influenced the championship standings, affecting
+      both driver and team strategies throughout the season. Victories and podium
+      finishes contributed to the allocation of points, which ultimately determined
+      the world champion.
+    type: Implications
+  - content: The 1997 season was marked by intense competition, with Williams Renault
+      and Ferrari as leading teams. The results also reflect the diversity of winners
+      and the impact of reliability, weather, and strategy on race outcomes. These
+      results are part of the official F1 archives and are connected to broader F1
+      history and statistics.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Jacques Villeneuve won the most races in 1997, driving for Williams
+      Renault. Michael Schumacher and others had multiple wins, but Villeneuve had
+      the highest tally.
+    options:
+    - Michael Schumacher
+    - Jacques Villeneuve
+    - David Coulthard
+    - Mika Hakkinen
+    question_text: Which driver won the most races during the 1997 Formula 1 season?
+  index: 154
+  key_concept: 1997 Formula 1 Race Results
+  name: 1997 RACE RESULTS
+- aspects:
+  - content: F1 Official Partners are companies and brands that have formal sponsorship
+      or partnership agreements with Formula 1, supporting the sport through financial
+      investment, technology, or services.
+    type: Definition
+  - content: Examples include LVMH, Pirelli, Aramco, Heineken, AWS, Lenovo, DHL, Qatar
+      Airways, MSC, Crypto.com, Salesforce, Louis Vuitton, TAG Heuer, Moet Hennessy,
+      American Express, Santander, Allwyn, Globant, Las Vegas Convention and Visitors
+      Authority, Paramount+, Barilla, Liqui Moly, Nestle, PwC, PepsiCo, Puma, TATA,
+      Aggreko, BBS, and McDonalds.
+    type: Examples
+  - content: These partnerships provide essential funding, technological advancements,
+      and logistical support to F1. For example, Pirelli supplies tires, AWS offers
+      cloud computing and analytics, and DHL manages logistics. Partners also benefit
+      from global brand exposure via F1's large audience.
+    type: Use Cases
+  - content: Official partners play a critical role in the commercial and operational
+      success of Formula 1. Their involvement can influence the sport’s technological
+      innovation, sustainability initiatives, and fan engagement strategies.
+    type: Implications
+  - content: The presence of diverse global brands as partners reflects F1's international
+      reach and its appeal as a marketing platform. Partnerships are often multi-year
+      and can be exclusive within their industry sector. They connect F1 to broader
+      business, technology, and entertainment ecosystems.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not listed among the official F1 partners in the provided
+      section, while Pirelli, AWS, and Heineken are.
+    options:
+    - Pirelli
+    - AWS
+    - Nike
+    - Heineken
+    question_text: Which of the following is NOT listed as an official F1 partner
+      in the document?
+  index: 176
+  key_concept: F1 Official Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application provided by Formula 1, available
+      for download on iOS and Android platforms, designed to give fans access to live
+      timing, news, schedules, and other exclusive content.
+    type: Definition
+  - content: The app can be downloaded from the Apple App Store or Google Play Store.
+      It provides features such as live race data, driver and team information, race
+      schedules, and push notifications for breaking news.
+    type: Examples
+  - content: Fans use the app to follow live races, check standings, receive updates,
+      and access multimedia content. It serves as a companion for both casual viewers
+      and dedicated followers, enhancing the F1 viewing experience.
+    type: Use Cases
+  - content: The app strengthens fan engagement by providing real-time information
+      and interactive features. It also serves as a platform for F1 to promote its
+      products, partners, and digital content, contributing to the sport’s digital
+      strategy.
+    type: Implications
+  - content: The app is part of F1’s broader digital transformation, aiming to reach
+      a global audience and adapt to changing media consumption habits. It connects
+      with other F1 digital platforms, such as F1 TV and social media channels.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App is primarily designed to provide live race timing,
+      news, and exclusive F1 content to fans.
+    options:
+    - Providing live race timing and news
+    - Selling car parts
+    - Broadcasting non-F1 sports
+    - Offering driver coaching services
+    question_text: What is a primary function of the Official F1 App?
+  index: 186
+  key_concept: Official F1 App
+  name: Download the Official F1 App

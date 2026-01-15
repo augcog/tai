@@ -1,0 +1,199 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: This is a web page listing the 1965 Formula 1 race results, including
+  race winners, teams, and event details, along with information about official F1
+  partners and links to download the official F1 app.
+file_name: 1965 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1965/1965 RACE RESULTS.html
+file_uuid: 9176c632-71d7-5293-9812-2d357f44a8e4
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Jim Clark drove for Lotus Climax, as shown by his victories in several
+    Grand Prix races in 1965.
+  knowledge_areas:
+  - 1965 Formula 1 Race Results
+  options:
+  - Ferrari
+  - Lotus Climax
+  - BRM
+  - Honda
+  question_id: 1
+  question_text: Which team did Jim Clark drive for during his multiple wins in the
+    1965 Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Sponsorships are crucial for F1's financial health and global reach,
+    but they do not directly determine the calendar, race winners, or car designs.
+  knowledge_areas:
+  - F1 Partners and Sponsorship
+  options:
+  - They determine the race calendar.
+  - They provide financial support and global exposure.
+  - They select the race winners.
+  - They design the race cars.
+  question_id: 2
+  question_text: Which of the following is a key implication of F1's sponsorship partnerships?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app is primarily for fans to access live timing, results, news,
+    and other F1 content.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - To provide live race timing, results, and exclusive content.
+  - To sell race tickets only.
+  - To manage team logistics.
+  - To stream only historical races.
+  question_id: 3
+  question_text: What is the main purpose of the Official F1 App according to the
+    document?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Jackie Stewart won the Italian Grand Prix for BRM; the other pairs
+    do not match the 1965 results shown.
+  knowledge_areas:
+  - 1965 Formula 1 Race Results
+  options:
+  - Graham Hill - Lotus Climax
+  - Jackie Stewart - BRM
+  - Richie Ginther - Ferrari
+  - Jim Clark - Honda
+  question_id: 4
+  question_text: Which of the following pairs correctly matches a 1965 Grand Prix
+    winner with their team?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Partners support F1 financially and through services, while the app
+    enhances the digital experience for fans, showing how both contribute to F1's
+    ecosystem.
+  knowledge_areas:
+  - F1 Partners and Sponsorship
+  - Official F1 App
+  options:
+  - Partners provide financial support while the app delivers digital engagement and
+    information.
+  - Partners design the app interface, and the app manages sponsorship contracts.
+  - The app is only for partners, not fans.
+  - Partners and the app both determine race outcomes.
+  question_id: 5
+  question_text: How do F1 partners and the Official F1 App together contribute to
+    the fan experience?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1965 Formula 1 Race Results refer to the official outcomes of each
+      Grand Prix held during the 1965 F1 World Championship season. This includes
+      details such as the Grand Prix location, date, winning driver, winning team,
+      number of laps, and the total race time for the winner.
+    type: definition
+  - content: Examples from the 1965 season include Jim Clark winning multiple races
+      for Lotus Climax (e.g., South Africa, Belgium, France, Great Britain, Netherlands,
+      Germany), Graham Hill winning in Monaco and the United States for BRM, Jackie
+      Stewart winning in Italy for BRM, and Richie Ginther securing a win in Mexico
+      for Honda. Each race entry provides a snapshot of the competitive landscape
+      of the season.
+    type: examples
+  - content: The results of each race directly impact the drivers' and constructors'
+      championship standings, influencing career trajectories, team strategies, and
+      technological development in the sport. The dominance of certain drivers and
+      teams, such as Jim Clark and Lotus Climax, reflects both individual skill and
+      engineering prowess.
+    type: implications
+  - content: The 1965 season is part of the historical archive of Formula 1, illustrating
+      the evolution of the sport in terms of technology, race formats, and international
+      reach. The season featured a mix of established circuits and notable driver
+      performances, contributing to the legacy of Formula 1.
+    type: context
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Jim Clark won the majority of races in the 1965 season, including
+      South Africa, Belgium, France, Great Britain, Netherlands, and Germany, demonstrating
+      his dominance that year.
+    options:
+    - Graham Hill
+    - Jim Clark
+    - Jackie Stewart
+    - Richie Ginther
+    question_text: Which driver won the most races in the 1965 Formula 1 season?
+  index: 143
+  key_concept: 1965 Formula 1 Race Results
+  name: 1965 RACE RESULTS
+- aspects:
+  - content: F1 Partners and Sponsorship refers to the companies and brands that officially
+      support and collaborate with Formula 1, often providing financial backing, products,
+      or services in exchange for marketing exposure and association with the sport.
+    type: definition
+  - content: Notable F1 partners listed include LVMH, Pirelli, Aramco, Heineken, AWS,
+      Lenovo, DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton, TAG
+      Heuer, Moet Hennessy, American Express, Santander, Allwyn, Globant, Las Vegas
+      Convention and Visitors Authority, Paramount+, Barilla, Liqui Moly, Nestle,
+      PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds. These partners span a
+      wide range of industries such as luxury goods, technology, logistics, beverages,
+      financial services, and more.
+    type: examples
+  - content: Sponsorship is vital for the financial health and global reach of Formula
+      1, enabling technological innovation, event organization, and fan engagement.
+      Partners benefit from brand visibility among a worldwide audience, while F1
+      leverages these relationships for resources and expertise.
+    type: implications
+  - content: Sponsorship deals often extend to team and event branding, technological
+      collaborations (e.g., AWS providing data analytics), and fan experiences. The
+      diversity of partners reflects F1's appeal across different markets and sectors,
+      reinforcing its status as a premier global sporting property.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Microsoft is not listed among the official partners in the document;
+      AWS, Heineken, and DHL are all mentioned as F1 partners.
+    options:
+    - AWS
+    - Heineken
+    - Microsoft
+    - DHL
+    question_text: Which of the following companies is NOT listed as a partner of
+      Formula 1 in the provided document?
+  index: 158
+  key_concept: F1 Partners and Sponsorship
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application provided by Formula 1, designed
+      to offer fans access to live timing, race results, news, schedules, and other
+      exclusive content related to the F1 World Championship.
+    type: definition
+  - content: Fans use the app to follow races in real-time, check driver and team
+      standings, view historical results, receive push notifications for news and
+      updates, and engage with interactive features. The app is available for both
+      iOS and Android platforms, making it widely accessible.
+    type: use cases
+  - content: The app enhances fan engagement by providing instant access to information
+      and multimedia content, supporting F1's digital strategy and expanding its global
+      audience. It also serves as a platform for integrating additional services,
+      such as ticketing and merchandise.
+    type: implications
+  - content: The app connects fans to the broader F1 ecosystem, including live broadcasts
+      (F1 TV), social media, and fantasy gaming. It is part of F1's efforts to modernize
+      and personalize the fan experience in a competitive sports entertainment landscape.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App is designed to provide live race timing, results,
+      news, and other content to fans, enhancing their engagement with the sport.
+    options:
+    - It provides live race timing, results, and news updates.
+    - It is used exclusively for purchasing team merchandise.
+    - It is a platform for driver recruitment.
+    - It is only available for desktop computers.
+    question_text: What primary function does the Official F1 App serve for Formula
+      1 fans?
+  index: 168
+  key_concept: Official F1 App
+  name: Download the Official F1 App

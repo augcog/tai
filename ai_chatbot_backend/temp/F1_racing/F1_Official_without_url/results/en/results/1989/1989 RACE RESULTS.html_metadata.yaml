@@ -1,0 +1,218 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A summary webpage for the 1989 Formula 1 season race results, including
+  a table of Grand Prix winners, and promotional sections for official partners and
+  the F1 mobile app.
+file_name: 1989 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1989/1989 RACE RESULTS.html
+file_uuid: 747b2bde-73e7-50a8-a2aa-c65e586d17f2
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The 1989 race results show victories for Ferrari, McLaren Honda, Williams
+    Renault, and Benetton Ford. Red Bull Racing and Mercedes did not win races in
+    1989.
+  knowledge_areas:
+  - 1989 Formula 1 Race Results
+  options:
+  - Ferrari, McLaren Honda, Williams Renault, Benetton Ford
+  - Ferrari, Red Bull Racing, Mercedes, Williams Renault
+  - McLaren Honda, Haas, Benetton Ford, Ferrari
+  - Williams Renault, Benetton Ford, Red Bull Racing, McLaren Honda
+  question_id: 1
+  question_text: Which teams won races during the 1989 Formula 1 season according
+    to the official results?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Nigel Mansell won races for Ferrari in 1989. Ayrton Senna and Alain
+    Prost drove for McLaren Honda, and Thierry Boutsen for Williams Renault.
+  knowledge_areas:
+  - 1989 Formula 1 Race Results
+  options:
+  - Ayrton Senna – Ferrari
+  - Nigel Mansell – Ferrari
+  - Thierry Boutsen – McLaren Honda
+  - Alain Prost – Benetton Ford
+  question_id: 2
+  question_text: Which of the following is a correct pairing of a 1989 Grand Prix
+    winner and their team?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The primary benefit for partners and sponsors is global brand exposure
+    and marketing, not engineering rights, team ownership, or regulatory control.
+  knowledge_areas:
+  - Formula 1 Partners and Sponsors
+  options:
+  - Exclusive rights to race car engineering
+  - Global brand exposure and marketing opportunities
+  - Ownership of F1 teams
+  - Control over race regulations
+  question_id: 3
+  question_text: What is the main benefit for companies partnering with Formula 1
+    as sponsors?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 Mobile App provides live race timing and updates, not
+    direct team management, ticket sales only, or unrelated sports streaming.
+  knowledge_areas:
+  - Official F1 Mobile App
+  options:
+  - Live race timing and updates
+  - Direct team management for fans
+  - Purchase of physical race tickets only
+  - Streaming of unrelated sports
+  question_id: 4
+  question_text: Which of these features is provided by the Official F1 Mobile App?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The combination of historical results, commercial partnerships, and
+    digital platforms like the F1 App provides fans with comprehensive data, engagement
+    opportunities, and instant access to the sport, enhancing the overall fan experience.
+  knowledge_areas:
+  - 1989 Formula 1 Race Results
+  - Formula 1 Partners and Sponsors
+  - Official F1 Mobile App
+  options:
+  - By offering historical data, commercial engagement, and real-time digital access
+  - By allowing fans to drive F1 cars, own teams, and set regulations
+  - By focusing solely on in-person attendance
+  - By limiting access to only official sponsors
+  question_id: 5
+  question_text: How do the 1989 race results, F1 partners, and the Official F1 App
+    collectively contribute to the modern Formula 1 fan experience?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1989 Formula 1 Race Results refer to the official outcomes of each
+      Grand Prix event held during the 1989 F1 World Championship season. This includes
+      information such as the winning driver, their team, the number of laps completed,
+      and the total race time for each event.
+    type: Definition
+  - content: For example, Nigel Mansell won the Brazilian Grand Prix for Ferrari,
+      while Ayrton Senna, driving for McLaren Honda, secured victories in San Marino,
+      Monaco, Mexico, Germany, Belgium, and Spain. Alain Prost, also with McLaren
+      Honda, won in the United States, France, Great Britain, and Italy. Other notable
+      winners include Thierry Boutsen (Williams Renault) in Canada and Australia,
+      Gerhard Berger (Ferrari) in Portugal, and Alessandro Nannini (Benetton Ford)
+      in Japan.
+    type: Examples
+  - content: These results are crucial for determining the allocation of championship
+      points, which ultimately decide the Drivers' and Constructors' World Championships.
+      They are also used for historical analysis, statistical records, and for fans
+      and analysts to track performance trends across the season.
+    type: Use Cases
+  - content: The outcomes of these races influenced the championship standings and
+      had significant impacts on the careers of drivers and teams. For instance, the
+      rivalry between Ayrton Senna and Alain Prost was a defining feature of the 1989
+      season, with both drivers winning multiple races for McLaren Honda and contributing
+      to the team's dominance.
+    type: Implications
+  - content: The 1989 race results are part of a larger archive spanning from 1950
+      to the present, providing context for the evolution of teams, drivers, and regulations
+      in Formula 1. These results also connect to related concepts such as qualifying
+      sessions, fastest laps, and the impact of technical and strategic decisions
+      during races.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Ayrton Senna won the most races in 1989, with victories in San Marino,
+      Monaco, Mexico, Germany, Belgium, and Spain. Alain Prost also won several races,
+      but not as many as Senna. Mansell and Boutsen each won two races.
+    options:
+    - Nigel Mansell
+    - Ayrton Senna
+    - Alain Prost
+    - Thierry Boutsen
+    question_text: Which driver won the most races in the 1989 Formula 1 season according
+      to the official race results?
+  index: 149
+  key_concept: 1989 Formula 1 Race Results
+  name: 1989 RACE RESULTS
+- aspects:
+  - content: Formula 1 Partners and Sponsors are corporations and brands that have
+      formal commercial relationships with the Formula 1 organization. These partnerships
+      often involve financial support, branding, and co-marketing initiatives, and
+      are critical for the sport's financial ecosystem.
+    type: Definition
+  - content: Key partners and sponsors listed include LVMH, Pirelli, Aramco, Heineken,
+      AWS, Lenovo, DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton,
+      TAG Heuer, Moet Hennessy, American Express, Santander, Allwyn, Globant, Las
+      Vegas Convention and Visitors Authority, Paramount+, Barilla, Liqui Moly, Nestle,
+      PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds. Each brings unique value,
+      such as Pirelli providing tires or AWS offering cloud computing services.
+    type: Examples
+  - content: Sponsors gain global exposure through branding on cars, tracks, digital
+      media, and event promotions. Their involvement can also include technical collaborations
+      (e.g., AWS analytics), hospitality services, and fan engagement activities.
+      For F1, these partnerships provide essential revenue and technological innovation.
+    type: Use Cases
+  - content: The presence and diversity of sponsors reflect F1's status as a global
+      sport with broad commercial appeal. Sponsorship deals can influence team budgets,
+      technological advancements, and even the locations of races or fan events. They
+      also shape the public image and accessibility of the sport.
+    type: Implications
+  - content: F1’s sponsorship model is similar to other major sports but is notable
+      for its integration of both luxury and technology brands. These partnerships
+      are linked to broader business strategies, fan engagement, and the globalization
+      of the sport, as well as to the evolution of marketing in motorsport.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not listed among the official F1 partners or sponsors in
+      the provided section, while Pirelli, AWS, and Heineken are all mentioned.
+    options:
+    - Pirelli
+    - AWS
+    - Nike
+    - Heineken
+    question_text: Which of the following companies is NOT listed as a Formula 1 partner
+      or sponsor in the 1989 race results document?
+  index: 170
+  key_concept: Formula 1 Partners and Sponsors
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 Mobile App is a digital application available for download
+      on iOS and Android devices, designed to provide fans with real-time updates,
+      news, and interactive content related to Formula 1.
+    type: Definition
+  - content: The app can be downloaded from the Apple App Store or Google Play Store.
+      It offers features such as live timing data, race schedules, driver and team
+      information, news articles, and push notifications for race events.
+    type: Examples
+  - content: Fans use the app to stay informed about race weekends, follow live race
+      progress, access exclusive interviews and multimedia, and receive personalized
+      notifications. It enhances fan engagement by providing immediate access to official
+      information and interactive features.
+    type: Use Cases
+  - content: The app represents F1’s commitment to digital transformation and global
+      fan engagement. It allows F1 to reach a broader audience, especially younger
+      and tech-savvy fans, and provides sponsors with new digital advertising opportunities.
+    type: Implications
+  - content: The F1 app is part of a broader digital ecosystem that includes F1 TV,
+      official websites, and social media channels. It connects fans to live and archival
+      content, integrates with fantasy and gaming platforms, and supports F1’s data-driven
+      approach to fan experience.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 Mobile App is designed to provide live timing, race
+      updates, and related F1 content, not to sell car parts, stream unrelated movies,
+      or manage real teams.
+    options:
+    - Providing live timing and race updates
+    - Selling car parts
+    - Streaming non-sports movies
+    - Offering team management for real F1 teams
+    question_text: What is a primary function of the Official F1 Mobile App as described
+      in the document?
+  index: 180
+  key_concept: Official F1 Mobile App
+  name: Download the Official F1 App

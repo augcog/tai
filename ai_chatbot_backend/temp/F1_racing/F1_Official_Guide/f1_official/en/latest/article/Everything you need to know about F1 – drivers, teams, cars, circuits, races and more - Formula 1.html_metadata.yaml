@@ -1,0 +1,285 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A comprehensive beginner's guide to Formula 1, covering the structure
+  of the sport, its teams and drivers, race formats, technical aspects of the cars,
+  historical context, and how to watch or engage with F1.
+file_name: Everything you need to know about F1 – drivers, teams, cars, circuits,
+  races and more - Formula 1.html
+file_path: F1_racing/F1_Official_Guide/f1_official/en/latest/article/Everything you
+  need to know about F1 – drivers, teams, cars, circuits, races and more - Formula
+  1.html
+file_uuid: 2369dfc9-0d2a-5fa0-9861-57b7bab72ab4
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Formula 1 is the top tier of international single-seater racing, governed
+    by strict technical and sporting regulations, and features global participation.
+    It is not limited to Europe, does not involve motorcycles, and is not for amateurs.
+  knowledge_areas:
+  - What is Formula 1?
+  options:
+  - It is the only racing series with motorcycle races.
+  - It is the highest class of single-seater racing governed by strict rules and global
+    participation.
+  - It only allows amateur drivers to compete.
+  - It is exclusively held in Europe.
+  question_id: 1
+  question_text: What distinguishes Formula 1 as the pinnacle of motorsport?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: The Qualifying session on Saturday determines the starting grid for
+    the Grand Prix. Free Practice is for setup, the Sprint (when held) is a separate
+    event, and the Grand Prix is the main race.
+  knowledge_areas:
+  - How does the F1 weekend work?
+  options:
+  - Free Practice 2
+  - Sprint Race
+  - Qualifying
+  - Grand Prix
+  question_id: 2
+  question_text: During a standard F1 weekend, which session determines the starting
+    grid for the Grand Prix?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The F1 Sprint is a short, points-scoring race held at selected venues,
+    with no mandatory pit stops, and does not replace the Grand Prix. It does not
+    directly determine the championship winner.
+  knowledge_areas:
+  - What’s the F1 Sprint?
+  options:
+  - It is held at every F1 event and replaces the Grand Prix.
+  - It is a short race at select venues, with no mandatory pit stops, and awards points
+    to the top eight finishers.
+  - It determines the championship winner directly.
+  - It is always longer than the Grand Prix.
+  question_id: 3
+  question_text: Which of the following statements about the F1 Sprint is TRUE?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Ground effect tunnels under the car increase downforce while reducing
+    dirty air, allowing cars to follow more closely and making overtaking easier.
+  knowledge_areas:
+  - How do F1 cars work?
+  options:
+  - Ground effect aerodynamic tunnels under the car
+  - Removal of electronic driver aids
+  - Use of solid rubber tires
+  - Increasing engine displacement to V12
+  question_id: 4
+  question_text: What technological feature introduced in recent F1 regulations helps
+    cars follow each other more closely and increases overtaking opportunities?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Lewis Hamilton and Michael Schumacher both have seven Drivers’ Championships,
+    the most in F1 history.
+  knowledge_areas:
+  - Who are the most successful F1 drivers of all time?
+  options:
+  - Lewis Hamilton and Michael Schumacher, 7 titles each
+  - Sebastian Vettel and Alain Prost, 4 titles each
+  - Max Verstappen and Fernando Alonso, 5 titles each
+  - Ayrton Senna and Juan Manuel Fangio, 3 titles each
+  question_id: 5
+  question_text: Who are the two drivers with the most F1 Drivers’ Championships,
+    and how many titles do they each have?
+  question_type: recap
+sections:
+- aspects:
+  - content: Formula 1 (F1) is the highest class of international single-seater auto
+      racing, recognized as the pinnacle of motorsport. It is governed by a strict
+      set of technical and sporting regulations and is considered the world’s most
+      prestigious motor racing competition. The term 'Formula' refers to the rules
+      all participants must follow, while '1' denotes its status as the premier category.
+    type: Definition
+  - content: F1 is both a team and individual sport. Drivers compete for the Drivers’
+      Championship, while teams compete for the Teams’ (Constructors’) Championship.
+      Teamwork is crucial, as seen in pit stops where all four tires can be changed
+      in under two seconds, but the spotlight often shines on drivers who must handle
+      extreme g-forces and make split-second decisions at speeds exceeding 370 kph
+      (230 mph).
+    type: Team and Individual Competition
+  - content: The F1 season consists of a series of races called Grands Prix, held
+      at venues worldwide. The 2025 calendar features 24 Grand Prix weekends, including
+      six Sprint events, stretching from March to December. The championship is highly
+      prestigious, with significant prize money and global recognition for both drivers
+      and teams.
+    type: Season Structure and Prestige
+  - content: F1 drivers are often likened to fighter pilots due to the physical and
+      mental demands of the sport. Legendary drivers like Lewis Hamilton and Max Verstappen
+      are global celebrities. The championship has a massive international following,
+      with millions of fans attending races and watching broadcasts worldwide, making
+      it a major cultural and sporting phenomenon.
+    type: Examples and Cultural Impact
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Formula 1 is the premier international single-seater racing series,
+      governed by strict technical and sporting regulations. It is not a touring car,
+      motorcycle, or rally series, and involves both teams and drivers at the highest
+      level.
+    options:
+    - A single-make touring car series for amateur drivers
+    - The highest class of international single-seater racing governed by strict regulations
+    - A motorcycle racing championship held only in Europe
+    - A rally racing series with no team involvement
+    question_text: Which of the following best describes Formula 1?
+  index: 61
+  key_concept: What is Formula 1?
+  name: What is Formula 1?
+- aspects:
+  - content: A standard Formula 1 weekend spans three days, typically Friday to Sunday.
+      Friday is dedicated to two 60-minute Free Practice sessions (FP1 and FP2), allowing
+      teams to test and optimize their cars. Saturday features a final practice (FP3)
+      and a three-stage Qualifying session (Q1, Q2, Q3) that determines the starting
+      grid, with the slowest drivers eliminated in each stage. Sunday is reserved
+      for the main Grand Prix race, where points are awarded based on finishing positions.
+    type: Weekend Structure
+  - content: 'Qualifying is a knockout format: Q1 lasts 18 minutes with the five slowest
+      drivers eliminated, Q2 is 15 minutes with another five eliminated, and Q3 is
+      a 12-minute shootout for the top 10 grid positions. This system ensures that
+      only the fastest drivers compete for pole position, adding strategic and competitive
+      depth to the event.'
+    type: Qualifying System
+  - content: On race day, drivers compete to finish first, aiming for podium positions
+      and championship points. The race is the culmination of the weekend’s preparation
+      and strategy. Points are critical for both the Drivers’ and Teams’ Championships,
+      influencing season-long standings and prize money.
+    type: Race Day and Points
+  - content: F1 weekends attract millions of viewers globally, both in-person and
+      through broadcasts. The structure ensures continuous engagement, with practice,
+      qualifying, and race sessions providing multiple focal points for fans and media.
+      The format is designed to maximize competition, unpredictability, and entertainment.
+    type: Fan Engagement and Global Reach
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The standard sequence is Free Practice sessions on Friday, Qualifying
+      on Saturday, and the Grand Prix race on Sunday.
+    options:
+    - Qualifying, Free Practice, Grand Prix
+    - Free Practice, Qualifying, Grand Prix
+    - Grand Prix, Free Practice, Qualifying
+    - Free Practice, Grand Prix, Qualifying
+    question_text: What is the correct sequence of sessions during a standard F1 weekend?
+  index: 91
+  key_concept: How does the F1 weekend work?
+  name: How does the F1 weekend work?
+- aspects:
+  - content: The F1 Sprint is a short race format introduced to add excitement to
+      selected Grand Prix weekends. It covers 100km, about one-third the distance
+      of a typical Grand Prix, and lasts around 30 minutes with no mandatory pit stops.
+      The Sprint is designed to be dynamic and aggressive, rather than strategic.
+    type: Definition and Format
+  - content: 'Sprint weekends still span three days, but the schedule is adjusted:
+      Sprint Qualifying (which sets the Sprint grid) replaces FP2 on Friday, the Sprint
+      race occurs on Saturday (in place of FP3), and traditional Grand Prix Qualifying
+      follows the Sprint. The Grand Prix itself remains the main event on Sunday.'
+    type: Integration into the Race Weekend
+  - content: Points are awarded to the top eight finishers in the Sprint, ranging
+      from eight points for first place down to one point for eighth. This provides
+      additional opportunities for drivers and teams to score championship points,
+      influencing overall standings and strategies.
+    type: Points and Strategic Impact
+  - content: Sprint events are held at circuits with high overtaking potential, ensuring
+      action-packed and competitive races. For example, in 2025, venues like China,
+      Miami, Austin, Qatar, Belgium, and Brazil host Sprint events, chosen for their
+      suitability for aggressive racing.
+    type: Venue Selection and Rationale
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The F1 Sprint is a short race, held at select venues, with no mandatory
+      pit stops and points awarded to the top eight finishers. It does not replace
+      the Grand Prix, which remains the main event.
+    options:
+    - It replaces the Grand Prix as the main event of the weekend
+    - It is a short race with no mandatory pit stops, awarding points to the top eight
+      finishers
+    - It is held at every race on the calendar
+    - It lasts as long as a regular Grand Prix
+    question_text: Which statement about the F1 Sprint is accurate?
+  index: 113
+  key_concept: What’s the F1 Sprint?
+  name: What’s the F1 Sprint?
+- aspects:
+  - content: F1 cars are among the most advanced racing machines, comprising thousands
+      of precisely engineered parts, including detailed aerodynamic bodywork, suspension
+      systems, turbo-hybrid power units, eight-speed paddle shift gearboxes, and 18-inch
+      tires. The design focuses on maximizing speed, grip, and efficiency.
+    type: Technical Composition
+  - content: Modern F1 cars use advanced aerodynamics, acting like inverted airplanes.
+      Front and rear wings, along with ground effect tunnels under the car, generate
+      downforce, pressing the car onto the track for superior grip through corners.
+      The 2022 technical regulations emphasize ground effect, with underfloor tunnels
+      enhancing downforce and reducing 'dirty air,' allowing cars to follow each other
+      more closely.
+    type: Aerodynamics and Downforce
+  - content: The combination of lightweight materials, sophisticated suspension, and
+      advanced electronics enables F1 cars to accelerate, brake, and corner at extreme
+      speeds. Drivers experience high g-forces and require exceptional skill to control
+      the car at the limit, especially during overtaking and defending maneuvers.
+    type: Performance and Handling
+  - content: F1 car development is a blend of cutting-edge technology and expert human
+      craftsmanship. Teams invest heavily in research and development, often pioneering
+      innovations that later influence road car technology. The integration of driver
+      feedback and engineering expertise is crucial for success.
+    type: Technological Innovation and Human Skill
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Ground effect tunnels under the car increase downforce and reduce
+      dirty air, enabling closer racing. The other options are incorrect or not relevant
+      to F1's current technical regulations.
+    options:
+    - Ground effect aerodynamic tunnels under the car
+    - Solid rubber tires with no tread
+    - Removal of all electronic systems
+    - Use of diesel engines
+    question_text: Which feature of modern F1 cars helps them generate more downforce
+      and allows closer racing?
+  index: 143
+  key_concept: How do F1 cars work?
+  name: How do F1 cars work?
+- aspects:
+  - content: Lewis Hamilton and Michael Schumacher share the record for most F1 Drivers’
+      Championships, each with seven titles. Hamilton’s titles span from 2008 (with
+      McLaren) and six more with Mercedes (2014–2020), while Schumacher won two with
+      Benetton (1994, 1995) and five consecutive titles with Ferrari (2000–2004).
+    type: Championship Records
+  - content: Hamilton holds the record for most race victories (105) and most pole
+      positions (104) as of the 2025 season. Schumacher is also renowned for his high
+      win tally and dominance during his career. Other notable multiple champions
+      include Juan Manuel Fangio (five titles), Alain Prost (four), Sebastian Vettel
+      (four), and Max Verstappen (four consecutive titles by 2024).
+    type: Race Wins and Pole Positions
+  - content: These drivers have set benchmarks for excellence, influencing generations
+      of racers and fans. Ayrton Senna, with three titles, is remembered for his extraordinary
+      skill and tragic death in 1994. Fernando Alonso, a double champion, remains
+      active and competitive. The achievements of these drivers are celebrated in
+      F1’s Hall of Fame and are central to the sport’s history.
+    type: Legacy and Impact
+  - content: As of 2025, Hamilton, Verstappen, and Alonso are the only title-winning
+      drivers on the grid, highlighting the rarity and prestige of winning the championship.
+      Their presence continues to shape the competitive landscape of modern F1.
+    type: Current Champions and Grid
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Michael Schumacher and Lewis Hamilton both have seven Drivers’ Championships,
+      the most in F1 history. The other options list incorrect pairings or numbers.
+    options:
+    - Lewis Hamilton and Sebastian Vettel, 4 titles each
+    - Michael Schumacher and Lewis Hamilton, 7 titles each
+    - Ayrton Senna and Alain Prost, 3 titles each
+    - Fernando Alonso and Max Verstappen, 5 titles each
+    question_text: Who shares the record for most F1 Drivers’ Championships, and what
+      is the number of titles?
+  index: 189
+  key_concept: Who are the most successful F1 drivers of all time?
+  name: Who are the most successful F1 drivers of all time?

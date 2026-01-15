@@ -1,0 +1,250 @@
+URL: https://www.britannica.com/sports/automobile-racing/American-European-and-international-racing#ref505
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article section summarizing the history, development,
+  and major forms of automobile racing in American, European, and international contexts,
+  including Grand Prix, rally driving, and the pursuit of speed records.
+file_name: Automobile racing - American, European, International Britannica.html
+file_path: F1_racing/F1_Britannica/motorsport/sports/automobile-racing/Automobile
+  racing - American, European, International Britannica.html
+file_uuid: b5411745-5a89-5c2d-8f81-1ffd42bd6edc
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: American racing developed a variety of disciplines with separate organizations,
+    while European racing was more unified under Grand Prix traditions and centralized
+    governance.
+  knowledge_areas:
+  - American, European, and international racing
+  options:
+  - American racing was fragmented across multiple disciplines and governing bodies,
+    while European racing was more centralized and focused on Grand Prix events.
+  - Both regions primarily held off-road rallies.
+  - European racing was limited to amateur drivers, while American racing was exclusively
+    professional.
+  - There was no significant difference in organization or style.
+  question_id: 1
+  question_text: Which of the following best summarizes the main difference between
+    American and European automobile racing before the 1950s?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Grand Prix racing is characterized by closed-circuit events, professional
+    drivers, and cars entered by manufacturers, all under international governance.
+  knowledge_areas:
+  - Grand Prix racing
+  options:
+  - It is held on closed circuits with professional drivers and manufacturer-entered
+    cars.
+  - It only allows amateur drivers on public roads.
+  - It is exclusively for off-road vehicles.
+  - It is governed by local auto clubs without international oversight.
+  question_id: 2
+  question_text: What is a defining feature of Grand Prix racing?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Rally driving involves navigation, teamwork, and adaptability over
+    varied routes and surfaces, distinguishing it from other racing forms.
+  knowledge_areas:
+  - Rally driving
+  options:
+  - A form of racing where drivers, guided by navigators, follow specified routes
+    with checkpoints, often on public or mixed-surface roads.
+  - A high-speed contest on oval tracks.
+  - A type of drag racing focused on acceleration.
+  - A land-speed record attempt on desert strips.
+  question_id: 3
+  question_text: Which of the following best describes rally driving?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The quest for higher speeds has pushed technological advancements and
+    necessitated safety measures, shaping the evolution of the sport.
+  knowledge_areas:
+  - Speed
+  options:
+  - It has driven technological innovation and led to increased safety regulations
+    as speeds and risks have risen.
+  - It has resulted in the elimination of all racing formats except drag racing.
+  - It has made racing less popular worldwide.
+  - It has led to the banning of professional drivers.
+  question_id: 4
+  question_text: How has the pursuit of speed influenced automobile racing?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Rally driving uniquely relies on navigators for route guidance, while
+    Grand Prix racing is defined by its use of closed circuits.
+  knowledge_areas:
+  - Rally driving
+  - Grand Prix racing
+  options:
+  - Rally driving (navigators), Grand Prix racing (closed circuits)
+  - Grand Prix racing (navigators), drag racing (closed circuits)
+  - Stock-car racing (navigators), rally driving (closed circuits)
+  - Off-road racing (navigators), kart racing (closed circuits)
+  question_id: 5
+  question_text: Which two racing forms are most associated with the use of navigators
+    and closed circuits, respectively?
+  question_type: recap
+sections:
+- aspects:
+  - content: This concept refers to the evolution and distinctions of automobile racing
+      as it developed separately in Europe and North America, then gradually became
+      a global sport. After the first Grand Prix in France (1906) and the Indianapolis
+      500 (1911), racing in Europe and North America diverged in style, format, and
+      organization until the 1950s, when Grand Prix racing became international. American
+      racing focused on speedway tracks and saw the emergence of stock-car, hot-rod,
+      drag, midget, kart, sports-car, and off-road racing, each with distinct governing
+      bodies and traditions. In contrast, European racing emphasized Grand Prix and
+      sports-car events with more centralized governance.
+    type: Definition and Historical Context
+  - content: American racing includes speedway track racing (e.g., Indianapolis 500),
+      stock-car racing (originating at Daytona Beach, governed by NASCAR), hot-rod
+      and drag racing (notably in California), midget and kart racing, and off-road
+      events like the Baja 500. European racing is characterized by Grand Prix events
+      and sports-car races, often on closed circuits. International expansion saw
+      these forms spread to Australia, New Zealand, Canada, England, Germany, Italy,
+      Japan, and Sweden, with organizations like the FIA recognizing new categories
+      (e.g., hot-rod racing in 1965).
+    type: Examples and Types
+  - content: The lack of a single governing body for American racing led to a fragmented
+      system, with separate organizations for different types of events (e.g., NASCAR
+      for stock cars, NHRA for hot rods, SCCA for sports cars). These bodies are coordinated
+      through the Automobile Competition Committee for the United States-FIA, which
+      serves as an advisory and liaison organization. In contrast, European and international
+      racing is more centralized under the FIA. This difference affects rules, safety
+      standards, and the international integration of racing disciplines.
+    type: Implications and Governance
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: American racing was characterized by speedway tracks and a variety
+      of disciplines with separate governing bodies, while European racing focused
+      on Grand Prix events with more centralized organization. The other options misrepresent
+      the historical and organizational differences.
+    options:
+    - American racing focused on speedway tracks and multiple distinct disciplines,
+      while European racing emphasized Grand Prix events and centralized governance.
+    - Both American and European racing exclusively used stock cars and drag racing
+      formats.
+    - European racing was primarily off-road, while American racing was limited to
+      city streets.
+    - There was no significant difference; both regions followed identical rules and
+      formats.
+    question_text: Which of the following best describes the main distinction between
+      American and European automobile racing before the 1950s?
+  index: 163
+  key_concept: American, European, and international racing
+  name: American, European, and international racing
+- aspects:
+  - content: Grand Prix racing refers to a series of prestigious, professional automobile
+      races, originally organized by national automobile clubs and later governed
+      internationally by the Fédération Internationale de l’Automobile (FIA). Races
+      are typically held on closed circuits, with distances ranging from 250 to 650
+      km, and feature highly specialized, manufacturer-entered cars driven by professionals.
+      The series became the foundation for modern Formula One racing.
+    type: Definition and Structure
+  - content: The first French Grand Prix was held at Le Mans in 1906, followed by
+      events in Italy, Belgium, Germany, and Monaco. After interruptions due to World
+      Wars, Grand Prix racing resumed and expanded, with national teams identified
+      by car colors (e.g., French blue, Italian red). The establishment of the FIA
+      in 1904, and later the world championship for drivers (1950) and manufacturers
+      (1955), formalized the sport’s structure and global reach.
+    type: Historical Development
+  - content: 'Major Grand Prix races include those in Monaco, Belgium, France, Great
+      Britain, Germany, Italy, Mexico, South Africa, Canada, and the United States.
+      The sport has seen dominance by different nations and manufacturers over time:
+      French and Italian teams early on, Germans in the 1930s, and British cars from
+      the late 1950s. The points-based championship system encourages international
+      competition and technological innovation.'
+    type: Examples and Global Impact
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: 'Grand Prix racing began in France in 1906 and evolved into the modern
+      Formula One series, with governance by the FIA. The other options are incorrect:
+      the races are professional, held internationally, and the FIA is central to
+      its organization.'
+    options:
+    - It originated in France in 1906 and became the basis for modern Formula One.
+    - It has always been limited to amateur drivers and open public roads.
+    - Races are exclusively held in the United States and Canada.
+    - The FIA has never played a role in its governance.
+    question_text: Which of the following statements is true about Grand Prix racing?
+  index: 274
+  key_concept: Grand Prix racing
+  name: '[Grand Prix racing](https://www.britannica.com/sports/Grand-Prix-racing "https://www.britannica.com/sports/Grand-Prix-racing")'
+- aspects:
+  - content: Rally driving is a form of automobile racing conducted over specified
+      routes, often on public or mixed-surface roads, where drivers are guided by
+      navigators between checkpoints. Unlike circuit racing, rallies test navigation,
+      endurance, and adaptability to varied terrain and conditions. Success depends
+      on teamwork between driver and navigator.
+    type: Definition and Format
+  - content: The first major rally was the Peking-to-Paris race in 1907, covering
+      about 12,000 km. The Monte-Carlo Rally, starting in 1911, became a prominent
+      annual event except during wartime. After World War II, rallies gained popularity
+      across Europe and worldwide, leading to the establishment of European and international
+      championships by the FIA.
+    type: Historical Examples
+  - content: Rallying is now a global sport, with events ranging from local club rallies
+      to major international championships. Weekend rallies are common, and the sport
+      is known for its accessibility to amateurs as well as its professional tier.
+      The format emphasizes reliability, strategic planning, and the ability to handle
+      unpredictable conditions, distinguishing it from other racing forms.
+    type: Contemporary Practice and Significance
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Rally driving is characterized by navigation over diverse routes
+      and the use of navigators, while Grand Prix racing takes place on closed circuits.
+      The other options are incorrect or misrepresent the formats.
+    options:
+    - Rally driving involves navigation over varied routes and checkpoints, while
+      Grand Prix racing is on closed circuits.
+    - Grand Prix racing is only for amateurs, while rally driving is professional.
+    - Rally driving uses only oval tracks, while Grand Prix racing is off-road.
+    - There are no navigators in rally driving.
+    question_text: What distinguishes rally driving from Grand Prix racing?
+  index: 278
+  key_concept: Rally driving
+  name: '[Rally driving](https://www.britannica.com/sports/rally-automobile-racing
+    "https://www.britannica.com/sports/rally-automobile-racing")'
+- aspects:
+  - content: Speed is the central objective in almost all forms of automobile racing,
+      driving technological innovation and competition. Governing bodies balance the
+      pursuit of higher speeds with safety considerations, leading to regulations
+      that sometimes limit maximum speeds or require safety features.
+    type: Role in Racing
+  - content: 'Average speeds have increased dramatically: for example, the Indianapolis
+      500 rose from 120.04 kph in 1911 to nearly 260 kph by the late 1970s. In Grand
+      Prix racing, speeds are generally lower due to circuit complexity and terrain.
+      Land-speed record attempts have moved from tracks to specialized desert or beach
+      strips, with cars designed solely for record-setting, including the use of jet
+      engines and, in some cases, three-wheeled vehicles.'
+    type: Historical Trends and Records
+  - content: The relentless pursuit of speed has practical implications for car design,
+      materials, and safety technology. As speeds increased, so did the risks, prompting
+      stricter regulations and innovations such as roll cages, fire-retardant suits,
+      and crash barriers. The need for certification by governing bodies (FIA, Fédération
+      Internationale Motorcycliste) highlights the importance of regulatory oversight
+      in speed record attempts.
+    type: Implications and Safety
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Safety is the primary reason for limiting speed increases, as higher
+      speeds raise the risk of accidents. The other options do not reflect the actual
+      motivations behind such regulations.
+    options:
+    - To ensure driver and spectator safety as speeds and risks increase.
+    - To prevent international competition.
+    - To keep all races below 100 kph.
+    - Because higher speeds make racing less interesting.
+    question_text: Why have governing bodies sometimes limited the increase of speeds
+      in automobile racing?
+  index: 282
+  key_concept: Speed
+  name: Speed

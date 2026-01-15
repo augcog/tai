@@ -1,0 +1,209 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page listing the 1980 Formula 1 race results, with a table
+  of Grand Prix winners, teams, dates, and additional sections about F1 partners and
+  the official F1 app.
+file_name: 1980 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1980/1980 RACE RESULTS.html
+file_uuid: a037c8bb-58e8-57e9-ba4e-67a8964bb9ac
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Williams Ford is listed as the winning team in the majority of races,
+    indicating their dominance in the 1980 season.
+  knowledge_areas:
+  - 1980 Formula 1 Race Results
+  options:
+  - Williams Ford
+  - Renault
+  - Brabham Ford
+  - Ligier Ford
+  question_id: 1
+  question_text: Which team had the most race wins in the 1980 Formula 1 season according
+    to the results table?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: AWS (Amazon Web Services) is a technology company providing cloud computing
+    and data analytics services, making it a technology-focused F1 Official Partner.
+  knowledge_areas:
+  - F1 Official Partners
+  options:
+  - Heineken
+  - AWS
+  - DHL
+  - Barilla
+  question_id: 2
+  question_text: Which of the following brands is an example of an F1 Official Partner
+    that provides technology services?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App enhances the fan experience by providing live timing,
+    race data, and news, making it easier for fans to follow the sport in real time.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - By offering live timing and race data
+  - By allowing fans to purchase race tickets directly
+  - By providing exclusive team interviews only
+  - By streaming all races for free
+  question_id: 3
+  question_text: How does the Official F1 App enhance the fan experience according
+    to the provided information?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: F1 Official Partners contribute resources, technology, or services
+    and in return receive branding and marketing opportunities, making them integral
+    to the sport's commercial and operational success.
+  knowledge_areas:
+  - F1 Official Partners
+  options:
+  - Partners only provide financial sponsorship with no operational involvement.
+  - Partners contribute resources, technology, or services in exchange for branding
+    and marketing opportunities.
+  - Partners are limited to luxury brands only.
+  - Partners are responsible for race regulations.
+  question_id: 4
+  question_text: Which of the following best describes the relationship between F1
+    Official Partners and the sport?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The Official F1 App is specifically designed to provide live timing
+    and race positions, as described in the relevant section.
+  knowledge_areas:
+  - Official F1 App
+  - 1980 Formula 1 Race Results
+  options:
+  - The 1980 Race Results web page
+  - The Official F1 App
+  - The F1 Official Partners section
+  - The Hall of Fame page
+  question_id: 5
+  question_text: If a fan wants to access live race positions and session status for
+    the 1980 season, which resource from the document should they use?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1980 Formula 1 Race Results refer to the official record of each
+      Grand Prix held during the 1980 F1 season, including the date, location, winner,
+      winning team, number of laps, and the total race time. This data is crucial
+      for historical analysis and for understanding the progression of the championship
+      throughout the season.
+    type: Definition
+  - content: Examples from the table include Alan Jones winning the Argentine Grand
+      Prix for Williams Ford on January 13th, and Nelson Piquet winning the USA West
+      Grand Prix for Brabham Ford on March 30th. The table lists all 14 races, their
+      winners, and associated teams, providing a comprehensive overview of the season's
+      competitive landscape.
+    type: Examples
+  - content: These results determine the allocation of championship points, which
+      ultimately decide the Drivers' and Constructors' Champions for the year. They
+      offer insights into team and driver performance trends, technological developments,
+      and competitive rivalries that shaped the 1980 season.
+    type: Implications
+  - content: The 1980 season was significant in F1 history, with Williams Ford and
+      Alan Jones achieving notable success. The results reflect the international
+      nature of the championship, with races across multiple continents and a mix
+      of established and emerging teams and drivers.
+    type: Context
+  - content: The results connect to broader F1 topics such as championship standings,
+      team strategies, car development, and the evolution of race regulations. They
+      also serve as a reference point for comparing performance across different eras
+      of Formula 1.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Alan Jones won the most races in the 1980 season, as indicated by
+      his multiple victories in the table (Argentina, France, Great Britain, Canada,
+      USA East).
+    options:
+    - Rene Arnoux
+    - Alan Jones
+    - Nelson Piquet
+    - Didier Pironi
+    question_text: Which driver won the most races in the 1980 Formula 1 season according
+      to the provided results?
+  index: 147
+  key_concept: 1980 Formula 1 Race Results
+  name: 1980 RACE RESULTS
+- aspects:
+  - content: F1 Official Partners are companies and brands that have formal sponsorship
+      or partnership agreements with Formula 1, contributing resources, technology,
+      or services in exchange for marketing and branding opportunities within the
+      sport.
+    type: Definition
+  - content: The partners listed include luxury brands like LVMH and Louis Vuitton,
+      technology companies such as AWS and Lenovo, logistics providers like DHL, and
+      consumer brands such as Heineken and PepsiCo. Each partner may have a unique
+      role, from providing technical infrastructure to promoting F1 through advertising
+      campaigns.
+    type: Examples
+  - content: Partners often supply essential products or services, such as Pirelli
+      providing tires, AWS offering cloud computing and data analytics, and DHL managing
+      logistics for race equipment. These partnerships enhance the sport's operational
+      efficiency and global reach.
+    type: Use Cases
+  - content: Partnerships provide significant financial support to F1, enabling technological
+      innovation, event organization, and global marketing. They also influence fan
+      engagement through co-branded promotions and exclusive experiences.
+    type: Implications
+  - content: These partnerships are integral to the commercial ecosystem of F1, connecting
+      the sport to a global audience and facilitating collaborations that drive both
+      sporting and business objectives.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not listed among the F1 Official Partners in the provided
+      content, whereas AWS, PepsiCo, and DHL are all mentioned.
+    options:
+    - AWS
+    - PepsiCo
+    - Nike
+    - DHL
+    question_text: Which of the following is NOT listed as an F1 Official Partner
+      in the provided section?
+  index: 166
+  key_concept: F1 Official Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application available for download on
+      iOS and Android devices, offering fans access to live timing, race data, news,
+      and multimedia content related to Formula 1.
+    type: Definition
+  - content: The app can be downloaded from the Apple App Store and Google Play Store,
+      as indicated by the provided links and icons. It serves as a digital companion
+      for fans to follow races in real time and stay updated on F1 developments.
+    type: Examples
+  - content: Fans use the app to track live race positions, access session status,
+      view schedules, and receive push notifications about breaking news or race results.
+      It enhances the fan experience by providing interactive and up-to-date information.
+    type: Use Cases
+  - content: The app increases fan engagement by making F1 content more accessible
+      and interactive. It also serves as a platform for official communications, exclusive
+      content, and potential commercial opportunities through in-app promotions.
+    type: Implications
+  - content: The app is part of F1's broader digital strategy, complementing its online
+      presence and social media channels. It connects fans globally and supports the
+      sport's efforts to modernize and expand its audience.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App's primary function is to provide live timing,
+      race updates, and related content to fans, as described in the section.
+    options:
+    - To provide live timing and race updates
+    - To sell team merchandise
+    - To stream full race replays for free
+    - To manage team logistics
+    question_text: What is the primary function of the Official F1 App as described
+      in the section?
+  index: 176
+  key_concept: Official F1 App
+  name: Download the Official F1 App

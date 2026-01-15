@@ -1,0 +1,203 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page listing the 1964 Formula 1 race results, including winners,
+  teams, and race details, as well as information about F1's corporate partners and
+  links to download the official F1 app.
+file_name: 1964 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1964/1964 RACE RESULTS.html
+file_uuid: 93566bfc-2327-5529-a956-2ca0c4550475
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Ferrari had both John Surtees and Lorenzo Bandini win races in 1964,
+    while the other teams had only one winning driver each.
+  knowledge_areas:
+  - 1964 Formula 1 Race Results
+  - team performance
+  options:
+  - Ferrari
+  - BRM
+  - Lotus Climax
+  - Brabham Climax
+  question_id: 1
+  question_text: Which of the following teams had multiple different drivers win races
+    for them in the 1964 Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Pirelli and AWS, as partners, contribute technology (tires, data analytics)
+    and commercial support, but do not manage regulations, own teams, or independently
+    organize fan events.
+  knowledge_areas:
+  - F1 Corporate Partners
+  - F1 business model
+  options:
+  - They provide technological and commercial support to the sport.
+  - They manage race regulations.
+  - They own Formula 1 teams.
+  - They organize fan events independently of F1.
+  question_id: 2
+  question_text: What is the role of companies like Pirelli and AWS as F1 corporate
+    partners?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app is part of F1's digital ecosystem, offering fans live data,
+    news, and integration with other services, not as a replacement for TV or for
+    internal logistics.
+  knowledge_areas:
+  - Official F1 App
+  - F1 digital strategy
+  options:
+  - It serves as a hub for live data, news, and connects with other F1 digital services.
+  - It replaces the need for television broadcasts.
+  - It is only available to team personnel.
+  - It is used for managing race logistics.
+  question_id: 3
+  question_text: How does the Official F1 App fit into Formula 1's broader digital
+    strategy?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The table is a historical record of winners, teams, and performance,
+    not sponsors, technical specs, or TV ratings.
+  knowledge_areas:
+  - 1964 Formula 1 Race Results
+  - historical context
+  options:
+  - It provides a historical record of race winners, teams, and performance trends
+    for the season.
+  - It lists all the sponsors for the 1964 season.
+  - It details the technical specifications of each car.
+  - It shows the television ratings for each Grand Prix.
+  question_id: 4
+  question_text: Which of the following statements best summarizes the significance
+    of the 1964 race results table?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Both partners and the app play roles in enhancing fan engagement and
+    supporting F1's commercial model, though in different ways.
+  knowledge_areas:
+  - F1 Corporate Partners
+  - Official F1 App
+  - F1 business and fan engagement
+  options:
+  - Both enhance fan engagement and contribute to the sport's commercial success.
+  - Both are responsible for race regulations.
+  - Both provide technical support to teams directly.
+  - Both are only accessible during live races.
+  question_id: 5
+  question_text: How are F1 corporate partners and the Official F1 App similar in
+    their impact on the sport?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1964 Formula 1 Race Results refer to the official outcomes of each
+      Grand Prix held during the 1964 Formula One World Championship season. This
+      includes the names of the races, dates, winning drivers, their teams, the number
+      of laps completed, and the total race time for each event.
+    type: definition
+  - content: Examples from the 1964 season include Graham Hill winning the Monaco
+      Grand Prix for BRM, Jim Clark winning the Dutch, Belgian, and British Grands
+      Prix for Lotus Climax, and John Surtees winning in Germany and Italy for Ferrari.
+      Each entry provides a snapshot of the competitive landscape and key performers
+      of the season.
+    type: examples
+  - content: These results are critical for understanding the progression of the championship,
+      the performance of teams and drivers, and the historical context of Formula
+      1. They also influence the allocation of points for the drivers' and constructors'
+      championships, affecting the ultimate season standings.
+    type: implications
+  - content: Race results are directly connected to driver and team standings, the
+      development of F1 technology, and the evolution of race strategy. The 1964 season,
+      for example, is notable for the close championship battle and the diversity
+      of winning teams and drivers, reflecting a competitive era in F1 history.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Jim Clark won three races (Netherlands, Belgium, Great Britain),
+      more than any other driver listed. Graham Hill and John Surtees each won two,
+      and Dan Gurney also won two.
+    options:
+    - Graham Hill
+    - Jim Clark
+    - John Surtees
+    - Dan Gurney
+    question_text: Which driver won the most races in the 1964 Formula 1 season, according
+      to the provided results?
+  index: 147
+  key_concept: 1964 Formula 1 Race Results
+  name: 1964 RACE RESULTS
+- aspects:
+  - content: F1 Corporate Partners are companies and brands that have established
+      official sponsorship and partnership agreements with Formula 1. These partners
+      contribute to the commercial, technological, and promotional aspects of the
+      sport.
+    type: definition
+  - content: Examples of 2020s F1 partners include LVMH, Pirelli, Aramco, Heineken,
+      AWS, Lenovo, DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton,
+      TAG Heuer, Moet Hennessy, and American Express. Each partner typically has a
+      visible presence at races and in F1 media.
+    type: examples
+  - content: Corporate partnerships provide financial support, technological innovation,
+      and global marketing reach for Formula 1. For instance, Pirelli is the official
+      tire supplier, AWS provides data analytics, and Heineken sponsors events and
+      fan experiences.
+    type: use case
+  - content: These partnerships are crucial for the financial sustainability of Formula
+      1, enabling the sport to invest in safety, technology, and fan engagement. They
+      also reflect F1's global brand appeal and its integration with leading companies
+      across industries.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Microsoft is not mentioned among the listed F1 partners; the others
+      are explicitly named as partners.
+    options:
+    - Pirelli
+    - Heineken
+    - Microsoft
+    - AWS
+    question_text: Which of the following is NOT listed as a Formula 1 corporate partner
+      in the document?
+  index: 162
+  key_concept: F1 Corporate Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application offered by Formula 1, available
+      for download on the Apple App Store and Google Play. It provides fans with access
+      to live timing, news, schedules, and exclusive content related to Formula 1.
+    type: definition
+  - content: The app is designed for fans who want real-time updates, race data, driver
+      and team information, and multimedia content on their mobile devices. It enhances
+      the fan experience both during race weekends and throughout the season.
+    type: use case
+  - content: By offering a dedicated app, Formula 1 increases fan engagement, provides
+      a direct communication channel, and leverages digital technology to expand its
+      audience. The app also serves as a platform for exclusive content and commercial
+      promotions.
+    type: implications
+  - content: The app complements F1's digital strategy, connecting with other online
+      services such as F1 TV, fantasy games, and official news platforms. It is part
+      of F1's broader effort to modernize and globalize the sport's reach.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App is primarily designed to provide fans with live
+      timing, news, and exclusive content, not for merchandise sales, exclusive broadcasting,
+      or team logistics.
+    options:
+    - To provide live race timing and F1 news to fans
+    - To sell Formula 1 merchandise
+    - To broadcast races exclusively
+    - To manage team logistics
+    question_text: What is the primary purpose of the Official F1 App as described
+      in the document?
+  index: 172
+  key_concept: Official F1 App
+  name: Download the Official F1 App

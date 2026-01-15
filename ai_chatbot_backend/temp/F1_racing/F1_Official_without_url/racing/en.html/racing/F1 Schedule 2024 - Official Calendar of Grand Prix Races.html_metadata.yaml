@@ -1,0 +1,215 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An official 2024 Formula One (F1) schedule and resource page, detailing
+  the full Grand Prix race calendar with results, a comprehensive list of F1's global
+  partners, and information on downloading the official F1 mobile app.
+file_name: F1 Schedule 2024 - Official Calendar of Grand Prix Races.html
+file_path: F1_racing/F1_Official/racing/en.html/racing/F1 Schedule 2024 - Official
+  Calendar of Grand Prix Races.html
+file_uuid: 4392f4c7-4be3-5f34-a379-89ab74a797a3
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: The main purpose of the race calendar is to provide the official schedule,
+    locations, and results for all Grand Prix events in the 2024 F1 season.
+  knowledge_areas:
+  - 2024 F1 Race Calendar
+  options:
+  - To list all F1 partners and sponsors
+  - To provide the official schedule, locations, and results of all 2024 F1 races
+  - To offer live timing and news updates for fans
+  - To display team financial information
+  question_id: 1
+  question_text: Which of the following best describes the main purpose of the 2024
+    FIA FORMULA ONE WORLD CHAMPIONSHIP™ RACE CALENDAR?
+  question_type: recap
+- correct_answers:
+  - 3
+  explanation: Toyota is not listed among the official F1 partners for 2024, while
+    Heineken, AWS, and Nestle are.
+  knowledge_areas:
+  - F1 Partners
+  options:
+  - Heineken
+  - AWS
+  - Nestle
+  - Toyota
+  question_id: 2
+  question_text: Which of these companies is NOT listed as an official F1 partner
+    in the 2024 resource?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app provides live race positions and session updates, which are
+    key features for enhancing the fan experience; it does not supply tires, manage
+    logistics, or organize the calendar.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - By providing live race positions and session status updates
+  - By supplying tires to teams
+  - By managing race logistics
+  - By organizing the race calendar
+  question_id: 3
+  question_text: How does the Official F1 App enhance the fan experience during a
+    race weekend?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Many Grand Prix events in the calendar feature partner brands as title
+    sponsors (e.g., Aramco, Heineken), showing the integration between the calendar
+    and F1's commercial partnerships.
+  knowledge_areas:
+  - 2024 F1 Race Calendar
+  - F1 Partners
+  options:
+  - F1 Partners are responsible for updating race results on the calendar.
+  - The F1 Race Calendar includes event names that often feature partner brands as
+    title sponsors.
+  - The Official F1 App manages partnership agreements.
+  - Race winners are chosen by F1 Partners.
+  question_id: 4
+  question_text: Which of the following statements integrates knowledge about both
+    the F1 Race Calendar and F1 Partners?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The Official F1 App is specifically designed to provide live timing,
+    news, and schedules for fans.
+  knowledge_areas:
+  - Official F1 App
+  - 2024 F1 Race Calendar
+  options:
+  - The list of F1 Partners
+  - The Official F1 App
+  - The team standings page
+  - The hospitality section
+  question_id: 5
+  question_text: If a fan wants to receive live timing, news, and schedules for the
+    2024 F1 season, which resource should they use?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 2024 F1 Race Calendar is the official schedule of Grand Prix events
+      that make up the FIA Formula One World Championship for the 2024 season. It
+      lists all rounds, their dates, locations, and the official names of each Grand
+      Prix, including pre-season testing.
+    type: Definition
+  - content: The calendar includes 24 rounds, beginning with pre-season testing in
+      Bahrain and concluding with the Abu Dhabi Grand Prix. Each entry details the
+      country, circuit, event dates, and the top three finishers for completed races,
+      providing a comprehensive overview of the season's progression and results.
+    type: Structure and Content
+  - content: Examples include the Bahrain Grand Prix (29 Feb - 2 Mar), the Monaco
+      Grand Prix (24-26 May), and the Abu Dhabi Grand Prix (6-8 Dec). Notable race
+      winners such as Verstappen, Norris, Leclerc, and Hamilton are highlighted, with
+      their finishing times and podium placements, illustrating the competitive landscape
+      of the season.
+    type: Examples and Highlights
+  - content: The calendar serves as an essential reference for fans, teams, and media,
+      enabling planning for travel, viewing, and coverage. It is also used for statistical
+      analysis, historical comparisons, and tracking driver and team performance throughout
+      the season.
+    type: Implications and Use Cases
+  - content: The race calendar is closely linked to driver and team standings, sponsorship
+      activations, and the broader motorsports ecosystem. It also connects to F1's
+      media, gaming, and fan engagement platforms, as race dates drive content and
+      participation.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The 2024 F1 Race Calendar lists 24 rounds, including pre-season testing,
+      and covers races worldwide, not just in Europe. It provides both dates and results
+      for completed races, and ends with the Abu Dhabi Grand Prix, not Monaco.
+    options:
+    - It includes only European races.
+    - It lists 24 rounds including pre-season testing.
+    - It provides only race dates, not results.
+    - It ends with the Monaco Grand Prix.
+    question_text: Which of the following is true about the 2024 F1 Race Calendar?
+  index: 53
+  key_concept: 2024 F1 Race Calendar
+  name: 2024 FIA FORMULA ONE WORLD CHAMPIONSHIP™ RACE CALENDAR
+- aspects:
+  - content: F1 Partners are companies and brands that have official sponsorship or
+      partnership agreements with Formula One. These partnerships provide financial
+      support, technological collaboration, and promotional activities, helping to
+      sustain and grow the sport.
+    type: Definition
+  - content: Prominent partners include LVMH, Pirelli, Aramco, Heineken, AWS, Lenovo,
+      DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton, TAG Heuer, Moet
+      Hennessy, American Express, Santander, Allwyn, Globant, and many more. Each
+      partner often has a visible presence at races and in F1 media.
+    type: Examples
+  - content: Partners play critical roles in areas such as tire supply (Pirelli),
+      logistics (DHL), data analytics (AWS), and event sponsorship (Heineken, Aramco).
+      Their involvement enhances the technological, operational, and commercial aspects
+      of F1, while also leveraging the sport's global reach for their own marketing.
+    type: Roles and Implications
+  - content: Partnerships are vital for F1's financial health and innovation. For
+      example, AWS powers F1's data-driven insights, while Aramco and Heineken sponsor
+      multiple events. The diversity of partners reflects F1's international appeal
+      and the cross-industry interest in motorsport.
+    type: Context and Impact
+  - content: F1 partnerships are intertwined with race events, team operations, fan
+      engagement, and digital platforms. They often launch joint campaigns, exclusive
+      offers, and branded experiences, further integrating with the sport’s ecosystem.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: F1 Partners are involved in sponsorship, technology, and promotional
+      support, not in team management, car supply, or organizing the race calendar.
+    options:
+    - They are only responsible for team management.
+    - They provide sponsorship, technology, and promotional support.
+    - They only supply race cars.
+    - They organize the race calendar.
+    question_text: Which of the following statements best describes the role of F1
+      Partners?
+  index: 597
+  key_concept: F1 Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application offered by Formula One for
+      fans to access live timing, news, schedules, and exclusive content related to
+      the F1 World Championship. It is available for download on both iOS and Android
+      platforms.
+    type: Definition
+  - content: The app provides real-time race data, session status, driver and team
+      standings, event schedules, and multimedia content such as videos and news articles.
+      Fans can use it to follow races live, receive notifications, and engage with
+      interactive features like fantasy gaming and predictions.
+    type: Features and Use Cases
+  - content: Users can download the app from the Apple App Store or Google Play. During
+      a Grand Prix weekend, the app delivers live race positions, gap to leader, and
+      session updates, making it an essential tool for fans who want detailed, up-to-the-minute
+      information.
+    type: Examples
+  - content: The app enhances fan engagement by providing accessible, comprehensive
+      coverage of F1 events. It supports F1’s digital strategy, broadening the sport’s
+      reach and deepening fan involvement through personalized content and interactive
+      experiences.
+    type: Implications and Impact
+  - content: The Official F1 App is integrated with F1’s broader digital ecosystem,
+      including social media, fantasy and gaming platforms, and official websites.
+      It also complements live broadcasts and on-site experiences, serving as a central
+      hub for F1 fans.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The Official F1 App is designed to provide live race data, news,
+      and interactive content to fans, not to manage finances, schedule venues, or
+      supply tires.
+    options:
+    - Managing team finances
+    - Providing live race data and news to fans
+    - Scheduling race venues
+    - Supplying tires to teams
+    question_text: What is a primary function of the Official F1 App?
+  index: 607
+  key_concept: Official F1 App
+  name: Download the Official F1 App

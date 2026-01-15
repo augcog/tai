@@ -1,0 +1,211 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A summary webpage listing the 1977 Formula 1 race results, including
+  Grand Prix winners, teams, and dates, as well as sections highlighting official
+  F1 partners and promoting the official F1 mobile app.
+file_name: 1977 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1977/1977 RACE RESULTS.html
+file_uuid: 321660d3-907c-5c2f-ab09-92d3eecd27ad
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: 'The race results table provides comprehensive data: Grand Prix name,
+    date, winner, team, laps completed, and total race time. Other options are either
+    incomplete or irrelevant.'
+  knowledge_areas:
+  - 1977 Formula 1 Race Results
+  options:
+  - Grand Prix name, date, winner, team, laps, and time
+  - Only the winning driver and team
+  - Race car specifications
+  - Driver salaries
+  question_id: 1
+  question_text: What information is included in the 1977 Formula 1 race results table?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Nike is not listed among the official partners in the content, whereas
+    AWS, Heineken, and DHL are.
+  knowledge_areas:
+  - Official F1 Partners
+  options:
+  - AWS
+  - Heineken
+  - Nike
+  - DHL
+  question_id: 2
+  question_text: Which of the following brands is NOT listed as an official F1 partner
+    in the provided content?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app enhances the fan experience by offering live timing, news,
+    and exclusive content, not by selling cars, offering only interviews, or managing
+    logistics.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - By providing live race timing, news, and exclusive content
+  - By allowing fans to buy race cars
+  - By offering live driver interviews only
+  - By managing team logistics
+  question_id: 3
+  question_text: How does the Official F1 App contribute to the fan experience?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Official partners provide financial and technological support, but
+    do not select drivers, determine outcomes, or own teams.
+  knowledge_areas:
+  - Official F1 Partners
+  options:
+  - Increased financial and technological support for F1
+  - Drivers are selected by partners
+  - Partners determine race outcomes
+  - Teams are owned by partners
+  question_id: 4
+  question_text: Which of the following is a direct implication of the official F1
+    partners’ involvement?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Race results are foundational for championship standings and historical
+    analysis, not for sponsor selection, ticket pricing, or app design.
+  knowledge_areas:
+  - 1977 Formula 1 Race Results
+  - Official F1 Partners
+  - Official F1 App
+  options:
+  - They influence championship standings and historical analysis
+  - They determine which sponsors are selected
+  - They set the price of tickets
+  - They dictate the design of the F1 App
+  question_id: 5
+  question_text: In what way are the 1977 race results connected to other aspects
+    of Formula 1?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1977 Formula 1 Race Results refer to the official outcomes of each
+      Grand Prix held during the 1977 F1 season, detailing the winning driver, their
+      team, the number of laps completed, and the total race time. This data forms
+      a historical record of the championship’s competitive events.
+    type: definition
+  - content: Examples from the 1977 season include Jody Scheckter winning the Argentine
+      Grand Prix for Wolf Ford, Mario Andretti securing multiple victories for Lotus
+      Ford (such as in the USA West, Spain, France, and Italy), and Niki Lauda achieving
+      wins for Ferrari in South Africa, Germany, and the Netherlands. Each entry specifies
+      the Grand Prix, date, winner, team, laps, and race time.
+    type: examples
+  - content: These results are used for historical analysis, statistical comparison
+      across seasons, and for determining championship standings for both drivers
+      and teams. Motorsport journalists, historians, and fans consult such data to
+      track performance trends and legacy impacts.
+    type: use cases
+  - content: The race results directly influence the allocation of championship points,
+      shaping the final standings and the legacy of drivers and teams. They also provide
+      insight into technological and strategic advancements in motorsport during the
+      era.
+    type: implications
+  - content: This concept is closely linked to related areas such as driver and team
+      standings, F1 regulations, and the broader historical context of Formula 1.
+      The results serve as a foundation for deeper analysis of race strategies, team
+      dynamics, and the evolution of the sport.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: All three drivers—Jody Scheckter, Mario Andretti, and James Hunt—won
+      multiple races in the 1977 season, as evidenced by the official race results
+      table.
+    options:
+    - Jody Scheckter
+    - Mario Andretti
+    - James Hunt
+    - All of the above
+    question_text: Which of the following drivers won multiple races in the 1977 Formula
+      1 season?
+  index: 150
+  key_concept: 1977 Formula 1 Race Results
+  name: 1977 RACE RESULTS
+- aspects:
+  - content: Official F1 Partners are corporations and brands that have established
+      formal sponsorship or partnership agreements with Formula 1, contributing financial,
+      technological, or promotional support in exchange for brand visibility and association
+      with the sport.
+    type: definition
+  - content: Examples of official partners listed include LVMH, Pirelli, Aramco, Heineken,
+      AWS, Lenovo, DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton,
+      TAG Heuer, Moet Hennessy, American Express, Santander, Allwyn, Globant, Las
+      Vegas Convention and Visitors Authority, Paramount+, Barilla, Liqui Moly, Nestle,
+      PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds. Each partner typically
+      supports F1 in a specific capacity, such as providing tires (Pirelli), logistics
+      (DHL), or digital infrastructure (AWS).
+    type: examples
+  - content: Partnerships are leveraged for co-marketing campaigns, technological
+      innovation (e.g., AWS providing cloud services for race analytics), and enhancing
+      the fan experience. F1 benefits from the resources and expertise of partners,
+      while brands gain access to a global audience.
+    type: use cases
+  - content: The involvement of high-profile partners elevates the commercial profile
+      of Formula 1, enables technological advancements, and supports the operational
+      logistics of the sport. These relationships are crucial for the financial sustainability
+      and continued innovation within F1.
+    type: implications
+  - content: Official partners are interconnected with other aspects of the F1 ecosystem,
+      including event organization, media production, and fan engagement platforms.
+      Their role reflects the broader commercialization and globalization of motorsport.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Official partners primarily supply financial, technological, or promotional
+      support to Formula 1, not regulatory, driving, or scheduling functions.
+    options:
+    - They provide race regulations.
+    - They supply financial, technological, or promotional support.
+    - They drive the cars.
+    - They organize the race calendar.
+    question_text: What is the primary role of official partners in Formula 1?
+  index: 172
+  key_concept: Official F1 Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is the sanctioned mobile application for Formula
+      1, available on major platforms such as the Apple App Store and Google Play.
+      It provides fans with access to live timing, news, schedules, and exclusive
+      content.
+    type: definition
+  - content: Users can download the app to receive real-time race updates, driver
+      standings, team information, and multimedia content such as videos and interviews.
+      The app is promoted as the central digital hub for F1 fans.
+    type: examples
+  - content: The app is used by fans to follow races live, check schedules, view race
+      results, and engage with interactive features. It also serves as a platform
+      for notifications about upcoming events and official announcements.
+    type: use cases
+  - content: The app enhances fan engagement by delivering timely information and
+      exclusive content, fostering a more immersive experience. It also serves as
+      a direct communication channel between Formula 1 and its global audience.
+    type: implications
+  - content: The app is integrated with other F1 digital platforms, including the
+      official website and social media, and is influenced by technological partnerships
+      (e.g., AWS for analytics). It reflects the digital transformation of sports
+      consumption.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App offers live race timing and updates, but does
+      not provide manufacturing tutorials, ownership, or driving lessons.
+    options:
+    - Live race timing and updates
+    - Car manufacturing tutorials
+    - Team ownership opportunities
+    - Race car driving lessons
+    question_text: Which of the following features is typically available in the Official
+      F1 App?
+  index: 182
+  key_concept: Official F1 App
+  name: Download the Official F1 App

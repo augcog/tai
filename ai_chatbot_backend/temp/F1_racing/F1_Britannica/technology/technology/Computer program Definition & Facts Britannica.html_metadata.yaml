@@ -1,0 +1,232 @@
+URL: https://www.britannica.com/technology/computer-program
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article providing a foundational overview of computer
+  programs, including their definition, history, the distinction between software
+  and hardware, programming languages, and the role of operating systems and utility
+  programs.
+file_name: Computer program Definition & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Computer program Definition
+  & Facts Britannica.html
+file_uuid: 3849f1f4-2ad0-5bc6-9c5f-443844bbf145
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Software refers to computer programs (instructions), whereas hardware
+    refers to the physical components of a computer. This distinction is foundational
+    in computer science.
+  knowledge_areas:
+  - Definition of Computer Program
+  options:
+  - Software refers to the physical components, while hardware is the set of instructions.
+  - Software is the set of instructions (programs) executed by the computer, while
+    hardware refers to the physical components.
+  - Software and hardware are interchangeable terms.
+  - Hardware is only used in older computers.
+  question_id: 1
+  question_text: What is the primary distinction between software and hardware in
+    the context of computer programs?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The stored-program concept enabled computers to load and execute different
+    programs from memory, making them flexible and multipurpose.
+  knowledge_areas:
+  - Stored-Program Concept and Historical Development
+  options:
+  - It allowed computers to be reprogrammed for different tasks without changing their
+    physical structure.
+  - It made computers larger and more expensive.
+  - It eliminated the need for programming languages.
+  - It restricted computers to a single function.
+  question_id: 2
+  question_text: Why was the stored-program concept, introduced by John von Neumann,
+    a significant advancement in computing?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: The translation process involves converting high-level programming
+    language instructions into machine language, often using compilers or interpreters.
+  knowledge_areas:
+  - Programming Languages and Translation
+  options:
+  - Converting hardware into software.
+  - Writing instructions in binary code only.
+  - Transforming high-level programming language instructions into machine language
+    that the computer can execute.
+  - Designing new computer chips.
+  question_id: 3
+  question_text: Which of the following best describes the translation process in
+    programming?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Operating systems and utility programs provide essential services such
+    as translation, execution, debugging, and resource management, all of which support
+    the development and operation of computer programs.
+  knowledge_areas:
+  - Role of Operating Systems and Utility Programs
+  options:
+  - By physically assembling computer parts.
+  - By providing tools for translating, executing, and debugging programs, and by
+    managing hardware resources.
+  - By storing data permanently.
+  - By creating new programming languages automatically.
+  question_id: 4
+  question_text: How do operating systems and utility programs facilitate the programming
+    process?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Programs are written in a programming language, translated into machine
+    language, and then executed by the computer.
+  knowledge_areas:
+  - Programming Languages and Translation
+  - Role of Operating Systems and Utility Programs
+  options:
+  - Programming language → Execution → Translation → Machine language
+  - Machine language → Translation → Programming language → Execution
+  - Programming language → Translation → Machine language → Execution
+  - Execution → Programming language → Machine language → Translation
+  question_id: 5
+  question_text: 'Which sequence correctly connects the following concepts: programming
+    language, translation, machine language, and execution?'
+  question_type: recap
+sections:
+- aspects:
+  - content: A computer program is a detailed plan or procedure for solving a problem
+      using a computer. It consists of an unambiguous, ordered sequence of computational
+      instructions designed to achieve a specific solution. Programs are distinguished
+      from hardware, with the former being referred to as software.
+    type: Definition
+  - content: Examples of computer programs include word processors, web browsers,
+      and video games. Each of these programs provides a set of instructions for the
+      computer to execute specific tasks, such as editing documents, displaying web
+      pages, or processing user input in a game.
+    type: Examples
+  - content: The clarity and order of instructions in a program are crucial for correct
+      execution. Ambiguous or unordered instructions can lead to errors or unintended
+      behavior. The distinction between software (programs) and hardware (physical
+      components) is fundamental in computer science, as it separates logical operations
+      from physical devices.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: A computer program is defined as a set of unambiguous, ordered instructions
+      for solving a problem with a computer. Physical devices and memory are types
+      of hardware, not programs.
+    options:
+    - A physical device that processes data.
+    - A set of unambiguous, ordered instructions for solving a problem with a computer.
+    - A collection of wires and circuits.
+    - A type of computer memory.
+    question_text: Which of the following best describes a computer program?
+  index: 134
+  key_concept: Definition of Computer Program
+  name: computer program
+- aspects:
+  - content: The concept of storing programs in a computer's memory was introduced
+      in the late 1940s by John von Neumann, a Hungarian-born mathematician. This
+      innovation allowed computers to perform a variety of tasks by loading different
+      programs into memory, rather than being hardwired for a single function.
+    type: Historical Context
+  - content: The first digital computer designed with internal programming capacity
+      was the 'Baby,' constructed at Manchester in 1948. This machine demonstrated
+      the feasibility of the stored-program concept, which became foundational to
+      modern computing.
+    type: Examples
+  - content: The stored-program concept enabled computers to be far more flexible
+      and powerful, as they could be reprogrammed for different tasks without changing
+      their physical structure. This separation of program and hardware underpins
+      the versatility of modern computers.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: John von Neumann introduced the idea of an internally stored program,
+      and the 'Baby' at Manchester in 1948 was the first digital computer to implement
+      this concept.
+    options:
+    - Charles Babbage; Analytical Engine
+    - Alan Turing; Bombe
+    - John von Neumann; 'Baby' at Manchester
+    - Ada Lovelace; Difference Engine
+    question_text: Who introduced the idea of an internally stored program, and what
+      was the first computer to implement this concept?
+  index: 134
+  key_concept: Stored-Program Concept and Historical Development
+  name: computer program
+- aspects:
+  - content: Programming languages are formal languages used to express tasks and
+      algorithms that a computer can execute. They range from problem-oriented languages,
+      which are user-friendly and suited to specific applications, to machine language,
+      which consists of binary code directly executable by the computer.
+    type: Definition
+  - content: Principal problem-oriented languages include C, Python, and C++. These
+      languages allow programmers to write instructions in a way that is easier to
+      understand and maintain compared to machine language.
+    type: Examples
+  - content: Programs written in high-level, problem-oriented languages must be translated
+      into machine language before execution. This translation typically occurs in
+      several stages, using tools such as compilers, assemblers, and interpreters.
+    type: Translation Process
+  - content: The development of diverse programming languages has expanded the range
+      of applications for computers and facilitated the creation of complex software
+      systems. The translation process is essential for bridging human logic and computer
+      execution.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Programming languages allow programmers to express tasks and algorithms
+      in a human-readable form, which is then translated into machine language for
+      execution by the computer.
+    options:
+    - To store data permanently on hardware.
+    - To express tasks in a form suitable for human understanding and later translation
+      to machine-executable code.
+    - To connect computers to the internet.
+    - To manufacture computer chips.
+    question_text: What is the primary purpose of a programming language in relation
+      to computer programs?
+  index: 134
+  key_concept: Programming Languages and Translation
+  name: computer program
+- aspects:
+  - content: An operating system is a collection of programs that manage computer
+      hardware and software resources, providing services for user programs. Utility
+      programs, such as translators, interpreters, and debuggers, assist in the programming
+      process and system optimization.
+    type: Definition
+  - content: Examples of operating systems include Windows, macOS, and Linux. Utility
+      programs include compilers (which translate entire programs), interpreters (which
+      execute programs step-by-step), and debuggers (which help identify and correct
+      errors).
+    type: Examples
+  - content: The operating system is as vital as hardware for the functioning of a
+      computer, as it coordinates the execution of user programs and system tasks.
+      Utility programs enhance productivity and reliability by facilitating program
+      development, execution, and debugging.
+    type: Implications
+  - content: Operating systems often control the scheduling and execution of user
+      programs, especially in multi-user or time-sharing environments. The interplay
+      between the operating system and utility programs is central to modern software
+      development and system management.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Manufacturing hardware is not a function of operating systems or
+      utility programs; these focus on managing and facilitating software execution
+      and development.
+    options:
+    - Scheduling which user program is executed next.
+    - Translating high-level code into machine language.
+    - Physically manufacturing computer hardware.
+    - Debugging and monitoring program execution.
+    question_text: Which of the following is NOT a function of an operating system
+      or utility program?
+  index: 134
+  key_concept: Role of Operating Systems and Utility Programs
+  name: computer program

@@ -202,13 +202,13 @@ async def _llm_synthesize_ltm(
         max_prompt_tokens: int = 3500,
 ) -> MemorySynopsisLong:
     """
-    使用 LLM 根据聊天记录、STM 和可选的现有 LTM 生成新的 LTM JSON。
+    Using local engine to synthesize Long-Term Memory (LTM) JSON from transcript, STM, and optional existing LTM.
     """
-    # 准备 LTM、STM 和转录文本
+    # Prepare STM, LTM and transcript inputs
     existing_ltm_json = prev_ltm.to_json() if prev_ltm else "{}"
     new_stm_json = new_stm.to_json()
 
-    # LTM_SYSTEM 中提到的输入数据结构
+    # LTM_SYSTEM data structure
     LLM_USER_LTM_TEMPLATE = """
 EXISTING_LTM:
 {existing_ltm_json}
@@ -223,7 +223,7 @@ Task:
 Produce the single best updated LTM JSON object following the system rules. Return ONLY JSON.
 """
 
-    # 准备系统和用户消息
+    # Prepare system and user messages for LLM
     sys_msg = {"role": "system", "content": _LLM_SYSTEM_LTM}
     print(f"STM : {new_stm_json}")
     usr_content = LLM_USER_LTM_TEMPLATE.format(
@@ -244,26 +244,24 @@ Produce the single best updated LTM JSON object following the system rules. Retu
     # usr_msg = {"role": "user", "content": _LLM_MERGE_USER_TEMPLATE.format(old_json=old_json, new_json=new_json)}
     prompt = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
 
-    # 使用 LTM 专用的采样参数（特别是 GUIDED_LTM）进行生成
     text = ""
-    print(f"LTM synthesis prompt: {prompt}")
     print(f"\n\nstart generating LTM \n\n")
     async for chunk in engine.generate(
             prompt=prompt,
             sampling_params=SAMPLING_JSON_LTM,
-            request_id=str(time.time_ns()) # 假设 time.time_ns() 可用
+            request_id=str(time.time_ns())
     ):
         text = chunk.outputs[0].text
 
     try:
-        # 使用 MemorySynopsisLong.from_json 方法创建实例
+        # Using MemorySynopsisLong.from_json method to build a MemorySynopsisLong instance
         return MemorySynopsisLong.from_json(text.strip())
     except Exception as e:
         print(f'Failed to parse generated MemorySynopsisLong JSON: {e} | Text: {text}')
-        # 如果解析失败，返回一个空的 LTM 实例
+        # If parsing fails, return an empty LTM instance
         return MemorySynopsisLong()
 
-# --- 主要函数：构建 LTM ---
+# --- Main function：build LTM ---
 
 async def build_memory_synopsis_long(
         messages: List[Message],
@@ -275,15 +273,14 @@ async def build_memory_synopsis_long(
         max_prompt_tokens: int = 3500,
 ) -> MemorySynopsisLong:
     """
-    根据聊天记录、新生成的 STM 和可选的现有 LTM 生成/更新 Long-Term Memory (LTM)。
-    - messages: 完整的聊天记录 (用于上下文推理)
-    - new_stm: 最近会话生成的 MemorySynopsis (Short-Term Memory)
-    - prev_synopsis_long: 之前的 LTM 实例 (MemorySynopsisLong)
-    - chat_history_sid: 可选，如果提供了，尝试从数据库获取 prev_synopsis_long
+    Based on chat history, newly generated STM, and optional existing LTM, create/update Long-Term Memory (LTM).
+    - messages: full chat history (for context reasoning)
+    - new_stm: recently generated MemorySynopsis (Short-Term Memory)
+    - prev_synopsis_long: prior LTM instance (MemorySynopsisLong)
+    - chat_history_sid: optional, if provided, attempts to fetch prev_synopsis_long from DB
     """
 
-    # 1. 优雅地从数据库检索之前的 LTM (如果需要)
-    # 此处省略 MongoDB 服务的具体导入和实现，仅保留逻辑结构。
+    # 1. Graceful MongoDB retrieval for previous LTM
     if chat_history_sid and not prev_synopsis_long:
         print("[INFO] Attempting to retrieve previous memory from DB...")
         try:
@@ -294,9 +291,9 @@ async def build_memory_synopsis_long(
             print(f"[INFO] Failed to retrieve previous memory, generating from scratch: {e}")
             prev_synopsis_long = None  # Continue without previous memory
 
-    # 2. 渲染转录文本 (Transcript)
+    # 2. render transcript
     transcript = _render_transcript(messages)
-    # 3. 调用 LLM 合成新的 LTM
+    # 3. use LLM to synthesize updated LTM
     updated_ltm = await _llm_synthesize_ltm(
         engine,
         tokenizer,

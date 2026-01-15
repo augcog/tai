@@ -1,0 +1,148 @@
+URL: https://www.britannica.com/technology/factory
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia entry defining the concept of a factory, describing
+  its historical evolution, the shift from domestic to industrial production, the
+  rise of mass production, the impact of machine tools and assembly lines, and global
+  patterns of industrialization.
+file_name: Factory Automation, Production & Efficiency Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Factory Automation, Production
+  & Efficiency Britannica.html
+file_uuid: 1daa214e-a2b5-5ada-adea-0ee8b24f4e66
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The availability of capital for industrial investment was a crucial
+    factor in the shift to factory-based production. The other options either occurred
+    later or are not directly related.
+  knowledge_areas:
+  - factory
+  - historical context
+  options:
+  - Availability of capital for industrial investment
+  - Discovery of electricity
+  - Introduction of digital computers
+  - Decline in urban populations
+  question_id: 1
+  question_text: What was a key factor that enabled the shift from the domestic system
+    to factory-based production in Europe?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Machine tools enabled mass production of identical parts with high
+    precision and low cost, which was central to the efficiency and success of factories.
+  knowledge_areas:
+  - factory
+  - mass production and technological innovation
+  options:
+  - It allowed for mass production of identical parts at low cost
+  - It eliminated the need for raw materials
+  - It made factories obsolete
+  - It slowed down the manufacturing process
+  question_id: 2
+  question_text: How did the development of machine tools impact factory production?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The assembly line was first widely used in the U.S. meat-packing industry
+    before Henry Ford adapted it for automobile manufacturing.
+  knowledge_areas:
+  - factory
+  - mass production and technological innovation
+  options:
+  - Textile industry
+  - Meat-packing industry
+  - Steel industry
+  - Electronics industry
+  question_id: 3
+  question_text: Which industry first widely used the assembly line before it was
+    adopted by Henry Ford?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Some Asian and South American countries began significant industrialization
+    and adopted factory-based production in the 1970s and later.
+  knowledge_areas:
+  - factory
+  - global spread and industrialization
+  options:
+  - They began significant industrialization and factory-based production
+  - They stopped using factories altogether
+  - They invented the assembly line
+  - They became the first regions to use machine tools
+  question_id: 4
+  question_text: What major change occurred in some Asian and South American countries
+    in the 1970s regarding factories?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Factories and the American System of manufacture are connected through
+    their emphasis on standardized parts and mechanized production.
+  knowledge_areas:
+  - factory
+  - connections to related concepts
+  options:
+  - Both emphasize standardized parts and mechanized production
+  - Factories only use manual labor, while the American System is automated
+  - Factories are unrelated to manufacturing systems
+  - The American System was developed to replace factories
+  question_id: 5
+  question_text: How are factories connected to the concept of the American System
+    of manufacture?
+  question_type: recap
+sections:
+- aspects:
+  - content: A factory is a structure or building where work is organized to enable
+      large-scale production, typically using power-driven machinery. The primary
+      purpose of a factory is to centralize and coordinate the manufacturing process,
+      allowing for efficient production of goods. Factories are distinguished from
+      smaller workshops or domestic production by their scale, use of machinery, and
+      systematic organization of labor.
+    type: definition
+  - content: Factories emerged as a dominant form of production in Europe during the
+      17th and 18th centuries, replacing the domestic system where work was done in
+      individual homes. This transition was driven by increased availability of capital
+      for industrial investment and significant population shifts from rural to urban
+      areas. The rise of factories marked a fundamental change in work organization,
+      social structure, and economic activity.
+    type: historical context
+  - content: The development of the machine-tool industry enabled the mass production
+      of identical parts with high precision and low cost, requiring fewer workers.
+      The assembly line, first widely used in the U.S. meat-packing industry and later
+      famously implemented by Henry Ford in automobile manufacturing in 1913, revolutionized
+      factory efficiency. For example, Ford's innovations reduced chassis assembly
+      time from 12.5 man-hours to just 93 man-minutes by mid-1914, demonstrating the
+      dramatic productivity gains possible through technological advancement and process
+      optimization.
+    type: mass production and technological innovation
+  - content: While factories originated in Europe and the United States, other regions
+      such as Asia and South America began significant industrialization in the 1970s
+      and later. This global spread of factory-based production has had major implications
+      for economic development, urbanization, and labor markets worldwide. The diffusion
+      of factory systems is closely linked to broader trends in globalization, trade,
+      and technological transfer.
+    type: global spread and industrialization
+  - content: Factories are central to understanding concepts like the American System
+      of manufacture, which emphasizes standardized parts and mechanized production.
+      They also relate to broader topics such as industrialization, urbanization,
+      labor organization, and economic history. The evolution of factories is intertwined
+      with developments in machinery, capital investment, and shifts in social and
+      economic structures.
+    type: connections to related concepts
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The factory centralized and mechanized production, replacing the
+      domestic system of home-based work. It did not originate as an agricultural
+      processing site, nor did it emerge due to digital technology or eliminate the
+      need for human labor entirely.
+    options:
+    - It centralized and mechanized production, replacing home-based work.
+    - It was primarily used for agricultural processing.
+    - It emerged in the 20th century as a response to digital technology.
+    - It reduced the need for any human labor in manufacturing.
+    question_text: Which of the following best describes the historical significance
+      of the factory?
+  index: 134
+  key_concept: factory
+  name: factory

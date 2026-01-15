@@ -1,0 +1,238 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An end-of-year report article reviewing Aston Martin's 2025 Formula
+  1 season, detailing the team's performance, driver comparisons, key race moments,
+  and strategic outlook for 2026.
+file_name: 'END OF YEAR REPORT: Aston Martin’s best and worst moments from 2025 and
+  driver head-to-heads.html'
+file_path: 'F1_racing/F1_Official/news/en/latest/article/END OF YEAR REPORT: Aston
+  Martin’s best and worst moments from 2025 and driver head-to-heads.html'
+file_uuid: 2b93284a-0572-5923-b096-e5bbf9ddda05
+recap_questions:
+- correct_answers:
+  - 2
+  explanation: Aston Martin finished seventh in 2025, a decline of two places from
+    previous seasons, which did not meet their high ambitions.
+  knowledge_areas:
+  - 2025 Season Performance Overview
+  options:
+  - They improved by two places and met their goals
+  - They maintained their position but failed to meet expectations
+  - They fell two places in the standings, representing a step back
+  - They won the championship for the first time
+  question_id: 1
+  question_text: How did Aston Martin's 2025 season performance compare to their ambitions
+    and previous results?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Fernando Alonso outqualified Lance Stroll at every Grand Prix, demonstrating
+    his superior one-lap pace and consistency.
+  knowledge_areas:
+  - Driver Performance and Head-to-Head Comparisons
+  options:
+  - Lance Stroll, showing dominance in qualifying
+  - Fernando Alonso, demonstrating superior one-lap pace
+  - Both drivers, indicating equal performance
+  - Neither, as qualifying was inconsistent
+  question_id: 2
+  question_text: Which driver had a perfect qualifying head-to-head record against
+    his teammate in 2025, and what does this indicate about his performance?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Hungarian Grand Prix was the team's best moment, as both drivers
+    scored strong points after a challenging previous race, highlighting the team's
+    ability to recover.
+  knowledge_areas:
+  - 'Key Moments: Best and Worst'
+  options:
+  - Their double points finish in Hungary after a difficult Belgian GP, showing resilience
+  - Alonso's win in Monaco, marking a historic victory
+  - Stroll's pole in Australia, setting a new team record
+  - A podium at Silverstone, their home race
+  question_id: 3
+  question_text: What event was considered Aston Martin's best moment in 2025, and
+    why was it significant?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Aston Martin will use Honda power units and have Adrian Newey as Team
+    Principal, which are expected to bring technical expertise and leadership stability
+    for 2026.
+  knowledge_areas:
+  - Technical and Leadership Changes for 2026
+  options:
+  - Switching to Honda power units and appointing Adrian Newey as Team Principal,
+    aiming for technical advancement
+  - Replacing both drivers and moving to a new headquarters, focusing on infrastructure
+  - Hiring Lewis Hamilton as a consultant, focusing on driver mentorship
+  - Partnering with Ferrari for engines and hiring a new sporting director
+  question_id: 4
+  question_text: What technical and leadership changes are Aston Martin making for
+    2026, and how might these affect their future performance?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The challenges and disparities in 2025 revealed areas needing improvement,
+    prompting technical and leadership changes to better position the team for the
+    new 2026 regulations.
+  knowledge_areas:
+  - 2025 Season Performance Overview
+  - Driver Performance and Head-to-Head Comparisons
+  - 'Key Moments: Best and Worst'
+  - Technical and Leadership Changes for 2026
+  options:
+  - The team's struggles and driver disparities highlighted the need for technical
+    upgrades and leadership restructuring
+  - Success in 2025 meant no changes were needed for 2026
+  - Driver parity and consistent podiums led to a stable strategy
+  - Their 2025 championship win prompted a focus on marketing
+  question_id: 5
+  question_text: How are Aston Martin's key 2025 moments and head-to-head driver results
+    connected to their goals and strategic changes for 2026?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 2025 Season Performance Overview refers to Aston Martin's overall
+      results and trajectory during the 2025 Formula 1 season, highlighting their
+      placement in the Teams’ Championship and the context of their ambitions and
+      recent history.
+    type: Definition
+  - content: Aston Martin finished seventh in the Teams’ Championship, a decline from
+      their previous two seasons, where they had placed higher. The team entered the
+      season with high aspirations but ultimately experienced a regression, falling
+      two places compared to prior years.
+    type: Context
+  - content: This step back in the standings underscores the competitive challenges
+      Aston Martin faced in 2025 and sets the stage for a critical assessment of their
+      strategies, driver performances, and technical direction. The result also increases
+      pressure for significant improvement in 2026, especially given the team's investment
+      and ambitions.
+    type: Implications
+  - content: This overview ties together the detailed driver performances, team strategy,
+      and technical changes discussed in subsequent sections. It also connects to
+      the broader narrative of adaptation to new regulations and the impact of leadership
+      and technical staff changes.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Aston Martin finished seventh in the Teams’ Championship in 2025,
+      which was a drop of two places compared to their finishes in the previous two
+      seasons, representing a step backwards for the team.
+    options:
+    - Fifth, an improvement by two places
+    - Seventh, a decline by two places
+    - Ninth, the same as the previous two years
+    - Third, their best ever finish
+    question_text: What was Aston Martin's final placement in the 2025 Teams’ Championship,
+      and how did it compare to the previous two seasons?
+  index: 53
+  key_concept: 2025 Season Performance Overview
+  name: 'END OF YEAR REPORT: Aston Martin’s best and worst moments from 2025 and driver
+    head-to-heads'
+- aspects:
+  - content: Driver Performance and Head-to-Head Comparisons refer to the systematic
+      evaluation of Aston Martin's drivers, Fernando Alonso and Lance Stroll, in both
+      qualifying and race conditions throughout the 2025 season.
+    type: Definition
+  - content: In qualifying, Alonso outperformed Stroll at every Grand Prix, resulting
+      in a 24-0 head-to-head record. In races, Alonso led 16-8, particularly excelling
+      in the second half of the season, while Stroll's best finish was sixth in Australia
+      and seventh in Hungary.
+    type: Examples
+  - content: These comparisons highlight Alonso's continued competitiveness and consistency,
+      particularly in qualifying, and suggest areas for improvement for Stroll. The
+      disparity also influences team strategy and driver development priorities.
+    type: Implications
+  - content: The head-to-head results are directly connected to the team's overall
+      performance and inform the assessment of individual contributions to the team's
+      points tally. They also provide context for the team's future goals and driver
+      line-up decisions.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Fernando Alonso outqualified Lance Stroll at every Grand Prix in
+      2025, resulting in a 24-0 head-to-head score in qualifying.
+    options:
+    - Stroll, 24-0
+    - Alonso, 24-0
+    - Alonso, 16-8
+    - Stroll, 16-8
+    question_text: Which driver outqualified his teammate at every Grand Prix in 2025,
+      and what was the qualifying head-to-head score?
+  index: 79
+  key_concept: Driver Performance and Head-to-Head Comparisons
+  name: Qualifying head-to-head
+- aspects:
+  - content: 'Key Moments: Best and Worst encapsulate the most significant high and
+      low points for Aston Martin during the 2025 season, reflecting both sporting
+      achievement and adversity.'
+    type: Definition
+  - content: The best moment was the Hungarian Grand Prix, where Alonso finished fifth
+      and Stroll seventh, marking a strong team result after a difficult Belgian GP.
+      The worst moment occurred at Monza, where Stroll finished last among classified
+      runners and Alonso retired due to a suspension failure caused by gravel damage.
+    type: Examples
+  - content: These moments illustrate the volatility and unpredictability of a Formula
+      1 season. Highs like Hungary boost morale and validate technical upgrades, while
+      lows like Monza highlight the impact of luck and technical failures on championship
+      outcomes.
+    type: Implications
+  - content: The best and worst moments are tied to the drivers' performances, technical
+      reliability, and the effectiveness of mid-season upgrades. They also inform
+      the team's analysis for future improvements and risk mitigation.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Hungarian Grand Prix, where Alonso finished fifth and Stroll
+      seventh following a challenging Belgian Grand Prix, was highlighted as Aston
+      Martin's best moment of 2025.
+    options:
+    - Double points finish in Hungary after a difficult Belgian GP
+    - Stroll's win in Monaco
+    - Alonso's pole position in Australia
+    - Team's podium at Silverstone
+    question_text: What was considered Aston Martin's best moment of the 2025 season?
+  index: 99
+  key_concept: 'Key Moments: Best and Worst'
+  name: Best moment
+- aspects:
+  - content: Technical and Leadership Changes for 2026 refer to the strategic adjustments
+      Aston Martin is making in anticipation of the new Formula 1 regulations, including
+      changes in technical staff, leadership roles, and power unit suppliers.
+    type: Definition
+  - content: Aston Martin will continue with Alonso and Stroll as drivers, begin a
+      new partnership with Honda as exclusive power unit supplier, and see Adrian
+      Newey take over as Team Principal while maintaining his design responsibilities.
+      Andy Cowell transitions to Chief Strategy Officer to focus on the Honda partnership.
+    type: Examples
+  - content: These changes are designed to position Aston Martin for success under
+      the new 2026 regulations. The dual role for Newey presents both opportunities
+      for integrated technical leadership and risks of overextension, while Honda's
+      involvement brings proven engine expertise.
+    type: Implications
+  - content: The leadership and technical shifts are a response to the 2025 season's
+      shortcomings and reflect the team's ambition to move forward. These changes
+      are expected to impact car design, team culture, and competitive prospects in
+      the coming years.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: For 2026, Aston Martin will have Honda as their exclusive power unit
+      supplier and Adrian Newey as Team Principal, while Andy Cowell becomes Chief
+      Strategy Officer.
+    options:
+    - Switching to Mercedes engines and hiring Toto Wolff
+    - Partnering with Honda for power units and appointing Adrian Newey as Team Principal
+    - Replacing both drivers and moving headquarters
+    - Hiring Lewis Hamilton as Chief Technical Officer
+    question_text: What major changes are Aston Martin implementing for the 2026 season?
+  index: 113
+  key_concept: Technical and Leadership Changes for 2026
+  name: Goals for 2026

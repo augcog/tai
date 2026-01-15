@@ -1,0 +1,174 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: This is a web page section from the official Formula 1 website,
+  specifically listing F2 news, videos, and updates, as well as information about
+  Formula 1's official partners and app download links.
+file_name: F2 News and Videos | Formula 1.html
+file_path: F1_racing/F1_Official/news/en/latest/tags/F2 News and Videos | Formula
+  1.html
+file_uuid: e196ff4f-ea5a-5ac5-89d1-fef6895a108e
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Heineken is specifically mentioned as an official partner, while Microsoft,
+    Apple, and Sony are not listed.
+  knowledge_areas:
+  - Formula 1 Official Partners
+  options:
+  - Microsoft
+  - Heineken
+  - Apple
+  - Sony
+  question_id: 1
+  question_text: Which of the following brands is listed as an official Formula 1
+    partner in the provided content?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App is designed to provide live race timing and F1
+    news, not to sell cars, broadcast TV, or manage ticket sales.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - To provide live race timing and F1 news
+  - To sell Formula 1 cars to fans
+  - To broadcast races live on television
+  - To manage ticket sales for F1 events
+  question_id: 2
+  question_text: What is the main purpose of the Official F1 App as described in the
+    content?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Official partners provide financial investment and engage in marketing
+    collaborations for brand exposure, rather than organizing races, managing drivers,
+    or only offering technical support.
+  knowledge_areas:
+  - Formula 1 Official Partners
+  options:
+  - They only provide technical support for teams.
+  - They are responsible for organizing race schedules.
+  - They offer financial investment and marketing collaborations in exchange for brand
+    exposure.
+  - They manage the careers of F1 drivers.
+  question_id: 3
+  question_text: Which of the following statements best describes the role of official
+    partners in Formula 1?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app enhances fan engagement by offering live timing, news, and
+    personalized content, not by ticket discounts, voting, or streaming only classic
+    races.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - By offering live timing, news, and personalized content to fans worldwide
+  - By providing exclusive discounts on race tickets
+  - By allowing fans to vote on race outcomes
+  - By streaming only classic F1 races
+  question_id: 4
+  question_text: How does the Official F1 App contribute to fan engagement according
+    to the content?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The partner list includes brands from luxury goods, technology, logistics,
+    and beverage sectors, demonstrating diversity beyond just automotive or European
+    companies.
+  knowledge_areas:
+  - Formula 1 Official Partners
+  options:
+  - All partners are from the automotive industry.
+  - Partners include luxury goods, technology, logistics, and beverage companies.
+  - Only companies from Europe are partners.
+  - All partners are involved in race car manufacturing.
+  question_id: 5
+  question_text: Which of the following best illustrates the diversity of Formula
+    1's official partners as listed in the content?
+  question_type: recap
+sections:
+- aspects:
+  - content: Formula 1 Official Partners are corporations and brands that have established
+      formal, often exclusive, sponsorship or partnership agreements with Formula
+      1. These partnerships typically involve financial investment, marketing collaborations,
+      and brand visibility across F1 events, broadcasts, and digital platforms.
+    type: Definition
+  - content: Notable partners listed include LVMH, Pirelli, Aramco, Heineken, AWS,
+      Lenovo, DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton, TAG
+      Heuer, Moet Hennessy, American Express, Santander, Allwyn, Globant, Las Vegas
+      Convention and Visitors Authority, Paramount+, Barilla, Liqui Moly, Nestle,
+      PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds. Each partner represents
+      a different industry, such as luxury goods (LVMH), technology (AWS, Lenovo),
+      logistics (DHL), beverages (Heineken), and automotive supplies (Pirelli).
+    type: Examples
+  - content: These partnerships provide critical funding and resources for Formula
+      1 operations, technological innovation, and global marketing. In return, partners
+      receive significant brand exposure to a worldwide audience and association with
+      the prestige and excitement of F1. The diversity of partners reflects F1's broad
+      commercial appeal and its strategy to align with both luxury and mass-market
+      brands.
+    type: Implications
+  - content: Official partners often engage in co-branded campaigns, hospitality programs,
+      and exclusive product launches tied to F1 events. Some, like Pirelli, are integral
+      to the sport's technical operations (e.g., tire supply), while others focus
+      on fan engagement or digital innovation. These relationships exemplify the commercial
+      ecosystem that sustains modern motorsport and demonstrate how global sports
+      leverage corporate alliances for mutual benefit.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Heineken, Pirelli, and TAG Heuer are all listed as official partners,
+      while Microsoft is not mentioned in the provided partner list.
+    options:
+    - Heineken
+    - Microsoft
+    - Pirelli
+    - TAG Heuer
+    question_text: Which of the following is NOT listed as an official Formula 1 partner
+      in the provided content?
+  index: 85
+  key_concept: Formula 1 Official Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application developed and endorsed by
+      Formula 1, designed to provide fans with real-time updates, news, live timing,
+      and exclusive content related to F1 racing. It is available for download on
+      major platforms such as the Apple App Store and Google Play.
+    type: Definition
+  - content: The app offers features such as live race timing, driver and team information,
+      news articles, video highlights, and notifications for key events. Fans can
+      use the app to follow races in real time, access in-depth statistics, and personalize
+      their experience by selecting favorite teams or drivers. The app also serves
+      as a central hub for F1 content, enhancing fan engagement and accessibility.
+    type: Features and Use Cases
+  - content: By providing instant access to race data and multimedia content, the
+      Official F1 App allows fans worldwide to stay connected to the sport regardless
+      of location. It supports the digital transformation of sports consumption, offering
+      a second-screen experience during live broadcasts and facilitating direct communication
+      between F1 and its global audience.
+    type: Practical Implications
+  - content: The app is part of Formula 1's broader digital strategy, which includes
+      F1 TV and active social media presence. It complements other digital products
+      and services, reinforcing F1's commitment to innovation and fan-centric engagement.
+      The app's integration with official news, videos, and live data makes it an
+      essential tool for dedicated F1 followers.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The Official F1 App is described as providing live race timing and
+      F1 news, not as a platform for merchandise sales, contract management, or event
+      organization.
+    options:
+    - Selling team merchandise
+    - Providing live race timing and F1 news
+    - Managing driver contracts
+    - Organizing in-person fan events
+    question_text: What is a primary function of the Official F1 App according to
+      the provided content?
+  index: 95
+  key_concept: Official F1 App
+  name: Download the Official F1 App

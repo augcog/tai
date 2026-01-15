@@ -1,0 +1,207 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page summarizing the 1981 Formula 1 race results, listing
+  Grand Prix winners, teams, and race details, along with information about F1's corporate
+  partners and official app download links.
+file_name: 1981 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1981/1981 RACE RESULTS.html
+file_uuid: bd6dc2df-02d7-50cc-b2c5-d9b3a5c9a710
+recap_questions:
+- correct_answers:
+  - 2
+  explanation: The standard race results table includes the winner's name, team, and
+    laps, but not weather conditions.
+  knowledge_areas:
+  - 1981 Formula 1 Race Results
+  options:
+  - Name of the race winner
+  - Number of laps completed
+  - Weather conditions during the race
+  - Winning team
+  question_id: 1
+  question_text: Which of the following details is NOT typically included in the standard
+    1981 Formula 1 Race Results table?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Pirelli is an official F1 sponsor/partner, while Mercedes, Williams,
+    and McLaren are teams.
+  knowledge_areas:
+  - F1 Corporate Partners
+  options:
+  - Mercedes
+  - Pirelli
+  - Williams
+  - McLaren
+  question_id: 2
+  question_text: Which of the following companies is listed as a Formula 1 Corporate
+    Partner?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App is designed for live timing, news, and exclusive
+    content, not for financial transactions, free broadcasting, or VR simulations.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - Providing live race timing and exclusive F1 content
+  - Allowing fans to purchase team shares
+  - Broadcasting races for free worldwide
+  - Offering virtual reality race simulations
+  question_id: 3
+  question_text: What is one main function of the Official F1 App according to the
+    document?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Corporate partners benefit through brand exposure and marketing, not
+    by influencing results or entering teams.
+  knowledge_areas:
+  - F1 Corporate Partners
+  options:
+  - They receive a share of race winnings
+  - They gain global brand exposure and exclusive marketing opportunities
+  - They are allowed to influence race outcomes
+  - They can enter their own teams in the championship
+  question_id: 4
+  question_text: How do F1 Corporate Partners benefit from their association with
+    Formula 1?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Corporate partners benefit from branding at F1 events and in official
+    publications, linking their visibility to race outcomes and coverage.
+  knowledge_areas:
+  - 1981 Formula 1 Race Results
+  - F1 Corporate Partners
+  options:
+  - Race results determine which companies can become partners
+  - Corporate partners often have their branding displayed at races and in official
+    results publications
+  - There is no connection between race results and partners
+  - Corporate partners are only involved in app development
+  question_id: 5
+  question_text: Which of the following best describes the connection between the
+    1981 Race Results and F1 Corporate Partners?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1981 Formula 1 Race Results section provides a comprehensive summary
+      of each Grand Prix held during the 1981 F1 season, including the race date,
+      winner, team, number of laps, and total race time. This data forms the core
+      statistical record for the season and is essential for historical analysis and
+      comparison.
+    type: Definition
+  - content: For instance, the United States Grand Prix West on March 15 was won by
+      Alan Jones driving for Williams Ford, completing 80 laps in 1:50:41.330. Another
+      example is the Monaco Grand Prix, where Gilles Villeneuve won for Ferrari, highlighting
+      the diversity of winners and teams throughout the season.
+    type: Examples
+  - content: These results are used by statisticians, historians, and fans to analyze
+      team and driver performance, identify trends, and compare different eras of
+      racing. They also serve as the basis for determining championship standings
+      and awarding titles.
+    type: Use Cases
+  - content: The race results directly impact the allocation of championship points,
+      influencing both driver and constructor standings. They also affect team strategies,
+      sponsorships, and the historical legacy of drivers and teams.
+    type: Implications
+  - content: This data connects to broader F1 topics such as championship points systems,
+      driver and team histories, and technological developments in motorsport. It
+      also relates to subsequent analyses of race strategies, weather effects, and
+      regulatory changes.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The 1981 Formula 1 Race Results section lists the race date, winner,
+      team, number of laps, and total race time for each Grand Prix. While pit stop
+      strategies and weather may be discussed elsewhere, they are not standard in
+      this summary table.
+    options:
+    - Race date, winner, team, laps, and total race time
+    - Only the name of the winning driver
+    - Details of pit stop strategies
+    - Weather conditions for each race
+    question_text: What information is typically included in the 1981 Formula 1 Race
+      Results section?
+  index: 148
+  key_concept: 1981 Formula 1 Race Results
+  name: 1981 RACE RESULTS
+- aspects:
+  - content: F1 Corporate Partners are companies and brands that have official sponsorship
+      or partnership agreements with Formula 1, contributing financially or through
+      services to the sport's operations, marketing, and events.
+    type: Definition
+  - content: Examples of F1 partners include LVMH, Pirelli, Aramco, Heineken, AWS,
+      Lenovo, DHL, Qatar Airways, and Crypto.com. These brands are prominently featured
+      in F1 marketing, on cars, and at race venues.
+    type: Examples
+  - content: 'Partnerships provide mutual benefits: F1 receives funding, technology,
+      and logistical support, while partners gain global exposure, brand association
+      with high performance, and access to exclusive marketing opportunities.'
+    type: Use Cases
+  - content: The presence of high-profile partners enables F1 to maintain its global
+      reach and technological edge. Sponsorship deals can influence race locations,
+      event formats, and even the adoption of new technologies or sustainability initiatives.
+    type: Implications
+  - content: F1 partnerships are part of the broader sports marketing and sponsorship
+      industry. They are closely tied to team sponsorships, event organization, and
+      the financial health of the sport. They also reflect F1's brand positioning
+      and audience demographics.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Pirelli is listed as an F1 Corporate Partner (sponsor), whereas Red
+      Bull Racing and Ferrari are teams, and Formula 1 Management is the sport's governing
+      body.
+    options:
+    - Red Bull Racing
+    - Pirelli
+    - Ferrari
+    - Formula 1 Management
+    question_text: Which of the following is an example of an F1 Corporate Partner
+      as listed in the document?
+  index: 168
+  key_concept: F1 Corporate Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application provided by Formula 1 for
+      fans to access real-time race data, news, schedules, and exclusive content.
+      It is available for download on both the Apple App Store and Google Play Store.
+    type: Definition
+  - content: Users can download the app to follow live timing, receive push notifications
+      about race events, and access driver and team information. The app also offers
+      video highlights, interviews, and interactive features.
+    type: Examples
+  - content: The app is used by fans to stay updated on race weekends, track driver
+      standings, and engage with F1 content on the go. It serves as a digital companion
+      for both casual viewers and dedicated enthusiasts.
+    type: Use Cases
+  - content: The app enhances fan engagement and broadens F1's digital presence. It
+      also provides a platform for targeted advertising and partner integration, contributing
+      to the sport's commercial strategy.
+    type: Implications
+  - content: The app is connected to F1's broader digital ecosystem, including its
+      website, social media, and streaming services like F1 TV. It reflects the sport's
+      adaptation to changing media consumption habits and the importance of mobile
+      technology in sports entertainment.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App provides live race timing, news, and exclusive
+      content. It does not offer free tickets, virtual driving, or unrestricted team
+      radio access.
+    options:
+    - Live race timing and exclusive content
+    - Free race tickets for all users
+    - Ability to drive a virtual F1 car
+    - Direct access to team radio communications
+    question_text: What is a primary feature of the Official F1 App as described in
+      the document?
+  index: 178
+  key_concept: Official F1 App
+  name: Download the Official F1 App

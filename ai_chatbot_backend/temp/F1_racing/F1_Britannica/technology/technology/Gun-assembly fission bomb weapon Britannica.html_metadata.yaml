@@ -1,0 +1,179 @@
+URL: https://www.britannica.com/technology/gun-assembly-fission-bomb
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia entry explaining the gun-assembly fission bomb,
+  focusing on its basic design and operational principle as a type of nuclear weapon,
+  with connections to the general topic of fission bombs.
+file_name: Gun-assembly fission bomb weapon Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Gun-assembly fission bomb
+  weapon Britannica.html
+file_uuid: 5844ea6c-e78e-5f1c-9ed8-1d8198b32380
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: A gun-assembly fission bomb uses an explosive propellant to fire one
+    subcritical mass of uranium-235 into another, forming a supercritical mass and
+    initiating a nuclear chain reaction. It does not use compression, chemical reactions,
+    or electromagnetic assembly.
+  knowledge_areas:
+  - gun-assembly fission bomb
+  - fission bombs
+  options:
+  - A bomb that uses explosives to compress a subcritical mass of plutonium.
+  - A device that rapidly brings together two subcritical masses of uranium-235 using
+    an explosive propellant.
+  - A weapon that relies on chemical reactions to initiate a nuclear explosion.
+  - A bomb that uses electromagnetic fields to assemble fissile material.
+  question_id: 1
+  question_text: Which of the following best describes a gun-assembly fission bomb?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The gun-assembly design is mainly limited to uranium-235 because plutonium-239
+    tends to predetonate due to its higher rate of spontaneous fission, making it
+    unsuitable for this method.
+  knowledge_areas:
+  - gun-assembly fission bomb
+  options:
+  - It can only use uranium-235 due to the risk of predetonation with plutonium-239.
+  - It requires extremely complex electronics.
+  - It is the most efficient design for nuclear weapons.
+  - It can only be used underwater.
+  question_id: 2
+  question_text: What is the main technical limitation of the gun-assembly design
+    for fission bombs?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: The 'Little Boy' bomb dropped on Hiroshima was a gun-assembly fission
+    bomb, while the 'Fat Man' bomb used at Nagasaki was an implosion-type device.
+  knowledge_areas:
+  - gun-assembly fission bomb
+  - fission bombs
+  options:
+  - The bombing of Nagasaki
+  - The Cuban Missile Crisis
+  - The bombing of Hiroshima
+  - The Chernobyl disaster
+  question_id: 3
+  question_text: Which historical event is most closely associated with the use of
+    a gun-assembly fission bomb?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Gun-assembly brings together two subcritical masses using an explosive
+    propellant, while implosion compresses a single subcritical mass using explosives.
+  knowledge_areas:
+  - gun-assembly fission bomb
+  - fission bombs
+  options:
+  - Gun-assembly uses chemical reactions; implosion uses nuclear reactions.
+  - Gun-assembly combines two subcritical masses; implosion compresses a single subcritical
+    mass.
+  - Gun-assembly uses electromagnetic forces; implosion uses gravitational forces.
+  - Gun-assembly and implosion both use the same assembly mechanism.
+  question_id: 4
+  question_text: How does the gun-assembly method differ from the implosion method
+    in assembling a supercritical mass?
+  question_type: recap
+sections:
+- aspects:
+  - content: A gun-assembly fission bomb is a type of nuclear weapon that operates
+      by rapidly bringing together two or more subcritical masses of fissile material,
+      such as uranium-235, to form a supercritical mass capable of sustaining a nuclear
+      chain reaction. The device uses a conventional explosive to propel one piece
+      of fissile material into another, mimicking the action of a gun, hence the name.
+      This method is considered the simplest design for a fission bomb, as it relies
+      on straightforward mechanical assembly rather than complex compression techniques.
+    type: definition
+  - content: The most famous example of a gun-assembly fission bomb is 'Little Boy,'
+      the atomic bomb dropped on Hiroshima in 1945. In this device, a projectile of
+      uranium-235 was fired into a target of the same material, rapidly achieving
+      a supercritical mass and initiating a nuclear explosion. This design was chosen
+      for its reliability and simplicity, despite being less efficient than more advanced
+      designs.
+    type: example
+  - content: Gun-assembly fission bombs are primarily used as weapons of mass destruction
+      due to their immense explosive power. Their straightforward design made them
+      suitable for early nuclear weapons programs, especially when technological resources
+      were limited. However, their use has been largely superseded by more sophisticated
+      implosion-type designs, which are more efficient and can utilize a wider range
+      of fissile materials.
+    type: use case
+  - content: The simplicity of the gun-assembly mechanism has significant implications
+      for nuclear proliferation, as it lowers the technical barrier for constructing
+      a functional nuclear weapon if sufficient fissile material is available. However,
+      this design is generally limited to uranium-235 due to the risk of predetonation
+      with plutonium-239, making material acquisition a critical challenge.
+    type: implication
+  - content: The gun-assembly fission bomb is connected to the broader category of
+      fission bombs, which also includes implosion-type devices. Understanding the
+      gun-assembly method provides foundational knowledge for studying the evolution
+      of nuclear weapons technology and the physics of nuclear chain reactions.
+    type: connection
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The gun-assembly fission bomb works by using an explosive propellant
+      to fire one subcritical mass into another, rapidly forming a supercritical mass
+      and initiating a nuclear chain reaction. It does not rely on compression (implosion),
+      chemical reactions, or electromagnetic assembly.
+    options:
+    - It uses conventional explosives to compress a subcritical mass into a supercritical
+      state.
+    - It rapidly combines two subcritical masses of fissile material using an explosive
+      propellant.
+    - It relies on chemical reactions to generate high temperatures for fusion.
+    - It uses electromagnetic forces to assemble fissile material.
+    question_text: Which statement best describes the operational principle of a gun-assembly
+      fission bomb?
+  index: 122
+  key_concept: gun-assembly fission bomb
+  name: gun-assembly fission bomb
+- aspects:
+  - content: Fission bombs are nuclear weapons that derive their explosive energy
+      from the rapid splitting (fission) of heavy atomic nuclei, such as uranium-235
+      or plutonium-239. When a critical mass of fissile material is assembled, a chain
+      reaction occurs, releasing vast amounts of energy in the form of heat, light,
+      and radiation.
+    type: definition
+  - content: Examples of fission bombs include both the gun-assembly design ('Little
+      Boy') and the implosion design ('Fat Man,' which used plutonium-239 and a spherical
+      compression mechanism). Both types were used during World War II, demonstrating
+      the destructive potential of nuclear fission.
+    type: example
+  - content: Fission bombs have been used in warfare (notably in Hiroshima and Nagasaki)
+      and serve as the primary stage in most thermonuclear weapons. They are also
+      central to discussions on nuclear deterrence, arms control, and non-proliferation.
+    type: use case
+  - content: The development and use of fission bombs have had profound implications
+      for international security, ethics, and policy. Their existence has shaped global
+      politics, led to the creation of international treaties, and raised ongoing
+      concerns about proliferation and the humanitarian impact of nuclear weapons.
+    type: implication
+  - content: Fission bombs are foundational to the understanding of nuclear weapon
+      technology and are directly related to other nuclear devices, such as fusion
+      (thermonuclear) bombs, which use a fission bomb as a trigger for a secondary
+      fusion reaction.
+    type: connection
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Gun-assembly devices use an explosive propellant to bring together
+      two subcritical masses, while implosion devices use explosives to compress a
+      single subcritical mass into a supercritical configuration. Both are fission-based,
+      but their assembly mechanisms differ.
+    options:
+    - Gun-assembly devices use fusion reactions, while implosion devices use fission.
+    - Gun-assembly devices compress fissile material, while implosion devices combine
+      two subcritical masses.
+    - Gun-assembly devices rapidly combine subcritical masses using a propellant,
+      while implosion devices use explosives to compress a subcritical mass into a
+      supercritical state.
+    - Gun-assembly devices are only theoretical, while implosion devices have been
+      used in warfare.
+    question_text: What is the primary difference between gun-assembly and implosion-type
+      fission bombs?
+  index: 132
+  key_concept: fission bombs
+  name: fission bombs

@@ -1,0 +1,252 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Formula 1 website video page highlighting the impact of the F1
+  Engineering Scholarship Programme, which supports STEM education and increases opportunities
+  for underrepresented groups, along with related video content, sponsor information,
+  and app download links.
+file_name: The impact of the F1 Engineering Scholarship Programme.html
+file_path: F1_racing/F1_Official/news/en/latest/The impact of the F1 Engineering Scholarship
+  Programme.html
+file_uuid: 1f1fdbc1-6c1f-5675-8905-7383fda91410
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The main goal of the scholarship programme is to support students from
+    underrepresented groups in STEM, increasing their career opportunities in motorsport
+    engineering.
+  knowledge_areas:
+  - F1 Engineering Scholarship Programme
+  options:
+  - To support underrepresented groups in STEM and increase career opportunities
+  - To fund new F1 race tracks
+  - To provide free merchandise to fans
+  - To sponsor only current F1 drivers
+  question_id: 1
+  question_text: What is the primary purpose of the F1 Engineering Scholarship Programme?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: F1's video content includes educational features and technical insights,
+    supporting STEM outreach and making motorsport accessible to a broader audience.
+  knowledge_areas:
+  - F1 Video Content and Educational Outreach
+  options:
+  - By providing technical insights and promoting STEM initiatives
+  - By focusing only on entertainment and race highlights
+  - By excluding educational features
+  - By limiting content to professional engineers
+  question_id: 2
+  question_text: How does F1's video content, such as the 'Related videos' section,
+    contribute to educational outreach?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Corporate partners provide financial, technological, and promotional
+    support, enabling F1 to invest in outreach, innovation, and educational initiatives.
+  knowledge_areas:
+  - F1 Corporate Partnerships
+  options:
+  - Providing resources and supporting initiatives like the scholarship programme
+  - Only selling branded merchandise
+  - Exclusively sponsoring drivers
+  - Running the official F1 App
+  question_id: 3
+  question_text: Which of the following is a key function of F1's corporate partnerships?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app provides fans and learners with real-time updates, news, and
+    educational content, supporting digital engagement and outreach.
+  knowledge_areas:
+  - F1 Digital Engagement and Official App
+  options:
+  - Access to real-time race updates, news, and educational videos
+  - Exclusive access for F1 drivers
+  - Only available for purchasing tickets
+  - Limited to historical race statistics
+  question_id: 4
+  question_text: What is a major benefit of the Official F1 App for fans and learners?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The combination of the scholarship programme and digital platforms
+    like the app and video content helps make STEM careers in motorsport more accessible
+    and supports diversity and outreach.
+  knowledge_areas:
+  - F1 Engineering Scholarship Programme
+  - F1 Video Content and Educational Outreach
+  - F1 Digital Engagement and Official App
+  options:
+  - By providing accessible educational content and career support for underrepresented
+    groups
+  - By restricting content to current F1 staff
+  - By focusing only on race results
+  - By limiting outreach to existing fans
+  question_id: 5
+  question_text: How do F1's scholarship programme and digital platforms together
+    support diversity and outreach in motorsport?
+  question_type: recap
+sections:
+- aspects:
+  - content: The F1 Engineering Scholarship Programme is an initiative launched in
+      2021 by Formula 1 to support students pursuing STEM (Science, Technology, Engineering,
+      and Mathematics) education. Its primary aim is to increase career opportunities
+      for individuals from underrepresented groups within motorsport engineering and
+      related fields. The programme is positioned as a vital effort to broaden access
+      to technical careers in motorsport.
+    type: Definition
+  - content: Examples of the programme's impact include providing scholarships to
+      students who might otherwise face financial or systemic barriers to entering
+      engineering fields. By targeting underrepresented groups, such as women and
+      ethnic minorities, the programme helps diversify the talent pipeline in F1 and
+      related industries. Scholarship recipients often gain not only financial support
+      but also mentorship and access to industry networks.
+    type: Examples
+  - content: The implications of the F1 Engineering Scholarship Programme are significant
+      for both the motorsport industry and broader STEM fields. Increasing diversity
+      can lead to more innovative problem-solving and a richer exchange of ideas.
+      The initiative also signals F1's commitment to social responsibility and aligns
+      with global efforts to make STEM careers more accessible. In the long term,
+      such programmes can help address skills shortages and foster a more inclusive
+      engineering culture.
+    type: Implications
+  - content: The scholarship programme is part of a wider movement within sports and
+      industry to address historical inequities in access to technical education and
+      careers. It connects with similar diversity initiatives in other sports and
+      sectors, reflecting a growing recognition of the value of inclusion. The programme
+      also supports F1’s public image as a forward-thinking and socially engaged organization,
+      which can have positive effects on fan engagement and sponsor relationships.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The F1 Engineering Scholarship Programme is specifically designed
+      to support students from underrepresented groups in STEM, aiming to increase
+      diversity and career opportunities in motorsport engineering. The other options
+      do not reflect the programme's purpose.
+    options:
+    - To increase diversity and career opportunities in STEM for underrepresented
+      groups
+    - To provide free tickets to F1 races
+    - To sponsor F1 drivers from wealthy backgrounds
+    - To develop new racing circuits worldwide
+    question_text: What is the main goal of the F1 Engineering Scholarship Programme?
+  index: 65
+  key_concept: F1 Engineering Scholarship Programme
+  name: Related videos
+- aspects:
+  - content: The 'Related videos' section on the F1 website curates video content
+      that covers a wide range of topics, including race highlights, driver interviews,
+      educational features, and special events. This content serves both entertainment
+      and educational purposes, engaging fans and informing the public about various
+      aspects of Formula 1.
+    type: Definition
+  - content: Examples of related videos include 'The impact of the F1 Engineering
+      Scholarship Programme,' 'The best battles of the 2025 F1 season,' and 'Say What?
+      Best of team radio 2025.' These videos provide insights into technical, social,
+      and competitive elements of F1, making the sport accessible to a diverse audience.
+    type: Examples
+  - content: These videos can be used as educational tools in classrooms, STEM outreach
+      programs, or by individuals seeking to learn more about engineering, teamwork,
+      and innovation in motorsport. They also serve as promotional material, enhancing
+      fan engagement and supporting F1’s brand as both a sporting and educational
+      entity.
+    type: Use Cases
+  - content: By offering educational and behind-the-scenes content, F1 fosters a deeper
+      connection with its audience and encourages interest in STEM careers. The integration
+      of scholarship programme features with broader video content demonstrates F1’s
+      commitment to outreach and inclusivity, potentially inspiring the next generation
+      of engineers and fans.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: F1's video content includes technical and educational features, such
+      as the scholarship programme, which promote STEM education and outreach. The
+      other options do not accurately describe the educational role of F1's video
+      content.
+    options:
+    - By providing technical insights and promoting STEM initiatives like the scholarship
+      programme
+    - By showing only race highlights with no educational value
+    - By focusing exclusively on driver gossip
+    - By restricting access to videos to F1 team members only
+    question_text: How does F1's video content contribute to educational outreach?
+  index: 65
+  key_concept: F1 Video Content and Educational Outreach
+  name: Related videos
+- aspects:
+  - content: The 'OUR PARTNERS' section lists the major corporate sponsors and partners
+      that support Formula 1. These partnerships are essential for the financial and
+      operational sustainability of the sport, providing resources, technology, and
+      global marketing reach.
+    type: Definition
+  - content: Examples of F1 partners include luxury brands (LVMH, Louis Vuitton),
+      technology companies (AWS, Lenovo), logistics firms (DHL), and consumer brands
+      (Heineken, PepsiCo). Each partner may contribute in different ways, from sponsoring
+      races to supplying technical expertise or promoting sustainability.
+    type: Examples
+  - content: Corporate partnerships enable F1 to invest in new technologies, support
+      outreach initiatives like the scholarship programme, and maintain its global
+      profile. These relationships can also influence the sport’s direction, such
+      as encouraging greener technologies or supporting diversity and inclusion efforts.
+    type: Implications
+  - content: F1’s partnerships often extend beyond financial support to include collaborative
+      projects, such as STEM education initiatives, fan engagement campaigns, and
+      co-branded products. The presence of diverse sponsors reflects F1's broad appeal
+      and its integration with global business networks.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Corporate partners contribute resources, technology, and marketing
+      support, which help F1 run its operations and fund initiatives like the scholarship
+      programme. The other options do not reflect the multifaceted role of F1's partners.
+    options:
+    - They provide financial, technological, and promotional support, enabling F1
+      to invest in outreach and innovation
+    - They only provide race cars for the teams
+    - They have no influence on F1's educational or diversity programmes
+    - They focus solely on selling merchandise
+    question_text: What role do corporate partners play in supporting F1 and its initiatives?
+  index: 105
+  key_concept: F1 Corporate Partnerships
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a digital platform available on major mobile operating
+      systems, designed to provide fans with real-time race updates, news, video content,
+      and interactive features. It is a key tool for digital engagement and fan retention.
+    type: Definition
+  - content: Through the app, users can access live timing data, race schedules, exclusive
+      interviews, and educational videos such as those highlighting the F1 Engineering
+      Scholarship Programme. The app also offers features like fantasy gaming and
+      personalized notifications.
+    type: Examples
+  - content: Fans use the app to follow races in real time, stay updated on news,
+      and participate in interactive experiences. Educators and students might use
+      the app to access STEM-related content or learn more about the technical aspects
+      of F1.
+    type: Use Cases
+  - content: The app enhances F1’s global reach and supports its educational and outreach
+      goals by making content accessible to a broad audience. It also integrates with
+      F1’s broader digital strategy, connecting fans to scholarship news, partner
+      promotions, and live events.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App is designed for fan engagement, offering real-time
+      updates, news, and educational content, not limited to ticket sales or exclusive
+      access for staff.
+    options:
+    - To provide fans with real-time updates, news, and educational content about
+      F1
+    - To sell tickets exclusively
+    - To stream only historical races
+    - To provide content only to F1 team staff
+    question_text: Which of the following best describes the purpose of the Official
+      F1 App?
+  index: 115
+  key_concept: F1 Digital Engagement and Official App
+  name: Download the Official F1 App

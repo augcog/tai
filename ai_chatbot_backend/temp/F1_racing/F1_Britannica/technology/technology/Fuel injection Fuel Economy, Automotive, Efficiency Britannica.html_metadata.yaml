@@ -1,0 +1,127 @@
+URL: https://www.britannica.com/technology/fuel-injection
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article explaining the concept of fuel injection,
+  its operation in different types of internal-combustion engines, and its advantages
+  over carburetor systems.
+file_name: Fuel injection Fuel Economy, Automotive, Efficiency Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Fuel injection Fuel Economy,
+  Automotive, Efficiency Britannica.html
+file_uuid: 134ac323-1115-5ce4-a3ff-9673bd66ffda
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Fuel injection systems use a pump to deliver fuel directly into the
+    engine cylinders, which is more precise than the vacuum-based mixing of carburetors.
+  knowledge_areas:
+  - Fuel injection
+  - Definition
+  options:
+  - To mix air and fuel using vacuum pressure
+  - To introduce fuel into the cylinders using a pump
+  - To ignite fuel using spark plugs
+  - To cool the engine during operation
+  question_id: 1
+  question_text: What is the primary function of a fuel injection system in an internal-combustion
+    engine?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Diesel engines rely on the heat produced by compressing air in the
+    cylinder to ignite the injected fuel, not on spark plugs.
+  knowledge_areas:
+  - Fuel injection
+  - Applications in Diesel Engines
+  options:
+  - By a spark plug
+  - By compression-generated heat
+  - By an external flame
+  - By electrical heating elements
+  question_id: 2
+  question_text: In diesel engines, how is the fuel ignited after being injected into
+    the cylinder?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Fuel injection allows for more precise control over the air-fuel mixture,
+    which improves performance and reduces emissions.
+  knowledge_areas:
+  - Fuel injection
+  - Use in Spark-Ignition Engines
+  options:
+  - Less uniform fuel distribution
+  - Higher undesirable emissions
+  - More precise control over air-fuel mixture
+  - Dependence on piston suction for fuel delivery
+  question_id: 3
+  question_text: Which of the following is a key benefit of using fuel injection in
+    spark-ignition engines compared to carburetors?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Continuous combustion engines like gas turbines and rockets lack pistons
+    and therefore require fuel injection to deliver fuel directly into the combustion
+    chamber.
+  knowledge_areas:
+  - Fuel injection
+  - Role in Continuous Combustion Engines
+  options:
+  - Because they use carburetors for fuel mixing
+  - Because these engines have no pistons to create a pumping action
+  - Because they require spark plugs for ignition
+  - Because they operate at low temperatures
+  question_id: 4
+  question_text: Why are fuel-injection systems necessary in gas turbines and liquid-fueled
+    rockets?
+  question_type: recap
+sections:
+- aspects:
+  - content: Fuel injection refers to the process of introducing fuel into the cylinders
+      of an internal-combustion engine using a pump, rather than relying on the suction
+      created by the pistons. This system precisely meters and delivers fuel to the
+      engine, optimizing combustion efficiency and performance. It contrasts with
+      older carburetor systems, which mix air and fuel before intake using vacuum
+      pressure.
+    type: Definition
+  - content: In diesel engines, fuel injection is essential because these engines
+      lack spark plugs. Instead, fuel is injected directly into the cylinder, where
+      it ignites due to the high temperature produced by compressing air. This method
+      enables diesel engines to operate efficiently and reliably, as the precise timing
+      and atomization of the injected fuel are critical for proper combustion.
+    type: Applications in Diesel Engines
+  - content: Spark-ignition engines, such as those found in many gasoline-powered
+      vehicles, often use fuel-injection pumps instead of carburetors. In these engines,
+      fuel may be injected into a chamber upstream from the cylinders, ensuring a
+      more uniform distribution to each cylinder. This uniformity improves engine
+      performance, reduces emissions, and allows for more precise control over the
+      air-fuel mixture.
+    type: Use in Spark-Ignition Engines
+  - content: Fuel injection systems offer several advantages over traditional carburetor
+      systems. They provide more even fuel distribution to individual cylinders, which
+      enhances power output and reduces undesirable emissions. The improved atomization
+      and metering of fuel lead to better fuel economy, more consistent engine performance,
+      and lower levels of pollutants such as unburned hydrocarbons and carbon monoxide.
+    type: Advantages Over Carburetors
+  - content: In engines with continuous combustion, such as gas turbines and liquid-fueled
+      rockets, fuel injection is not just beneficial but necessary. These engines
+      lack pistons and the associated pumping action, so fuel must be injected directly
+      into the combustion chamber. This ensures a steady and controlled supply of
+      fuel, which is critical for maintaining continuous combustion and achieving
+      the high performance required in aerospace and industrial applications.
+    type: Role in Continuous Combustion Engines
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Fuel injection does not increase reliance on spark plugs; in fact,
+      diesel engines using fuel injection do not use spark plugs at all. The other
+      options are direct advantages of fuel injection systems.
+    options:
+    - More even fuel distribution to cylinders
+    - Lower undesirable emissions
+    - Increased reliance on spark plugs for ignition
+    - Improved engine power output
+    question_text: Which of the following is NOT a direct advantage of fuel injection
+      over carburetor systems in internal-combustion engines?
+  index: 138
+  key_concept: Fuel injection
+  name: fuel injection

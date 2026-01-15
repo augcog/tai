@@ -1,0 +1,226 @@
+URL: https://www.britannica.com/technology/cloud-computing
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article overviewing cloud computing, covering its
+  definition, historical development, key service models and major providers, as well
+  as the infrastructure and privacy concerns associated with large-scale data centres.
+file_name: Cloud computing Security, Cost Savings & Flexibility Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Cloud computing Security,
+  Cost Savings & Flexibility Britannica.html
+file_uuid: d41fa928-57c7-524a-8193-70ab756ff863
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Cloud computing is defined as accessing applications and data stored
+    on centralized servers via the Internet, enabling resource sharing and scalability.
+  knowledge_areas:
+  - cloud computing
+  options:
+  - Running all applications locally on personal computers
+  - Accessing applications and data stored on centralized servers via the Internet
+  - Building private data centres for each business
+  - Using only open-source software for all operations
+  question_id: 1
+  question_text: Which of the following best describes the core concept of cloud computing?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The expansion of high-capacity fibre-optic networks enabled the bandwidth
+    necessary for large-scale remote computing, paving the way for cloud computing.
+  knowledge_areas:
+  - Early development
+  options:
+  - Development of mainframe computers
+  - Expansion of high-capacity fibre-optic networks
+  - Introduction of smartphones
+  - Widespread use of floppy disks
+  question_id: 2
+  question_text: Which technological advancement in the 1990s was crucial for the
+    rise of practical cloud computing?
+  question_type: recap
+- correct_answers:
+  - 3
+  explanation: P2PaaS is not a recognized cloud service model, while SaaS, PaaS, and
+    HaaS are established types.
+  knowledge_areas:
+  - Cloud services and major providers
+  options:
+  - Software as a Service (SaaS)
+  - Platform as a Service (PaaS)
+  - Hardware as a Service (HaaS)
+  - Peer-to-Peer as a Service (P2PaaS)
+  question_id: 3
+  question_text: Which of the following is NOT a standard cloud computing service
+    model?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Cloud data centres consume large amounts of electricity, so proximity
+    to cheap power sources helps reduce operational costs.
+  knowledge_areas:
+  - Data centres and privacy
+  options:
+  - They require minimal power to operate
+  - To reduce operational costs due to high electricity consumption
+  - To ensure faster Internet speeds
+  - Because they are always government-owned
+  question_id: 4
+  question_text: Why are cloud data centres often located near sources of cheap electricity?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Centralized data centres raise concerns about privacy, security, and
+    the risk of data monopolies or oligopolies, which may lead to increased regulation.
+  knowledge_areas:
+  - Data centres and privacy
+  - cloud computing
+  options:
+  - Increased software development speed and lower hardware costs
+  - Privacy, security, and potential for data monopolies
+  - Faster local computing and improved peer-to-peer sharing
+  - Limited scalability and outdated network infrastructure
+  question_id: 5
+  question_text: Which combination of concerns is most closely associated with cloud
+    computing's reliance on centralized data centres?
+  question_type: recap
+sections:
+- aspects:
+  - content: Cloud computing is a method of running application software and storing
+      related data in centralized computer systems, which are accessed by users over
+      the Internet. This approach contrasts with traditional computing, where applications
+      and data are stored locally on users' personal computers or organizational servers.
+      Cloud computing enables on-demand access to computing resources, allowing for
+      greater scalability, flexibility, and resource sharing.
+    type: definition
+  - content: Examples of cloud computing include using web-based email services, online
+      document editing platforms, and media streaming services, all of which store
+      data and run applications on remote servers rather than on the user's device.
+      Businesses may use cloud-based customer relationship management tools, while
+      individuals might use cloud storage for personal photos or files.
+    type: examples
+  - content: The shift to cloud computing has significant implications for both individuals
+      and organizations, including reduced need for local IT infrastructure, potential
+      cost savings, and increased access to advanced technologies. However, it also
+      introduces new challenges such as dependency on Internet connectivity, data
+      security, and privacy concerns.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Cloud computing is defined as accessing applications and data stored
+      on centralized servers via the Internet, not just on local computers or through
+      peer-to-peer networks.
+    options:
+    - Running applications and storing data on local computers only.
+    - Accessing applications and data stored on central servers via the Internet.
+    - Using only open-source software for business operations.
+    - Transferring data exclusively through peer-to-peer networks.
+    question_text: Which of the following best describes cloud computing?
+  index: 144
+  key_concept: cloud computing
+  name: cloud computing
+- aspects:
+  - content: The concept of cloud computing has roots in the mainframe time-sharing
+      systems of the 1960s and 1970s, where multiple users accessed centralized computing
+      resources remotely. The term itself became popular in 2008, but the foundational
+      ideas predate this by several decades. Early visions, such as those described
+      by Douglas F. Parkhill in 1966, likened computing to a public utility, foreseeing
+      widespread remote access to centralized computing power.
+    type: historical context
+  - content: Efforts to establish large-scale computer utilities were initially limited
+      by the capacity of telecommunications networks, making it more practical for
+      organizations to maintain their own computing infrastructure. It was not until
+      the expansion of high-capacity fibre-optic networks in the 1990s that these
+      limitations began to be overcome, enabling the rise of remote computing services.
+    type: technological constraints
+  - content: In the late 1990s, application service providers (ASPs) emerged, offering
+      applications over the Internet. While most early ASPs failed, their model laid
+      the groundwork for what would later be known as cloud computing, as the practice
+      of supplying applications remotely became more feasible and widely adopted.
+    type: evolution of service models
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: The expansion of high-capacity fibre-optic networks in the 1990s
+      removed key telecommunications constraints, making large-scale remote computing
+      practical.
+    options:
+    - Development of personal computers
+    - Invention of the smartphone
+    - Expansion of high-capacity fibre-optic networks
+    - Rise of open-source software
+    question_text: What major technological advancement in the 1990s enabled the practical
+      development of cloud computing?
+  index: 265
+  key_concept: Early development
+  name: Early development
+- aspects:
+  - content: 'Cloud computing encompasses several service models: Software as a Service
+      (SaaS) delivers discrete applications to users (e.g., accounting or photo-sharing
+      apps); Hardware as a Service (HaaS) or utility/grid computing provides processing
+      power and storage for users to run their own applications; and Platform as a
+      Service (PaaS) offers remote computing capacity along with development tools
+      for software programmers. These models cater to both business and consumer markets.'
+    type: service models
+  - content: Early and major cloud computing providers include Salesforce.com (business
+      applications), Google (Google Apps for consumers and businesses), and Amazon
+      Web Services (AWS), which provides infrastructure for developers and companies.
+      Other significant players are Microsoft, Apple, Intuit, and Oracle, all of which
+      have introduced their own cloud-based offerings. Social networks like Facebook,
+      Twitter, and MySpace also rely heavily on cloud infrastructure.
+    type: major providers
+  - content: Cloud service providers may charge users through subscriptions or usage
+      fees, or offer free services supported by advertising revenue. The lower profitability
+      of cloud services compared to traditional software and hardware sales poses
+      a strategic challenge for established computing companies, potentially threatening
+      their traditional business models.
+    type: business models and implications
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: Peer-to-Peer as a Service (P2PaaS) is not a recognized cloud computing
+      service model, while SaaS, PaaS, and HaaS are established categories.
+    options:
+    - Software as a Service (SaaS)
+    - Platform as a Service (PaaS)
+    - Hardware as a Service (HaaS)
+    - Peer-to-Peer as a Service (P2PaaS)
+    question_text: Which of the following is NOT a typical model of cloud computing
+      service?
+  index: 282
+  key_concept: Cloud services and major providers
+  name: Cloud services and major providers
+- aspects:
+  - content: Cloud computing relies on massive data centres, often requiring investments
+      of hundreds of millions of dollars. These centres house thousands of networked
+      server computers, frequently organized into parallel-processing or grid-computing
+      systems. Advanced virtualization technologies are used to divide physical machines
+      into multiple virtual machines, which can be rented to customers as needed.
+    type: infrastructure
+  - content: Due to their high electricity consumption, data centres are often situated
+      near sources of cheap and abundant power, such as hydroelectric dams. This strategic
+      placement helps manage operational costs and environmental impact.
+    type: energy and location considerations
+  - content: The centralization of sensitive personal and commercial data in third-party
+      data centres raises significant privacy and security concerns, including risks
+      related to unauthorized access, data breaches, and the transmission of data
+      across national borders. There are also fears about the emergence of data monopolies
+      or oligopolies, prompting calls for increased government regulation similar
+      to that of other public utilities.
+    type: privacy and regulatory concerns
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: A key privacy concern is the risk of unauthorized access to sensitive
+      data stored in centralized, third-party data centres.
+    options:
+    - The high cost of electricity
+    - Unauthorized access to centralized personal or commercial data
+    - Limited scalability of virtual machines
+    - Slow Internet connections for all users
+    question_text: What is a primary privacy concern associated with cloud computing
+      data centres?
+  index: 302
+  key_concept: Data centres and privacy
+  name: Data centres and [privacy](https://www.britannica.com/topic/rights-of-privacy
+    "https://www.britannica.com/topic/rights-of-privacy")

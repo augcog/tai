@@ -1,0 +1,260 @@
+URL: https://www.britannica.com/technology/HTTP
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia entry on HTTP, covering its definition, protocol
+  layers, historical development, major versions (HTTP/1.0, 1.1, 2, 3), and the introduction
+  of HTTPS for secure web communication.
+file_name: HTTP Definition, Meaning, Versions, & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/HTTP Definition, Meaning,
+  Versions, & Facts Britannica.html
+file_uuid: bc14316b-50a0-5b48-ad50-1a4fed4016b7
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: HTTP is the standard protocol for transferring files and data between
+    clients (such as browsers) and servers on the World Wide Web. It does not manage
+    hardware, assign domain names, or encrypt all traffic by default.
+  knowledge_areas:
+  - Definition and Purpose of HTTP
+  options:
+  - Managing server hardware resources
+  - Transferring files and data between clients and servers
+  - Assigning domain names to websites
+  - Encrypting all web traffic by default
+  question_id: 1
+  question_text: Which of the following best describes the primary role of HTTP in
+    web communication?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: HTTP/1.1 introduced persistent connections and the ability for multiple
+    domain names to share a single IP address, which were not present in HTTP/1.0.
+    HTTP/1.0 was stateless and did not use binary encoding or default encryption.
+  knowledge_areas:
+  - Historical Development and Major Versions of HTTP
+  options:
+  - HTTP/1.1 introduced persistent connections and support for multiple domains on
+    a single IP address.
+  - HTTP/1.0 used binary encoding for data transfer.
+  - HTTP/1.1 required a new connection for each request.
+  - HTTP/1.0 supported encryption by default.
+  question_id: 2
+  question_text: What is a key difference between HTTP/1.0 and HTTP/1.1?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: HTTP/3 uses the QUIC protocol as its transport layer, which is designed
+    for faster and more efficient connections compared to TCP/IP. UDP is used by QUIC,
+    but not for encryption, and FTP is unrelated.
+  knowledge_areas:
+  - Protocol Layers and Underlying Technologies
+  - Historical Development and Major Versions of HTTP
+  options:
+  - TCP/IP for improved reliability
+  - QUIC for faster and more efficient connections
+  - UDP for secure encryption
+  - FTP for file transfer
+  question_id: 3
+  question_text: Which protocol does HTTP/3 use as its transport layer, and what is
+    the main benefit?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The stateless design of HTTP/1.0 meant each request required a new
+    connection, which was inefficient for loading web pages with many resources. HTTP/1.1
+    addressed this by introducing persistent connections.
+  knowledge_areas:
+  - Statelessness and Connection Management
+  - Historical Development and Major Versions of HTTP
+  options:
+  - It prevented encryption; HTTPS solved this.
+  - It required a new connection for each request; HTTP/1.1 introduced persistent
+    connections.
+  - It did not allow file transfer; HTTP/2 enabled it.
+  - It only supported text data; HTTP/3 added multimedia support.
+  question_id: 4
+  question_text: Why was the stateless nature of HTTP/1.0 considered a limitation,
+    and how was it addressed in later versions?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: HTTPS adds a layer of encryption using SSL/TLS to HTTP, protecting
+    data in transit from eavesdropping and tampering. Persistent connections, multiple
+    domains, and binary protocols are unrelated to HTTPS's security enhancement.
+  knowledge_areas:
+  - Secure HTTP (HTTPS) and Encryption
+  options:
+  - By using persistent connections
+  - By encrypting data with SSL/TLS
+  - By supporting multiple domain names
+  - By using binary protocols
+  question_id: 5
+  question_text: How does HTTPS enhance the security of web communication compared
+    to HTTP?
+  question_type: recap
+sections:
+- aspects:
+  - content: HTTP (HyperText Transfer Protocol) is a standard application-level protocol
+      used for exchanging files and data on the World Wide Web. It enables communication
+      between web browsers (clients) and web servers, facilitating the transfer of
+      resources such as HTML documents, images, and other media. HTTP operates as
+      a request-response protocol, where clients send requests and servers return
+      responses.
+    type: Definition
+  - content: HTTP is foundational to the operation of the World Wide Web, serving
+      as the protocol that underpins almost all web-based interactions. It is used
+      by web browsers to retrieve web pages and resources from servers, making it
+      essential for web browsing, web services, and RESTful APIs. Its widespread adoption
+      has made it a critical component of modern internet infrastructure.
+    type: Context and Usage
+  - content: HTTP runs on top of lower-level protocols such as TCP/IP and, in newer
+      versions, QUIC. It is closely linked with other web technologies like HTML,
+      browsers, and servers. The protocol’s design has influenced the development
+      of secure (HTTPS) and optimized (HTTP/2, HTTP/3) variants.
+    type: Connections to Other Concepts
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: HTTP is primarily responsible for transferring files and data between
+      browsers (clients) and servers, enabling web communication. It does not assign
+      IP addresses, manage hardware, or inherently encrypt data (encryption is provided
+      by HTTPS).
+    options:
+    - Encrypting data between servers
+    - Transferring files and data between browsers and servers
+    - Assigning IP addresses to websites
+    - Managing server hardware resources
+    question_text: What is the primary function of HTTP in the context of the World
+      Wide Web?
+  index: 124
+  key_concept: Definition and Purpose of HTTP
+  name: HTTP
+- aspects:
+  - content: HTTP is an application-layer protocol that operates on top of transport-layer
+      protocols such as TCP/IP and, in newer implementations, QUIC. This layered approach
+      allows HTTP to focus on the semantics of web communication, while underlying
+      protocols handle data transport and reliability.
+    type: Definition and Structure
+  - content: Originally, HTTP relied exclusively on TCP/IP for reliable data transmission.
+      With the advent of HTTP/3, the protocol can also use QUIC, which is designed
+      for faster, more efficient connections. This evolution addresses performance
+      bottlenecks and latency issues present in older protocols.
+    type: Examples and Evolution
+  - content: The choice of transport protocol affects the speed, reliability, and
+      security of web communication. For example, QUIC offers reduced connection times
+      and improved performance over TCP. Understanding these layers is crucial for
+      diagnosing network issues and optimizing web applications.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: HTTP originally used TCP/IP as its transport protocol, but HTTP/3
+      can use QUIC, which is built on UDP. FTP and SMTP are unrelated protocols, and
+      HTTP never used only UDP directly.
+    options:
+    - Only UDP
+    - TCP/IP in older versions and QUIC in HTTP/3
+    - Only QUIC
+    - FTP and SMTP
+    question_text: Which transport-layer protocols does HTTP use in its different
+      versions?
+  index: 124
+  key_concept: Protocol Layers and Underlying Technologies
+  name: HTTP
+- aspects:
+  - content: HTTP was first proposed in 1989 by Tim Berners-Lee and has undergone
+      several major revisions. HTTP/1.0 (1996) introduced the basic stateless request-response
+      model. HTTP/1.1 (1997) added persistent connections and support for multiple
+      domains on the same IP address. HTTP/2 (2015) introduced a binary protocol to
+      improve speed and efficiency. HTTP/3, still emerging as of 2022, is based on
+      the QUIC protocol for even faster performance.
+    type: Historical Timeline
+  - content: HTTP/1.0 was stateless, requiring a new connection for each request.
+      HTTP/1.1 introduced persistent connections, allowing multiple requests over
+      a single connection, and supported decompression and virtual hosting. HTTP/2
+      moved to a binary protocol, enabling multiplexing and reducing latency. HTTP/3
+      leverages QUIC for improved connection setup and resilience to network changes.
+    type: Version Features and Improvements
+  - content: Each version of HTTP addressed limitations of its predecessor, improving
+      web performance, scalability, and user experience. For example, HTTP/2 and HTTP/3
+      are particularly beneficial for sites with high traffic and complex resources,
+      reducing page load times and enhancing reliability.
+    type: Implications and Use Cases
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: HTTP/1.1, released in 1997, introduced persistent connections and
+      the ability for multiple domain names to share the same IP address, addressing
+      key limitations of HTTP/1.0.
+    options:
+    - HTTP/1.0
+    - HTTP/1.1
+    - HTTP/2
+    - HTTP/3
+    question_text: Which HTTP version first introduced persistent connections and
+      support for multiple domains on a single IP address?
+  index: 124
+  key_concept: Historical Development and Major Versions of HTTP
+  name: HTTP
+- aspects:
+  - content: HTTP/1.0 was designed as a stateless protocol, meaning each request from
+      a client to a server was independent and did not retain information about previous
+      requests. This design simplified server implementation but led to inefficiencies,
+      such as the need to establish a new connection for every request.
+    type: Definition and Characteristics
+  - content: In practical terms, statelessness meant that loading a web page with
+      many resources (like images and scripts) required multiple separate connections,
+      increasing latency. HTTP/1.1 addressed this by introducing persistent connections,
+      allowing multiple requests and responses over a single connection.
+    type: Examples and Evolution
+  - content: Statelessness impacts scalability and resource usage on servers and clients.
+      Persistent connections, introduced later, improved efficiency and user experience.
+      Understanding statelessness is key to grasping session management, cookies,
+      and the evolution of web protocols.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: HTTP/1.0’s statelessness meant that each client request required
+      a new connection, leading to inefficiencies when loading web pages with multiple
+      resources. It did support images and HTML, and did not provide default encryption.
+    options:
+    - It could not transfer images
+    - It required a new connection for each request
+    - It did not support HTML
+    - It encrypted all data by default
+    question_text: What was a major limitation of HTTP/1.0’s stateless design?
+  index: 124
+  key_concept: Statelessness and Connection Management
+  name: HTTP
+- aspects:
+  - content: HTTPS (HyperText Transfer Protocol Secure) is an extension of HTTP that
+      adds a layer of encryption using SSL (Secure Sockets Layer) or its successor,
+      TLS (Transport Layer Security). It was developed by Netscape Communications
+      Corporation in 1994 to secure data exchanged between browsers and servers.
+    type: Definition and Purpose
+  - content: HTTPS is now widely used across the internet, especially for sites handling
+      sensitive information such as online banking, e-commerce, and personal data.
+      Its adoption increased significantly in the 2010s, with most major websites
+      now defaulting to HTTPS for user privacy and security.
+    type: Examples and Adoption
+  - content: The use of HTTPS protects against eavesdropping, man-in-the-middle attacks,
+      and data tampering. It is essential for maintaining user trust and complying
+      with privacy regulations. HTTPS builds directly on HTTP, demonstrating the protocol’s
+      extensibility and the importance of security in web communication.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: HTTPS adds encryption using SSL or TLS to HTTP, ensuring secure data
+      transmission between browsers and servers. It does not inherently increase speed,
+      introduce binary protocols, or change the stateless nature of HTTP.
+    options:
+    - Faster data transfer
+    - Encryption via SSL/TLS
+    - Support for binary protocols
+    - Stateless connections
+    question_text: What does HTTPS add to HTTP to enhance web security?
+  index: 124
+  key_concept: Secure HTTP (HTTPS) and Encryption
+  name: HTTP

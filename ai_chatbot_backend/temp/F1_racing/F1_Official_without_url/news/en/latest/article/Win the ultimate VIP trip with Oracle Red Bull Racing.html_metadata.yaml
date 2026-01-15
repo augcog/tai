@@ -1,0 +1,250 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Formula 1 promotional web page announcing a VIP trip competition
+  with Oracle Red Bull Racing, including details about F1 Unlocked membership, related
+  F1 articles, official partners, and app download links.
+file_name: Win the ultimate VIP trip with Oracle Red Bull Racing.html
+file_path: F1_racing/F1_Official/news/en/latest/article/Win the ultimate VIP trip
+  with Oracle Red Bull Racing.html
+file_uuid: 7f97fe7c-0f9a-5d9a-984e-e28998aa56d4
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Entry to the competition required signing up for or signing in to F1
+    Unlocked, not purchasing merchandise, downloading the app, or attending a race.
+  knowledge_areas:
+  - VIP Trip Competition with Oracle Red Bull Racing
+  - F1 Unlocked Membership Benefits
+  options:
+  - Sign up or sign in to F1 Unlocked
+  - Purchase a Red Bull Racing cap
+  - Download the Official F1 App
+  - Attend a Grand Prix in person
+  question_id: 1
+  question_text: What was the main requirement to enter the VIP trip competition with
+    Oracle Red Bull Racing?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: F1 Unlocked offers insider content, VIP experiences, and rewards, but
+    does not guarantee race tickets.
+  knowledge_areas:
+  - F1 Unlocked Membership Benefits
+  options:
+  - Curated insider content
+  - VIP experiences
+  - Guaranteed race tickets
+  - Member rewards and offers
+  question_id: 2
+  question_text: Which of the following is NOT listed as a benefit of F1 Unlocked
+    membership?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The section features news, interviews, and reports about F1 events,
+    teams, and drivers.
+  knowledge_areas:
+  - Related F1 News and Articles
+  options:
+  - Technical regulations only
+  - Recent F1 news, interviews, and reports
+  - Live race timing data
+  - Sponsor advertisements
+  question_id: 3
+  question_text: What kind of content is primarily featured in the 'Related Articles'
+    section?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: AWS is an official F1 partner, while the others are not listed as such.
+  knowledge_areas:
+  - F1 Official Partners
+  options:
+  - Amazon Web Services (AWS)
+  - Netflix
+  - Formula Student
+  - Walmart
+  question_id: 4
+  question_text: Which company is an example of an official Formula 1 partner as listed
+    on the page?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The app enhances the fan experience by offering live race timing, news,
+    and multimedia updates.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - By providing live race timing and news updates
+  - By offering free race tickets
+  - By selling F1 memorabilia
+  - By broadcasting non-F1 sporting events
+  question_id: 5
+  question_text: How does the Official F1 App enhance the fan experience, according
+    to the content?
+  question_type: recap
+sections:
+- aspects:
+  - content: The VIP Trip Competition with Oracle Red Bull Racing is a promotional
+      contest organized by Formula 1 in partnership with Oracle Red Bull Racing. It
+      offers fans the opportunity to win an exclusive, once-in-a-lifetime experience,
+      including VIP access to F1 events for the winner and a guest.
+    type: Definition
+  - content: To participate, individuals were required to sign up for F1 Unlocked,
+      Formula 1’s membership program, or sign in if already a member. This approach
+      both incentivizes new memberships and rewards existing fans with exclusive opportunities.
+    type: Entry Mechanism
+  - content: Such competitions serve as effective marketing tools, driving engagement
+      with the F1 brand and its partners. They also highlight the close collaboration
+      between F1 and major teams like Oracle Red Bull Racing. The contest's exclusivity
+      and high-value prize help to elevate the perceived value of F1 Unlocked membership.
+    type: Implications and Context
+  - content: Similar VIP experiences are occasionally offered by other F1 teams or
+      sponsors, but this competition stands out due to its association with a leading
+      team and the integration with F1 Unlocked. The prize typically includes behind-the-scenes
+      access, hospitality, and unique experiences unavailable to regular fans.
+    type: Examples and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Entry to the competition required signing up for or signing in to
+      F1 Unlocked, Formula 1’s official membership program. No purchase, app download,
+      or social media following was necessary.
+    options:
+    - Purchase a race ticket
+    - Sign up or sign in to F1 Unlocked
+    - Download the F1 App
+    - Follow Red Bull Racing on social media
+    question_text: What was required to enter the VIP Trip Competition with Oracle
+      Red Bull Racing?
+  index: 53
+  key_concept: VIP Trip Competition with Oracle Red Bull Racing
+  name: Win the ultimate VIP trip with Oracle Red Bull Racing
+- aspects:
+  - content: F1 Unlocked is Formula 1’s free membership program designed to provide
+      fans with exclusive content, experiences, and rewards. It is accessible to anyone
+      who registers on the official F1 website.
+    type: Definition
+  - content: Members receive curated insider content, VIP experiences, special offers,
+      and rewards. For example, they may gain access to behind-the-scenes videos,
+      early ticket sales, or exclusive competitions like the VIP trip with Oracle
+      Red Bull Racing.
+    type: Examples of Benefits
+  - content: F1 Unlocked is used by fans who want deeper engagement with the sport,
+      such as accessing unique digital content, participating in member-only contests,
+      or enjoying special promotions from F1 partners.
+    type: Use Cases
+  - content: The program strengthens fan loyalty and provides Formula 1 with valuable
+      data on its audience. It also facilitates cross-promotion with teams and sponsors,
+      integrating marketing efforts and enhancing the fan experience.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: F1 Unlocked offers curated content, VIP experiences, and member rewards,
+      but it does not guarantee race tickets to members.
+    options:
+    - Curated insider content
+    - VIP experiences
+    - Guaranteed race tickets
+    - Member rewards and offers
+    question_text: Which of the following is NOT a benefit of F1 Unlocked membership?
+  index: 61
+  key_concept: F1 Unlocked Membership Benefits
+  name: This competition is now closed
+- aspects:
+  - content: The 'Related Articles' section features recent and relevant news, features,
+      and reports connected to Formula 1 events, teams, and drivers. It serves as
+      a curated feed for fans to stay updated on major developments.
+    type: Definition
+  - content: Examples include articles on the dramatic 2025 title battle, end-of-year
+      reports for teams like Racing Bulls, driver interviews (e.g., Hadjar and Antonelli),
+      and previews of upcoming seasons or key dates.
+    type: Examples
+  - content: Fans use this section to quickly access in-depth analyses, timelines,
+      and exclusive interviews, enhancing their understanding of the sport’s current
+      landscape and historical context.
+    type: Use Cases
+  - content: This section helps drive engagement by keeping fans informed and encouraging
+      them to explore more content. It also supports F1’s broader media strategy by
+      promoting official coverage and multimedia resources.
+    type: Connections and Implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The 'Related Articles' section features recent news, interviews,
+      and analytical reports about F1 events, teams, and drivers.
+    options:
+    - Technical car specifications
+    - Recent F1 news, interviews, and reports
+    - Live race timing data
+    - Sponsor advertisements
+    question_text: What type of content is primarily found in the 'Related Articles'
+      section?
+  index: 87
+  key_concept: Related F1 News and Articles
+  name: Related Articles
+- aspects:
+  - content: The 'OUR PARTNERS' section lists the official sponsors and corporate
+      partners of Formula 1. These organizations provide financial support, technological
+      expertise, and brand value to the sport.
+    type: Definition
+  - content: Notable partners include LVMH, Pirelli, Aramco, Heineken, AWS, Lenovo,
+      DHL, Qatar Airways, MSC, Crypto.com, Salesforce, and many others, spanning industries
+      from luxury goods and technology to logistics and beverages.
+    type: Examples
+  - content: Partnerships with major global brands allow F1 to invest in technology,
+      expand its global reach, and enhance the fan experience. Sponsors often activate
+      their partnerships through on-site branding, digital campaigns, and exclusive
+      offers for F1 fans.
+    type: Implications and Connections
+  - content: Fans may encounter partner branding at races, in digital content, and
+      through special promotions. Partners may also collaborate on sustainability
+      initiatives, innovation projects, or fan engagement programs.
+    type: Use Cases
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: AWS is an official F1 partner, providing cloud computing and data
+      analytics services to the sport.
+    options:
+    - Amazon Web Services (AWS)
+    - Formula Student
+    - Netflix
+    - Walmart
+    question_text: Which of the following is an example of an official Formula 1 partner?
+  index: 96
+  key_concept: F1 Official Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is Formula 1’s mobile application, available for
+      download on iOS and Android platforms. It provides fans with real-time race
+      data, news, schedules, and multimedia content.
+    type: Definition
+  - content: The app offers live timing, driver and team profiles, breaking news,
+      and video highlights. Fans use it to follow races on the go, check standings,
+      and receive notifications about their favorite teams and drivers.
+    type: Features and Use Cases
+  - content: The app enhances fan engagement by providing a centralized, interactive
+      platform for F1 content. It connects with other F1 digital offerings, such as
+      F1 TV and F1 Unlocked, creating an integrated digital ecosystem.
+    type: Implications and Connections
+  - content: Fans can use the app to watch live timing during a Grand Prix, read post-race
+      reports, or access exclusive interviews and behind-the-scenes videos. The app
+      is promoted as a key tool for both casual viewers and dedicated F1 enthusiasts.
+    type: Examples
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App provides live race timing, news, and multimedia
+      updates, but does not directly sell merchandise or book hotels.
+    options:
+    - Providing live race timing and news updates
+    - Selling team merchandise directly
+    - Booking hotel accommodations
+    - Streaming non-F1 sports
+    question_text: What is a primary function of the Official F1 App?
+  index: 106
+  key_concept: Official F1 App
+  name: Download the Official F1 App

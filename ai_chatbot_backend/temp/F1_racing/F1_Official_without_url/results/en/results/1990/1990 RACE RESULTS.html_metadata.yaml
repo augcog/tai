@@ -1,0 +1,224 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A summary webpage for the 1990 Formula 1 season, listing all race
+  winners, teams, and dates, along with information about F1's official partners and
+  promotional content for the official F1 app.
+file_name: 1990 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1990/1990 RACE RESULTS.html
+file_uuid: a5570058-67e0-553e-8558-fb0dce377ba8
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: McLaren Honda, primarily through Ayrton Senna, won the most races in
+    the 1990 season. Ferrari was also successful but had fewer total wins, while Benetton
+    Ford and Williams Renault each won fewer races.
+  knowledge_areas:
+  - 1990 Formula 1 Race Results
+  options:
+  - McLaren Honda
+  - Ferrari
+  - Benetton Ford
+  - Williams Renault
+  question_id: 1
+  question_text: Which team had the most race wins in the 1990 Formula 1 season according
+    to the results listed?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: LVMH is a luxury goods conglomerate and is listed as an official F1
+    partner/sponsor. Heineken is a beverage company, AWS is a cloud computing provider,
+    and DHL is a logistics company.
+  knowledge_areas:
+  - F1 Partners and Sponsors
+  options:
+  - Heineken
+  - LVMH
+  - AWS
+  - DHL
+  question_id: 2
+  question_text: Which of the following companies is listed as both a luxury goods
+    partner and a sponsor for Formula 1?
+  question_type: recap
+- correct_answers:
+  - 0
+  - 2
+  explanation: The Official F1 App is promoted for live race timing, news, and exclusive
+    video highlights. Betting and merchandise are not listed as primary features in
+    the provided content.
+  knowledge_areas:
+  - Official F1 App Promotion
+  options:
+  - Live race timing and news updates
+  - Betting on race outcomes
+  - Exclusive video highlights
+  - Buying team merchandise
+  question_id: 3
+  question_text: What are two main features promoted for the Official F1 App?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: F1's partners and sponsors contribute through financial support and
+    providing necessary products or services, not by organizing races, selecting winners,
+    or making rules.
+  knowledge_areas:
+  - F1 Partners and Sponsors
+  options:
+  - By providing financial support and products/services
+  - By organizing all race events
+  - By selecting race winners
+  - By creating the F1 rules
+  question_id: 4
+  question_text: How do F1's partners and sponsors contribute to the sport, based
+    on the content?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Official partners and sponsors help fund F1 operations, including digital
+    products like the app, which in turn delivers race results and promotional content
+    to fans. The other options are incorrect or misleading.
+  knowledge_areas:
+  - 1990 Formula 1 Race Results
+  - F1 Partners and Sponsors
+  - Official F1 App Promotion
+  options:
+  - Race results are only available to sponsors via the F1 app.
+  - Official partners fund the app, which delivers race results and promotional content
+    to fans.
+  - The F1 app is unrelated to race results or sponsorship.
+  - Sponsors determine the outcome of each race.
+  question_id: 5
+  question_text: Which of the following statements best integrates the relationship
+    between F1 race results, official partners, and the F1 app?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1990 Formula 1 Race Results refer to the official record of each
+      Grand Prix held during the 1990 season, documenting the winner, their team,
+      the number of laps completed, and the total race time. This information provides
+      a comprehensive overview of the competitive outcomes for each event in the championship
+      calendar.
+    type: Definition
+  - content: Notable examples from the 1990 season include Ayrton Senna winning the
+      United States, Monaco, Canada, Germany, Belgium, and Italy Grands Prix for McLaren
+      Honda, while Alain Prost secured victories in Brazil, Mexico, France, Great
+      Britain, and Spain for Ferrari. Other winners included Riccardo Patrese (San
+      Marino), Thierry Boutsen (Hungary), Nigel Mansell (Portugal), and Nelson Piquet
+      (Japan and Australia).
+    type: Examples
+  - content: The race results are critical for determining the allocation of championship
+      points, influencing both driver and constructor standings. They also reflect
+      the dominance or competitiveness of certain teams and drivers, and can be used
+      to analyze performance trends, strategic decisions, and the impact of reliability
+      or weather conditions on race outcomes.
+    type: Implications
+  - content: The 1990 season was part of the ongoing annual Formula 1 World Championship,
+      featuring a series of races across multiple countries. The results are situated
+      within the broader context of F1 history, with significant rivalries, technological
+      developments, and regulatory changes impacting the competition.
+    type: Context
+  - content: Understanding the 1990 race results connects to broader topics such as
+      championship points systems, team strategies, driver careers, and the evolution
+      of F1 technology. The results also serve as historical data for comparing eras,
+      analyzing the impact of rule changes, and studying the progression of teams
+      and drivers over time.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Ayrton Senna won six races in the 1990 season, more than any other
+      driver. Alain Prost won five, Nelson Piquet won two, and Nigel Mansell won one.
+    options:
+    - Ayrton Senna
+    - Alain Prost
+    - Nelson Piquet
+    - Nigel Mansell
+    question_text: Which driver won the most races in the 1990 Formula 1 season?
+  index: 149
+  key_concept: 1990 Formula 1 Race Results
+  name: 1990 RACE RESULTS
+- aspects:
+  - content: F1 partners and sponsors are corporations and brands that have formal
+      business relationships with Formula 1, providing financial support, products,
+      or services in exchange for marketing and promotional opportunities within the
+      sport.
+    type: Definition
+  - content: Key partners and sponsors listed include LVMH, Pirelli, Aramco, Heineken,
+      AWS, Lenovo, DHL, Qatar Airways, MSC Cruises, Crypto.com, Salesforce, Louis
+      Vuitton, TAG Heuer, Moet Hennessy, American Express, Santander, Allwyn, Globant,
+      and others. These companies represent a diverse range of industries, from luxury
+      goods and technology to logistics and financial services.
+    type: Examples
+  - content: Sponsors gain global brand exposure through on-car branding, trackside
+      advertisements, digital content, and event activations. F1 benefits from financial
+      investment and access to cutting-edge products or services, such as Pirelli
+      supplying tires or AWS providing cloud computing solutions for data analysis
+      and race strategy.
+    type: Use Cases
+  - content: Sponsorship is vital to the commercial viability of Formula 1, enabling
+      teams and the organization to fund operations, research, and development. The
+      presence and diversity of sponsors also reflect F1's global reach and appeal
+      to a wide range of consumer markets.
+    type: Implications
+  - content: The sponsorship landscape in F1 is closely tied to marketing trends,
+      global economic conditions, and shifts in consumer behavior. It also impacts
+      the sport's image, with sponsorships sometimes influencing race locations, event
+      formats, and the adoption of new technologies or sustainability initiatives.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not mentioned among the official F1 partners or sponsors
+      in the provided content, while Heineken, AWS, and Pirelli are all listed.
+    options:
+    - Heineken
+    - AWS
+    - Nike
+    - Pirelli
+    question_text: Which of the following is NOT listed as an official F1 partner
+      or sponsor in the provided content?
+  index: 170
+  key_concept: F1 Partners and Sponsors
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application designed to provide fans
+      with real-time updates, news, live timing, and exclusive content related to
+      Formula 1. The promotion section encourages users to download the app from the
+      Apple App Store or Google Play.
+    type: Definition
+  - content: Examples of app features typically include live race timing, driver and
+      team standings, push notifications for breaking news, and access to video highlights.
+      The app is available for both iOS and Android devices, as indicated by the download
+      links.
+    type: Examples
+  - content: The app is used by fans to enhance their race-viewing experience, stay
+      informed about F1 developments, and access exclusive digital content regardless
+      of their location. It is particularly valuable during live events for following
+      timing data and on-track action.
+    type: Use Cases
+  - content: The promotion of the official app reflects F1's commitment to digital
+      engagement and fan interaction. It also demonstrates the sport's adaptation
+      to mobile-first content consumption trends and the importance of direct communication
+      channels with its audience.
+    type: Implications
+  - content: The F1 app connects to broader themes of sports digitalization, fan engagement
+      strategies, and the use of technology to expand the reach and accessibility
+      of live events. It also integrates with other F1 digital products, such as F1
+      TV and fantasy gaming platforms.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App is promoted as a tool for live race timing, news,
+      and exclusive content, not primarily for merchandise sales, betting, or only
+      historical race streaming.
+    options:
+    - To provide live race timing and news updates
+    - To sell official team merchandise
+    - To allow fans to place bets on races
+    - To stream full-length historical races only
+    question_text: What is a primary purpose of the Official F1 App as promoted in
+      the content?
+  index: 180
+  key_concept: Official F1 App Promotion
+  name: Download the Official F1 App

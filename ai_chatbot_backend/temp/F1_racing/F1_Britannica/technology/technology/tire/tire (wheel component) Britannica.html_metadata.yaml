@@ -1,0 +1,280 @@
+URL: https://www.britannica.com/technology/tire/images-videos
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A media gallery page from Britannica focused on tires as wheel components,
+  featuring educational videos and images illustrating tire technology, types, manufacturing,
+  and innovations.
+file_name: tire (wheel component) Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/tire/tire (wheel component)
+  Britannica.html
+file_uuid: c8be8344-89f6-5971-a854-61a18f4b2401
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Self-healing tires are designed with materials that enable them to
+    seal minor punctures automatically, maintaining air pressure and improving safety.
+  knowledge_areas:
+  - Self-healing tires
+  options:
+  - Solid rubber tires
+  - Self-healing tires
+  - Bias-ply tires
+  - Light-up tires
+  question_id: 1
+  question_text: Which technological advancement allows tires to automatically repair
+    punctures and maintain air pressure?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Pneumatic tires are air-filled, providing cushioning and improved ride
+    quality, unlike solid rubber tires.
+  knowledge_areas:
+  - Types of pneumatic tires
+  options:
+  - They are filled with air and provide cushioning.
+  - They are made entirely of solid rubber.
+  - They contain built-in lighting systems.
+  - They are used exclusively in motorsport.
+  question_id: 2
+  question_text: What distinguishes pneumatic tires from solid rubber tires, as shown
+    in the image gallery?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Goodyear Eagle tires are engineered for motorsport racing, such as
+    in NASCAR events, as shown in the gallery.
+  knowledge_areas:
+  - Goodyear Eagle tires in motorsport
+  options:
+  - Off-road vehicle tires
+  - Motorsport racing tires
+  - Bicycle tires
+  - Experimental light-up tires
+  question_id: 3
+  question_text: Which of the following is a key application of Goodyear Eagle tires,
+    as depicted in the media gallery?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The light-up tires were designed to enhance visibility and explore
+    innovative tire concepts, not to improve performance or load capacity.
+  knowledge_areas:
+  - Light-up Goodyear tires (experimental)
+  options:
+  - Reduce tire rolling resistance
+  - Enhance vehicle visibility and explore design innovation
+  - Increase load-bearing capacity
+  - Improve off-road performance
+  question_id: 4
+  question_text: 'The experimental light-up Goodyear tires primarily aimed to:'
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Proper molding in the manufacturing process ensures the structural
+    integrity and performance required for truck tires, which is essential for safety
+    and reliability.
+  knowledge_areas:
+  - Truck tire manufacturing process
+  options:
+  - By recycling old tires into new ones
+  - By ensuring tires are properly molded for structural integrity
+  - By adding decorative features to tires
+  - By installing tires directly onto vehicles
+  question_id: 5
+  question_text: How does the truck tire manufacturing process, as shown in the gallery,
+    contribute to tire performance and safety?
+  question_type: recap
+sections:
+- aspects:
+  - content: Self-healing tires refer to a new class of pneumatic tires engineered
+      with materials or structures that can automatically repair minor punctures or
+      damage. This innovation is achieved through advancements in rubber chemistry
+      and the incorporation of self-sealing compounds or microcapsules that release
+      sealing agents when the tire is compromised.
+    type: Definition
+  - content: A video from the American Chemical Society demonstrates how scientists
+      have designed tires that can seal themselves after being punctured, preventing
+      air loss and maintaining tire integrity. For instance, a nail puncture in such
+      a tire would trigger the release of a sealant, closing the hole almost instantly.
+    type: Example
+  - content: Self-healing tires are especially beneficial for vehicles operating in
+      remote or hazardous environments where immediate tire repair is not feasible.
+      They also enhance safety and reduce maintenance needs for everyday drivers by
+      minimizing the risk of sudden flats.
+    type: Use Cases
+  - content: The development of self-healing tires could significantly reduce the
+      frequency of roadside emergencies, lower vehicle maintenance costs, and improve
+      overall road safety. Additionally, they represent a step forward in sustainable
+      mobility by potentially extending tire lifespan and reducing waste.
+    type: Implications
+  - content: This innovation connects to broader trends in smart materials and automotive
+      safety technologies. It also relates to the evolution of pneumatic tires and
+      ongoing research in material science aimed at enhancing durability and functionality.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Self-healing tires are designed to automatically repair minor punctures,
+      as shown in the video. The other options are not the primary focus of the self-healing
+      tire technology.
+    options:
+    - They improve fuel efficiency.
+    - They automatically repair minor punctures.
+    - They enhance tire grip on wet surfaces.
+    - They reduce tire weight significantly.
+    question_text: What is the primary benefit of self-healing tires as demonstrated
+      in the video?
+  index: 167
+  key_concept: Self-healing tires
+  name: Videos
+- aspects:
+  - content: Pneumatic tires are air-filled tires that provide cushioning and traction
+      for vehicles. They are constructed with an inner tube or are tubeless, and are
+      used universally in automotive and cycling applications.
+    type: Definition
+  - content: The image gallery displays three types of pneumatic tires, which may
+      include examples such as bias-ply, radial, and tubeless tires. Each type has
+      distinct structural features and performance characteristics.
+    type: Examples
+  - content: Bias-ply tires are often used in heavy-duty or vintage vehicles, radial
+      tires dominate modern passenger vehicles due to their superior ride comfort
+      and longevity, and tubeless tires are common for their ease of repair and safety
+      advantages.
+    type: Use Cases
+  - content: Understanding the differences among pneumatic tire types is crucial for
+      selecting the right tire based on vehicle type, usage conditions, and desired
+      performance. It also impacts safety, fuel efficiency, and maintenance.
+    type: Implications
+  - content: These tire types are foundational to automotive engineering and connect
+      to topics such as tire manufacturing, vehicle dynamics, and road safety. Their
+      evolution reflects advancements in material science and transportation technology.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Solid rubber tires are not pneumatic (air-filled) tires. The other
+      options represent common pneumatic tire types.
+    options:
+    - Radial tire
+    - Bias-ply tire
+    - Solid rubber tire
+    - Tubeless tire
+    question_text: Which of the following is NOT a typical type of pneumatic tire
+      shown in the image gallery?
+  index: 177
+  key_concept: Types of pneumatic tires
+  name: Images
+- aspects:
+  - content: Goodyear Eagle tires are a line of high-performance tires designed for
+      use in motorsport, particularly in racing series such as NASCAR. These tires
+      are engineered to withstand extreme speeds, loads, and temperatures encountered
+      during competitive racing.
+    type: Definition
+  - content: An image from the NASCAR Cup Series Goodyear 400 at Darlington Raceway
+      shows Goodyear Eagle tires in use during practice, highlighting their application
+      in a professional racing environment.
+    type: Example
+  - content: These tires are used by professional racing teams to maximize grip, durability,
+      and handling on race tracks. Their performance is critical for driver safety
+      and competitive success.
+    type: Use Cases
+  - content: The development and testing of specialized racing tires like the Goodyear
+      Eagle contribute to advancements in tire technology that can eventually benefit
+      consumer products, such as improved tread designs and rubber compounds.
+    type: Implications
+  - content: Racing tires exemplify the intersection of engineering, material science,
+      and sports technology. Insights gained from motorsport applications often drive
+      innovation in commercial tire offerings.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Goodyear Eagle tires are specifically engineered for high-speed racing,
+      making them suitable for motorsport applications like NASCAR. They are not off-road,
+      solid, or light-up tires.
+    options:
+    - They are designed for off-road use only.
+    - They are engineered for high-speed racing conditions.
+    - They are exclusively solid rubber tires.
+    - They contain built-in lighting systems.
+    question_text: What is a key feature of Goodyear Eagle tires as used in motorsport?
+  index: 177
+  key_concept: Goodyear Eagle tires in motorsport
+  name: Images
+- aspects:
+  - content: Light-up Goodyear tires are an experimental design featuring translucent
+      rubber and internal light bulbs, tested by Goodyear on their proving grounds.
+      These tires were conceptualized as 'Tires of the Future' and represent an innovative
+      approach to tire design.
+    type: Definition
+  - content: A historical image shows Goodyear testing these translucent tires in
+      Akron, Ohio, with visible internal lighting. This experiment was notable enough
+      to be featured in LIFE magazine.
+    type: Example
+  - content: Although primarily experimental, such tires could have potential applications
+      in vehicle visibility, safety, or aesthetic customization. However, they have
+      not been adopted for mainstream use.
+    type: Use Cases
+  - content: The concept of light-up tires demonstrates the willingness of tire manufacturers
+      to explore unconventional ideas, pushing the boundaries of both function and
+      form. While not commercially successful, these experiments can inspire future
+      innovations.
+    type: Implications
+  - content: This experiment connects to broader trends in automotive lighting, smart
+      materials, and the history of automotive innovation. It also highlights the
+      iterative nature of technological progress in the tire industry.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The light-up tires were an experimental concept aimed at enhancing
+      visibility and exploring new design possibilities, not for improving grip, reducing
+      weight, or increasing efficiency.
+    options:
+    - To improve tire grip in wet conditions
+    - To enhance vehicle visibility and explore new design concepts
+    - To reduce tire weight
+    - To increase fuel efficiency
+    question_text: What was the primary purpose of Goodyear's experimental light-up
+      tires?
+  index: 177
+  key_concept: Light-up Goodyear tires (experimental)
+  name: Images
+- aspects:
+  - content: The truck tire manufacturing process involves molding raw materials,
+      such as rubber and reinforcing fabrics or steel, into the final tire shape using
+      specialized molds. This process is critical for ensuring the tire's structural
+      integrity and performance.
+    type: Definition
+  - content: An image depicts truck tires being removed from their molds, illustrating
+      a key stage in tire production where the vulcanized rubber takes on its final
+      form and tread pattern.
+    type: Example
+  - content: Manufacturing processes like molding are used for all types of vehicle
+      tires, but are especially important for truck tires, which must meet rigorous
+      standards for load-bearing capacity and durability.
+    type: Use Cases
+  - content: Efficient and precise manufacturing is essential for producing safe,
+      reliable tires that can handle the demands of commercial trucking. Advances
+      in manufacturing can lead to improved tire quality and reduced production costs.
+    type: Implications
+  - content: This process is connected to industrial engineering, materials science,
+      and quality control in manufacturing. It also relates to ongoing efforts to
+      optimize tire production for sustainability and performance.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The image shows the manufacturing process where truck tires are removed
+      from molds, marking the point at which they attain their final shape and tread.
+      It is not about recycling, testing, or installation.
+    options:
+    - The process of tire recycling
+    - The final stage of tire manufacturing where tires take their shape
+    - The testing of tire tread patterns
+    - The installation of tires on vehicles
+    question_text: What does the image of truck tires being removed from their molds
+      illustrate?
+  index: 177
+  key_concept: Truck tire manufacturing process
+  name: Images

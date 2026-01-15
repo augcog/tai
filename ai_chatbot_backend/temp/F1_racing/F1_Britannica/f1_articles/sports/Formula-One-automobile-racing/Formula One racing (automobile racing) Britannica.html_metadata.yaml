@@ -1,0 +1,106 @@
+URL: https://www.britannica.com/sports/Formula-One-automobile-racing/images-videos
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A media gallery page from Britannica focusing on Formula One racing,
+  featuring images of famous drivers, race moments, and championship celebrations.
+file_name: Formula One racing (automobile racing) Britannica.html
+file_path: F1_racing/F1_Britannica/f1_articles/sports/Formula-One-automobile-racing/Formula
+  One racing (automobile racing) Britannica.html
+file_uuid: 28dc3ed5-0e7e-5e26-b860-51acc67c97c3
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The gallery highlights Formula One drivers such as Max Verstappen and
+    Lewis Hamilton; the other options are athletes from unrelated sports.
+  knowledge_areas:
+  - Formula One Racing Imagery
+  - Notable F1 Drivers
+  options:
+  - Max Verstappen and Lewis Hamilton
+  - Roger Federer and Serena Williams
+  - Tom Brady and Lionel Messi
+  - Michael Jordan and Kobe Bryant
+  question_id: 1
+  question_text: Which of the following figures are featured in the Formula One Racing
+    Imagery gallery according to the Britannica page?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The gallery includes images of key F1 moments such as podium celebrations,
+    pit stops, and championship wins, not events from other sports or fields.
+  knowledge_areas:
+  - Formula One Racing Imagery
+  - F1 Race Moments
+  options:
+  - Podium celebrations, pit stops, and championship victories
+  - Tennis matches and golf tournaments
+  - Football touchdowns and basketball dunks
+  - Political debates and scientific conferences
+  question_id: 2
+  question_text: What types of moments are captured in the Formula One Racing Imagery
+    gallery?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The imagery serves to document the sport's history, engage fans, and
+    highlight driver achievements, rather than just presenting data or technical aspects.
+  knowledge_areas:
+  - Formula One Racing Imagery
+  - Sport Legacy and Promotion
+  options:
+  - By preserving historical records and engaging fans
+  - By providing only statistical data
+  - By focusing solely on car manufacturing
+  - By excluding all driver achievements
+  question_id: 3
+  question_text: How do the images in the Formula One gallery contribute to the sport's
+    legacy?
+  question_type: recap
+sections:
+- aspects:
+  - content: Formula One Racing Imagery refers to the visual documentation and representation
+      of various aspects of Formula One (F1), including race events, drivers, teams,
+      and significant moments in the sport's history. These images serve as both historical
+      records and promotional materials, capturing the excitement, drama, and personalities
+      that define F1.
+    type: Definition
+  - content: The gallery includes images such as Max Verstappen leading the field
+      at the 2018 Singapore Grand Prix, Lewis Hamilton celebrating victories at the
+      Spanish Grand Prix (2018) and Turkish Grand Prix (2020), and Michael Schumacher
+      during his racing career. Other notable examples are podium celebrations, pit
+      stops with Niki Lauda, and vintage shots of legends like Juan Manuel Fangio
+      and Stirling Moss.
+    type: Examples
+  - content: These images are curated to showcase the evolution of F1, highlighting
+      both contemporary and historical figures. They reflect changes in car design,
+      safety gear, and race culture, and they document the achievements of world champions
+      from different eras. The gallery also illustrates the global nature of F1, with
+      races and drivers from diverse countries.
+    type: Context
+  - content: 'The use of imagery in F1 serves multiple purposes: it preserves the
+      sport''s legacy, aids in fan engagement, and supports media coverage. Visuals
+      help narrate the stories of iconic drivers, memorable races, and technological
+      advancements. They also contribute to the branding and marketing of teams and
+      sponsors, influencing public perception and commercial success.'
+    type: Implications
+  - content: Formula One Racing Imagery connects to broader themes such as sports
+      photography, media influence in sports, and the role of visual culture in shaping
+      public memory. It also intersects with topics like motorsport history, technological
+      innovation, and the globalization of sports entertainment.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The gallery's imagery is curated to document and promote the history,
+      key moments, and personalities of Formula One racing, rather than focusing solely
+      on technical details, recent results, or pit strategies.
+    options:
+    - To provide visual records and promote the sport's history and personalities.
+    - To offer technical blueprints of F1 cars.
+    - To display only recent race results.
+    - To focus exclusively on pit stop strategies.
+    question_text: Which of the following best describes the primary purpose of Formula
+      One Racing Imagery as presented in the Britannica gallery?
+  index: 175
+  key_concept: Formula One Racing Imagery
+  name: Images

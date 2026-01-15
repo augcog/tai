@@ -1,0 +1,117 @@
+URL: https://www.britannica.com/technology/moped
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Britannica entry describing mopeds, focusing on their definition,
+  engine size, fuel economy, and road use restrictions.
+file_name: Moped vehicle Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Moped vehicle Britannica.html
+file_uuid: abff955b-2f74-5552-bb03-054a0746dba4
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Mopeds are characterized by their small engines (typically 50 cc) and
+    the inclusion of pedals, which set them apart from motorcycles and scooters.
+  knowledge_areas:
+  - Moped definition and characteristics
+  options:
+  - High engine displacement
+  - Inclusion of pedals and a small engine
+  - Ability to travel on highways
+  - Heavy weight and large frame
+  question_id: 1
+  question_text: What is the primary feature that distinguishes a moped from other
+    two-wheeled motor vehicles?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Mopeds are restricted from limited-access public roads because their
+    low speed capability makes them unsuitable and potentially unsafe for fast-moving
+    traffic.
+  knowledge_areas:
+  - Road use restrictions
+  - Engine size and performance
+  options:
+  - They are too heavy.
+  - Their fuel economy is too low.
+  - Their low speed capability makes them unsafe for high-speed traffic.
+  - They lack any engine power.
+  question_id: 2
+  question_text: Why are mopeds generally not allowed on limited-access public roads?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Mopeds are known for their excellent fuel economy, often achieving
+    as low as 2.4 liters per 100 km, which is much better than most cars and motorcycles.
+  knowledge_areas:
+  - Fuel economy
+  options:
+  - They consume about 10 liters per 100 km.
+  - They achieve about 2.4 liters per 100 km (100 miles per gallon).
+  - Their fuel economy is similar to that of a car.
+  - They use more fuel than motorcycles.
+  question_id: 3
+  question_text: Which of the following best describes the fuel economy of mopeds?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Mopeds are especially advantageous for urban commuting due to their
+    fuel efficiency, ease of use, and suitability for low-speed, short-distance travel.
+  knowledge_areas:
+  - Context and comparison
+  - Fuel economy
+  options:
+  - Long-distance highway travel
+  - Urban commuting with frequent stops and low speeds
+  - Off-road racing
+  - Transporting heavy cargo
+  question_id: 4
+  question_text: In what context are mopeds particularly advantageous compared to
+    larger motorcycles?
+  question_type: recap
+sections:
+- aspects:
+  - content: A moped is a small, lightweight vehicle that combines a motor and pedals,
+      with the term itself derived from 'motor pedal.' Mopeds are distinct from motorcycles
+      and scooters due to their smaller engine size and the presence of pedals, which
+      can be used to propel the vehicle manually or assist the engine.
+    type: Definition
+  - content: Mopeds typically feature very small engines, commonly around 50 cubic
+      centimeters (cc). This engine size limits their maximum speed and acceleration,
+      making them less powerful than motorcycles or larger scooters. The small engine
+      is a defining feature that places mopeds in a unique regulatory and functional
+      category.
+    type: Engine size and performance
+  - content: One of the most notable characteristics of mopeds is their exceptional
+      fuel economy. They can achieve fuel consumption rates as low as 2.4 liters per
+      100 kilometers, or approximately 100 miles per gallon. This efficiency makes
+      them attractive for short-distance commuting and urban transportation, especially
+      where fuel costs or environmental concerns are significant.
+    type: Fuel economy
+  - content: Due to their limited speed capabilities, mopeds are generally not permitted
+      on limited-access public roads, such as highways or expressways. Their design
+      and performance are intended for local or city streets, where lower speeds are
+      appropriate and safer for both the rider and other road users.
+    type: Road use restrictions
+  - content: Mopeds represent the smallest class of motorized two-wheeled vehicles,
+      sitting below scooters and motorcycles in terms of engine size and speed. They
+      are especially popular in regions with dense urban environments or where licensing
+      and insurance requirements are less stringent for low-powered vehicles. Their
+      design reflects a compromise between the convenience of motorized transport
+      and the simplicity and accessibility of bicycles.
+    type: Context and comparison
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: A typical moped is defined by its small engine (around 50 cc) and
+      the presence of pedals, which distinguishes it from larger motorcycles and scooters.
+      It is not allowed on limited-access highways due to low speed, and it is known
+      for excellent fuel economy, not higher consumption.
+    options:
+    - It has a large engine, usually over 250 cc.
+    - It combines a small engine (around 50 cc) with pedals.
+    - It is permitted on limited-access highways due to its high speed.
+    - It consumes significantly more fuel than a standard motorcycle.
+    question_text: Which of the following accurately describes a typical moped?
+  index: 128
+  key_concept: Moped definition and characteristics
+  name: description

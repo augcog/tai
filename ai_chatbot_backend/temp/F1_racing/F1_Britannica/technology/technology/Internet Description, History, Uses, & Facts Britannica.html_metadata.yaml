@@ -1,0 +1,247 @@
+URL: https://www.britannica.com/technology/Internet#ref218350
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia entry on the Internet, covering its definition,
+  key inventors, technical operation, dangers, the dark web, control, and the historical
+  development of early computer networks.
+file_name: Internet Description, History, Uses, & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Internet Description, History,
+  Uses, & Facts Britannica.html
+file_uuid: e3fbbbe9-d96d-5409-a06c-51935fb19cc1
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: The Internet is a vast 'network of networks' connecting millions of
+    computers and devices worldwide, not a single computer or hardware type.
+  knowledge_areas:
+  - Definition and Scope of the Internet
+  options:
+  - A single global computer
+  - A network of interconnected computer networks
+  - A private military network
+  - A type of computer hardware
+  question_id: 1
+  question_text: Which of the following best defines the Internet?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Vinton Cerf and Robert Kahn developed the TCP/IP protocols, which are
+    foundational to the Internet's operation.
+  knowledge_areas:
+  - Key Inventors and Contributors
+  options:
+  - Bill Gates and Steve Jobs
+  - Robert Taylor and Tim Berners-Lee
+  - Vinton Cerf and Robert Kahn
+  - Mark Zuckerberg and Larry Page
+  question_id: 2
+  question_text: Who are the two individuals most credited with inventing the Internet
+    for their work on TCP/IP?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: TCP/IP is the essential protocol for Internet data transmission, and
+    ISPs provide user access and manage data routing.
+  knowledge_areas:
+  - Technical Operation and Access
+  options:
+  - SMTP; ISPs create new websites
+  - TCP/IP; ISPs provide access and route data
+  - FTP; ISPs manufacture computers
+  - HTTP; ISPs control government networks
+  question_id: 3
+  question_text: Which protocol is fundamental for the Internet's data transmission,
+    and what is the primary role of Internet Service Providers (ISPs)?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Risks include spam, malware, and cyberbullying, while the dark web
+    is used for anonymous and often illegal activities.
+  knowledge_areas:
+  - Risks, Dangers, and the Dark Web
+  options:
+  - Only slow connection speeds; streaming movies
+  - Spam, malware, cyberbullying; anonymous activities including illegal sales
+  - High electricity costs; online education
+  - Too much information; government websites
+  question_id: 4
+  question_text: What are some dangers associated with the Internet, and what is the
+    dark web most commonly used for?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: No single entity controls the Internet, but large tech companies and
+    some governments have considerable influence over access and content.
+  knowledge_areas:
+  - Control and Governance of the Internet
+  options:
+  - A single world government controls all Internet content
+  - It is decentralized, but some tech companies and governments exert significant
+    influence
+  - Only the United Nations manages the Internet
+  - Control is limited to individual users
+  question_id: 5
+  question_text: Which statement best summarizes who controls the Internet?
+  question_type: recap
+sections:
+- aspects:
+  - content: The Internet is a global system of interconnected computer networks,
+      often described as a 'network of networks,' that enables computers worldwide
+      to communicate and share information. It supports a vast array of uses, including
+      communication, data sharing, and access to digital resources. The Internet is
+      not a single entity but a collection of millions of private, public, academic,
+      business, and government networks.
+    type: Definition
+  - content: Common uses of the Internet include email, social media, video and audio
+      transmission, collaborative work, and access to the World Wide Web. It also
+      supports the Internet of Things (IoT), where devices such as smartphones, appliances,
+      and even entire cities are connected for data exchange and automation. E-businesses
+      and e-commerce rely heavily on the Internet for transactions and services.
+    type: Examples and Uses
+  - content: The Internet has revolutionized mass communication, media, and commerce,
+      making information accessible globally and enabling new forms of social and
+      economic interaction. Its accessibility is nearly universal for individuals
+      with a network connection, and by 2020, more than half the world's population
+      had Internet access. The growth of smart technology and IoT continues to expand
+      its reach and impact.
+    type: Implications and Context
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The Internet is a 'network of networks,' connecting millions of public
+      and private networks globally. It is not a single computer, nor is it limited
+      to military use or a specific hardware device.
+    options:
+    - A single global computer
+    - A network of interconnected computer networks
+    - A private network for military use only
+    - A type of computer hardware
+    question_text: Which of the following best describes the Internet?
+  index: 178
+  key_concept: Definition and Scope of the Internet
+  name: Internet
+- aspects:
+  - content: Robert Taylor was instrumental in the development of ARPANET, the early
+      prototype of the Internet. Vinton Cerf and Robert Kahn developed the Transmission
+      Control Protocol/Internet Protocol (TCP/IP), which became the foundational technology
+      for the Internet. Cerf and Kahn are often credited as the principal inventors
+      of the Internet.
+    type: Historical Figures
+  - content: ARPANET introduced the concept of host-to-host networking and packet
+      switching, while TCP/IP enabled reliable data transmission across diverse networks.
+      These innovations allowed for the scalability and interoperability that define
+      the modern Internet.
+    type: Technological Contributions
+  - content: The Internet is the result of collaborative efforts by many individuals
+      and organizations, not just a single inventor. The foundational work by Taylor,
+      Cerf, and Kahn enabled the global expansion of the Internet and influenced subsequent
+      developments in networking and communication technologies.
+    type: Context and Legacy
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Vinton Cerf and Robert Kahn developed TCP/IP, the protocols that
+      underpin the Internet, and are thus widely credited with inventing the Internet.
+    options:
+    - Bill Gates and Steve Jobs
+    - Robert Taylor and Tim Berners-Lee
+    - Vinton Cerf and Robert Kahn
+    - Mark Zuckerberg and Larry Page
+    question_text: Who are most often credited with inventing the Internet due to
+      their development of TCP/IP?
+  index: 178
+  key_concept: Key Inventors and Contributors
+  name: Internet
+- aspects:
+  - content: The Internet operates through interconnected networks that use standardized
+      protocols, such as TCP/IP, to transmit data between devices globally. Data travels
+      in packets through various routes, and devices connect via telephone lines,
+      broadband, or wireless technologies like Wi-Fi and mobile broadband.
+    type: Basic Mechanisms
+  - content: Internet Service Providers (ISPs) offer users access to the Internet,
+      managing the infrastructure and routing data. The rise of wireless connectivity
+      in the 21st century has made Internet access more flexible and widespread, supporting
+      both stationary and mobile devices.
+    type: Service Providers and Connectivity
+  - content: Applications such as email, web browsing, streaming, and cloud computing
+      all rely on the Internet's packet-switching and routing capabilities. The Internet's
+      design allows for scalability, redundancy, and resilience, making it robust
+      against failures and adaptable to new technologies.
+    type: Examples and Implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: TCP/IP is the foundational protocol for Internet data transmission,
+      and ISPs provide user access and manage data routing across networks.
+    options:
+    - SMTP; ISPs create new websites
+    - TCP/IP; ISPs provide access and route data
+    - FTP; ISPs manufacture computers
+    - HTTP; ISPs control government networks
+    question_text: Which protocol is fundamental for the Internet's data transmission,
+      and what role do ISPs play?
+  index: 178
+  key_concept: Technical Operation and Access
+  name: Internet
+- aspects:
+  - content: The Internet has enabled new forms of exploitation and crime, such as
+      spam, malware, cyberbullying, and doxing. These activities can harm individuals,
+      organizations, and society at large by compromising privacy, security, and well-being.
+    type: Types of Risks
+  - content: The dark web refers to parts of the Internet that require special software
+      and configurations to access, providing anonymity for users. While it is used
+      for legitimate purposes like political dissent and whistleblowing, it is also
+      associated with illegal activities such as the sale of drugs and weapons.
+    type: The Dark Web
+  - content: Many companies collect extensive user data, raising concerns about privacy
+      violations and surveillance. The balance between security, privacy, and freedom
+      of expression is a continuing debate in the context of Internet use and governance.
+    type: Privacy and Surveillance
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The Internet poses dangers such as spam, malware, and cyberbullying.
+      The dark web is often used for activities requiring anonymity, including illegal
+      sales and political dissent.
+    options:
+    - Only slow connection speeds; streaming movies
+    - Spam, malware, cyberbullying; anonymous activities including illegal sales
+    - High electricity costs; online education
+    - Too much information; government websites
+    question_text: What are some dangers associated with the Internet, and what is
+      the dark web commonly used for?
+  index: 178
+  key_concept: Risks, Dangers, and the Dark Web
+  name: Internet
+- aspects:
+  - content: The Internet is designed as a decentralized system, meaning no single
+      entity or government has absolute control over its infrastructure or content.
+      Its governance is distributed among various organizations, technical bodies,
+      and stakeholders.
+    type: Decentralization
+  - content: Major technology companies like Amazon, Meta, and Google have significant
+      influence over the Internet's economic and informational landscape, shaping
+      how information is accessed, shared, and monetized. This concentration of power
+      raises concerns about monopolies and the potential for censorship or manipulation.
+    type: Corporate Influence
+  - content: In some countries, governments block or censor parts of the Internet,
+      restricting access to information and services. These actions highlight ongoing
+      tensions between global connectivity and national sovereignty, as well as debates
+      over free speech and information control.
+    type: Censorship and National Controls
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The Internet is fundamentally decentralized, but large tech companies
+      and some national governments have substantial influence over access, content,
+      and infrastructure.
+    options:
+    - A single world government controls all Internet content
+    - It is decentralized, but some tech companies and governments exert significant
+      influence
+    - Only the United Nations manages the Internet
+    - Control is limited to individual users
+    question_text: Which statement best describes control over the Internet?
+  index: 178
+  key_concept: Control and Governance of the Internet
+  name: Internet

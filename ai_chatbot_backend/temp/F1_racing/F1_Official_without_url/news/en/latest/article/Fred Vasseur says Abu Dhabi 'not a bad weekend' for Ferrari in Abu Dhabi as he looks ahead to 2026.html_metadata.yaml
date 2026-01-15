@@ -1,0 +1,189 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Formula 1 news article summarizing Ferrari's performance at the
+  2025 Abu Dhabi Grand Prix, with reflections from team principal Fred Vasseur on
+  the season and anticipation for the 2026 regulation changes.
+file_name: Fred Vasseur says Abu Dhabi 'not a bad weekend' for Ferrari in Abu Dhabi
+  as he looks ahead to 2026.html
+file_path: F1_racing/F1_Official/news/en/latest/article/Fred Vasseur says Abu Dhabi
+  'not a bad weekend' for Ferrari in Abu Dhabi as he looks ahead to 2026.html
+file_uuid: 62d0ac51-8fce-54d8-a130-49e77afa9566
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Leclerc finished fourth and Hamilton eighth for Ferrari, as detailed
+    in the article.
+  knowledge_areas:
+  - Ferrari's 2025 Abu Dhabi Grand Prix Performance
+  options:
+  - Charles Leclerc (P4) and Lewis Hamilton (P8)
+  - Carlos Sainz (P2) and Charles Leclerc (P1)
+  - Lewis Hamilton (P1) and Charles Leclerc (P2)
+  - Lando Norris (P4) and Lewis Hamilton (P8)
+  question_id: 1
+  question_text: Which drivers scored points for Ferrari at the 2025 Abu Dhabi Grand
+    Prix, and what were their finishing positions?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Ferrari finished fourth in 2025, a decline from 2024 when they were
+    in contention for the title until the last race.
+  knowledge_areas:
+  - 2025 Ferrari Season Overview
+  options:
+  - They improved and won the Constructors' title.
+  - They finished in the same position both years.
+  - They performed worse, dropping to fourth after narrowly missing the title in 2024.
+  - They did not compete in 2025.
+  question_id: 2
+  question_text: How did Ferrari's 2025 season compare to their 2024 season in terms
+    of Constructors' Championship performance?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Vasseur points out that the 2026 regulation changes mean teams are
+    working independently and cannot know each other's progress, leading to uncertainty.
+  knowledge_areas:
+  - Anticipation for 2026 Regulation Changes
+  options:
+  - Teams are keeping their development secret due to the regulation overhaul.
+  - All teams will use the same engine.
+  - The race calendar will be reduced.
+  - There will be no qualifying sessions.
+  question_id: 3
+  question_text: What is the primary reason Fred Vasseur cites for not knowing which
+    team will be strongest in 2026?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The article notes that finishing on a positive note at Abu Dhabi gave
+    Ferrari momentum and optimism as they prepare for the new regulations in 2026.
+  knowledge_areas:
+  - Ferrari's 2025 Abu Dhabi Grand Prix Performance
+  - Anticipation for 2026 Regulation Changes
+  options:
+  - It provided positive momentum and a chance to refocus for the regulation changes.
+  - It led to the resignation of the team principal.
+  - It resulted in a complete driver lineup change.
+  - It had no impact on their preparations.
+  question_id: 4
+  question_text: How did Ferrari's result at the Abu Dhabi Grand Prix influence their
+    outlook heading into the winter break and 2026?
+  question_type: recap
+sections:
+- aspects:
+  - content: Ferrari's performance at the 2025 Abu Dhabi Grand Prix refers to the
+      results and circumstances surrounding the team's participation in the final
+      race of the 2025 Formula 1 season. Both Ferrari drivers, Charles Leclerc and
+      Lewis Hamilton, finished in the points, with Leclerc placing fourth and Hamilton
+      climbing from sixteenth to eighth.
+    type: Definition
+  - content: Charles Leclerc challenged Lando Norris and finished just off the podium
+      in P4, demonstrating competitive pace. Lewis Hamilton recovered from a poor
+      qualifying to finish P8, showcasing resilience and effective race strategy.
+      These results were seen as positive given the team's difficult start to the
+      weekend.
+    type: Examples
+  - content: The solid points finish for both drivers provided some momentum and a
+      positive note to end a challenging season. It also highlighted the team's ability
+      to recover from setbacks within a race weekend, a critical skill in Formula
+      1 competition.
+    type: Implications
+  - content: The Abu Dhabi Grand Prix was the final race of the 2025 season, concluding
+      a year where Ferrari did not win any races and finished fourth in the Constructors'
+      Championship. The team's performance in Abu Dhabi was an improvement over earlier
+      struggles, offering hope heading into the off-season.
+    type: Context
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Both Charles Leclerc and Lewis Hamilton finished in the points, with
+      Leclerc in 4th and Hamilton in 8th, as described in the article. The other options
+      are factually incorrect.
+    options:
+    - Both drivers failed to finish the race.
+    - Both drivers finished in the points, with Leclerc P4 and Hamilton P8.
+    - Ferrari won the race with a 1-2 finish.
+    - Ferrari did not participate in the Abu Dhabi Grand Prix.
+    question_text: Which of the following best describes Ferrari's performance at
+      the 2025 Abu Dhabi Grand Prix?
+  index: 53
+  key_concept: Ferrari's 2025 Abu Dhabi Grand Prix Performance
+  name: Vasseur says Abu Dhabi 'not a bad weekend' for Ferrari in Abu Dhabi as he
+    looks ahead to 2026
+- aspects:
+  - content: The 2025 Ferrari season overview encapsulates the team's overall performance,
+      challenges, and outcomes throughout the Formula 1 season. It includes race results,
+      championship standings, and notable events impacting the team's trajectory.
+    type: Definition
+  - content: Ferrari failed to secure a single Grand Prix victory in 2025 and finished
+      fourth in the Teams' Championship, trailing McLaren by 435 points. This is a
+      significant decline compared to the previous year, when Ferrari narrowly missed
+      winning the Constructors' title.
+    type: Examples
+  - content: The lack of wins and the large points gap to the champions highlight
+      areas requiring improvement, such as car development, strategy, and consistency.
+      The decline also puts pressure on the team to perform better in the following
+      season, especially with major regulation changes looming.
+    type: Implications
+  - content: The 2025 season was marked by increased competition, particularly from
+      McLaren, who emerged as champions. Ferrari's inability to maintain its previous
+      form underscores the dynamic and competitive nature of Formula 1, where team
+      fortunes can shift rapidly.
+    type: Context
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Ferrari did not win any races and finished fourth in the Teams' Championship,
+      a significant drop from the previous year. The other options do not reflect
+      the article's content.
+    options:
+    - They won the Constructors' Championship.
+    - They finished second, just behind Red Bull.
+    - They failed to win a race and finished fourth in the Teams' Championship.
+    - They did not compete in the 2025 season.
+    question_text: How did Ferrari perform in the 2025 Formula 1 season overall?
+  index: 53
+  key_concept: 2025 Ferrari Season Overview
+  name: Vasseur says Abu Dhabi 'not a bad weekend' for Ferrari in Abu Dhabi as he
+    looks ahead to 2026
+- aspects:
+  - content: Anticipation for the 2026 regulation changes refers to the expectations
+      and preparations surrounding a major overhaul of Formula 1's technical and sporting
+      rules, set to take effect in the 2026 season. These changes are expected to
+      significantly alter the competitive landscape.
+    type: Definition
+  - content: Fred Vasseur emphasized that the upcoming regulation changes could result
+      in a new pecking order among teams, making it difficult to predict which teams
+      will be competitive. Teams are preparing by focusing on internal development
+      and maximizing performance before the new rules are implemented.
+    type: Examples
+  - content: The regulation changes create uncertainty and opportunity; teams that
+      interpret the new rules most effectively could gain a significant advantage.
+      For Ferrari, this represents a chance to reset and potentially close the gap
+      to rivals, but also a risk if their preparations fall short.
+    type: Implications
+  - content: Such regulation overhauls have historically led to shifts in competitive
+      balance, as seen with previous changes in 2014 (hybrid era) and 2022 (aerodynamic
+      changes). Teams often use the season prior to a major change to experiment and
+      gather data for future development.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The article highlights that the 2026 regulation overhaul is expected
+      to significantly change the competitive order, making it difficult to predict
+      which teams will be strongest.
+    options:
+    - A major regulation overhaul is expected, which could change the competitive
+      order.
+    - Ferrari is leaving the sport.
+    - There will be no changes to the rules.
+    - All teams will use identical cars.
+    question_text: What is a key reason for uncertainty about team performance in
+      the 2026 Formula 1 season?
+  index: 53
+  key_concept: Anticipation for 2026 Regulation Changes
+  name: Vasseur says Abu Dhabi 'not a bad weekend' for Ferrari in Abu Dhabi as he
+    looks ahead to 2026

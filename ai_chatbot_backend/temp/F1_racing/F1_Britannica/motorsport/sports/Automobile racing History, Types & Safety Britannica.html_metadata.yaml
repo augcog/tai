@@ -1,0 +1,230 @@
+URL: https://www.britannica.com/sports/automobile-racing#ref500
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article overviewing automobile racing, including
+  its definition, major types, early history, and the development of speedway racing.
+file_name: Automobile racing History, Types & Safety Britannica.html
+file_path: F1_racing/F1_Britannica/motorsport/sports/Automobile racing History, Types
+  & Safety Britannica.html
+file_uuid: c5b61dc8-551d-59ce-b1c7-812beef266de
+recap_questions:
+- correct_answers:
+  - 3
+  explanation: Motocross is a motorcycle racing discipline and is not listed among
+    the automobile racing types discussed in the article, which include Grand Prix,
+    stock-car, and karting.
+  knowledge_areas:
+  - automobile racing
+  - types and examples
+  options:
+  - Grand Prix racing
+  - Stock-car racing
+  - Karting
+  - Motocross
+  question_id: 1
+  question_text: Which of the following is NOT a type of automobile racing mentioned
+    in the article?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The shift was primarily due to safety concerns, as open-road races
+    led to numerous accidents involving both people and animals.
+  knowledge_areas:
+  - Early history
+  - implications and legacy
+  options:
+  - Closed circuits allowed for higher speeds.
+  - There were too many accidents involving spectators and livestock on open roads.
+  - Town-to-town races were less popular with manufacturers.
+  - Closed circuits were easier to organize logistically.
+  question_id: 2
+  question_text: Why did early automobile racing in Europe shift from town-to-town
+    races to closed-circuit road races?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Purpose-built speedways created controlled environments that improved
+    safety and attracted large audiences, contributing to the professionalization
+    of automobile racing.
+  knowledge_areas:
+  - Speedway racing
+  - evolution and impact
+  options:
+  - They led to the immediate end of road racing in Europe.
+  - They provided safer, spectator-friendly venues and fostered the growth of professional
+    motorsport.
+  - They were used exclusively for motorcycle racing.
+  - They eliminated the need for governing bodies in racing.
+  question_id: 3
+  question_text: What was a significant impact of the establishment of purpose-built
+    speedways like Brooklands and Indianapolis Motor Speedway?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: After World War I, racing became too specialized for the use of standard
+    production cars, leading to the development and use of purpose-built racing vehicles.
+  knowledge_areas:
+  - Early history
+  - technological and regulatory evolution
+  options:
+  - Production cars became more common in racing.
+  - Racing cars became more specialized, with less use of production models.
+  - Prototype cars were banned from all major races.
+  - There was no significant change in car types used.
+  question_id: 4
+  question_text: How did the role of prototype and production cars in racing change
+    after World War I?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The FIA is the most notable international governing body that divides
+    cars into classes and supervises competitions, although other organizations exist
+    at national and local levels.
+  knowledge_areas:
+  - automobile racing
+  - organization and governance
+  options:
+  - The Automobile Club de France
+  - The Fédération Internationale de l’Automobile (FIA)
+  - Local racing clubs
+  - Automobile manufacturers
+  question_id: 5
+  question_text: Which organizations are primarily responsible for dividing racing
+    cars into classes and supervising competitions at the international level?
+  question_type: recap
+sections:
+- aspects:
+  - content: Automobile racing, also known as motor racing, is a professional and
+      amateur sport involving the competition of automobiles on roads, tracks, or
+      closed circuits. It encompasses a wide variety of racing types, including Grand
+      Prix, speedway, stock-car, sports-car, drag, midget-car racing, and karting,
+      as well as specialized events like hill climbs and trials. The sport is governed
+      by numerous bodies, with the Fédération Internationale de l’Automobile (FIA)
+      being the most prominent at the international level.
+    type: definition
+  - content: Major types of automobile racing include Grand Prix racing (Formula 1),
+      speedway racing (such as the Indianapolis 500), stock-car racing (NASCAR), sports-car
+      racing (Le Mans), drag racing, midget-car racing, and karting. Each type has
+      distinct vehicle requirements, rules, and track formats. For example, drag racing
+      involves short, straight sprints, while rally driving occurs on varied terrain
+      and often over long distances.
+    type: types and examples
+  - content: Automobile racing is organized at local, national, and international
+      levels, with cars divided into various classes and subclasses to ensure fair
+      competition. The FIA sets international standards and supervises major competitions,
+      while other organizations manage regional or specialized events. These bodies
+      oversee rules, safety regulations, and the technical specifications of vehicles.
+    type: organization and governance
+  - content: The diversity of automobile racing reflects technological innovation,
+      regional preferences, and evolving safety standards. The sport has significant
+      cultural and economic impacts, influencing automotive engineering and popular
+      culture. Connections exist between the development of racing technologies and
+      advancements in consumer vehicles, as well as between racing and broader sporting
+      traditions.
+    type: implications and connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The article defines automobile racing as a global sport involving
+      both amateur and professional participants, with many types and formal governance,
+      especially by the FIA. It is not limited to professionals, Grand Prix events,
+      or informal settings.
+    options:
+    - A sport involving only professional drivers on closed circuits.
+    - A global sport with both amateur and professional participants, encompassing
+      various types and governed by organizations like the FIA.
+    - A recreational activity limited to Grand Prix events.
+    - A form of entertainment with no formal rules or organizations.
+    question_text: Which of the following best describes automobile racing as presented
+      in the article?
+  index: 168
+  key_concept: automobile racing
+  name: automobile racing
+- aspects:
+  - content: Automobile racing began shortly after the invention of the gasoline-powered
+      internal-combustion engine in the 1880s. The first organized competition was
+      a reliability test in 1894 from Paris to Rouen, followed by the first true race
+      from Paris to Bordeaux and back in 1895. Racing quickly spread to the United
+      States, with an early race from Chicago to Evanston in 1895. Early European
+      races were often town-to-town events, but safety concerns led to the rise of
+      closed-circuit road races by the late 1890s.
+    type: chronological development
+  - content: Key early events included the Bennett Trophy races (1901-1905), organized
+      by the Automobile Club de France and later held in various European locations.
+      The French Grand Prix was established in 1906 after French manufacturers boycotted
+      the Bennett Trophy. The Targa Florio in Sicily and the Vanderbilt Cup in the
+      United States were other prominent early races. Influential figures included
+      James Gordon Bennett, who sponsored international competition, and William K.
+      Vanderbilt, who established a major American trophy.
+    type: notable events and figures
+  - content: Early races often featured prototype cars that previewed next year's
+      production models, but over time, racing cars became increasingly specialized.
+      After World War I, the use of production cars declined in favor of purpose-built
+      racing vehicles. Governing bodies like the Automobile Club de France and, later,
+      the FIA, played key roles in standardizing rules and promoting safety.
+    type: technological and regulatory evolution
+  - content: The early history of automobile racing set the stage for modern motorsport,
+      establishing traditions of international competition, technological innovation,
+      and regulatory oversight. The shift from open-road races to closed circuits
+      reflected growing concerns for safety, influencing the structure of contemporary
+      racing. Early events like the Mille Miglia and the French Grand Prix remain
+      iconic in the sport's legacy.
+    type: implications and legacy
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: The article explains that the danger to spectators, racers, and livestock
+      on public roads led authorities to favor closed-circuit races, making safety
+      concerns the primary reason for the transition.
+    options:
+    - A lack of public interest in long-distance races.
+    - The need to showcase new car models.
+    - Safety concerns due to accidents involving spectators and livestock.
+    - Pressure from automobile manufacturers to reduce costs.
+    question_text: What was a major reason for the transition from town-to-town road
+      races to closed-circuit road races in early automobile racing history?
+  index: 291
+  key_concept: Early history
+  name: Early history
+- aspects:
+  - content: Speedway racing refers to automobile races held on purpose-built tracks,
+      typically oval in shape and often banked for higher speeds. The first such track
+      was Brooklands, constructed in 1906 in Surrey, England, featuring a 4.45 km
+      circuit with banked curves. Speedway racing developed as a safer and more controlled
+      alternative to open-road racing.
+    type: definition and origins
+  - content: Notable speedways include Brooklands (England), Monza (Italy), Montlhéray
+      (France), and the Indianapolis Motor Speedway (United States). Brooklands hosted
+      various race formats, including sprints, endurance runs, and 24-hour events,
+      until its closure in 1939. The Indianapolis 500, first run in 1911, is among
+      the most famous speedway events and has continued except during wartime.
+    type: major venues and events
+  - content: Speedway tracks are characterized by their oval or circular layouts,
+      wide surfaces, and banked curves, which allow for higher speeds and improved
+      safety. Early tracks like Brooklands and Monza influenced the design of later
+      circuits worldwide. Some tracks, such as Montlhéray, were also used for setting
+      speed records and included road circuit sections for Grand Prix racing.
+    type: track design and innovations
+  - content: The rise of speedway racing marked a shift toward spectator-friendly,
+      controlled environments that could accommodate large audiences and fostered
+      the growth of professional motorsport. The popularity of speedways in the United
+      States led to the proliferation of board and dirt tracks, especially in the
+      1920s. Speedway racing remains a central aspect of automobile racing culture,
+      with iconic events and venues continuing to shape the sport.
+    type: evolution and impact
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Brooklands, built in 1906 in England, was the first purpose-built
+      speedway and was notable for its 4.45 km oval circuit with banked curves, enabling
+      higher speeds and safer racing.
+    options:
+    - Indianapolis Motor Speedway; it was unpaved and rectangular.
+    - Brooklands; it featured a 4.45 km oval circuit with banked curves.
+    - Monza; it was the first to use only half the track for Grand Prix events.
+    - Montlhéray; it was exclusively used for speed records and had no curves.
+    question_text: Which track is recognized as the first purpose-built speedway for
+      automobile racing, and what was a notable feature of its design?
+  index: 313
+  key_concept: Speedway racing
+  name: '[Speedway racing](https://www.britannica.com/sports/speedway-racing "https://www.britannica.com/sports/speedway-racing")'

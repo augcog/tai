@@ -1,0 +1,275 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An in-depth article explaining the major changes in Formula 1 regulations
+  for the 2026 season, focusing on technical, sporting, and sustainability aspects
+  including aerodynamics, power units, energy management, and safety.
+file_name: 'F1 2026 regulations: Everything you need to know about the new Formula
+  1 rules for 2026.html'
+file_path: 'F1_racing/F1_Official/news/en/latest/article/F1 2026 regulations: Everything
+  you need to know about the new Formula 1 rules for 2026.html'
+file_uuid: 80c3bf05-11e4-5294-8e39-6a09dbd1045e
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: The 2026 regulations introduce simplified front and rear wings, while
+    cars become shorter, lighter, and use narrower tires. Ground-effect tunnels are
+    removed, not enhanced.
+  knowledge_areas:
+  - Aerodynamic and Chassis Changes
+  options:
+  - Longer and heavier cars
+  - Simplified front and rear wings
+  - Increased downforce from ground-effect tunnels
+  - Wider tires
+  question_id: 1
+  question_text: Which of the following is a key feature of the new 2026 F1 aerodynamic
+    regulations?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Active Aero enables all drivers to adjust wing elements for reduced
+    drag and increased speed on straights, replacing the DRS system and aiming to
+    improve overtaking opportunities.
+  knowledge_areas:
+  - Active Aero and Driver Tools
+  options:
+  - To increase fuel consumption
+  - To allow all drivers to adjust wing angles for reduced drag and higher speed on
+    straights
+  - To eliminate the use of electric motors
+  - To make overtaking harder
+  question_id: 2
+  question_text: What is the main purpose of introducing Active Aero in F1 from 2026?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The new regulations triple electric motor output and remove the MGU-H,
+    making the hybrid system more road-relevant and simpler.
+  knowledge_areas:
+  - Power Unit and Energy Management Changes
+  options:
+  - The power unit will rely solely on internal combustion engines
+  - The electric motor output will be tripled, and the MGU-H will be removed
+  - Hybrid technology will be abandoned
+  - Only one manufacturer will supply power units
+  question_id: 3
+  question_text: Which of the following statements best describes the 2026 F1 power
+    unit changes?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Advanced Sustainable Fuels are produced from innovative sources, such
+    as carbon capture and municipal waste, and are independently certified, supporting
+    F1's net-zero carbon ambitions.
+  knowledge_areas:
+  - Advanced Sustainable Fuels
+  options:
+  - They are made from crude oil
+  - They are derived from sources like carbon capture and municipal waste, reducing
+    carbon footprint
+  - They increase greenhouse gas emissions
+  - They are only used during qualifying sessions
+  question_id: 4
+  question_text: How do Advanced Sustainable Fuels contribute to F1's sustainability
+    goals?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The roll hoop must withstand more load, and the front impact structure
+    is now designed to separate in two stages, both aimed at improving driver safety.
+  knowledge_areas:
+  - Enhanced Safety Regulations
+  options:
+  - Roll hoop and front impact structure
+  - Tire compound and pit stop rules
+  - Driver uniforms and team radio protocols
+  - Sponsorship regulations and TV broadcasting
+  question_id: 5
+  question_text: Which two major areas are directly affected by the 2026 F1 safety
+    regulation enhancements?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 2026 F1 regulations introduce a comprehensive overhaul of the cars'
+      aerodynamic and chassis design. Key changes include shorter, narrower, and lighter
+      cars, a reduced wheelbase, and narrower 18-inch Pirelli tires. The removal of
+      arches above the front tires and the replacement of long ground-effect tunnels
+      with flatter floors and extended diffusers are central to this redesign.
+    type: Definition
+  - content: For instance, the new cars will feature a higher ride height and less
+      downforce, which is expected to increase the variety of car setups and suit
+      a broader range of driving styles. The simplification of front and rear wings—such
+      as the removal of rear beam wings and narrowing of front wing elements—highlights
+      the move towards more straightforward aerodynamic components.
+    type: Examples
+  - content: These changes are designed to make the cars more responsive and nimbler,
+      improving cornering and reducing drag. The reduction in downforce and simplification
+      of aero elements aim to make following another car easier, thus promoting closer
+      racing and reducing the aerodynamic advantage of leading cars.
+    type: Implications
+  - content: The new aerodynamic rules are a response to the previous era's focus
+      on intricate floor designs and ground-effect tunnels (2022–2025). By enforcing
+      flatter floors and extended diffusers, the FIA aims to level the competitive
+      field and encourage more diverse technical solutions among teams.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Long ground-effect tunnels are being removed, not introduced; the
+      other options are all part of the 2026 aerodynamic changes.
+    options:
+    - Shorter and lighter chassis
+    - Introduction of long ground-effect tunnels
+    - Simplified front and rear wings
+    - Higher ride height requirement
+    question_text: Which of the following is NOT a change introduced to F1 car aerodynamics
+      for 2026?
+  index: 53
+  key_concept: Aerodynamic and Chassis Changes
+  name: Everything you need to know about the new F1 rules for 2026
+- aspects:
+  - content: Active Aero refers to the new system allowing drivers to adjust the angle
+      of both front and rear wing elements dynamically depending on track position.
+      This replaces the traditional DRS, enabling all drivers to enter a low-drag
+      mode on designated straights, regardless of their position relative to other
+      cars.
+    type: Definition
+  - content: In corners, wing flaps remain closed for maximum grip, but on straights,
+      drivers can open the flaps to reduce drag and increase top speed. Additionally,
+      drivers now have access to Overtake Mode (extra electrical energy when within
+      one second of a rival) and a Boost button (maximum power from engine and battery
+      for attack or defense).
+    type: Examples
+  - content: Active Aero can be used by any driver on every lap, making overtaking
+      and defending more strategic. Overtake Mode is only available when within one
+      second of a competitor, while the Boost button can be used at any time, provided
+      there is enough battery charge.
+    type: Use Cases
+  - content: These tools give drivers greater tactical flexibility and make races
+      more dynamic. The removal of traditional DRS and the introduction of universal
+      Active Aero aim to equalize overtaking opportunities. The integration of these
+      tools with energy management systems connects closely with the new power unit
+      rules.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Unlike DRS, which required drivers to be within one second of a car
+      ahead, Active Aero can be used by all drivers on every designated straight,
+      making it universally accessible.
+    options:
+    - Active Aero can only be used by the race leader
+    - Active Aero is available to all drivers on every straight, not just when within
+      one second of another car
+    - Active Aero reduces engine power
+    - Active Aero is only used in wet conditions
+    question_text: How does Active Aero differ from the traditional DRS system in
+      F1?
+  index: 53
+  key_concept: Active Aero and Driver Tools
+  name: Everything you need to know about the new F1 rules for 2026
+- aspects:
+  - content: The 2026 regulations retain the 1.6-litre V6 turbo hybrid but shift the
+      power balance towards a roughly 50-50 split between internal combustion and
+      electric power. The electric motor output is tripled, and the Energy Recovery
+      System (ERS) can now recover twice as much energy per lap. The MGU-H component
+      is removed to simplify the system and improve road relevance.
+    type: Definition
+  - content: Manufacturers like Ferrari, Mercedes, Red Bull Powertrains (with Ford),
+      Audi, Honda, and General Motors are all engaged or attracted by these changes.
+      The ERS now recovers energy not only under braking but also when lifting off
+      the throttle, and drivers can select different recharge modes in collaboration
+      with their race engineers.
+    type: Examples
+  - content: These changes make the power units more relevant to road car technology
+      and reduce costs and complexity. The greater reliance on electric power and
+      simplified hybrid systems are expected to attract more manufacturers and foster
+      innovation.
+    type: Implications
+  - content: The integration of energy management with driver tools (like Boost and
+      Overtake Mode) demonstrates the increasing importance of tactical energy deployment
+      in racing. The removal of the MGU-H and the focus on ERS efficiency also align
+      with broader sustainability goals.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: The electric motor output is tripled and the MGU-H (heat recovery
+      system) is removed, making the hybrid system simpler and more road-relevant.
+    options:
+    - Increasing the size of the internal combustion engine
+    - Eliminating the electric motor entirely
+    - Tripling electric motor output and removing the MGU-H
+    - Switching to a two-stroke engine
+    question_text: What is a major change in the 2026 F1 power unit regulations?
+  index: 53
+  key_concept: Power Unit and Energy Management Changes
+  name: Everything you need to know about the new F1 rules for 2026
+- aspects:
+  - content: From 2026, F1 cars will run on Advanced Sustainable Fuels, which are
+      produced from innovative sources like carbon capture, municipal waste, and non-food
+      biomass. These fuels are independently certified to meet strict sustainability
+      standards.
+    type: Definition
+  - content: These fuels have already been tested in F2 and F3 during the 2025 season.
+      Sources such as municipal waste and carbon capture technology ensure that the
+      fuels are not derived from food crops, reducing competition with food production
+      and lowering the overall carbon footprint.
+    type: Examples
+  - content: The adoption of sustainable fuels is a significant step toward F1's goal
+      of net-zero carbon emissions. It also positions F1 as a leader in motorsport
+      sustainability and provides a testing ground for future road car fuel technologies.
+    type: Implications
+  - content: This initiative is closely linked to broader environmental objectives
+      in motorsport and automotive industries. It complements the increased electrification
+      of the power units and aligns with global efforts to decarbonize transportation.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The new fuels are made from advanced sustainable sources, such as
+      carbon capture and municipal waste, and are not derived from crude oil.
+    options:
+    - They are made only from crude oil
+    - They are derived from advanced sustainable sources like carbon capture and municipal
+      waste
+    - They require special engines not used in road cars
+    - They are banned in other racing series
+    question_text: What is unique about the fuels used in F1 from 2026 onwards?
+  index: 53
+  key_concept: Advanced Sustainable Fuels
+  name: Everything you need to know about the new F1 rules for 2026
+- aspects:
+  - content: The 2026 rules introduce stricter safety standards for the survival cell,
+      roll hoop, and front impact structure of F1 cars. These changes aim to improve
+      driver protection in high-impact crashes.
+    type: Definition
+  - content: The roll hoop must now withstand 23% more load, equivalent to the weight
+      of nine family cars. The front impact structure has been redesigned to separate
+      in two stages, offering better protection during secondary impacts. The survival
+      cell will undergo more rigorous testing to ensure it can withstand severe forces.
+    type: Examples
+  - content: These enhancements are expected to reduce the risk of injury in major
+      accidents, particularly in scenarios involving multiple impacts. The improvements
+      reflect F1's commitment to continuous safety innovation.
+    type: Implications
+  - content: The safety upgrades are part of a broader trend in motorsport to prioritize
+      driver welfare. They are developed in collaboration with the FIA, teams, and
+      commercial stakeholders, ensuring that safety evolves alongside performance
+      and sustainability.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The front impact structure is now designed to separate in two stages,
+      providing enhanced protection in multi-impact crashes.
+    options:
+    - Weaker roll hoops to save weight
+    - Front impact structures that separate in two stages
+    - Removal of the survival cell
+    - Reduction in crash testing standards
+    question_text: Which safety improvement is part of the 2026 F1 regulations?
+  index: 53
+  key_concept: Enhanced Safety Regulations
+  name: Everything you need to know about the new F1 rules for 2026

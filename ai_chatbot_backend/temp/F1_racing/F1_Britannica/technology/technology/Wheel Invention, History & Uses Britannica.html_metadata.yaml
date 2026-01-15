@@ -1,0 +1,248 @@
+URL: https://www.britannica.com/technology/wheel
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article overviewing the wheel, including its invention,
+  historical development, technological advancements, and diverse uses in transportation,
+  machines, and industry.
+file_name: Wheel Invention, History & Uses Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Wheel Invention, History
+  & Uses Britannica.html
+file_uuid: fd6a8079-3326-5e68-bda1-6a57234d618a
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: A wheel's effectiveness comes from its ability to rotate on an axle,
+    which enables movement and transfer of force. The other options do not describe
+    the essential structural feature of a wheel.
+  knowledge_areas:
+  - Definition and Structure of the Wheel
+  options:
+  - Its ability to rotate on an axle
+  - Its triangular shape
+  - Its use of hollow materials
+  - Its fixed position
+  question_id: 1
+  question_text: What is the primary structural feature that allows a wheel to function
+    effectively?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Sumerians around 3500 BC are credited with the earliest pictorial evidence
+    of the wheel, as shown by their pictographs.
+  knowledge_areas:
+  - Origins and Early Development
+  options:
+  - Ancient Greece, 800 BC
+  - Sumerians, 3500 BC
+  - Romans, 200 AD
+  - Chinese, 1000 BC
+  question_id: 2
+  question_text: Which civilization provides the earliest pictorial evidence of the
+    wheel, and around what year?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Spoked wheels were crucial in reducing the weight of wheels while maintaining
+    strength, especially for chariots.
+  knowledge_areas:
+  - Technological Advancements
+  options:
+  - Solid wooden disks
+  - Spoked wheels
+  - Iron tires
+  - Greased axles
+  question_id: 3
+  question_text: Which innovation was crucial for reducing the weight of wheels used
+    on ancient chariots?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The potter's wheel and waterwheel are early examples of the wheel's
+    use in manufacturing and agriculture, showing its versatility beyond transportation.
+  knowledge_areas:
+  - Diverse Applications of the Wheel
+  options:
+  - Potter's wheel and waterwheel
+  - Automobile tire
+  - Bicycle spoke
+  - Electric generator
+  question_id: 4
+  question_text: The wheel's role in which of the following applications demonstrates
+    its versatility beyond transportation?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The wheel's ability to provide rotary motion allowed machines to operate
+    continuously and efficiently, which was crucial for the advancements of the Industrial
+    Revolution.
+  knowledge_areas:
+  - Impact on Machine Design and Industrial Revolution
+  options:
+  - It enabled continuous, efficient operation of machines.
+  - It eliminated the need for any moving parts.
+  - It was mainly used for decorative purposes.
+  - It replaced water power entirely.
+  question_id: 5
+  question_text: How did the wheel's ability to provide rotary motion impact machine
+    design during the Industrial Revolution?
+  question_type: recap
+sections:
+- aspects:
+  - content: A wheel is a circular frame made of hard material that can be solid,
+      partly solid, or spoked, designed to rotate on an axle. Its primary function
+      is to facilitate movement or transfer rotational force. The wheel is a fundamental
+      component in many mechanical systems, enabling efficient motion and load distribution.
+    type: Definition
+  - content: 'Examples of wheels include those found on carts, bicycles, automobiles,
+      and pottery turntables. The structure can vary: early wheels were solid wooden
+      disks, while later designs incorporated spokes and metal rims. Spoked wheels,
+      such as those used on ancient chariots, demonstrate advancements in reducing
+      weight while maintaining strength.'
+    type: Examples
+  - content: The wheel is closely connected to other mechanical elements like axles,
+      gears, and rotary motion systems. Its development enabled the creation of complex
+      machines and is foundational to modern engineering and transportation technologies.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: 'The correct answer is option 0: the article defines a wheel as a
+      circular frame, which may be solid or spoked, and is capable of turning on an
+      axle. The other options describe unrelated objects.'
+    options:
+    - A circular frame, possibly solid or spoked, capable of rotating on an axle.
+    - A flat platform used for carrying heavy loads.
+    - A solid block of wood used for building houses.
+    - A triangular device used for lifting water.
+    question_text: Which of the following best describes the structural characteristics
+      of a wheel as defined in the article?
+  index: 131
+  key_concept: Definition and Structure of the Wheel
+  name: wheel
+- aspects:
+  - content: The earliest evidence of wheels comes from Sumerian pictographs around
+      3500 BC, depicting sledges equipped with wheels. The initial concept may have
+      evolved from using logs as rollers to move heavy objects. Early wheels were
+      constructed from wooden planks clamped together, showing a gradual evolution
+      from simple rollers to true wheels.
+    type: Historical Context
+  - content: The oldest known wheels were wooden disks made from three carved planks
+      held by transverse struts. Spoked wheels appeared around 2000 BC, notably on
+      chariots in Asia Minor, representing a significant technological leap.
+    type: Examples
+  - content: The invention of the wheel revolutionized transportation and technology,
+      enabling more efficient movement of goods and people. It also laid the groundwork
+      for further mechanical innovations and societal development.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: 'The correct answer is option 1: Sumer (Erech), around 3500 BC. The
+      article specifically references Sumerian pictographs from this period as the
+      earliest evidence of wheels.'
+    options:
+    - Ancient Egypt, 1000 BC
+    - Sumer (Erech), around 3500 BC
+    - China, 500 BC
+    - Rome, 200 AD
+    question_text: According to archaeological evidence, where and when did the earliest
+      known wheels appear?
+  index: 131
+  key_concept: Origins and Early Development
+  name: wheel
+- aspects:
+  - content: Significant advancements in wheel technology include the development
+      of spoked wheels (circa 2000 BC), iron hubs, and the introduction of iron tires.
+      Spoked wheels reduced weight and improved performance, especially for chariots.
+      Iron hubs and greased axles enhanced durability and efficiency, while iron tires,
+      heated and fitted to shrink onto the rim, provided structural integrity.
+    type: Innovations
+  - content: The use of spoked wheels on chariots in Asia Minor, iron hubs, and the
+      application of iron tires are notable examples. These innovations were later
+      adopted in various cultures and adapted for different uses, such as carts, wagons,
+      and early vehicles.
+    type: Examples
+  - content: These technological improvements enabled the wheel to support heavier
+      loads, move faster, and last longer, directly influencing the development of
+      transportation, military technology, and industrial machinery. The evolution
+      of the wheel is closely tied to advances in metallurgy and engineering.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: 'The correct answer is option 1: spoked wheels. The article states
+      that spoked wheels appeared around 2000 BC and were used on chariots, reducing
+      weight while maintaining structural strength.'
+    options:
+    - Solid wooden disks
+    - Spoked wheels
+    - Iron hubs
+    - Greased axles
+    question_text: Which technological advancement most significantly reduced the
+      weight of wheels while maintaining strength, especially for chariots?
+  index: 131
+  key_concept: Technological Advancements
+  name: wheel
+- aspects:
+  - content: The wheel has been used in various contexts beyond transportation. In
+      Mesopotamia, the potter's wheel was developed by 3500 BC, revolutionizing pottery
+      production. Waterwheels were used for irrigation, lifting water using pots tied
+      to the rim, and later for driving millstones in grain mills.
+    type: Examples
+  - content: Wheels enabled the exploitation of animal, water, and wind power during
+      the Middle Ages. They were integral to mills, where animal-driven, water-driven,
+      or wind-driven wheels powered grinding stones for grain processing. The versatility
+      of the wheel made it central to technological progress in multiple domains.
+    type: Use Cases
+  - content: The widespread application of the wheel demonstrates its adaptability
+      and critical role in human innovation. It facilitated agricultural productivity,
+      industrial processes, and the development of machinery, laying the foundation
+      for modern engineering.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: 'The correct answer is option 3: electric generator. The article
+      discusses the potter''s wheel, waterwheels, and windmills as early applications,
+      but does not mention electric generators, which are a much later development.'
+    options:
+    - Potter's turntable
+    - Waterwheel for irrigation
+    - Windmill for grinding grain
+    - Electric generator
+    question_text: Which of the following is NOT an early application of the wheel
+      described in the article?
+  index: 131
+  key_concept: Diverse Applications of the Wheel
+  name: wheel
+- aspects:
+  - content: The wheel's ability to enable controlled rotary motion was pivotal for
+      the design of machines. Rotary motion allows for continuous, smooth operation,
+      unlike linear motion, which involves reversals and changes in direction. This
+      property made wheels essential for the development of complex machinery.
+    type: Implications
+  - content: During the Industrial Revolution, the use of rotating machines driven
+      by steam engines transformed manufacturing. The wheel was a fundamental component
+      in these machines, facilitating repetitive operations and mass production.
+    type: Historical Context
+  - content: The wheel's role in enabling rotary motion links it to the broader evolution
+      of mechanical engineering, including the development of gears, pulleys, and
+      modern engines. Its influence persists in nearly all forms of machinery today.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: 'The correct answer is option 0: the wheel enabled controlled rotary
+      motion, which is essential for continuous and efficient machine operation, a
+      key factor in the Industrial Revolution.'
+    options:
+    - It allowed for controlled rotary motion, enabling continuous and efficient machine
+      operation.
+    - It was mainly used as a decorative element in factories.
+    - It replaced all forms of linear motion in machines.
+    - It was only used in transportation, not in manufacturing.
+    question_text: Why was the wheel particularly important for machine design during
+      the Industrial Revolution?
+  index: 131
+  key_concept: Impact on Machine Design and Industrial Revolution
+  name: wheel

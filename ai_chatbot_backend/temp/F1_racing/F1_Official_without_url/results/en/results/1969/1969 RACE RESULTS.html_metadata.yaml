@@ -1,0 +1,187 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A summary webpage for the 1969 Formula 1 season race results, including
+  a table of Grand Prix winners, links to detailed race data, a list of official F1
+  partners, and app download information.
+file_name: 1969 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1969/1969 RACE RESULTS.html
+file_uuid: a0349e7d-1896-50eb-9f6b-03eebab423cb
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Jackie Stewart won most races in 1969 driving for Matra Ford, as indicated
+    in the results table.
+  knowledge_areas:
+  - 1969 Formula 1 Race Results
+  options:
+  - Ferrari
+  - Matra Ford
+  - Lotus Ford
+  - Brabham Ford
+  question_id: 1
+  question_text: Which team did Jackie Stewart drive for when he won most of the 1969
+    F1 races?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Heineken is explicitly listed as an F1 sponsor; the others are not
+    mentioned in the partner section.
+  knowledge_areas:
+  - F1 Partners and Sponsors
+  options:
+  - Heineken
+  - Adidas
+  - Sony
+  - Ford
+  question_id: 2
+  question_text: Which of the following brands is listed as an official F1 partner
+    or sponsor for the 1969 season results page?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App is promoted for live timing and race schedules,
+    not for streaming, betting, or technical tutorials.
+  knowledge_areas:
+  - Official F1 App Availability
+  options:
+  - Live timing and race schedules
+  - Free race streaming and betting tips
+  - Driver contract negotiations and team management
+  - Car design tutorials and engineering courses
+  question_id: 3
+  question_text: What are two main features provided by the Official F1 App, as promoted
+    on the results page?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: F1 sponsors are crucial for funding, technology, and brand exposure,
+    but do not directly influence race outcomes or regulations.
+  knowledge_areas:
+  - F1 Partners and Sponsors
+  options:
+  - They provide essential funding, technology, and global branding opportunities.
+  - They determine race winners and influence driver contracts.
+  - They own the teams and set race regulations.
+  - They only advertise during the opening ceremony.
+  question_id: 4
+  question_text: How do F1 partners and sponsors impact the sport, according to the
+    information on the 1969 results page?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: F1 leverages digital tools like the app to deliver race results and
+    content directly to fans, enhancing engagement and accessibility.
+  knowledge_areas:
+  - 1969 Formula 1 Race Results
+  - Official F1 App Availability
+  options:
+  - Race results are only available in print, while digital engagement is unrelated.
+  - F1's digital platforms, such as the Official F1 App, provide fans with real-time
+    access to race results and related content.
+  - Sponsors control the release of race results through the app.
+  - Digital engagement is limited to team merchandise sales.
+  question_id: 5
+  question_text: Which of the following statements best integrates the relationship
+    between race results and F1's digital engagement strategy?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1969 Formula 1 Race Results refer to the official outcomes of each
+      Grand Prix event held during the 1969 F1 World Championship season. This includes
+      information such as the race name, date, winning driver, team, number of laps,
+      and the winning time for each race.
+    type: definition
+  - content: For instance, Jackie Stewart won the South African Grand Prix on March
+      1st, 1969, driving for Matra Ford, completing 80 laps in 1:50:39.100. Other
+      examples include Graham Hill winning Monaco for Lotus Ford and Jacky Ickx winning
+      in Germany and Canada for Brabham Ford.
+    type: examples
+  - content: These results are critical for determining the season's championship
+      standings, both for drivers and constructors. They also provide historical context
+      for the performance of teams and drivers, influencing legacy, records, and statistical
+      analysis in motorsport history.
+    type: implications
+  - content: The race results connect to broader F1 topics such as driver and team
+      strategies, technological developments, and the evolution of race formats. They
+      also link to the annual points system, which determines the World Champion.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Jackie Stewart won the majority of races in 1969, as evidenced by
+      his multiple victories listed in the results table.
+    options:
+    - Jackie Stewart
+    - Graham Hill
+    - Jacky Ickx
+    - Jochen Rindt
+    question_text: Which driver won the most races in the 1969 Formula 1 season?
+  index: 148
+  key_concept: 1969 Formula 1 Race Results
+  name: 1969 RACE RESULTS
+- aspects:
+  - content: F1 Partners and Sponsors are the companies and brands that provide financial,
+      technological, and promotional support to Formula 1. They are officially recognized
+      and often receive branding opportunities at events and in media.
+    type: definition
+  - content: Examples of major F1 partners include LVMH, Pirelli, Aramco, Heineken,
+      AWS, Lenovo, DHL, and Qatar Airways. These brands are featured prominently on
+      the F1 website and at race venues.
+    type: examples
+  - content: Sponsorships enable companies to reach a global audience, enhance brand
+      visibility, and associate with the prestige and excitement of Formula 1. For
+      F1, partnerships bring essential funding, technology (such as AWS cloud computing
+      for data analytics), and logistical support (like DHL for transport).
+    type: use cases
+  - content: The presence of high-profile sponsors reflects the commercial importance
+      of F1 and its global influence. Sponsorship deals can impact team budgets, technological
+      advancements, and even influence race locations or event formats.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: Nike is not mentioned among the official F1 partners; the others
+      are explicitly listed as sponsors.
+    options:
+    - Pirelli
+    - AWS
+    - Heineken
+    - Nike
+    question_text: Which of the following is NOT listed as an official F1 partner
+      in the 1969 race results page?
+  index: 164
+  key_concept: F1 Partners and Sponsors
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application provided by Formula 1, offering
+      fans access to live timing, news, race schedules, and multimedia content directly
+      on their devices.
+    type: definition
+  - content: The app is available for download on both the Apple App Store and Google
+      Play Store, making it accessible to users of iOS and Android devices. It provides
+      features such as live race data, driver standings, and exclusive videos.
+    type: examples
+  - content: Fans use the app to stay updated during race weekends, track live positions,
+      and receive notifications about breaking news or schedule changes. It enhances
+      the fan experience by offering interactive and real-time information.
+    type: use cases
+  - content: The app's availability reflects F1's commitment to digital engagement
+      and global accessibility. It also serves as a platform for integrating sponsor
+      content and promoting F1's digital ecosystem.
+    type: implications
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The app is promoted for live timing and updates; while it may link
+      to merchandise or content, its core function is live race data and information.
+    options:
+    - Providing live timing and race updates
+    - Selling team merchandise directly
+    - Offering exclusive driver interviews only
+    - Streaming races for free worldwide
+    question_text: What is a primary function of the Official F1 App mentioned on
+      the 1969 race results page?
+  index: 174
+  key_concept: Official F1 App Availability
+  name: Download the Official F1 App

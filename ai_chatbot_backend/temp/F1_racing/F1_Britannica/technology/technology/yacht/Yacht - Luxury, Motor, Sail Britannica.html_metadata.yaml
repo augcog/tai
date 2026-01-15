@@ -1,0 +1,278 @@
+URL: https://www.britannica.com/technology/yacht/Kinds-of-power-yachts#ref8068
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article section on power yachts and yacht racing,
+  covering the evolution of power yachts, the development and organization of racing
+  clubs, Olympic yacht racing, types of racing courses, and the history of transatlantic
+  and global yacht racing.
+file_name: Yacht - Luxury, Motor, Sail Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/yacht/Yacht - Luxury, Motor,
+  Sail Britannica.html
+file_uuid: 2be75f70-3b59-5c2a-81bd-1b9c8ca95669
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Internal-combustion and diesel engines replaced sail and steam as the
+    primary means of propulsion, making power yachts more reliable and accessible.
+    Fiberglass hulls and self-steering gear were important but not central to this
+    transition.
+  knowledge_areas:
+  - Kinds of power yachts
+  options:
+  - The development of internal-combustion and diesel engines
+  - The invention of fiberglass hulls
+  - The introduction of self-steering gear
+  - The use of triangular closed courses
+  question_id: 1
+  question_text: Which technological advancements contributed most to the transition
+    from sail-powered to power yachts in the late 19th and early 20th centuries?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Yacht racing clubs were primarily responsible for creating racing rules,
+    organizing regattas, and representing the interests of yachtsmen, not manufacturing
+    yachts or providing defense.
+  knowledge_areas:
+  - Racing clubs
+  options:
+  - Building yachts for commercial sale
+  - Establishing racing rules and representing yachting interests
+  - Providing naval defense services
+  - Organizing fishing tournaments
+  question_id: 2
+  question_text: What was a key function of yacht racing clubs in the 19th and 20th
+    centuries?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Post-WWII Olympic yacht racing emphasized smaller, standardized classes
+    and one-class racing, making the sport more accessible and competitive.
+  knowledge_areas:
+  - Olympic Games
+  options:
+  - Increasing the number of boat classes
+  - Focusing on smaller, standardized one-class boats
+  - Returning to large, multi-person yachts
+  - Eliminating yacht racing from the Olympics
+  question_id: 3
+  question_text: After World War II, what trend became prominent in Olympic yacht
+    racing?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Point-to-point courses are characterized by races that start and finish
+    at different locations, often covering significant distances, unlike closed or
+    triangular courses.
+  knowledge_areas:
+  - Courses
+  options:
+  - They always take place on inland lakes.
+  - They involve sailing from one location to another, often over long distances.
+  - They are always triangular in shape.
+  - They require only two crew members.
+  question_id: 4
+  question_text: Which of the following is a defining feature of point-to-point yacht
+    racing courses?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Self-steering gear enabled solo sailors to manage their boats over
+    long distances without constant manual input, greatly facilitating solo transatlantic
+    and global races.
+  knowledge_areas:
+  - Transatlantic racing and global circumnavigation
+  options:
+  - It made solo long-distance races more feasible and popular.
+  - It eliminated the need for navigation skills.
+  - It reduced the size of yachts required for racing.
+  - It prevented the use of auxiliary sails.
+  question_id: 5
+  question_text: How did the introduction of self-steering gear impact solo transatlantic
+    and global circumnavigation yacht races?
+  question_type: recap
+sections:
+- aspects:
+  - content: Power yachts are pleasure vessels propelled by mechanical engines, initially
+      steam and later internal-combustion engines. The transition from sail to steam
+      in the mid-19th century marked the beginning of power yachting, with paddle-wheel
+      boats giving way to screw or propeller-driven vessels. Over time, the development
+      of reliable gasoline and diesel engines led to the predominance of exclusively
+      powered yachts, though auxiliary yachts (with both sail and power) remained
+      popular for a period.
+    type: Definition and Evolution
+  - content: The late 19th and early 20th centuries saw a boom in large steam yacht
+      construction, exemplified by the Mayflower (1897) and the Orion (1930). The
+      Sea Cloud (1931) represented the largest auxiliary yacht of its time. After
+      1932, the trend shifted towards smaller, more affordable yachts, especially
+      following World War II, when surplus naval vessels were converted for private
+      use.
+    type: Historical Examples and Trends
+  - content: Initially, power yachting was a pastime of the wealthy due to the high
+      cost and size of early yachts. As engine technology improved and costs decreased,
+      yachting became accessible to a broader population, leading to a surge in ownership
+      and participation, especially on inland waterways and lakes. This democratization
+      of yachting paralleled broader social changes in leisure and recreation.
+    type: Social and Technological Implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: 'The correct answer is option 1: power yachts began as large, steam-powered
+      vessels primarily for the wealthy, but technological advances in gasoline and
+      diesel engines made them smaller and more accessible to the general public.
+      The other options are incorrect because they ignore the historical progression
+      from elite luxury to widespread participation and the shift from sail to mechanical
+      propulsion.'
+    options:
+    - They have always been small, affordable vessels for the general public.
+    - They began as steam-powered vessels for the wealthy, later becoming more accessible
+      with gasoline and diesel engines.
+    - They were originally used only for military purposes and never for leisure.
+    - Power yachts have always been powered exclusively by wind.
+    question_text: Which of the following best describes the historical evolution
+      of power yachts?
+  index: 151
+  key_concept: Kinds of power yachts
+  name: Kinds of power yachts
+- aspects:
+  - content: Racing clubs are formal organizations that promote, regulate, and organize
+      yacht racing activities. They establish rules, coordinate regattas, and represent
+      yachting interests to governmental and maritime authorities. Notable examples
+      include the Yacht Racing Association (later Royal Yachting Association) in England
+      and the North American Racing Union in the United States.
+    type: Definition and Organizational Role
+  - content: Yacht clubs proliferated in the 19th and 20th centuries, with major clubs
+      founded in cities such as New Orleans, Detroit, Boston, San Francisco, and internationally
+      in Canada and Australia. By the late 20th century, the United States alone had
+      about 1,500 active yacht clubs, reflecting the sport's widespread appeal.
+    type: Historical Development and Global Spread
+  - content: Specialized organizations arose to focus on offshore, ocean racing, or
+      specific boat classes, such as the Cruising Club of America and the Royal Ocean
+      Racing Club. These clubs contributed to the development of international standards,
+      the preparation of nautical charts, and the establishment of challenge cups,
+      fostering innovation and competition within the sport.
+    type: Specialization and Impact
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Option 1 is correct because early yacht racing clubs primarily focused
+      on establishing racing rules and representing the interests of yachtsmen to
+      authorities. They did not manufacture yachts, serve as naval defense, or organize
+      fishing competitions.
+    options:
+    - Manufacturing yachts for commercial sale
+    - Establishing rules for regattas and representing yachting interests
+    - Providing naval defense services
+    - Organizing fishing competitions
+    question_text: What was a major function of early yacht racing clubs such as the
+      Yacht Racing Association?
+  index: 259
+  key_concept: Racing clubs
+  name: Racing clubs
+- aspects:
+  - content: Yacht racing has been part of the Olympic Games since 1900 (except 1904),
+      reflecting the sport's international prestige. Over time, the Olympic program
+      shifted from races for boats of various sizes to a focus on smaller boats and
+      standardized classes, especially after World War II.
+    type: Inclusion and Evolution
+  - content: Olympic yacht racing typically features five classes, including monotype
+      (one-person), two-person centerboard and keel boats, three-person one-design
+      boats, and development boats. The classes are determined by the International
+      Olympic Committee based on IYRU recommendations, and the specific models may
+      change from one Olympics to another. Windsurfing was introduced as an Olympic
+      event in 1984.
+    type: Class Structure and Changes
+  - content: The move toward smaller, standardized boats and fewer classes made Olympic
+      yacht racing more accessible and competitive, reducing logistical challenges
+      and the need for large crews. This shift also encouraged the popularity of one-class
+      racing and contributed to the sport's global standardization.
+    type: Implications for the Sport
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: 'Option 2 is correct because, after World War II, Olympic yacht racing
+      shifted toward smaller boats and one-class racing. The other options are incorrect:
+      the number of classes stabilized (not increased), yacht racing has been part
+      of the Olympics since 1900 (except 1904), and large yachts are no longer the
+      norm.'
+    options:
+    - It has always featured only large, multi-person yachts.
+    - The number of boat classes has increased significantly since World War II.
+    - One-class racing and smaller boats became more common after World War II.
+    - Yacht racing was introduced to the Olympics in 1984.
+    question_text: Which of the following statements about Olympic yacht racing is
+      accurate?
+  index: 267
+  key_concept: Olympic Games
+  name: '[Olympic Games](https://www.britannica.com/sports/Olympic-Games "https://www.britannica.com/sports/Olympic-Games")'
+- aspects:
+  - content: 'Yacht races are conducted over two main types of courses: point-to-point
+      and closed courses. Point-to-point races involve sailing from one location to
+      another, often over long distances (e.g., transoceanic races), while closed
+      courses are typically triangular or circuit-based, starting and ending at the
+      same location.'
+    type: Types and Definitions
+  - content: Famous point-to-point races include the Bermuda Race and the Transpacific
+      Race, both first held in 1906. Closed-course races are common for prestigious
+      events such as the America’s Cup. The One Ton Cup incorporates both types. Smaller
+      boats, particularly on inland or inshore waters, usually compete on closed,
+      triangular courses.
+    type: Examples and Applications
+  - content: The type of course significantly affects race strategy, boat design,
+      and crew skills. Point-to-point races often require navigation and endurance,
+      while closed courses emphasize tactical maneuvering and speed around marks.
+      The diversity of course types reflects the adaptability and complexity of yacht
+      racing as a sport.
+    type: Implications and Strategy
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Option 2 is correct because point-to-point courses involve sailing
+      from one location to another, often over long distances, while closed courses
+      start and finish at the same location. The other options are incorrect as they
+      misrepresent the nature and application of each course type.
+    options:
+    - Point-to-point courses are only for small boats.
+    - Closed courses always involve transoceanic navigation.
+    - Point-to-point courses run between two locations, while closed courses start
+      and end at the same place.
+    - Both types are identical in format and rules.
+    question_text: Which of the following best distinguishes point-to-point courses
+      from closed courses in yacht racing?
+  index: 271
+  key_concept: Courses
+  name: Courses
+- aspects:
+  - content: Transatlantic yacht racing began in 1866 with a match race from Sandy
+      Hook, Connecticut, to Cowes, Isle of Wight, involving three schooners. The first
+      single-handed transatlantic voyage was completed by Alfred Johnson in 1876 to
+      commemorate U.S. independence, and the first single-handed race was won by Si
+      Lawlor in 1891.
+    type: Origins and Milestones
+  - content: Interest in solo circumnavigation grew with Francis Chichester’s 1966–67
+      voyage, inspiring events like the Golden Globe Race (1968) and subsequent quadrennial
+      races organized by the Royal Naval Racing Association. The introduction of self-steering
+      gear made such feats more feasible and popular.
+    type: Development of Global Circumnavigation
+  - content: Transatlantic and global races have tested the limits of seamanship,
+      endurance, and innovation in yacht design. These events have contributed to
+      advancements in navigation, safety, and self-sufficiency at sea, while also
+      capturing public imagination and encouraging broader participation in long-distance
+      sailing.
+    type: Significance and Legacy
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Option 1 is correct because self-steering gear allowed solo sailors
+      to manage their vessels over long distances without constant manual control,
+      making solo transatlantic and around-the-world races more practical. The other
+      options did not directly enable solo long-distance sailing.
+    options:
+    - The invention of fiberglass hulls
+    - The introduction of self-steering gear
+    - The use of paddle-wheel propulsion
+    - The adoption of triangular closed courses
+    question_text: What technological development significantly facilitated solo transatlantic
+      and circumnavigation yacht races?
+  index: 275
+  key_concept: Transatlantic racing and global circumnavigation
+  name: Transatlantic racing and global circumnavigation

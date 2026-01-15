@@ -1,0 +1,290 @@
+URL: https://www.britannica.com/technology/motorboat
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article overviewing motorboats, covering their definition,
+  types and construction, historical development, speed records, and competitive racing
+  formats.
+file_name: Motorboat Types, Uses & Maintenance Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Motorboat Types, Uses & Maintenance
+  Britannica.html
+file_uuid: 6fdc74f2-2d3c-5fd8-8c88-5d6ca653e277
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Motorboats are defined by their engine-driven propulsion, while sailboats
+    use wind and rowboats use manual power. Size is not a defining characteristic.
+  knowledge_areas:
+  - motorboat
+  options:
+  - Propulsion by an internal-combustion or electric engine
+  - Use of sails for movement
+  - Manual rowing by passengers
+  - Always being over 100 feet in length
+  question_id: 1
+  question_text: Which feature is essential to all motorboats, distinguishing them
+    from sailboats and rowboats?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: 'The main distinction is the engine''s placement and mounting: inboard
+    engines are fixed inside the hull, while outboard engines are portable and attached
+    externally.'
+  knowledge_areas:
+  - Types of motorboats
+  options:
+  - Inboard engines are permanently mounted inside the hull; outboard engines are
+    detachable and mounted on the stern.
+  - Inboard engines use sails, outboard engines use paddles.
+  - Inboard engines are only for racing, outboard only for fishing.
+  - Outboard engines are always larger than inboard engines.
+  question_id: 2
+  question_text: What is the primary difference between inboard and outboard motorboats?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Detachable outboard motors, pioneered by Evinrude, allowed easy transfer,
+    maintenance, and affordability, revolutionizing recreational motorboating.
+  knowledge_areas:
+  - History of motorboats
+  options:
+  - Detachable outboard motors
+  - Fiberglass hulls
+  - Planing hulls
+  - Manual paddles
+  question_id: 3
+  question_text: Which innovation made motorboating more accessible and economical
+    for the general public in the early 20th century?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Technological progress in engines, hull shapes (especially planing
+    hulls), and materials like fiberglass enabled much higher speeds.
+  knowledge_areas:
+  - Speeds and speed records
+  options:
+  - Advances in engine technology, hull design, and materials
+  - Use of manual paddles
+  - Smaller boat sizes only
+  - Switching exclusively to displacement hulls
+  question_id: 4
+  question_text: Which combination of factors most contributed to the dramatic increase
+    in motorboat speed records during the 20th century?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Predicted log races focus on the skipper's ability to estimate and
+    match times at course points, relying on navigational skill rather than speed
+    or engine power.
+  knowledge_areas:
+  - Motorboat racing
+  options:
+  - Navigational accuracy and timing without a watch
+  - Maximum boat speed
+  - Ability to row manually
+  - Size of the engine
+  question_id: 5
+  question_text: In a predicted log race, what skill is primarily tested?
+  question_type: recap
+sections:
+- aspects:
+  - content: A motorboat, also known as a powerboat, is a relatively small watercraft
+      propelled by an internal-combustion or electric engine. These boats can range
+      from tiny, single-person craft to large seagoing vessels over 100 feet (30 meters)
+      in length, though most accommodate six or fewer passengers. The defining feature
+      is the use of a motor for propulsion, distinguishing them from sailboats or
+      rowboats which rely on wind or manual effort.
+    type: definition
+  - content: Motorboats serve a wide array of purposes, including recreational cruising,
+      fishing, duck hunting, swimming, skin diving, and water skiing. In addition
+      to leisure activities, they are used in sports such as racing and piloting/navigation
+      contests. Their versatility extends to both personal enjoyment and competitive
+      or functional roles on the water.
+    type: uses and functions
+  - content: Unlike sailboats, which depend on wind, or rowboats, which require manual
+      rowing, motorboats offer greater speed and maneuverability due to their engine-driven
+      propulsion. This makes them suitable for activities where precise control or
+      higher speeds are necessary, such as water sports or rapid transportation. Their
+      development paralleled advances in engine technology, which allowed for broader
+      adoption and more specialized designs.
+    type: comparison and context
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Motorboats are defined by their use of an internal-combustion or
+      electric engine for propulsion, unlike sailboats (wind) or rowboats (manual
+      power). They can vary greatly in size and are used for multiple purposes, not
+      just racing.
+    options:
+    - It is propelled by an internal-combustion or electric engine.
+    - It is always over 100 feet in length.
+    - It relies on wind for movement.
+    - It is only used for racing.
+    question_text: Which of the following best distinguishes a motorboat from other
+      small watercraft?
+  index: 139
+  key_concept: motorboat
+  name: motorboat
+- aspects:
+  - content: Motorboats are primarily classified as inboard or outboard based on how
+      the engine is installed. Inboard motorboats have engines permanently mounted
+      within the hull, with a drive shaft passing through to the propeller. Outboard
+      motorboats feature portable, detachable engines that include the drive shaft
+      and propeller, typically clamped to the stern. This distinction affects maintenance,
+      maneuverability, and suitability for different environments.
+    type: classification by engine installation
+  - content: The two main hull types are displacement hulls, which push through water
+      and are characterized by a V-shaped or round bottom, deep draft, and sharp bow;
+      and planing hulls, which have a flat bottom and rise to skim across the water
+      at higher speeds, reducing friction and resistance. Displacement hulls are suited
+      for stability and carrying heavy loads, while planing hulls are optimized for
+      speed.
+    type: hull types and performance
+  - content: Motorboats come in many forms, including runabouts (small open boats),
+      cabin cruisers (with sleeping and cooking facilities), motor yachts (large cruisers
+      for open waters), and specialized working boats like ferries, tugs, and police
+      launches. Hydroplanes are designed for minimal water contact at high speeds.
+      Additionally, auxiliary sailboats and motor sailers blend engine and sail propulsion
+      for versatility in various conditions.
+    type: varieties and specialized forms
+  - content: 'The choice of motorboat type depends on intended use: outboard runabouts
+      are favored for ease of transport and maintenance, cruisers for extended trips,
+      and working boats for specific commercial or official functions. Hull type impacts
+      performance in different water conditions, with planing hulls preferred for
+      speed and displacement hulls for stability and rougher waters.'
+    type: practical implications and use cases
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Inboard engines are fixed inside the hull, while outboard engines
+      are detachable and mounted externally. The other options are incorrect or oversimplified.
+    options:
+    - Inboard engines are permanently mounted within the hull; outboard engines are
+      detachable and mounted on the stern.
+    - Inboard engines use sails for propulsion; outboard engines use paddles.
+    - Inboard engines are only used for racing; outboard engines are only for fishing.
+    - Outboard engines are always larger than inboard engines.
+    question_text: What is a key difference between inboard and outboard motorboats?
+  index: 245
+  key_concept: Types of motorboats
+  name: Types.
+- aspects:
+  - content: Motorboats began to emerge in the late 19th century with experimental
+      use of electric and internal-combustion engines in Germany, France, and Britain.
+      Gottlieb Daimler was a notable pioneer, designing one of the earliest internal-combustion
+      engines for boats in the 1880s. These early engines were often adapted from
+      automobiles.
+    type: early development
+  - content: After 1900, motorboating became more popular in Europe and North America,
+      aided by innovations like detachable outboard motors (first mass-produced by
+      Evinrude around 1910). The development of planing hulls and more powerful engines
+      enabled higher speeds and broader recreational appeal. Hull materials evolved
+      from wood to metals and eventually to fiberglass, especially after World War
+      II, enhancing durability and performance.
+    type: growth in popularity and technological advances
+  - content: Motorboat racing emerged early, with the Harmsworth Cup (1903) and Gold
+      Cup (1904) fostering international and national competitions. These events spurred
+      technological improvements and popularized motorboating as both a sport and
+      leisure activity. The expansion of motorboating after WWII reflected broader
+      social trends toward increased leisure and technological accessibility.
+    type: sport and competition milestones
+  - content: The evolution of motorboats reflects the interplay between technological
+      innovation, recreational demand, and competitive spirit. Advances in engine
+      and hull design not only improved performance but also democratized access to
+      boating, making it a widespread pastime and competitive pursuit.
+    type: implications and legacy
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The detachable outboard motor, pioneered by Evinrude, allowed easy
+      transfer, tuning, and maintenance, making motorboating more accessible and affordable
+      for the general public.
+    options:
+    - The invention of the detachable outboard motor
+    - The use of sails for auxiliary power
+    - The introduction of fiberglass hulls
+    - The creation of the planing hull
+    question_text: Which innovation most contributed to making motorboating more accessible
+      and economical in the early 20th century?
+  index: 257
+  key_concept: History of motorboats
+  name: History.
+- aspects:
+  - content: Motorboat speed records have advanced dramatically since the early 20th
+      century. The first Harmsworth Cup winner in 1903 averaged 31.4 km/h, while by
+      1978, Ken Warby set a straightaway record of 319.627 miles/h (514.39 km/h).
+      Technological improvements in engines, hulls, and materials contributed to these
+      increases.
+    type: historical progression
+  - content: Key milestones include Sir Malcolm Campbell's 1939-1950 record of 141.74
+      miles/h, the breaking of the 200-mile/h barrier in 1962 by Miss U.S. I, and
+      Donald Campbell's pioneering jet-propelled boat runs in the 1950s. Outboard
+      craft lagged behind inboard boats in speed, with significant records set only
+      in the 1950s and 1960s.
+    type: notable achievements
+  - content: Speed records are influenced by engine power, hull design (especially
+      planing hulls and hydroplanes), and material advances (such as the adoption
+      of fiberglass). High speeds increase risks and require specialized design for
+      safety and stability. These records often drive innovation in both recreational
+      and competitive boating.
+    type: technical factors and implications
+  - content: The pursuit of speed in motorboating parallels similar trends in automotive
+      and aviation history, reflecting a broader human fascination with breaking limits.
+      Speed records also serve as benchmarks for technological progress and as motivators
+      for further research and development in marine engineering.
+    type: context and connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Engine power, innovative hull designs (especially planing hulls and
+      hydroplanes), and new materials like fiberglass all played crucial roles in
+      enabling higher speeds, while manual paddles and displacement hulls would limit
+      speed.
+    options:
+    - Advances in engine technology, hull design, and materials
+    - The use of manual paddles
+    - Decreasing the size of boats only
+    - Switching exclusively to displacement hulls
+    question_text: Which factors contributed most to the dramatic increase in motorboat
+      speed records during the 20th century?
+  index: 261
+  key_concept: Speeds and speed records
+  name: Speeds.
+- aspects:
+  - content: Motorboat racing is organized globally, with the Union of International
+      Motorboating (founded 1922) serving as a central authority for records and regulations.
+      Races are divided by craft type (inboard vs. outboard) and further classified
+      by engine displacement and other technical specifications.
+    type: organizational structure
+  - content: Hundreds of regattas and races are held annually, ranging from closed-course
+      sprints to endurance marathons like the Mississippi Marathon and Six Heures
+      de Paris. Some races test speed, while others, such as predicted log races,
+      emphasize navigational skill and consistency over raw velocity.
+    type: competition formats
+  - content: Major international races include the Wills International (England),
+      Miami-Nassau Race (Florida to the Bahamas), and the Naples Trophy (Italy). Offshore
+      and ocean racing gained popularity in the latter half of the 20th century, with
+      notable events such as the Cowes-Torquay-Cowes race and the London to Monte
+      Carlo marathon.
+    type: international and endurance events
+  - content: Motorboat racing has driven technological innovation, safety standards,
+      and international cooperation in marine sports. It also fosters community through
+      yacht clubs and local organizations, and connects with broader themes of engineering,
+      navigation, and athletic competition.
+    type: implications and connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Predicted log races are unique in that navigational skill and timing,
+      rather than speed, determine the winner. Skippers must predict their times at
+      course points and adjust for environmental variables, without using a watch.
+    options:
+    - A race where the skipper predicts and tries to match exact times at specified
+      points without using a watch.
+    - A race that tests only the maximum speed of the boat.
+    - A competition limited to inboard craft only.
+    - A marathon that covers more than 1,000 miles.
+    question_text: Which of the following best describes a predicted log race in motorboat
+      competition?
+  index: 277
+  key_concept: Motorboat racing
+  name: '[Racing](https://www.britannica.com/sports/racing "https://www.britannica.com/sports/racing").'

@@ -1,0 +1,179 @@
+URL: https://www.britannica.com/technology/community-antenna-television
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Britannica encyclopedia entry describing community antenna television
+  (CATV), its definition, and its operation as a cable television system that uses
+  a shared antenna to receive and retransmit broadcast signals to local subscribers.
+file_name: Community antenna television communications Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Community antenna television
+  communications Britannica.html
+file_uuid: a15fc1b4-fdb1-58e0-95ca-9c3c23f47433
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The community antenna receives broadcast signals, which are then retransmitted
+    via cables to subscribers. It does not broadcast directly to homes, manufacture
+    equipment, or provide internet as its sole function.
+  knowledge_areas:
+  - community antenna television (CATV)
+  - cable television
+  options:
+  - Receives broadcast signals for redistribution via cables
+  - Broadcasts signals directly to individual homes
+  - Manufactures cable equipment
+  - Provides only internet services
+  question_id: 1
+  question_text: What does the 'community antenna' in CATV systems primarily do?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: CATV is the original form of cable television, using a community antenna
+    to receive and redistribute signals. Cable television has since evolved from CATV
+    to include more services.
+  knowledge_areas:
+  - community antenna television (CATV)
+  - cable television
+  options:
+  - CATV is an early form of cable television focused on retransmitting broadcast
+    signals through a shared antenna.
+  - Cable television is unrelated to CATV.
+  - CATV is a type of satellite television.
+  - Cable television only refers to internet services provided by cable companies.
+  question_id: 2
+  question_text: Which of the following best describes the relationship between CATV
+    and cable television?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: CATV expanded access to television content, especially in areas with
+    poor reception, and led to the creation of cable-only networks. It required infrastructure
+    and increased, not restricted, channel availability.
+  knowledge_areas:
+  - community antenna television (CATV)
+  options:
+  - It enabled broader access to television content and fostered the growth of cable-exclusive
+    networks.
+  - It eliminated the need for any physical infrastructure.
+  - It restricted the number of available channels.
+  - It made television available only to urban areas.
+  question_id: 3
+  question_text: What is a significant implication of the development of community
+    antenna television?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Cable television built upon CATV by expanding channel offerings and
+    using the cable network for additional services. It still relies on antennas at
+    the headend and uses wired, not wireless, technology.
+  knowledge_areas:
+  - cable television
+  - community antenna television (CATV)
+  options:
+  - By providing a broader range of channels and integrating services like internet
+    and phone using the same infrastructure.
+  - By using only wireless technology.
+  - By limiting content to local broadcasts.
+  - By eliminating the use of antennas entirely.
+  question_id: 4
+  question_text: In what way did cable television expand upon the original concept
+    of CATV?
+  question_type: recap
+sections:
+- aspects:
+  - content: Community antenna television (CATV), commonly known as cable television,
+      is a system in which a shared or 'community' antenna is used to receive broadcast
+      television signals, often from distant sources such as communications satellites.
+      These signals are then distributed to individual homes and establishments in
+      a local area via coaxial or fiber-optic cables. The system was originally developed
+      to improve television reception in areas where over-the-air signals were weak
+      or obstructed by terrain.
+    type: definition
+  - content: A typical example of CATV is a small town located in a mountainous region
+      where direct broadcast signals are difficult to receive. The community sets
+      up a large antenna on a hilltop to capture signals, which are then transmitted
+      through cables to subscribers' homes. In urban areas, CATV systems can aggregate
+      signals from multiple sources, including satellite feeds, and offer them to
+      a large subscriber base.
+    type: examples
+  - content: CATV is primarily used to provide television programming to households
+      and businesses that cannot receive adequate broadcast signals due to distance
+      or physical obstructions. It is also used to offer a wider variety of channels,
+      including specialty and premium content, beyond what is available via traditional
+      broadcast. In modern times, CATV infrastructure is often used for broadband
+      internet and telephone services as well.
+    type: use cases
+  - content: The development of CATV had significant implications for media consumption,
+      enabling broader access to television content and fostering the growth of cable-exclusive
+      networks. It also created a subscription-based revenue model, where users pay
+      a monthly fee for access. The infrastructure investment required for CATV led
+      to the consolidation of service providers and regulatory oversight in many regions.
+    type: implications
+  - content: CATV is closely related to the broader field of cable television, which
+      encompasses various technologies for delivering television content via cables.
+      It also intersects with satellite communications, broadband internet, and telecommunications,
+      as the physical network can support multiple services. The evolution of CATV
+      laid the groundwork for modern digital cable and triple-play service bundles.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: CATV's main function is to use a shared antenna to receive broadcast
+      signals and retransmit them to subscribers through cables. It is not limited
+      to internet services, does not broadcast directly from satellites to homes,
+      and does not manufacture antennas for individual use.
+    options:
+    - To receive and retransmit broadcast signals to subscribers via cables
+    - To broadcast television signals directly from satellites to homes
+    - To provide only internet services to rural areas
+    - To manufacture television antennas for individual households
+    question_text: What is the primary function of community antenna television (CATV)?
+  index: 118
+  key_concept: community antenna television (CATV)
+  name: community antenna television
+- aspects:
+  - content: Cable television is a system of delivering television programming to
+      consumers via radio frequency signals transmitted through coaxial or fiber-optic
+      cables. Unlike traditional broadcast television, which transmits signals over
+      the air, cable television relies on a wired infrastructure to deliver content
+      directly to subscribers.
+    type: definition
+  - content: Major cable television providers in the United States, such as Comcast
+      and Spectrum, operate extensive networks that deliver hundreds of channels to
+      millions of subscribers. In smaller communities, local cable operators may provide
+      a more limited selection of channels, often including local broadcast stations,
+      national networks, and specialty channels.
+    type: examples
+  - content: Cable television is used to provide a wide range of programming, including
+      news, entertainment, sports, educational content, and pay-per-view events. It
+      also supports on-demand video services and, increasingly, internet and telephone
+      services through the same physical network.
+    type: use cases
+  - content: The rise of cable television dramatically expanded the variety and reach
+      of television programming, facilitating the emergence of niche channels and
+      24-hour news networks. It also shifted the industry towards a subscription-based
+      model and enabled the bundling of multiple services, such as internet and phone,
+      with television.
+    type: implications
+  - content: Cable television is an evolution of community antenna television (CATV),
+      building on the same basic premise of signal retransmission but with more advanced
+      infrastructure and a broader range of services. It is also interconnected with
+      digital streaming services, as many cable providers now offer integrated digital
+      and streaming content.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Cable television delivers content via cables, not over-the-air transmission,
+      allowing for more channels and reliable reception. It is not limited to rural
+      areas, often provides more channels than broadcast, and does use antennas at
+      the system headend.
+    options:
+    - Cable television uses wired infrastructure to deliver signals directly to subscribers,
+      while broadcast television transmits signals over the air.
+    - Cable television is only available in rural areas.
+    - Broadcast television provides more channels than cable television.
+    - Cable television does not use any antennas at all.
+    question_text: How does cable television differ from traditional broadcast television?
+  index: 130
+  key_concept: cable television
+  name: cable television

@@ -1,0 +1,206 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A webpage listing the official 1952 Formula 1 race results, with
+  additional sections highlighting F1's corporate partners and promoting the official
+  F1 mobile application.
+file_name: 1952 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1952/1952 RACE RESULTS.html
+file_uuid: 5e61498f-d8d9-56b6-aaa3-aa6aa6eab192
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Alberto Ascari, driving for Ferrari, won the majority of races in the
+    1952 season, making this combination the dominant force that year. The other combinations
+    either refer to a single race (Ruttman/Offenhauser), an incorrect driver (Fangio
+    did not drive for Ferrari in 1952), or a modern driver/team not relevant to 1952.
+  knowledge_areas:
+  - 1952 Formula 1 Race Results
+  options:
+  - Ferrari and Alberto Ascari
+  - Kuzma Offenhauser and Troy Ruttman
+  - Ferrari and Juan Manuel Fangio
+  - Mercedes and Lewis Hamilton
+  question_id: 1
+  question_text: Which team and driver combination dominated the 1952 Formula 1 season
+    according to the official race results?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: F1's partners contribute essential funding, technological support,
+    and brand collaborations, which are crucial for the sport's operations and global
+    marketing. They do not provide commentary, design tracks, or manage drivers directly.
+  knowledge_areas:
+  - F1 Corporate Partners
+  options:
+  - To provide race commentary
+  - To supply funding, technology, and brand collaboration
+  - To design the race tracks
+  - To manage driver contracts
+  question_id: 2
+  question_text: What is the main role of F1's corporate partners as described in
+    the document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 Mobile App offers live race tracking, news, and exclusive
+    content. The other options are not features of the app as described in the document.
+  knowledge_areas:
+  - Official F1 Mobile App
+  options:
+  - Live race tracking and exclusive F1 content
+  - Discounts on F1 car insurance
+  - Engineering job listings
+  - Free race tickets
+  question_id: 3
+  question_text: Which of the following is a feature provided by the Official F1 Mobile
+    App?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The adoption of Formula Two regulations in 1952 was due to a shortage
+    of Formula One cars, enabling more teams and drivers to participate with different
+    vehicle specifications. It did not reduce the number of races, ban Ferrari, or
+    introduce hybrid engines.
+  knowledge_areas:
+  - 1952 Formula 1 Race Results
+  - Context and Connections
+  options:
+  - It allowed a wider range of teams and cars to participate
+  - It resulted in fewer races
+  - It banned Ferrari from competing
+  - It led to the introduction of hybrid engines
+  question_id: 4
+  question_text: How did the 1952 F1 season's use of Formula Two regulations influence
+    the championship?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Both F1's corporate partners and the Official F1 Mobile App play significant
+    roles in expanding the sport's commercial presence and improving the fan experience,
+    though they do so in different ways. They are not involved in officiating, car
+    manufacturing, or regulation setting.
+  knowledge_areas:
+  - F1 Corporate Partners
+  - Official F1 Mobile App
+  options:
+  - Both are involved in direct race officiating
+  - Both enhance fan engagement and the commercial reach of F1
+  - Both manufacture F1 cars
+  - Both set technical regulations
+  question_id: 5
+  question_text: What do the F1 corporate partners and the Official F1 Mobile App
+    have in common regarding their role in the sport?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1952 Formula 1 Race Results refer to the official standings and outcomes
+      of each Grand Prix held during the 1952 World Championship season. This data
+      includes information such as the winning driver, their team, the number of laps
+      completed, and the total race time for each event.
+    type: Definition
+  - content: Notable examples from the 1952 season include Piero Taruffi winning the
+      Swiss Grand Prix for Ferrari, and Troy Ruttman winning the Indianapolis Grand
+      Prix for Kuzma Offenhauser. Alberto Ascari dominated the season, winning multiple
+      races for Ferrari including Belgium, France, Great Britain, Germany, Netherlands,
+      and Italy.
+    type: Examples
+  - content: These results are significant for historical analysis, as they reflect
+      the competitive landscape of Formula 1 in the early 1950s. The dominance of
+      Ferrari and Alberto Ascari in particular is a key narrative, illustrating the
+      team's engineering prowess and the driver's skill. The inclusion of the Indianapolis
+      500 as a championship round also highlights the global ambitions of F1 at the
+      time.
+    type: Implications
+  - content: The 1952 season is notable for being run under Formula Two regulations
+      due to a shortage of Formula One cars, which impacted the types of vehicles
+      and teams participating. The results also provide context for the evolution
+      of race formats, team strategies, and the internationalization of the championship,
+      connecting to broader themes in motorsport history.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Alberto Ascari won the majority of the races in the 1952 season,
+      driving for Ferrari, making him the most successful driver that year. The other
+      drivers listed each won at most one race or did not win at all.
+    options:
+    - Piero Taruffi
+    - Troy Ruttman
+    - Alberto Ascari
+    - Juan Manuel Fangio
+    question_text: Which driver won the most races in the 1952 Formula 1 season?
+  index: 141
+  key_concept: 1952 Formula 1 Race Results
+  name: 1952 RACE RESULTS
+- aspects:
+  - content: F1 corporate partners are companies and brands that have established
+      official sponsorship or partnership agreements with Formula 1. These partnerships
+      typically involve financial support, product placement, co-branding, and collaborative
+      marketing initiatives.
+    type: Definition
+  - content: Examples of F1 partners include luxury brands like LVMH and Louis Vuitton,
+      technology companies such as AWS and Lenovo, logistics providers like DHL, and
+      consumer brands including Heineken, Pirelli, and McDonalds. These companies
+      are prominently featured in F1 broadcasts, events, and digital platforms.
+    type: Examples
+  - content: Corporate partnerships provide essential funding and technological innovation
+      for F1. For instance, AWS supplies cloud computing and data analytics, while
+      Pirelli is the official tire supplier. These collaborations enhance the sport's
+      global reach, improve operational efficiency, and create unique fan engagement
+      opportunities.
+    type: Use Cases and Implications
+  - content: F1's partner ecosystem reflects the sport's commercial strategy and its
+      appeal to diverse industries. Partnerships often extend beyond traditional sponsorship,
+      involving joint ventures in sustainability, digital transformation, and fan
+      experience, thereby influencing the broader sports marketing landscape.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not listed among the official F1 partners in the provided
+      section. The other options—AWS, Heineken, and Pirelli—are all present as partners.
+    options:
+    - AWS
+    - Heineken
+    - Nike
+    - Pirelli
+    question_text: Which of the following is NOT listed as an official F1 partner
+      in the document?
+  index: 154
+  key_concept: F1 Corporate Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 Mobile App is a digital application available for download
+      on major platforms (Apple App Store and Google Play) that provides users with
+      access to Formula 1 news, live timing, race results, and exclusive content.
+    type: Definition
+  - content: Users can download the app on iOS and Android devices. The app offers
+      features such as live race tracking, driver and team statistics, push notifications
+      for breaking news, and multimedia content including videos and interviews.
+    type: Examples
+  - content: The app serves as a primary tool for fans to stay updated on race weekends,
+      follow their favorite drivers and teams, and access official F1 content on the
+      go. It also enhances fan engagement by providing real-time data and interactive
+      experiences.
+    type: Use Cases
+  - content: The proliferation of the official app reflects F1's digital transformation
+      strategy and its focus on global fan engagement. It connects to broader trends
+      in sports media, where mobile platforms are increasingly central to content
+      delivery and community building.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 Mobile App is designed to provide live race timing,
+      results, news, and F1-specific content. It does not focus on selling car parts,
+      driver training, or exclusively non-F1 motorsports.
+    options:
+    - Providing live race timing and results
+    - Selling car parts
+    - Offering driver training programs
+    - Streaming only non-F1 motorsports
+    question_text: What is a primary function of the Official F1 Mobile App?
+  index: 164
+  key_concept: Official F1 Mobile App
+  name: Download the Official F1 App

@@ -1,0 +1,259 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A detailed team profile page for Williams F1 Racing Team, covering
+  current drivers, 2025 season and historical statistics, team background, recent
+  performance, and related media.
+file_name: Williams – F1 Racing Team – Albon, Sainz.html
+file_path: F1_racing/F1_Official/teams/en/teams/Williams – F1 Racing Team – Albon,
+  Sainz.html
+file_uuid: 93aa5e8e-dcb3-5eb2-b723-cc31db25f3c2
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Williams' 2025 lineup consists of Alexander Albon and new recruit Carlos
+    Sainz, as detailed in the Drivers section.
+  knowledge_areas:
+  - 2025 Williams Driver Lineup
+  options:
+  - Alexander Albon and Carlos Sainz
+  - Lewis Hamilton and George Russell
+  - Lando Norris and Oscar Piastri
+  - Pierre Gasly and Esteban Ocon
+  question_id: 1
+  question_text: Which two drivers make up the Williams F1 Team's main lineup for
+    the 2025 season?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Williams finished 5th with 2 podiums in 2025, reflecting their improved
+    performance over the previous year.
+  knowledge_areas:
+  - 2025 Season Performance and Statistics
+  options:
+  - 9th, 0 podiums
+  - 5th, 2 podiums
+  - 3rd, 5 podiums
+  - 7th, 1 podium
+  question_id: 2
+  question_text: What was Williams' final position in the 2025 Constructors’ standings,
+    and how many podiums did they achieve?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Williams has 9 Constructors’ titles, making them one of F1’s most successful
+    teams, only surpassed by Ferrari and McLaren.
+  knowledge_areas:
+  - Historical Achievements and Team Legacy
+  options:
+  - 3, fewer than most teams
+  - 5, more than Ferrari
+  - 9, among the most successful teams in F1 history
+  - 12, the most in F1 history
+  question_id: 3
+  question_text: How many Constructors’ World Championships has Williams won, and
+    what does this indicate about their historical status?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: James Vowles and Pat Fry lead Williams, which uses Mercedes power units.
+  knowledge_areas:
+  - Team Structure and Technical Profile
+  options:
+  - James Vowles, Pat Fry, Mercedes
+  - Christian Horner, Adrian Newey, Honda
+  - Toto Wolff, Mike Elliott, Ferrari
+  - Zak Brown, Andrea Stella, Renault
+  question_id: 4
+  question_text: Who are the current Team Chief and Technical Chief for Williams,
+    and what is the team's power unit supplier?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The addition of Sainz and experienced technical leadership were key
+    factors in Williams’ significant improvement in 2025, as shown by their increased
+    points and podiums.
+  knowledge_areas:
+  - 2025 Williams Driver Lineup
+  - Team Structure and Technical Profile
+  - 2025 Season Performance and Statistics
+  options:
+  - The new lineup and leadership had no effect on performance.
+  - The addition of Carlos Sainz and strategic leadership led to more points and podiums.
+  - Williams switched to Ferrari engines, causing improvement.
+  - Williams reduced its number of races, making it easier to score points.
+  question_id: 5
+  question_text: How did the 2025 driver lineup and technical leadership changes contribute
+    to Williams’ improved performance compared to 2024?
+  question_type: recap
+sections:
+- aspects:
+  - content: Williams is a historic Formula 1 racing team, officially named Atlassian
+      Williams Racing, based in Grove, United Kingdom. Founded by Sir Frank Williams,
+      the team is renowned for its legacy and achievements in Formula 1, standing
+      alongside Ferrari and McLaren in terms of long-term success.
+    type: Definition
+  - content: Williams entered Formula 1 in 1978 and quickly rose to prominence, accumulating
+      9 World Championships and 245 podiums. The team has been instrumental in nurturing
+      top drivers and engineering talent, contributing significantly to the sport’s
+      development.
+    type: Historical Context
+  - content: After the Williams family sold the team to Dorilton Capital in 2020,
+      a new era began, focusing on recovery and modernization. The team has recently
+      shown progress, climbing back up the standings and making strategic driver signings,
+      such as Carlos Sainz.
+    type: Recent Developments
+  - content: Williams' legacy is intertwined with the evolution of F1, both technologically
+      and competitively. The team's partnerships, technical alliances (notably with
+      Mercedes for power units), and contribution to the sport’s culture make it a
+      central figure in F1 history.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Williams is a historic team with 9 world championships and a long-standing
+      legacy, unlike options 1 and 3. It is based in the UK and uses Mercedes power
+      units, not Ferrari.
+    options:
+    - A new team with no championships
+    - A historic team with multiple world titles and a legacy of nurturing talent
+    - A team that only recently entered F1
+    - A team based in Italy with Ferrari power units
+    question_text: Which of the following best describes the Williams F1 Team's legacy
+      in Formula 1?
+  index: 59
+  key_concept: Williams F1 Team Overview
+  name: Williams
+- aspects:
+  - content: For the 2025 season, Williams' primary drivers are Alexander Albon and
+      Carlos Sainz. Albon represents Thailand, while Sainz, a new recruit for 2025,
+      is from Spain.
+    type: Definition
+  - content: Alexander Albon is an established F1 driver known for his adaptability
+      and technical feedback. Carlos Sainz, previously with Ferrari, brings experience
+      and racecraft, expected to enhance Williams’ competitiveness.
+    type: Driver Profiles
+  - content: The pairing of Albon and Sainz is strategic, combining Albon’s familiarity
+      with the team and Sainz’s proven track record. Sainz took time to acclimatize
+      but delivered two podiums in the second half of 2025, indicating strong potential
+      for synergy.
+    type: Team Dynamics
+  - content: This lineup signals Williams’ ambition to climb the standings and compete
+      for higher points and podiums. The integration of a high-profile driver like
+      Sainz is also expected to boost team morale and attract further technical and
+      commercial interest.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Albon and Sainz are the confirmed Williams drivers for 2025; the
+      other pairs drive for different teams.
+    options:
+    - Alexander Albon and Carlos Sainz
+    - Lewis Hamilton and George Russell
+    - Lando Norris and Oscar Piastri
+    - Pierre Gasly and Esteban Ocon
+    question_text: Who are the Williams F1 Team's main drivers for the 2025 season?
+  index: 67
+  key_concept: 2025 Williams Driver Lineup
+  name: DRIVERS
+- aspects:
+  - content: The 2025 season statistics provide a quantitative overview of Williams’
+      performance, including race results, points, podiums, and other key metrics
+      across Grand Prix and Sprint events.
+    type: Definition
+  - content: Williams finished 5th in the 2025 Constructors’ standings with 137 points,
+      a significant improvement over 2024. The team participated in 24 Grand Prix
+      races, earning 124 points, 2 podiums, and 21 top-10 finishes, but no wins or
+      poles. In Sprint races, they gained 13 points and 1 podium.
+    type: Key Results
+  - content: The statistical improvement reflects the success of Williams’ recovery
+      strategy and driver lineup. While podiums increased, the absence of wins and
+      poles highlights areas for further development. The high number of DNFs (8)
+      suggests reliability or incident issues remain a concern.
+    type: Implications
+  - content: Comparing these statistics to previous seasons shows a marked turnaround
+      from 2024, where the team struggled. The data also connects to the team’s historical
+      record, emphasizing the cyclical nature of performance in F1 and the impact
+      of strategic changes.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Williams finished 5th with 2 podiums in 2025, as detailed in the
+      statistics section.
+    options:
+    - 9th, 0 podiums
+    - 5th, 2 podiums
+    - 3rd, 5 podiums
+    - 7th, 1 podium
+    question_text: What was Williams' final position in the 2025 Constructors’ standings
+      and how many podiums did they achieve?
+  index: 89
+  key_concept: 2025 Season Performance and Statistics
+  name: Statistics
+- aspects:
+  - content: Williams’ team summary encapsulates its all-time achievements in Formula
+      1, including total races entered, points scored, and major milestones like world
+      championships and pole positions.
+    type: Definition
+  - content: The team has entered 851 Grands Prix, scored 3768 points, achieved 114
+      race wins, 245 podiums, 128 pole positions, and secured 9 Constructors’ World
+      Championships, making it one of the most successful teams in F1 history.
+    type: Major Achievements
+  - content: Williams’ achievements are second only to Ferrari and McLaren in terms
+      of longevity and consistent success. The team’s ability to compete at the highest
+      level for decades demonstrates resilience and adaptability.
+    type: Context
+  - content: These accomplishments form the foundation for Williams’ brand and attract
+      sponsors, technical partners, and top driving talent. The legacy also creates
+      high expectations for future performance and influences the team’s long-term
+      strategy.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Williams has won 9 Constructors’ titles, a tally surpassed only by
+      Ferrari and McLaren.
+    options:
+    - 3, fewer than most teams
+    - 5, more than Ferrari
+    - 9, behind only Ferrari and McLaren
+    - 12, the most in F1 history
+    question_text: How many Constructors’ World Championships has Williams won, and
+      how does this compare to other teams?
+  index: 149
+  key_concept: Historical Achievements and Team Legacy
+  name: Team Summary
+- aspects:
+  - content: The team profile outlines Williams’ organizational and technical structure,
+      including leadership, facilities, chassis, power unit, and reserve driver information.
+    type: Definition
+  - content: James Vowles serves as Team Chief, with Pat Fry as Technical Chief, reflecting
+      a focus on experienced management and engineering leadership. The team’s base
+      is in Grove, UK, a hub for F1 innovation.
+    type: Leadership
+  - content: Williams’ 2025 car is the FW47 chassis, powered by Mercedes engines,
+      a partnership that provides competitive performance and reliability. The team’s
+      technical evolution is ongoing, with continuous updates to chassis and powertrain.
+    type: Technical Details
+  - content: The shift in ownership to Dorilton Capital and the recruitment of high-profile
+      personnel signal a commitment to long-term competitiveness and modernization.
+      The team’s structure is designed to adapt to F1’s rapidly changing technical
+      landscape.
+    type: Recent Changes
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: James Vowles and Pat Fry lead Williams, which uses Mercedes power
+      units. The other options refer to different teams and suppliers.
+    options:
+    - James Vowles, Pat Fry, Mercedes
+    - Christian Horner, Adrian Newey, Honda
+    - Toto Wolff, Mike Elliott, Ferrari
+    - Zak Brown, Andrea Stella, Renault
+    question_text: Who are the current Team Chief and Technical Chief for Williams,
+      and what is the team’s power unit supplier?
+  index: 174
+  key_concept: Team Structure and Technical Profile
+  name: Team Profile

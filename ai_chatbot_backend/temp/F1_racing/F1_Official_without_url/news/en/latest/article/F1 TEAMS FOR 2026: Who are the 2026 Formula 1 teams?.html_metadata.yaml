@@ -1,0 +1,268 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An official overview article listing and profiling all 11 Formula
+  1 teams set to compete in the 2026 season, including historic teams, new entrants,
+  driver line-ups, and recent performance context.
+file_name: 'F1 TEAMS FOR 2026: Who are the 2026 Formula 1 teams?.html'
+file_path: 'F1_racing/F1_Official/news/en/latest/article/F1 TEAMS FOR 2026: Who are
+  the 2026 Formula 1 teams?.html'
+file_uuid: 957067d1-b783-5d49-8746-8cf7733aa18d
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Cadillac is the only new entrant, bringing the total to 11 teams. Audi
+    is entering as a works team, not leaving. Not all teams use their own power units.
+  knowledge_areas:
+  - 2026 Formula 1 Teams Overview
+  options:
+  - There are 12 teams, including two new entrants.
+  - Cadillac is the only new team, making the total number of teams 11.
+  - All teams are using their own power units.
+  - Audi is leaving Formula 1 after 2025.
+  question_id: 1
+  question_text: Which of the following statements about the 2026 Formula 1 grid is
+    correct?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Ferrari is the only team to have competed in every season since the
+    championship began in 1950.
+  knowledge_areas:
+  - Historic Teams and Their Evolution
+  options:
+  - McLaren
+  - Ferrari
+  - Williams
+  - Red Bull
+  question_id: 2
+  question_text: Which team has participated in every Formula 1 season since 1950?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Alpine is switching from producing their own power units to using Mercedes
+    engines.
+  knowledge_areas:
+  - Technical and Strategic Partnerships
+  options:
+  - Switching to Mercedes engines
+  - Hiring a rookie driver
+  - Merging with Red Bull
+  - Becoming a full-works team
+  question_id: 3
+  question_text: What major strategic change is Alpine making for the 2026 season?
+  question_type: recap
+- correct_answers:
+  - 0
+  - 2
+  explanation: Red Bull has a new driver (Hadjar) and new Team Principal (Mekies).
+    Aston Martin’s significant change is Newey as Team Principal. Bottas joins Cadillac,
+    not Ferrari. Lindblad joins Racing Bulls, not Williams.
+  knowledge_areas:
+  - Driver Line-Ups and Team Leadership
+  options:
+  - 'Red Bull: Max Verstappen and Isack Hadjar, Laurent Mekies as Team Principal'
+  - 'Ferrari: Valtteri Bottas joins as a new driver'
+  - 'Aston Martin: Adrian Newey becomes Team Principal'
+  - 'Williams: Rookie Arvid Lindblad joins the team'
+  question_id: 4
+  question_text: Which pair correctly matches a 2026 team with a significant change
+    in drivers or management?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: New entrants and transitions like Cadillac and Audi bring new investment,
+    technical partnerships, and can change the competitive balance and manufacturer
+    diversity in F1.
+  knowledge_areas:
+  - New Entrants and Team Transitions
+  options:
+  - They increase manufacturer diversity and can shift team hierarchies.
+  - They have no effect on the sport's technical or commercial aspects.
+  - They only impact driver contracts.
+  - They result in fewer teams on the grid.
+  question_id: 5
+  question_text: How do new entrants and team transitions, such as Cadillac and Audi,
+    impact the Formula 1 competitive landscape?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 2026 Formula 1 Teams Overview refers to the comprehensive list and
+      brief profiles of all 11 teams that will compete in the 2026 F1 season. This
+      includes established teams with decades of history and new entrants making their
+      debut. The overview sets the stage for understanding the competitive landscape
+      of the upcoming season.
+    type: Definition
+  - content: The 2026 season is notable for the expansion of the grid to 11 teams,
+      with Cadillac joining as a new entrant. This is the first grid expansion since
+      Haas entered in 2016. The overview provides context for each team's recent performance,
+      historical achievements, and strategic changes, such as new team principals
+      or driver line-ups.
+    type: Context
+  - content: The addition of Cadillac signals increased manufacturer interest in F1,
+      while established teams like Ferrari and McLaren continue to evolve. The overview
+      highlights the dynamic nature of the sport, with teams adapting to new regulations,
+      integrating new drivers, and seeking competitive advantages. It also sets up
+      storylines for the season, such as defending champions, team rivalries, and
+      technical partnerships.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Cadillac is joining as the 11th team, making it the first new entry
+      since Haas in 2016. The grid will have 11 teams, not 10. Not all teams will
+      use their own power units (e.g., Alpine switches to Mercedes engines, Cadillac
+      will use Ferrari engines in 2026). There are teams from various continents,
+      including the US (Haas, Cadillac).
+    options:
+    - There will be 10 teams, all of which are returning from 2025.
+    - Cadillac will join as the 11th team, marking the first new entry since Haas.
+    - All teams will use their own power units in 2026.
+    - Only European teams are represented on the 2026 grid.
+    question_text: Which of the following statements accurately reflects the 2026
+      Formula 1 grid?
+  index: 61
+  key_concept: 2026 Formula 1 Teams Overview
+  name: Who are the 2026 Formula 1 teams?
+- aspects:
+  - content: Historic Teams in Formula 1 are those with long-standing participation
+      and significant achievements in the sport, such as McLaren, Mercedes, Ferrari,
+      Williams, and Red Bull. Their evolution includes changes in ownership, branding,
+      management, and competitive performance over the decades.
+    type: Definition
+  - content: McLaren, founded in 1966, has won 13 Drivers’ and 10 Teams’ Championships
+      and is entering its 61st season. Ferrari is the only team to have competed in
+      every season since 1950, with 15 Drivers’ and 16 Teams’ titles. Mercedes, after
+      acquiring Brawn GP in 2010, dominated the hybrid era with 8 consecutive Teams’
+      titles (2014-2021). Williams, with 7 Drivers’ and 9 Teams’ titles, is recovering
+      from a dip in form. Red Bull, entering its 22nd season, has seen championship
+      success with both Vettel and Verstappen.
+    type: Examples
+  - content: The presence and evolution of historic teams shape the culture and competitive
+      narrative of F1. Their ability to adapt—through management changes (e.g., Mercedes
+      under Toto Wolff, Ferrari under Fred Vasseur), driver development (e.g., McLaren’s
+      Norris and Piastri), and technical innovation—often sets the benchmark for newer
+      teams. Their histories are intertwined with F1’s major milestones, and their
+      rivalries drive fan engagement and technological progress.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Ferrari is the only team to have participated in every F1 season
+      since the championship began in 1950. McLaren debuted in 1966, Red Bull in 2005,
+      and Williams in 1977.
+    options:
+    - McLaren
+    - Red Bull
+    - Ferrari
+    - Williams
+    question_text: Which of the following teams has competed in every Formula 1 season
+      since 1950?
+  index: 71
+  key_concept: Historic Teams and Their Evolution
+  name: McLaren
+- aspects:
+  - content: New entrants refer to teams making their debut in Formula 1, while team
+      transitions involve significant changes such as rebranding, ownership changes,
+      or technical partnerships. In 2026, Cadillac is the new entrant, and Audi represents
+      a major team transition from the former Kick Sauber.
+    type: Definition
+  - content: Cadillac, led by Graeme Lowdon, will debut in 2026 with experienced drivers
+      Valtteri Bottas and Sergio Perez. Audi takes over the former Kick Sauber team,
+      with Nico Hulkenberg and Gabriel Bortoleto as drivers. Racing Bulls is a rebranded
+      continuation of the former Toro Rosso/AlphaTauri/RB team. Alpine, previously
+      Renault, will switch to Mercedes engines.
+    type: Examples
+  - content: New entrants like Cadillac bring fresh investment, new fanbases, and
+      technical partnerships (e.g., Cadillac’s future as a full-works team). Team
+      transitions can revitalize struggling teams, introduce new management philosophies,
+      and alter the competitive balance. These changes reflect F1’s global appeal
+      and the ongoing evolution of the sport’s commercial and technical landscape.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Cadillac is the new entrant in 2026, while Audi represents the transition
+      of the former Kick Sauber team to a new manufacturer identity.
+    options:
+    - Audi is debuting; Cadillac is transitioning.
+    - Cadillac is debuting; Audi is transitioning from Kick Sauber.
+    - Racing Bulls is debuting; Alpine is transitioning.
+    - Williams is debuting; Haas is transitioning.
+    question_text: Which team is making its Formula 1 debut in 2026, and which team
+      is transitioning to a new manufacturer identity?
+  index: 171
+  key_concept: New Entrants and Team Transitions
+  name: Cadillac
+- aspects:
+  - content: Driver line-ups refer to the pairing of drivers each team selects for
+      a season, while team leadership encompasses the roles of team principals and
+      key management figures who guide strategy and operations. Changes in these areas
+      can significantly impact team performance and dynamics.
+    type: Definition
+  - content: Red Bull’s 2026 line-up features Max Verstappen and new teammate Isack
+      Hadjar, with Laurent Mekies as Team Principal. McLaren retains Lando Norris
+      and Oscar Piastri, while Mercedes continues with George Russell and Kimi Antonelli.
+      Ferrari’s pairing is Charles Leclerc and Lewis Hamilton, with Fred Vasseur as
+      Team Principal. Notably, Racing Bulls introduces rookie Arvid Lindblad alongside
+      Liam Lawson, and Aston Martin appoints Adrian Newey as Team Principal.
+    type: Examples
+  - content: Stable driver line-ups can foster team cohesion and development continuity,
+      while new pairings or rookie promotions may introduce unpredictability. Leadership
+      changes (e.g., Mekies at Red Bull, Newey at Aston Martin) can signal shifts
+      in strategy, technical direction, or team culture. These factors are interconnected
+      with team performance, driver development, and long-term competitiveness.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Red Bull’s new pairing is Verstappen and Hadjar, with Mekies as Team
+      Principal, but Racing Bulls is the correct answer for featuring both a rookie
+      (Lindblad) and a new Team Principal (Permane). The significance is that it introduces
+      fresh talent and leadership, potentially impacting team performance and development.
+    options:
+    - Red Bull, with Isack Hadjar and Laurent Mekies.
+    - Racing Bulls, with Arvid Lindblad and Alan Permane.
+    - Aston Martin, with Adrian Newey and Lance Stroll.
+    - Alpine, with Franco Colapinto and Steve Nielsen.
+    question_text: Which 2026 team features a rookie driver and a new Team Principal,
+      and why is this significant?
+  index: 91
+  key_concept: Driver Line-Ups and Team Leadership
+  name: Red Bull
+- aspects:
+  - content: Technical and strategic partnerships in F1 involve collaborations between
+      teams and engine or component suppliers, as well as alliances that influence
+      team operations and competitiveness. These partnerships can include engine supply
+      deals, technical support, and shared development programs.
+    type: Definition
+  - content: For 2026, Alpine will switch from producing their own power units to
+      using Mercedes engines, marking a significant strategic shift. Cadillac will
+      use Ferrari engines and gearboxes for their debut season, with plans to become
+      a full-works team in the future. Audi’s entry as a works team marks a new manufacturer
+      partnership. These arrangements affect not only technical performance but also
+      team identity and long-term planning.
+    type: Examples
+  - content: Such partnerships can offer competitive advantages, access to advanced
+      technology, and financial stability. They may also introduce dependencies or
+      constraints based on supplier performance. Strategic alignments can reshape
+      the competitive order, as seen with Alpine’s engine switch or Cadillac’s future
+      ambitions. These connections are crucial for understanding team strategies and
+      the broader F1 ecosystem.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Alpine is switching to Mercedes engines in 2026, ending their period
+      as a power unit manufacturer. This is significant as it represents a strategic
+      shift and could impact their technical performance and independence.
+    options:
+    - Alpine; it marks their transition away from producing their own power units.
+    - Williams; it marks their first use of Mercedes engines.
+    - Audi; it signifies their debut as a works team.
+    - Cadillac; it allows them to become a full-works operation immediately.
+    question_text: Which team is switching to Mercedes engines in 2026, and what is
+      the significance of this change?
+  index: 161
+  key_concept: Technical and Strategic Partnerships
+  name: Alpine

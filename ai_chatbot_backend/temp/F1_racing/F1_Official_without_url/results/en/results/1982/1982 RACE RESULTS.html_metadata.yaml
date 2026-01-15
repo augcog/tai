@@ -1,0 +1,223 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page listing the 1982 Formula 1 race results, including Grand
+  Prix winners, teams, dates, and laps, as well as sections on official partners and
+  the F1 mobile app.
+file_name: 1982 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1982/1982 RACE RESULTS.html
+file_uuid: e0bb75f2-3ea3-52ad-a230-9fae6da6f4b9
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The 1982 results section provides detailed race-by-race outcomes, including
+    winners, teams, dates, laps, and times. The other options refer to different sections
+    or are incorrect.
+  knowledge_areas:
+  - 1982 Formula 1 Grand Prix Results
+  options:
+  - A list of race winners, teams, dates, laps, and times for each Grand Prix.
+  - A summary of F1's official partners and their roles.
+  - A guide to downloading the F1 mobile app.
+  - A list of drivers' championship points only.
+  question_id: 1
+  question_text: Which of the following best describes the information found in the
+    1982 Formula 1 Grand Prix Results section?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Official partners contribute in multiple ways, including financial,
+    technological, and logistical support, not just tire supply. They do not determine
+    winners or set regulations.
+  knowledge_areas:
+  - Formula 1 Official Partners
+  options:
+  - They only provide tires for the races.
+  - They offer financial, technological, and logistical support to F1.
+  - They determine the race winners.
+  - They are responsible for race regulations.
+  question_id: 2
+  question_text: What is a key function of Formula 1's official partners as highlighted
+    in the document?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: The app offers live timing, news, and profiles, but does not allow
+    the purchase of physical car parts.
+  knowledge_areas:
+  - Official F1 Mobile App
+  options:
+  - Live race timing
+  - Exclusive news and content
+  - Purchase of physical car parts
+  - Driver and team profiles
+  question_id: 3
+  question_text: Which of the following is NOT a feature of the Official F1 Mobile
+    App?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The results are integral to historical analysis, standings, and legacy,
+    not isolated or limited to marketing.
+  knowledge_areas:
+  - 1982 Formula 1 Grand Prix Results
+  - Connections
+  options:
+  - They are isolated and have no impact on future seasons.
+  - They provide context for driver and team standings, historical analysis, and influence
+    legacy discussions.
+  - They only matter for the 1982 championship and are not referenced elsewhere.
+  - They are used exclusively for marketing purposes.
+  question_id: 4
+  question_text: How do the 1982 race results connect to other areas of Formula 1
+    history and operations?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Both the partners and the app sections are aimed at improving the fan
+    experience, through sponsorship, technology, and digital engagement.
+  knowledge_areas:
+  - Formula 1 Official Partners
+  - Official F1 Mobile App
+  options:
+  - 1982 RACE RESULTS and OUR PARTNERS
+  - OUR PARTNERS and Download the Official F1 App
+  - Download the Official F1 App and 1982 RACE RESULTS
+  - 1982 RACE RESULTS and Download the Official F1 App
+  question_id: 5
+  question_text: Which two sections of the document focus on enhancing the fan experience
+    through technology and partnerships?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1982 Formula 1 Grand Prix Results refer to the official outcomes
+      of each race in the 1982 FIA Formula One World Championship season. This includes
+      the list of Grand Prix events, the dates they were held, the winning drivers
+      and their teams, the number of laps completed, and the total time taken by the
+      winner.
+    type: Definition
+  - content: For example, Alain Prost won the South Africa Grand Prix on January 23rd
+      for Renault, completing 77 laps in 1:32:08.401. Niki Lauda, driving for McLaren
+      Ford, won the USA West Grand Prix on April 4th with a time of 1:58:25.318 over
+      75 laps. The results table lists all 16 races, their winners, teams, and performance
+      statistics.
+    type: Examples
+  - content: These results are used for historical analysis, statistical comparisons,
+      and determining championship standings for both drivers and teams. Analysts,
+      fans, and historians reference these results to study trends, evaluate driver
+      and team performance, and understand pivotal moments in the 1982 season.
+    type: Use Cases
+  - content: The 1982 season was notable for its competitive diversity, with multiple
+      teams and drivers winning races. The distribution of wins among several teams
+      (Renault, McLaren Ford, Ferrari, Brabham, Lotus, Williams, Tyrrell) reflects
+      a highly competitive era. These results also impact legacy discussions and influence
+      how teams and drivers are remembered.
+    type: Implications
+  - content: The results connect to broader F1 historical records, influencing driver
+      and team standings, and are linked to the archives for other seasons. They also
+      provide context for the evolution of F1 regulations, technology, and team strategies.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    - 3
+    explanation: Option 1 is incorrect because several teams and drivers won races;
+      it was not a single-team dominance. Option 2 is correct as the season saw various
+      winners. Option 3 is incorrect—Alain Prost did not win every race. Option 4
+      is correct as the table includes all those details.
+    options:
+    - Only one team won all the races in 1982.
+    - Multiple drivers and teams won races throughout the season.
+    - Alain Prost won every Grand Prix in 1982.
+    - The results table includes race winners, teams, dates, laps, and times.
+    question_text: Which of the following statements accurately reflects the 1982
+      Formula 1 Grand Prix results?
+  index: 149
+  key_concept: 1982 Formula 1 Grand Prix Results
+  name: 1982 RACE RESULTS
+- aspects:
+  - content: Formula 1 Official Partners are companies and brands that have established
+      formal sponsorship or partnership agreements with the Formula 1 organization.
+      These partnerships are typically strategic, providing financial support, products,
+      or services in exchange for branding and marketing opportunities.
+    type: Definition
+  - content: Examples of official partners include LVMH, Pirelli, Aramco, Heineken,
+      AWS, Lenovo, DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton,
+      TAG Heuer, Moet Hennessy, American Express, Santander, Allwyn, Globant, Las
+      Vegas Convention and Visitors Authority, Paramount+, Barilla, Liqui Moly, Nestle,
+      PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds. Each partner is featured
+      with their logo and a link to their website.
+    type: Examples
+  - content: These partnerships are used to enhance the F1 experience for fans, provide
+      essential services (such as logistics from DHL or tire supply from Pirelli),
+      and integrate cutting-edge technology (like AWS cloud services). They also contribute
+      to the commercial viability and global reach of Formula 1.
+    type: Use Cases
+  - content: Official partnerships significantly impact the branding, financial health,
+      and technological advancement of Formula 1. They enable innovation in areas
+      such as data analytics, sustainability, and fan engagement. The visibility of
+      partner brands is amplified through global broadcasts and event sponsorship.
+    type: Implications
+  - content: These partners are connected to various aspects of F1 operations, from
+      race logistics and hospitality to digital platforms and marketing campaigns.
+      Their involvement often extends to sponsoring specific events, teams, or awards
+      within the F1 ecosystem.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    - 3
+    explanation: Option 1 is correct as partners contribute in multiple ways. Option
+      2 is incorrect because partners have diverse roles beyond tires. Option 3 is
+      incorrect since branding is a major aspect of partnership. Option 4 is correct
+      as partners are involved in sponsorship across various F1 domains.
+    options:
+    - They provide financial, technological, and logistical support to F1.
+    - They are only involved in supplying tires.
+    - They have no influence on F1 branding.
+    - They sponsor events, teams, and digital platforms.
+    question_text: What role do official partners play in Formula 1?
+  index: 170
+  key_concept: Formula 1 Official Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 Mobile App is a digital application developed for iOS
+      and Android devices that provides fans with real-time updates, race results,
+      news, schedules, and other interactive features related to Formula 1.
+    type: Definition
+  - content: The app is available for download on both the Apple App Store and Google
+      Play. It offers functionalities such as live timing, driver and team profiles,
+      push notifications for race events, and access to exclusive F1 content.
+    type: Examples
+  - content: Fans use the app to stay updated on live race progress, review historical
+      results, access news stories, and receive notifications about upcoming events.
+      It serves as a central hub for F1 information, enhancing fan engagement and
+      accessibility.
+    type: Use Cases
+  - content: The app increases fan interaction and global reach by making F1 content
+      accessible anywhere. It supports F1's digital strategy, providing additional
+      platforms for sponsors and partners to engage with fans. The app also facilitates
+      personalized experiences through customizable notifications.
+    type: Implications
+  - content: The app is integrated with F1's broader digital ecosystem, linking to
+      official websites, social media, and partner content. It connects fans to live
+      data, video highlights, and interactive features, reinforcing F1’s commitment
+      to digital innovation.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    - 1
+    - 3
+    explanation: Options 1, 2, and 4 are correct as the app provides live timing,
+      news, and profiles. Option 3 is incorrect because the app does not facilitate
+      the purchase of physical car parts.
+    options:
+    - Live timing and race updates
+    - Exclusive F1 news and content
+    - Purchase of physical car parts
+    - Driver and team profiles
+    question_text: Which features are provided by the Official F1 Mobile App?
+  index: 180
+  key_concept: Official F1 Mobile App
+  name: Download the Official F1 App

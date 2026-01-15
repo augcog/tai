@@ -1,0 +1,258 @@
+URL: https://www.britannica.com/technology/stainless-steel
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article overviewing stainless steel, its definition,
+  composition, major types, the role of chromium, and the corrosion resistance of
+  different grades.
+file_name: Stainless steel Definition, Composition, Types, & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Stainless steel Definition,
+  Composition, Types, & Facts Britannica.html
+file_uuid: abde934c-897f-503b-bbed-6e0519832ac5
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Chromium forms a stable, self-healing oxide layer that imparts corrosion
+    resistance to stainless steel.
+  knowledge_areas:
+  - chromium in stainless steel
+  - stainless steel
+  options:
+  - Chromium
+  - Nickel
+  - Carbon
+  - Copper
+  question_id: 1
+  question_text: Which element is primarily responsible for the corrosion resistance
+    in stainless steel?
+  question_type: recap
+- correct_answers:
+  - 3
+  explanation: Bainitic is not a recognized major group of stainless steel; the main
+    types are austenitic, ferritic, martensitic, duplex, and precipitation-hardening.
+  knowledge_areas:
+  - types of stainless steel
+  options:
+  - Austenitic
+  - Martensitic
+  - Duplex
+  - Bainitic
+  question_id: 2
+  question_text: Which of the following groups is NOT one of the five major types
+    of stainless steel?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Austenitic stainless steels have the highest general corrosion resistance
+    due to their high chromium and nickel content.
+  knowledge_areas:
+  - austenitic stainless steel and corrosion resistance
+  - types of stainless steel
+  options:
+  - Highest corrosion resistance
+  - Ability to be hardened by heat treatment
+  - High magnetic permeability
+  - Low chromium content
+  question_id: 3
+  question_text: Austenitic stainless steels are best known for which property?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The argon-oxygen decarburization process enables precise removal of
+    carbon while preserving chromium, which is essential for corrosion resistance
+    and cost efficiency.
+  knowledge_areas:
+  - stainless steel
+  - chromium in stainless steel
+  options:
+  - It increases the nickel content in steel.
+  - It removes carbon without oxidizing valuable chromium.
+  - It adds molybdenum for enhanced strength.
+  - It makes the steel magnetic.
+  question_id: 4
+  question_text: Why is the argon-oxygen decarburization process important in stainless
+    steel production?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The 18/8 (304) grade contains 18% chromium and 8% nickel, which gives
+    it its characteristic corrosion resistance and formability.
+  knowledge_areas:
+  - austenitic stainless steel and corrosion resistance
+  - types of stainless steel
+  options:
+  - 18% chromium, 8% nickel
+  - 18% nickel, 8% chromium
+  - 8% chromium, 18% nickel
+  - 18% carbon, 8% chromium
+  question_id: 5
+  question_text: Which combination of elements is typical for the widely used 18/8
+    (304) austenitic stainless steel?
+  question_type: recap
+sections:
+- aspects:
+  - content: Stainless steel is a family of alloy steels that typically contain 10
+      to 30 percent chromium and low carbon content. The inclusion of chromium imparts
+      significant resistance to both corrosion and heat, distinguishing stainless
+      steel from ordinary steel. Stainless steel also frequently includes other elements
+      such as nickel, molybdenum, titanium, aluminum, niobium, copper, nitrogen, sulfur,
+      phosphorus, or selenium to enhance specific properties or adapt to particular
+      environments.
+    type: definition
+  - content: The core composition of stainless steel centers on chromium, with other
+      elements added for tailored properties. Manufacturing usually involves melting
+      in electric-arc or basic oxygen furnaces, followed by refining to reduce carbon
+      content. The argon-oxygen decarburization process is particularly important,
+      as it allows for the controlled removal of carbon without oxidizing valuable
+      chromium, enabling the use of cost-effective raw materials like high-carbon
+      ferrochromium.
+    type: composition and manufacturing
+  - content: Stainless steel's corrosion and heat resistance make it essential in
+      industries such as food processing, dairy, chemical processing, construction,
+      and medical instruments. Its unique properties reduce maintenance costs and
+      increase the longevity of products. Edge cases include environments with highly
+      specific corrosion challenges, where additional alloying elements are selected
+      to meet those demands.
+    type: applications and implications
+  - content: Stainless steel is closely related to other alloy steels but is set apart
+      by its chromium content and resulting corrosion resistance. It connects to concepts
+      such as alloys, corrosion science, and industrial metallurgy. Its subtypes—such
+      as austenitic, ferritic, martensitic, duplex, and precipitation-hardening—highlight
+      the diversity of stainless steels and their tailored uses.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Stainless steel is defined by its chromium content (typically 10–30%)
+      and low carbon, often with other alloying elements for specific properties.
+      The other options do not describe stainless steel.
+    options:
+    - A low-carbon steel containing at least 10% chromium and often other alloying
+      elements.
+    - A pure iron material with enhanced magnetic properties.
+    - A copper-based alloy primarily used in electrical wiring.
+    - A steel alloy with no added elements for corrosion resistance.
+    question_text: Which of the following best describes stainless steel?
+  index: 146
+  key_concept: stainless steel
+  name: stainless steel
+- aspects:
+  - content: 'Stainless steels are classified into five major groups: austenitic,
+      ferritic, martensitic, duplex, and precipitation-hardening. Each group is defined
+      by its microstructure, alloying elements, and resulting properties. There are
+      more than 100 grades, but these five families cover the most commonly used types.'
+    type: classification
+  - content: Austenitic steels (e.g., 304 or 18/8) are nonmagnetic, not hardenable
+      by heat treatment, and have high corrosion resistance. Ferritic steels are nickel-free,
+      contain 10.5–27% chromium, and are used in less demanding corrosion environments.
+      Martensitic steels are hardenable by heat treatment, contain 11.5–18% chromium,
+      and are used for cutlery and tools. Duplex steels combine austenitic and ferritic
+      structures for higher strength and corrosion resistance. Precipitation-hardening
+      steels gain strength from small additions of elements like aluminum and copper.
+    type: examples and distinguishing features
+  - content: Austenitic steels are widely used in food processing, dairy, and aircraft
+      industries due to their corrosion resistance. Ferritic steels are chosen for
+      architectural and automotive trim. Martensitic steels are used for blades, surgical
+      instruments, and turbines. Duplex steels are favored for storage tanks and chemical
+      transport due to their enhanced strength and resistance. Precipitation-hardening
+      steels are used in applications requiring high strength, such as long shafts.
+    type: practical implications and use cases
+  - content: The classification of stainless steel types is closely linked to their
+      alloy content and resulting physical properties, such as magnetism, hardenability,
+      and corrosion resistance. Understanding these types helps engineers and designers
+      select the appropriate material for specific environmental and mechanical demands.
+    type: connections to properties
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: Bainitic is not a major group of stainless steel; the five major
+      groups are austenitic, ferritic, martensitic, duplex, and precipitation-hardening.
+    options:
+    - Austenitic
+    - Ferritic
+    - Martensitic
+    - Bainitic
+    question_text: Which of the following is NOT a major group of stainless steel?
+  index: 146
+  key_concept: types of stainless steel
+  name: stainless steel
+- aspects:
+  - content: Chromium is the key element in stainless steel that provides resistance
+      to corrosion and heat. When present in concentrations of 10–30%, chromium reacts
+      with oxygen at the surface to form a thin, stable, and self-healing oxide layer
+      that protects the underlying metal from further oxidation and corrosion.
+    type: role and mechanism
+  - content: In typical stainless steels, chromium content ranges from 10% to 30%.
+      For example, austenitic stainless steels contain 16–26% chromium. The presence
+      of chromium allows stainless steel to be used in harsh environments, such as
+      chemical processing and food industries, where ordinary steel would corrode
+      rapidly.
+    type: examples and effects
+  - content: The effectiveness of chromium in providing corrosion resistance depends
+      on its concentration and the presence of other elements. In environments with
+      aggressive chemicals or high salinity, higher chromium content or additional
+      elements like molybdenum may be required. Chromium also raises the cost of the
+      alloy but is essential for stainless properties.
+    type: implications and edge cases
+  - content: While chromium is the primary element for corrosion resistance, other
+      elements such as nickel and molybdenum are often added to improve specific properties
+      like toughness, formability, or resistance to particular types of corrosion.
+      The interplay between chromium and these elements determines the final characteristics
+      of the stainless steel.
+    type: connections to other alloying elements
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Chromium is added to stainless steel primarily to provide resistance
+      to corrosion and heat, not for conductivity, magnetism, or lowering the melting
+      point.
+    options:
+    - To increase electrical conductivity
+    - To impart corrosion and heat resistance
+    - To make the steel magnetic
+    - To reduce the melting point
+    question_text: What is the primary reason chromium is added to stainless steel?
+  index: 146
+  key_concept: chromium in stainless steel
+  name: stainless steel
+- aspects:
+  - content: Austenitic stainless steels are characterized by high chromium (16–26%)
+      and nickel (up to 35%) content. They are nonmagnetic and cannot be hardened
+      by heat treatment. The most common grade is 18/8 (304), with 18% chromium and
+      8% nickel.
+    type: definition and composition
+  - content: Austenitic steels have the highest general corrosion resistance among
+      stainless steels due to their high chromium and nickel content. The passive
+      oxide layer formed by chromium is particularly stable in these alloys, making
+      them suitable for use in aggressive environments.
+    type: corrosion resistance and properties
+  - content: The 18/8 (304) grade is widely used in the dairy and food-processing
+      industries, as well as in aircraft manufacturing, due to its excellent corrosion
+      resistance and formability. These steels are also used in chemical processing
+      equipment and kitchenware.
+    type: examples and applications
+  - content: While austenitic steels have high general corrosion resistance, in environments
+      containing chlorides (like seawater), specialized grades with added molybdenum
+      (such as 316) are preferred to prevent pitting corrosion. Austenitic steels
+      are not hardenable by heat treatment, which limits their use in applications
+      requiring high hardness.
+    type: implications and edge cases
+  - content: Compared to ferritic and martensitic steels, austenitic steels offer
+      superior corrosion resistance but are generally more expensive due to higher
+      nickel content. Duplex steels may surpass austenitics in certain corrosion scenarios,
+      but austenitic remains the most widely used for general corrosion resistance.
+    type: connections to other types
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Austenitic stainless steels, such as grade 304, are known for their
+      superior corrosion resistance due to high chromium and nickel content.
+    options:
+    - Austenitic
+    - Martensitic
+    - Ferritic
+    - Carbon steel
+    question_text: Which type of stainless steel is most commonly associated with
+      the highest corrosion resistance?
+  index: 146
+  key_concept: austenitic stainless steel and corrosion resistance
+  name: stainless steel

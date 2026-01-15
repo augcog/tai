@@ -1,0 +1,218 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A webpage summarizing the 1986 Formula 1 race results, listing each
+  Grand Prix winner, and providing information about F1's official partners and app
+  downloads.
+file_name: 1986 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1986/1986 RACE RESULTS.html
+file_uuid: 02092f1a-0d32-531c-8861-94dfd7e1ea9b
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Nigel Mansell won the most races in the 1986 season, securing victories
+    in Belgium, Canada, France, Great Britain, and Portugal, outpacing his rivals
+    in total wins.
+  knowledge_areas:
+  - 1986 Formula 1 Race Results
+  options:
+  - Nelson Piquet
+  - Nigel Mansell
+  - Alain Prost
+  - Ayrton Senna
+  question_id: 1
+  question_text: Which driver won the most races in the 1986 Formula 1 season?
+  question_type: recap
+- correct_answers:
+  - 3
+  explanation: Ferrari did not win any races in 1986, while Williams Honda, Benetton
+    BMW, and Lotus Renault each had at least one victory.
+  knowledge_areas:
+  - 1986 Formula 1 Race Results
+  options:
+  - Williams Honda
+  - Benetton BMW
+  - Lotus Renault
+  - Ferrari
+  question_id: 2
+  question_text: Which of the following teams did NOT win a Grand Prix in 1986?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: F1's official partners are companies that provide financial backing,
+    products, services, and promotional support, helping to sustain and promote the
+    sport globally.
+  knowledge_areas:
+  - F1 Official Partners
+  options:
+  - To provide financial and promotional support to the sport
+  - To supply drivers for each race
+  - To set race regulations
+  - To design the official F1 app
+  question_id: 3
+  question_text: What is the main purpose of F1's official partners?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App provides live race timing and related news, but
+    does not allow users to vote on rules, buy cars, or schedule private track days.
+  knowledge_areas:
+  - Official F1 App
+  options:
+  - Live race timing
+  - Voting for championship rules
+  - Buying race cars
+  - Scheduling private track days
+  question_id: 4
+  question_text: Which feature is available through the Official F1 App?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The race results offer historical and competitive context, partners
+    enhance commercial and event aspects, and the app provides digital access, collectively
+    enriching the overall F1 fan experience.
+  knowledge_areas:
+  - 1986 Formula 1 Race Results
+  - F1 Official Partners
+  - Official F1 App
+  options:
+  - By providing historical context, commercial engagement, and digital access to
+    F1 content
+  - By allowing fans to drive in races
+  - By determining the outcome of championships
+  - By designing race tracks
+  question_id: 5
+  question_text: How do the 1986 race results, F1's official partners, and the Official
+    F1 App collectively contribute to the fan experience?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1986 Formula 1 Race Results refer to the official outcomes of each
+      Grand Prix held during the 1986 F1 World Championship season, including information
+      such as the race date, location, winning driver, team, number of laps, and winning
+      time. This summary provides a structured overview of the competitive outcomes
+      for each event in the season.
+    type: definition
+  - content: Examples from the 1986 season include Nelson Piquet winning the Brazilian
+      Grand Prix for Williams Honda, Ayrton Senna winning the Spanish Grand Prix for
+      Lotus Renault, and Alain Prost securing victory at San Marino, Monaco, Austria,
+      and Australia for McLaren TAG. The table format lists all 16 races with corresponding
+      winners and their teams, such as Nigel Mansell’s multiple wins for Williams
+      Honda and Gerhard Berger’s win for Benetton BMW in Mexico.
+    type: examples
+  - content: Analyzing the 1986 race results provides insights into team and driver
+      performance trends, the dominance of certain constructors like Williams Honda
+      and McLaren TAG, and the competitive landscape of the era. The results can be
+      used to study championship progression, strategic decisions, and the impact
+      of reliability and consistency on season outcomes.
+    type: implications
+  - content: The 1986 season was notable for its intense championship battle, technological
+      advancements, and the presence of legendary drivers such as Ayrton Senna, Alain
+      Prost, Nigel Mansell, and Nelson Piquet. The results reflect the global nature
+      of F1, with races held across multiple continents, and highlight the importance
+      of both driver skill and team engineering.
+    type: context
+  - content: These race results connect to broader topics such as F1 championship
+      points systems, historical team rivalries, driver career trajectories, and the
+      evolution of race strategies. They also serve as a reference point for comparing
+      performance across different eras of Formula 1.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Williams Honda dominated the 1986 season with the most race wins,
+      as evidenced by multiple victories from both Nelson Piquet and Nigel Mansell.
+      McLaren TAG and Lotus Renault had fewer wins, and Benetton BMW only secured
+      one victory.
+    options:
+    - Lotus Renault
+    - Williams Honda
+    - McLaren TAG
+    - Benetton BMW
+    question_text: Which team had the most race wins in the 1986 Formula 1 season?
+  index: 149
+  key_concept: 1986 Formula 1 Race Results
+  name: 1986 RACE RESULTS
+- aspects:
+  - content: F1 Official Partners are companies and brands that have established formal
+      sponsorship or partnership agreements with Formula 1, contributing to the sport’s
+      commercial ecosystem and often providing products, services, or promotional
+      support.
+    type: definition
+  - content: Examples of official partners include LVMH, Pirelli, Aramco, Heineken,
+      AWS, Lenovo, DHL, Qatar Airways, MSC, Crypto.com, Salesforce, Louis Vuitton,
+      TAG Heuer, Moet Hennessy, American Express, Santander, Allwyn, Globant, Las
+      Vegas Convention and Visitors Authority, Paramount+, Barilla, Liqui Moly, Nestle,
+      PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds. These brands span industries
+      such as luxury goods, technology, logistics, beverages, and more.
+    type: examples
+  - content: Official partners often provide essential services or products to F1,
+      such as Pirelli supplying tires, DHL managing logistics, AWS offering cloud
+      computing and data analytics, and Heineken promoting responsible drinking campaigns.
+      Their logos and branding are prominently displayed at events, on cars, and in
+      media.
+    type: use case
+  - content: Partnerships with global brands enhance F1’s financial stability and
+      global reach, enabling technological innovation, improved fan experiences, and
+      expanded marketing opportunities. These relationships also reflect F1’s status
+      as a premier international sporting property attractive to diverse sponsors.
+    type: implications
+  - content: The presence of official partners is connected to F1’s commercial rights,
+      event organization, and the broader sports marketing industry. These partnerships
+      influence how races are broadcast, how fans interact with the sport, and the
+      resources available to teams and organizers.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not listed among the official partners in the provided section,
+      while Pirelli, AWS, and Heineken are all explicitly mentioned as partners.
+    options:
+    - Pirelli
+    - AWS
+    - Nike
+    - Heineken
+    question_text: Which of the following is NOT listed as an official Formula 1 partner?
+  index: 170
+  key_concept: F1 Official Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application offered by Formula 1, available
+      for download on platforms such as the Apple App Store and Google Play. It is
+      designed to provide fans with access to live timing, news, schedules, driver
+      and team information, and other interactive features.
+    type: definition
+  - content: Fans use the app to follow live race data, view race schedules, access
+      driver and team profiles, and receive news updates. The app enhances the fan
+      experience by offering real-time information and multimedia content directly
+      to users’ mobile devices.
+    type: use case
+  - content: The app represents F1’s commitment to digital engagement, allowing the
+      sport to connect with a global audience and provide value-added services. It
+      supports fan retention, data collection, and the integration of digital marketing
+      strategies.
+    type: implications
+  - content: The app can be downloaded from the Apple App Store or Google Play, and
+      features such as live timing, push notifications, and exclusive content are
+      highlighted. These functionalities cater to both casual viewers and dedicated
+      motorsport enthusiasts.
+    type: examples
+  - content: The app is part of F1’s broader digital ecosystem, connecting with F1
+      TV, social media platforms, and official websites. It also ties into commercial
+      partnerships by integrating sponsor content and promotions.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The Official F1 App is primarily designed to provide live race timing,
+      news, and related F1 content, not for merchandise orders, hotel bookings, or
+      license applications.
+    options:
+    - Ordering team merchandise
+    - Accessing live race timing and news
+    - Booking hotel rooms for Grand Prix weekends
+    - Applying for F1 driver licenses
+    question_text: What is a primary function of the Official F1 App?
+  index: 180
+  key_concept: Official F1 App
+  name: Download the Official F1 App

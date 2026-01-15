@@ -1,0 +1,281 @@
+URL: https://www.britannica.com/technology/FTP
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article entry explaining the File Transfer Protocol
+  (FTP), covering its definition, historical development, technical characteristics,
+  security implications, and eventual decline in favor of newer protocols.
+file_name: FTP Definition & Facts Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/FTP Definition & Facts Britannica.html
+file_uuid: 6f6c9cb8-a518-510d-a728-485f6d4afc26
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: FTP is specifically designed to transfer files between computers over
+    a network, such as a LAN or the Internet.
+  knowledge_areas:
+  - FTP definition and purpose
+  options:
+  - Transferring files between computers over a network
+  - Encrypting all network traffic
+  - Providing email services
+  - Rendering web pages
+  question_id: 1
+  question_text: What is the primary function of the File Transfer Protocol (FTP)?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: FTP's ability to transfer files between heterogeneous systems was a
+    key factor in its widespread adoption.
+  knowledge_areas:
+  - Interoperability and technical features
+  options:
+  - Interoperability between different operating systems and architectures
+  - Automatic encryption of all data
+  - Built-in virus scanning
+  - Exclusive use on the World Wide Web
+  question_id: 2
+  question_text: Which technical feature enabled FTP to become widely adopted in early
+    network environments?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: FTP's lack of encryption and transmission of sensitive data in plain
+    text led to its removal from major browsers due to security concerns.
+  knowledge_areas:
+  - Security limitations of FTP
+  - Decline and replacement by newer protocols
+  options:
+  - Because FTP transmits data in plain text and poses security risks
+  - Because FTP cannot transfer images
+  - Because FTP is incompatible with modern operating systems
+  - Because FTP was never standardized
+  question_id: 3
+  question_text: Why did major web browsers discontinue support for FTP in 2021?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: HTTP (Hypertext Transfer Protocol) became the main protocol for transferring
+    web content, including text and images, in the 1990s.
+  knowledge_areas:
+  - Decline and replacement by newer protocols
+  options:
+  - HTTP
+  - SMTP
+  - SCP
+  - POP3
+  question_id: 4
+  question_text: Which protocol began to replace FTP for transferring smaller text
+    and image files over the Internet in the 1990s?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: FTP's interoperability made it widely useful, but its lack of security
+    features, such as encryption, ultimately limited its suitability for modern Internet
+    use.
+  knowledge_areas:
+  - Interoperability and technical features
+  - Security limitations of FTP
+  options:
+  - It enabled interoperability but lacked security features like encryption
+  - It provided built-in encryption but was slow
+  - It was only compatible with UNIX systems
+  - It was designed for email transmission
+  question_id: 5
+  question_text: How did FTP's design both help and hinder its long-term use on the
+    Internet?
+  question_type: recap
+sections:
+- aspects:
+  - content: FTP (File Transfer Protocol) is a computer application and communication
+      protocol designed to transfer files from one computer to another over a network,
+      such as a local area network (LAN) or a wide area network (WAN) like the Internet.
+      It facilitates the movement of data between systems that may have different
+      operating systems or hardware architectures.
+    type: Definition
+  - content: FTP is commonly used to upload web pages to hosting servers, download
+      large files from remote servers, and share documents between organizational
+      departments. For instance, a web developer might use FTP to transfer website
+      files from their local computer to a web server.
+    type: Examples
+  - content: FTP is essential for scenarios requiring reliable, bulk file transfers,
+      such as website maintenance, data backup, and distribution of software packages.
+      It is particularly valuable in environments where direct file access is not
+      possible, but network connectivity is available.
+    type: Use Cases
+  - content: FTP's ability to handle transfers between heterogeneous systems made
+      it a foundational tool for early networked computing and the growth of the Internet.
+      Its design influenced subsequent file transfer protocols and standards.
+    type: Implications
+  - content: FTP is related to other network protocols, such as HTTP (for web content)
+      and SFTP (for secure file transfer). Its role in enabling interoperability between
+      different systems highlights its importance in the evolution of network communication.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: FTP (File Transfer Protocol) is specifically designed for transferring
+      files between computers over a network. It does not inherently encrypt communications,
+      render web pages, or manage user authentication for websites.
+    options:
+    - Transferring files between computers over a network
+    - Encrypting network communications
+    - Rendering web pages in browsers
+    - Managing user authentication for websites
+    question_text: Which of the following best describes the primary purpose of FTP?
+  index: 124
+  key_concept: FTP definition and purpose
+  name: FTP
+- aspects:
+  - content: FTP was first proposed in 1971 by engineers at the Massachusetts Institute
+      of Technology (MIT) to address the need for reliable file exchange between computers
+      with different operating systems and architectures. Its development paralleled
+      the rapid evolution of computer networking in the 1970s and 1980s.
+    type: Context
+  - content: FTP became an international standard in 1985, after years of refinement
+      and adoption across various computing environments. Its adoption was widespread
+      before the emergence of the World Wide Web in the 1990s.
+    type: Timeline
+  - content: Early implementations of FTP were critical for academic and research
+      institutions, enabling the sharing of software, datasets, and documents across
+      geographically dispersed locations. MIT's host computers were among the first
+      to utilize FTP for such purposes.
+    type: Examples
+  - content: The standardization of FTP laid the groundwork for interoperable file
+      sharing, which was essential for collaborative research and the expansion of
+      networked computing. FTP's influence extended to the design of later protocols.
+    type: Implications
+  - content: FTP's evolution is closely linked with the broader history of the Internet
+      and the development of other network protocols, such as HTTP, which later supplanted
+      FTP for certain types of file transfers.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: FTP was first proposed in 1971 and became an international standard
+      in 1985. The Massachusetts Institute of Technology (MIT) played a central role
+      in its early development.
+    options:
+    - 1985; Massachusetts Institute of Technology
+    - 1991; Stanford University
+    - 1971; Harvard University
+    - 1995; University of Cambridge
+    question_text: When did FTP become an international standard, and which institution
+      played a key role in its early development?
+  index: 124
+  key_concept: Historical development of FTP
+  name: FTP
+- aspects:
+  - content: A key feature of FTP is its ability to enable reliable and swift exchange
+      of information between computers with different operating systems and machine
+      architectures. This interoperability was a major advancement at the time of
+      its introduction.
+    type: Definition
+  - content: FTP allows a user on a Windows machine to transfer files to a Unix server,
+      or vice versa, without compatibility issues. It uses a client-server model,
+      where the client initiates requests and the server responds.
+    type: Examples
+  - content: FTP operates over TCP/IP networks and uses separate control and data
+      connections to manage commands and file transfers. It supports both active and
+      passive modes, which determine how connections are established between client
+      and server.
+    type: Technical Details
+  - content: The protocol's design made it a preferred choice for heterogeneous network
+      environments, supporting the growth of multi-platform computing and the early
+      Internet.
+    type: Implications
+  - content: FTP's interoperability influenced the design of later protocols, including
+      SFTP and SCP, which added security features while maintaining cross-platform
+      compatibility.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: FTP's major technical advantage was its interoperability, allowing
+      reliable file transfers between computers with different operating systems and
+      architectures. It did not originally include encryption or virus scanning.
+    options:
+    - Its ability to transfer files between computers with different operating systems
+    - Its built-in encryption for secure transfers
+    - Its use of web browsers for file access
+    - Its automatic virus scanning of transferred files
+    question_text: What technical feature made FTP particularly valuable in early
+      network environments?
+  index: 124
+  key_concept: Interoperability and technical features
+  name: FTP
+- aspects:
+  - content: FTP's open design means that all data, including usernames, passwords,
+      and commands, are transmitted in plain text. This lack of encryption posed significant
+      security risks, especially as networks became more interconnected and accessible.
+    type: Definition
+  - content: If a user logs into an FTP server over the Internet, anyone intercepting
+      the network traffic could easily read their credentials and transferred files.
+      This vulnerability was not a major concern in the 1970s, when FTP was mostly
+      used within single organizations' LANs.
+    type: Examples
+  - content: As the Internet grew and cybercrime became more prevalent, FTP's security
+      weaknesses became unacceptable for sensitive data transfers. This led to the
+      development and adoption of secure alternatives like SFTP and FTPS.
+    type: Implications
+  - content: While FTP may still be used in controlled environments where security
+      is not a primary concern, its use is strongly discouraged for any scenario involving
+      confidential information or public networks.
+    type: Edge Cases
+  - content: FTP's security limitations are a key reason why modern web browsers,
+      such as Chrome and Firefox, removed support for FTP in 2021. This shift underscores
+      the broader trend toward encrypted communication protocols.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: FTP is insecure because it sends all information, including usernames
+      and passwords, in plain text, making it vulnerable to interception by cybercriminals.
+      It does work over TCP/IP and can transfer large files.
+    options:
+    - It transmits data, including credentials, in plain text
+    - It only works within a single organization
+    - It cannot transfer large files
+    - It is incompatible with TCP/IP networks
+    question_text: Why is FTP considered insecure for modern Internet use?
+  index: 124
+  key_concept: Security limitations of FTP
+  name: FTP
+- aspects:
+  - content: With the rise of the World Wide Web in the 1990s, HTTP began to replace
+      FTP as the primary means of transferring smaller text and image files over the
+      Internet. The need for secure and user-friendly protocols accelerated this transition.
+    type: Context
+  - content: Web browsers, which once supported FTP for file downloads and uploads,
+      phased out FTP support entirely by 2021 due to security concerns and the availability
+      of better alternatives like HTTPS and SFTP.
+    type: Examples
+  - content: The removal of FTP support from major browsers like Google Chrome and
+      Mozilla Firefox reflects a broader shift in Internet standards, emphasizing
+      security and ease of use. Organizations have migrated to more secure protocols
+      for file transfers.
+    type: Implications
+  - content: Protocols such as SFTP (SSH File Transfer Protocol) and FTPS (FTP Secure)
+      provide encrypted alternatives to FTP, while HTTP and HTTPS handle most web-based
+      file transfers. This evolution demonstrates the ongoing adaptation of Internet
+      technologies to emerging security and usability requirements.
+    type: Connections
+  - content: FTP's decline marks the end of an era in networked computing, but its
+      foundational concepts continue to influence modern protocol design and network
+      security practices.
+    type: Historical Significance
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: FTP's lack of encryption and associated security vulnerabilities
+      led to its decline, as more secure protocols like SFTP and HTTPS became preferred
+      for file transfers.
+    options:
+    - Security vulnerabilities and lack of encryption
+    - Inability to transfer files over the Internet
+    - Requirement for specialized hardware
+    - Limited support for different operating systems
+    question_text: What was a major reason for the decline of FTP usage in favor of
+      newer protocols?
+  index: 124
+  key_concept: Decline and replacement by newer protocols
+  name: FTP

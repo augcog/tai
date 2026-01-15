@@ -1,0 +1,208 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page summarizing the 1959 Formula 1 race results, listing
+  Grand Prix winners, teams, and race details, alongside promotional sections for
+  F1 partners and the official F1 app.
+file_name: 1959 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1959/1959 RACE RESULTS.html
+file_uuid: f4f808f3-e6ea-5113-aeb3-690ff97f175f
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Jack Brabham won two races (Monaco and Great Britain), while Tony Brooks
+    and Stirling Moss also had two each, but Brabham is often highlighted for his
+    championship run. Bruce McLaren won only one race.
+  knowledge_areas:
+  - 1959 Formula 1 Race Results
+  options:
+  - Jack Brabham
+  - Tony Brooks
+  - Stirling Moss
+  - Bruce McLaren
+  question_id: 1
+  question_text: Which driver won the most races in the 1959 Formula 1 season according
+    to the results table?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Netherlands Grand Prix was won by Jo Bonnier driving for BRM, while
+    the other listed races were won by Cooper Climax or Ferrari drivers.
+  knowledge_areas:
+  - 1959 Formula 1 Race Results
+  options:
+  - Netherlands Grand Prix
+  - Monaco Grand Prix
+  - France Grand Prix
+  - Italy Grand Prix
+  question_id: 2
+  question_text: Which Grand Prix in 1959 was won by a team other than Cooper Climax
+    or Ferrari?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: AWS (Amazon Web Services) is noted as a technology and data analytics
+    partner for F1, while Heineken is a beverage sponsor, MSC is a logistics partner,
+    and Barilla is a food brand.
+  knowledge_areas:
+  - F1 Partners and Sponsors
+  options:
+  - Heineken
+  - AWS
+  - MSC
+  - Barilla
+  question_id: 3
+  question_text: Which of the following companies is associated with providing technology
+    and data analytics to F1 as a partner?
+  question_type: recap
+- correct_answers:
+  - 0
+  - 3
+  explanation: The app is promoted for live updates, driver/team info, and exclusive
+    content, not for merchandise sales or team management.
+  knowledge_areas:
+  - Official F1 App Promotion
+  options:
+  - Providing live race updates and driver information
+  - Selling team merchandise directly
+  - Managing team operations
+  - Offering exclusive fan content
+  question_id: 4
+  question_text: What are two main purposes of the Official F1 App as promoted in
+    the document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: F1 partners and sponsors mainly contribute through financial, technological,
+    and promotional means, not by supplying cars, organizing races, or setting regulations.
+  knowledge_areas:
+  - F1 Partners and Sponsors
+  options:
+  - By providing financial, technological, and promotional support
+  - By supplying race cars to all teams
+  - By organizing the race calendar
+  - By setting the technical regulations
+  question_id: 5
+  question_text: How do F1 partners and sponsors contribute to the sport, according
+    to the document?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1959 Formula 1 Race Results refer to the summary of outcomes for
+      each Grand Prix held during the 1959 F1 World Championship season. This includes
+      information on the date, location, winning driver, team, number of laps, and
+      total race time for each event.
+    type: Definition
+  - content: For instance, Jack Brabham won the Monaco Grand Prix on May 10th, driving
+      for Cooper Climax, completing 100 laps in 2:55:51.300. Similarly, Stirling Moss
+      secured victories at both the Portugal and Italy Grands Prix, driving for Cooper
+      Climax.
+    type: Examples
+  - content: These results not only determine the allocation of championship points
+      but also highlight the dominance of certain teams and drivers, such as Cooper
+      Climax and Jack Brabham, during the 1959 season. The data is foundational for
+      historical analysis and comparison across seasons.
+    type: Implications
+  - content: The 1959 season was part of the early era of Formula 1, characterized
+      by evolving technology and international expansion. The inclusion of races like
+      the Indianapolis 500 (won by Rodger Ward) demonstrates the global scope and
+      diversity of circuits during this period.
+    type: Context
+  - content: These results are integral to understanding the development of F1, the
+      evolution of teams and driver careers, and serve as a reference point for subsequent
+      seasons. They connect to broader topics such as championship standings, team
+      strategies, and historical milestones in motorsport.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Cooper Climax won the most races in 1959, with victories by Jack
+      Brabham, Stirling Moss, and Bruce McLaren. Ferrari and BRM each had fewer wins,
+      and Watson Offenhauser only won the Indianapolis 500.
+    options:
+    - Ferrari
+    - Cooper Climax
+    - BRM
+    - Watson Offenhauser
+    question_text: Which team had the most Grand Prix victories in the 1959 Formula
+      1 season?
+  index: 146
+  key_concept: 1959 Formula 1 Race Results
+  name: 1959 RACE RESULTS
+- aspects:
+  - content: F1 partners and sponsors are corporations and brands that provide financial,
+      technological, or promotional support to the Formula 1 organization. Their logos
+      and links are prominently featured in official communications and events.
+    type: Definition
+  - content: Notable partners include LVMH, Pirelli, Aramco, Heineken, AWS, Lenovo,
+      DHL, Qatar Airways, MSC, Crypto.com, Salesforce, and many others. These companies
+      represent a wide range of industries, from luxury goods and beverages to technology
+      and logistics.
+    type: Examples
+  - content: Sponsors gain global exposure through branding on cars, tracks, and digital
+      platforms, while F1 benefits from the resources and innovations these companies
+      provide. For example, Pirelli supplies tires, AWS offers cloud computing and
+      data analytics, and DHL manages logistics.
+    type: Use Cases
+  - content: The involvement of high-profile partners enhances the commercial viability
+      and technological advancement of Formula 1. It also reflects the sport's global
+      reach and appeal to diverse markets, contributing to its financial stability
+      and continuous growth.
+    type: Implications
+  - content: Sponsorship is closely tied to F1’s business model, marketing strategies,
+      and technological progress. The presence of partners influences race operations,
+      fan engagement, and even the development of sustainability initiatives within
+      the sport.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not mentioned among the F1 partners or sponsors in the provided
+      section, while AWS, Pirelli, and Heineken are all listed.
+    options:
+    - AWS
+    - Pirelli
+    - Nike
+    - Heineken
+    question_text: Which of the following is NOT listed as an F1 partner or sponsor
+      in the document?
+  index: 160
+  key_concept: F1 Partners and Sponsors
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application provided by Formula 1, available
+      for download on major platforms, designed to deliver news, live timing, and
+      exclusive content to fans.
+    type: Definition
+  - content: The document provides direct download links to the App Store and Google
+      Play, indicating availability for both iOS and Android devices. The app typically
+      features race schedules, driver and team information, and live session data.
+    type: Examples
+  - content: Fans use the app to follow live race updates, access exclusive interviews
+      and videos, and receive notifications about upcoming events. It is a key tool
+      for enhancing fan engagement and providing real-time information.
+    type: Use Cases
+  - content: The app represents F1’s commitment to digital transformation and global
+      fan engagement. It allows the organization to reach a broader audience, collect
+      user data for marketing, and offer value-added services such as F1 TV integration.
+    type: Implications
+  - content: The app connects to F1’s broader digital ecosystem, including fantasy
+      gaming, esports, and streaming services. It also supports the sport’s commercial
+      and promotional strategies by driving traffic and engagement across platforms.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App is promoted as a tool for fans to access live
+      updates, news, and exclusive content, not for logistics, car parts sales, or
+      TV commercials.
+    options:
+    - To provide live race updates and exclusive content to fans
+    - To manage team logistics
+    - To sell car parts
+    - To broadcast television commercials
+    question_text: What is the primary function of the Official F1 App as described
+      in the document?
+  index: 170
+  key_concept: Official F1 App Promotion
+  name: Download the Official F1 App

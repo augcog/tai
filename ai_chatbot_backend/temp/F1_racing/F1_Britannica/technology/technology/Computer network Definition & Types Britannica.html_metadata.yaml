@@ -1,0 +1,206 @@
+URL: https://www.britannica.com/technology/computer-network
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: 'An encyclopedia article introducing computer networks, focusing
+  on their definition, basic architectures, and the main types: local area networks
+  (LANs) and wide area networks (WANs). The article also briefly discusses network
+  components, architectures, and the role of gateways and bridges.'
+file_name: Computer network Definition & Types Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Computer network Definition
+  & Types Britannica.html
+file_uuid: 16911741-9e2a-576c-95bd-602218dceb08
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: A computer network's primary function is to enable seamless information
+    transfer between different types of equipment. The article emphasizes interoperability
+    and cohesive architecture, not restriction or isolation.
+  knowledge_areas:
+  - computer network definition and architecture
+  options:
+  - Transferring information between various equipment types seamlessly
+  - Restricting communication to only computers
+  - Limiting data transfer to a single location
+  - Providing isolated storage for each device
+  question_id: 1
+  question_text: Which of the following is a primary function of a computer network
+    as described in the article?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: A Local Area Network (LAN) is specifically designed to connect devices
+    in a limited physical area, such as an office or campus, as described in the article.
+  knowledge_areas:
+  - local area networks (LANs)
+  options:
+  - Wide Area Network (WAN)
+  - Local Area Network (LAN)
+  - Internet
+  - Satellite Network
+  question_id: 2
+  question_text: Which network type connects devices within a limited physical area
+    such as an office or campus?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Bridges link LANs with similar architectures, while gateways connect
+    LANs with different architectures by converting data formats. This ensures compatibility
+    and communication across diverse systems.
+  knowledge_areas:
+  - local area networks (LANs)
+  options:
+  - They provide wireless connectivity for all devices.
+  - They link LANs with similar or different architectures, respectively.
+  - They store data centrally for all network users.
+  - They are used only in WANs.
+  question_id: 3
+  question_text: What role do bridges and gateways play in LANs according to the article?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The article states that LANs can connect to other LANs or tap into
+    WANs, allowing for expanded network access and resource sharing. They are not
+    independent or limited to wireless connections.
+  knowledge_areas:
+  - local area networks (LANs)
+  - wide area networks (WANs)
+  options:
+  - LANs and WANs are completely independent and cannot interconnect.
+  - LANs can access other LANs or connect to WANs for broader network access.
+  - WANs are smaller networks contained within LANs.
+  - LANs are only used for wireless connections.
+  question_id: 4
+  question_text: Which statement best describes the relationship between LANs and
+    WANs as presented in the article?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: The Internet is cited as the largest WAN, connecting billions of users
+    and devices across the globe through a network of networks and gateways.
+  knowledge_areas:
+  - wide area networks (WANs)
+  options:
+  - A university campus network
+  - A business office LAN
+  - The Internet
+  - A local printer network
+  question_id: 5
+  question_text: Which of the following is the largest example of a Wide Area Network
+    (WAN) mentioned in the article?
+  question_type: recap
+sections:
+- aspects:
+  - content: A computer network is defined as two or more computers connected to each
+      other for the purpose of communicating data electronically. The connection can
+      include various devices and is not limited to computers alone; it may also involve
+      communication devices and peripherals. The network enables the transfer of information
+      between diverse types of equipment, allowing them to operate together in a cohesive
+      system.
+    type: definition
+  - content: Network architecture refers to the design and structure that enables
+      communication and data transfer among connected devices. Two prominent architectures
+      mentioned are the ISO Open Systems Interconnection (OSI) model and IBM's Systems
+      Network Architecture (SNA). These architectures provide standardized frameworks
+      for how data is transmitted, received, and interpreted across different devices
+      and systems, ensuring interoperability and efficient communication.
+    type: network architecture
+  - content: The architecture of a computer network is crucial for seamless information
+      exchange, supporting interoperability among various hardware and software platforms.
+      Adopting standard architectures like OSI or SNA allows for scalability, easier
+      troubleshooting, and integration of new technologies. Network architecture also
+      determines the security, reliability, and efficiency of data transfer, impacting
+      everything from small office networks to global systems like the Internet.
+    type: implications and connections
+  check_in_question:
+    correct_answer:
+    - 0
+    - 2
+    explanation: A computer network is primarily defined as a group of computers connected
+      for data communication, but the article also emphasizes the importance of a
+      cohesive architecture that allows different equipment types to transfer information
+      seamlessly. The network is not limited to only computers (option 1 is incorrect),
+      and while OSI is a popular architecture, it is not the only one (option 3 is
+      incorrect).
+    options:
+    - A group of computers physically connected for data communication.
+    - A system where only computers can communicate electronically.
+    - A cohesive architecture allowing various equipment types to transfer information
+      seamlessly.
+    - A network using only the OSI model for communication.
+    question_text: Which of the following best describes a computer network according
+      to the article?
+  index: 143
+  key_concept: computer network definition and architecture
+  name: computer network
+- aspects:
+  - content: Local Area Networks (LANs) are networks that connect computers and peripheral
+      devices within a limited geographic area, such as an office, laboratory, or
+      campus. They use physical links like wires, Ethernet cables, fiber optics, or
+      Wi-Fi to enable rapid data transmission among connected devices.
+    type: definition
+  - content: A typical LAN setup includes two or more personal computers, printers,
+      and high-capacity disk-storage devices known as file servers. These file servers
+      allow each computer on the network to access a shared set of files. LANs are
+      also managed by operating system software that interprets input and coordinates
+      communication between devices, enabling users to share resources like printers
+      and storage equipment.
+    type: examples and components
+  - content: LANs facilitate efficient resource sharing, collaborative work, and centralized
+      data management within organizations. They can be interconnected with other
+      LANs or WANs for broader access. LANs with similar architectures are linked
+      using 'bridges,' while those with different architectures use 'gateways' to
+      convert data formats, ensuring compatibility and communication across diverse
+      systems.
+    type: practical implications and connections
+  check_in_question:
+    correct_answer:
+    - 1
+    - 3
+    explanation: LANs connect devices within a limited area, not large regions (option
+      0 is incorrect). They use bridges and gateways to link similar or different
+      architectures, and are managed by operating system software that enables resource
+      sharing, including printers and storage devices (option 2 is incorrect).
+    options:
+    - LANs connect computers over large geographic regions.
+    - LANs use devices like bridges and gateways to link different architectures.
+    - LANs typically do not allow sharing of printers or storage devices.
+    - LANs are managed by specialized operating system software.
+    question_text: Which statement accurately characterizes a Local Area Network (LAN)
+      as described in the article?
+  index: 143
+  key_concept: local area networks (LANs)
+  name: computer network
+- aspects:
+  - content: Wide Area Networks (WANs) are networks that connect computers and smaller
+      networks across extensive geographic areas, often spanning cities, countries,
+      or even continents. WANs enable communication and resource sharing over long
+      distances, typically using cables, fiber optics, or satellite links.
+    type: definition
+  - content: WANs may link computers and networks via various transmission media,
+      including telephone lines (using modems), fiber optics, or satellites. The largest
+      and most well-known WAN is the Internet, which connects billions of users and
+      devices worldwide through a vast collection of interconnected networks and gateways.
+    type: examples and components
+  - content: WANs are essential for enabling global communication, supporting business
+      operations across multiple locations, and providing access to remote resources.
+      They often incorporate multiple LANs and smaller networks, using gateways to
+      translate data between different network architectures. WANs are fundamental
+      to services like email, cloud computing, and international data exchange.
+    type: practical implications and connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: WANs are characterized by their ability to connect computers and
+      networks over large geographic distances, often using modems and satellites.
+      Unlike LANs, which are confined to small areas, WANs can span continents. WANs
+      can also interconnect with LANs and are not limited to a few computers.
+    options:
+    - WANs connect devices within a single office or campus.
+    - WANs use modems and satellites to connect over large distances.
+    - WANs cannot interconnect with LANs.
+    - WANs are limited to a few computers only.
+    question_text: What distinguishes a Wide Area Network (WAN) from a Local Area
+      Network (LAN) according to the article?
+  index: 143
+  key_concept: wide area networks (WANs)
+  name: computer network

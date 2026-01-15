@@ -1,0 +1,280 @@
+URL: https://www.britannica.com/technology/computer/ENIAC#ref216049
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A historical overview of the development of early electronic computers,
+  focusing on ENIAC, the transition to general-purpose and stored-program computers,
+  key technological innovations, and the emergence of real-time computing.
+file_name: Computer - ENIAC, Electronic, Computing Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/computer/Computer - ENIAC,
+  Electronic, Computing Britannica.html
+file_uuid: bb5df56e-2213-502e-a572-c67f793bfc6c
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: ENIAC required manual rewiring via plugboards to change its programming,
+    making it much less flexible than later stored-program computers.
+  knowledge_areas:
+  - ENIAC and First-Generation Electronic Computers
+  options:
+  - It could only perform addition.
+  - It required manual rewiring to change tasks.
+  - It was slower than mechanical calculators.
+  - It could not use vacuum tubes.
+  question_id: 1
+  question_text: What was a major limitation of ENIAC's programmability compared to
+    later computers?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Mercury delay lines allowed EDVAC to store multiple bits per device,
+    a significant improvement over ENIAC's one-tube-per-bit approach.
+  knowledge_areas:
+  - Transition to General-Purpose and Enhanced Storage
+  options:
+  - Magnetic core memory
+  - Mercury delay lines
+  - Cathode-ray tubes
+  - Mechanical gears
+  question_id: 2
+  question_text: Which storage innovation allowed EDVAC to store more bits with fewer
+    vacuum tubes than ENIAC?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The von Neumann architecture stores both instructions and data in the
+    same memory, allowing programs to modify other programs or themselves.
+  knowledge_areas:
+  - Von Neumann Architecture and the Stored-Program Concept
+  options:
+  - Programs are input only via punch cards.
+  - Instructions and data share the same memory and can be modified by programs.
+  - Data and instructions are stored on separate devices.
+  - It uses only mechanical components.
+  question_id: 3
+  question_text: What is a defining characteristic of the von Neumann architecture?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Instruction modification registers, later known as index registers,
+    allowed efficient sequential addressing and became a standard feature in computer
+    architecture.
+  knowledge_areas:
+  - First Stored-Program Computers and Their Innovations
+  options:
+  - Plugboard programming
+  - Instruction modification registers (index registers)
+  - Mechanical relays
+  - Vacuum tube storage
+  question_id: 4
+  question_text: Which feature, introduced in the Manchester Mark I, became a standard
+    in later computers for efficient memory addressing?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Magnetic core memory provided the speed and reliability required for
+    real-time computing, allowing Whirlwind to respond instantly to operator instructions.
+  knowledge_areas:
+  - Real-Time Computing and Magnetic Core Memory
+  options:
+  - It allowed for slower, but larger, memory.
+  - It enabled fast, reliable data access necessary for immediate computer response.
+  - It replaced vacuum tubes with mechanical switches.
+  - It made programming with punch cards obsolete.
+  question_id: 5
+  question_text: How did the invention of magnetic core memory contribute to the development
+    of real-time computing in Whirlwind?
+  question_type: recap
+sections:
+- aspects:
+  - content: ENIAC (Electronic Numerical Integrator and Computer) was the first large-scale,
+      all-electronic digital computer, constructed at the Moore School of Electrical
+      Engineering, University of Pennsylvania, in the mid-1940s. It marked a transition
+      from electromechanical to electronic computation and is considered a first-generation
+      computer.
+    type: Definition
+  - content: ENIAC used over 18,000 vacuum tubes, 70,000 resistors, and 1,500 relays,
+      occupying a large physical space and consuming significant power. It was programmed
+      via plugboards, which allowed for electronic speed but made reprogramming laborious
+      and slow, taking days to rewire for new tasks. Its design was not fully general-purpose,
+      being originally intended for artillery calculations.
+    type: Technical Features and Limitations
+  - content: Funded by the U.S. Army during World War II, ENIAC was completed after
+      the war and was first used for hydrogen bomb calculations. It was the most powerful
+      calculator of its time, capable of 5,000 additions per second, vastly outperforming
+      previous machines. ENIAC's architecture and use of vacuum tubes set the stage
+      for subsequent developments in electronic computing.
+    type: Historical Context and Impact
+  - content: ENIAC introduced conditional branching, allowing the machine to alter
+      instruction flow based on data values, thus increasing its flexibility. Despite
+      its limitations in programmability, it bridged the gap between special-purpose
+      and more general-purpose machines. ENIAC is often cited as a milestone in computer
+      history, influencing the design of future computers and the evolution of computer
+      science.
+    type: Innovations and Legacy
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: ENIAC required manual rewiring via plugboards to change programs,
+      making reprogramming slow and cumbersome. It was electronic (not purely mechanical),
+      could perform arithmetic, and was much larger and more powerful than its predecessors.
+    options:
+    - It could not perform any arithmetic operations.
+    - It required manual rewiring to change programs.
+    - It used only mechanical parts.
+    - It was smaller and less powerful than previous machines.
+    question_text: Which of the following best describes a major limitation of ENIAC
+      compared to later computers?
+  index: 292
+  key_concept: ENIAC and First-Generation Electronic Computers
+  name: '[ENIAC](https://www.britannica.com/technology/ENIAC "https://www.britannica.com/technology/ENIAC")'
+- aspects:
+  - content: After World War II, computer development shifted from special-purpose
+      machines to the pursuit of general-purpose computing devices. This transition
+      was motivated by the desire to create machines capable of solving a wide range
+      of problems, not just those for which they were originally designed.
+    type: Definition and Motivation
+  - content: A key innovation was the use of mercury delay lines for memory storage,
+      which allowed more bits to be stored with fewer vacuum tubes compared to ENIAC's
+      one-tube-per-bit approach. This improved storage capacity and reliability, laying
+      the groundwork for more complex and capable computers like EDVAC.
+    type: Technical Innovations
+  - content: The drive for general-purpose computing was influenced by the limitations
+      of wartime computers, which were fast but constrained in function. The planning
+      for EDVAC, ENIAC’s successor, began even before ENIAC was completed, reflecting
+      the rapid pace of technological ambition and the recognition of storage as a
+      bottleneck.
+    type: Historical Context
+  - content: The move to general-purpose designs and improved storage technologies
+      enabled the creation of more versatile and powerful computers. The development
+      of delay-line memory and, later, magnetic core memory, facilitated the transition
+      to computers that could be reprogrammed efficiently and handle more complex
+      tasks, influencing the entire trajectory of computer architecture.
+    type: Implications and Legacy
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: EDVAC used mercury delay lines, which allowed storing multiple bits
+      with fewer vacuum tubes, a significant improvement over ENIAC’s one-tube-per-bit
+      storage.
+    options:
+    - Use of magnetic disks for storage
+    - Use of mercury delay lines to store multiple bits
+    - Use of punch cards for memory
+    - Use of mechanical gears for data storage
+    question_text: What was a key storage innovation that distinguished EDVAC from
+      ENIAC?
+  index: 438
+  key_concept: Transition to General-Purpose and Enhanced Storage
+  name: Bigger brains
+- aspects:
+  - content: The von Neumann architecture, articulated in the 1946 'Preliminary Discussion'
+      paper, established the principle that data and instructions should be stored
+      in the same memory. Instructions could be modified by other instructions, enabling
+      programs to treat other programs as data.
+    type: Definition and Principles
+  - content: This architecture synthesized contemporary ideas and is widely regarded
+      as the foundation of modern computer science. It enabled the development of
+      high-level programming languages and more sophisticated software, as programs
+      could be easily stored, modified, and executed.
+    type: Historical Context and Influence
+  - content: Storing instructions in electronic memory allowed for rapid access and
+      made programming much more efficient compared to earlier methods like plugboards
+      or mechanical card readers. This also meant that future computers would require
+      much more memory than ENIAC.
+    type: Practical Implications
+  - content: The von Neumann model became the template for most subsequent computers,
+      known as 'von Neumann machines.' Its influence persists in modern computer design,
+      particularly in the way memory and instruction processing are organized.
+    type: Connections and Legacy
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: A key feature of the von Neumann architecture is that both data and
+      instructions are stored in the same memory and instructions can be modified
+      by other instructions, enabling more flexible and powerful programming.
+    options:
+    - Instructions and data are stored separately in different physical devices.
+    - Programs are input only via punch cards.
+    - Instructions and data are stored together in the same memory and can be modified
+      by other instructions.
+    - The computer uses only mechanical switches.
+    question_text: What is a defining feature of the von Neumann architecture?
+  index: 450
+  key_concept: Von Neumann Architecture and the Stored-Program Concept
+  name: Von Neumann’s “Preliminary Discussion”
+- aspects:
+  - content: Stored-program computers are those in which both the program instructions
+      and data are held in the same memory, allowing the computer to execute instructions
+      sequentially and modify them as needed. Early examples include the Manchester
+      Baby, Manchester Mark I, and EDSAC.
+    type: Definition and Examples
+  - content: The Manchester Baby introduced direct-access storage using cathode-ray
+      tubes, which was faster than mercury delay lines but less reliable. The Manchester
+      Mark I added a two-level storage hierarchy and instruction modification registers,
+      which evolved into index registers, greatly improving programming flexibility
+      and efficiency.
+    type: Technical Innovations
+  - content: The British built the first operational stored-program computer (Manchester
+      Baby) in 1948, followed by the Manchester Mark I and the Ferranti Mark I, the
+      first commercial computer. EDSAC at Cambridge was the first to provide a formal
+      computing service for users, emphasizing the growing importance of software
+      and programming.
+    type: Historical Milestones
+  - content: The innovations in storage and instruction modification enabled more
+      complex programming, such as array processing and dynamic memory addressing.
+      These developments laid the foundation for modern computing practices, including
+      the use of index registers and secondary storage devices like magnetic drums.
+    type: Implications and Legacy
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: The Manchester Mark I introduced instruction modification registers,
+      which evolved into index registers, becoming a standard feature in later computers
+      to facilitate efficient addressing and programming.
+    options:
+    - Plugboard programming
+    - Mechanical relays for logic
+    - Instruction modification registers (index registers)
+    - Vacuum tube memory
+    question_text: Which innovation was introduced by the Manchester Mark I that became
+      a standard in later computers?
+  index: 462
+  key_concept: First Stored-Program Computers and Their Innovations
+  name: The first stored-program machines
+- aspects:
+  - content: Real-time computing refers to a computer's ability to respond instantly
+      to user or system instructions, enabling interactive operation. Whirlwind, developed
+      at MIT, was the first real-time computer, made possible by the invention of
+      fast magnetic core memory by Jay Forrester and Jan Rajchman.
+    type: Definition and Technical Innovation
+  - content: Whirlwind was developed in the United States in the postwar period, as
+      computing needs shifted toward applications requiring immediate feedback, such
+      as simulations and control systems. Magnetic core memory provided the speed
+      and reliability necessary for real-time operation.
+    type: Historical Context and Motivation
+  - content: The introduction of real-time computing revolutionized human-computer
+      interaction, making it possible for operators to interact with a running computer
+      directly. This was a major step beyond batch processing and opened the door
+      to applications in defense, industry, and later, personal computing.
+    type: Practical Implications
+  - content: Magnetic core memory became the dominant memory technology for computers
+      for over a decade, due to its speed and durability. Real-time computing concepts
+      underpin modern operating systems, interactive software, and embedded systems,
+      marking a significant advance in computer usability and functionality.
+    type: Connections and Legacy
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Magnetic core memory, invented by Forrester and Rajchman, provided
+      the speed necessary for real-time computing in Whirlwind, making immediate interaction
+      with a running computer possible.
+    options:
+    - Use of vacuum tubes for logic circuits
+    - Use of magnetic core memory for fast data access
+    - Use of mercury delay lines for storage
+    - Use of punch cards for input
+    question_text: What technological advance enabled Whirlwind to become the first
+      real-time computer?
+  index: 490
+  key_concept: Real-Time Computing and Magnetic Core Memory
+  name: '[Whirlwind](https://www.britannica.com/technology/Whirlwind-computer "https://www.britannica.com/technology/Whirlwind-computer")'

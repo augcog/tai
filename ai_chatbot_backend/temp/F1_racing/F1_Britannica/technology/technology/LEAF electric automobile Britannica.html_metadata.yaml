@@ -1,0 +1,159 @@
+URL: https://www.britannica.com/technology/Leaf-electric-automobile
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A short encyclopedia entry referencing the Nissan LEAF electric
+  automobile, with contextual mention of the broader trend toward electric cars and
+  the automotive industry's transition away from internal-combustion engines.
+file_name: LEAF electric automobile Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/LEAF electric automobile
+  Britannica.html
+file_uuid: 13823097-b7d3-5490-a126-91bcefab5cf7
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: The Nissan LEAF, introduced in 2010, is widely recognized as one of
+    the first mass-market electric vehicles and helped popularize electric cars globally.
+  knowledge_areas:
+  - Nissan LEAF
+  - electric cars
+  options:
+  - Toyota Prius
+  - Nissan LEAF
+  - Chevrolet Suburban
+  - Renault ZOE
+  question_id: 1
+  question_text: Which vehicle is recognized as one of the first mass-market electric
+    cars and played a significant role in popularizing EVs?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Many major car companies plan to stop developing new internal-combustion
+    engine models by the 2030s, reflecting a shift toward electric and hybrid vehicles.
+  knowledge_areas:
+  - Transition to Electric and Hybrid Cars
+  options:
+  - Increasing diesel vehicle production
+  - Only producing luxury vehicles
+  - Stopping development of new internal-combustion engine models
+  - Focusing on hydrogen fuel cell vehicles exclusively
+  question_id: 2
+  question_text: According to the article, what major change are many car companies
+    planning by the 2030s?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: The Nissan LEAF is a fully electric vehicle and does not use gasoline;
+    it was introduced in 2010 and contributed to the mainstream adoption of EVs.
+  knowledge_areas:
+  - Nissan LEAF
+  options:
+  - It is a fully electric vehicle.
+  - It was introduced in 2010.
+  - It operates using both gasoline and electricity.
+  - It contributed to the mainstream adoption of electric vehicles.
+  question_id: 3
+  question_text: Which of the following is NOT true about the Nissan LEAF?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The introduction of the Nissan LEAF and Renault ZOE demonstrated the
+    feasibility of electric vehicles for mainstream consumers and encouraged the industry
+    to accelerate EV development.
+  knowledge_areas:
+  - Nissan LEAF
+  - Transition to Electric and Hybrid Cars
+  options:
+  - They led to an increase in gasoline-powered car production.
+  - They demonstrated the feasibility of electric vehicles for mainstream consumers.
+  - They caused a decline in battery technology development.
+  - They resulted in stricter emissions standards for diesel cars only.
+  question_id: 4
+  question_text: How did the introduction of vehicles like the Nissan LEAF and Renault
+    ZOE impact the automotive industry?
+  question_type: recap
+sections:
+- aspects:
+  - content: The Nissan LEAF is a fully electric automobile introduced in 2010 by
+      Nissan Motor Company. It is one of the most widely recognized mass-market electric
+      vehicles (EVs) and is notable for being among the first affordable, high-production
+      electric cars available globally. The LEAF operates solely on battery power,
+      without an internal combustion engine, making it a zero-emission vehicle during
+      operation.
+    type: Definition
+  - content: The LEAF features a lithium-ion battery pack, regenerative braking, and
+      advanced infotainment systems designed to monitor energy usage and charging.
+      Its design emphasizes efficiency and urban usability, with a range suitable
+      for daily commuting. The LEAF has been updated through various generations,
+      with improvements in battery capacity, range, and onboard technology.
+    type: Examples and Features
+  - content: The introduction of the Nissan LEAF marked a significant milestone in
+      the automotive industry's shift toward electrification. As one of the first
+      widely available electric cars, it demonstrated the feasibility of electric
+      vehicles for mainstream consumers. The LEAF also influenced other manufacturers
+      to accelerate their own electric vehicle development programs.
+    type: Implications and Significance
+  - content: The LEAF is often mentioned alongside other pioneering electric vehicles
+      such as the Renault ZOE. Its release coincided with increasing environmental
+      concerns, government incentives for clean vehicles, and technological advancements
+      in battery storage and electric drivetrains. The LEAF's market presence helped
+      normalize electric vehicles and contributed to the broader adoption of sustainable
+      transportation.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The Nissan LEAF is a fully electric automobile introduced in 2010,
+      notable for being one of the first widely available mass-market EVs. It is not
+      a hybrid, luxury sports car, or a Renault vehicle.
+    options:
+    - A hybrid vehicle introduced by Nissan in 2010.
+    - A fully electric automobile that helped popularize mass-market EVs.
+    - A luxury sports car powered by hydrogen fuel cells.
+    - A plug-in hybrid SUV released by Renault.
+    question_text: Which of the following statements best describes the Nissan LEAF?
+  index: 122
+  key_concept: Nissan LEAF
+  name: LEAF
+- aspects:
+  - content: The transition to electric and hybrid cars refers to the automotive industry's
+      strategic shift from producing vehicles powered by internal-combustion engines
+      (ICEs) to those powered by electric motors, either fully (electric vehicles)
+      or in combination with ICEs (hybrid vehicles). This transition is driven by
+      environmental, regulatory, and technological factors.
+    type: Definition
+  - content: Examples of vehicles representing this transition include the Nissan
+      LEAF (2010), a fully electric car, and the Renault ZOE (2012), another prominent
+      electric vehicle. Many manufacturers have announced plans to produce mostly
+      or only electric and hybrid vehicles, with some aiming to phase out new ICE
+      models by the 2030s.
+    type: Examples
+  - content: This trend has significant implications for global emissions, energy
+      use, and automotive technology. Major car companies are investing heavily in
+      battery technology, charging infrastructure, and new manufacturing processes.
+      The shift is also influencing government policy, urban planning, and consumer
+      behavior toward more sustainable transportation options.
+    type: Implications and Industry Trends
+  - content: The move toward electrification is part of a broader response to climate
+      change, air pollution, and resource depletion. By the 2030s, many automakers
+      intend to cease development of new ICE models, signaling a fundamental transformation
+      in how vehicles are designed, produced, and used. This transition is expected
+      to accelerate as battery costs decline and charging infrastructure expands.
+    type: Context and Future Outlook
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The passage notes that many major car companies plan to stop developing
+      new internal-combustion engine models by the 2030s, reflecting a shift toward
+      electric and hybrid vehicles.
+    options:
+    - Major car companies are increasing production of internal-combustion engine
+      vehicles.
+    - Automakers plan to stop developing new internal-combustion engine models by
+      the 2030s.
+    - The focus is shifting toward gasoline-powered sports cars.
+    - Electric cars are being phased out in favor of diesel vehicles.
+    question_text: What is a key industry trend described in relation to electric
+      cars like the Nissan LEAF?
+  index: 134
+  key_concept: Transition to Electric and Hybrid Cars
+  name: electric cars

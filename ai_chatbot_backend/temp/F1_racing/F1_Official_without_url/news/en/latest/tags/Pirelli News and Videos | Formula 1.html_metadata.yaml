@@ -1,0 +1,248 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A web page section listing Formula 1's official partners and sponsors,
+  with a focus on Pirelli's role, and a promotional section for downloading the official
+  F1 mobile app.
+file_name: Pirelli News and Videos | Formula 1.html
+file_path: F1_racing/F1_Official/news/en/latest/tags/Pirelli News and Videos | Formula
+  1.html
+file_uuid: 931c4d96-102e-58e5-976f-dd82d0689b06
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Official partners contribute funding, technology, and services to F1,
+    receiving global branding and marketing rights in return. They are not limited
+    to car manufacturers or hospitality providers, and their presence is highly visible.
+  knowledge_areas:
+  - Formula 1 Official Partners
+  - Brand Visibility and Marketing in F1
+  options:
+  - Official partners provide financial and technical support in exchange for branding
+    and marketing rights.
+  - Official partners are all car manufacturers that supply engines to F1 teams.
+  - Official partners only provide hospitality services at races.
+  - Official partners have no presence at F1 events.
+  question_id: 1
+  question_text: Which of the following best describes the relationship between Formula
+    1 and its official partners?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Pirelli is the exclusive supplier of racing tires for all F1 teams,
+    a role that is both technical and strategic for the sport.
+  knowledge_areas:
+  - Pirelli's Role in Formula 1
+  options:
+  - Supplying all racing tires as the exclusive tire partner.
+  - Managing logistics for team equipment.
+  - Providing hospitality services at the paddock club.
+  - Sponsoring the F1 TV broadcast only.
+  question_id: 2
+  question_text: What is Pirelli's primary technical role in Formula 1?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Sponsors achieve global brand visibility through prominent placements
+    on cars, tracks, uniforms, and F1's digital and media content.
+  knowledge_areas:
+  - Brand Visibility and Marketing in F1
+  options:
+  - By displaying their logos on cars, tracks, and digital platforms.
+  - By sponsoring only local fan events.
+  - By limiting their presence to the official F1 website.
+  - By being mentioned only in race commentary.
+  question_id: 3
+  question_text: How do sponsors like AWS and Heineken increase their brand visibility
+    through Formula 1?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The core features of the app include live timing, race schedules, and
+    news updates, rather than coaching, merchandise, or exclusive historical content.
+  knowledge_areas:
+  - Official F1 Mobile App
+  options:
+  - Live timing and race schedules for F1 events.
+  - Providing driver coaching services.
+  - Selling team merchandise directly.
+  - Streaming only historical race footage.
+  question_id: 4
+  question_text: Which feature is central to the Official F1 Mobile App?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Partners like Pirelli and AWS provide critical technology (tires, data
+    analytics) and benefit from global marketing, supporting both the sporting and
+    business sides of F1.
+  knowledge_areas:
+  - Formula 1 Official Partners
+  - Pirelli's Role in Formula 1
+  - Brand Visibility and Marketing in F1
+  options:
+  - By supplying essential technology and gaining global marketing exposure.
+  - By managing only ticket sales.
+  - By providing only fan merchandise.
+  - By handling driver recruitment.
+  question_id: 5
+  question_text: In what ways do official partners like Pirelli and AWS contribute
+    to both the sporting and commercial aspects of Formula 1?
+  question_type: recap
+sections:
+- aspects:
+  - content: Formula 1 Official Partners are companies and brands that have established
+      formal sponsorship or partnership agreements with Formula 1, granting them exclusive
+      marketing rights and visibility within the sport. These partnerships are integral
+      to the commercial structure of F1, providing financial support and technological
+      collaboration.
+    type: Definition
+  - content: The partners include a diverse range of global brands such as LVMH, Pirelli,
+      Aramco, Heineken, AWS, Lenovo, DHL, Qatar Airways, MSC, Crypto.com, Salesforce,
+      Louis Vuitton, TAG Heuer, Moet Hennessy, American Express, Santander, Allwyn,
+      Globant, Las Vegas Convention and Visitors Authority, Paramount+, Barilla, Liqui
+      Moly, Nestle, PwC, PepsiCo, Puma, TATA, Aggreko, BBS, and McDonalds. Each partner
+      is typically associated with a specific industry, such as luxury goods, technology,
+      logistics, or financial services.
+    type: Examples
+  - content: These partnerships provide significant funding and resources that enable
+      the operation and global expansion of Formula 1. They also create opportunities
+      for technological innovation, such as AWS's data analytics or Pirelli's tire
+      technology, which directly influence the sport's performance and fan experience.
+      Moreover, the association with F1 enhances the global brand recognition and
+      prestige of the partners.
+    type: Implications
+  - content: Official partners are prominently featured on the Formula 1 website,
+      at race events, and in F1-related media. Their logos and branding are visible
+      on cars, tracks, and promotional materials. These partnerships are often multi-year
+      deals and can encompass a wide range of collaborative activities, from product
+      placements to co-branded campaigns.
+    type: Context
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Official partners are major brands that support F1 financially and
+      technologically through formal agreements, gaining branding rights and visibility.
+      They are not limited to car manufacturers or hospitality services, nor are they
+      minor sponsors.
+    options:
+    - They are companies that provide financial and technological support to Formula
+      1 through formal agreements.
+    - They are all car manufacturers that supply engines to F1 teams.
+    - They are companies that only provide hospitality services at races.
+    - They are minor sponsors with no branding rights at events.
+    question_text: Which of the following statements best describes the role of official
+      partners in Formula 1?
+  index: 85
+  key_concept: Formula 1 Official Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: Pirelli is the exclusive tire supplier and an official partner of Formula
+      1, responsible for providing all teams with racing tires for each Grand Prix
+      event. Their role is both technical and promotional, as their products are essential
+      for the sport's competitive and safety standards.
+    type: Definition
+  - content: Pirelli supplies a range of tire compounds tailored for different circuits
+      and weather conditions, such as soft, medium, and hard slicks, as well as intermediate
+      and wet-weather tires. The company is frequently mentioned in race reports,
+      technical analyses, and official F1 communications regarding tire strategies
+      and performance.
+    type: Examples
+  - content: Pirelli's involvement directly affects race outcomes, as tire performance
+      and degradation are critical factors in strategy and safety. Their technological
+      innovations, such as developing new compounds or sustainable materials, can
+      influence the direction of F1 regulations and the sport's environmental impact.
+    type: Implications
+  - content: Pirelli's partnership connects with other sponsors and technical partners,
+      such as AWS for data analytics or DHL for logistics, to ensure seamless race
+      operations. Their branding is highly visible at events, on cars, and across
+      F1 media, reinforcing their association with high-performance motorsport.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Pirelli is the exclusive tire supplier for Formula 1, providing all
+      teams with the necessary racing tires. While they are a prominent sponsor, their
+      main technical role is tire supply, not logistics or hospitality.
+    options:
+    - Supplying racing tires to all teams as the exclusive tire partner.
+    - Sponsoring the F1 TV broadcast only.
+    - Managing logistics for team equipment.
+    - Providing hospitality services at the paddock club.
+    question_text: What is Pirelli's primary function in Formula 1?
+  index: 85
+  key_concept: Pirelli's Role in Formula 1
+  name: OUR PARTNERS
+- aspects:
+  - content: Brand visibility and marketing in Formula 1 refer to the strategic placement
+      and promotion of partner and sponsor brands throughout the F1 ecosystem. This
+      includes branding on cars, driver suits, tracks, digital platforms, and official
+      communications.
+    type: Definition
+  - content: Brands such as Heineken, AWS, DHL, and Crypto.com have their logos displayed
+      on race tracks, team uniforms, and F1's digital content. Pirelli's branding
+      is visible on tire sidewalls, podium backdrops, and in official race graphics.
+      Special campaigns, such as Heineken's responsible drinking messages or AWS's
+      data insights, further enhance brand engagement.
+    type: Examples
+  - content: High brand visibility in F1 translates to global exposure, as the sport
+      reaches millions of viewers worldwide. This exposure enhances brand recognition,
+      drives consumer engagement, and can lead to increased sales or market share
+      for the partners. The association with F1's prestige also benefits brand image.
+    type: Implications
+  - content: Brand marketing in F1 is closely tied to the sport's commercial model,
+      with sponsors often collaborating on fan experiences, digital content, and sustainability
+      initiatives. The effectiveness of these marketing efforts is amplified by F1's
+      global media reach and the emotional connection fans have with the sport.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Official partners achieve visibility through widespread branding
+      on cars, tracks, uniforms, and digital platforms, not just through commentary
+      or limited online presence.
+    options:
+    - By having their logos displayed on cars, tracks, and digital platforms.
+    - By being mentioned only in race commentary.
+    - By sponsoring only local fan events.
+    - By limiting their presence to the official F1 website.
+    question_text: How do official partners typically gain brand visibility in Formula
+      1?
+  index: 85
+  key_concept: Brand Visibility and Marketing in F1
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 Mobile App is a digital application available for iOS
+      and Android devices, providing fans with real-time information, news, and interactive
+      features related to Formula 1.
+    type: Definition
+  - content: The app offers live timing, race schedules, driver and team profiles,
+      news updates, and access to exclusive F1 content. It also includes notifications
+      for race events, session results, and breaking news, enhancing the fan experience
+      by keeping users informed and engaged.
+    type: Features
+  - content: The app serves as a key engagement tool for F1, allowing fans to follow
+      the sport more closely and interactively. It supports F1's digital strategy
+      by expanding reach, collecting user data for personalized content, and promoting
+      other F1 products and services.
+    type: Implications
+  - content: The app is integrated with F1's broader digital ecosystem, including
+      F1 TV and social media channels. It complements the marketing efforts of F1
+      partners by featuring branded content and sponsor promotions within the app
+      environment.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The app's main features include live timing, race schedules, and
+      news updates, rather than merchandise sales, driver coaching, or exclusive historical
+      footage streaming.
+    options:
+    - Live timing and race schedules for F1 events.
+    - Selling team merchandise directly.
+    - Providing driver coaching services.
+    - Streaming only historical race footage.
+    question_text: Which of the following is a primary feature of the Official F1
+      Mobile App?
+  index: 95
+  key_concept: Official F1 Mobile App
+  name: Download the Official F1 App

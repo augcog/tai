@@ -1,0 +1,162 @@
+URL: https://www.britannica.com/technology/reflex-camera
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia entry discussing reflex cameras, with emphasis on
+  their viewing and focusing systems, particularly as applied in motion-picture camera
+  design.
+file_name: Reflex camera photography Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Reflex camera photography
+  Britannica.html
+file_uuid: aaa9666a-c1ff-5dba-97e0-0a6c4606b806
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: The mirror in a reflex camera diverts some of the light from the lens
+    to the viewfinder, allowing the photographer to see exactly what will be captured.
+    The other options do not describe the function of the mirror.
+  knowledge_areas:
+  - reflex camera
+  - motion-picture camera design
+  options:
+  - To divert light rays from the lens to the viewfinder for accurate composition
+  - To capture the image on film directly
+  - To power the camera electronically
+  - To adjust the color balance of the image
+  question_id: 1
+  question_text: What is the main function of the mirror in a reflex camera system?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: A key benefit of the reflex system is the elimination of parallax error
+    by providing a through-the-lens view. The other options are unrelated to the reflex
+    system.
+  knowledge_areas:
+  - reflex camera
+  - motion-picture camera design
+  options:
+  - Elimination of parallax error
+  - Automatic digital editing
+  - Built-in flash photography
+  - Permanent fixed focus
+  question_id: 2
+  question_text: Which of the following is a direct benefit of the reflex system in
+    both still and motion-picture cameras?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The reflex system lets users see the precise image formed by any lens
+    mounted on the camera, enabling effective use of a wide variety of lenses. The
+    other statements are incorrect.
+  knowledge_areas:
+  - reflex camera
+  - motion-picture camera design
+  options:
+  - By allowing the operator to see the exact effect of each lens through the viewfinder
+  - By preventing lens changes during operation
+  - By automatically selecting the best lens
+  - By requiring only one type of lens for all situations
+  question_id: 3
+  question_text: How does the reflex system enhance the use of interchangeable lenses
+    in photography and cinematography?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Beam splitters, used for continuous through-the-lens viewing in motion-picture
+    cameras, are a direct outgrowth of reflex system technology. The other options
+    are unrelated.
+  knowledge_areas:
+  - motion-picture camera design
+  options:
+  - The use of beam splitters for continuous viewing
+  - The invention of color film
+  - The creation of portable lighting
+  - The development of wireless microphones
+  question_id: 4
+  question_text: What technological advancement in motion-picture camera design is
+    directly influenced by the reflex camera system?
+  question_type: recap
+sections:
+- aspects:
+  - content: A reflex camera is a type of camera that uses a mirror and prism system
+      to allow the photographer to view the image exactly as it will be captured,
+      through the lens. This system is known as 'through-the-lens' viewing, and it
+      eliminates parallax error, which can occur in cameras where the viewfinder is
+      separate from the lens. Reflex cameras are most commonly associated with single-lens
+      reflex (SLR) and twin-lens reflex (TLR) designs.
+    type: Definition
+  - content: Classic examples of reflex cameras include the Rolleiflex (a famous TLR)
+      and the Nikon F series (SLR). These cameras became standard tools for both amateur
+      and professional photographers due to their precise framing and focusing capabilities.
+    type: Examples
+  - content: The reflex system allows for accurate focusing and composition, which
+      is especially important in fields like portrait, landscape, and action photography
+      where precision is critical. The ability to see exactly what the lens sees also
+      enables photographers to use a wide range of interchangeable lenses and accessories,
+      expanding creative possibilities.
+    type: Implications and Use Cases
+  - content: Reflex cameras played a pivotal role in the evolution of camera technology,
+      leading to the development of digital SLRs (DSLRs) and influencing the design
+      of modern mirrorless cameras, which use electronic viewfinders instead of optical
+      systems.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: 'The main advantage of a reflex camera is its through-the-lens viewing
+      system, which eliminates parallax error and allows precise composition and focusing.
+      The other options are incorrect: reflex cameras can be film or digital, can
+      use interchangeable lenses, and typically allow manual focusing.'
+    options:
+    - It allows for through-the-lens viewing, eliminating parallax error.
+    - It is always digital.
+    - It uses only fixed lenses.
+    - It cannot focus manually.
+    question_text: What is the primary advantage of a reflex camera compared to other
+      camera types?
+  index: 122
+  key_concept: reflex camera
+  name: reflex camera
+- aspects:
+  - content: Motion-picture camera design refers to the engineering and configuration
+      of cameras used to capture moving images on film or digital media. A key aspect
+      of modern motion-picture camera design is the adoption of the reflex system
+      for viewing and focusing.
+    type: Definition
+  - content: Most contemporary motion-picture cameras use the reflex system, where
+      a mirror diverts some of the light entering through the lens to the viewfinder.
+      This allows the operator to see exactly what will be recorded, ensuring accurate
+      framing and focus during filming. The mirror may be a partially reflecting beam
+      splitter positioned in the camera body or built into the lens with a parallel
+      viewing tube.
+    type: Reflex System in Motion-Picture Cameras
+  - content: Examples include professional movie cameras like the Arriflex and Panavision
+      models, which use sophisticated reflex viewing systems. Some cameras use beam
+      splitters for continuous viewing, while others employ rotating mirrors that
+      alternate between the film and the viewfinder.
+    type: Examples and Variations
+  - content: The reflex system is crucial in cinematography, where precise focus and
+      composition are essential, especially when using zoom, wide-angle, or telephoto
+      lenses. It allows directors and camera operators to monitor scenes in real time,
+      making adjustments as needed for creative or technical reasons.
+    type: Implications and Use Cases
+  - content: The integration of reflex systems in motion-picture cameras parallels
+      similar developments in still photography, reflecting a broader trend toward
+      greater accuracy and control in image capture. This technology has also influenced
+      the design of digital cinema cameras.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: 'The reflex system enables filmmakers to see exactly what the camera
+      is capturing in real time, which is essential for accurate focus and composition.
+      The other options are incorrect: the reflex system does not eliminate the viewfinder,
+      nor does it restrict lens choices.'
+    options:
+    - It allows real-time, through-the-lens viewing and focusing.
+    - It eliminates the need for a viewfinder.
+    - It prevents the use of zoom lenses.
+    - It requires only fixed focal length lenses.
+    question_text: How does the reflex system in motion-picture cameras benefit filmmakers?
+  index: 132
+  key_concept: motion-picture camera design
+  name: motion-picture camera design

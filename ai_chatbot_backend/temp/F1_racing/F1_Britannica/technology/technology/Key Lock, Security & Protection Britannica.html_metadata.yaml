@@ -1,0 +1,127 @@
+URL: https://www.britannica.com/technology/key-machine-component
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Britannica article entry explaining the mechanical key as used
+  in machine construction, focusing on its function, typical design, and engineering
+  proportions for torque transmission.
+file_name: Key Lock, Security & Protection Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Key Lock, Security & Protection
+  Britannica.html
+file_uuid: 24ccdc53-d798-5c58-a31e-fb52dd88f33a
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: The most common mechanical key is a square bar that fits into keyways
+    cut into both the shaft and the component, providing a secure fit for torque transmission.
+  knowledge_areas:
+  - Mechanical Key (machine component)
+  - Design and Structure
+  options:
+  - A round pin inserted through the shaft
+  - A square bar fitting into matching grooves (keyways) in both shaft and component
+  - A threaded bolt securing the component
+  - A wedge driven between shaft and component
+  question_id: 1
+  question_text: What is the most common structural form of a mechanical key used
+    in machine construction?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: For optimal torque capacity, both the width and depth of the key should
+    be one fourth of the shaft diameter when the materials are the same.
+  knowledge_areas:
+  - Engineering Proportions and Torque Capacity
+  options:
+  - One half of the shaft diameter
+  - One third of the shaft diameter
+  - One fourth of the shaft diameter
+  - Equal to the shaft diameter
+  question_id: 2
+  question_text: If a shaft and its key are made from the same material, what proportion
+    should the key's width and depth be relative to the shaft diameter for optimal
+    torque capacity?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Mechanical keys are used for securing components like gears, pulleys,
+    and flywheels to shafts, not for measuring rotational speed.
+  knowledge_areas:
+  - Practical Examples and Applications
+  options:
+  - Securing a gear to a shaft in a transmission
+  - Attaching a pulley in a conveyor system
+  - Measuring rotational speed
+  - Coupling a flywheel to an engine shaft
+  question_id: 3
+  question_text: Which of the following is NOT a typical application of a mechanical
+    key?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Proper proportions and material selection ensure that the key can safely
+    transmit torque without risk of failure, which is essential for machine reliability
+    and safety.
+  knowledge_areas:
+  - Engineering Proportions and Torque Capacity
+  - Implications and Connections
+  options:
+  - To reduce manufacturing costs only
+  - To ensure the key transmits torque safely and reliably without failure
+  - To make the key easier to remove
+  - To allow for more compact machine designs
+  question_id: 4
+  question_text: Why is it important to follow the recommended proportions and material
+    selection when designing a mechanical key?
+  question_type: recap
+sections:
+- aspects:
+  - content: A mechanical key in machine construction is a device inserted between
+      a shaft and a rotating machine component, such as a gear or pulley, to prevent
+      relative rotation between the two. The key transmits torque from the shaft to
+      the component, ensuring synchronized movement and effective power transmission.
+      It is a fundamental element in mechanical engineering for securing components
+      on a shaft.
+    type: Definition
+  - content: A common mechanical key is a square bar that fits into matching grooves,
+      known as keyways, cut into both the shaft and the mating component. The key
+      sits half in the shaft and half in the component, creating a secure mechanical
+      lock. The design ensures that the key can efficiently transmit torque while
+      minimizing the risk of slippage or failure under load.
+    type: Design and Structure
+  - content: For optimal performance, when the shaft and key are made of the same
+      material, the key's width and depth should each be one fourth of the shaft's
+      diameter. Additionally, to match the torque capacity of a solid shaft, the key's
+      length should be approximately 1.57 times the shaft diameter. These proportions
+      are derived from engineering analysis and are closely followed in practical
+      applications to ensure safety and efficiency.
+    type: Engineering Proportions and Torque Capacity
+  - content: Mechanical keys are widely used in various machines, such as connecting
+      gears to drive shafts in automotive transmissions, securing pulleys in conveyor
+      systems, and coupling flywheels in engines. The use of keys is essential in
+      any application where rotational power must be reliably transmitted without
+      slippage, especially in high-torque settings.
+    type: Practical Examples and Applications
+  - content: The correct design and implementation of mechanical keys are critical
+      for machine reliability and safety. Improper sizing or material selection can
+      lead to key failure, resulting in machine downtime or damage. The concept of
+      the key is closely related to other power transmission elements, such as splines
+      and set screws, but keys are preferred when higher torque transmission and precise
+      alignment are required.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The main function of a mechanical key is to transmit torque and prevent
+      relative rotation between a shaft and an attached component, such as a gear
+      or pulley. It is not designed to prevent axial movement, provide lubrication,
+      or measure dimensions.
+    options:
+    - To prevent axial movement of a shaft
+    - To transmit torque and prevent relative rotation between a shaft and a component
+    - To lubricate moving parts
+    - To measure shaft diameter
+    question_text: Which of the following best describes the primary function of a
+      mechanical key in machine construction?
+  index: 126
+  key_concept: Mechanical Key (machine component)
+  name: key

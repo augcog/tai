@@ -1,0 +1,253 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A promotional webpage for an F1 Unlocked competition with VCARB
+  prizes, including information about F1 Unlocked membership, related articles, F1
+  partners, and app download links.
+file_name: Win Exclusive VCARB Prizes with F1® Unlocked.html
+file_path: F1_racing/F1_Official/news/en/latest/article/Win Exclusive VCARB Prizes
+  with F1® Unlocked.html
+file_uuid: 9bc7f42b-b3bb-5089-8333-4d7384c0d66b
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: F1 Unlocked membership is designed to give fans special access to curated
+    content, VIP experiences, and member rewards, not to provide free tickets or manage
+    sponsorships.
+  knowledge_areas:
+  - F1 Unlocked Membership Benefits
+  options:
+  - To provide curated insider content and exclusive experiences
+  - To offer free race tickets to all members
+  - To replace the Official F1 App
+  - To manage team sponsorships
+  question_id: 1
+  question_text: What is the main purpose of F1 Unlocked membership as described in
+    the competition promotion?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Promotional competitions are a strategy to boost F1 Unlocked membership
+    and engagement, not limited to staff or unrelated to membership.
+  knowledge_areas:
+  - VCARB Prizes Competition
+  - F1 Unlocked Membership Benefits
+  options:
+  - Competitions are used to encourage sign-ups and engagement with F1 Unlocked
+  - Competitions are only for F1 team staff
+  - Competitions replace regular F1 news updates
+  - Competitions are unrelated to membership status
+  question_id: 2
+  question_text: Which of the following best describes the relationship between F1
+    Unlocked and promotional competitions like the VCARB Prizes Competition?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: '''Related Articles'' include quizzes, team performance reports, and
+    feature stories, but not live commentary or technical blueprints.'
+  knowledge_areas:
+  - Related F1 Content and News
+  options:
+  - Season quizzes, team reports, and feature articles
+  - Live lap-by-lap race commentary
+  - Technical car blueprints only
+  - Exclusive sponsorship contracts
+  question_id: 3
+  question_text: What kinds of content are typically highlighted in the 'Related Articles'
+    section?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Partners and sponsors support F1 through funding, technology, logistics,
+    and marketing, not by running races or managing memberships.
+  knowledge_areas:
+  - F1 Sponsorship and Partners
+  options:
+  - By providing financial support, technology, and global promotion
+  - By organizing all race events independently
+  - By managing driver training programs
+  - By controlling the F1 Unlocked membership
+  question_id: 4
+  question_text: How do F1 partners and sponsors, as listed in the 'OUR PARTNERS'
+    section, contribute to the sport?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Both the Official F1 App and F1 Unlocked are digital platforms aimed
+    at enhancing the fan experience through exclusive content and engagement.
+  knowledge_areas:
+  - Official F1 App Availability
+  - F1 Unlocked Membership Benefits
+  options:
+  - Both provide digital access to exclusive F1 content and enhance fan engagement
+  - Only the app provides live race data, while F1 Unlocked is for team staff
+  - F1 Unlocked is a physical membership card, while the app is for streaming only
+  - They are unrelated and serve entirely different audiences
+  question_id: 5
+  question_text: Which statement best integrates the roles of the Official F1 App
+    and F1 Unlocked for fans?
+  question_type: recap
+sections:
+- aspects:
+  - content: The VCARB Prizes Competition is a promotional contest organized by F1
+      Unlocked in partnership with Visa Cash App RB Formula One Team, offering participants
+      the opportunity to win exclusive prizes related to Formula 1 and the VCARB team.
+      Entry was available to those who signed up for or signed into F1 Unlocked.
+    type: Definition
+  - content: The competition serves as an incentive for F1 fans to engage with the
+      F1 Unlocked platform, increasing membership and interaction. By joining, fans
+      could potentially win unique prizes, thereby enhancing their connection to the
+      sport and its teams.
+    type: Use Case
+  - content: Such competitions are used as marketing tools to boost user engagement,
+      collect user data, and promote brand partnerships within the F1 ecosystem. They
+      also foster a sense of exclusivity and reward for loyal fans.
+    type: Implications
+  - content: Examples of prizes in similar competitions might include signed merchandise,
+      VIP paddock experiences, or exclusive team memorabilia. Although the specific
+      prizes for this competition are not detailed, the association with VCARB and
+      F1 Unlocked implies high-value, F1-themed rewards.
+    type: Examples
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The competition was designed to incentivize sign-ups and engagement
+      with the F1 Unlocked platform, not to sell tickets, announce regulations, or
+      provide commentary.
+    options:
+    - To increase F1 Unlocked membership and engagement
+    - To sell F1 tickets directly
+    - To announce new F1 regulations
+    - To provide live race commentary
+    question_text: What was the primary purpose of the VCARB Prizes Competition promoted
+      by F1 Unlocked?
+  index: 53
+  key_concept: VCARB Prizes Competition
+  name: Win Exclusive VCARB Prizes with F1® Unlocked
+- aspects:
+  - content: F1 Unlocked is a membership program that provides users with special
+      access to Formula 1 content, experiences, and rewards. Membership is free and
+      aims to bring fans closer to the sport.
+    type: Definition
+  - content: Benefits include curated insider content, exclusive access to VIP experiences,
+      and member-only rewards and offers. For example, members may receive early access
+      to news, behind-the-scenes videos, or invitations to special events.
+    type: Examples
+  - content: These benefits are designed to deepen fan engagement, increase loyalty,
+      and create a community around F1. They also provide opportunities for targeted
+      marketing and data collection by F1.
+    type: Implications
+  - content: F1 Unlocked membership is often tied to promotional campaigns, such as
+      competitions, and can be a gateway to further F1 digital services like F1 TV
+      or exclusive merchandise sales.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: While F1 Unlocked offers insider content, VIP experiences, and member
+      rewards, it does not guarantee race tickets as a standard benefit.
+    options:
+    - Curated insider content
+    - VIP experiences
+    - Guaranteed race tickets
+    - Member rewards and offers
+    question_text: Which of the following is NOT listed as a benefit of F1 Unlocked
+      membership?
+  index: 61
+  key_concept: F1 Unlocked Membership Benefits
+  name: This competition is now closed
+- aspects:
+  - content: The 'Related Articles' section provides links to recent and relevant
+      F1 news, features, quizzes, and reports. It is designed to keep fans informed
+      and engaged with ongoing developments in the sport.
+    type: Definition
+  - content: Examples include articles on the best radio moments of 2025, quizzes
+      about the season, key moments and off-track drama, team end-of-year reports,
+      and explanations of new entries like Cadillac in F1.
+    type: Examples
+  - content: This section reflects F1's strategy to maintain high fan engagement year-round,
+      not just during races, by offering a variety of content types—news, analysis,
+      quizzes, and multimedia.
+    type: Context
+  - content: These articles often connect to broader themes in F1, such as team performance,
+      driver changes, rule updates, and fan participation, serving as both entertainment
+      and education for fans.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: '''Related Articles'' focus on post-event analysis, features, and
+      quizzes, not live race commentary or updates.'
+    options:
+    - Season quizzes
+    - Team performance reports
+    - Live race lap-by-lap updates
+    - Explainers on new F1 entries
+    question_text: Which type of content is NOT typically found in the 'Related Articles'
+      section?
+  index: 87
+  key_concept: Related F1 Content and News
+  name: Related Articles
+- aspects:
+  - content: The 'OUR PARTNERS' section lists the official sponsors and partners of
+      Formula 1, representing companies from various industries that support and collaborate
+      with F1.
+    type: Definition
+  - content: Partners include global brands such as LVMH, Pirelli, Aramco, Heineken,
+      AWS, Lenovo, DHL, Qatar Airways, and many others. These companies contribute
+      through financial support, technology, logistics, and promotional activities.
+    type: Examples
+  - content: Sponsorship is critical for the commercial success of Formula 1, enabling
+      technological innovation, global expansion, and enhanced fan experiences. Partners
+      often leverage F1 for brand exposure and marketing campaigns.
+    type: Implications
+  - content: The presence of diverse partners highlights F1's global reach and appeal,
+      and their logos and products are prominently featured at races, in media, and
+      in fan engagement initiatives.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: These companies are official sponsors and partners, contributing
+      to F1 in various capacities beyond just supplying fuel or managing contracts.
+    options:
+    - Providing official sponsorship and support to F1
+    - Supplying race fuel only
+    - Managing driver contracts
+    - Organizing fan quizzes
+    question_text: What is the primary role of the companies listed in the 'OUR PARTNERS'
+      section?
+  index: 96
+  key_concept: F1 Sponsorship and Partners
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application available for download on
+      major platforms, providing fans with access to live timing, news, and exclusive
+      content related to Formula 1.
+    type: Definition
+  - content: The app is available on both the Apple App Store and Google Play Store,
+      ensuring accessibility for iOS and Android users. Features may include live
+      race data, driver and team information, and push notifications for breaking
+      news.
+    type: Examples
+  - content: Fans use the app to stay updated on race schedules, results, and news,
+      as well as to enhance their race viewing experience with real-time data and
+      multimedia.
+    type: Use Case
+  - content: The app complements other F1 digital offerings, such as F1 Unlocked and
+      F1 TV, creating a comprehensive digital ecosystem for fans.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App can be downloaded from both the Apple App Store
+      and Google Play Store, covering iOS and Android devices.
+    options:
+    - Apple App Store and Google Play Store
+    - Windows Phone Store only
+    - Amazon Appstore only
+    - It is not available for mobile devices
+    question_text: Which platforms is the Official F1 App available on?
+  index: 106
+  key_concept: Official F1 App Availability
+  name: Download the Official F1 App

@@ -1,0 +1,169 @@
+URL: https://www.britannica.com/technology/solid-tire
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Britannica encyclopedia entry about solid tires, focusing on their
+  historical introduction, usage, and eventual decline in favor of other tire types
+  due to legislative and practical factors.
+file_name: Solid tire Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Solid tire Britannica.html
+file_uuid: 6e17ed88-e841-500c-a7fc-b972d5b2fcc2
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Solid tires fell out of favor on highways primarily because legislation
+    discouraged their use. Their hardness made for uncomfortable rides and caused
+    increased wear on road surfaces.
+  knowledge_areas:
+  - solid tire
+  - tire design
+  - legislation and usage trends
+  options:
+  - They were too expensive to manufacture.
+  - Legislation discouraged their use due to their hardness.
+  - They provided too much comfort.
+  - They were never widely used on road vehicles.
+  question_id: 1
+  question_text: What was a primary reason for the decline of solid tires on highways?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Solid tires are known for their durability and low maintenance, but
+    they do not provide a smooth or comfortable ride due to their hardness.
+  knowledge_areas:
+  - solid tire
+  - practical implications
+  options:
+  - Made entirely of solid rubber
+  - Resistant to punctures
+  - Provides a very smooth and comfortable ride
+  - Requires little maintenance
+  question_id: 2
+  question_text: Which of the following is NOT a characteristic of solid tires?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Solid tires are mostly used in industrial applications, such as forklifts
+    and heavy equipment, where durability and puncture resistance are more important
+    than comfort.
+  knowledge_areas:
+  - solid tire
+  - tire design
+  - examples and applications
+  options:
+  - On modern passenger cars
+  - On industrial vehicles like forklifts
+  - On high-speed trains
+  - On bicycles
+  question_id: 3
+  question_text: Where are solid tires most commonly used today?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Pneumatic tires offered better comfort and were less damaging to roads,
+    leading to the decline of solid tires for most road vehicles.
+  knowledge_areas:
+  - tire design
+  - solid tire
+  - historical development
+  options:
+  - It increased the popularity of solid tires.
+  - It had no impact on tire usage.
+  - It led to a decline in the use of solid tires due to improved comfort and road
+    preservation.
+  - It made solid tires mandatory for all vehicles.
+  question_id: 4
+  question_text: How did the introduction of pneumatic tires affect the use of solid
+    tires?
+  question_type: recap
+sections:
+- aspects:
+  - content: A solid tire is a type of tire made entirely from solid rubber or similar
+      resilient materials, lacking any air-filled cavity. Unlike pneumatic tires,
+      which rely on internal air pressure for cushioning, solid tires are dense and
+      inflexible. They are designed primarily for durability and resistance to punctures
+      rather than ride comfort.
+    type: definition
+  - content: Solid rubber tires were first introduced in 1881, notably on the wheels
+      of hansom cabs in London. Their invention marked a significant step in tire
+      technology, providing a more durable and maintenance-free alternative to earlier
+      wooden or metal wheels. Solid tires were widely adopted for various types of
+      road vehicles in the late 19th and early 20th centuries, especially before the
+      widespread adoption of pneumatic tires.
+    type: historical context
+  - content: Solid tires offered significant advantages in terms of durability, as
+      they were immune to punctures and required little maintenance. However, their
+      hardness resulted in a much rougher ride and increased wear on roads. These
+      characteristics made them suitable for industrial vehicles, carts, and early
+      automobiles, but less ideal for passenger comfort or high-speed travel.
+    type: practical implications
+  - content: Over time, solid tires disappeared from highways, largely due to legislation
+      that discouraged their use. The primary reason was their hardness, which led
+      to uncomfortable rides and increased road damage. As governments sought to improve
+      road safety and comfort, regulations favored the adoption of pneumatic tires,
+      which provided better shock absorption and less wear on road surfaces.
+    type: decline and legislation
+  - content: Solid tires are contrasted with pneumatic tires, which use air pressure
+      to provide cushioning and a smoother ride. The evolution from solid to pneumatic
+      tires reflects broader trends in transportation technology, emphasizing comfort,
+      efficiency, and infrastructure preservation. Modern solid tires are still used
+      in specific industrial applications, such as forklifts or heavy equipment, where
+      puncture resistance and durability outweigh the need for comfort.
+    type: connections to related concepts
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Solid tires are made entirely of solid rubber or similar materials
+      and do not have an air-filled cavity. They were historically used on road vehicles
+      but are now mostly limited to industrial applications. Pneumatic tires use air
+      pressure, not solid tires.
+    options:
+    - A tire made entirely of solid rubber, lacking an air-filled cavity.
+    - A tire that uses air pressure for cushioning.
+    - A tire designed exclusively for high-speed passenger vehicles.
+    - A tire that was never used on road vehicles.
+    question_text: Which of the following statements best describes a solid tire?
+  index: 118
+  key_concept: solid tire
+  name: solid tire
+- aspects:
+  - content: Tire design refers to the engineering and structural characteristics
+      that determine how a tire is constructed, including the choice of materials,
+      tread patterns, internal structure, and intended function. It encompasses both
+      solid and pneumatic tire technologies, each with unique properties and applications.
+    type: definition
+  - content: The design of tires has evolved significantly since the introduction
+      of solid rubber tires in 1881. Early tire designs prioritized durability and
+      resistance to punctures, as seen in solid tires. As transportation needs changed,
+      especially with the rise of automobiles, tire design shifted towards pneumatic
+      tires that offered improved comfort and performance.
+    type: historical development
+  - content: Solid tires were used on hansom cabs and various road vehicles in the
+      late 19th century, while modern vehicles predominantly use pneumatic tires.
+      Industrial vehicles, such as forklifts and some construction equipment, still
+      utilize solid tire designs for their resilience in harsh environments.
+    type: examples and applications
+  - content: Tire design involves trade-offs between durability, comfort, safety,
+      and maintenance. Solid tires excel in durability and low maintenance but are
+      uncomfortable and damaging to roads. Pneumatic tires, while more comfortable
+      and road-friendly, require regular maintenance and are susceptible to punctures.
+    type: implications and trade-offs
+  - content: Changes in tire design have often been influenced by legislation aimed
+      at improving road safety and comfort. The decline of solid tires on highways
+      was accelerated by laws discouraging their use, reflecting a broader trend toward
+      prioritizing passenger experience and infrastructure longevity in tire technology.
+    type: connections to legislation and usage trends
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Legislation discouraged the use of solid tires primarily because
+      their hardness led to uncomfortable rides and increased road damage. This pushed
+      the adoption of pneumatic tires, which were better for comfort and road preservation.
+    options:
+    - It encouraged the use of solid tires for all vehicles.
+    - It discouraged the use of solid tires due to their hardness and impact on roads.
+    - It banned all forms of tire innovation.
+    - It required all vehicles to use wooden wheels.
+    question_text: How did legislation influence the evolution of tire design?
+  index: 126
+  key_concept: tire design
+  name: tire design

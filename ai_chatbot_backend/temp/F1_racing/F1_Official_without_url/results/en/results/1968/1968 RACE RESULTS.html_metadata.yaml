@@ -1,0 +1,216 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A webpage summarizing the 1968 Formula 1 race results, listing Grand
+  Prix winners, teams, and dates, along with information about F1's official partners
+  and promotional links to download the official F1 app.
+file_name: 1968 RACE RESULTS.html
+file_path: F1_racing/F1_Official/results/en/results/1968/1968 RACE RESULTS.html
+file_uuid: 8b1784a4-8cba-52c1-83d4-a745855b255a
+recap_questions:
+- correct_answers:
+  - 0
+  explanation: Jim Clark won the South African Grand Prix, the first race of the 1968
+    season, driving for Lotus Ford.
+  knowledge_areas:
+  - 1968 Formula 1 Race Results
+  options:
+  - Jim Clark for Lotus Ford
+  - Graham Hill for Ferrari
+  - Jackie Stewart for Matra Ford
+  - Denny Hulme for McLaren Ford
+  question_id: 1
+  question_text: Which driver won the opening race of the 1968 Formula 1 season, and
+    for which team did he drive?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: Nike is not listed among the official F1 partners or sponsors; the
+    others are.
+  knowledge_areas:
+  - F1 Partners and Sponsors
+  options:
+  - AWS
+  - Heineken
+  - Nike
+  - Pirelli
+  question_id: 2
+  question_text: Which of the following is NOT listed as an official F1 partner or
+    sponsor in the document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: The Official F1 App is promoted for providing live race data, news,
+    and exclusive content to fans.
+  knowledge_areas:
+  - Official F1 App Promotion
+  options:
+  - Providing live race data and F1 news
+  - Selling F1 memorabilia
+  - Broadcasting only qualifying sessions
+  - Managing driver contracts
+  question_id: 3
+  question_text: What is the main function of the Official F1 App as described in
+    the document?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Lotus Ford had both Jim Clark and Graham Hill winning races in 1968,
+    showing the team's depth and competitiveness.
+  knowledge_areas:
+  - 1968 Formula 1 Race Results
+  options:
+  - Lotus Ford
+  - Matra Ford
+  - Ferrari
+  - Williams
+  question_id: 4
+  question_text: Which team had multiple drivers win races during the 1968 season,
+    according to the results?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: F1's partners provide financial and marketing support, while the app
+    enhances fan engagement by delivering digital content and live race updates globally.
+  knowledge_areas:
+  - F1 Partners and Sponsors
+  - Official F1 App Promotion
+  options:
+  - Partners fund the sport and provide marketing, while the app delivers digital
+    content and live updates to fans worldwide.
+  - Partners manage the race schedule, and the app sells tickets.
+  - Partners select race winners, and the app streams only sponsor advertisements.
+  - Partners design the cars, and the app provides betting odds.
+  question_id: 5
+  question_text: How do F1's official partners and the official app collectively support
+    the sport's global fan engagement?
+  question_type: recap
+sections:
+- aspects:
+  - content: The 1968 Formula 1 Race Results refer to the official record of each
+      Grand Prix held during the 1968 F1 season, detailing the winner, their team,
+      the number of laps completed, the race date, and the total time required to
+      finish. This summary is a core historical document for motorsport analysis and
+      provides the fundamental data for championship standings and statistical records.
+    type: Definition
+  - content: For instance, Jim Clark won the South African Grand Prix on January 1st
+      for Lotus Ford, completing 80 laps in 1:53:56.600. Graham Hill won multiple
+      races (Spain, Monaco, and Mexico) for Lotus Ford, while Jackie Stewart claimed
+      victories in the Netherlands, Germany, and the United States for Matra Ford.
+      Denny Hulme and Bruce McLaren also secured wins for McLaren Ford, and Jacky
+      Ickx won the French Grand Prix for Ferrari.
+    type: Examples
+  - content: These results are used by historians, statisticians, and fans to analyze
+      performance trends, compare drivers and teams across eras, and assess the impact
+      of technological and regulatory changes. They are also critical for determining
+      championship points allocation and for referencing in media and academic studies
+      of motorsport history.
+    type: Use Cases
+  - content: The 1968 results highlight the dominance of certain teams (notably Lotus
+      Ford and McLaren Ford) and drivers, reflecting the competitive landscape and
+      technological advancements of the era. They also serve as a reference point
+      for changes in race formats, safety standards, and the evolution of the sport.
+    type: Implications
+  - content: These results connect to broader topics such as F1 championship structures,
+      team strategies, driver legacies, and the historical progression of automotive
+      engineering. They also relate to the annual archives maintained by F1 and are
+      referenced in discussions about the sport's development.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Lotus Ford, with drivers like Graham Hill and Jim Clark, won the
+      most races in the 1968 season as evidenced by the multiple victories listed
+      in the results table.
+    options:
+    - Lotus Ford
+    - Ferrari
+    - McLaren Ford
+    - Matra Ford
+    question_text: Which team won the most races in the 1968 Formula 1 season according
+      to the official race results?
+  index: 149
+  key_concept: 1968 Formula 1 Race Results
+  name: 1968 RACE RESULTS
+- aspects:
+  - content: F1 partners and sponsors are companies and brands that provide financial
+      support, products, or services to Formula 1 in exchange for marketing opportunities
+      and brand exposure. These partnerships are essential for the commercial viability
+      and global reach of the sport.
+    type: Definition
+  - content: Examples of F1 partners in 2024 include luxury brands like LVMH and Louis
+      Vuitton, technology companies such as AWS and Lenovo, logistics providers like
+      DHL, and consumer brands including Heineken, PepsiCo, and McDonalds. Other notable
+      sponsors are Pirelli (the official tire supplier), Aramco, and Crypto.com.
+    type: Examples
+  - content: Partnerships enable F1 to fund operations, enhance fan experiences, and
+      adopt new technologies. Sponsors benefit from global exposure through race broadcasts,
+      on-car branding, digital content, and hospitality programs. Partnerships often
+      involve co-branded campaigns, exclusive content, and product integrations.
+    type: Use Cases
+  - content: Sponsorships impact the sport’s economics, influencing team budgets,
+      event organization, and technological innovation. The diversity of partners
+      reflects F1’s broad appeal and its integration with industries ranging from
+      luxury goods to information technology and logistics.
+    type: Implications
+  - content: The sponsor ecosystem is connected to F1’s marketing strategies, fan
+      engagement initiatives, and technological advancements. The presence of global
+      brands underscores F1’s status as a premier international sporting event and
+      its role as a platform for business-to-business and business-to-consumer engagement.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Nike is not mentioned in the partner list, while AWS, Pirelli, and
+      Heineken are all featured as official F1 partners or sponsors.
+    options:
+    - AWS
+    - Pirelli
+    - Nike
+    - Heineken
+    question_text: Which of the following companies is NOT listed as an official F1
+      partner or sponsor in the provided section?
+  index: 166
+  key_concept: F1 Partners and Sponsors
+  name: OUR PARTNERS
+- aspects:
+  - content: The Official F1 App is a mobile application developed by Formula 1 to
+      provide fans with real-time race data, news, schedules, and exclusive content.
+      The promotion of the app encourages fans to engage more deeply with the sport
+      through digital platforms.
+    type: Definition
+  - content: The section provides direct links to download the app from the Apple
+      App Store and Google Play Store, making it accessible to both iOS and Android
+      users. The app typically offers features such as live timing, driver and team
+      information, and push notifications for race updates.
+    type: Examples
+  - content: Fans use the app to follow live races, view detailed statistics, access
+      historical archives, and receive news alerts. It is a key tool for enhancing
+      the fan experience, especially for those unable to watch races on television
+      or attend in person.
+    type: Use Cases
+  - content: The promotion of the app reflects F1’s digital transformation strategy,
+      aiming to increase fan engagement, collect user data, and offer personalized
+      experiences. It also supports the sport’s global reach by providing content
+      in multiple languages and regions.
+    type: Implications
+  - content: The app is connected to F1’s broader digital ecosystem, including F1
+      TV, fantasy gaming, and social media channels. It exemplifies how sports organizations
+      leverage technology to build communities and monetize fan engagement.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: The Official F1 App is promoted as a platform for live race data,
+      news, and exclusive content, not for selling car parts, betting, or only streaming
+      historical races.
+    options:
+    - To provide live race data and exclusive content to fans
+    - To sell F1 car parts directly to consumers
+    - To allow fans to place bets on race outcomes
+    - To stream only historical races without live updates
+    question_text: What is a primary purpose of the Official F1 App as promoted in
+      the document?
+  index: 176
+  key_concept: Official F1 App Promotion
+  name: Download the Official F1 App

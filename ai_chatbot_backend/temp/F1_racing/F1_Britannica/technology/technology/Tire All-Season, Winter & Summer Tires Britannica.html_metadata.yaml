@@ -1,0 +1,245 @@
+URL: https://www.britannica.com/technology/tire#ref7282
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article overviewing tires, focusing on their definition,
+  main types (metal and rubber), and detailed characteristics of solid and pneumatic
+  tires, including historical context and design considerations.
+file_name: Tire All-Season, Winter & Summer Tires Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Tire All-Season, Winter &
+  Summer Tires Britannica.html
+file_uuid: 02462dad-9432-5c74-b93d-61b33a36a080
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Solid tires are made of solid rubber with no air, whereas pneumatic
+    tires use compressed air to carry the load and absorb shocks. The other options
+    are incorrect or misrepresent the application of these tires.
+  knowledge_areas:
+  - Solid tires
+  - Pneumatic tires
+  options:
+  - Solid tires contain compressed air, while pneumatic tires are made only of rubber
+  - Solid tires are made entirely of rubber and do not contain air, while pneumatic
+    tires rely on compressed air for load-bearing and shock absorption
+  - Both types use metal bands for structural support
+  - Pneumatic tires are only used for railroad cars
+  question_id: 1
+  question_text: What is the main structural difference between solid tires and pneumatic
+    tires?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Metal tires are used on railroad cars because they provide low rolling
+    resistance, strength, and durability, which are ideal for smooth steel rails.
+  knowledge_areas:
+  - Types of tires
+  options:
+  - Automobiles, for better cushioning
+  - Railroad cars, for low rolling resistance and durability
+  - Bicycles, for increased speed
+  - Airplanes, for high friction
+  question_id: 2
+  question_text: Which vehicles typically use metal tires and why?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Key milestones include Thomson's 1845 patent, Dunlop's 1888 application
+    for bicycles, and Michelin's adaptation for motor vehicles, followed by the development
+    of tubeless and radial-ply tires.
+  knowledge_areas:
+  - Pneumatic tires
+  - Solid tires
+  - Types of tires
+  options:
+  - The invention of the solid tire in 1881 and the use of metal tires on bicycles
+  - Robert William Thomson's 1845 patent, John Boyd Dunlop's 1888 bicycle tire, and
+    Michelin's introduction of pneumatic tires to motor vehicles
+  - The replacement of rubber tires with metal tires in the 1950s
+  - The use of pneumatic tires only in military vehicles
+  question_id: 3
+  question_text: What were key historical milestones in the development of pneumatic
+    tires?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Pneumatic tires are designed for low rolling resistance, low vertical
+    stiffness (for comfort), high friction (for safety), and resistance to wear and
+    damage.
+  knowledge_areas:
+  - Pneumatic tires
+  options:
+  - High rolling resistance and low friction
+  - Low vertical stiffness, high friction in wet/dry conditions, and resistance to
+    wear and damage
+  - Maximum weight and rigidity
+  - No need for air pressure
+  question_id: 4
+  question_text: Which of the following are primary design goals for pneumatic tires?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Rubber tires are chosen for their friction and cushioning, essential
+    for vehicles that turn and brake on roads, while metal tires are used for their
+    low rolling resistance and durability on rails.
+  knowledge_areas:
+  - Types of tires
+  - tire
+  options:
+  - Metal tires are always preferred for comfort
+  - Rubber tires provide higher friction and cushioning, making them suitable for
+    free-moving vehicles, while metal tires are used for low rolling resistance on
+    rails
+  - Rubber tires are only used in industrial settings
+  - Metal tires are lighter than rubber tires in all cases
+  question_id: 5
+  question_text: How does the choice between metal and rubber tires impact vehicle
+    performance and application?
+  question_type: recap
+sections:
+- aspects:
+  - content: A tire is a continuous band that encircles the rim of a wheel, forming
+      a tread that rolls on a road, track, or ground. Its primary function is to provide
+      a surface for the wheel to roll on, contributing to the vehicle's movement and
+      performance. Tires are essential components in vehicles, affecting ride comfort,
+      traction, and safety.
+    type: definition
+  - content: Examples of tires include those used on automobiles, bicycles, trucks,
+      buses, airplanes, and railroad cars. Each application may require different
+      tire types and designs to meet specific performance and safety requirements.
+      For instance, railroad cars use metal tires for low rolling resistance, while
+      automobiles use rubber tires for better friction and cushioning.
+    type: examples
+  - content: The design and material of a tire have significant implications for vehicle
+      efficiency, safety, and environmental impact. Proper tire selection and maintenance
+      are crucial for optimal vehicle performance, fuel efficiency, and accident prevention.
+      Tires also connect to broader topics such as transportation technology, materials
+      science, and environmental sustainability.
+    type: implications and connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The tire's main function is to encircle the rim and provide a tread
+      for rolling and traction. The other options either describe unrelated functions
+      or misrepresent the tire's role.
+    options:
+    - To provide a decorative finish to the wheel
+    - To encircle the rim and form a tread that enables rolling and traction
+    - To act as the main braking system of the vehicle
+    - To serve as the engine's primary support structure
+    question_text: Which of the following best describes the primary function of a
+      tire on a vehicle?
+  index: 151
+  key_concept: tire
+  name: tire
+- aspects:
+  - content: Tires are broadly classified into metal and rubber types. Metal tires,
+      typically made of iron or steel, are used on vehicles like railroad cars for
+      their low rolling resistance, strength, and durability. Rubber tires, which
+      include both solid and pneumatic variants, are used on most free-moving vehicles
+      due to their higher friction and cushioning properties.
+    type: definition and classification
+  - content: Metal tires are mainly used for vehicles running on smooth rails, such
+      as trains, where low rolling resistance is prioritized. Rubber tires are preferred
+      for vehicles that require more friction for turning, climbing, and braking,
+      such as cars and airplanes. Within rubber tires, solid tires are used in environments
+      prone to cuts or punctures, while pneumatic tires are chosen for their superior
+      cushioning and performance on roads.
+    type: use cases and performance
+  - content: The choice between metal and rubber tires affects vehicle performance,
+      maintenance, and suitability for specific environments. For example, the durability
+      of metal tires is advantageous for railroads, while the adaptability of rubber
+      tires makes them essential for diverse road conditions. This classification
+      also reflects technological evolution in transportation.
+    type: implications and context
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Rubber tires are chosen for automobiles because they offer the necessary
+      friction and cushioning for safe and effective turning, climbing, accelerating,
+      and braking. The other options are either incorrect or not the primary reason
+      for this preference.
+    options:
+    - Rubber tires are less expensive to manufacture
+    - Rubber tires provide higher friction and cushioning needed for turning and braking
+    - Metal tires are illegal on all vehicles
+    - Rubber tires are lighter than metal tires in all cases
+    question_text: What is a key reason why rubber tires are preferred over metal
+      tires for automobiles?
+  index: 268
+  key_concept: Types of tires
+  name: Types of tires
+- aspects:
+  - content: Solid tires, also known as cushion tires, are made entirely of rubber
+      and do not contain air. The rubber portion of these tires carries the load,
+      absorbs shocks, and resists cutting and abrasion. They are often adhered directly
+      to the wheel or to a metal band on the wheel's periphery.
+    type: definition and structure
+  - content: Solid rubber tires were introduced in 1881 on London hansom cabs and
+      were once common on many road vehicles. However, their use on highways declined
+      due to legislation aimed at reducing road damage, and they were largely replaced
+      by pneumatic tires for most road applications. Today, solid tires are primarily
+      used on industrial trucks, tractors, and carts.
+    type: historical context and evolution
+  - content: Solid tires are advantageous in environments where the risk of tire cuts
+      or punctures is high, such as in industrial or agricultural settings. However,
+      they provide less cushioning and comfort than pneumatic tires, making them unsuitable
+      for most highway vehicles. Their durability and resistance to damage make them
+      ideal for slow-moving, heavy-duty applications.
+    type: practical implications and edge cases
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Solid tires are now mainly used on industrial trucks, tractors, and
+      carts where durability and resistance to cuts or punctures are critical. They
+      are not suitable for highway vehicles or high-speed applications due to their
+      lack of cushioning.
+    options:
+    - On passenger cars for highway driving
+    - On industrial trucks and farm carts where puncture risk is high
+    - On high-speed airplanes
+    - On bicycles for racing
+    question_text: In which scenario are solid tires most commonly used today?
+  index: 276
+  key_concept: Solid tires
+  name: Solid tires
+- aspects:
+  - content: Pneumatic tires are flexible covers with an impermeable lining designed
+      to contain compressed air, which carries the load and absorbs shocks. The rubber
+      tread provides traction, resists wear, and protects against punctures. Unlike
+      solid tires, pneumatic tires rely entirely on air pressure for their load-bearing
+      and shock-absorbing capabilities.
+    type: definition and function
+  - content: The first pneumatic tire patent was issued to Robert William Thomson
+      in 1845, but the concept was largely forgotten until John Boyd Dunlop revived
+      it for bicycles in 1888. Pneumatic tires were adapted for motor vehicles by
+      Michelin, and the design evolved to include inner tubes and later tubeless,
+      radial-ply structures, which are now standard.
+    type: historical development
+  - content: Pneumatic tires are designed to achieve low rolling resistance, low vertical
+      stiffness (for ride comfort), high sliding friction (for safety in wet and dry
+      conditions), high longitudinal and lateral stiffness (to minimize sliding in
+      the contact patch), and resistance to wear and damage. These goals are met through
+      careful selection of materials, cord reinforcement, and tread design.
+    type: design features and performance goals
+  - content: Pneumatic tires are used on almost all free-moving vehicles due to their
+      superior cushioning and adaptability. They are retained on wheels with wire
+      beads and inflated to specific pressures depending on the application. Their
+      widespread use—over 200 million manufactured annually for motor vehicles—demonstrates
+      their importance in modern transportation.
+    type: practical implications and usage
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Pneumatic tires became standard because they offer superior cushioning
+      and adaptability compared to solid tires, leading to better ride comfort, handling,
+      and safety. Cost and maintenance are not the primary reasons.
+    options:
+    - They are cheaper to produce than solid tires
+    - They provide greater cushioning and adaptability, improving ride comfort and
+      safety
+    - They are more resistant to fire
+    - They require no maintenance
+    question_text: Why did pneumatic tires become standard for most road vehicles?
+  index: 280
+  key_concept: Pneumatic tires
+  name: '[Pneumatic tires](https://www.britannica.com/technology/pneumatic-tire "https://www.britannica.com/technology/pneumatic-tire")'

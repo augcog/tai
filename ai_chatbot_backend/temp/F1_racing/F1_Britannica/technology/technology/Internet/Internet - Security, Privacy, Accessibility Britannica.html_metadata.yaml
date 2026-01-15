@@ -1,0 +1,295 @@
+URL: https://www.britannica.com/technology/Internet/Issues-in-new-media
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article section discussing major privacy, surveillance,
+  and security issues arising from new media and Internet technologies, including
+  spyware, government surveillance, geotagging, social network privacy, and cyberbullying.
+file_name: Internet - Security, Privacy, Accessibility Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Internet/Internet - Security,
+  Privacy, Accessibility Britannica.html
+file_uuid: 8d99abcb-d06f-56e3-af5c-6619e8901de3
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Surveillance and data collection in new media involve automated digital
+    monitoring and recording of users' behaviors and preferences, often by companies
+    or governments.
+  knowledge_areas:
+  - Surveillance and Data Collection in Digital Media
+  options:
+  - Manual note-taking of personal habits
+  - Automated monitoring of user activities and preferences by digital platforms
+  - Physical observation by security guards
+  - Offline television viewing
+  question_id: 1
+  question_text: Which of the following best describes surveillance and data collection
+    in the context of new media?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Pegasus has been controversially used to surveil individuals beyond
+    criminal suspects, including activists and journalists, raising significant privacy
+    and human rights concerns.
+  knowledge_areas:
+  - Spyware and Government Surveillance
+  options:
+  - It is only used for entertainment purposes
+  - It has been used to monitor not just criminals but also activists, journalists,
+    and politicians
+  - It cannot access any personal data
+  - It is always visible to the user
+  question_id: 2
+  question_text: How has spyware like Pegasus raised concerns about government surveillance?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Geotagged photos contain embedded location data, which can inadvertently
+    disclose private locations to anyone who views them online.
+  knowledge_areas:
+  - Geotagging and Location Privacy Risks
+  options:
+  - They take up more storage space
+  - They can reveal the exact location where the photo was taken
+  - They cannot be uploaded to the Internet
+  - They are always deleted after a year
+  question_id: 3
+  question_text: What is a major privacy risk associated with geotagged photos?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: The complexity of Facebook's privacy menus discouraged users from customizing
+    their settings, resulting in widespread use of insecure defaults and unintended
+    information sharing.
+  knowledge_areas:
+  - Social Network Privacy Settings and User Behavior
+  options:
+  - They preferred to share everything publicly
+  - Privacy settings were complex, leading users to stick with default, less secure
+    options
+  - There were no privacy settings available
+  - The platform automatically deleted private information
+  question_id: 4
+  question_text: Why did many Facebook users end up sharing more information than
+    intended before 2010?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Both spyware misuse and confusing privacy settings on social networks
+    contribute to privacy vulnerabilities and are central to discussions about digital
+    privacy and user protection.
+  knowledge_areas:
+  - Spyware and Government Surveillance
+  - Social Network Privacy Settings and User Behavior
+  options:
+  - Spyware misuse and the complexity of social network privacy settings
+  - Manual diary writing and cyberbullying
+  - Offline TV viewing and geotagging
+  - Physical book sales and government surveillance
+  question_id: 5
+  question_text: Which two issues are closely connected in debates about privacy and
+    security in new media?
+  question_type: recap
+sections:
+- aspects:
+  - content: Surveillance and data collection in digital media refer to the systematic
+      monitoring and recording of individuals' activities, behaviors, and preferences
+      through digital platforms and devices. This includes the tracking of online
+      browsing habits, media consumption, and personal communications by both private
+      companies and government entities.
+    type: Definition
+  - content: Examples include publishers and entertainment companies monitoring what
+      books, songs, or movies users download; digital video recorders collecting data
+      on TV viewing habits; and companies like Google recording data from household
+      wireless networks during mapping operations. These actions result in the creation
+      of detailed user profiles and behavioral records.
+    type: Examples
+  - content: The implications of widespread surveillance include the erosion of personal
+      privacy, the potential for misuse of collected data, and the creation of power
+      imbalances between data collectors and individuals. Surveillance can be used
+      for targeted advertising, but also for more intrusive purposes such as government
+      monitoring or corporate profiling.
+    type: Implications
+  - content: The rise of digital media has blurred the boundaries between personal
+      and professional life, as surveillance technologies extend into the home. This
+      trend is connected to broader debates about privacy rights, data protection
+      laws, and the ethical responsibilities of technology companies.
+    type: Context and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Digital video recorders that store and analyze viewing habits for
+      personalized suggestions are a form of surveillance and data collection. The
+      other options do not involve automated or systematic digital monitoring.
+    options:
+    - A digital video recorder storing viewing habits for personalized suggestions
+    - A user manually writing a diary about their TV habits
+    - A bookstore selling physical books with no record of purchase
+    - A television set without internet connectivity
+    question_text: Which of the following is an example of surveillance and data collection
+      in digital media?
+  index: 180
+  key_concept: Surveillance and Data Collection in Digital Media
+  name: Issues in new media
+- aspects:
+  - content: Spyware is software designed to covertly gather information from a device
+      without the user's informed consent. Government surveillance refers to the monitoring
+      of individuals' digital communications and activities by state authorities,
+      often justified by security or law enforcement needs.
+    type: Definition
+  - content: The Pegasus spyware, developed by the NSO Group, is a prominent example;
+      it can harvest calls, texts, photos, passwords, and location data from smartphones.
+      While marketed for use against criminals and terrorists, Pegasus has been used
+      to surveil politicians, activists, journalists, and dissidents, such as in the
+      case of Jamal Khashoggi.
+    type: Examples
+  - content: Governments may use spyware for legitimate law enforcement operations,
+      such as tracking money launderers or traffickers. However, edge cases arise
+      when such tools are used for political repression, targeting opposition, or
+      violating human rights, as seen in the misuse of Pegasus.
+    type: Use Cases and Edge Cases
+  - content: The use of spyware raises ethical and legal concerns about privacy, due
+      process, and abuse of power. It challenges the balance between national security
+      interests and individual rights, and can undermine trust in technology and government
+      institutions.
+    type: Implications
+  - content: This topic connects to broader debates about encryption, lawful interception,
+      international human rights, and the responsibilities of technology vendors in
+      controlling the distribution and use of surveillance tools.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The controversy centers on Pegasus being used to surveil activists,
+      journalists, and political opponents, not just criminals, raising significant
+      human rights and privacy concerns.
+    options:
+    - It is only used for tracking lost pets
+    - It has been used to surveil activists and journalists, not just criminals
+    - It cannot access encrypted data
+    - It is available for public download
+    question_text: What is a major controversy associated with the use of Pegasus
+      spyware?
+  index: 180
+  key_concept: Spyware and Government Surveillance
+  name: Issues in new media
+- aspects:
+  - content: Geotagging is the process by which digital photos and videos are embedded
+      with geographic location data, often automatically by devices equipped with
+      GPS chips. This metadata can reveal precise locations associated with the media
+      files.
+    type: Definition
+  - content: Photos taken with smartphones or digital cameras may contain geotags
+      that, when uploaded online, allow viewers to determine the exact location where
+      the image was captured. For instance, a photo posted on social media might inadvertently
+      disclose the address of someone's home.
+    type: Examples
+  - content: The presence of geotags poses significant privacy and security risks,
+      as malicious actors could use location data to target individuals or gain unauthorized
+      access to private spaces. Many users are unaware of these risks, and disabling
+      geotagging features can be complex.
+    type: Implications
+  - content: Public understanding of geotagging risks is limited, and some devices
+      make it difficult to turn off location tagging. This lack of awareness and technical
+      barriers increases the potential for unintentional privacy breaches.
+    type: Edge Cases and Public Awareness
+  - content: Geotagging intersects with broader issues of digital privacy, data security,
+      and the responsibilities of device manufacturers and platforms to educate users
+      and provide accessible privacy controls.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Geotagging embeds location data into photos, which can reveal private
+      locations to anyone who views the image online, posing a significant privacy
+      risk.
+    options:
+    - It reduces the quality of the photo
+    - It allows viewers to determine the exact location where the photo was taken
+    - It automatically posts photos to social media
+    - It deletes photos after a certain time
+    question_text: Why can geotagging in photos be a privacy risk?
+  index: 180
+  key_concept: Geotagging and Location Privacy Risks
+  name: Issues in new media
+- aspects:
+  - content: Social network privacy settings are user-configurable options that determine
+      who can view or access a user's personal information and content on platforms
+      like Facebook. These settings are intended to give users control over their
+      digital privacy.
+    type: Definition
+  - content: Facebook's privacy settings have evolved from restrictive defaults (content
+      visible only to friends or friends of friends) to more open defaults (content
+      visible to everyone), with users needing to 'opt-in' for greater privacy. In
+      2009 and 2010, Facebook introduced more granular controls, but their complexity
+      discouraged many users from adjusting them, resulting in widespread use of the
+      least secure default settings.
+    type: Examples
+  - content: Complex or confusing privacy settings can lead to unintentional over-sharing
+      of personal information, exposing users to risks such as identity theft, harassment,
+      or unwanted contact. The design of privacy controls can influence user behavior
+      and the overall security of personal data.
+    type: Implications
+  - content: After criticism regarding confusing privacy menus, Facebook simplified
+      its privacy settings in 2010, consolidating them onto a single page. However,
+      the challenge of balancing usability and security remains, as users often default
+      to less secure options if settings are not straightforward.
+    type: Edge Cases and Policy Response
+  - content: This issue is linked to broader concerns about digital literacy, user
+      autonomy, and the ethical responsibilities of social media companies to protect
+      users' privacy by design.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: The complexity of privacy menus discouraged users from changing settings,
+      resulting in widespread use of insecure defaults and increased exposure of personal
+      information.
+    options:
+    - They were always set to the highest security by default
+    - They were too simple and lacked options
+    - They were complex, leading users to stick with insecure default settings
+    - They prevented users from sharing any content
+    question_text: What was a common issue with Facebook's privacy settings before
+      2010?
+  index: 180
+  key_concept: Social Network Privacy Settings and User Behavior
+  name: Issues in new media
+- aspects:
+  - content: Cyberbullying is the use of digital technologies, particularly the Internet,
+      to threaten, harass, or humiliate individuals through words, images, or videos.
+      It can occur via social media, messaging platforms, or other online forums.
+    type: Definition
+  - content: Notable cases include the 2010 suicide of a Rutgers University student
+      after a video of his private encounter was streamed online, and the suicide
+      of a 13-year-old Florida girl following a cyberbullying incident. Such events
+      have brought national attention to the severity and consequences of online harassment.
+    type: Examples
+  - content: Cyberbullying can have devastating psychological effects, including depression,
+      anxiety, and suicide. It poses unique challenges for law enforcement and educators
+      due to the anonymity and reach of online platforms.
+    type: Implications
+  - content: In response, most U.S. states have enacted anti-bullying laws, though
+      relatively few explicitly address cyberbullying. Advocacy groups, such as Hope’s
+      Warriors, have emerged to raise awareness and support victims, but comprehensive
+      legal frameworks remain limited.
+    type: Legal and Social Responses
+  - content: Cyberbullying is related to broader issues of digital citizenship, online
+      ethics, and the responsibilities of platform providers to prevent abuse. It
+      also intersects with debates on free speech, privacy, and the limits of regulation
+      in digital spaces.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: While most states have anti-bullying laws, few specifically address
+      cyberbullying, making legal responses to online harassment inconsistent and
+      often inadequate.
+    options:
+    - Most laws focus only on in-person bullying and few explicitly address cyberbullying
+    - All states have comprehensive cyberbullying laws
+    - Cyberbullying is not harmful
+    - There are no advocacy groups addressing cyberbullying
+    question_text: What is a key challenge in addressing cyberbullying through legislation?
+  index: 180
+  key_concept: Cyberbullying and Legal Responses
+  name: Issues in new media

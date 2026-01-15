@@ -1,0 +1,264 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A Formula 1 driver profile for Esteban Ocon, including his biography,
+  season and career statistics, related media, and contextual information about his
+  career trajectory and team associations.
+file_name: Esteban Ocon - F1 Driver for Haas.html
+file_path: F1_racing/F1_Official/drivers/en/drivers/Esteban Ocon - F1 Driver for Haas.html
+file_uuid: 8c8fc8c0-56e8-573c-a9ab-af216fe24df9
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Ocon's family sold their house and lived in a caravan to support his
+    karting career, and he won major junior titles before entering F1. He did not
+    enter F1 via Formula E or through immediate top-team signing.
+  knowledge_areas:
+  - Esteban Ocon
+  - Biography and Career Development
+  options:
+  - He was immediately signed by a top team due to family wealth.
+  - His family made significant sacrifices, supporting him through karting and junior
+    categories.
+  - He started as a test driver for Red Bull Racing.
+  - He entered F1 after winning Formula E.
+  question_id: 1
+  question_text: Which of the following best describes Esteban Ocon's journey to Formula
+    1?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Ocon drives for Haas in 2025 and has achieved a Grand Prix win in his
+    career. He is not with Alpine or Mercedes, and he does not have multiple world
+    championships or a DNF-free record.
+  knowledge_areas:
+  - Esteban Ocon
+  - Season and Career Statistics
+  options:
+  - Alpine; he has never finished in the top 10.
+  - Haas; he has achieved a Grand Prix victory.
+  - Mercedes; he has multiple world championships.
+  - Red Bull Racing; he has no DNFs.
+  question_id: 2
+  question_text: In the 2025 season, which team does Esteban Ocon represent, and what
+    is a notable aspect of his career statistics?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Ocon won the European F3 and GP3 titles, which are key stepping stones
+    to F1 and showcase a driver's skill and potential for success at the highest level.
+  knowledge_areas:
+  - Biography and Career Development
+  - Season and Career Statistics
+  options:
+  - European F3 and GP3; they demonstrated his talent and readiness for F1.
+  - Formula 2 and Formula E; they are required for F1 entry.
+  - IndyCar and Super Formula; they are the main F1 feeder series.
+  - None; he entered F1 directly from karting.
+  question_id: 3
+  question_text: Which junior racing titles did Esteban Ocon win prior to his F1 debut,
+    and why are these significant?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Media appearances, such as interviews and race reflections, play a
+    significant role in building Ocon's public image, connecting with fans, and enhancing
+    his marketability.
+  knowledge_areas:
+  - Related Media and Public Perception
+  options:
+  - They have no impact on his reputation.
+  - They provide insights into his character, race reflections, and help shape fan
+    perception.
+  - They are only for entertainment and not used by sponsors.
+  - They replace the need for race statistics.
+  question_id: 4
+  question_text: How do related videos and interviews contribute to Esteban Ocon's
+    public and professional profile?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Commercial partners provide critical financial and technological support,
+    and their presence can impact team budgets, operations, and even driver selection
+    based on marketability or nationality.
+  knowledge_areas:
+  - Team and Sponsorship Context
+  - Esteban Ocon
+  options:
+  - Sponsors provide essential funding and can influence team operations and driver
+    opportunities.
+  - Sponsors only provide merchandise.
+  - Teams operate independently of any commercial partners.
+  - Drivers are selected by fans, not sponsors or teams.
+  question_id: 5
+  question_text: What is the relationship between F1 teams like Haas and their commercial
+    partners, and how might this affect a driver's career?
+  question_type: recap
+sections:
+- aspects:
+  - content: Esteban Ocon is a French Formula 1 racing driver, currently competing
+      for the Haas F1 Team and recognized by car number 31. He has established himself
+      as a resilient and determined competitor, known for his aggressive racing style
+      and perseverance through career challenges.
+    type: Definition
+  - content: Ocon's career is marked by significant personal and familial sacrifice,
+      with his parents making major lifestyle changes to support his early karting
+      career. He has driven for several teams, including Manor, Force India, Renault
+      (later Alpine), and Haas, and has also served as a reserve driver for Mercedes.
+      His journey reflects the volatility and competitiveness of F1, where driver
+      contracts and team lineups can shift rapidly due to financial and strategic
+      decisions.
+    type: Career Context
+  - content: Ocon's career trajectory exemplifies the importance of adaptability and
+      resilience in professional motorsport. His ability to return to a full-time
+      F1 seat after a year on the sidelines demonstrates the value of maintaining
+      strong relationships within the F1 community and being prepared to seize opportunities
+      as they arise. His presence in the Haas team for 2025 signals both a new chapter
+      for him and the team's ongoing evolution.
+    type: Implications
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Esteban Ocon moved to the Haas F1 Team for the 2025 season, as indicated
+      in his profile. He previously raced for Alpine and served as a Mercedes reserve
+      driver, but is not associated with Red Bull Racing.
+    options:
+    - Alpine
+    - Haas
+    - Mercedes
+    - Red Bull Racing
+    question_text: Which team is Esteban Ocon driving for in the 2025 Formula 1 season?
+  index: 59
+  key_concept: Esteban Ocon
+  name: EstebanOcon
+- aspects:
+  - content: Season and career statistics refer to the quantitative records of a driver's
+      performance in Formula 1, including metrics such as race entries, points, wins,
+      podiums, pole positions, fastest laps, DNFs (Did Not Finish), and other relevant
+      data both for the current season and across the driver's entire F1 career.
+    type: Definition
+  - content: For the referenced season, Ocon finished 15th with 38 points, participated
+      in 24 Grand Prix races (scoring 34 points), achieved 9 top 10 finishes, and
+      had 1 DNF. In sprint races, he entered 6 events, scored 4 points, and had 1
+      top 10 finish. Across his career, Ocon has entered 180 Grands Prix, scored 483
+      points, achieved 4 podiums, and secured a highest race finish of 1st place once.
+    type: Examples
+  - content: These statistics are crucial for evaluating a driver's consistency, competitiveness,
+      and contribution to their teams. They also influence contract negotiations,
+      sponsorships, and public perception. Ocon's statistics highlight his reliability
+      and occasional standout performances, such as his race win and multiple podiums,
+      despite not having secured a world championship or pole positions.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: Esteban Ocon has achieved 4 career podiums in Formula 1, as indicated
+      in his career statistics.
+    options:
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    question_text: How many career Grand Prix podiums has Esteban Ocon achieved?
+  index: 71
+  key_concept: Season and Career Statistics
+  name: STATISTICS
+- aspects:
+  - content: The biography section provides a narrative account of Esteban Ocon's
+      personal background, early life, and progression through the ranks of motorsport
+      to reach Formula 1, emphasizing the sacrifices and pivotal moments that shaped
+      his career.
+    type: Definition
+  - content: Ocon was born on September 17, 1996, in Évreux, Normandy. His family's
+      commitment to his racing ambitions included selling their house and living in
+      a caravan to support his karting. He won the European F3 title in 2014, GP3
+      in 2015, and entered F1 with Manor in 2016. Notable career moments include replacing
+      Rio Haryanto mid-season, dueling with Sergio Perez at Force India, losing his
+      seat due to team ownership changes, and returning to F1 with Renault/Alpine,
+      where he secured his first F1 win.
+    type: Examples and Context
+  - content: Ocon's biography underscores themes of perseverance, adaptability, and
+      the role of external factors (such as team ownership and financial backing)
+      in shaping F1 careers. His journey connects to broader discussions about talent
+      identification, the challenges of sustaining a career in elite motorsport, and
+      the importance of support networks.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Ocon won the European F3 title in 2014 and the GP3 title in 2015,
+      which were key achievements leading to his Formula 1 debut.
+    options:
+    - European F3 and GP3
+    - Formula 2 and GP2
+    - Indy Lights and Formula Renault
+    - Formula E and Super Formula
+    question_text: Which major junior titles did Esteban Ocon win before entering
+      Formula 1?
+  index: 155
+  key_concept: Biography and Career Development
+  name: Biography
+- aspects:
+  - content: Related media encompasses official F1 videos and interviews featuring
+      Esteban Ocon, providing insights into his personality, race reflections, team
+      dynamics, and public statements following race events or significant moments.
+    type: Definition
+  - content: 'Videos include interviews such as ''Getting to know… Esteban Ocon,''
+      post-race reactions like ''P7 Ocon: I’m very happy to finish the year this way,''
+      and event coverage such as ''2025 Abu Dhabi GP: Haas duo Ocon and Bearman hit
+      the Fanzone stage.'' These videos offer perspectives on Ocon''s mindset, resilience
+      after setbacks, and interactions with fans and teammates.'
+    type: Examples
+  - content: Media appearances play a vital role in shaping a driver's public image,
+      fan engagement, and sponsor appeal. Ocon's willingness to discuss challenges
+      and celebrate successes publicly contributes to his reputation as a transparent
+      and relatable athlete. These media pieces also provide context for his on-track
+      performances and off-track personality.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Ocon's public image is influenced by official F1 videos and interviews,
+      which provide insights into his character and experiences beyond race statistics.
+    options:
+    - Through related videos and interviews
+    - By the number of pole positions he has
+    - Only by his social media posts
+    - Solely by his DNF record
+    question_text: What is one way Esteban Ocon's public image is shaped outside of
+      race results?
+  index: 191
+  key_concept: Related Media and Public Perception
+  name: Related Videos
+- aspects:
+  - content: The team and sponsorship context refers to the network of commercial
+      partners and sponsors that support Formula 1 teams and the sport as a whole,
+      providing financial backing, technological collaboration, and brand association.
+    type: Definition
+  - content: F1's partners include major global brands such as LVMH, Pirelli, Aramco,
+      Heineken, AWS, Lenovo, DHL, Qatar Airways, and many others. These partnerships
+      are prominently displayed in team branding, car liveries, and event sponsorships,
+      and are essential for funding team operations and technological development.
+    type: Examples
+  - content: Sponsorships are critical to the financial health and competitiveness
+      of F1 teams. The presence of high-profile sponsors can influence team budgets,
+      driver salaries, and the ability to attract top engineering talent. For drivers
+      like Ocon, the commercial aspect of the sport can impact career opportunities,
+      as sponsors may favor drivers with strong marketability or national appeal.
+    type: Implications and Connections
+  check_in_question:
+    correct_answer:
+    - 0
+    explanation: Sponsors and partners provide the financial resources and technological
+      collaborations necessary for F1 teams to operate and compete at the highest
+      level.
+    options:
+    - They provide essential financial and technological support
+    - They determine the race calendar
+    - They select the team's drivers
+    - They control the FIA regulations
+    question_text: Why are sponsors and commercial partners important for F1 teams
+      like Haas?
+  index: 236
+  key_concept: Team and Sponsorship Context
+  name: OUR PARTNERS

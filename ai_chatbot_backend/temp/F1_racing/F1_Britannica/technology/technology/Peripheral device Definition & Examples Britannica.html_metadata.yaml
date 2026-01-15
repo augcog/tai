@@ -1,0 +1,157 @@
+URL: https://www.britannica.com/technology/input-output-device
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: An encyclopedia article explaining peripheral devices in computer
+  technology, focusing on their definition, types (input, output, storage), examples,
+  and connection standards.
+file_name: Peripheral device Definition & Examples Britannica.html
+file_path: F1_racing/F1_Britannica/technology/technology/Peripheral device Definition
+  & Examples Britannica.html
+file_uuid: 036a0d1a-e5a2-53e2-a486-36b3f40e501d
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: The CPU is part of the core computer system, not a peripheral. Keyboards,
+    printers, and USB flash drives are all examples of peripheral devices.
+  knowledge_areas:
+  - definition
+  - examples
+  options:
+  - Keyboard
+  - Central Processing Unit (CPU)
+  - Laser printer
+  - USB flash drive
+  question_id: 1
+  question_text: Which of the following is NOT considered a peripheral device?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: Peripheral devices are commonly divided into input devices, output
+    devices, and storage devices, each serving distinct roles in computer operation.
+  knowledge_areas:
+  - types
+  options:
+  - Input, Output, Storage
+  - Software, Hardware, Firmware
+  - Serial, Parallel, Wireless
+  - Core, Auxiliary, Embedded
+  question_id: 2
+  question_text: What are the three main categories of peripheral devices?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: A USB hub can facilitate both input and output by connecting multiple
+    devices that may serve either function, whereas the other options are primarily
+    input or output devices.
+  knowledge_areas:
+  - examples
+  - types
+  options:
+  - Laser printer
+  - USB hub
+  - Microphone
+  - Trackball
+  question_id: 3
+  question_text: Which of the following devices can function as both an input and
+    output peripheral?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Connection standards such as USB and SATA are critical for ensuring
+    that peripherals can be easily connected, communicate efficiently, and function
+    reliably with computers.
+  knowledge_areas:
+  - connection standards
+  - implications and connections
+  options:
+  - They determine the software needed to run peripherals
+  - They ensure compatibility, data transfer speed, and expandability for connecting
+    peripherals to computers
+  - They provide power to the CPU
+  - They are only used for wireless devices
+  question_id: 4
+  question_text: Why are connection standards like USB and SATA important for peripheral
+    devices?
+  question_type: recap
+- correct_answers:
+  - 2
+  explanation: The definition of a peripheral device has expanded to include devices
+    that can function independently, such as smartphones and smartwatches, when they
+    are connected to computers and serve as input/output or storage devices.
+  knowledge_areas:
+  - implications and connections
+  - definition
+  options:
+  - It now includes only devices directly attached to the motherboard
+  - It excludes smartphones and tablets
+  - It includes multifunctional and independent devices like smartphones and smartwatches
+    when connected to computers
+  - It is limited to input devices only
+  question_id: 5
+  question_text: How has the definition of a peripheral device evolved with modern
+    technology?
+  question_type: recap
+sections:
+- aspects:
+  - content: A peripheral device is any device, including sensors, used to enter information
+      and instructions into a computer for storage or processing, or to deliver processed
+      data to a human operator or machine controlled by the computer. These devices
+      are not part of the core computer architecture (CPU, memory, motherboard), but
+      are external components that expand the computer’s functionality. They are also
+      referred to as computer peripherals, input–output devices, or input/output devices.
+    type: definition
+  - content: 'Peripheral devices are commonly classified into three categories: input
+      devices, output devices, and storage devices. Input devices convert data and
+      instructions into a format (typically binary electrical signals) that the computer
+      can process. Output devices translate processed computer data into forms intelligible
+      to users or other machines. Storage devices, which often serve as both input
+      and output devices, allow for the saving and retrieval of data.'
+    type: types
+  - content: Examples of input peripherals include keyboards, mice, trackballs, joysticks,
+      trackpads, digital pens, microphones, webcams, digital cameras, and environmental
+      sensors (e.g., temperature, pressure). Output peripherals include video display
+      terminals, ink-jet and laser printers, loudspeakers, headphones, and machinery-controlling
+      devices such as flow valves. Storage peripherals include CD-ROM and DVD drives,
+      flash memory drives, and external disk drives. Some devices, such as USB hubs
+      and video display terminals, can serve both input and output functions. Modern
+      examples also encompass smartphones, tablets, and wearable devices like smartwatches
+      and fitness trackers, which can function independently but also act as peripherals
+      when connected to computers.
+    type: examples
+  - content: Peripheral devices are essential for human-computer interaction and for
+      extending a computer’s capabilities. They facilitate data entry, processing,
+      communication, and storage, making digital computers versatile tools for a wide
+      range of applications. The evolution of peripherals reflects technological advances,
+      such as the shift from punched-card readers to modern scanners and the increasing
+      integration of wireless and multifunctional devices. The distinction between
+      core and peripheral devices is sometimes blurred, especially as devices like
+      smartphones can operate autonomously or as computer extensions. Peripheral connectivity
+      standards, such as USB and SATA, are crucial for compatibility and performance.
+    type: implications and connections
+  - content: Peripheral devices connect to computers via various standards, which
+      determine data transfer speed, compatibility, and ease of use. Serial Advanced
+      Technology Attachment (SATA) is commonly used for magnetic disk drives. Connections
+      can be serial (transmitting one bit at a time, using fewer wires and simpler
+      design) or parallel (transmitting multiple bits simultaneously, requiring more
+      wires and complexity). Universal Serial Bus (USB) is a widely adopted serial
+      bus standard, enabling easy connection and hot-swapping of a broad range of
+      peripherals. The choice of connection impacts device performance, user experience,
+      and system expandability.
+    type: connection standards
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Peripheral devices are external to the core computer architecture
+      (CPU, main memory, motherboard) and are used for input, output, or storage functions.
+      They are not software or a type of memory, and are distinct from the CPU itself.
+    options:
+    - A device that is part of the computer's central processing unit (CPU)
+    - A device used to enter information into, or receive information from, a computer,
+      but not part of its core architecture
+    - A software program that manages computer hardware
+    - A type of computer memory used for temporary storage
+    question_text: Which of the following best describes a peripheral device in computer
+      technology?
+  index: 149
+  key_concept: peripheral device
+  name: peripheral device

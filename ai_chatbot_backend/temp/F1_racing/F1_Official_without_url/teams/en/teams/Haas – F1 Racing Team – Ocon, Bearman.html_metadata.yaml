@@ -1,0 +1,284 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: A team profile page for the Haas F1 Team, covering their 2026 driver
+  lineup, recent and historical statistics, organizational structure, and related
+  multimedia content.
+file_name: Haas – F1 Racing Team – Ocon, Bearman.html
+file_path: F1_racing/F1_Official/teams/en/teams/Haas – F1 Racing Team – Ocon, Bearman.html
+file_uuid: d2079e07-36f0-544f-8f27-b75d64bd23a7
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Haas is an American-led team founded in 2016 by Gene Haas, using Ferrari
+    power units. The other options are inaccurate or refer to other teams.
+  knowledge_areas:
+  - Haas F1 Team
+  - Team Profile
+  options:
+  - Haas is a British team with a long history in F1, powered by Mercedes.
+  - Haas is an American-led team founded by Gene Haas in 2016, using Ferrari power
+    units.
+  - Haas is a French team established in the 1990s, currently using Honda engines.
+  - Haas is an Italian team that has won multiple world championships.
+  question_id: 1
+  question_text: Which of the following statements accurately summarizes the Haas
+    F1 Team's history and structure?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Esteban Ocon (experienced) and Oliver Bearman (rookie) form Haas's
+    2026 lineup, notable for balancing experience and emerging talent.
+  knowledge_areas:
+  - DRIVERS
+  options:
+  - Nico Hulkenberg and Kevin Magnussen; both are rookies.
+  - Esteban Ocon and Oliver Bearman; combining experience with rookie talent.
+  - Lewis Hamilton and Charles Leclerc; both are former world champions.
+  - Pierre Gasly and George Russell; both are British drivers.
+  question_id: 2
+  question_text: Who are the Haas F1 Team's main drivers for the 2026 season, and
+    what is notable about their pairing?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Haas's highest race finish is 4th (twice), and they have never achieved
+    a podium.
+  knowledge_areas:
+  - Statistics
+  options:
+  - 1st place; 2 podiums
+  - 4th place; 0 podiums
+  - 3rd place; 1 podium
+  - 2nd place; 3 podiums
+  question_id: 3
+  question_text: According to the statistics, what is Haas F1 Team's highest race
+    finish and how many podiums have they achieved?
+  question_type: recap
+- correct_answers:
+  - 3
+  explanation: Ryo Hirakawa is the reserve driver, not the team chief. Ayao Komatsu
+    is the team chief.
+  knowledge_areas:
+  - Team Profile
+  options:
+  - The team is based in Kannapolis, United States.
+  - The chassis for 2026 is the VF-26.
+  - Their reserve driver is Ryo Hirakawa.
+  - Their team chief is Ryo Hirakawa.
+  question_id: 4
+  question_text: Which of the following is NOT a correct detail about the Haas F1
+    Team's organizational profile?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Related Videos offer interviews, race reactions, and highlights, giving
+    insight into driver personalities and team dynamics, not technical blueprints
+    or advertisements.
+  knowledge_areas:
+  - Related Videos
+  options:
+  - They provide technical blueprints for the team's car.
+  - They offer interviews, race reactions, and highlights that showcase driver personalities
+    and team dynamics.
+  - They are exclusively focused on NASCAR content.
+  - They only display advertisements for team sponsors.
+  question_id: 5
+  question_text: How do the 'Related Videos' contribute to a broader understanding
+    of the Haas F1 Team's activities?
+  question_type: recap
+sections:
+- aspects:
+  - content: The Haas F1 Team is a Formula One racing team based in Kannapolis, United
+      States, and is the first all-American-led F1 squad in over thirty years. Founded
+      by industrialist Gene Haas, the team debuted in 2016 and is closely associated
+      with the Stewart-Haas Racing NASCAR team. Haas utilizes Ferrari power units
+      and maintains a technical partnership with the Italian manufacturer.
+    type: definition
+  - content: Haas entered Formula One in 2016, marking a significant return of an
+      American team to the sport after a long absence. The team quickly gained attention
+      for its strong debut performance and its unique business model, which leverages
+      technical partnerships and a dual-facility approach, with bases in both the
+      US and UK. Haas's entry reflects broader efforts to globalize F1 and attract
+      American audiences.
+    type: historical context
+  - content: The team is led by Team Chief Ayao Komatsu and Technical Chief Andrea
+      De Zordo, with Gene Haas as the owner. The chassis for 2026 is designated VF-26,
+      and the team continues to use Ferrari power units. The reserve driver for the
+      season is Ryo Hirakawa, highlighting the team's international recruitment and
+      technical collaboration.
+    type: organizational structure
+  - content: Haas's relationship with Ferrari is central to its operations, providing
+      both technical resources and competitive advantages. The team's NASCAR heritage
+      also influences its management style and approach to motorsport. Haas competes
+      alongside other prominent F1 teams and is part of a global ecosystem of racing,
+      sponsorship, and media.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Haas F1 Team is an American-led team founded by Gene Haas in 2016,
+      with Ferrari power units. The other options describe different teams or are
+      inaccurate.
+    options:
+    - A British team founded in the 1980s with Mercedes engines.
+    - An American-led team founded by Gene Haas in 2016, using Ferrari power units.
+    - A Japanese team with a history in MotoGP and Honda engines.
+    - A French team established in the 1990s with Renault engines.
+    question_text: Which of the following best describes the Haas F1 Team's origins
+      and structure?
+  index: 67
+  key_concept: Haas F1 Team
+  name: Haas F1 Team
+- aspects:
+  - content: For the 2026 season, the Haas F1 Team's primary drivers are Esteban Ocon
+      from France and Oliver Bearman from Great Britain. The drivers are responsible
+      for competing in both Grand Prix and Sprint races, representing the team's competitive
+      interests on track.
+    type: definition
+  - content: Esteban Ocon is an experienced Formula One driver, known for his consistency
+      and racecraft, while Oliver Bearman is a rookie who made a strong impression
+      in 2025 by achieving Haas's best result of the year with a fourth place in Mexico.
+      The pairing combines experience and youthful potential, reflecting Haas's strategy
+      to balance immediate results with future development.
+    type: examples and context
+  - content: The driver lineup is crucial for team performance, influencing results,
+      development feedback, and public image. Ocon's experience can assist in car
+      development and mentoring Bearman, while Bearman's rapid adaptation and strong
+      rookie performances suggest potential for future leadership. The choice of drivers
+      can also affect sponsorship and fan engagement.
+    type: implications and use cases
+  - content: Haas's driver choices are part of a broader trend in F1 of pairing experienced
+      drivers with promising rookies. This approach aims to maximize both immediate
+      competitiveness and long-term growth. The drivers' nationalities also enhance
+      the team's international appeal.
+    type: connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: For 2026, Haas's main drivers are Esteban Ocon and Oliver Bearman.
+      Hulkenberg and Magnussen drove for Haas in previous seasons, while the other
+      options are drivers for other teams.
+    options:
+    - Nico Hulkenberg and Kevin Magnussen
+    - Esteban Ocon and Oliver Bearman
+    - Lewis Hamilton and Charles Leclerc
+    - Pierre Gasly and George Russell
+    question_text: Who are the Haas F1 Team's main drivers for the 2026 season?
+  index: 75
+  key_concept: DRIVERS
+  name: DRIVERS
+- aspects:
+  - content: The statistics section provides quantitative data on Haas F1 Team's performance
+      in both the current (2026) and past seasons. It includes metrics such as season
+      position, points, races entered, wins, podiums, poles, fastest laps, DNFs, and
+      results in both Grand Prix and Sprint races.
+    type: definition and scope
+  - content: As of the 2026 season, Haas has not yet scored any points, wins, or podiums,
+      reflecting either the early stage of the season or a lack of competitive results
+      so far. Historically, the team has entered 214 Grands Prix, accumulated 386
+      points, achieved a highest race finish of 4th (twice), and secured one pole
+      position, but has never achieved a podium or world championship.
+    type: examples and interpretation
+  - content: These statistics highlight Haas's position as a midfield team, often
+      competitive but not typically among the top finishers. The data also illustrates
+      the challenges new teams face in breaking into the upper echelons of F1, as
+      well as the importance of consistent point-scoring for championship standings
+      and team growth.
+    type: implications and context
+  - content: Comparing year-on-year statistics, such as the improvement in points
+      scored in 2025 despite a drop in overall position, provides insight into the
+      competitiveness of the midfield and the volatility of team rankings. The lack
+      of podiums underscores the difficulty of achieving top-three finishes in a highly
+      competitive field.
+    type: connections and trends
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: Haas's highest race finish is 4th (twice), they have never achieved
+      a podium, and have only one pole position. The other options are incorrect based
+      on the provided statistics.
+    options:
+    - They have won multiple world championships.
+    - Their highest race finish is 4th place, and they have never achieved a podium.
+    - They have secured over 10 pole positions.
+    - They have never scored any points in F1.
+    question_text: Which of the following statements accurately reflects Haas F1 Team's
+      historical performance?
+  index: 97
+  key_concept: Statistics
+  name: Statistics
+- aspects:
+  - content: The Team Profile section details Haas's official team name (TGR Haas
+      F1 Team), location (Kannapolis, United States), leadership (Team Chief Ayao
+      Komatsu, Technical Chief Andrea De Zordo), technical specifications (chassis
+      VF-26, Ferrari power unit), and reserve driver (Ryo Hirakawa). It also notes
+      the team's first entry in 2016.
+    type: definition and overview
+  - content: In 2025, Haas scored more points than in 2024 but dropped to 8th in the
+      championship, with rookie Oliver Bearman achieving a notable 4th place in Mexico.
+      In 2024, the team finished 7th under new principal Ayao Komatsu, with both drivers
+      scoring regularly. These developments reflect ongoing changes in leadership,
+      driver lineup, and performance.
+    type: examples and recent developments
+  - content: The team's American base and Ferrari partnership shape its operational
+      strategy, allowing Haas to leverage technical expertise while maintaining a
+      distinct identity. Leadership changes and driver recruitment signal adaptability
+      and a focus on both immediate results and long-term potential.
+    type: implications and organizational strategy
+  - content: Haas's dual presence in the US and UK, along with its NASCAR roots, positions
+      it uniquely within F1. The technical partnership with Ferrari and recruitment
+      of international talent reflect F1's global and collaborative nature. The team's
+      trajectory is illustrative of the challenges and opportunities for newer entrants
+      in the sport.
+    type: connections and broader context
+  check_in_question:
+    correct_answer:
+    - 3
+    explanation: Ryo Hirakawa is the reserve driver, not the team chief. The other
+      statements accurately describe Haas F1 Team's profile.
+    options:
+    - The team is based in Kannapolis, United States.
+    - Their power unit supplier is Ferrari.
+    - Their first F1 entry was in 2016.
+    - Their team chief is Ryo Hirakawa.
+    question_text: Which of the following is NOT a correct detail about the Haas F1
+      Team's profile?
+  index: 178
+  key_concept: Team Profile
+  name: Team Profile
+- aspects:
+  - content: The Related Videos section features multimedia content focused on Haas
+      F1 Team drivers and their recent performances. Videos include interviews, race
+      reactions, and event highlights involving Esteban Ocon and Oliver Bearman.
+    type: definition and content
+  - content: Examples include 'Getting to know… Esteban Ocon,' post-race interviews
+      such as Ocon's reflections on finishing P7 or P8, Bearman's reaction to penalties,
+      and footage from the Abu Dhabi GP Fanzone stage. These videos provide insights
+      into driver personalities, team dynamics, and race weekend experiences.
+    type: examples and educational use
+  - content: Multimedia content enhances fan engagement, offering behind-the-scenes
+      perspectives and emotional responses not captured in statistics alone. Such
+      videos can influence public perception, sponsor interest, and driver marketability.
+    type: implications and engagement
+  - content: The inclusion of related videos reflects the increasing importance of
+      digital media in sports, providing fans with accessible, up-to-date content
+      and fostering a sense of community. These resources complement written and statistical
+      information, offering a holistic view of the team's activities.
+    type: connections and broader relevance
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The Related Videos section features interviews, race reactions, and
+      highlights involving Haas drivers, not technical manuals, live race broadcasts,
+      or NASCAR-only documentaries.
+    options:
+    - Technical manuals for the VF-26 chassis.
+    - Interviews, race reactions, and highlights involving Haas drivers.
+    - Live broadcasts of every F1 race.
+    - Historical documentaries about NASCAR only.
+    question_text: What type of content is typically found in the 'Related Videos'
+      section for the Haas F1 Team?
+  index: 230
+  key_concept: Related Videos
+  name: Related Videos

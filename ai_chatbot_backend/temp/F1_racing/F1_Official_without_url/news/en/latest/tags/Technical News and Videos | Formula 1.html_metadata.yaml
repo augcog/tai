@@ -1,0 +1,159 @@
+URL: ''
+course_code: F1_racing
+course_name: Formula 1 Racing
+file_description: This is a section of the official Formula 1 website, specifically
+  focusing on technical news, partner information, and app downloads. The content
+  highlights F1's major corporate partners and provides links to download the official
+  F1 mobile application.
+file_name: Technical News and Videos | Formula 1.html
+file_path: F1_racing/F1_Official/news/en/latest/tags/Technical News and Videos | Formula
+  1.html
+file_uuid: 8e24bfa8-afa6-5ffe-a40b-3fb10ed4d542
+recap_questions:
+- correct_answers:
+  - 1
+  explanation: Corporate partners support F1 financially and technically, and in return,
+    benefit from marketing exposure; they do not set regulations, manage the app,
+    or organize amateur races.
+  knowledge_areas:
+  - F1 Corporate Partnerships
+  options:
+  - They provide technical regulations for teams.
+  - They sponsor, supply products/services, and gain marketing exposure through F1.
+  - They organize local amateur races.
+  - They manage the official F1 mobile app.
+  question_id: 1
+  question_text: Which of the following best describes the role of corporate partners
+    in Formula 1?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Live timing and data updates allow fans to follow races as they happen,
+    which most directly enhances the real-time experience.
+  knowledge_areas:
+  - Official F1 Mobile Application
+  options:
+  - Archived race results
+  - Live timing and data updates
+  - Merchandise store integration
+  - Driver biographies
+  question_id: 2
+  question_text: Which app feature most directly enhances the real-time race experience
+    for fans?
+  question_type: recap
+- correct_answers:
+  - 0
+  explanation: AWS is a global technology company and an official F1 partner, unlike
+    the other options.
+  knowledge_areas:
+  - F1 Corporate Partnerships
+  options:
+  - AWS
+  - Local karting club
+  - Public library
+  - Independent car mechanic
+  question_id: 3
+  question_text: Which of the following companies is most likely to be an F1 partner
+    based on the provided information?
+  question_type: recap
+- correct_answers:
+  - 1
+  explanation: Partners enhance the sport through sponsorship and technology, while
+    the app delivers this enhanced experience and information to fans.
+  knowledge_areas:
+  - F1 Corporate Partnerships
+  - Official F1 Mobile Application
+  options:
+  - Partners provide race commentary, while the app sells tickets exclusively.
+  - Partners supply products/services and branding, while the app delivers content
+    and engagement, creating a holistic F1 experience.
+  - The app manages team logistics, and partners handle fan questions.
+  - Both are unrelated to fan engagement.
+  question_id: 4
+  question_text: How do F1's corporate partnerships and the official app work together
+    to benefit fans and the sport?
+  question_type: recap
+sections:
+- aspects:
+  - content: F1 corporate partnerships refer to the formal business relationships
+      between Formula 1 and a range of global companies that provide sponsorship,
+      products, or services in exchange for branding, marketing, and business opportunities.
+      These partnerships are integral to the commercial ecosystem of the sport.
+    type: Definition
+  - content: Examples of F1 partners include luxury brands like LVMH and Louis Vuitton,
+      technology companies such as AWS and Lenovo, logistics providers like DHL, and
+      financial institutions like Santander and American Express. Each partner typically
+      has a visible presence on F1's digital platforms, at races, and sometimes on
+      the cars themselves.
+    type: Examples
+  - content: These partnerships enable F1 to leverage the expertise and resources
+      of its partners, such as AWS providing cloud computing and data analytics, or
+      Pirelli supplying official tires. In return, partners gain global exposure and
+      association with the prestige and innovation of Formula 1.
+    type: Use Cases
+  - content: Corporate partnerships are crucial for F1's financial health, technological
+      advancement, and global reach. They can influence technical developments (e.g.,
+      through technology partners), fan engagement (via branded experiences), and
+      even the sustainability agenda (with partners like Aramco involved in fuel innovation).
+    type: Implications
+  - content: F1 partnerships connect the sport to a broader business and cultural
+      context, integrating luxury, technology, logistics, and consumer brands into
+      the F1 experience. They also reflect the sport's global appeal and the diverse
+      industries interested in motorsport sponsorship.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 2
+    explanation: Local amateur racing clubs are not official corporate partners; F1's
+      partners are usually large international brands in luxury, technology, logistics,
+      and finance.
+    options:
+    - Luxury brands
+    - Technology companies
+    - Local amateur racing clubs
+    - Logistics providers
+    question_text: Which of the following is NOT typically a category of F1's official
+      partners?
+  index: 85
+  key_concept: F1 Corporate Partnerships
+  name: OUR PARTNERS
+- aspects:
+  - content: The official F1 mobile application is a digital tool provided by Formula
+      1 for fans to access live timing, news, schedules, and exclusive content related
+      to the sport. It is available for download on both the Apple App Store and Google
+      Play Store.
+    type: Definition
+  - content: Key features of the app include live race data, driver and team information,
+      push notifications for news and updates, and multimedia content such as videos
+      and interviews. The app often integrates interactive elements and may offer
+      premium content for subscribers.
+    type: Features
+  - content: Fans use the app to follow races in real-time, access historical statistics,
+      receive personalized notifications, and stay updated on technical developments
+      and news. It serves as a comprehensive companion for both casual viewers and
+      dedicated enthusiasts.
+    type: Use Cases
+  - content: The app enhances fan engagement by providing immediate access to information
+      and interactive experiences. It also serves as a platform for F1 to promote
+      its partners, sell merchandise, and gather user data for marketing and product
+      development.
+    type: Implications
+  - content: The app connects digital technology with the live sporting experience,
+      bridging the gap between remote fans and on-site events. It also links to F1's
+      broader digital ecosystem, including F1 TV and official social media channels.
+    type: Connections
+  check_in_question:
+    correct_answer:
+    - 1
+    explanation: The main function of the official F1 app is to provide fans with
+      live race timing, news, and multimedia content, not to order car parts or arrange
+      hospitality.
+    options:
+    - Ordering car parts for teams
+    - Providing live race timing and news
+    - Arranging hospitality for drivers
+    - Broadcasting radio interviews only
+    question_text: What is one primary function of the official F1 mobile app?
+  index: 95
+  key_concept: Official F1 Mobile Application
+  name: Download the Official F1 App

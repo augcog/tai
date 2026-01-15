@@ -199,7 +199,7 @@ async def get_top_k_docs(
 @router.post("/memory-synopsis")
 async def create_or_update_memory_synopsis(
         sid: str,
-        user_id: str, # 假设已在 GeneralCompletionParams, FileCompletionParams, PracticeCompletionParams 中添加
+        user_id: str,
         messages: List[Message],
         # course_code: str,
         # _: bool = Depends(verify_api_token)
@@ -226,7 +226,7 @@ async def create_or_update_memory_synopsis(
             messages=formatted_messages,
             tokenizer=TOKENIZER,
             engine=engine,
-            chat_history_sid=sid # build_memory_synopsis 会自动检索旧的 STM
+            chat_history_sid=sid
         )
         # 2. Store/update Short-Term Memory (STM)
         memory_synopsis_sid = await stm_service.create_or_update_memory(

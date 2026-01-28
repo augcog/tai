@@ -54,9 +54,19 @@ class Settings(BaseSettings):
         alias="VLLM_EMBEDDING_URL"
     )
     vllm_api_key: str = Field(
-        default="UJnYZomLkoSUUFqvxU30ULBaGISzPfz3",
-        description="API key for vLLM servers",
+        default="EMPTY",
+        description="API key for vLLM servers (set 'EMPTY' if no auth required)",
         alias="VLLM_API_KEY"
+    )
+    vllm_tts_url: str = Field(
+        default="http://localhost:8004/v1",
+        description="vLLM server URL for TTS (audio generation) API",
+        alias="VLLM_TTS_URL"
+    )
+    vllm_tts_model: str = Field(
+        default="",
+        description="Model ID for vLLM TTS server (leave empty to auto-detect)",
+        alias="VLLM_TTS_MODEL"
     )
     vllm_chat_model: str = Field(
         default="cpatonn/Qwen3-30B-A3B-Thinking-2507-AWQ-4bit",

@@ -6,7 +6,9 @@ import base64
 import io
 import soundfile as sf
 import numpy as np
+from pathlib import Path
 from openai import OpenAI
+from app.config import settings
 
 
 async def chat_stream_parser(
@@ -230,8 +232,12 @@ async def audio_generator(messages: List[Dict], stream: bool = True, speaker_nam
 ) -> AsyncIterator[str]:
     """
     Parse the streaming response from the audio model and yield deltas.
+    Uses vLLM TTS server configured via VLLM_TTS_URL environment variable.
     """
-    data_dir = '/home/tai25/bot/tai/ai_chatbot_backend/voice_prompts'
+    # Dynamic path based on current file location
+    _current_file = Path(__file__).resolve()
+    _backend_root = _current_file.parent.parent.parent  # Navigate up to ai_chatbot_backend/
+    data_dir = str(_backend_root / 'voice_prompts')
 
     # Select voice prompt based on course_code
     if speaker_name == "Professor John DeNero":
@@ -267,9 +273,14 @@ async def audio_generator(messages: List[Dict], stream: bool = True, speaker_nam
     messages = messages_add_to_begining + messages
     if len(messages) > 3:
         messages = messages[:2] + messages[-1:]
-    client = OpenAI(base_url='http://128.32.43.216:8000/v1', api_key='EMPTY')
-    models = client.models.list()
-    model = models.data[0].id
+    # Use TTS server URL from configuration instead of hardcoded values
+    client = OpenAI(base_url=settings.vllm_tts_url, api_key=settings.vllm_api_key)
+    # Use configured model or auto-detect from server
+    if settings.vllm_tts_model:
+        model = settings.vllm_tts_model
+    else:
+        models = client.models.list()
+        model = models.data[0].id
     chat_completion = client.chat.completions.create(
         messages=messages,
         model=model,

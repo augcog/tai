@@ -28,16 +28,50 @@ Store the generated key securely and use the same key for:
 
 For development/testing, you can use `--api-key EMPTY` to disable authentication.
 
-## Starting the Services
+## Quick Start (Automated)
 
-Replace `$VLLM_API_KEY` with your generated API key.
+Use the automated startup script to launch all vLLM servers in tmux:
+
+```bash
+cd ai_chatbot_backend
+./scripts/start_vllm_servers.sh
+```
+
+This script:
+- Creates a tmux session with 3 windows (one per server)
+- Starts servers sequentially, waiting for each to be ready
+- Reports GPU memory usage when complete
+- Provides instructions for managing servers
+
+To manage servers after startup:
+- Attach: `tmux attach -t vllm-servers`
+- Switch windows: `Ctrl+b` then `0`, `1`, or `2`
+- Stop a server: `Ctrl+C` in that window
+- Detach: `Ctrl+b` then `d`
+
+To stop all servers:
+```bash
+./scripts/stop_vllm_servers.sh
+```
+
+## Manual Start
+
+Replace `$VLLM_API_KEY` with your generated API key (or load from `.env`).
+
+### GPU Assignments
+
+| Server | Port | GPUs | Memory Utilization |
+|--------|------|------|-------------------|
+| Chat | 8001 | 0,1 (tensor parallel) | 47% |
+| Embedding | 8002 | 1 | 40% |
+| Whisper | 8003 | 0 | 37% |
 
 ### Chat Model Server (Port 8001)
 
-Main LLM for chat completions with reasoning support:
+Main LLM for chat completions with reasoning support. Uses GPUs 0 and 1 with tensor parallelism:
 
 ```bash
-vllm serve cpatonn/Qwen3-30B-A3B-Thinking-2507-AWQ-4bit \
+CUDA_VISIBLE_DEVICES=0,1 vllm serve cpatonn/Qwen3-30B-A3B-Thinking-2507-AWQ-4bit \
     --tensor-parallel-size 2 \
     --gpu-memory-utilization 0.47 \
     --max-model-len 10000 \
@@ -49,10 +83,10 @@ vllm serve cpatonn/Qwen3-30B-A3B-Thinking-2507-AWQ-4bit \
 
 ### Embedding Server (Port 8002)
 
-For RAG document retrieval:
+For RAG document retrieval. Uses GPU 1:
 
 ```bash
-vllm serve Qwen/Qwen3-Embedding-4B \
+CUDA_VISIBLE_DEVICES=1 vllm serve Qwen/Qwen3-Embedding-4B \
     --max-model-len 10000 \
     --port 8002 \
     --max-num-seqs 32 \
@@ -62,10 +96,10 @@ vllm serve Qwen/Qwen3-Embedding-4B \
 
 ### Whisper Server (Port 8003)
 
-For speech-to-text transcription:
+For speech-to-text transcription. Uses GPU 0:
 
 ```bash
-vllm serve openai/whisper-large-v3 \
+CUDA_VISIBLE_DEVICES=0 vllm serve openai/whisper-large-v3 \
     --port 8003 \
     --gpu-memory-utilization 0.37 \
     --api-key $VLLM_API_KEY

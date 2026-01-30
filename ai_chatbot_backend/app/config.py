@@ -37,6 +37,53 @@ class Settings(BaseSettings):
     )
     remote_model_url: str = Field(description="URL for remote model API")
 
+    # vLLM Server Configuration
+    vllm_chat_url: str = Field(
+        default="http://localhost:8001/v1",
+        description="vLLM server URL for chat/responses API",
+        alias="VLLM_CHAT_URL"
+    )
+    vllm_whisper_url: str = Field(
+        default="http://localhost:8003/v1",
+        description="vLLM server URL for Whisper transcription API",
+        alias="VLLM_WHISPER_URL"
+    )
+    vllm_embedding_url: str = Field(
+        default="http://localhost:8002/v1",
+        description="vLLM server URL for embeddings API",
+        alias="VLLM_EMBEDDING_URL"
+    )
+    vllm_api_key: str = Field(
+        default="EMPTY",
+        description="API key for vLLM servers (set 'EMPTY' if no auth required)",
+        alias="VLLM_API_KEY"
+    )
+    vllm_tts_url: str = Field(
+        default="http://localhost:8004/v1",
+        description="vLLM server URL for TTS (audio generation) API",
+        alias="VLLM_TTS_URL"
+    )
+    vllm_tts_model: str = Field(
+        default="",
+        description="Model ID for vLLM TTS server (leave empty to auto-detect)",
+        alias="VLLM_TTS_MODEL"
+    )
+    vllm_chat_model: str = Field(
+        default="cpatonn/Qwen3-30B-A3B-Thinking-2507-AWQ-4bit",
+        description="Model ID for vLLM chat server",
+        alias="VLLM_CHAT_MODEL"
+    )
+    vllm_whisper_model: str = Field(
+        default="openai/whisper-large-v3",
+        description="Model ID for vLLM Whisper server",
+        alias="VLLM_WHISPER_MODEL"
+    )
+    vllm_embedding_model: str = Field(
+        default="Qwen/Qwen3-Embedding-4B",
+        description="Model ID for vLLM embedding server",
+        alias="VLLM_EMBEDDING_MODEL"
+    )
+
     admin_token: str = Field(
         description="Admin token required for course management endpoints. Must be set in .env file."
     )

@@ -1,6 +1,7 @@
 # This file contains functions to convert input audio data to text using vLLM Whisper server
 from openai import OpenAI, AsyncOpenAI
 import io
+import json
 import soundfile as sf
 from app.core.models.chat_completion import VoiceMessage, sse, AudioTranscript, Done
 from app.config import settings
@@ -39,7 +40,15 @@ def audio_to_text(
     # Return the full transcription text
     if hasattr(transcription, 'text'):
         return transcription.text.strip()
-    return str(transcription).strip()
+    # Handle case where vLLM returns JSON string instead of plain text
+    result = str(transcription).strip()
+    try:
+        parsed = json.loads(result)
+        if isinstance(parsed, dict) and 'text' in parsed:
+            return parsed['text'].strip()
+    except (json.JSONDecodeError, TypeError):
+        pass
+    return result
 
 
 async def audio_to_text_streaming(

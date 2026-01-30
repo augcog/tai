@@ -7,7 +7,6 @@ from app.config import settings
 _model_engine = None
 _whisper_engine = None
 _embedding_engine = None
-
 # Model IDs from config (with fallback defaults)
 LLM_MODEL_ID = settings.vllm_chat_model
 

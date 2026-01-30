@@ -325,6 +325,8 @@ def _get_pickle_and_class(course: str) -> str:
         # return "roar_academy.pkl", "learning python and autonomous driving"
     elif course == "Berkeley":
         return "Berkeley"
+    elif course == "F1_racing":
+        return "F1_racing"
     else:
         raise ValueError(f"Unknown course: {course}. Please provide a valid course name.")
 

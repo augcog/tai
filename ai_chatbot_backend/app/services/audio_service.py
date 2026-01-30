@@ -1,21 +1,23 @@
-# this file contain functions to convert input audio data to text using vllm whisper engine
-from faster_whisper import WhisperModel
-from faster_whisper.transcribe import Segment
+# This file contains functions to convert input audio data to text using vLLM Whisper server
+from openai import OpenAI, AsyncOpenAI
 import io
 import soundfile as sf
-from app.core.models.chat_completion import *
+from app.core.models.chat_completion import VoiceMessage, sse, AudioTranscript, Done
+from app.config import settings
 from typing import Union, AsyncIterator
 import numpy as np
 
 
 def audio_to_text(
         audio_message: VoiceMessage,
-        engine: WhisperModel,
+        client: OpenAI,
         stream: bool = False,
         sample_rate: int = 24000
-) -> Union[str, Segment]:
+) -> str:
     """
-    Convert audio message to text using Whisper model.
+    Convert audio message to text using vLLM Whisper server via OpenAI API (synchronous).
+
+    Note: vLLM's Whisper implementation currently has a 30-second audio limit.
     """
 
     audio_buffer = io.BytesIO()
@@ -24,19 +26,67 @@ def audio_to_text(
     sf.write(audio_buffer, audio_array, sample_rate, format='WAV')
     # CRITICAL: Seek back to beginning after writing
     audio_buffer.seek(0)
-    segments, _ = engine.transcribe(audio_buffer, beam_size=5)
-    if stream:
-        return segments
-    else:
-        transcription = " ".join(segment.text for segment in segments)
-        return transcription.strip()
+    # Set a filename for the buffer (required by OpenAI API)
+    audio_buffer.name = "audio.wav"
+
+    # Use OpenAI transcription API (non-streaming)
+    transcription = client.audio.transcriptions.create(
+        model=settings.vllm_whisper_model,
+        file=audio_buffer,
+        response_format="text"
+    )
+
+    # Return the full transcription text
+    if hasattr(transcription, 'text'):
+        return transcription.text.strip()
+    return str(transcription).strip()
 
 
-async def audio_stream_parser(segments) -> AsyncIterator[str]:
+async def audio_to_text_streaming(
+        audio_message: VoiceMessage,
+        sample_rate: int = 24000
+) -> AsyncIterator[str]:
     """
-    Parse audio segments into a streaming format.
+    Convert audio message to text using vLLM Whisper server with streaming support.
+
+    Uses AsyncOpenAI client for true streaming transcription.
     """
-    for segment in segments:
-        yield sse(AudioTranscript(text=segment.text))
+    # Create async client
+    async_client = AsyncOpenAI(
+        base_url=settings.vllm_whisper_url,
+        api_key=settings.vllm_api_key
+    )
+
+    audio_buffer = io.BytesIO()
+    audio_array = np.array(audio_message.content, dtype=np.float32)
+    sf.write(audio_buffer, audio_array, sample_rate, format='WAV')
+    audio_buffer.seek(0)
+    audio_buffer.name = "audio.wav"
+
+    # Use streaming transcription
+    transcription_stream = await async_client.audio.transcriptions.create(
+        model=settings.vllm_whisper_model,
+        file=audio_buffer,
+        stream=True
+    )
+
+    # Stream the transcription chunks
+    async for chunk in transcription_stream:
+        if chunk.choices:
+            delta = chunk.choices[0].get("delta", {})
+            content = delta.get("content")
+            if content:
+                yield content
+
+
+async def audio_stream_parser(audio_message: VoiceMessage, sample_rate: int = 24000) -> AsyncIterator[str]:
+    """
+    Parse audio into streaming transcription format for SSE response.
+    """
+    accumulated_text = ""
+    async for chunk in audio_to_text_streaming(audio_message, sample_rate):
+        accumulated_text += chunk
+        yield sse(AudioTranscript(text=chunk))
+
     yield sse(Done())
     yield "data: [DONE]\n\n"

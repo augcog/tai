@@ -4,31 +4,12 @@ import json
 from dataclasses import dataclass, asdict, field
 from typing import Any, List, Optional
 # Third-party libraries
-from vllm import SamplingParams
-from vllm.sampling_params import GuidedDecodingParams
+from openai import OpenAI, AsyncOpenAI
 # Local libraries
 from app.core.models.chat_completion import Message
+from app.config import settings
 import re
 
-def extract_channels(text: str) -> dict:
-    if "</think>" in text:
-        parts = text.split("</think>", 1)
-        return {
-            "analysis": parts[0].strip(),
-            "final": parts[1].strip()
-        }
-
-    incomplete_patterns = ["</think", "</", "<"]
-    cleaned_text = text
-    for pattern in incomplete_patterns:
-        if text.endswith(pattern):
-            cleaned_text = text[:-len(pattern)]
-            break
-
-    return {
-        "analysis": cleaned_text.strip(),
-        "final": ""
-    }
 
 # Environment variables
 MEMORY_SYNOPSIS_JSON_SCHEMA = {
@@ -47,10 +28,6 @@ MEMORY_SYNOPSIS_JSON_SCHEMA = {
                  "artifacts", "open_questions", "action_items", "decisions"],
     "additionalProperties": False
 }
-GUIDED = GuidedDecodingParams(json=MEMORY_SYNOPSIS_JSON_SCHEMA)
-SAMPLING_JSON = SamplingParams(
-    temperature=0.0, top_p=1.0, max_tokens=800, guided_decoding=GUIDED, skip_special_tokens=False
-)
 
 
 @dataclass
@@ -64,7 +41,7 @@ class MemorySynopsis:
     key_entities: List[str] = field(default_factory=list)       # People, products, datasets, repos, courses…
     artifacts: List[str] = field(default_factory=list)          # Files, URLs, IDs, paths mentioned
     open_questions: List[str] = field(default_factory=list)     # Unresolved questions the user asked
-    action_items: List[str] = field(default_factory=list)       # TODOs, “next steps”
+    action_items: List[str] = field(default_factory=list)       # TODOs, "next steps"
     decisions: List[str] = field(default_factory=list)          # Agreed choices so far
 
     def to_json(self) -> str:
@@ -78,7 +55,6 @@ class MemorySynopsis:
 
 async def build_memory_synopsis(
         messages: List[Message],
-        tokenizer: Any,
         engine: Any,
         prev_synopsis: Optional[MemorySynopsis] = None,
         chat_history_sid: Optional[str] = None,
@@ -101,9 +77,9 @@ async def build_memory_synopsis(
             prev_synopsis = None  # Continue without previous memory
 
     transcript = _render_transcript(messages)
-    cur = await _llm_synopsis_from_transcript(engine, tokenizer, transcript, max_prompt_tokens=max_prompt_tokens)
+    cur = await _llm_synopsis_from_transcript(engine, transcript, max_prompt_tokens=max_prompt_tokens)
     if prev_synopsis:
-        cur = await _llm_merge_synopses(engine, tokenizer, prev_synopsis, cur)
+        cur = await _llm_merge_synopses(engine, prev_synopsis, cur)
 
     # tighten fields (keep stable, short)
     cur.focus = _truncate_sentence(cur.focus, 180)
@@ -151,32 +127,44 @@ Return ONLY JSON.
 
 async def _llm_synopsis_from_transcript(
         engine: Any,
-        tokenizer: Any,
         transcript: str,
         max_prompt_tokens: int = 3500,
 ) -> MemorySynopsis:
     """
-    Use local engine to compress the transcript into MemorySynopsis JSON.
+    Use vLLM server to compress the transcript into MemorySynopsis JSON.
     """
+    # Check if engine is OpenAI client
+    if not isinstance(engine, (OpenAI, AsyncOpenAI)):
+        # Fallback for non-OpenAI engines
+        return MemorySynopsis()
+
+    # Truncate transcript if needed (rough estimate: 1 token ~= 4 chars)
+    max_chars = max_prompt_tokens * 4
+    if len(transcript) > max_chars:
+        transcript = transcript[-max_chars:]
+
     # Prepare the system and user messages for the LLM
     sys_msg = {"role": "system", "content": _LLM_SYSTEM}
     usr = {
         "role": "user",
-        "content": _LLM_USER_TEMPLATE.format(
-            transcript=_truncate_to_tokens(tokenizer, transcript, max_prompt_tokens)
-        )
+        "content": _LLM_USER_TEMPLATE.format(transcript=transcript)
     }
     chat = [sys_msg, usr]
-    prompt = tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
-    # Generate the synopsis using the engine
-    text = ""
-    async for chunk in engine.generate(
-            prompt=prompt,
-            sampling_params=SAMPLING_JSON,
-            request_id=str(time.time_ns())
-    ):
-        text = chunk.outputs[0].text
-    text = extract_channels(text).get('final', "{}")
+
+    # Generate the synopsis using the OpenAI API with JSON mode
+    response = await engine.chat.completions.create(
+        model=settings.vllm_chat_model,
+        messages=chat,
+        temperature=0.0,
+        top_p=1.0,
+        max_tokens=800,
+        response_format={"type": "json_object"},
+        extra_body={"guided_json": MEMORY_SYNOPSIS_JSON_SCHEMA}
+    )
+
+    # vLLM with --reasoning-parser separates reasoning_content from content
+    # Use content directly (final response without thinking)
+    text = response.choices[0].message.content or "{}"
     print('Generated MemorySynopsis JSON:', text)
     try:
         data = json.loads(text.strip())
@@ -197,30 +185,6 @@ def _render_transcript(messages: List[Message], max_chars: int = 12000) -> str:
         lines.append(f"{role.capitalize()}: {content}")
     text = "\n".join(lines)
     return text if len(text) <= max_chars else text[-max_chars:]
-
-
-def _safe_token_len(tokenizer: Any, text: str) -> int:
-    """
-    Safely estimate the number of tokens in a text using the tokenizer.
-    """
-    return len(tokenizer.encode(text, add_special_tokens=False))
-
-
-def _truncate_to_tokens(tokenizer: Any, text: str, max_tokens: int) -> str:
-    """
-    Truncate text to fit within the max_tokens limit using binary search.
-    """
-    if _safe_token_len(tokenizer, text) <= max_tokens:
-        return text
-    # binary chop by characters (fast & simple)
-    lo, hi = 0, len(text)
-    while lo < hi:
-        mid = (lo + hi) // 2
-        if _safe_token_len(tokenizer, text[:mid]) <= max_tokens:
-            lo = mid + 1
-        else:
-            hi = mid
-    return text[:max(0, lo - 1)]
 
 
 def _truncate_sentence(s: str, max_chars: int) -> str:
@@ -254,25 +218,36 @@ Produce the single best merged synopsis following the rules. Return ONLY JSON.
 
 async def _llm_merge_synopses(
     engine: Any,
-    tokenizer: Any,
     old: MemorySynopsis,
     new: MemorySynopsis,
 ) -> MemorySynopsis:
+    # Check if engine is OpenAI client
+    if not isinstance(engine, (OpenAI, AsyncOpenAI)):
+        # Fallback: just return new synopsis
+        return new
+
     old_json = MemorySynopsis(**asdict(old)).to_json()
     new_json = MemorySynopsis(**asdict(new)).to_json()
+
     # Prepare the system and user messages for the LLM
     sys_msg = {"role": "system", "content": _LLM_MERGE_SYSTEM}
     usr_msg = {"role": "user", "content": _LLM_MERGE_USER_TEMPLATE.format(old_json=old_json, new_json=new_json)}
-    prompt = tokenizer.apply_chat_template([sys_msg, usr_msg], tokenize=False, add_generation_prompt=True)
-    # Generate the merged synopsis using the engine
-    text = ""
-    async for chunk in engine.generate(
-            prompt=prompt,
-            sampling_params=SAMPLING_JSON,
-            request_id=str(time.time_ns())
-    ):
-        text = chunk.outputs[0].text
-    text = extract_channels(text).get('final', "{}")
+    chat = [sys_msg, usr_msg]
+
+    # Generate the merged synopsis using the OpenAI API
+    response = await engine.chat.completions.create(
+        model=settings.vllm_chat_model,
+        messages=chat,
+        temperature=0.0,
+        top_p=1.0,
+        max_tokens=800,
+        response_format={"type": "json_object"},
+        extra_body={"guided_json": MEMORY_SYNOPSIS_JSON_SCHEMA}
+    )
+
+    # vLLM with --reasoning-parser separates reasoning_content from content
+    # Use content directly (final response without thinking)
+    text = response.choices[0].message.content or "{}"
     # try to parse JSON, if fails return empty MemorySynopsis
     try:
         data = json.loads(text.strip())
@@ -280,4 +255,3 @@ async def _llm_merge_synopses(
         print('Failed to parse merged MemorySynopsis JSON:', text)
         return MemorySynopsis()
     return MemorySynopsis(**data)
-

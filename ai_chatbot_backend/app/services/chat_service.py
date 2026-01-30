@@ -8,168 +8,160 @@ import soundfile as sf
 import numpy as np
 from pathlib import Path
 from openai import OpenAI
-from app.services.rag_postprocess import extract_channels
+from app.config import settings
 
-def extract_channels_oss(text: str) -> dict:
-    # 1) Remove the special marker wherever it appears
-    cleaned = re.sub(r"<\|start\|\>assistant\s*", "", text)
-
-    # 2) Capture channel/message pairs; message ends at next channel, <|end|>, or end-of-text
-    pattern = re.compile(
-        r"<\|channel\|\>(?P<channel>[A-Za-z0-9_]+)\s*"
-        r"<\|message\|\>(?P<message>.*?)(?=(?:<\|channel\|\>|<\|end\|\>|\Z))",
-        re.DOTALL
-    )
-
-    result = {}
-    for m in pattern.finditer(cleaned):
-        ch = m.group("channel").strip()
-        msg = m.group("message").strip()
-        result[ch] = msg  # if duplicate channels appear, the last one wins
-    return result
 
 async def chat_stream_parser(
-        stream: AsyncIterator, reference_list: List[str], audio: bool = False, messages: List[Message]= None,audio_text: str=None, engine: Any = None, old_sid: str = "", course_code: str = None, debug: bool = False
+        stream: AsyncIterator,
+        reference_list: List[str],
+        audio: bool = False,
+        messages: List[Message] = None,
+        audio_text: str = None,
+        engine: Any = None,
+        old_sid: str = "",
+        course_code: str = None,
+        debug: bool = False
 ) -> AsyncIterator[str]:
     """
-    Parse the streaming response from the chat model and yield deltas.
+    Parse the streaming response from the vLLM chat model with reasoning support.
+
+    Handles vLLM's OpenAI-compatible streaming format where:
+    - delta.reasoning_content: Contains reasoning/thinking content (analysis channel)
+    - delta.content: Contains final response content (final channel)
+
+    The vLLM server with --reasoning-parser qwen3 flag separates these automatically.
     """
     if audio_text:
         yield sse(AudioTranscript(text=audio_text))
-    previous_channels = {}
-    previous_index = -2
+
+    # Accumulated content for each channel
+    accumulated_analysis = ""
+    accumulated_final = ""
+
+    # Tracking for delta calculation and SSE sequencing
     text_seq = 0
-    voice_seq=0
+    voice_seq = 0
+    previous_index = -2
     audio_messages = []
+
+    # Guard against streaming partial reference patterns
     PARTIAL_TAIL_GUARD = re.compile(r"""
     (?ix)
-    (?:                                     # 只要还没到“完整终止”的形态，都算未完成；匹配到结尾
+    (?:                                     # Match incomplete reference patterns at end
         \[\s*ref(?:erence)?\s*:?\s*         # [Reference: / [Ref / [reference
-        (?:\d+(?:\s*(?:,|\band\b|&)\s*\d+)*)?   # 可有部分数字序列
-        \s*(?:,|\band\b|&)?                 # 允许以分隔符结尾（说明还没写完下一个数字）
+        (?:\d+(?:\s*(?:,|\band\b|&)\s*\d+)*)?   # Optional partial number sequence
+        \s*(?:,|\band\b|&)?                 # Allow trailing separator
         \s*\Z
       |
-        (?<![A-Za-z])(?:references?|ref)\s* # 行文式开头：reference / references / ref
+        (?<![A-Za-z])(?:references?|ref)\s* # Prose style: reference / references / ref
         (?:\d+(?:\s*(?:,|\band\b|&)\s*\d+)*)?
-        \s*(?:,|\band\b|&)?                 # 允许以分隔符结尾
+        \s*(?:,|\band\b|&)?
         \s*\Z
       |
-        \[\s*\Z                              # 只有一个 '[' 到结尾
+        \[\s*\Z                              # Just '[' at end
     )
     """, re.VERBOSE)
-    async for output in stream:
-        text = output.outputs[0].text
-        channels= extract_channels(text)
-        # print(channels)
-        if not channels:
-            continue
-        chunks= {c: channels[c][len(previous_channels.get(c,"")):] for c in channels if channels[c] != previous_channels.get(c,"")}
-        if not chunks:
-            continue
-        continue_flag = False
-        for channel in chunks:
-            chunk = chunks[channel]
-            if not chunk.strip():
-                continue
-            if PARTIAL_TAIL_GUARD.search(channels[channel][-100:]):
-                # if PARTIAL_TAIL_GUARD.search(channels[channel][-50:]):
-                #     print("[DEBUG] Skipping partial reference chunk:" + repr(channels[channel][-50:]))
-                continue_flag = True
-                break
-            yield sse(ResponseDelta(seq=text_seq, text_channel=channel, text=chunk)); text_seq += 1
-            print(chunk, end="")
-        if continue_flag:
-            continue
-        previous_channels = channels
-        if audio and 'final' in channels:
-            last_newline_index = channels['final'].rfind('. ')
-            if last_newline_index >previous_index+2:
-                audio_text = channels['final'][previous_index + 2:last_newline_index+2]
-                previous_index = last_newline_index
-                #replace all the consecutive \n with space no matter how many \n
-                # audio_text = re.sub(r'\n+', ' ', audio_text)
-                if audio_text.strip()== "":
-                    continue
-                messages_to_send= audio_text.split('. ')
-                for msg in messages_to_send:
-                    if msg.strip():
-                        audio_messages.append({"role": "user", "content": msg + '. '})
-                        print("\n[INFO] Audio text:")
-                        print(msg + '. ')
-                        speaker_name = get_speaker_name(course_code)
-                        audio_iterator = audio_generator(audio_messages, stream=True, speaker_name=speaker_name)
-                        audio_bytes_io = io.BytesIO()
-                        async for data in audio_iterator:
-                            yield sse(ResponseDelta(seq=voice_seq, audio_b64=data, audio_spec=AudioSpec())); voice_seq += 1
-                            audio_bytes = base64.b64decode(data)
-                            audio_bytes_io.write(audio_bytes)
-                        audio_data = np.frombuffer(audio_bytes_io.getvalue(), dtype=np.int16)
-                        audio2_base64 = convert_audio_to_base64(audio_data, 24000, target_format="wav")
-                        audio_messages.append({
-                            "role": "assistant",
-                            "content": [
-                                {
-                                    "type": "input_audio",
-                                    "input_audio": {
-                                        "data": audio2_base64,
-                                        "format": "wav",
-                                    },
-                                }
-                            ],
-                        })
-    else:
-        chunks = {c: channels[c][len(previous_channels.get(c, "")):] for c in channels if
-                  channels[c] != previous_channels.get(c, "")}
-        for channel in chunks:
-            chunk = chunks[channel]
-            if not chunk.strip():
-                continue
-            yield sse(ResponseDelta(seq=text_seq, text_channel=channel, text=chunk));
-            text_seq += 1
-            print(chunk, end="")
-        if audio and 'final' in channels:
-            audio_text = channels['final'][previous_index + 2:]
-            # replace all the consecutive \n with space no matter how many \n
-            # yield sse(ResponseDelta(seq=text_seq, text=audio_text)); text_seq += 1
-            if audio_text.strip():
-                messages_to_send = audio_text.split('. ')
-                for msg in messages_to_send:
-                    if msg.strip():
-                        audio_messages.append({"role": "user", "content": msg + '. '})
-                        print("\n[INFO] Audio text:")
-                        print(msg + '. ')
-                        speaker_name= get_speaker_name(course_code)
-                        audio_iterator = audio_generator(audio_messages, stream=True, speaker_name=speaker_name)
-                        audio_bytes_io = io.BytesIO()
-                        async for data in audio_iterator:
-                            yield sse(ResponseDelta(seq=voice_seq, audio_b64=data, audio_spec=AudioSpec(),speaker_name=speaker_name));
-                            voice_seq += 1
-                            audio_bytes = base64.b64decode(data)
-                            audio_bytes_io.write(audio_bytes)
-                        audio_data = np.frombuffer(audio_bytes_io.getvalue(), dtype=np.int16)
-                        audio2_base64 = convert_audio_to_base64(audio_data, 24000, target_format="wav")
-                        audio_messages.append({
-                            "role": "assistant",
-                            "content": [
-                                {
-                                    "type": "input_audio",
-                                    "input_audio": {
-                                        "data": audio2_base64,
-                                        "format": "wav",
-                                    },
-                                }
-                            ],
-                        })
 
-    # # convert token ids to text
-    # print("\n[INFO] Full response text:")
-    # from transformers import AutoTokenizer
-    # TOKENIZER_MODEL_ID = "openai/gpt-oss-20b"
-    # TOKENIZER = AutoTokenizer.from_pretrained(TOKENIZER_MODEL_ID)
-    # full_response_text = TOKENIZER.decode(token, skip_special_tokens=False)
-    # print(full_response_text)
+    async for chunk in stream:
+        if not chunk.choices:
+            continue
 
+        delta = chunk.choices[0].delta
 
+        # Extract reasoning_content and content using getattr for safety
+        # vLLM may use 'reasoning_content' or 'reasoning' depending on version
+        reasoning = getattr(delta, "reasoning_content", None) or getattr(delta, "reasoning", None)
+        content = getattr(delta, "content", None)
+
+        # Process reasoning content (analysis channel)
+        if reasoning:
+            accumulated_analysis += reasoning
+            # Check for partial reference patterns before yielding
+            if not PARTIAL_TAIL_GUARD.search(accumulated_analysis[-100:]):
+                yield sse(ResponseDelta(seq=text_seq, text_channel="analysis", text=reasoning))
+                text_seq += 1
+                if debug:
+                    print(f"[analysis] {reasoning}", end="")
+
+        # Process final content
+        if content:
+            accumulated_final += content
+            # Check for partial reference patterns before yielding
+            if not PARTIAL_TAIL_GUARD.search(accumulated_final[-100:]):
+                yield sse(ResponseDelta(seq=text_seq, text_channel="final", text=content))
+                text_seq += 1
+                if debug:
+                    print(f"[final] {content}", end="")
+
+                # Handle audio TTS for final channel if enabled
+                if audio:
+                    last_sentence_end = accumulated_final.rfind('. ')
+                    if last_sentence_end > previous_index + 2:
+                        audio_text_chunk = accumulated_final[previous_index + 2:last_sentence_end + 2]
+                        previous_index = last_sentence_end
+
+                        if audio_text_chunk.strip():
+                            messages_to_send = audio_text_chunk.split('. ')
+                            for msg in messages_to_send:
+                                if msg.strip():
+                                    audio_messages.append({"role": "user", "content": msg + '. '})
+                                    print(f"\n[INFO] Audio text: {msg}. ")
+                                    speaker_name = get_speaker_name(course_code)
+                                    audio_iterator = audio_generator(audio_messages, stream=True, speaker_name=speaker_name)
+                                    audio_bytes_io = io.BytesIO()
+                                    async for data in audio_iterator:
+                                        yield sse(ResponseDelta(seq=voice_seq, audio_b64=data, audio_spec=AudioSpec()))
+                                        voice_seq += 1
+                                        audio_bytes = base64.b64decode(data)
+                                        audio_bytes_io.write(audio_bytes)
+                                    audio_data = np.frombuffer(audio_bytes_io.getvalue(), dtype=np.int16)
+                                    audio2_base64 = convert_audio_to_base64(audio_data, 24000, target_format="wav")
+                                    audio_messages.append({
+                                        "role": "assistant",
+                                        "content": [
+                                            {
+                                                "type": "input_audio",
+                                                "input_audio": {
+                                                    "data": audio2_base64,
+                                                    "format": "wav",
+                                                },
+                                            }
+                                        ],
+                                    })
+
+    # Handle any remaining audio at end of stream
+    if audio and accumulated_final:
+        remaining_audio = accumulated_final[previous_index + 2:]
+        if remaining_audio.strip():
+            messages_to_send = remaining_audio.split('. ')
+            for msg in messages_to_send:
+                if msg.strip():
+                    audio_messages.append({"role": "user", "content": msg + '. '})
+                    print(f"\n[INFO] Audio text: {msg}. ")
+                    speaker_name = get_speaker_name(course_code)
+                    audio_iterator = audio_generator(audio_messages, stream=True, speaker_name=speaker_name)
+                    audio_bytes_io = io.BytesIO()
+                    async for data in audio_iterator:
+                        yield sse(ResponseDelta(seq=voice_seq, audio_b64=data, audio_spec=AudioSpec(), speaker_name=speaker_name))
+                        voice_seq += 1
+                        audio_bytes = base64.b64decode(data)
+                        audio_bytes_io.write(audio_bytes)
+                    audio_data = np.frombuffer(audio_bytes_io.getvalue(), dtype=np.int16)
+                    audio2_base64 = convert_audio_to_base64(audio_data, 24000, target_format="wav")
+                    audio_messages.append({
+                        "role": "assistant",
+                        "content": [
+                            {
+                                "type": "input_audio",
+                                "input_audio": {
+                                    "data": audio2_base64,
+                                    "format": "wav",
+                                },
+                            }
+                        ],
+                    })
+
+    # Extract and yield references from the final content
     pattern = re.compile(
         r'(?:\[Reference:\s*([\d,\s]+)\]'
         r'|\breference\s+(\d+(?:(?:\s*,\s*|\s*(?:and|&)\s*)\d+)*))',
@@ -178,15 +170,16 @@ async def chat_stream_parser(
 
     mentioned_references = {
         int(n)
-        for m in pattern.finditer(channels['final'])
+        for m in pattern.finditer(accumulated_final)
         for n in re.findall(r'\d+', m.group(1) or m.group(2))
     }
     print(f"\n[INFO] Mentioned references: {mentioned_references}")
+
     references = []
     max_idx = len(reference_list)
     for i in sorted(mentioned_references):
         if 1 <= i <= max_idx:
-            info_path, url, file_path, file_uuid,chunk_index = reference_list[i - 1]
+            info_path, url, file_path, file_uuid, chunk_index = reference_list[i - 1]
             references.append(Reference(
                 reference_idx=i,
                 info_path=info_path,
@@ -201,12 +194,13 @@ async def chat_stream_parser(
     yield sse(Done())
     yield "data: [DONE]\n\n"  # Final done message for SSE clients
 
+
 def encode_base64_content_from_file(file_path: str) -> str:
     """Encode a content from a local file to base64 format."""
-    # Read the MP3 file as binary and encode it directly to Base64
     with open(file_path, "rb") as audio_file:
         audio_base64 = base64.b64encode(audio_file.read()).decode("utf-8")
     return audio_base64
+
 
 def convert_audio_to_base64(audio: np.ndarray,
                             sampling_rate: int,
@@ -215,14 +209,15 @@ def convert_audio_to_base64(audio: np.ndarray,
     sf.write(audio_buffer, audio, sampling_rate, format=target_format)
     return base64.b64encode(audio_buffer.getvalue()).decode('utf-8')
 
+
 def format_audio_text_message(audio_text: str) -> List[Dict]:
     """
     Format the audio text message into the expected structure for the chat model.
     """
-    # remove all the [] in text
-    audio_text = re.sub(r'\[.*?\]', '', audio_text).replace('\n',' ').strip()
+    audio_text = re.sub(r'\[.*?\]', '', audio_text).replace('\n', ' ').strip()
     print(f"[INFO] Audio text after cleaning: {audio_text}")
     return [{"role": "user", "content": audio_text}]
+
 
 def get_speaker_name(course_code: str) -> str:
     if course_code == "CS 61A":
@@ -232,16 +227,18 @@ def get_speaker_name(course_code: str) -> str:
     else:
         return "Professor Allen Yang"  # Default speaker name
 
+
 async def audio_generator(messages: List[Dict], stream: bool = True, speaker_name: str = None
 ) -> AsyncIterator[str]:
     """
     Parse the streaming response from the audio model and yield deltas.
+    Uses vLLM TTS server configured via VLLM_TTS_URL environment variable.
     """
     # Dynamic path based on current file location
     _current_file = Path(__file__).resolve()
     _backend_root = _current_file.parent.parent.parent  # Navigate up to ai_chatbot_backend/
     data_dir = str(_backend_root / 'voice_prompts')
-    
+
     # Select voice prompt based on course_code
     if speaker_name == "Professor John DeNero":
         audio_file = "trees_54_original.wav"
@@ -252,7 +249,7 @@ async def audio_generator(messages: List[Dict], stream: bool = True, speaker_nam
     else:
         audio_file = "Allen_yang_voice_original.wav"
         text_file = "Allen_yang_voice.txt"
-    
+
     audio_path = os.path.join(data_dir, audio_file)
     audio_text_path = os.path.join(data_dir, text_file)
     with open(audio_text_path, "r") as f:
@@ -275,12 +272,16 @@ async def audio_generator(messages: List[Dict], stream: bool = True, speaker_nam
         }
     ]
     messages = messages_add_to_begining + messages
-    audio_bytes_io = io.BytesIO()
-    #if len(messages) > 3:
-    #    messages = messages[:2] + messages[-1:]
-    client = OpenAI(base_url='http://128.32.43.216:8000/v1',api_key='EMPTY')
-    models = client.models.list()
-    model = models.data[0].id
+    if len(messages) > 3:
+        messages = messages[:2] + messages[-1:]
+    # Use TTS server URL from configuration instead of hardcoded values
+    client = OpenAI(base_url=settings.vllm_tts_url, api_key=settings.vllm_api_key)
+    # Use configured model or auto-detect from server
+    if settings.vllm_tts_model:
+        model = settings.vllm_tts_model
+    else:
+        models = client.models.list()
+        model = models.data[0].id
     chat_completion = client.chat.completions.create(
         messages=messages,
         model=model,
@@ -296,6 +297,7 @@ async def audio_generator(messages: List[Dict], stream: bool = True, speaker_nam
         if chunk.choices and hasattr(chunk.choices[0].delta, "audio") and chunk.choices[0].delta.audio:
             yield chunk.choices[0].delta.audio["data"]
 
+
 async def tts_parsor(
         stream: AsyncIterator
 ) -> AsyncIterator[str]:
@@ -304,7 +306,8 @@ async def tts_parsor(
     """
     seq = 0
     async for data in stream:
-        yield sse(ResponseDelta(seq=seq, audio_b64=data, audio_spec=AudioSpec())); seq += 1
+        yield sse(ResponseDelta(seq=seq, audio_b64=data, audio_spec=AudioSpec()))
+        seq += 1
 
     yield sse(Done())
     yield "data: [DONE]\n\n"  # Final done message for SSE clients

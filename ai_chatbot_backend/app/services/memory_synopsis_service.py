@@ -62,8 +62,7 @@ class MemorySynopsisService:
         self,
         chat_history_sid: str,
         messages: List[Message],
-        engine: Any,
-        tokenizer: Any
+        engine: Any
     ) -> Optional[str]:
         """
         Create or update memory synopsis for a chat history.
@@ -71,8 +70,7 @@ class MemorySynopsisService:
         Args:
             chat_history_sid: The SID of the chat history from frontend
             messages: List of chat messages
-            engine: LLM engine for memory generation
-            tokenizer: Tokenizer for prompt processing
+            engine: LLM engine (OpenAI client) for memory generation
 
         Returns:
             memory_synopsis_sid if successful, None if failed
@@ -82,7 +80,6 @@ class MemorySynopsisService:
             # This will automatically retrieve previous memory from MongoDB
             new_memory = await build_memory_synopsis(
                 messages=messages,
-                tokenizer=tokenizer,
                 engine=engine,
                 chat_history_sid=chat_history_sid  # This triggers MongoDB lookup inside function
             )

@@ -36,6 +36,20 @@ async def generate_chat_response(
 ) -> Tuple[Any, List[str | Any]]:
     """
     Build an augmented message with references and run LLM inference.
+
+    Args:
+        messages: List of chat messages
+        user_focus: Optional user focus (can contain file_uuid or module_path)
+        answer_content: Optional answer content for practice mode
+        problem_content: Optional problem content for practice mode
+        stream: Whether to stream the response
+        course: Course code
+        threshold: Similarity threshold for filtering results
+        top_k: Number of top results to return
+        engine: LLM engine
+        audio_response: Whether this is for audio response
+        sid: Session ID for memory retrieval
+
     Returns a tuple: (stream, reference_string)
     """
     # Build the query message based on the chat history
@@ -52,19 +66,24 @@ async def generate_chat_response(
     file_uuid = None
     selected_text = None
     index = None
+    module_path = None
 
     if user_focus:
         file_uuid = user_focus.file_uuid
         selected_text = user_focus.selected_text
         index = user_focus.chunk_index
+        module_path = user_focus.module_path
 
     if file_uuid:
+        # File-based chat: augment context with file content
+        # RAG scope is restricted to module if module_path provided, otherwise entire course
         augmented_context, file_content, filechat_focused_chunk, filechat_file_sections = build_file_augmented_context(
             file_uuid, selected_text, index)
         messages[-1].content = (
             f"{augmented_context}"
             f"Below are the relevant references for answering the user:\n\n"
         )
+        module_path_for_rag = module_path  # None means course-wide; module_path restricts scope
 
     # Graceful memory retrieval from MongoDB
     previous_memory = None
@@ -93,7 +112,9 @@ async def generate_chat_response(
         problem_content = problem_content,
         answer_content = answer_content,
         query_message=query_message,
-        audio_response=audio_response
+        audio_response=audio_response,
+        module_path=module_path_for_rag,
+        file_uuid=None  # Currently no file scope for RAG
     )
     # Update the last message with the modified content
     messages[-1].content += modified_message

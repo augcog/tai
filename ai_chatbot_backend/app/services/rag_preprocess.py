@@ -85,13 +85,31 @@ def build_augmented_prompt(
         reference_list: List[Dict] = None,
         problem_content: Optional[str] = None,
         answer_content: Optional[str] = None,
-        audio_response: bool = False
+        audio_response: bool = False,
+        module_path: Optional[str] = None,
+        file_uuid: Optional[UUID] = None
 ) -> Tuple[str, List[Dict], str]:
     """
     Build an augmented prompt by retrieving reference documents.
+
+    Args:
+        user_message: The user's message
+        course: Course code
+        threshold: Similarity threshold for filtering results
+        rag: Whether to use RAG
+        top_k: Number of top results to return
+        query_message: Optional reformulated query
+        reference_list: Existing reference list
+        problem_content: Optional problem content for practice mode
+        answer_content: Optional answer content for practice mode
+        audio_response: Whether this is for audio response
+        module_path: Optional module path to restrict search
+        file_uuid: Optional file UUID to restrict search
+
     Returns:
       - modified_message: the augmented instruction prompt.
       - reference_list: list of reference URLs for JSON output.
+      - system_add_message: system message to add to the prompt
     """
     # Practice mode has its own message format
     if answer_content and problem_content:
@@ -101,7 +119,12 @@ def build_augmented_prompt(
             f"Instruction: {user_message}"
         )
     # Print parameter information
-    print('\n Course: \n', course, '\n')
+    scope_info = f"Course: {course}"
+    if file_uuid:
+        scope_info += f", File: {file_uuid}"
+    elif module_path:
+        scope_info += f", Module: {module_path}"
+    print(f'\n{scope_info}\n')
     print("\nUser Question: \n", user_message, "\n")
     print('time of the day:', time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()), '\n')
     # No need to retrieve documents if rag is False
@@ -110,11 +133,14 @@ def build_augmented_prompt(
     # If query_message is not provided, use user_message
     if not query_message:
         query_message = user_message
-    # Retrieve reference documents based on the query
+    # Retrieve reference documents based on the query (with optional scope restrictions)
     (
         top_chunk_uuids, top_docs, top_urls, similarity_scores, top_files, top_refs, top_titles,
         top_file_uuids, top_chunk_idxs
-    ), class_name = get_reference_documents(query_message, course, top_k=top_k)
+    ), class_name = get_reference_documents(
+        query_message, course, top_k=top_k,
+        module_path=module_path, file_uuid=file_uuid
+    )
     # Prepare the insert document and reference list
     insert_document = ""
     reference_list = reference_list or []

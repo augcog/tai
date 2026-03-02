@@ -68,6 +68,7 @@ class UserFocus(BaseModel):
     file_uuid: UUID
     selected_text: str = None
     chunk_index: float = None
+    module_path: str = None  # Optional: restrict RAG scope to this module
 
 class GeneralCompletionParams(BaseModel):
     """

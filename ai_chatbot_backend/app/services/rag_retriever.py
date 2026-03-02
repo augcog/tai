@@ -16,6 +16,7 @@ from openai import OpenAI
 # Local libraries; import and initialize the embedding client from app dependencies.
 from app.dependencies.model import get_embedding_engine
 from app.config import settings
+from app.utils.path_validation import is_valid_module_path
 
 # Initialize embedding client (lazy loading)
 _embedding_client: Optional[OpenAI] = None
@@ -60,10 +61,21 @@ _course_lock = threading.Lock()
 
 
 def get_reference_documents(
-    query: str, course: str, top_k: int
+    query: str,
+    course: str,
+    top_k: int,
+    module_path: Optional[str] = None,
+    file_uuid: Optional[UUID] = None
 ) -> Tuple[Tuple[List[str], List[str], List[str], List[float], List[str], List[str], List[str]], str]:
     """
     Retrieve top reference documents based on the query embedding and choice of DB-type.
+
+    Args:
+        query: Search query
+        course: Course code
+        top_k: Number of top results to return
+        module_path: Optional module path to restrict search (e.g., "practice/labs/lab01")
+        file_uuid: Optional file UUID to restrict search to a specific file
     """
     class_name = _get_pickle_and_class(course)
     t0 = time.time()
@@ -71,7 +83,10 @@ def get_reference_documents(
     print(f"[INFO] Embedding time: {time.time() - t0:.2f} seconds")
     t1 = time.time()
     if SQLDB:
-        output = _get_references_from_sql(query_embed, course, top_k=top_k)
+        output = _get_references_from_sql(
+            query_embed, course, top_k=top_k,
+            module_path=module_path, file_uuid=file_uuid
+        )
     print(f"[INFO] Retrieval time: {time.time() - t1:.2f} seconds")
     return output, class_name
 
@@ -123,17 +138,28 @@ def get_file_related_documents(
     return _get_references_from_sql(query_embed, course, top_k)
 
 def _get_references_from_sql(
-    query_embed: Dict[str, Any], course: str, top_k: int
+    query_embed: Dict[str, Any],
+    course: str,
+    top_k: int,
+    module_path: Optional[str] = None,
+    file_uuid: Optional[UUID] = None
 ) -> Tuple[List[str], List[str], List[str], List[float], List[str], List[str], List[str], List[str], List[float]]:
     """
     Retrieve top reference documents from a SQL database.
+
+    Args:
+        query_embed: Query embedding dictionary
+        course: Course code
+        top_k: Number of top results to return
+        module_path: Optional module path to restrict search
+        file_uuid: Optional file UUID to restrict search to a specific file
     """
     # Convert the query embedding to a numpy array
     qv = np.array(query_embed["dense_vecs"], dtype=np.float32).reshape(-1)
     if qv.size == 0:
         return [], [], [], [], [], [], [],[], []
     # Get the course index from the cache or build it if not present or stale
-    idx = _get_course_index(course)
+    idx = _get_course_index(course, module_path=module_path, file_uuid=file_uuid)
     if not idx.get("M") is not None:
         return [], [], [], [], [], [], [],[], []
     # Compute the scores for each document in the index
@@ -155,32 +181,90 @@ def _get_references_from_sql(
     return top_chunk_uuids, top_texts, top_urls, top_scores, top_file_paths, top_reference_paths, top_titles, top_file_uuids, top_chunk_idxs
 
 
-def _get_course_index(course: str):
+def _get_course_index(
+    course: str,
+    module_path: Optional[str] = None,
+    file_uuid: Optional[UUID] = None
+):
     """
-    Get the course index from the cache or build it if not present or stale.
+    Get the course/module/file index from the cache or build it if not present or stale.
+
+    Args:
+        course: Course code
+        module_path: Optional module path to restrict index
+        file_uuid: Optional file UUID to restrict index to a specific file
+
+    Returns:
+        Index dictionary with vectors and metadata
     """
+    # Create a cache key based on scope
+    if file_uuid:
+        cache_key = f"{course}:file:{file_uuid}"
+    elif module_path:
+        cache_key = f"{course}:module:{module_path}"
+    else:
+        cache_key = course
+
     with _course_lock:
-        idx = _course_cache.get(course)
+        idx = _course_cache.get(cache_key)
+
     # check staleness
     with _get_cursor() as cur:
         dv_now = cur.execute("PRAGMA data_version").fetchone()[0]
+
     if idx is None or idx["dv"] != dv_now or idx.get("M") is None:
-        idx = _build_course_index(course)
+        idx = _build_course_index(course, module_path=module_path, file_uuid=file_uuid)
         with _course_lock:
-            _course_cache[course] = idx
+            _course_cache[cache_key] = idx
+
     return idx
 
 
-def _build_course_index(course: str):
+def _build_course_index(
+    course: str,
+    module_path: Optional[str] = None,
+    file_uuid: Optional[UUID] = None
+):
     """
-    Build an index of all chunks in the database for a specific course.
+    Build an index of chunks in the database for a specific scope.
+
+    Args:
+        course: Course code
+        module_path: Optional module path to restrict index (e.g., "practice/labs/lab01")
+        file_uuid: Optional file UUID to restrict index to a specific file
+
+    Raises:
+        ValueError: If module_path is invalid
     """
+    # Validate module_path to prevent path traversal attacks
+    if module_path:
+        if not is_valid_module_path(module_path):
+            raise ValueError(
+                f"Invalid module path: {module_path}. "
+                "Module paths must follow the structure: "
+                "practice/*/<name>, study/<name>, or support/<name>"
+            )
+
     # Prepare connection params to the SQLite database
     where = "WHERE vector IS NOT NULL"
     params = []
+
+    # Filter by course
     if course and course != "general":
         where += " AND course_code = ?"
         params.append(course)
+
+    # Filter by file UUID (most specific)
+    if file_uuid:
+        where += " AND file_uuid = ?"
+        params.append(str(file_uuid))
+    # Filter by module path (if not filtering by file)
+    elif module_path:
+        # Match files that start with the module path
+        # For module "practice/labs/lab01", match "practice/labs/lab01/*"
+        where += " AND file_path LIKE ?"
+        params.append(f"{module_path}/%")
+
     # Use a context manager to get SQL-DB cursor to ensure the connection is closed properly
     with _get_cursor() as cur:
         dv = cur.execute("PRAGMA data_version").fetchone()[0]
@@ -189,6 +273,7 @@ def _build_course_index(course: str):
             FROM chunks
             {where};
         """, params).fetchall()
+
     # Process the rows fetched from the database
     chunk_uuids, file_paths, reference_paths, titles, texts, urls, vectors, file_uuids, chunk_idxs = [], [], [], [], [], [], [], [], []
     dim = None
@@ -209,8 +294,10 @@ def _build_course_index(course: str):
         vectors.append(v.astype(np.float32, copy=False))
         file_uuids.append(r["file_uuid"] or "")
         chunk_idxs.append(r["idx"] if r["idx"] is not None else 0)
+
     if not vectors:
         return {"dv": dv, "M": None}
+
     # Stack the vectors to compute scores later
     document_matrix = np.vstack(vectors)  # shape: [N, D]
     return {

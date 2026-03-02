@@ -88,20 +88,29 @@ async def create_completion(
         print("file_uuid:", params.user_focus.file_uuid)
         print("selected_text:", params.user_focus.selected_text)
         print("chunk_index:", params.user_focus.chunk_index)
+        if params.user_focus.module_path:
+            print("module_path:", params.user_focus.module_path)
     elif isinstance(params, PracticeCompletionParams):
         problem_content = _get_problem_content(params, db)
 
-    response, reference_list = await generate_chat_response(
-        params.messages,
-        user_focus=getattr(params, 'user_focus', None),
-        answer_content=getattr(params, 'answer_content', None),
-        problem_content=problem_content,
-        stream=params.stream,
-        course=params.course_code,
-        engine=llm_engine,
-        audio_response=params.audio_response,
-        sid=sid
-    )
+    try:
+        response, reference_list = await generate_chat_response(
+            params.messages,
+            user_focus=getattr(params, 'user_focus', None),
+            answer_content=getattr(params, 'answer_content', None),
+            problem_content=problem_content,
+            stream=params.stream,
+            course=params.course_code,
+            engine=llm_engine,
+            audio_response=params.audio_response,
+            sid=sid
+        )
+    except ValueError as e:
+        # Invalid module_path provided
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
 
     if params.stream:
         return StreamingResponse(

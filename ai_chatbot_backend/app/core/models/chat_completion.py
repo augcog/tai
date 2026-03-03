@@ -148,7 +148,7 @@ class FileCompletionParams(BaseModel):
     Parameters for file-based chat completions.
     """
     course_code: str
-    audio: VoiceMessage
+    audio: VoiceMessage = None
     messages: List[Message]
     stream: bool
     chat_type: str = "file"  # e.g., "general", "file", "practice"
@@ -156,7 +156,7 @@ class FileCompletionParams(BaseModel):
     audio_response: Optional[bool] = False
     sid: Optional[str] = None  # chat_history_sid from frontend
     user_focus: UserFocus
-    tutor_mode: Optional[bool] = True  # Enable tutor mode (Bloom taxonomy, hints-first)
+    tutor_mode: Optional[bool] = False  # Enable tutor mode (Bloom taxonomy, hints-first)
     json_output: Optional[bool] = True  # Enable JSON output format (derived from tutor_mode if not set)
 
 class PracticeCompletionParams(BaseModel):
@@ -174,7 +174,7 @@ class PracticeCompletionParams(BaseModel):
     answer_content: str
     problem_id: str
     file_path: str
-    tutor_mode: Optional[bool] = True  # Enable tutor mode (Bloom taxonomy, hints-first)
+    tutor_mode: Optional[bool] = False  # Enable tutor mode (Bloom taxonomy, hints-first)
     json_output: Optional[bool] = True  # Enable JSON output format (derived from tutor_mode if not set)
 
 class VoiceTranscriptParams(BaseModel):

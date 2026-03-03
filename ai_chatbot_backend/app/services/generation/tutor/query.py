@@ -42,7 +42,7 @@ async def build_tutor_context(
     # 1. Message formatting (tutor_mode=True for tutor)
     messages = format_chat_msg(
         messages,
-        tutor_mode=True,
+        tutor_mode=False,
         audio_response=audio_response
     )
 
@@ -120,7 +120,7 @@ async def build_tutor_context(
         problem_content=problem_content,
         answer_content=answer_content,
         audio_response=audio_response,
-        tutor_mode=True,
+        tutor_mode=False,
         outline_mode=True,
     )
 

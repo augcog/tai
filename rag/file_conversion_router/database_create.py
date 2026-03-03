@@ -8,9 +8,10 @@ ingest.py  —  YAML ➜ flattened SQLite
 import json, uuid, yaml, sqlite3, pathlib
 from typing import List, Dict, Any
 import os
+from file_conversion_router.config import COURSES_DIR
 
 # ───────────────────────── helpers ────────────────────────────────────────────
-ROOT = pathlib.Path("/home/bot/bot/yk/YK_final/courses/CS 61A")
+ROOT = COURSES_DIR / "CS 61A"
 DB_PATH = ROOT / "metadata.db"
 
 
@@ -58,6 +59,7 @@ with db:
         CREATE TABLE IF NOT EXISTS file (
             uuid       TEXT PRIMARY KEY,
             file_name  TEXT NOT NULL,
+            file_description TEXT DEFAULT '', -- short summary of file content and topics
             url        TEXT,
             sections   TEXT,              -- JSON
             relative_path TEXT DEFAULT '' UNIQUE NOT NULL, -- relative path to the file in the course directory
@@ -112,12 +114,13 @@ def ingest(files: List[Dict[str, Any]]) -> None:
                 continue
         db.execute(
             """
-            INSERT INTO file (uuid, file_name, url, sections, relative_path, course_code, course_name, extra_info)
-            VALUES (?, ?, ?, ?, ?, ?,?,?)
+            INSERT INTO file (uuid, file_name, file_description, url, sections, relative_path, course_code, course_name, extra_info)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 uuid := gen_uuid(),
                 f["file_name"],
+                f.get("file_description", ""),
                 f.get("URL"),
                 jdump(f.get("sections")),
                 f['file_path'],

@@ -1,0 +1,20 @@
+"""
+Text Chat mode prompts (TEXT_CHAT_TUTOR, TEXT_CHAT_REGULAR, and OUTLINE_TUTOR).
+
+These modes output structured content for text-based chat interfaces.
+"""
+from .tutor import SYSTEM_PROMPT_WITH_REFS as TUTOR_PROMPT_WITH_REFS
+from .tutor import SYSTEM_PROMPT_NO_REFS as TUTOR_PROMPT_NO_REFS
+from .regular import SYSTEM_PROMPT_WITH_REFS as REGULAR_PROMPT_WITH_REFS
+from .regular import SYSTEM_PROMPT_NO_REFS as REGULAR_PROMPT_NO_REFS
+from .outline import SYSTEM_PROMPT_WITH_REFS as OUTLINE_PROMPT_WITH_REFS
+from .outline import SYSTEM_PROMPT_NO_REFS as OUTLINE_PROMPT_NO_REFS
+
+__all__ = [
+    "TUTOR_PROMPT_WITH_REFS",
+    "TUTOR_PROMPT_NO_REFS",
+    "REGULAR_PROMPT_WITH_REFS",
+    "REGULAR_PROMPT_NO_REFS",
+    "OUTLINE_PROMPT_WITH_REFS",
+    "OUTLINE_PROMPT_NO_REFS",
+]

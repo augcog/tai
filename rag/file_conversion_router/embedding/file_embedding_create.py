@@ -106,13 +106,26 @@ def embed_files_from_markdown(
         
         # Initialize embedding model
         print(f"Loading embedding model: {embedding_model}")
-        model = SentenceTransformer(
-            embedding_model,
-            model_kwargs={
+
+        # Try to use FlashAttention2 if available, otherwise use default
+        try:
+            import flash_attn
+            model_kwargs = {
                 "attn_implementation": "flash_attention_2",
                 "torch_dtype": "auto",
                 "device_map": "auto",
-            },
+            }
+            print("Using FlashAttention2 for faster inference")
+        except ImportError:
+            model_kwargs = {
+                "torch_dtype": "auto",
+                "device_map": "auto",
+            }
+            print("FlashAttention2 not available, using default attention implementation")
+
+        model = SentenceTransformer(
+            embedding_model,
+            model_kwargs=model_kwargs,
             tokenizer_kwargs={"padding_side": "left"},
         )
         
@@ -130,11 +143,20 @@ def embed_files_from_markdown(
             course_code = file_record["course_code"] or ""
             
             # Construct markdown file path
-            # Assuming the markdown file has the same name but with .md extension
-            # and is in the same relative directory structure
+            # MinerU creates: input_dir/subdir/file.ext -> output_dir/subdir/file/file.ext.md
+            # Note: relative_path is stored relative to parent of input_dir, so first component needs stripping
             original_path = Path(relative_path)
-            markdown_file_name = original_path.name + ".md"
-            markdown_relative_path = original_path.parent /original_path.stem / markdown_file_name
+
+            # Strip first path component (the base directory name)
+            # relative_path is always "base_dir/subdir/file.ext" but output_dir already includes base_dir
+            path_parts = list(original_path.parts)
+            if len(path_parts) > 1:
+                working_path = Path(*path_parts[1:])
+            else:
+                working_path = original_path
+
+            markdown_file_name = working_path.name + ".md"
+            markdown_relative_path = working_path.parent / working_path.stem / markdown_file_name
             markdown_full_path = data_dir / markdown_relative_path
             
             # Try alternative markdown paths if the direct one doesn't exist
@@ -259,71 +281,130 @@ def get_file_vector(db_path: str, uuid: str) -> Optional[np.ndarray]:
 
 def check_embedding_status(db_path: str, course_filter: Optional[str] = None) -> Dict[str, Any]:
     """
-    Check how many files have embeddings vs need embeddings
-    
+    Check embedding status for both files and chunks
+
     Args:
         db_path: Path to SQLite database
         course_filter: Optional course name/code filter
-        
+
     Returns:
-        Dictionary with embedding statistics
+        Dictionary with comprehensive embedding statistics:
+            - total_files: Total number of files
+            - files_embedded: Files with file.vector populated
+            - files_pending: Files without file.vector
+            - total_chunks: Total number of chunks
+            - chunks_embedded: Chunks with chunks.vector populated
+            - chunks_pending: Chunks without chunks.vector
+            - files_completion_percentage: % of files with embeddings
+            - chunks_completion_percentage: % of chunks with embeddings
+            - total_embedded: Combined count (for backward compatibility)
     """
     conn = sqlite3.connect(db_path)
     try:
+        # Ensure vector column exists before checking status
+        _ensure_vector_column(conn)
+
         params = []
         where_clause = ""
-        
+
         if course_filter:
             where_clause = "WHERE (course_name = ? OR course_code = ?)"
             params.extend([course_filter, course_filter])
-        
+
+        # === FILE-LEVEL EMBEDDINGS ===
         # Count total files
-        total_query = f"SELECT COUNT(*) FROM file {where_clause}"
-        total_files = conn.execute(total_query, params).fetchone()[0]
-        
-        # Count files with embeddings (check in chunks table)
+        total_files_query = f"SELECT COUNT(*) FROM file {where_clause}"
+        total_files = conn.execute(total_files_query, params).fetchone()[0]
+
+        # Count files with embeddings (file.vector is populated)
+        files_embedded_query = f"""
+            SELECT COUNT(*)
+            FROM file
+            {where_clause} {'AND' if where_clause else 'WHERE'} vector IS NOT NULL AND vector != ''
+        """
+        files_embedded = conn.execute(files_embedded_query, params if course_filter else []).fetchone()[0]
+        files_pending = total_files - files_embedded
+
+        # === CHUNK-LEVEL EMBEDDINGS ===
+        # Count total chunks
         if course_filter:
-            embedded_query = """
-                SELECT COUNT(DISTINCT f.uuid) 
+            total_chunks_query = """
+                SELECT COUNT(*) FROM chunks
+                WHERE (course_name = ? OR course_code = ?)
+            """
+            total_chunks = conn.execute(total_chunks_query, params).fetchone()[0]
+        else:
+            total_chunks_query = "SELECT COUNT(*) FROM chunks"
+            total_chunks = conn.execute(total_chunks_query).fetchone()[0]
+
+        # Count chunks with embeddings (chunks.vector is populated)
+        if course_filter:
+            chunks_embedded_query = """
+                SELECT COUNT(*) FROM chunks
+                WHERE (course_name = ? OR course_code = ?)
+                AND vector IS NOT NULL AND vector != ''
+            """
+            chunks_embedded = conn.execute(chunks_embedded_query, params).fetchone()[0]
+        else:
+            chunks_embedded_query = "SELECT COUNT(*) FROM chunks WHERE vector IS NOT NULL AND vector != ''"
+            chunks_embedded = conn.execute(chunks_embedded_query).fetchone()[0]
+
+        chunks_pending = total_chunks - chunks_embedded
+
+        # === FILES WITH CONTENT ===
+        # Count files that have at least one chunk (i.e., successfully converted)
+        if course_filter:
+            files_with_content_query = """
+                SELECT COUNT(DISTINCT f.uuid)
                 FROM file f
                 INNER JOIN chunks c ON f.uuid = c.file_uuid
                 WHERE (f.course_name = ? OR f.course_code = ?)
-                AND c.vector IS NOT NULL
             """
-            embedded_files = conn.execute(embedded_query, params).fetchone()[0]
+            files_with_content = conn.execute(files_with_content_query, params).fetchone()[0]
         else:
-            embedded_query = """
-                SELECT COUNT(DISTINCT f.uuid) 
+            files_with_content_query = """
+                SELECT COUNT(DISTINCT f.uuid)
                 FROM file f
                 INNER JOIN chunks c ON f.uuid = c.file_uuid
-                WHERE c.vector IS NOT NULL
             """
-            embedded_files = conn.execute(embedded_query).fetchone()[0]
-        
+            files_with_content = conn.execute(files_with_content_query).fetchone()[0]
+
         return {
+            # File-level statistics
             "total_files": total_files,
-            "embedded_files": embedded_files,
-            "pending_files": total_files - embedded_files,
-            "completion_percentage": (embedded_files / total_files * 100) if total_files > 0 else 0
+            "files_embedded": files_embedded,
+            "files_pending": files_pending,
+            "files_with_content": files_with_content,
+            "files_completion_percentage": (files_embedded / total_files * 100) if total_files > 0 else 0,
+
+            # Chunk-level statistics
+            "total_chunks": total_chunks,
+            "chunks_embedded": chunks_embedded,
+            "chunks_pending": chunks_pending,
+            "chunks_completion_percentage": (chunks_embedded / total_chunks * 100) if total_chunks > 0 else 0,
+
+            # Backward compatibility
+            "total_embedded": files_embedded,  # For backward compatibility
+            "embedded_files": files_embedded,  # Alias for clarity
+            "completion_percentage": (files_embedded / total_files * 100) if total_files > 0 else 0
         }
-        
+
     finally:
         conn.close()
 
 
 if __name__ == "__main__":
-    # Example usage
-    db_path = "/home/bot/bot/yk/YK_final/course_yaml/collective_metadata.db"
-    data_dir = "/home/bot/bot/yk/YK_final/courses_out"
-    
+    COLLECTIVE_DB_PATH = "/home/bot/bot/yk/YK_final/courses_out/collective_metadata.db"
+    COURSES_OUT_DIR = "/home/bot/bot/yk/YK_final/courses_out/ROAR Academy"
+
     # Check current status
-    status = check_embedding_status(db_path, course_filter="CS 61A")
+    status = check_embedding_status(COLLECTIVE_DB_PATH, course_filter=None)
     print("Current embedding status:", status)
     
     # Run embedding process
     results = embed_files_from_markdown(
-        db_path=db_path,
-        data_dir=data_dir,
+        db_path=COLLECTIVE_DB_PATH,
+        data_dir=COURSES_OUT_DIR,
         course_filter=None,  # Set to None to process all courses
         force_recompute=False  # Set to True to recompute existing embeddings
     )

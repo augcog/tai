@@ -20,13 +20,12 @@ class Page:
     - Removed duplicate regex imports / mini-helpers
     """
 
-    PAGE_LENGTH_THRESHOLD = 20  # (kept if you rely on it elsewhere)
-
+    PAGE_LENGTH_THRESHOLD = 20  
     TOKEN_CFG = {
-        "target": 400,
-        "min_text": 240,
-        "max_text": 500,
-        "hard_cap": 480,
+        "target": 600,      
+        "min_text": 400,    
+        "max_text": 800,   
+        "hard_cap": 750,   
         "min_code": 160,
     }
 

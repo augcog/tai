@@ -55,8 +55,13 @@
                 "source.organizeImports": "explicit"
             },
             "editor.defaultFormatter": "ms-python.black-formatter",
-            "editor.rulers": [120]
+            "editor.rulers": [
+                120
+            ]
         },
+        "cursorpyright.analysis.inlayHints.callArgumentNames": "all",
+        "cursorpyright.analysis.inlayHints.functionReturnTypes": true,
+        "cursorpyright.analysis.inlayHints.variableTypes": true,
     },
     "extensions": {
         "recommendations": [

@@ -1,33 +1,16 @@
 # Standard python libraries
-import time
 import json
-from dataclasses import dataclass, asdict, field
+from dataclasses import asdict, dataclass, field
 from typing import Any, List, Optional
+
 # Third-party libraries
-from openai import OpenAI, AsyncOpenAI
+from openai import AsyncOpenAI, OpenAI
+
+from app.config import settings
 # Local libraries
 from app.core.models.chat_completion import Message
-from app.config import settings
-import re
-
-
-# Environment variables
-MEMORY_SYNOPSIS_JSON_SCHEMA = {
-    "type": "object",
-    "properties": {
-        "focus": {"type": "string"},
-        "user_goals": {"type": "array", "items": {"type": "string"}},
-        "constraints": {"type": "array", "items": {"type": "string"}},
-        "key_entities": {"type": "array", "items": {"type": "string"}},
-        "artifacts": {"type": "array", "items": {"type": "string"}},
-        "open_questions": {"type": "array", "items": {"type": "string"}},
-        "action_items": {"type": "array", "items": {"type": "string"}},
-        "decisions": {"type": "array", "items": {"type": "string"}},
-    },
-    "required": ["focus", "user_goals", "constraints", "key_entities",
-                 "artifacts", "open_questions", "action_items", "decisions"],
-    "additionalProperties": False
-}
+from app.services.memory import prompts as memory_prompts
+from app.services.generation.schemas import MEMORY_SYNOPSIS_JSON_SCHEMA
 
 
 @dataclass
@@ -69,7 +52,7 @@ async def build_memory_synopsis(
     # Graceful MongoDB retrieval for previous memory
     if chat_history_sid and not prev_synopsis:
         try:
-            from app.services.memory_synopsis_service import MemorySynopsisService
+            from app.services.memory.service import MemorySynopsisService
             memory_service = MemorySynopsisService()
             prev_synopsis = await memory_service.get_by_chat_history_sid(chat_history_sid)
         except Exception as e:
@@ -93,36 +76,9 @@ async def build_memory_synopsis(
     return cur
 
 
-_LLM_SYSTEM = (
-    "You are a memory-synopsis compressor. "
-    "Given a chat transcript, produce a STRUCTURED JSON with keys: "
-    "focus (string), user_goals (list[str]), constraints (list[str]), key_entities (list[str]), "
-    "artifacts (list[str]), open_questions (list[str]), action_items (list[str]), decisions (list[str]). "
-    "\nHere's some description of each key: \n"
-    "focus - what is the main topic / intent of the user? \n"
-    "user_goals - user's explicit goals/preferences. \n"
-    "constraints - hard constraints (versions, dates, scope, etc.). \n"
-    "key_entities - people, products, datasets, repos, courses… \n"
-    "artifacts - files, URLs, IDs, paths mentioned. \n"
-    "open_questions - unresolved questions the user asked. \n"
-    "action_items - TODOs, “next steps”. \n"
-    "decisions - agreed choices so far. \n"
-    "\nRules:\n"
-    "- Return ONLY a single JSON object that matches the schema keys and types above.\n"
-    "- Keep text terse and factual. No markdown, no code fences, no extra commentary.\n"
-    "- Arrays must contain strings only; deduplicate items; remove empty strings.\n"
-    "- Extract explicit constraints (versions, dates, scope limits) as strings.\n"
-)
-
-_LLM_USER_TEMPLATE = """Transcript:
-{transcript}
-
-Requirements:
-- Summarize tersely.
-- Deduplicate entities and URLs/paths.
-- Extract explicit constraints (versions, dates, scope limits).
-Return ONLY JSON.
-"""
+# Memory synopsis prompts
+_LLM_SYSTEM = memory_prompts.SYNOPSIS_SYSTEM
+_LLM_USER_TEMPLATE = memory_prompts.SYNOPSIS_USER_TEMPLATE
 
 
 async def _llm_synopsis_from_transcript(
@@ -165,7 +121,10 @@ async def _llm_synopsis_from_transcript(
     # vLLM with --reasoning-parser separates reasoning_content from content
     # Use content directly (final response without thinking)
     text = response.choices[0].message.content or "{}"
-    print('Generated MemorySynopsis JSON:', text)
+    try:
+        print('Generated MemorySynopsis JSON:', json.dumps(json.loads(text), indent=2, ensure_ascii=False))
+    except (ValueError, TypeError):
+        print('Generated MemorySynopsis JSON:', text)
     try:
         data = json.loads(text.strip())
     except json.JSONDecodeError:
@@ -191,29 +150,9 @@ def _truncate_sentence(s: str, max_chars: int) -> str:
     return s if len(s) <= max_chars else s[:max_chars - 1] + "…"
 
 
-_LLM_MERGE_SYSTEM = (
-    "You merge two conversation memory synopses into ONE, preserving correctness and recency.\n"
-    "Output ONLY a JSON object with exactly these keys and types:\n"
-    "focus (string), user_goals (list[str]), constraints (list[str]), key_entities (list[str]),\n"
-    "artifacts (list[str]), open_questions (list[str]), action_items (list[str]), decisions (list[str]).\n"
-    "Rules:\n"
-    "- Prefer NEW facts if they add specificity, dates/versions/IDs, or fix errors.\n"
-    "- Keep stable facts from OLD if NEW is generic or contradictory.\n"
-    "- Deduplicate items; remove empties; keep terse phrasing.\n"
-    "- Enforce keeping the most specific and recent at the front of lists.\n"
-    "- Do NOT invent facts that are not present in OLD or NEW.\n"
-    "- Return ONLY JSON. No markdown, no commentary."
-)
-
-_LLM_MERGE_USER_TEMPLATE = """OLD_SYNOPSIS:
-{old_json}
-
-NEW_SYNOPSIS:
-{new_json}
-
-Task:
-Produce the single best merged synopsis following the rules. Return ONLY JSON.
-"""
+# Memory merge prompts
+_LLM_MERGE_SYSTEM = memory_prompts.MERGE_SYSTEM
+_LLM_MERGE_USER_TEMPLATE = memory_prompts.MERGE_USER_TEMPLATE
 
 
 async def _llm_merge_synopses(

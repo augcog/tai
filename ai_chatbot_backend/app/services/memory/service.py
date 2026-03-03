@@ -13,7 +13,7 @@ from uuid import uuid4
 from app.core.mongodb_client import get_mongodb_client
 from app.core.models.memory_synopsis import MemorySynopsisDocument
 from app.core.models.chat_completion import Message
-from app.services.rag_postprocess import MemorySynopsis, build_memory_synopsis
+from app.services.memory.synopsis import MemorySynopsis, build_memory_synopsis
 
 logger = logging.getLogger(__name__)
 

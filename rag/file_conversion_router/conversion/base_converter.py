@@ -183,13 +183,29 @@ class BaseConverter(ABC):
         self.file_type = input_path.suffix.lstrip(".")
         md_path = self._to_markdown(input_path, output_path)
         metadata_path = input_path.with_name(f"{self.file_name}_metadata.yaml")
+
         if md_path:
             structured_md, content_dict = self.apply_markdown_structure(input_md_path=md_path, file_type=self.file_type)
+
+            # Check if apply_markdown_structure failed after retries (returns empty)
+            if structured_md == "" and content_dict == {}:
+                self._logger.error(
+                    f"❌ File {self.file_name} failed after 3 retry attempts. "
+                    f"Skipping file conversion - no output will be created."
+                )
+                # Raise exception to stop processing this file
+                raise ValueError(
+                    f"Failed to apply markdown structure for {self.file_name} after 3 retry attempts. "
+                    f"File needs manual review or reprocessing."
+                )
+
+            # Normal case: write the structured markdown
             with open(md_path, "w", encoding="utf-8") as md_file:
                 md_file.write(structured_md)
         else:
             structured_md = ""
             content_dict = {}
+
         metadata_content = self._read_metadata(metadata_path)
         metadata_content = {'URL': ''} if not metadata_content else {'URL': metadata_content.get('URL', '')}
         metadata = self._put_content_dict_to_metadata(
@@ -220,6 +236,7 @@ class BaseConverter(ABC):
         metadata_content["course_name"] = self.course_name
         metadata_content["course_code"] = self.course_code
         metadata_content['URL'] = url
+        metadata_content["file_description"] = content_dict['file_description']
         if content_dict.get('speakers'):
             metadata_content["speakers"] = content_dict['speakers']
         if not content_dict:
@@ -228,8 +245,8 @@ class BaseConverter(ABC):
         for section in metadata_content["sections"]:
             section["name"] = section.pop('source_section_title')
             section["index"] = section.pop('source_section_index')
-            section["key_concept"] = section.pop('concepts')
-            section["aspects"] = section.pop('content_coverage')
+            section["key_concept"] = section.pop('concept')
+            section["aspects"] = section.pop('aspects')
             for aspect in section["aspects"]:
                 aspect["type"] = aspect.pop('aspect')
         if content_dict.get('recap_questions'):
@@ -312,6 +329,122 @@ class BaseConverter(ABC):
             problems_list.append(processed_problem)
         return problems_list
 
+    def _retry_apply_markdown_structure(
+        self, input_md_path: Path, file_type: str, max_retries: int = 3
+    ) -> Tuple[str, dict]:
+        """
+        Retry wrapper for apply_markdown_structure with error handling.
+
+        Attempts to apply markdown structure up to max_retries times.
+        Catches both OpenAI API errors and title matching errors.
+
+        Args:
+            input_md_path: Path to the input markdown file
+            file_type: Type of file (e.g., "mp4", "pdf", "ipynb")
+            max_retries: Maximum number of retry attempts (default: 3)
+
+        Returns:
+            Tuple of (markdown_content, content_dict)
+            Returns ("", {}) if all retries fail
+        """
+        # Backup state for video files before retry attempts
+        json_backup = None
+        index_helper_backup = None
+
+        if file_type in ["mp4", "mkv", "webm", "mov"]:
+            json_path = input_md_path.with_suffix(".json")
+            if json_path.exists():
+                try:
+                    with open(json_path, "r", encoding="utf-8") as f:
+                        json_backup = f.read()
+                    self._logger.info(f"📦 Backed up JSON state for {self.file_name}")
+                except Exception as e:
+                    self._logger.warning(f"Failed to backup JSON: {e}")
+
+            # Backup index_helper if it exists
+            if hasattr(self, 'index_helper') and self.index_helper:
+                import copy
+                index_helper_backup = copy.deepcopy(self.index_helper)
+                self._logger.info(f"📦 Backed up index_helper state for {self.file_name}")
+
+        for attempt in range(1, max_retries + 1):
+            # Restore state before each retry (skip for attempt 1)
+            if attempt > 1 and file_type in ["mp4", "mkv", "webm", "mov"]:
+                # Restore JSON file
+                if json_backup:
+                    json_path = input_md_path.with_suffix(".json")
+                    try:
+                        with open(json_path, "w", encoding="utf-8") as f:
+                            f.write(json_backup)
+                        self._logger.info(f"♻️ Restored JSON state for attempt {attempt}")
+                    except Exception as e:
+                        self._logger.warning(f"Failed to restore JSON: {e}")
+
+                # Restore index_helper
+                if index_helper_backup:
+                    import copy
+                    self.index_helper = copy.deepcopy(index_helper_backup)
+                    self._logger.info(f"♻️ Restored index_helper state for attempt {attempt}")
+
+            try:
+                self._logger.info(
+                    f"📝 Attempt {attempt}/{max_retries} for applying markdown structure to {self.file_name}"
+                )
+
+                # Call the actual apply_markdown_structure logic
+                structured_md, content_dict = self._apply_markdown_structure_impl(
+                    input_md_path, file_type
+                )
+
+                self._logger.info(
+                    f"✅ Successfully applied markdown structure on attempt {attempt} for {self.file_name}"
+                )
+                return structured_md, content_dict
+
+            except ValueError as e:
+                error_msg = str(e)
+                if "not found in index_helper" in error_msg:
+                    self._logger.warning(
+                        f"⚠️ Title matching error on attempt {attempt}/{max_retries} for {self.file_name}: {error_msg}"
+                    )
+                else:
+                    self._logger.warning(
+                        f"⚠️ OpenAI API error on attempt {attempt}/{max_retries} for {self.file_name}: {error_msg}"
+                    )
+
+                if attempt == max_retries:
+                    self._logger.error(
+                        f"❌ Skipping {self.file_name} after {max_retries} failed attempts due to ValueError: {error_msg}"
+                    )
+                    return "", {}
+
+            except AssertionError as e:
+                error_msg = str(e)
+                self._logger.warning(
+                    f"⚠️ Title matching assertion error on attempt {attempt}/{max_retries} for {self.file_name}: {error_msg}"
+                )
+
+                if attempt == max_retries:
+                    self._logger.error(
+                        f"❌ Skipping {self.file_name} after {max_retries} failed attempts due to AssertionError: {error_msg}"
+                    )
+                    return "", {}
+
+            except Exception as e:
+                # Catch any other unexpected errors
+                self._logger.error(
+                    f"⚠️ Unexpected error on attempt {attempt}/{max_retries} for {self.file_name}: {type(e).__name__}: {str(e)}"
+                )
+
+                if attempt == max_retries:
+                    self._logger.error(
+                        f"❌ Skipping {self.file_name} after {max_retries} failed attempts due to unexpected error"
+                    )
+                    return "", {}
+
+        # Should never reach here, but just in case
+        return "", {}
+
     def count_header_levels(self, content_text: str) -> int:
         """
         Count the number of unique header levels in the markdown content.
@@ -373,12 +506,43 @@ class BaseConverter(ABC):
 
 
     def apply_markdown_structure(
-        self, input_md_path: Path | None, file_type: str):
+        self, input_md_path: Path | None, file_type: str
+    ) -> Tuple[str, dict]:
+        """
+        Apply markdown structure with retry logic for OpenAI and matching errors.
+
+        This is the main entry point that wraps _apply_markdown_structure_impl
+        with retry logic to handle transient OpenAI API errors and title matching failures.
+
+        Args:
+            input_md_path: Path to the input markdown file
+            file_type: Type of file (e.g., "mp4", "pdf", "ipynb")
+
+        Returns:
+            Tuple of (markdown_content, content_dict)
+            Returns ("", {}) if all retry attempts fail
+        """
+        return self._retry_apply_markdown_structure(input_md_path, file_type, max_retries=3)
+
+    def _apply_markdown_structure_impl(
+        self, input_md_path: Path | None, file_type: str
+    ) -> Tuple[str, dict]:
         """
         Apply the markdown structure based on the file type and content.
-        input_md_path: Path to the input markdown file.
-        file_type: Type of the file, e.g., "mp4", "pdf", "ipynb".
-        returns: md content and a dictionary with structured content.
+
+        This is the internal implementation that performs the actual conversion.
+        Called by apply_markdown_structure() with retry logic.
+
+        Args:
+            input_md_path: Path to the input markdown file
+            file_type: Type of file (e.g., "mp4", "pdf", "ipynb")
+
+        Returns:
+            Tuple of (markdown_content, content_dict)
+
+        Raises:
+            ValueError: When source_section_title matching fails
+            AssertionError: When title matching in fix_index_helper fails
         """
         file_name = input_md_path.stem
         with open(input_md_path, "r", encoding="UTF-8") as input_file:

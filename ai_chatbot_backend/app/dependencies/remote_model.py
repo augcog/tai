@@ -1,4 +1,5 @@
 import requests
+from typing import Optional, Dict, Any
 
 
 class RemoteModelClient:
@@ -18,6 +19,12 @@ class RemoteModelClient:
             "temperature": kwargs.get("temperature", 0.7),
             "stream": kwargs.get("stream", False),
         }
+
+        # Add response_format if provided (for structured JSON output)
+        # This enables OpenAI-style response_format parameter for guaranteed valid JSON
+        response_format: Optional[Dict[str, Any]] = kwargs.get("response_format")
+        if response_format is not None:
+            payload["response_format"] = response_format
 
         stream = payload.get("stream", False)
         try:

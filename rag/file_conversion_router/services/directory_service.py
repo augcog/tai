@@ -26,6 +26,11 @@ from file_conversion_router.classes.chunk import Chunk
 import hashlib
 import json
 from typing import Dict, Any
+from file_conversion_router.services.sentence_mapping_service import (
+    generate_sentence_mapping_from_json,
+    update_file_extra_info_with_mapping,
+    generate_lines_json_from_middle_json
+)
 
 
 ConverterMapping = Dict[str, Type[BaseConverter]]
@@ -45,6 +50,186 @@ converter_mapping: ConverterMapping = {
     '.mov': VideoConverter,
     #     TODO: Add more file types and converters here
 }
+
+
+def process_single_file(
+        input_file_path: Union[str, Path],
+        output_dir: Union[str, Path],
+        course_name: str,
+        course_code: str,
+        conn: sqlite3.Connection,
+        input_root: Union[str, Path] = None,
+        file_uuid: str = None,
+) -> Tuple[List[Chunk], dict, str]:
+    """
+    Process a single file through the conversion pipeline.
+
+    This function handles the complete conversion of a single file:
+    1. Hash calculation and cache check
+    2. Converter selection based on file extension
+    3. Conversion to markdown
+    4. Database storage
+
+    Args:
+        input_file_path: Path to the file to convert
+        output_dir: Directory for output files
+        course_name: Name of the course
+        course_code: Course identifier code
+        conn: SQLite database connection
+        input_root: Root directory for relative path calculation (defaults to input_file_path.parent)
+        file_uuid: Optional pre-generated UUID (if None, will be generated from file hash)
+
+    Returns:
+        Tuple of (chunks, metadata, file_uuid) where:
+        - chunks: List of Chunk objects from conversion
+        - metadata: Dict with file metadata (sections, URL, description, etc.)
+        - file_uuid: The UUID assigned to the file
+
+    Raises:
+        ValueError: If file type is not supported
+        Exception: If conversion fails
+    """
+    input_file_path = Path(input_file_path)
+    output_dir = Path(output_dir)
+    input_root = Path(input_root) if input_root else input_file_path.parent
+
+    # Check file extension
+    if input_file_path.suffix not in converter_mapping:
+        raise ValueError(f"Unsupported file type: {input_file_path.suffix}. Supported: {list(converter_mapping.keys())}")
+
+    # Calculate file hash for caching
+    fhash = file_hash_for_cache(input_file_path)
+
+    # Check if file already exists in database (cache hit)
+    file_record = get_file_record_by_hash(conn, fhash)
+    if file_record:
+        file_uuid_cached = file_record["uuid"]
+        current_relative_path = str(input_file_path.relative_to(input_root))
+
+        # Update file path if it has changed and old file no longer exists
+        path_updated = update_file_path_if_changed(conn, file_uuid_cached, current_relative_path, input_root)
+        if path_updated:
+            conn.commit()
+
+        logging.info(f"[SKIP cache-hit] {input_file_path} already ingested as file_uuid={file_uuid_cached}")
+        # Return empty results for cache hit - file already processed
+        return [], {"cache_hit": True, "file_uuid": file_uuid_cached}, file_uuid_cached
+
+    # Create output subdirectory
+    output_subdir = output_dir / input_file_path.relative_to(input_root).parent if input_file_path.is_relative_to(input_root) else output_dir
+    output_subdir.mkdir(parents=True, exist_ok=True)
+    output_file_path = output_subdir / input_file_path.stem
+
+    # Get converter class
+    converter_class = converter_mapping.get(input_file_path.suffix)
+
+    # Generate file UUID from hash if not provided
+    if not file_uuid:
+        file_uuid = deterministic_file_uuid(fhash)
+
+    # Create converter instance
+    converter = converter_class(course_name, course_code, file_uuid)
+
+    # Perform conversion
+    (chunks, metadata), _ = converter.convert(input_file_path, output_file_path, input_root)
+    if not chunks:
+        chunks = []
+
+    # Extract file path from chunks or use input path
+    fp = chunks[0].file_path if chunks and getattr(chunks[0], "file_path", None) else input_file_path.relative_to(input_root)
+    relative_path = str(fp)
+
+    # Extract metadata fields
+    sections = []
+    url = ""
+    description = ""
+    recap_questions = []
+    if isinstance(metadata, dict):
+        sections = metadata.get("sections", []) or []
+        recap_questions = metadata.get("recap_questions", [])
+        url = metadata.get("URL", "")
+        description = metadata.get("file_description", "")
+
+    # Read extra info from json file if present
+    extra_info = []
+    extra_info_file = output_file_path / f"{input_file_path.name}.json"
+    if extra_info_file.exists():
+        try:
+            with extra_info_file.open("r", encoding="utf-8") as f:
+                extra_info = json.load(f)
+        except json.JSONDecodeError as e:
+            logging.error(f"Failed to read extra info from {extra_info_file}: {e}")
+            extra_info = []
+
+    # Write to database
+    file_uuid_written = write_chunks_to_db(
+        conn=conn,
+        file_hash=fhash,
+        relative_path=relative_path,
+        file_name=input_file_path.name,
+        chunks=chunks,
+        course_code=course_code,
+        course_name=course_name,
+        sections=sections,
+        file_description=description,
+        extra_info=extra_info,
+        url=url,
+    )
+
+    # Process sentence mapping for PDF files
+    if input_file_path.suffix == ".pdf":
+        try:
+            middle_json_path = output_file_path / f"{input_file_path.name}_middle.json"
+            if middle_json_path.exists():
+                lines_json_path = output_file_path / f"{input_file_path.name}_lines.json"
+                if generate_lines_json_from_middle_json(str(middle_json_path), str(lines_json_path)):
+                    sentence_mapping = generate_sentence_mapping_from_json(str(lines_json_path))
+                    if sentence_mapping:
+                        update_file_extra_info_with_mapping(conn, file_uuid_written, sentence_mapping)
+                        logging.info(f"Added sentence mapping with {len(sentence_mapping)} sentences for {input_file_path.name}")
+        except Exception as e:
+            logging.error(f"Error processing sentence mapping for {input_file_path.name}: {e}")
+
+    # Handle problems if present
+    if isinstance(metadata, dict):
+        problems = metadata.get("problems") or metadata.get("problem_set") or []
+    else:
+        problems = []
+
+    if problems:
+        conn.execute("BEGIN IMMEDIATE")
+        for pr in problems:
+            q_container = pr.get("questions") or pr.get("question_set") or []
+            for q_id, q in _iter_questions_local(q_container):
+                upsert_problem_meta(conn, file_uuid_written, pr, q_id, q)
+        conn.commit()
+
+    # Handle recap questions if present
+    if recap_questions:
+        conn.execute("BEGIN IMMEDIATE")
+        for idx, cq in enumerate(recap_questions, start=1):
+            problem_data = {
+                "problem_index": idx,
+                "problem_id": f"recap_{idx}",
+                "problem_content": cq.get("question_text", "")
+            }
+            q_container = cq.get("questions") or cq.get("question_set") or []
+            if q_container:
+                for q_id, q in _iter_questions_local(q_container):
+                    upsert_problem_meta(conn, file_uuid_written, problem_data, q_id, q, "recap")
+            else:
+                question_data = {
+                    "question": cq.get("question", "") or cq.get("question_text", ""),
+                    "choices": cq.get("options"),
+                    "answer": cq.get("correct_answers"),
+                    "explanation": cq.get("explanation")
+                }
+                upsert_problem_meta(conn, file_uuid_written, problem_data, idx, question_data, "recap")
+        conn.commit()
+
+    logging.info(f"[OK] {input_file_path} → {output_file_path} ({len(chunks)} chunks)")
+
+    return chunks, metadata, file_uuid_written
 
 
 def process_folder(
@@ -77,7 +262,7 @@ def process_folder(
 
     valid_extensions = tuple(converter_mapping.keys())
 
-    ignore_file = '../file_conversion_router/services/.conversionignore'
+    ignore_file = Path(__file__).parent / '.conversionignore'
     patterns = _load_patterns(ignore_file)
     spec = PathSpec.from_lines("gitwildmatch", patterns)
 
@@ -120,9 +305,17 @@ def process_folder(
 
         file_uuid = deterministic_file_uuid(fhash)
         converter = converter_class(course_name, course_code, file_uuid)
-        (chunks, metadata), _ = converter.convert(input_file_path, output_file_path, input_dir.parent)
-        if not chunks:
-            chunks = []
+
+        try:
+            (chunks, metadata), _ = converter.convert(input_file_path, output_file_path, input_dir.parent)
+            if not chunks:
+                chunks = []
+        except Exception as e:
+            # Conversion failed (e.g., OpenAI validation errors after retries)
+            # Skip this file and continue with the next one
+            logging.error(f"Failed to convert {input_file_path}: {type(e).__name__} - {str(e)[:200]}")
+            logging.info(f"Skipping file and continuing with next file...")
+            continue
 
         fp = chunks[0].file_path if chunks and getattr(chunks[0], "file_path", None) else input_file_path.relative_to(input_dir.parent)
         relative_path = str(fp)
@@ -130,11 +323,13 @@ def process_folder(
         # sections from metadata if provided
         sections = []
         url = ""
+        description = ""
         recap_questions = []
         if isinstance(metadata, dict):
             sections = metadata.get("sections", []) or []
             recap_questions = metadata.get("recap_questions", [])
             url = metadata.get("URL", "")
+            description = metadata.get("file_description", "")
 
         # read extra info from json file if present
         extra_info = []
@@ -155,9 +350,38 @@ def process_folder(
             course_code=course_code,
             course_name=course_name,
             sections=sections,
+            file_description=description,
             extra_info=extra_info,
             url=url,
         )
+
+        # Process sentence mapping for PDF files
+        if input_file_path.suffix == ".pdf":
+            try:
+                # Check if MinerU generated _middle.json
+                middle_json_path = output_file_path / f"{input_file_path.name}_middle.json"
+
+                if middle_json_path.exists():
+                    # Generate _lines.json from _middle.json
+                    lines_json_path = output_file_path / f"{input_file_path.name}_lines.json"
+
+                    if generate_lines_json_from_middle_json(str(middle_json_path), str(lines_json_path)):
+                        # Load sentence mapping from _lines.json
+                        sentence_mapping = generate_sentence_mapping_from_json(str(lines_json_path))
+
+                        if sentence_mapping:
+                            # Update database with sentence mapping
+                            update_file_extra_info_with_mapping(conn, file_uuid_written, sentence_mapping)
+                            logging.info(f"Added sentence mapping with {len(sentence_mapping)} sentences for {input_file_path.name}")
+                        else:
+                            logging.warning(f"No sentence mapping generated for {input_file_path.name}")
+                    else:
+                        logging.warning(f"Failed to generate lines JSON for {input_file_path.name}")
+                else:
+                    logging.debug(f"No middle JSON found for {input_file_path.name}, skipping sentence mapping")
+            except Exception as e:
+                logging.error(f"Error processing sentence mapping for {input_file_path.name}: {e}")
+                # Continue processing - don't break the pipeline
 
         # upsert problems if present
         if isinstance(metadata, dict):
@@ -292,7 +516,7 @@ def ensure_chunk_db(database_path) -> sqlite3.Connection:
 def upsert_file_meta(conn: sqlite3.Connection, f: dict):
     """
     Upsert into `file` using uuid as the conflict key.
-    Expects keys: uuid, file_hash, sections, relative_path, course_code, course_name, file_name
+    Expects keys: uuid, file_hash, sections, relative_path, course_code, course_name, file_name, description
     Optional keys: created_at (if not provided, uses current time via COALESCE)
     """
     args = (
@@ -303,6 +527,7 @@ def upsert_file_meta(conn: sqlite3.Connection, f: dict):
         f.get("course_code", ""),
         f.get("course_name"),
         f.get("file_name"),
+        f.get("description", ""),  # Fixed: changed from "file_description" to "description"
         json.dumps(f.get("extra_info", {}), ensure_ascii=False) if f.get("extra_info") else None,
         f.get("url"),
         f.get("created_at"),  # Pass created_at if available, otherwise None (COALESCE will use current time)
@@ -418,6 +643,7 @@ def write_chunks_to_db(conn: sqlite3.Connection,
                        course_code: str | None = None,
                        course_name: str | None = None,
                        sections: list | str | None = None,
+                       file_description: str = None,
                        extra_info: list = None,
                        url: str = None,) -> str:
     """
@@ -454,6 +680,7 @@ def write_chunks_to_db(conn: sqlite3.Connection,
         "course_code": course_code or "",
         "course_name": course_name or "",
         "file_name": file_name,
+        "description": file_description or "",
         "extra_info": extra_info,
         "url": url or "",
     })
@@ -556,6 +783,7 @@ CREATE TABLE IF NOT EXISTS file (
   course_code  TEXT,
   course_name  TEXT,
   file_name    TEXT,
+  description  TEXT,
   extra_info   TEXT,
   url          TEXT,
   vector       BLOB,
@@ -595,8 +823,8 @@ CREATE TABLE IF NOT EXISTS problem (
 );
 """
 SQL_UPSERT_FILE = """
-INSERT INTO file (uuid, file_hash, sections, relative_path, course_code, course_name, file_name, extra_info, url, created_at, update_time)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, COALESCE(?, datetime('now', 'localtime')), datetime('now', 'localtime'))
+INSERT INTO file (uuid, file_hash, sections, relative_path, course_code, course_name, file_name, description, extra_info, url, created_at, update_time)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, COALESCE(?, datetime('now', 'localtime')), datetime('now', 'localtime'))
 ON CONFLICT(uuid) DO UPDATE SET
   file_hash     = excluded.file_hash,
   sections      = excluded.sections,
@@ -604,6 +832,7 @@ ON CONFLICT(uuid) DO UPDATE SET
   course_code   = excluded.course_code,
   course_name   = excluded.course_name,
   file_name     = excluded.file_name,
+  description   = excluded.description,
   extra_info    = excluded.extra_info,
   url           = excluded.url,
   update_time   = datetime('now', 'localtime');

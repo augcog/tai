@@ -32,8 +32,8 @@ def do_parse(
         f_draw_layout_bbox=False,  # Whether to draw layout bounding boxes
         f_draw_span_bbox=False,  # Whether to draw span bounding boxes
         f_dump_md=True,  # Whether to dump markdown files
-        f_dump_middle_json=False,  # Whether to dump middle JSON files
-        f_dump_model_output=False,  # Whether to dump model output files
+        f_dump_middle_json=True,  # Whether to dump middle JSON files
+        f_dump_model_output=True,  # Whether to dump model output files
         f_dump_orig_pdf=False,  # Whether to dump original PDF files
         f_dump_content_list=True,  # Whether to dump content list files
         f_make_md_mode=MakeMode.MM_MD,  # The mode for making markdown content, default is MM_MD
@@ -143,7 +143,7 @@ def do_parse(
 
             # Define main md file path
             md_file_path = os.path.join(output_dir, f"{file_name}.md")
-            content_list_path = f"{md_file_path}_content_list.json"
+            content_list_path = os.path.join(output_dir, f"{file_name}_content_list.json")
 
             if f_draw_layout_bbox:
                 draw_layout_bbox(pdf_info, pdf_bytes, output_dir, f"{file_name}_layout.pdf")
@@ -189,8 +189,7 @@ def parse_doc(
         method="auto",
         server_url=None,
         start_page_id=0,
-        end_page_id=None
-):
+        end_page_id=None):
     """
         Parameter description:
         pdf_path: Path to the PDF file to be parsed.
@@ -213,6 +212,7 @@ def parse_doc(
         server_url: When the backend is `sglang-client`, you need to specify the server_url, for example:`http://127.0.0.1:30000`
         start_page_id: Start page ID for parsing, default is 0
         end_page_id: End page ID for parsing, default is None (parse all pages until the end of the document)
+        f_dump_middle_json: Whether to dump middle JSON files, default is True
 
         Returns:
         Path: Path to the output markdown file
@@ -232,7 +232,7 @@ def parse_doc(
 
     # Create output directory for this specific file
     do_parse(
-        output_dir=output_folder,
+        output_dir=str(output_folder),
         pdf_file_path=[pdf_path],
         pdf_bytes_list=[pdf_bytes],
         p_lang_list=[lang],
@@ -241,7 +241,7 @@ def parse_doc(
         server_url=server_url,
         start_page_id=start_page_id,
         end_page_id=end_page_id,
-        file_name=file_name
+        file_name=file_name,
     )
 
     # Return the path to the expected markdown file
@@ -272,23 +272,17 @@ def clean_unicode_surrogates(obj):
 
 
 if __name__ == '__main__':
-    # args
-    __dir__ = os.path.dirname(os.path.abspath(__file__))
-    pdf_files_dir = os.path.join(__dir__, "pdfs")
-    output_dir = os.path.join(__dir__, "output")
-    pdf_suffixes = [".pdf"]
-    image_suffixes = [".png", ".jpeg", ".jpg"]
+    from file_conversion_router.config import get_test_data_path, get_test_output_path
 
-    doc_path_list = []
-    for doc_path in Path(pdf_files_dir).glob('*'):
-        if doc_path.suffix in pdf_suffixes + image_suffixes:
-            doc_path_list.append(doc_path)
+    doc_path = get_test_data_path('testing/pdfs/disc01.pdf')
+    output_dir = get_test_output_path('disc01')
+    parse_doc(doc_path, output_dir, backend="pipeline")
 
     """如果您由于网络问题无法下载模型，可以设置环境变量MINERU_MODEL_SOURCE为modelscope使用免代理仓库下载模型"""
     # os.environ['MINERU_MODEL_SOURCE'] = "modelscope"
 
     """Use pipeline mode if your environment does not support VLM"""
-    parse_doc(doc_path_list, output_dir, backend="pipeline")
+
 
     """To enable VLM mode, change the backend to 'vlm-xxx'"""
     # parse_doc(doc_path_list, output_dir, backend="vlm-transformers")  # more general.

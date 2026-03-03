@@ -15,6 +15,11 @@ content_logger = logging.getLogger("content_logger")
 content_logger.setLevel(logging.INFO)
 content_logger.propagate = False
 
+# Logger for files that failed during processing
+failed_files_logger = logging.getLogger("failed_files_logger")
+failed_files_logger.setLevel(logging.ERROR)
+failed_files_logger.propagate = False
+
 
 def set_log_file_path(logger, output_path, mode="w"):
     for handler in logger.handlers[:]:

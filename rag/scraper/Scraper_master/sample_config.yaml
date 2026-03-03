@@ -8,6 +8,18 @@ tasks:
     local: True
     url: "https://cs61a.org/"
     driver_type: "request" # or "playwright"
+    # Optional driver options for playwright (only applies when driver_type is "playwright")
+    driver_options:
+      timeout: 90000  # Playwright timeout in milliseconds (default: 60000 = 60 seconds)
+      requests_timeout: 90  # Requests library timeout in seconds (default: 60 seconds)
+      max_retries: 3  # Number of retry attempts for both requests and playwright (default: 3)
+      block_resources: true  # Block images/fonts/media to speed up loading (default: true)
+      headless: true  # Run browser in headless mode (default: true)
+      browser_type: "chromium"  # Browser engine: "chromium" (default), "firefox", or "webkit"
+                                # Use "firefox" if you get HTTP/2 errors with chromium
+      skip_login_pages: true  # Skip pages that require authentication/login (default: true)
+      # cookies: null  # Optional: List of cookies for authenticated sessions
+                      # Format: [{"name": "session", "value": "abc123", "domain": ".example.com", "path": "/"}]
     roots:
       - url: https://cs61a.org/
         depth: 7

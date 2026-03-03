@@ -18,6 +18,18 @@ class BaseScraper(ABC):
         """
         raise NotImplementedError("This method should be overridden by subclasses.")
 
-    def _save_metadata(self, filename, url):
-        yaml_content = f"URL: {url}"
+    def _save_metadata(self, filename, url, additional_metadata=None):
+        """
+        Save metadata for a file.
+
+        Args:
+            filename: Path to the file (without _metadata.yaml extension)
+            url: Primary URL for the content
+            additional_metadata: Optional dict with additional metadata fields
+        """
+        yaml_content = f"URL: {url}\n"
+        if additional_metadata:
+            for key, value in additional_metadata.items():
+                if value is not None:
+                    yaml_content += f"{key}: {value}\n"
         save_to_file(f"{filename}_metadata.yaml", yaml_content)

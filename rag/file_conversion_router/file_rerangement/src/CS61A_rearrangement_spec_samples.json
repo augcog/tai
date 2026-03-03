@@ -1,0 +1,759 @@
+{
+  "total_files": 1028,
+  "sampled_count": 100,
+  "sampled_files": [
+    {
+      "path": "CS 61A Summer 2025.html",
+      "name": "CS 61A Summer 2025.html",
+      "extension": ".html",
+      "size_kb": 73,
+      "parent_dir": "."
+    },
+    {
+      "path": "articles/Advice from Former Students CS 61A Summer 2025.html",
+      "name": "Advice from Former Students CS 61A Summer 2025.html",
+      "extension": ".html",
+      "size_kb": 36,
+      "parent_dir": "articles"
+    },
+    {
+      "path": "articles/Contact the CS 61A Staff CS 61A Summer 2025.html",
+      "name": "Contact the CS 61A Staff CS 61A Summer 2025.html",
+      "extension": ".html",
+      "size_kb": 11,
+      "parent_dir": "articles"
+    },
+    {
+      "path": "articles/Using Ok CS 61A Summer 2025.html",
+      "name": "Using Ok CS 61A Summer 2025.html",
+      "extension": ".html",
+      "size_kb": 18,
+      "parent_dir": "articles"
+    },
+    {
+      "path": "articles/Visual Studio Code CS 61A Summer 2025.html",
+      "name": "Visual Studio Code CS 61A Summer 2025.html",
+      "extension": ".html",
+      "size_kb": 18,
+      "parent_dir": "articles"
+    },
+    {
+      "path": "assets/slides/08.py",
+      "name": "08.py",
+      "extension": ".py",
+      "size_kb": 3,
+      "parent_dir": "assets/slides"
+    },
+    {
+      "path": "assets/slides/17.ipynb",
+      "name": "17.ipynb",
+      "extension": ".ipynb",
+      "size_kb": 326,
+      "parent_dir": "assets/slides"
+    },
+    {
+      "path": "assets/slides/18.py",
+      "name": "18.py",
+      "extension": ".py",
+      "size_kb": 0,
+      "parent_dir": "assets/slides"
+    },
+    {
+      "path": "assets/slides/23-Aggregation_and_Databases_1pp.pdf",
+      "name": "23-Aggregation_and_Databases_1pp.pdf",
+      "extension": ".pdf",
+      "size_kb": 222,
+      "parent_dir": "assets/slides"
+    },
+    {
+      "path": "assignment-calendar/Office Hours CS 61A Summer 2025.html",
+      "name": "Office Hours CS 61A Summer 2025.html",
+      "extension": ".html",
+      "size_kb": 9,
+      "parent_dir": "assignment-calendar"
+    },
+    {
+      "path": "disc/Discussion 12 CS 61A Summer 2025.html",
+      "name": "Discussion 12 CS 61A Summer 2025.html",
+      "extension": ".html",
+      "size_kb": 46,
+      "parent_dir": "disc"
+    },
+    {
+      "path": "disc/Discussion 7 CS 61A Summer 2025.html",
+      "name": "Discussion 7 CS 61A Summer 2025.html",
+      "extension": ".html",
+      "size_kb": 46,
+      "parent_dir": "disc"
+    },
+    {
+      "path": "disc/disc05/disc05.pdf",
+      "name": "disc05.pdf",
+      "extension": ".pdf",
+      "size_kb": 67,
+      "parent_dir": "disc/disc05"
+    },
+    {
+      "path": "disc/sol-disc04/disc04.pdf",
+      "name": "disc04.pdf",
+      "extension": ".pdf",
+      "size_kb": 325,
+      "parent_dir": "disc/sol-disc04"
+    },
+    {
+      "path": "exam/fa16/mt1/61a-fa16-mt1.pdf",
+      "name": "61a-fa16-mt1.pdf",
+      "extension": ".pdf",
+      "size_kb": 175,
+      "parent_dir": "exam/fa16/mt1"
+    },
+    {
+      "path": "exam/fa18/final/61a-fa18-final_sol.pdf",
+      "name": "61a-fa18-final_sol.pdf",
+      "extension": ".pdf",
+      "size_kb": 214,
+      "parent_dir": "exam/fa18/final"
+    },
+    {
+      "path": "exam/fa19/final/61a-fa19-final.pdf",
+      "name": "61a-fa19-final.pdf",
+      "extension": ".pdf",
+      "size_kb": 211,
+      "parent_dir": "exam/fa19/final"
+    },
+    {
+      "path": "exam/sp18/mt1/61a-sp18-mt1_tagged.pdf",
+      "name": "61a-sp18-mt1_tagged.pdf",
+      "extension": ".pdf",
+      "size_kb": 178,
+      "parent_dir": "exam/sp18/mt1"
+    },
+    {
+      "path": "exam/sp20/final/61a-sp20-final.pdf",
+      "name": "61a-sp20-final.pdf",
+      "extension": ".pdf",
+      "size_kb": 248,
+      "parent_dir": "exam/sp20/final"
+    },
+    {
+      "path": "exam/sp21/practice-final/61a-sp21-practice-final.pdf",
+      "name": "61a-sp21-practice-final.pdf",
+      "extension": ".pdf",
+      "size_kb": 214,
+      "parent_dir": "exam/sp21/practice-final"
+    },
+    {
+      "path": "exam/sp25/mt1/61a-sp25-mt1.pdf",
+      "name": "61a-sp25-mt1.pdf",
+      "extension": ".pdf",
+      "size_kb": 180,
+      "parent_dir": "exam/sp25/mt1"
+    },
+    {
+      "path": "exam/su19/mt/61a-su19-mt_sol.pdf",
+      "name": "61a-su19-mt_sol.pdf",
+      "extension": ".pdf",
+      "size_kb": 256,
+      "parent_dir": "exam/su19/mt"
+    },
+    {
+      "path": "exam/su20/mt2/61a-su20-mt2.zip",
+      "name": "61a-su20-mt2.zip",
+      "extension": ".zip",
+      "size_kb": 4784,
+      "parent_dir": "exam/su20/mt2"
+    },
+    {
+      "path": "exam/su20/practice-mt/61a-su20-practice-mt_sol.zip",
+      "name": "61a-su20-practice-mt_sol.zip",
+      "extension": ".zip",
+      "size_kb": 4781,
+      "parent_dir": "exam/su20/practice-mt"
+    },
+    {
+      "path": "exam/su21/practice-diagnostic/61a-su21-practice-diagnostic_sol.pdf",
+      "name": "61a-su21-practice-diagnostic_sol.pdf",
+      "extension": ".pdf",
+      "size_kb": 158,
+      "parent_dir": "exam/su21/practice-diagnostic"
+    },
+    {
+      "path": "exam/su22/final/61a-su22-final.pdf",
+      "name": "61a-su22-final.pdf",
+      "extension": ".pdf",
+      "size_kb": 448,
+      "parent_dir": "exam/su22/final"
+    },
+    {
+      "path": "hw/Homework 6 CS 61A Summer 2025.html",
+      "name": "Homework 6 CS 61A Summer 2025.html",
+      "extension": ".html",
+      "size_kb": 34,
+      "parent_dir": "hw"
+    },
+    {
+      "path": "hw/hw02/hw02.zip",
+      "name": "hw02.zip",
+      "extension": ".zip",
+      "size_kb": 836,
+      "parent_dir": "hw/hw02"
+    },
+    {
+      "path": "hw/hw04/hw04.py",
+      "name": "hw04.py",
+      "extension": ".py",
+      "size_kb": 7,
+      "parent_dir": "hw/hw04"
+    },
+    {
+      "path": "hw/hw05/hw05.py",
+      "name": "hw05.py",
+      "extension": ".py",
+      "size_kb": 2,
+      "parent_dir": "hw/hw05"
+    },
+    {
+      "path": "hw/sol-hw02/hw02.py",
+      "name": "hw02.py",
+      "extension": ".py",
+      "size_kb": 5,
+      "parent_dir": "hw/sol-hw02"
+    },
+    {
+      "path": "instructor/Instructors CS 61A Summer 2025.html",
+      "name": "Instructors CS 61A Summer 2025.html",
+      "extension": ".html",
+      "size_kb": 10,
+      "parent_dir": "instructor"
+    },
+    {
+      "path": "lab/Lab 3 Recursion, Tree Recursion CS 61A Summer 2025.html",
+      "name": "Lab 3 Recursion, Tree Recursion CS 61A Summer 2025.html",
+      "extension": ".html",
+      "size_kb": 32,
+      "parent_dir": "lab"
+    },
+    {
+      "path": "lab/Lab 5 Solutions CS 61A Summer 2025.html",
+      "name": "Lab 5 Solutions CS 61A Summer 2025.html",
+      "extension": ".html",
+      "size_kb": 35,
+      "parent_dir": "lab"
+    },
+    {
+      "path": "lab/Lab 6 Object-Oriented Programming, Inheritance CS 61A Summer 2025.html",
+      "name": "Lab 6 Object-Oriented Programming, Inheritance CS 61A Summer 2025.html",
+      "extension": ".html",
+      "size_kb": 36,
+      "parent_dir": "lab"
+    },
+    {
+      "path": "lab/lab08/lab08.zip",
+      "name": "lab08.zip",
+      "extension": ".zip",
+      "size_kb": 3315,
+      "parent_dir": "lab/lab08"
+    },
+    {
+      "path": "office-hours/Office Hours CS 61A Summer 2025.html",
+      "name": "Office Hours CS 61A Summer 2025.html",
+      "extension": ".html",
+      "size_kb": 9,
+      "parent_dir": "office-hours"
+    },
+    {
+      "path": "proj/Ants Vs. SomeBees CS 61A Summer 2025.html",
+      "name": "Ants Vs. SomeBees CS 61A Summer 2025.html",
+      "extension": ".html",
+      "size_kb": 97,
+      "parent_dir": "proj"
+    },
+    {
+      "path": "proj/ants/ants.zip",
+      "name": "ants.zip",
+      "extension": ".zip",
+      "size_kb": 10774,
+      "parent_dir": "proj/ants"
+    },
+    {
+      "path": "proj/ants/diagram/ants_diagram.pdf",
+      "name": "ants_diagram.pdf",
+      "extension": ".pdf",
+      "size_kb": 142,
+      "parent_dir": "proj/ants/diagram"
+    },
+    {
+      "path": "proj/hog/hog.zip",
+      "name": "hog.zip",
+      "extension": ".zip",
+      "size_kb": 1017,
+      "parent_dir": "proj/hog"
+    },
+    {
+      "path": "proj/scheme/scheme.zip",
+      "name": "scheme.zip",
+      "extension": ".zip",
+      "size_kb": 4921,
+      "parent_dir": "proj/scheme"
+    },
+    {
+      "path": "resources/CS 61A Summer 2025.html",
+      "name": "CS 61A Summer 2025.html",
+      "extension": ".html",
+      "size_kb": 635,
+      "parent_dir": "resources"
+    },
+    {
+      "path": "staff/Course Staff CS 61A Summer 2025.html",
+      "name": "Course Staff CS 61A Summer 2025.html",
+      "extension": ".html",
+      "size_kb": 28,
+      "parent_dir": "staff"
+    },
+    {
+      "path": "study-guide/Study Guide Orders of Growth CS 61A Summer 2025.html",
+      "name": "Study Guide Orders of Growth CS 61A Summer 2025.html",
+      "extension": ".html",
+      "size_kb": 29,
+      "parent_dir": "study-guide"
+    },
+    {
+      "path": "textbook/examples/scalc/Scalc.html",
+      "name": "Scalc.html",
+      "extension": ".html",
+      "size_kb": 2,
+      "parent_dir": "textbook/examples/scalc"
+    },
+    {
+      "path": "textbook/examples/scalc/buffer.py.html",
+      "name": "buffer.py.html",
+      "extension": ".html",
+      "size_kb": 11,
+      "parent_dir": "textbook/examples/scalc"
+    },
+    {
+      "path": "textbook/examples/scalc/scalc.py",
+      "name": "scalc.py",
+      "extension": ".py",
+      "size_kb": 3,
+      "parent_dir": "textbook/examples/scalc"
+    },
+    {
+      "path": "textbook/pages/1.1 Getting Started.html",
+      "name": "1.1 Getting Started.html",
+      "extension": ".html",
+      "size_kb": 26,
+      "parent_dir": "textbook/pages"
+    },
+    {
+      "path": "textbook/pages/2.7 Object Abstraction.html",
+      "name": "2.7 Object Abstraction.html",
+      "extension": ".html",
+      "size_kb": 80,
+      "parent_dir": "textbook/pages"
+    },
+    {
+      "path": "youtube/Aggregation and Databases (Su25)/4-Modifying Tables.mkv",
+      "name": "4-Modifying Tables.mkv",
+      "extension": ".mkv",
+      "size_kb": 13406,
+      "parent_dir": "youtube/Aggregation and Databases (Su25)"
+    },
+    {
+      "path": "youtube/Aggregation and Databases (Su25)/5-Python and SQL.mkv",
+      "name": "5-Python and SQL.mkv",
+      "extension": ".mkv",
+      "size_kb": 7613,
+      "parent_dir": "youtube/Aggregation and Databases (Su25)"
+    },
+    {
+      "path": "youtube/CS 61A Fall 2016 Midterm 1/7-CS 61A Fall 2016 Midterm 1： Multikarp - Question 5a (Approach 1).mkv",
+      "name": "7-CS 61A Fall 2016 Midterm 1： Multikarp - Question 5a (Approach 1).mkv",
+      "extension": ".mkv",
+      "size_kb": 24975,
+      "parent_dir": "youtube/CS 61A Fall 2016 Midterm 1"
+    },
+    {
+      "path": "youtube/CS 61A Fall 2017 Final/6-CS 61A Fall 2017 Final – Question 5b (Same Level Order Trees).mkv",
+      "name": "6-CS 61A Fall 2017 Final – Question 5b (Same Level Order Trees).mkv",
+      "extension": ".mkv",
+      "size_kb": 20090,
+      "parent_dir": "youtube/CS 61A Fall 2017 Final"
+    },
+    {
+      "path": "youtube/CS 61A Fall 2020： Midterm 1 Walkthrough/1-[Fa20] 61A MT1 Q1 Walkthrough.mkv",
+      "name": "1-[Fa20] 61A MT1 Q1 Walkthrough.mkv",
+      "extension": ".mkv",
+      "size_kb": 75006,
+      "parent_dir": "youtube/CS 61A Fall 2020： Midterm 1 Walkthrough"
+    },
+    {
+      "path": "youtube/CS 61A Fall 2021 Final Walkthrough/2-CS 61A Fall 2021 Final Q1B.mkv",
+      "name": "2-CS 61A Fall 2021 Final Q1B.mkv",
+      "extension": ".mkv",
+      "size_kb": 27362,
+      "parent_dir": "youtube/CS 61A Fall 2021 Final Walkthrough"
+    },
+    {
+      "path": "youtube/CS 61A Fall 2021 Final Walkthrough/4-CS 61A Fall 2021 Final Q2B.mkv",
+      "name": "4-CS 61A Fall 2021 Final Q2B.mkv",
+      "extension": ".mkv",
+      "size_kb": 36696,
+      "parent_dir": "youtube/CS 61A Fall 2021 Final Walkthrough"
+    },
+    {
+      "path": "youtube/CS 61A Spring 2016 Final/7-CS 61A Spring 2016 Final： Tail Recursing the Dog - Question 7.mkv",
+      "name": "7-CS 61A Spring 2016 Final： Tail Recursing the Dog - Question 7.mkv",
+      "extension": ".mkv",
+      "size_kb": 16165,
+      "parent_dir": "youtube/CS 61A Spring 2016 Final"
+    },
+    {
+      "path": "youtube/CS 61A Spring 2017 Final/2-CS 61A Spring 2017 Final： Q2a - What’s the Point(er)？ Part a.mkv",
+      "name": "2-CS 61A Spring 2017 Final： Q2a - What’s the Point(er)？ Part a.mkv",
+      "extension": ".mkv",
+      "size_kb": 21893,
+      "parent_dir": "youtube/CS 61A Spring 2017 Final"
+    },
+    {
+      "path": "youtube/CS 61A Spring 2017 Midterm 2 Walkthrough/10-CS 61A Spring 2017 Midterm 2： Inflections - 5 (Generator Version).mkv",
+      "name": "10-CS 61A Spring 2017 Midterm 2： Inflections - 5 (Generator Version).mkv",
+      "extension": ".mkv",
+      "size_kb": 44966,
+      "parent_dir": "youtube/CS 61A Spring 2017 Midterm 2 Walkthrough"
+    },
+    {
+      "path": "youtube/CS 61A Spring 2017 Midterm 2 Walkthrough/7-CS 61A Spring 2017 Midterm 2： Complexity - 2c.mkv",
+      "name": "7-CS 61A Spring 2017 Midterm 2： Complexity - 2c.mkv",
+      "extension": ".mkv",
+      "size_kb": 6265,
+      "parent_dir": "youtube/CS 61A Spring 2017 Midterm 2 Walkthrough"
+    },
+    {
+      "path": "youtube/CS 61A Spring 2017 Midterm 2 Walkthrough/9-CS 61A Spring 2017 Midterm 2： OOPs - 4.mkv",
+      "name": "9-CS 61A Spring 2017 Midterm 2： OOPs - 4.mkv",
+      "extension": ".mkv",
+      "size_kb": 34299,
+      "parent_dir": "youtube/CS 61A Spring 2017 Midterm 2 Walkthrough"
+    },
+    {
+      "path": "youtube/CS 61A Spring 2018 Final Walkthrough/2-CS 61A Spring 2018 Final Walkthrough： Q2.mp4",
+      "name": "2-CS 61A Spring 2018 Final Walkthrough： Q2.mp4",
+      "extension": ".mp4",
+      "size_kb": 13366,
+      "parent_dir": "youtube/CS 61A Spring 2018 Final Walkthrough"
+    },
+    {
+      "path": "youtube/CS 61A Spring 2018 Final Walkthrough/3-CS 61A Spring 2018 Final Walkthrough： Q3.mp4",
+      "name": "3-CS 61A Spring 2018 Final Walkthrough： Q3.mp4",
+      "extension": ".mp4",
+      "size_kb": 10279,
+      "parent_dir": "youtube/CS 61A Spring 2018 Final Walkthrough"
+    },
+    {
+      "path": "youtube/CS 61A Spring 2018 Midterm 2/5-CS 61A Spring 2018 Midterm 2 – Problem 5 (Trees).mkv",
+      "name": "5-CS 61A Spring 2018 Midterm 2 – Problem 5 (Trees).mkv",
+      "extension": ".mkv",
+      "size_kb": 50762,
+      "parent_dir": "youtube/CS 61A Spring 2018 Midterm 2"
+    },
+    {
+      "path": "youtube/CS 61A Spring 2022 Final Walkthrough/1-CS 61A Spring 2022 Final Q1.webm",
+      "name": "1-CS 61A Spring 2022 Final Q1.webm",
+      "extension": ".webm",
+      "size_kb": 68962,
+      "parent_dir": "youtube/CS 61A Spring 2022 Final Walkthrough"
+    },
+    {
+      "path": "youtube/CS 61A Spring 2022 Final Walkthrough/7-CS 61A Spring 2022 Final Q7.webm",
+      "name": "7-CS 61A Spring 2022 Final Q7.webm",
+      "extension": ".webm",
+      "size_kb": 51867,
+      "parent_dir": "youtube/CS 61A Spring 2022 Final Walkthrough"
+    },
+    {
+      "path": "youtube/CS 61A Summer 2017 Final Walkthrough/2-CS 61A Summer 2017 Final： Q3 Environment Diagram.mkv",
+      "name": "2-CS 61A Summer 2017 Final： Q3 Environment Diagram.mkv",
+      "extension": ".mkv",
+      "size_kb": 21912,
+      "parent_dir": "youtube/CS 61A Summer 2017 Final Walkthrough"
+    },
+    {
+      "path": "youtube/CS 61A Summer 2017 Final Walkthrough/5-CS 61A Summer 2017 Final： Q8b Tail Recursion.mkv",
+      "name": "5-CS 61A Summer 2017 Final： Q8b Tail Recursion.mkv",
+      "extension": ".mkv",
+      "size_kb": 19114,
+      "parent_dir": "youtube/CS 61A Summer 2017 Final Walkthrough"
+    },
+    {
+      "path": "youtube/CS walkthrough vids/16-CS61a Fall 2016 Final Hailstoned 3.mp4",
+      "name": "16-CS61a Fall 2016 Final Hailstoned 3.mp4",
+      "extension": ".mp4",
+      "size_kb": 4411,
+      "parent_dir": "youtube/CS walkthrough vids"
+    },
+    {
+      "path": "youtube/CS walkthrough vids/4-CS61a Fall 2016 Final Tree or List intro.mkv",
+      "name": "4-CS61a Fall 2016 Final Tree or List intro.mkv",
+      "extension": ".mkv",
+      "size_kb": 4080,
+      "parent_dir": "youtube/CS walkthrough vids"
+    },
+    {
+      "path": "youtube/CS61A Fall 2019 Final/2-CS61A Fall 2019 Final Q2.webm",
+      "name": "2-CS61A Fall 2019 Final Q2.webm",
+      "extension": ".webm",
+      "size_kb": 74970,
+      "parent_dir": "youtube/CS61A Fall 2019 Final"
+    },
+    {
+      "path": "youtube/CS61A Fall 2019 Midterm 2/5-CS61A Fall 2019 Midterm 2 Q5.mkv",
+      "name": "5-CS61A Fall 2019 Midterm 2 Q5.mkv",
+      "extension": ".mkv",
+      "size_kb": 59628,
+      "parent_dir": "youtube/CS61A Fall 2019 Midterm 2"
+    },
+    {
+      "path": "youtube/CS61A Fall 2019 Midterm 2/8-CS61A Fall 2019 Midterm 2 Q8.mkv",
+      "name": "8-CS61A Fall 2019 Midterm 2 Q8.mkv",
+      "extension": ".mkv",
+      "size_kb": 52959,
+      "parent_dir": "youtube/CS61A Fall 2019 Midterm 2"
+    },
+    {
+      "path": "youtube/CS61A Fall 2021 Midterm 2/10-61A FA21 MT2 Q5a： Groot (Twig).webm",
+      "name": "10-61A FA21 MT2 Q5a： Groot (Twig).webm",
+      "extension": ".webm",
+      "size_kb": 8760,
+      "parent_dir": "youtube/CS61A Fall 2021 Midterm 2"
+    },
+    {
+      "path": "youtube/CS61A Spring 2019 Final/4-CS61A Spring 2019 Final Q4.mkv",
+      "name": "4-CS61A Spring 2019 Final Q4.mkv",
+      "extension": ".mkv",
+      "size_kb": 50356,
+      "parent_dir": "youtube/CS61A Spring 2019 Final"
+    },
+    {
+      "path": "youtube/CS61A Spring 2020 Midterm 1/4-CS61A Spring 2020 Midterm 1 Q3cd.mkv",
+      "name": "4-CS61A Spring 2020 Midterm 1 Q3cd.mkv",
+      "extension": ".mkv",
+      "size_kb": 54604,
+      "parent_dir": "youtube/CS61A Spring 2020 Midterm 1"
+    },
+    {
+      "path": "youtube/Data Abstraction and ADT Trees (Su25)/7-Example： Printing Trees.mkv",
+      "name": "7-Example： Printing Trees.mkv",
+      "extension": ".mkv",
+      "size_kb": 5601,
+      "parent_dir": "youtube/Data Abstraction and ADT Trees (Su25)"
+    },
+    {
+      "path": "youtube/Discussion 10： Tail Calls, Scheme Data Abstractions, SQL/3-Closer City.webm",
+      "name": "3-Closer City.webm",
+      "extension": ".webm",
+      "size_kb": 28743,
+      "parent_dir": "youtube/Discussion 10： Tail Calls, Scheme Data Abstractions, SQL"
+    },
+    {
+      "path": "youtube/Discussion 4： Tree Recursion, Trees, Lists/2-Question #3： Max Path Sum.webm",
+      "name": "2-Question #3： Max Path Sum.webm",
+      "extension": ".webm",
+      "size_kb": 57494,
+      "parent_dir": "youtube/Discussion 4： Tree Recursion, Trees, Lists"
+    },
+    {
+      "path": "youtube/Discussion 5： Iterators, Generators, Efficiency/3-[CS 61A SU24] Discussion 5 Problem #2 Repeated.mkv",
+      "name": "3-[CS 61A SU24] Discussion 5 Problem #2 Repeated.mkv",
+      "extension": ".mkv",
+      "size_kb": 16663,
+      "parent_dir": "youtube/Discussion 5： Iterators, Generators, Efficiency"
+    },
+    {
+      "path": "youtube/Efficiency/2-Memoization.mkv",
+      "name": "2-Memoization.mkv",
+      "extension": ".mkv",
+      "size_kb": 18434,
+      "parent_dir": "youtube/Efficiency"
+    },
+    {
+      "path": "youtube/Efficiency/3-Exponentiation.mkv",
+      "name": "3-Exponentiation.mkv",
+      "extension": ".mkv",
+      "size_kb": 22450,
+      "parent_dir": "youtube/Efficiency"
+    },
+    {
+      "path": "youtube/Environments/3-Local Names.mkv",
+      "name": "3-Local Names.mkv",
+      "extension": ".mkv",
+      "size_kb": 5652,
+      "parent_dir": "youtube/Environments"
+    },
+    {
+      "path": "youtube/Iterators and Generators (Su25)/2-Dictionary Iteration.mkv",
+      "name": "2-Dictionary Iteration.mkv",
+      "extension": ".mkv",
+      "size_kb": 18174,
+      "parent_dir": "youtube/Iterators and Generators (Su25)"
+    },
+    {
+      "path": "youtube/Iterators and Generators (Su25)/5-Zip.mkv",
+      "name": "5-Zip.mkv",
+      "extension": ".mkv",
+      "size_kb": 11741,
+      "parent_dir": "youtube/Iterators and Generators (Su25)"
+    },
+    {
+      "path": "youtube/Mutability (Su25)/2-Example： Strings.mkv",
+      "name": "2-Example： Strings.mkv",
+      "extension": ".mkv",
+      "size_kb": 45263,
+      "parent_dir": "youtube/Mutability (Su25)"
+    },
+    {
+      "path": "youtube/Mutability (Su25)/6-Mutable Functions.mkv",
+      "name": "6-Mutable Functions.mkv",
+      "extension": ".mkv",
+      "size_kb": 15080,
+      "parent_dir": "youtube/Mutability (Su25)"
+    },
+    {
+      "path": "youtube/Mutable Trees (Su25)/2-Tree Mutation.mkv",
+      "name": "2-Tree Mutation.mkv",
+      "extension": ".mkv",
+      "size_kb": 4472,
+      "parent_dir": "youtube/Mutable Trees (Su25)"
+    },
+    {
+      "path": "youtube/SQL and Tables (Su25)/6-Aliases & Dot Expressions.webm",
+      "name": "6-Aliases & Dot Expressions.webm",
+      "extension": ".webm",
+      "size_kb": 31694,
+      "parent_dir": "youtube/SQL and Tables (Su25)"
+    },
+    {
+      "path": "youtube/SQL and Tables (Su25)/7-Numerical Expressions.mkv",
+      "name": "7-Numerical Expressions.mkv",
+      "extension": ".mkv",
+      "size_kb": 30039,
+      "parent_dir": "youtube/SQL and Tables (Su25)"
+    },
+    {
+      "path": "youtube/Tree Recursion/4-Example： Counting Partitions.webm",
+      "name": "4-Example： Counting Partitions.webm",
+      "extension": ".webm",
+      "size_kb": 29184,
+      "parent_dir": "youtube/Tree Recursion"
+    },
+    {
+      "path": "youtube/[CS 61A FA22] Midterm 2 Walkthrough Videos/6-Question 6： Point A to Point B.webm",
+      "name": "6-Question 6： Point A to Point B.webm",
+      "extension": ".webm",
+      "size_kb": 131161,
+      "parent_dir": "youtube/[CS 61A FA22] Midterm 2 Walkthrough Videos"
+    },
+    {
+      "path": "youtube/[CS 61A FA23] Midterm 2 Walkthrough Videos/3-Question #3： 24-Hour Library.mkv",
+      "name": "3-Question #3： 24-Hour Library.mkv",
+      "extension": ".mkv",
+      "size_kb": 29841,
+      "parent_dir": "youtube/[CS 61A FA23] Midterm 2 Walkthrough Videos"
+    },
+    {
+      "path": "youtube/[CS 61A FA24] Midterm 1 Walkthrough/4-[CS 61A FA24] Midterm 1 Problem #4： Close Enough.webm",
+      "name": "4-[CS 61A FA24] Midterm 1 Problem #4： Close Enough.webm",
+      "extension": ".webm",
+      "size_kb": 45507,
+      "parent_dir": "youtube/[CS 61A FA24] Midterm 1 Walkthrough"
+    },
+    {
+      "path": "youtube/[CS 61A SP23] Midterm 2 Walkthrough/1-Problem #1： What Would Python Display？.mkv",
+      "name": "1-Problem #1： What Would Python Display？.mkv",
+      "extension": ".mkv",
+      "size_kb": 22468,
+      "parent_dir": "youtube/[CS 61A SP23] Midterm 2 Walkthrough"
+    },
+    {
+      "path": "youtube/[CS 61A SP24] Mega Discussion 08/4-[CS61A SP24] Discussion 8 Question #4 Overlap Growth.webm",
+      "name": "4-[CS61A SP24] Discussion 8 Question #4 Overlap Growth.webm",
+      "extension": ".webm",
+      "size_kb": 26655,
+      "parent_dir": "youtube/[CS 61A SP24] Mega Discussion 08"
+    },
+    {
+      "path": "youtube/[CS 61A SP25] Midterm 2 Walkthrough/1-[CS 61A SP25] Midterm 2 Problem #1： What Would Python Do？.mkv",
+      "name": "1-[CS 61A SP25] Midterm 2 Problem #1： What Would Python Do？.mkv",
+      "extension": ".mkv",
+      "size_kb": 28871,
+      "parent_dir": "youtube/[CS 61A SP25] Midterm 2 Walkthrough"
+    },
+    {
+      "path": "youtube/[CS 61A SU24] Discussion 01/1-Race.mkv",
+      "name": "1-Race.mkv",
+      "extension": ".mkv",
+      "size_kb": 12578,
+      "parent_dir": "youtube/[CS 61A SU24] Discussion 01"
+    },
+    {
+      "path": "youtube/[CS 61A SU25] Discussion 3/1-Question 1 - Recursive Multiplication.mkv",
+      "name": "1-Question 1 - Recursive Multiplication.mkv",
+      "extension": ".mkv",
+      "size_kb": 8772,
+      "parent_dir": "youtube/[CS 61A SU25] Discussion 3"
+    }
+  ],
+  "statistics": {
+    "top_level_directories": [
+      "CS 61A Summer 2025.html",
+      "articles",
+      "assets",
+      "assignment-calendar",
+      "disc",
+      "exam",
+      "hw",
+      "instructor",
+      "lab",
+      "lecture",
+      "office-hours",
+      "proj",
+      "resources",
+      "staff",
+      "study-guide",
+      "textbook",
+      "youtube"
+    ],
+    "file_counts_by_directory": {
+      "youtube": 617,
+      "exam": 162,
+      "assets": 55,
+      "textbook": 47,
+      "lab": 46,
+      "disc": 37,
+      "hw": 33,
+      "articles": 14,
+      "proj": 9,
+      "CS 61A Summer 2025.html": 1,
+      "study-guide": 1,
+      "instructor": 1,
+      "staff": 1,
+      "resources": 1,
+      "assignment-calendar": 1,
+      "lecture": 1,
+      "office-hours": 1
+    },
+    "extension_counts": {
+      ".mkv": 447,
+      ".pdf": 199,
+      ".webm": 153,
+      ".html": 115,
+      ".zip": 49,
+      ".py": 39,
+      ".mp4": 17,
+      ".scm": 5,
+      ".sql": 3,
+      ".ipynb": 1
+    },
+    "total_directories": 17
+  }
+}

@@ -19,6 +19,7 @@ class LLMModeEnum(str, Enum):
     local = "local"
     remote = "remote"
     mock = "mock"
+    openai = "openai"
 
 
 class Settings(BaseSettings):
@@ -36,6 +37,35 @@ class Settings(BaseSettings):
         alias="LLM_MODE"
     )
     remote_model_url: str = Field(description="URL for remote model API")
+
+    # OpenAI Configuration (for llm_mode=openai)
+    openai_api_key: Optional[str] = Field(
+        default=None,
+        description="OpenAI API key for OpenAI mode",
+        alias="OPENAI_API_KEY"
+    )
+    openai_model: str = Field(
+        default="gpt-4o",
+        description="OpenAI model to use (e.g., gpt-4o, gpt-4o-mini)",
+        alias="OPENAI_MODEL"
+    )
+
+    # Conditional LLM Mode Configuration
+    tutor_llm_mode: Optional[LLMModeEnum] = Field(
+        default=None,
+        description="LLM mode for tutor modes (TEXT_CHAT_TUTOR, VOICE_TUTOR). Defaults to 'openai' if not set.",
+        alias="TUTOR_LLM_MODE"
+    )
+    regular_llm_mode: Optional[LLMModeEnum] = Field(
+        default=None,
+        description="LLM mode for regular modes (TEXT_CHAT_REG, VOICE_REGULAR). Defaults to 'local' if not set.",
+        alias="REGULAR_LLM_MODE"
+    )
+    tutor_fallback_enabled: bool = Field(
+        default=True,
+        description="Enable fallback to local model if OpenAI fails for tutor mode",
+        alias="TUTOR_FALLBACK_ENABLED"
+    )
 
     # vLLM Server Configuration
     vllm_chat_url: str = Field(
@@ -152,6 +182,23 @@ class Settings(BaseSettings):
     def is_development(self) -> bool:
         """Check if running in development environment."""
         return self.environment == EnvironmentEnum.dev
+
+    def get_llm_mode_for_request(self, tutor_mode: bool) -> LLMModeEnum:
+        """
+        Determine the appropriate LLM mode based on tutor_mode flag.
+
+        Args:
+            tutor_mode: If True, returns tutor LLM mode; otherwise regular LLM mode
+
+        Returns:
+            LLMModeEnum for the appropriate model
+        """
+        if tutor_mode:
+            # Tutor modes: prefer tutor_llm_mode, fallback to openai
+            return self.tutor_llm_mode or LLMModeEnum.openai
+        else:
+            # Regular modes: prefer regular_llm_mode, fallback to local
+            return self.regular_llm_mode or LLMModeEnum.local
 
     @property
     def admin_token(self) -> str:

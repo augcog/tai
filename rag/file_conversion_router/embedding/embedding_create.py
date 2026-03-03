@@ -102,13 +102,26 @@ def embedding_create(db_path, embedding_name=None, ):
 
     # 3) Encode
     logging.info("Loading embedding model: Qwen/Qwen3-Embedding-4B...")
-    model = SentenceTransformer(
-        "Qwen/Qwen3-Embedding-4B",
-        model_kwargs={
+
+    # Try to use FlashAttention2 if available, otherwise use default
+    try:
+        import flash_attn
+        model_kwargs = {
             "attn_implementation": "flash_attention_2",
             "torch_dtype": "auto",
             "device_map": "auto",
-        },
+        }
+        logging.info("Using FlashAttention2 for faster inference")
+    except ImportError:
+        model_kwargs = {
+            "torch_dtype": "auto",
+            "device_map": "auto",
+        }
+        logging.info("FlashAttention2 not available, using default attention implementation")
+
+    model = SentenceTransformer(
+        "Qwen/Qwen3-Embedding-4B",
+        model_kwargs=model_kwargs,
         tokenizer_kwargs={"padding_side": "left"},
     )
     logging.info("Model loaded successfully")
@@ -141,15 +154,22 @@ def embedding_create(db_path, embedding_name=None, ):
         conn.close()
 
 if __name__ == "__main__":
+    COLLECTIVE_DB_PATH = "/home/bot/bot/yk/YK_final/courses_out/collective_metadata.db"
+
+    # embedding_create(
+    #     str(COLLECTIVE_DB_PATH),
+    #     "CS 61A",
+    # )
+    # embedding_create(
+    #     str(COLLECTIVE_DB_PATH),
+    #     "ROAR Academy",
+    # )
     embedding_create(
-        "/home/bot/bot/yk/YK_final/courses_out/db/CS 61A_metadata.db",
-        "CS 61A",
-    )
-    embedding_create(
-        "/home/bot/bot/yk/YK_final/courses_out/db/ROAR Academy_metadata.db",
-        "ROAR Academy",
-    )
-    embedding_create(
-        "/home/bot/bot/yk/YK_final/courses_out/db/Berkeley_metadata.db",
+        str(COLLECTIVE_DB_PATH),
         "Berkeley",
     )
+    embedding_create(
+        str(COLLECTIVE_DB_PATH),
+        "CS 294-137",
+    )
+#

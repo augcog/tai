@@ -305,7 +305,9 @@ class VideoConverter(BaseConverter):
 
 if __name__ == "__main__":
     load_dotenv()
+    from file_conversion_router.config import get_test_data_path, TEST_FOLDER_DIR
+
     converter = VideoConverter(course_name="Test Course", course_code="TEST101")
-    input_path = "/home/bot/bot/yk/YK_final/test_folder/Allen Yang AR_VR System Part 2_segment.mov"
-    output_path = "/home/bot/bot/yk/YK_final/test_folder/"
+    input_path = str(get_test_data_path('Allen Yang AR_VR System Part 2_segment.mov'))
+    output_path = str(TEST_FOLDER_DIR)
     converter._to_markdown(input_path, output_path)

@@ -78,90 +78,223 @@ For each processed file, the system generates:
 
 ### Usage Examples
 
-#### Basic File Conversion
+#### 1. Just Conversion (No Embedding)
+
+Convert files to Markdown without creating embeddings:
 
 ```python
 from file_conversion_router.api import convert_directory
 
-# Convert a single course directory
-convert_directory("/path/to/course_config.yaml")
+# Convert only - skip embedding generation
+result = convert_directory(
+    input_config="/path/to/course_config.yaml",
+    auto_embed=False  # Don't create embeddings
+)
+print(f"Converted {result['files_processed']} files")
 ```
 
-#### Batch Processing Multiple Courses
+#### 2. Conversion + Automatic Embedding
+
+Convert files and automatically create embeddings:
+
+```python
+from file_conversion_router.api import convert_directory
+
+# Convert and embed in one step (recommended)
+result = convert_directory(
+    input_config="/path/to/course_config.yaml",
+    auto_embed=True  # Automatically create both chunk and file embeddings
+)
+print(f"Processed {result['files_processed']} files")
+print(f"Created {result['embeddings_created']} embeddings")
+print(f"Embedded {result['chunks_embedded']} chunks")
+```
+
+#### 3. Just Embedding (For Already Converted Files)
+
+Create embeddings for courses that have already been converted:
+
+```python
+from file_conversion_router.api import create_embeddings_for_course
+
+# Create embeddings for existing course
+stats = create_embeddings_for_course(
+    db_path="/path/to/CS61A_metadata.db",
+    course_code="CS61A",
+    data_dir="/path/to/converted/markdown/files",  # Optional: auto-inferred if None
+    force_recompute=False  # Set True to regenerate existing embeddings
+)
+print(f"Files embedded: {stats['files_embedded']}")
+print(f"Chunks embedded: {stats['chunks_embedded']}")
+```
+
+#### 4. Batch Processing Multiple Courses
+
+Process all courses marked for update in master config:
 
 ```python
 from file_conversion_router.api import process_courses_from_master_config
 
-# Process all courses marked for update
-process_courses_from_master_config("/path/to/master_config.yaml")
-```
-
-#### Page Creation with Chunking
-
-```python
-from file_conversion_router.classes.new_page import Page
-
-# Create page from converted markdown
-page = Page(
-    course_name="CS61A",
-    course_code="CS61A",
-    filetype="pdf",
-    content={'text': markdown_content},
-    index_helper=title_index_dict
+# Process all courses with auto-embedding
+results = process_courses_from_master_config(
+    master_config_path=None,  # Defaults to configs/courses_master_config.yaml
+    auto_embed=True  # Set False to skip embedding
 )
-
-# Generate chunks for RAG
-page.to_chunk()
-page.chunks_to_pkl(output_path="/path/to/output.pkl")
+print(f"Processed: {results['courses_processed']}")
+print(f"Failed: {results['courses_failed']}")
 ```
 
-#### AI-Enhanced Processing (with OpenAI)
+#### 5. Database Merging
+
+Merge individual course databases into a collective database:
 
 ```python
-from file_conversion_router.utils.title_handle import get_strutured_content_for_ipynb
+from file_conversion_router.api import merge_course_databases_with_stats
 
-# Generate educational metadata for notebook content
-structured_content = get_strutured_content_for_ipynb(
-    md_content=markdown_text,
-    file_name="lecture_01.ipynb",
-    course_name="Introduction to Python",
-    index_helper=section_index
+# Merge all course databases with validation
+results = merge_course_databases_with_stats(
+    master_config_path=None,  # Defaults to configs/courses_master_config.yaml
+    exclude_test=True,  # Exclude test/demo databases
+    check_embeddings=True  # Validate embeddings before merge
 )
-# Returns JSON with key concepts, check-in questions, and problems
+print(f"Merged {len(results['included_courses'])} courses")
+print(f"Files with embeddings: {results['embedding_stats']['overall']['files_embedded']}")
 ```
 
-#### Database Merging
+Alternative - merge specific databases:
 
 ```python
-from file_conversion_router.api import merge_all_course_databases_in_directory
+from file_conversion_router.api import merge_course_databases_into_collective
 
-# Merge individual course databases into collective
-merge_stats = merge_all_course_databases_in_directory(
-    course_db_directory="/path/to/course/databases",
-    collective_db_path="/path/to/collective_metadata.db",
-    db_pattern="*_metadata.db"
-)
-```
-
-### Complete Processing Pipeline
-
-```python
-from file_conversion_router.api import convert_directory
-from file_conversion_router.utils.database_merger import merge_course_databases_into_collective
-
-# Step 1: Convert documents
-convert_directory("/path/to/CS61A_config.yaml")
-convert_directory("/path/to/CS61B_config.yaml")
-
-# Step 2: Merge databases
+# Merge specific course databases
 merge_course_databases_into_collective(
     course_db_paths=[
         "/path/to/CS61A_metadata.db",
         "/path/to/CS61B_metadata.db"
     ],
-    collective_db_path="/path/to/all_courses_metadata.db"
+    collective_db_path="/path/to/collective_metadata.db"
 )
 ```
+
+#### 6. Check Processing Status
+
+Check embedding and processing status for a course:
+
+```python
+from file_conversion_router.api import get_processing_status
+
+# Get detailed status
+status = get_processing_status("/path/to/CS61A_metadata.db")
+print(f"Files: {status['files_embedded']}/{status['total_files']}")
+print(f"Chunks: {status['chunks_embedded']}/{status['total_chunks']}")
+print(f"Completion: {status['completion_percentage']:.1f}%")
+```
+
+#### 7. Database Validation
+
+Validate database integrity and find issues:
+
+```python
+from file_conversion_router.api import validate_database_integrity
+
+# Comprehensive validation
+validation = validate_database_integrity(
+    db_path="/path/to/collective_metadata.db",
+    verbose=True,  # Print detailed report
+    save_report="validation_report.txt"  # Optional: save to file
+)
+
+if validation["has_critical_issues"]:
+    print("Critical issues found!")
+    for col in validation["null_columns"]:
+        print(f"  - {col['table']}.{col['column']} is completely NULL")
+```
+
+#### 8. Course Management
+
+Manage courses in master configuration:
+
+```python
+from file_conversion_router.api import (
+    mark_course_for_update,
+    get_courses_needing_update
+)
+
+# Mark a course for re-processing
+mark_course_for_update("CS61A")
+
+# Get list of courses needing update
+courses = get_courses_needing_update()
+print(f"Courses to process: {[c['name'] for c in courses]}")
+```
+
+### Complete Processing Pipeline
+
+Here's a typical workflow for processing multiple courses:
+
+```python
+from file_conversion_router.api import (
+    process_courses_from_master_config,
+    merge_course_databases_with_stats,
+    validate_database_integrity
+)
+
+# Step 1: Convert and embed all courses
+print("Step 1: Converting and embedding courses...")
+results = process_courses_from_master_config(auto_embed=True)
+print(f"Processed: {results['courses_processed']}")
+
+# Step 2: Merge into collective database
+print("\nStep 2: Merging course databases...")
+merge_results = merge_course_databases_with_stats(
+    exclude_test=True,
+    check_embeddings=True
+)
+print(f"Merged {len(merge_results['included_courses'])} courses")
+
+# Step 3: Validate collective database
+print("\nStep 3: Validating collective database...")
+validation = validate_database_integrity(
+    db_path="path/to/collective_metadata.db",
+    verbose=True
+)
+print(f"Validation complete. Critical issues: {validation['has_critical_issues']}")
+```
+
+### API Reference
+
+#### Core Workflow Functions
+
+| Function | Description | Key Parameters |
+|----------|-------------|----------------|
+| `convert_directory()` | Convert files in a directory to Markdown | `input_config`, `auto_embed` |
+| `process_courses_from_master_config()` | Batch process multiple courses | `master_config_path`, `auto_embed` |
+| `merge_course_databases_with_stats()` | Merge course databases with validation | `master_config_path`, `exclude_test`, `check_embeddings` |
+
+#### Embedding Functions
+
+| Function | Description | Key Parameters |
+|----------|-------------|----------------|
+| `create_embeddings_for_course()` | Create embeddings for a specific course | `db_path`, `course_code`, `data_dir`, `force_recompute` |
+| `embedding_create()` | Create chunk embeddings (chunks.vector) | `db_path`, `course_code` |
+| `embed_files_from_markdown()` | Create file embeddings (file.vector) | `db_path`, `data_dir`, `course_filter` |
+| `check_embedding_status()` | Check embedding completeness | `db_path`, `course_code` |
+
+#### Database Functions
+
+| Function | Description | Key Parameters |
+|----------|-------------|----------------|
+| `merge_course_databases_into_collective()` | Merge specific databases | `course_db_paths`, `collective_db_path` |
+| `merge_all_course_databases_in_directory()` | Merge databases from directory | `course_db_directory`, `collective_db_path`, `db_pattern` |
+| `validate_database_integrity()` | Validate database and find issues | `db_path`, `verbose`, `save_report` |
+
+#### Course Management Functions
+
+| Function | Description | Key Parameters |
+|----------|-------------|----------------|
+| `mark_course_for_update()` | Mark course for re-processing | `course_name` |
+| `get_courses_needing_update()` | Get courses marked for update | `master_config_path` |
+| `get_processing_status()` | Get detailed processing status | `db_path` |
 
 ### Advanced Features
 
@@ -170,6 +303,8 @@ merge_course_databases_into_collective(
 - **Conversion Fidelity**: 95% similarity threshold for test validations
 - **Robust Logging**: Detailed logging of conversion processes
 - **Ignore Patterns**: Support for `.conversionignore` file to exclude files/folders
+- **Parallel Processing**: Support via `TaskManager` for distributed processing
+- **Automatic Data Directory Inference**: Embeddings can auto-detect output directories from configs
 
 ### Testing
 

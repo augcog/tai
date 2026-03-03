@@ -125,3 +125,5 @@ exports/
 *.db
 
 audio/*
+# Claude Code settings
+.claude/

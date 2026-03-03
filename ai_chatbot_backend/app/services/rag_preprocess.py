@@ -259,7 +259,10 @@ def build_file_augmented_context(
     file_content = " ".join(chunk["chunk"] for chunk in chunks)
 
     augmented_context = (
-        f"The user is looking at this file to give the instruction: \n{file_content}\n---\n"
+        "The user is viewing the following file:\n"
+        "<file_content>\n"
+        f"{file_content}\n"
+        "</file_content>\n\n"
     )
 
     focused_chunk = ""
@@ -273,9 +276,19 @@ def build_file_augmented_context(
             closest_chunks = [chunk for chunk in chunks if abs(chunk['index'] - index) == min_distance]
             # Already sorted by chunk_index, so closest_chunks are in order
         focused_chunk = ' '.join(chunk['chunk'] for chunk in closest_chunks)
-        augmented_context += f"The user is focused on the following part of the file: {focused_chunk}\n\n"
+        augmented_context += (
+            "The user is focused on this section of the file:\n"
+            "<focused_section>\n"
+            f"{focused_chunk}\n"
+            "</focused_section>\n\n"
+        )
 
     if selected_text:
-        augmented_context += f"The user has selected the following text in the file:\n\n{selected_text}\n\n"
+        augmented_context += (
+            "The user has selected this text from the file:\n"
+            "<selected_text>\n"
+            f"{selected_text}\n"
+            "</selected_text>\n\n"
+        )
 
     return augmented_context, file_content, focused_chunk, sections

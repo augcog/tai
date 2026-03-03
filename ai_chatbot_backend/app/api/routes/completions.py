@@ -6,6 +6,8 @@ from app.core.models.chat_completion import (
     GeneralCompletionParams,
     FileCompletionParams,
     PracticeCompletionParams,
+    PageContentParams,
+    GeneratePagesParams,
     Message,
     ResponseDelta,
     TextToSpeechParams,
@@ -130,6 +132,54 @@ async def create_completion(
         return StreamingResponse(result, media_type="text/event-stream")
     else:
         return JSONResponse(ResponseDelta(text=result).model_dump_json(exclude_unset=True))
+
+@router.post("/page-content")
+async def generate_page_content(
+        params: PageContentParams,
+        _: bool = Depends(verify_api_token),
+):
+    """Generate content for a single outline page using the local vLLM model."""
+    from app.services.generation.tutor.page_content import run_page_content_pipeline
+
+    try:
+        llm_engine = get_engine_for_mode("local")
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=f"Local LLM service unavailable: {str(e)}"
+        )
+
+    result = run_page_content_pipeline(params, llm_engine)
+    return StreamingResponse(result, media_type="text/event-stream")
+
+
+@router.post("/generate-pages")
+async def generate_pages(
+        params: GeneratePagesParams,
+        _: bool = Depends(verify_api_token),
+):
+    """Combined pipeline: generate outline (OpenAI) + all page contents (local vLLM) in one SSE stream."""
+    from app.services.generation.tutor.generate_pages import run_generate_pages_pipeline
+
+    try:
+        openai_engine = get_engine_for_mode("openai")
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=f"OpenAI service unavailable: {str(e)}"
+        )
+
+    try:
+        local_engine = get_engine_for_mode("local")
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=f"Local LLM service unavailable: {str(e)}"
+        )
+
+    result = run_generate_pages_pipeline(params, openai_engine, local_engine)
+    return StreamingResponse(result, media_type="text/event-stream")
+
 
 @router.post("/tts")
 async def text_to_speech(

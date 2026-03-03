@@ -35,6 +35,19 @@ class Reference(BaseModel):
     file_uuid: Optional[str] = None
     chunk_index: Optional[float] = None
 
+class PageReference(BaseModel):
+    """A single reference for page content generation."""
+    file_uuid: str
+    chunk_index: float
+
+class PageContentParams(BaseModel):
+    """Parameters for the /page-content endpoint."""
+    point: str                        # Student-facing page title
+    purpose: str                      # Model-facing instruction for HOW to explain
+    references: List[PageReference]   # file_uuid + chunk_index from ResponseReference
+    course_code: str
+    stream: bool = True
+
 class ResponseReference(BaseEvt):
     model_config = ConfigDict(extra="forbid")
     type: Literal["response.reference"] = "response.reference"
@@ -60,6 +73,34 @@ class Done(BaseEvt):
     model_config = ConfigDict(extra="forbid")
     type: Literal["done"] = "done"
 
+
+# === Generate-pages pipeline events ===
+
+class OutlineComplete(BaseEvt):
+    model_config = ConfigDict(extra="forbid")
+    type: Literal["outline.complete"] = "outline.complete"
+    outline: dict
+
+class PageStart(BaseEvt):
+    model_config = ConfigDict(extra="forbid")
+    type: Literal["page.start"] = "page.start"
+    page_index: int = Field(ge=0)
+    point: str
+
+class PageDelta(BaseEvt):
+    model_config = ConfigDict(extra="forbid")
+    type: Literal["page.delta"] = "page.delta"
+    page_index: int = Field(ge=0)
+    seq: int = Field(ge=0)
+    text: str = Field(min_length=1)
+
+class PageError(BaseEvt):
+    model_config = ConfigDict(extra="forbid")
+    type: Literal["page.error"] = "page.error"
+    page_index: int
+    error: str
+
+
 def sse(payload: BaseEvt) -> str:
     return f"data: {payload.model_dump_json(exclude_unset=False)}\n\n"
 
@@ -68,6 +109,13 @@ class Message(BaseModel):
     role: str
     content: str
     tool_call_id: Optional[str] = None
+
+class GeneratePagesParams(BaseModel):
+    """Parameters for the /generate-pages combined pipeline."""
+    course_code: str
+    messages: List[Message]
+    stream: bool = True
+    sid: Optional[str] = None         # chat_history_sid for memory retrieval
 
 class VoiceMessage(BaseModel):
     # a message that contains audio data array in content
@@ -92,7 +140,7 @@ class GeneralCompletionParams(BaseModel):
     rag: Optional[bool] = True
     audio_response: Optional[bool] = False
     sid: Optional[str] = None  # chat_history_sid from frontend
-    tutor_mode: Optional[bool] = True  # Enable tutor mode (Bloom taxonomy, hints-first)
+    tutor_mode: Optional[bool] = False  # Enable tutor mode (Bloom taxonomy, hints-first)
     json_output: Optional[bool] = True  # Enable JSON output format (derived from tutor_mode if not set)
 
 class FileCompletionParams(BaseModel):

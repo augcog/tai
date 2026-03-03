@@ -12,7 +12,7 @@ from app.services.generation.schemas import (
     OUTLINE_OPENAI_FORMAT,
 )
 
-
+# TODO： add a new function to separate the voice explanation and text explanation.
 async def call_tutor_model(
     messages: List[Message],
     engine: Any,
@@ -50,8 +50,7 @@ async def call_tutor_model(
         response_format = OUTLINE_OPENAI_FORMAT
     elif audio_response:
         response_format = VOICE_TUTOR_OPENAI_FORMAT
-    else:
-        response_format = RESPONSE_BLOCKS_OPENAI_FORMAT
+
 
     return await call_remote_engine(
         messages, engine, stream=stream, course=course, response_format=response_format

@@ -148,7 +148,7 @@ class FileCompletionParams(BaseModel):
     Parameters for file-based chat completions.
     """
     course_code: str
-    audio: VoiceMessage
+    audio: VoiceMessage = None
     messages: List[Message]
     stream: bool
     chat_type: str = "file"  # e.g., "general", "file", "practice"

@@ -190,9 +190,27 @@ OUTLINE_BULLET_SCHEMA = {
 OUTLINE_JSON_SCHEMA = {
     "type": "object",
     "properties": {
+        "needs_multiple_pages": {
+            "type": "boolean",
+            "description": (
+                "true if the student's question requires multiple pages to explain "
+                "thoroughly (multi-step concepts, prerequisites, etc.). "
+                "false if a single page is sufficient (simple factual question, definition, etc.). "
+                "When false, still produce exactly one bullet."
+            )
+        },
         "title": {
             "type": "string",
             "description": "A clear, descriptive title for this teaching outline."
+        },
+        "outline": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": (
+                "High-level page titles only — one string per page. "
+                "This is the clean outline the student sees before detailed content is generated. "
+                "Each entry must match the corresponding bullet's 'point' field exactly."
+            )
         },
         "bullets": {
             "type": "array",
@@ -200,7 +218,7 @@ OUTLINE_JSON_SCHEMA = {
             "description": "Ordered list of page teaching goals with supporting evidence."
         },
     },
-    "required": ["title", "bullets"],
+    "required": ["needs_multiple_pages", "title", "outline", "bullets"],
     "additionalProperties": False
 }
 
@@ -210,5 +228,119 @@ OUTLINE_OPENAI_FORMAT = {
         "name": "tutor_outline",
         "strict": True,
         "schema": OUTLINE_JSON_SCHEMA
+    }
+}
+
+# ========================
+# Page Bullets JSON Schema (for per-page sub-bullet generation via vLLM guided decoding)
+# ========================
+
+PAGE_SUB_BULLET_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "point": {
+            "type": "string",
+            "description": "A specific sub-topic or knowledge point to cover on this page."
+        },
+        "reference_ids": {
+            "type": "array",
+            "items": {"type": "integer"},
+            "description": "Reference numbers from the provided materials that support this sub-point."
+        },
+    },
+    "required": ["point", "reference_ids"],
+    "additionalProperties": False
+}
+
+PAGE_BULLETS_JSON_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "sub_bullets": {
+            "type": "array",
+            "items": PAGE_SUB_BULLET_SCHEMA,
+            "description": (
+                "Ordered list of sub-topics for this page. Each sub-bullet is a specific "
+                "knowledge point that the narration model will expand into explanatory text."
+            )
+        },
+    },
+    "required": ["sub_bullets"],
+    "additionalProperties": False
+}
+
+# ========================
+# Page Content JSON Schema (for OpenAI block-based page narration, TTS-aware)
+# ========================
+
+PAGE_CONTENT_TTS_BLOCK_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "type": {
+            "type": "string",
+            "enum": ["readable", "not_readable"],
+            "description": (
+                '"readable" for narration text that will be spoken aloud by TTS. '
+                '"not_readable" for visual-only content (code, formulas, tables) '
+                'shown on screen but not spoken.'
+            )
+        },
+        "citations": {
+            "type": "array",
+            "items": CITATION_SCHEMA,
+            "description": "Citations referencing the provided context (1–2 per block)."
+        },
+        "open": {
+            "type": "boolean",
+            "description": "true to open the cited reference file on the learner's screen. false to keep current state."
+        },
+        "markdown_content": {
+            "type": "string",
+            "description": (
+                "For readable blocks: natural language narration written to be spoken aloud. "
+                "For not_readable blocks: code, formulas, or tables displayed visually only."
+            )
+        },
+        "close": {
+            "type": "boolean",
+            "description": "true to close the reference file after this block. false to keep it open."
+        },
+    },
+    "required": ["type", "citations", "open", "markdown_content", "close"],
+    "additionalProperties": False
+}
+
+PAGE_CONTENT_JSON_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "sub_bullets": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": (
+                "Knowledge sub-points for this page. If the page's teaching goal is "
+                "straightforward, this can be a single entry matching the page title. "
+                "If the topic needs decomposition, list 2–5 specific sub-points. "
+                "These are shown to the student as a mini table-of-contents before the narration."
+            )
+        },
+        "blocks": {
+            "type": "array",
+            "items": PAGE_CONTENT_TTS_BLOCK_SCHEMA,
+            "description": (
+                "Ordered narration blocks. Each block declares its type (readable or not_readable), "
+                "can open/close a reference file, and contains markdown content. Readable blocks "
+                "are spoken aloud by TTS; not_readable blocks are displayed visually only."
+            )
+        },
+    },
+    "required": ["sub_bullets", "blocks"],
+    "additionalProperties": False
+}
+
+PAGE_CONTENT_OPENAI_FORMAT = {
+    "type": "json_schema",
+    "json_schema": {
+        "name": "page_content_blocks",
+        "strict": True,
+        "schema": PAGE_CONTENT_JSON_SCHEMA
     }
 }

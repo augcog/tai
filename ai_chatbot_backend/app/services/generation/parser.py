@@ -318,6 +318,7 @@ class BlockStreamEvent:
     citation_open: Optional[CitationInfo] = None
     citation_close: Optional[int] = None  # citation_id that just ended
     text_delta: Optional[str] = None
+    block_type: Optional[str] = None  # "readable" or "not_readable" (emitted once per new block)
 
 
 @dataclass
@@ -440,6 +441,11 @@ def extract_answers_with_citations(
             citation_info = _extract_citation_from_region(region_before)
             prev_close, curr_open = _extract_open_close_from_region(region_before)
 
+            # Emit block type if present (TTS-aware blocks)
+            type_match = re.search(r'"type"\s*:\s*"(readable|not_readable)"', region_before)
+            if type_match:
+                events.append(BlockStreamEvent(block_type=type_match.group(1)))
+
             # Previous block had close=true → close active citation
             if state.active_citation_id is not None and (prev_close or state.pending_close):
                 events.append(BlockStreamEvent(citation_close=state.active_citation_id))
@@ -494,6 +500,11 @@ def _process_complete_blocks(
             # Flush text accumulated so far (belongs to the previous citation)
             _flush_text_delta(all_content_parts, state, events)
 
+            # Emit block type if present (TTS-aware blocks)
+            block_type_val = block.get("type")
+            if isinstance(block_type_val, str) and block_type_val in ("readable", "not_readable"):
+                events.append(BlockStreamEvent(block_type=block_type_val))
+
             # Read open/close from block level
             block_open = bool(block.get("open", False))
             block_close = bool(block.get("close", False))
@@ -525,9 +536,14 @@ def _process_complete_blocks(
             state.pending_close = block_close
             state.opened_block_indices.add(block_idx)
 
-        content = _render_block_markdown(block, include_unreadable=include_unreadable)
-        if content:
-            all_content_parts.append(content)
+        # Extract raw markdown_content only (not rendered with citation markers)
+        # to stay consistent with the streaming regex path.
+        # Citation markers are handled separately via CitationOpen/CitationClose events.
+        raw_content = block.get("markdown_content", "")
+        if isinstance(raw_content, str):
+            stripped = raw_content.strip()
+            if stripped:
+                all_content_parts.append(stripped)
 
     # Flush remaining text (belongs to the last citation)
     _flush_text_delta(all_content_parts, state, events)

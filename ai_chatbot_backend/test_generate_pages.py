@@ -16,6 +16,48 @@ from app.core.models.chat_completion import GeneratePagesParams, Message
 from app.services.generation.tutor.generate_pages import run_generate_pages_pipeline
 
 
+
+SPEECH_SYSTEM_PROMPT = """\
+You are TAI, a university tutor for {course_code}.
+You are speaking aloud to a student, explaining a topic page by page.
+Generate ONLY what you would say — natural, conversational, like a real lecture.
+
+Rules:
+- No markdown, no code fences, no bullet lists, no brackets.
+- When referencing code, describe it in words (e.g., "a function called make_adder that takes n").
+- Vary your pacing and transitions naturally.
+- Use the teaching purpose as your guide for HOW to explain.
+- Use the bullet points as your guide for WHAT to cover.
+- Keep it focused — this is one page of a multi-page lesson."""
+
+
+async def generate_speech_script(engine, label: str, course_code: str,
+                                 user_content: str) -> str:
+    """Stream a speech script from the model, printing tokens as they arrive."""
+    system = SPEECH_SYSTEM_PROMPT.format(course_code=course_code)
+    messages = [
+        {"role": "system", "content": system},
+        {"role": "user", "content": user_content},
+    ]
+    stream = await engine(
+        user_content,
+        messages=messages,
+        stream=True,
+        temperature=0.7,
+        max_tokens=800,
+    )
+    print(f"\n--- SPEECH ({label}) ---")
+    full_text = ""
+    async for chunk in stream:
+        if chunk.choices:
+            token = chunk.choices[0].delta.content
+            if token:
+                print(token, end="", flush=True)
+                full_text += token
+    print("\n---")
+    return full_text
+
+
 async def main(course_code: str, question: str):
     print(f"\n{'='*60}")
     print(f"Course: {course_code}")
@@ -31,6 +73,36 @@ async def main(course_code: str, question: str):
         messages=[Message(role="user", content=question)],
         stream=True,
     )
+
+    # State tracking
+    outline_data = None       # Set when outline.complete arrives (may have empty bullets)
+    outline_titles = []       # Page titles from outline["outline"] array
+    page_purposes = {}        # {page_idx: purpose} from page.start events
+    total_pages = 0
+    current_page_idx = -1
+    current_page_title = ""
+
+    # Buffer page speech data until outline arrives (so Intro speech goes first)
+    buffered_page_speeches = []  # [(page_idx, page_title, sub_bullets), ...]
+
+    async def _generate_page_speech(page_idx, page_title, sub_bullets):
+        """Generate a speech script for a content page (frontend page_idx+1)."""
+        purpose = page_purposes.get(page_idx, "")
+        bullet_text = "\n".join(
+            f"- {sb.get('point', sb) if isinstance(sb, dict) else sb}"
+            for sb in sub_bullets
+        )
+        prev_pages = ", ".join(
+            f"\"{t}\"" for t in outline_titles[:page_idx]
+        ) if page_idx > 0 else "(this is the first page)"
+        await generate_speech_script(
+            openai_engine, f"Page {page_idx + 1}", course_code,
+            f"Page {page_idx + 1} of {total_pages}: \"{page_title}\"\n"
+            f"Teaching approach: {purpose}\n"
+            f"Key points to cover:\n{bullet_text}\n"
+            f"Previous pages covered: {prev_pages}\n\n"
+            f"Generate what you would say aloud to teach this page."
+        )
 
     # Run pipeline and print each SSE event
     async for event_str in run_generate_pages_pipeline(params, openai_engine, local_engine):
@@ -52,16 +124,68 @@ async def main(course_code: str, question: str):
 
         elif evt_type == "outline.complete":
             outline = evt["outline"]
-            print(f"\n--- OUTLINE: {outline.get('title', 'Untitled')} ---")
-            for i, b in enumerate(outline.get("bullets", [])):
-                print(f"  Page {i}: {b['point']}")
-                print(f"          purpose: {b['purpose']}...")
-                print(f"          refs: {b.get('references', [])}")
+            outline_data = outline
+            outline_titles = outline.get("outline", [])
+            total_pages = len(outline_titles)
+            print(f"\n--- OUTLINE (Page 0): {outline.get('title', 'Untitled')} ---")
+            for i, title in enumerate(outline_titles):
+                print(f"  Page {i+1}: {title}")
+
+            # 1. Generate Intro speech FIRST (needs title + page titles)
+            page_titles = "\n".join(f"- {t}" for t in outline_titles)
+            await generate_speech_script(
+                openai_engine, "Intro", course_code,
+                f"Student asked: \"{question}\"\n"
+                f"Lesson: \"{outline.get('title', '')}\" ({total_pages} pages)\n"
+                f"Pages:\n{page_titles}\n\n"
+                f"Generate a brief spoken intro welcoming the student and previewing the lesson."
+            )
+
+            # 2. Replay buffered page speeches in order
+            for (buf_idx, buf_title, buf_bullets) in buffered_page_speeches:
+                await _generate_page_speech(buf_idx, buf_title, buf_bullets)
+            buffered_page_speeches = []
 
         elif evt_type == "page.start":
+            current_page_idx = evt["page_index"]
+            current_page_title = evt["point"]
+            page_purposes[current_page_idx] = evt.get("purpose", "")
             print(f"\n{'='*60}")
-            print(f"PAGE {evt['page_index']}: {evt['point']}")
+            print(f"PAGE {current_page_idx + 1}: {current_page_title}")
             print(f"{'='*60}")
+
+        elif evt_type == "page.bullets":
+            sub_bullets = evt.get("sub_bullets", [])
+            print(f"\n  Bullet points:")
+            for j, sb in enumerate(sub_bullets):
+                if isinstance(sb, dict):
+                    print(f"    {j+1}. {sb.get('point', sb)}")
+                else:
+                    print(f"    {j+1}. {sb}")
+            print()
+
+            # Generate speech — buffer if outline not yet available
+            if outline_data is None:
+                buffered_page_speeches.append(
+                    (current_page_idx, current_page_title, sub_bullets)
+                )
+            else:
+                await _generate_page_speech(current_page_idx, current_page_title, sub_bullets)
+
+        elif evt_type == "page.block_type":
+            if evt.get("block_type") == "not_readable":
+                print("\n  [Code/Formula block]")
+
+        elif evt_type == "response.citation.open":
+            cid = evt.get("citation_id", "?")
+            quote = evt.get("quote_text")
+            if quote:
+                print(f"\n  [ref:{cid}] \"{quote}\"")
+            else:
+                print(f"\n  [ref:{cid}]")
+
+        elif evt_type == "response.citation.close":
+            pass
 
         elif evt_type == "page.delta":
             print(evt["text"], end="", flush=True)

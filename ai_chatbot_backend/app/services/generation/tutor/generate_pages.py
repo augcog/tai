@@ -1,5 +1,8 @@
 """
-Combined pages pipeline: generate query -> OpenAI outline -> local model page content.
+Combined pages pipeline: generate query -> OpenAI outline -> OpenAI page content.
+
+Outline: OpenAI generates structured outline with needs_multiple_pages, outline titles, and bullets.
+Page content: OpenAI generates block-based narration with sub_bullets, citations, and reference open/close.
 
 Pipelined: page 0 content generation starts as soon as bullet 0 is parsed
 from the streaming outline, rather than waiting for the entire outline.
@@ -10,9 +13,13 @@ import re
 from typing import Any, AsyncIterator, List, Optional
 
 from app.core.models.chat_completion import (
+    CitationOpen,
+    CitationClose,
     Done,
     GeneratePagesParams,
     OutlineComplete,
+    PageBlockType,
+    PageBullets,
     PageContentParams,
     PageDelta,
     PageError,
@@ -22,6 +29,10 @@ from app.core.models.chat_completion import (
     ResponseReference,
     sse,
 )
+from app.services.generation.parser import (
+    BlockStreamState,
+    extract_answers_with_citations,
+)
 
 
 async def run_generate_pages_pipeline(
@@ -30,15 +41,16 @@ async def run_generate_pages_pipeline(
     local_engine: Any,
 ) -> AsyncIterator[str]:
     """
-    Combined pipeline: outline generation (OpenAI) -> per-page content (local vLLM).
+    Combined pipeline: outline generation (OpenAI) -> per-page content (OpenAI).
 
-    Pipelined: starts generating page 0 as soon as bullet 0 is parsed from
-    the streaming outline, overlapping outline collection with page generation.
+    For each page, OpenAI generates block-based JSON with:
+      - sub_bullets: knowledge sub-points for the page
+      - blocks: narration with integrated citation open/close
     """
     from app.services.generation.tutor.query import build_tutor_context
     from app.services.generation.tutor.generate import call_tutor_model
     from app.services.generation.tutor.page_content.query import build_page_content_context
-    from app.services.generation.tutor.page_content.generate import call_page_content_model
+    from app.services.generation.tutor.page_content.generate import call_page_content_openai
 
     # === Step 1: Build context (RAG + query reformulation) ===
     context = await build_tutor_context(
@@ -72,6 +84,7 @@ async def run_generate_pages_pipeline(
     async def _collect_outline():
         outline_text = ""
         parsed_count = 0
+        titles_extracted = False
         async for chunk in raw_stream:
             if not hasattr(chunk, "choices") or not chunk.choices:
                 continue
@@ -81,17 +94,24 @@ async def run_generate_pages_pipeline(
                 continue
             outline_text += content
 
+            # Detect outline titles early (before bullets finish)
+            if not titles_extracted:
+                titles = _extract_outline_titles(outline_text)
+                if titles:
+                    outline_holder["data"] = titles
+                    titles_extracted = True
+
             # Try to extract newly completed bullets
             new_bullets = _extract_new_bullets(outline_text, parsed_count)
             for b in new_bullets:
                 await bullet_queue.put(b)
                 parsed_count += 1
 
-        # Store the full parsed outline
+        # Store the full parsed outline (overwrites early titles with complete data)
         parsed = _parse_outline(outline_text)
         if parsed:
             outline_holder["data"] = parsed
-        else:
+        elif not titles_extracted:
             print(f"[ERROR] Failed to parse outline JSON: {outline_text[:500]}")
             outline_holder["error"] = True
 
@@ -122,15 +142,23 @@ async def run_generate_pages_pipeline(
                 course_code=params.course_code,
             )
 
-            messages = build_page_content_context(page_params)
+            yield sse(PageStart(page_index=page_idx, point=bullet["point"], purpose=bullet["purpose"]))
 
-            yield sse(PageStart(page_index=page_idx, point=bullet["point"]))
+            # --- Generate page content via OpenAI (block-based JSON, streaming) ---
+            page_messages = build_page_content_context(page_params)
+            page_stream = await call_page_content_openai(
+                page_messages, openai_engine, course=params.course_code
+            )
 
+            page_text = ""
+            sub_bullets_emitted = False
+            block_state = BlockStreamState()
             seq = 0
             has_content = False
-            async for chunk in call_page_content_model(messages, local_engine):
+
+            async for chunk in page_stream:
                 # Check if outline finished during page generation
-                if not outline_emitted and outline_task.done() and outline_holder.get("data"):
+                if not outline_emitted and outline_holder.get("data"):
                     yield sse(OutlineComplete(outline=outline_holder["data"]))
                     outline_emitted = True
 
@@ -138,13 +166,61 @@ async def run_generate_pages_pipeline(
                     continue
                 delta = chunk.choices[0].delta
                 content = getattr(delta, "content", None)
-                if content:
-                    yield sse(PageDelta(page_index=page_idx, seq=seq, text=content))
-                    seq += 1
-                    has_content = True
+                if not content:
+                    continue
 
-            # Check again after page generation loop ends
-            if not outline_emitted and outline_task.done() and outline_holder.get("data"):
+                page_text += content
+
+                # Try to extract sub_bullets early (before blocks arrive)
+                if not sub_bullets_emitted:
+                    sub_bullets = _extract_sub_bullets(page_text)
+                    if sub_bullets is not None:
+                        yield sse(PageBullets(page_index=page_idx, sub_bullets=sub_bullets))
+                        sub_bullets_emitted = True
+
+                # Incrementally parse blocks for citation events + text deltas
+                events = extract_answers_with_citations(page_text, block_state)
+                for evt in events:
+                    if evt.block_type is not None:
+                        yield sse(PageBlockType(page_index=page_idx, block_type=evt.block_type))
+                    if evt.citation_open is not None:
+                        yield sse(CitationOpen(
+                            citation_id=evt.citation_open.citation_id,
+                            quote_text=evt.citation_open.quote_text or None,
+                        ))
+                    if evt.text_delta is not None:
+                        yield sse(PageDelta(page_index=page_idx, seq=seq, text=evt.text_delta))
+                        seq += 1
+                        has_content = True
+                    if evt.citation_close is not None:
+                        yield sse(CitationClose(citation_id=evt.citation_close))
+
+            # Final parse after stream completes — flush remaining events
+            if page_text:
+                events = extract_answers_with_citations(page_text, block_state)
+                for evt in events:
+                    if evt.block_type is not None:
+                        yield sse(PageBlockType(page_index=page_idx, block_type=evt.block_type))
+                    if evt.citation_open is not None:
+                        yield sse(CitationOpen(
+                            citation_id=evt.citation_open.citation_id,
+                            quote_text=evt.citation_open.quote_text or None,
+                        ))
+                    if evt.text_delta is not None:
+                        yield sse(PageDelta(page_index=page_idx, seq=seq, text=evt.text_delta))
+                        seq += 1
+                        has_content = True
+                    if evt.citation_close is not None:
+                        yield sse(CitationClose(citation_id=evt.citation_close))
+
+            # Emit sub_bullets if not yet emitted (fallback: parse complete JSON)
+            if not sub_bullets_emitted and page_text:
+                sub_bullets = _extract_sub_bullets(page_text)
+                if sub_bullets is not None:
+                    yield sse(PageBullets(page_index=page_idx, sub_bullets=sub_bullets))
+
+            # Check outline again after page generation
+            if not outline_emitted and outline_holder.get("data"):
                 yield sse(OutlineComplete(outline=outline_holder["data"]))
                 outline_emitted = True
 
@@ -174,6 +250,69 @@ async def run_generate_pages_pipeline(
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
+def _extract_outline_titles(text: str) -> Optional[dict]:
+    """
+    Extract title + outline array from partial outline JSON (before bullets finish).
+
+    The outline JSON streams: needs_multiple_pages → title → outline[] → bullets[].
+    Once the outline array is complete, we have all page titles needed for
+    outline.complete and Intro speech, without waiting for bullet details.
+    """
+    # Try to extract the "outline" array (string items only)
+    match = re.search(r'"outline"\s*:\s*(\[.*?\])', text, re.DOTALL)
+    if not match:
+        return None
+    try:
+        outline_arr = json.loads(match.group(1))
+        if not isinstance(outline_arr, list) or not outline_arr:
+            return None
+    except json.JSONDecodeError:
+        return None
+
+    # Extract title
+    title_match = re.search(r'"title"\s*:\s*"((?:[^"\\]|\\.)*)"', text)
+    title = title_match.group(1) if title_match else ""
+
+    # Extract needs_multiple_pages
+    nmp_match = re.search(r'"needs_multiple_pages"\s*:\s*(true|false)', text)
+    needs_multiple = nmp_match.group(1) == "true" if nmp_match else len(outline_arr) > 1
+
+    return {
+        "needs_multiple_pages": needs_multiple,
+        "title": title,
+        "outline": outline_arr,
+        "bullets": [],  # bullets not yet available
+    }
+
+
+def _extract_sub_bullets(text: str) -> Optional[list]:
+    """
+    Extract the sub_bullets array from partial or complete page content JSON.
+
+    Returns the list of sub-bullet strings if found and complete, else None.
+    sub_bullets appears before blocks in the JSON, so it's available early in the stream.
+    """
+    # Try complete JSON parse first
+    try:
+        data = json.loads(text)
+        if isinstance(data, dict) and "sub_bullets" in data:
+            return data["sub_bullets"]
+    except json.JSONDecodeError:
+        pass
+
+    # Streaming: try to extract the sub_bullets array from partial JSON
+    match = re.search(r'"sub_bullets"\s*:\s*(\[.*?\])', text, re.DOTALL)
+    if match:
+        try:
+            arr = json.loads(match.group(1))
+            if isinstance(arr, list):
+                return arr
+        except json.JSONDecodeError:
+            pass
+
+    return None
+
 
 def _extract_new_bullets(text: str, already_parsed: int) -> List[dict]:
     """

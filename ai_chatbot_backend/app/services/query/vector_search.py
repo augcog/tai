@@ -1,6 +1,5 @@
 # Standard python libraries
 import json
-import pickle
 import threading
 import time
 from typing import Any, Dict, List, Optional, Tuple, TYPE_CHECKING
@@ -12,7 +11,7 @@ import numpy as np
 # Local libraries
 from app.services.query.embedding import (
     _get_embedding, _get_cursor, _decode_vec_from_db,
-    EMBEDDING_PICKLE_PATH, SQLDB,
+    SQLDB,
 )
 from app.services.query.course_mapping import _get_pickle_and_class
 
@@ -345,7 +344,7 @@ def _get_references_from_sql(
         return [], [], [], [], [], [], [],[], []
     # Get the course index from the cache or build it if not present or stale
     idx = _get_course_index(course)
-    if not idx.get("M") is not None:
+    if idx.get("M") is None:
         return [], [], [], [], [], [], [],[], []
     # Compute the scores for each document in the index
     document_matrix = idx["M"]
@@ -428,35 +427,3 @@ def _build_course_index(course: str):
         "dv": dv, "chunk_uuids": chunk_uuids, "file_paths": file_paths, "reference_paths": reference_paths,
         "titles": titles, "texts": texts, "urls": urls, "M": document_matrix, "file_uuids": file_uuids, "chunk_idxs": chunk_idxs
     }
-
-
-def _get_references_from_pickle(
-    query_embed: Dict[str, Any], pickle_file: str, top_k: int
-) -> Tuple[List[str], List[str], List[str], List[float], List[str], List[str], List[str]]:
-    """
-    Retrieve top reference documents from a pickle file.
-    """
-    # Load the pickle file content
-    path_to_pickle = EMBEDDING_PICKLE_PATH / pickle_file
-    with open(path_to_pickle, "rb") as f:
-        data_loaded = pickle.load(f)
-    doc_list = data_loaded["doc_list"]
-    file_path_list = data_loaded["file_paths_list"]
-    topic_path_list = data_loaded["topic_path_list"]
-    id_list = data_loaded["id_list"]
-    url_list = data_loaded["url_list"]
-    embedding_list = data_loaded["embedding_list"]
-    # Compute the similarity scores
-    score = query_embed["dense_vecs"] @ embedding_list["dense_vecs"].T
-    score_array = np.array(score)
-    # Sort the scores and retrieve the top_k results
-    indices = np.argsort(score_array)[::-1]
-    similarity_scores = np.sort(score_array)[-top_k:][::-1]
-    top_ids = id_list[indices][:top_k]
-    top_docs = doc_list[indices][:top_k]
-    top_files = file_path_list[indices][:top_k]
-    top_topic_paths = topic_path_list[indices][:top_k]
-    top_urls = url_list[indices][:top_k].tolist()
-    # TODO: Add top_titles if available in the pickle file
-    top_titles = []
-    return top_ids, top_docs, top_urls, similarity_scores, top_files, top_topic_paths, top_titles

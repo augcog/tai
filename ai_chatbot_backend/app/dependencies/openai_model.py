@@ -4,7 +4,6 @@ OpenAI API client for structured output generation.
 Provides the same interface as RemoteModelClient for seamless integration.
 Supports OpenAI's native structured output (response_format with json_schema).
 """
-import json
 from typing import Optional, Dict, Any, Iterator
 
 from openai import AsyncOpenAI
@@ -158,20 +157,9 @@ class OpenAIModelClient:
 
         Yields raw chunks compatible with BaseStreamHandler (same format as vLLM).
         """
-        print("\n[OpenAI Stream] Starting streaming response (chat.completions)...")
-        full_text = []
         async for chunk in response:
-            # Print token-by-token for real-time feedback
-            if chunk.choices and chunk.choices[0].delta.content:
-                token = chunk.choices[0].delta.content
-                print(token, end="", flush=True)
-                full_text.append(token)
-
             # Yield raw chunk (compatible with BaseStreamHandler)
             yield chunk
-
-        print("\n[OpenAI Stream] Complete.\n")
-        self._print_json("".join(full_text))
 
     async def _stream_response_responses(self, response):
         """
@@ -179,9 +167,9 @@ class OpenAIModelClient:
 
         Note: This is for GPT-5.x models using the Responses API. We convert
         the response format to match ChatCompletionChunk for compatibility.
+        Only events from output_index=0 are processed to avoid duplication
+        when the model generates multiple output items.
         """
-        print("\n[OpenAI Stream] Starting streaming response (responses API / GPT-5.x)...")
-
         # Import here to avoid circular dependency
         from dataclasses import dataclass
         from typing import Optional
@@ -199,34 +187,21 @@ class OpenAIModelClient:
         class MockChunk:
             choices: list
 
-        full_text = []
         async for event in response:
             event_type = getattr(event, "type", "")
             if event_type == "response.output_text.delta":
+                if getattr(event, "output_index", 0) != 0:
+                    continue
                 token = event.delta
                 if token:
-                    print(token, end="", flush=True)
-                    full_text.append(token)
-                    # Yield as mock ChatCompletionChunk
                     yield MockChunk(choices=[Choice(delta=DeltaContent(content=token))])
             elif event_type == "response.refusal.delta":
+                if getattr(event, "output_index", 0) != 0:
+                    continue
                 token = event.delta
                 if token:
-                    print(token, end="", flush=True)
-                    full_text.append(token)
                     yield MockChunk(choices=[Choice(delta=DeltaContent(content=token))])
 
-        print("\n[OpenAI Stream] Complete.\n")
-        self._print_json("".join(full_text))
-
-    @staticmethod
-    def _print_json(text: str):
-        """Pretty-print text as JSON if parseable."""
-        try:
-            print("[OpenAI Stream] Formatted JSON output:")
-            print(json.dumps(json.loads(text), indent=2, ensure_ascii=False))
-        except (ValueError, TypeError):
-            pass
 
     def _format_response(self, response) -> Dict[str, Any]:
         """Format complete response to match expected structure."""

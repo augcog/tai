@@ -5,7 +5,6 @@ Best practices with easy user flow and auto-discovery
 
 import mimetypes
 import os
-from datetime import datetime
 from pathlib import Path
 from typing import Optional, Dict, Any, List, Set
 from uuid import UUID
@@ -165,33 +164,6 @@ class FileService:
             media_type=mime_type,
             filename=file_record.file_name,
         )
-
-    def get_stats(self, db: Session) -> Dict[str, Any]:
-        """Get comprehensive file system statistics"""
-        # Auto-discover before stats
-        self._auto_discover_files(db)
-
-        total_files = db.query(FileModel).count()
-
-        # Get course breakdown
-        from sqlalchemy import func
-
-        course_stats = (
-            db.query(
-                FileModel.course_code, func.count(FileModel.uuid).label("count")
-            )
-            .filter(FileModel.course_code.isnot(None))
-            .group_by(FileModel.course_code)
-            .all()
-        )
-
-        return {
-            "total_files": total_files,
-            "base_directory": str(self.base_dir),
-            "auto_discovery": "enabled",
-            "courses": {code: count for code, count in course_stats},
-            "last_updated": datetime.now(),
-        }
 
     def browse_directory(self, db: Session, course_code: str, path: str = "") -> Dict[str, Any]:
         """

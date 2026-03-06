@@ -45,8 +45,8 @@ class Settings(BaseSettings):
         alias="OPENAI_API_KEY"
     )
     openai_model: str = Field(
-        default="gpt-4o",
-        description="OpenAI model to use (e.g., gpt-4o, gpt-4o-mini)",
+        default="gpt-5.2",
+        description="OpenAI model to use (e.g., gpt-5.2, gpt-4o)",
         alias="OPENAI_MODEL"
     )
 
@@ -199,18 +199,6 @@ class Settings(BaseSettings):
         else:
             # Regular modes: prefer regular_llm_mode, fallback to local
             return self.regular_llm_mode or LLMModeEnum.local
-
-    @property
-    def admin_token(self) -> str:
-        return self.admin_token
-
-    @property
-    def admin_username(self) -> str:
-        return self.admin_username
-
-    @property
-    def admin_password(self) -> str:
-        return self.admin_password
 
     class Config:
         env_file = ".env"

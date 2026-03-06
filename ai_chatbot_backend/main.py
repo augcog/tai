@@ -19,11 +19,6 @@ from app.core.dbs.course_db import Base, engine
 # Import the new database initializer
 from app.core.dbs.db_initializer import initialize_database_on_startup
 
-# Import to ensure table creation
-
-# from app.core.actions.model_selector import get_model
-
-
 logging.basicConfig(
     level=logging.WARNING,
     format="[%(asctime)s] {%(filename)s:%(funcName)s:%(lineno)d} %(levelname)s - %(message)s",
@@ -41,17 +36,6 @@ else:
 
 # Fallback table creation (in case the initializer doesn't work)
 Base.metadata.create_all(bind=engine)
-
-# Initialize model pipeline once at startup
-print("\n🤖 Initializing AI model pipeline...")
-# try:
-#     initialize_model_engine()
-#     print("✅ Model pipeline initialization completed successfully!")
-# except Exception as e:
-#     print(f"❌ Model pipeline initialization failed: {e}")
-#     print("💡 The server will start but model-dependent endpoints may not work.")
-
-# File categories are now simplified and handled automatically
 
 app = FastAPI(
     title="Course AI Assistant API",

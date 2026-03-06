@@ -1,8 +1,9 @@
-from typing import Any, List
+from typing import Any, List, Optional
 
 from app.config import settings
 from app.core.models.chat_completion import Message
-from app.services.generation.model_call import SAMPLING_PARAMS
+from app.services.generation.model_call import SAMPLING_PARAMS, call_remote_engine
+from app.services.generation.schemas import PAGE_CONTENT_OPENAI_FORMAT
 
 
 async def call_page_content_model(messages: List[Message], engine: Any):
@@ -27,3 +28,23 @@ async def call_page_content_model(messages: List[Message], engine: Any):
     async for chunk in stream:
         if chunk.choices:
             yield chunk
+
+
+async def call_page_content_openai(
+    messages: List[Message],
+    engine: Any,
+    course: Optional[str] = None,
+):
+    """
+    Call OpenAI for page content generation with block-based JSON schema.
+
+    Returns a streaming iterator of chunks (same interface as call_remote_engine).
+    Uses PAGE_CONTENT_OPENAI_FORMAT for structured output with sub_bullets + blocks.
+    """
+    return await call_remote_engine(
+        messages,
+        engine,
+        stream=True,
+        course=course,
+        response_format=PAGE_CONTENT_OPENAI_FORMAT,
+    )

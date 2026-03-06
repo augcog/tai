@@ -86,6 +86,19 @@ class PageStart(BaseEvt):
     type: Literal["page.start"] = "page.start"
     page_index: int = Field(ge=0)
     point: str
+    purpose: str = ""
+
+class PageBullets(BaseEvt):
+    model_config = ConfigDict(extra="forbid")
+    type: Literal["page.bullets"] = "page.bullets"
+    page_index: int = Field(ge=0)
+    sub_bullets: list  # [{"point": "...", "reference_ids": [1, 2]}]
+
+class PageBlockType(BaseEvt):
+    model_config = ConfigDict(extra="forbid")
+    type: Literal["page.block_type"] = "page.block_type"
+    page_index: int = Field(ge=0)
+    block_type: str  # "readable" or "not_readable"
 
 class PageDelta(BaseEvt):
     model_config = ConfigDict(extra="forbid")
@@ -140,7 +153,7 @@ class GeneralCompletionParams(BaseModel):
     rag: Optional[bool] = True
     audio_response: Optional[bool] = False
     sid: Optional[str] = None  # chat_history_sid from frontend
-    tutor_mode: Optional[bool] = False  # Enable tutor mode (Bloom taxonomy, hints-first)
+    tutor_mode: Optional[bool] = True  # Enable tutor mode (Bloom taxonomy, hints-first)
     json_output: Optional[bool] = True  # Enable JSON output format (derived from tutor_mode if not set)
 
 class FileCompletionParams(BaseModel):

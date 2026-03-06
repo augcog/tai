@@ -127,24 +127,32 @@ async def main(course_code: str, question: str):
             outline_data = outline
             outline_titles = outline.get("outline", [])
             total_pages = len(outline_titles)
-            print(f"\n--- OUTLINE (Page 0): {outline.get('title', 'Untitled')} ---")
-            for i, title in enumerate(outline_titles):
-                print(f"  Page {i+1}: {title}")
+            is_single_page = not outline.get("needs_multiple_pages", True)
 
-            # 1. Generate Intro speech FIRST (needs title + page titles)
-            page_titles = "\n".join(f"- {t}" for t in outline_titles)
-            await generate_speech_script(
-                openai_engine, "Intro", course_code,
-                f"Student asked: \"{question}\"\n"
-                f"Lesson: \"{outline.get('title', '')}\" ({total_pages} pages)\n"
-                f"Pages:\n{page_titles}\n\n"
-                f"Generate a brief spoken intro welcoming the student and previewing the lesson."
-            )
+            if is_single_page:
+                # Single-page: no outline display, no intro speech
+                # Just replay any buffered page speeches directly
+                for (buf_idx, buf_title, buf_bullets) in buffered_page_speeches:
+                    await _generate_page_speech(buf_idx, buf_title, buf_bullets)
+                buffered_page_speeches = []
+            else:
+                # Multi-page: show outline + intro speech as before
+                print(f"\n--- OUTLINE (Page 0): {outline.get('title', 'Untitled')} ---")
+                for i, title in enumerate(outline_titles):
+                    print(f"  Page {i+1}: {title}")
 
-            # 2. Replay buffered page speeches in order
-            for (buf_idx, buf_title, buf_bullets) in buffered_page_speeches:
-                await _generate_page_speech(buf_idx, buf_title, buf_bullets)
-            buffered_page_speeches = []
+                page_titles = "\n".join(f"- {t}" for t in outline_titles)
+                await generate_speech_script(
+                    openai_engine, "Intro", course_code,
+                    f"Student asked: \"{question}\"\n"
+                    f"Lesson: \"{outline.get('title', '')}\" ({total_pages} pages)\n"
+                    f"Pages:\n{page_titles}\n\n"
+                    f"Generate a brief spoken intro welcoming the student and previewing the lesson."
+                )
+
+                for (buf_idx, buf_title, buf_bullets) in buffered_page_speeches:
+                    await _generate_page_speech(buf_idx, buf_title, buf_bullets)
+                buffered_page_speeches = []
 
         elif evt_type == "page.start":
             current_page_idx = evt["page_index"]

@@ -39,17 +39,11 @@ Each sub-bullet should:
 - Be written as a concise statement or question the student needs answered.
 - Map to at least one reference when possible.
 - Together with other sub-bullets, fully cover the page's teaching goal without redundancy.
-
-Example sub-bullets for a page about "How Binary Search Works":
-- "The sorted-array precondition: why the input must be sorted"
-- "The halving step: compare the middle element and discard half"
-- "Termination condition: when the search space is empty"
-- "Time complexity: why it's O(log n)"
 </sub_bullet_guidelines>
 
 <guidelines>
-- Match the language of the point (if the point is in Chinese, write in Chinese; etc.).
-- Produce 2–5 sub-bullets per page. Use fewer for simple topics, more for complex ones.
+- Match the language of the point.
+- Use fewer for simple topics, more for complex ones.
 - Every sub-bullet should cite at least one reference when references are available.
 </guidelines>"""
 

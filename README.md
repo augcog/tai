@@ -149,6 +149,7 @@ The TAI project is a collaborative effort by researchers and students at UC Berk
 - Charles Xu
 - Ashton Lee
 - Arnav Jain
+- Joshua Chen
 
 ## Acknowledgements
 

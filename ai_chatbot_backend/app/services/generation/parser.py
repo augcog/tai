@@ -171,6 +171,18 @@ def extract_channels(text: str) -> dict:
     if not text:
         return {"analysis": "", "final": ""}
 
+    # Handle case where vLLM strips the opening <think> token but passes </think> through.
+    # In this case the text starts with thinking content and contains </think> with no leading <think>.
+    if "</think>" in text and not re.match(r"^\s*<think>", text):
+        parts = text.split("</think>", 1)
+        incomplete_patterns = ["</think", "</thin", "</thi", "</th", "</t", "</", "<"]
+        cleaned = parts[0]
+        for pattern in incomplete_patterns:
+            if parts[0].endswith(pattern):
+                cleaned = parts[0][:-len(pattern)]
+                break
+        return {"analysis": cleaned.strip(), "final": parts[1].strip()}
+
     # Only treat `<think>...</think>` as a wrapper when it is a leading block.
     if re.match(r"^\s*<think>", text):
         if "</think>" in text:
@@ -180,16 +192,20 @@ def extract_channels(text: str) -> dict:
                 return {"analysis": m.group("analysis").strip(), "final": m.group("final").strip()}
 
             parts = text.split("</think>", 1)
-            return {"analysis": parts[0].strip(), "final": parts[1].strip()}
+            analysis = re.sub(r"^\s*<think>\s*", "", parts[0]).strip()
+            return {"analysis": analysis, "final": parts[1].strip()}
 
         # Streaming: `<think>` started but hasn't closed yet.
-        incomplete_patterns = ["</think", "</", "<"]
+        # All partial suffixes of `</think>` must be listed so they are stripped before emitting.
+        incomplete_patterns = ["</think", "</thin", "</thi", "</th", "</t", "</", "<"]
         cleaned_text = text
         for pattern in incomplete_patterns:
             if text.endswith(pattern):
                 cleaned_text = text[:-len(pattern)]
                 break
-        return {"analysis": cleaned_text.strip(), "final": ""}
+        # Strip the leading <think> tag so analysis is tag-free (consistent with complete case)
+        analysis = re.sub(r"^\s*<think>\s*", "", cleaned_text).strip()
+        return {"analysis": analysis, "final": ""}
 
     # No think wrapper → everything is final (supports pure-JSON outputs).
     thinking = _extract_top_level_json_string_field(text, "thinking")

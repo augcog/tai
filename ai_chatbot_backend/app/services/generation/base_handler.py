@@ -158,8 +158,14 @@ class BaseStreamHandler(ABC):
             if hasattr(output, 'choices') and output.choices:
                 delta = output.choices[0].delta
 
-                if hasattr(delta, 'reasoning_content') and delta.reasoning_content:
-                    self.ctx.accumulated_reasoning += delta.reasoning_content
+                reasoning_content = (
+                    getattr(delta, 'reasoning_content', None)
+                    or (delta.model_extra or {}).get('reasoning_content')
+                    or (delta.model_extra or {}).get('reasoning')
+                    or ''
+                )
+                if reasoning_content:
+                    self.ctx.accumulated_reasoning += reasoning_content
 
                 if hasattr(delta, 'content') and delta.content:
                     self.ctx.accumulated_content += delta.content
@@ -227,8 +233,13 @@ class BaseStreamHandler(ABC):
                 async for audio_event in self._interleave_audio(channels['final']):
                     yield audio_event
         else:
-            # for/else: flush remaining chunks after stream ends
-            channels = self.ctx.previous_channels
+            # for/else: flush any content held back by PARTIAL_TAIL_GUARD
+            # Recompute channels from the final accumulated text (bypasses the guard)
+            if self.ctx.accumulated_reasoning:
+                final_text = f"<think>{self.ctx.accumulated_reasoning}</think>{self.ctx.accumulated_content}"
+            else:
+                final_text = self.ctx.accumulated_content
+            channels = extract_channels(final_text) or self.ctx.previous_channels
             chunks = {
                 c: channels[c][len(self.ctx.previous_channels.get(c, "")):]
                 for c in channels
@@ -241,6 +252,7 @@ class BaseStreamHandler(ABC):
                 yield sse(ResponseDelta(seq=self.ctx.text_seq, text_channel=channel, text=chunk))
                 self.ctx.text_seq += 1
                 print(chunk, end="")
+            self.ctx.previous_channels = channels
 
             # Flush remaining audio
             if self.audio_response and 'final' in channels:

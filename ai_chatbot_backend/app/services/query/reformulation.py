@@ -1,7 +1,22 @@
 from typing import Any
 
+from openai import AsyncOpenAI
+
 from app.config import settings
-from app.dependencies.model import get_vllm_chat_client
+
+# Singleton client for reformulation — avoids leaking a new connection pool on every call
+_reformulation_client: AsyncOpenAI | None = None
+
+
+def _get_reformulation_client() -> AsyncOpenAI:
+    global _reformulation_client
+    if _reformulation_client is None:
+        _reformulation_client = AsyncOpenAI(
+            base_url=settings.vllm_chat_url,
+            api_key=settings.vllm_api_key,
+        )
+    return _reformulation_client
+
 
 # Query reformulator prompt
 _QUERY_REFORMULATOR_PROMPT = (
@@ -14,8 +29,6 @@ _QUERY_REFORMULATOR_PROMPT = (
     "to align terminology and target specific topics. Include relevant constraints "
     "(dates, versions, scope), and avoid adding facts not in the history. "
     "Return only the rewritten query as question in plain text—no quotes, no extra text."
-    "# Valid channels: analysis, commentary, final. Channel must be included for every message."
-    "Calls to these tools must go to the commentary channel: 'functions'.<|end|>"
 )
 
 
@@ -70,17 +83,26 @@ async def build_retrieval_query(
 
     print(f"[DEBUG] Reformulation input ({len(request_content)} chars):\n{request_content[:2000]}...")
 
-    client = get_vllm_chat_client()
+    client = _get_reformulation_client()
     response = await client.chat.completions.create(
         model=settings.vllm_chat_model,
         messages=chat,
         temperature=0.6,
         top_p=0.95,
-        max_tokens=500,
-        extra_body={"top_k": 20, "min_p": 0}
+        max_tokens=512,
+        timeout=30.0,
+        extra_body={"top_k": 20, "min_p": 0, "chat_template_kwargs": {"enable_thinking": False}},
     )
-    # vLLM with --reasoning-parser separates reasoning_content from content
-    # Use content directly (final response without thinking)
-    text = response.choices[0].message.content or ""
-    print(f"[INFO] Generated RAG-Query: {text.strip()}")
-    return text.strip()
+    msg = response.choices[0].message
+    content = msg.content or ""
+    # reasoning_content is a vLLM extension stored in model_extra by the openai SDK
+    reasoning = (
+        getattr(msg, "reasoning_content", None)
+        or (msg.model_extra or {}).get("reasoning_content")
+        or (msg.model_extra or {}).get("reasoning")
+        or ""
+    )
+    print(f"[DEBUG] Reformulation raw: content={repr(content[:200])}, reasoning_content={repr(reasoning[:200])}")
+    text = content.strip() or reasoning.strip()
+    print(f"[INFO] Generated RAG-Query: {text[:200]}")
+    return text or user_message

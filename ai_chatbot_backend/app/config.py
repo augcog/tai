@@ -99,7 +99,7 @@ class Settings(BaseSettings):
         alias="VLLM_TTS_MODEL"
     )
     vllm_chat_model: str = Field(
-        default="cpatonn/Qwen3-30B-A3B-Thinking-2507-AWQ-4bit",
+        default="Qwen/Qwen3.5-27B-AWQ-4bit",
         description="Model ID for vLLM chat server",
         alias="VLLM_CHAT_MODEL"
     )

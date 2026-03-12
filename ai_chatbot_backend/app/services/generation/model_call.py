@@ -12,8 +12,12 @@ from app.core.models.chat_completion import Message
 SAMPLING_PARAMS = {
     "temperature": 0.6,
     "top_p": 0.95,
-    "max_tokens": 6000,
-    "extra_body": {"top_k": 20, "min_p": 0}
+    "max_tokens": 2000,
+    "extra_body": {
+        "top_k": 20,
+        "min_p": 0,
+        "chat_template_kwargs": {"thinking_budget": 512},
+    }
 }
 
 

@@ -18,7 +18,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Server configurations
-CHAT_MODEL="/home/tai25/models/qwen3.5-27b-awq-4bit"
+CHAT_MODEL="Qwen/Qwen3.5-27B-AWQ-4bit"
 CHAT_PORT=8001
 CHAT_GPUS="0,1"
 

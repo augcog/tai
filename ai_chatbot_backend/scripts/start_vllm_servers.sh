@@ -18,7 +18,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Server configurations
-CHAT_MODEL="cpatonn/Qwen3-30B-A3B-Thinking-2507-AWQ-4bit"
+CHAT_MODEL="/home/tai25/models/qwen3.5-27b-awq-4bit"
 CHAT_PORT=8001
 CHAT_GPUS="0,1"
 
@@ -187,7 +187,7 @@ main() {
     # Start Chat Model Server (Port 8001) - requires 2 GPUs for tensor parallel
     start_server "chat" "$CHAT_MODEL" "$CHAT_PORT" "$CHAT_GPUS" \
         "--tensor-parallel-size 2" \
-        "--gpu-memory-utilization 0.47" \
+        "--gpu-memory-utilization 0.55" \
         "--max-model-len 10000" \
         "--max_num_seqs 32" \
         "--reasoning-parser deepseek_r1"
@@ -202,7 +202,7 @@ main() {
     start_server "embed" "$EMBEDDING_MODEL" "$EMBEDDING_PORT" "$EMBEDDING_GPUS" \
         "--max-model-len 10000" \
         "--max-num-seqs 32" \
-        "--gpu-memory-utilization 0.4"
+        "--gpu-memory-utilization 0.3"
 
     if ! wait_for_server $EMBEDDING_PORT "Embedding"; then
         log_error "Embedding server failed to start. Check tmux session for errors."
@@ -212,7 +212,7 @@ main() {
 
     # Start Whisper Server (Port 8003)
     start_server "whisper" "$WHISPER_MODEL" "$WHISPER_PORT" "$WHISPER_GPUS" \
-        "--gpu-memory-utilization 0.37"
+        "--gpu-memory-utilization 0.2"
 
     if ! wait_for_server $WHISPER_PORT "Whisper"; then
         log_error "Whisper server failed to start. Check tmux session for errors."

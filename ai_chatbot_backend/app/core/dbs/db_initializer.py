@@ -21,7 +21,7 @@ from app.core.dbs.metadata_db import (
     MetadataSessionLocal,
 )
 from app.core.models.courses import CourseModel
-from app.core.models.metadata import FileModel, ProblemModel
+from app.core.models.metadata import FileModel, ProblemModel, ModuleModel
 from app.core.mongodb_client import get_mongodb_client, load_database_mapping
 from app.config import settings
 
@@ -62,6 +62,9 @@ class DatabaseInitializer:
                     logger.warning(
                         "⚠️ Failed to load data from MongoDB, continuing with local initialization"
                     )
+
+            # Step 4: Populate modules table from file paths (idempotent)
+            self._populate_modules()
 
             # Database initialization completed
 
@@ -360,6 +363,79 @@ class DatabaseInitializer:
 
         except Exception as e:
             logger.error(f"❌ Failed to load problems from MongoDB: {e}")
+            return False
+
+    def _populate_modules(self) -> bool:
+        """
+        Scan FileModel paths to discover modules and populate the module table.
+        Idempotent — uses INSERT OR IGNORE semantics via the unique constraint.
+        """
+        import uuid as uuid_lib
+        try:
+            session = MetadataSessionLocal()
+            try:
+                # Get all files with paths containing at least one slash
+                files = session.query(FileModel.relative_path, FileModel.course_code).filter(
+                    FileModel.relative_path.like('%/%')
+                ).all()
+
+                seen: set = set()
+                new_modules = []
+
+                for relative_path, course_code in files:
+                    if not relative_path or not course_code:
+                        continue
+                    parts = relative_path.split('/')
+                    # paths are {course_dir}/{category}/... so category is at parts[1]
+                    module_path = None
+                    category = None
+
+                    if len(parts) >= 5 and parts[1] == 'practice':
+                        # {course_dir}/practice/{subdir}/{module_name}/...
+                        module_path = '/'.join(parts[:4])
+                        category = 'practice'
+                    elif len(parts) >= 4 and parts[1] == 'study':
+                        # {course_dir}/study/{module_name}/...
+                        module_path = '/'.join(parts[:3])
+                        category = 'study'
+                    elif len(parts) >= 4 and parts[1] == 'support':
+                        # {course_dir}/support/{module_name}/...
+                        module_path = '/'.join(parts[:3])
+                        category = 'support'
+
+                    if module_path and category:
+                        key = (course_code, module_path)
+                        if key not in seen:
+                            seen.add(key)
+                            # Only insert if it doesn't already exist
+                            existing = session.query(ModuleModel).filter_by(
+                                course_code=course_code, path=module_path
+                            ).first()
+                            if not existing:
+                                new_modules.append(ModuleModel(
+                                    uuid=str(uuid_lib.uuid4()),
+                                    name=module_path.split('/')[-1],
+                                    path=module_path,
+                                    category=category,
+                                    course_code=course_code,
+                                ))
+
+                if new_modules:
+                    session.add_all(new_modules)
+                    session.commit()
+                    logger.info(f"✅ Populated {len(new_modules)} new modules")
+                else:
+                    logger.info("✅ Module table already up to date")
+
+                return True
+            except Exception as e:
+                session.rollback()
+                logger.error(f"❌ Failed to populate modules: {e}")
+                return False
+            finally:
+                session.close()
+        except Exception as e:
+            logger.error(f"❌ Module population error: {e}")
             return False
 
     def get_database_status(self) -> Dict:

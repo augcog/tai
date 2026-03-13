@@ -18,7 +18,9 @@ def build_augmented_prompt(
         answer_content: Optional[str] = None,
         audio_response: bool = False,
         tutor_mode: bool = True,
-        timer: Optional[RequestTimer] = None
+        timer: Optional[RequestTimer] = None,
+        module_path: Optional[str] = None,
+        file_uuid=None
 ) -> Tuple[str, List[Dict], str]:
     """
     Build an augmented prompt by retrieving reference documents.
@@ -42,7 +44,12 @@ def build_augmented_prompt(
             f"Instruction: {user_message}"
         )
     # Print parameter information
-    print('\n Course: \n', course, '\n')
+    scope_info = f"Course: {course}"
+    if file_uuid:
+        scope_info += f", File: {file_uuid}"
+    elif module_path:
+        scope_info += f", Module: {module_path}"
+    print(f'\n{scope_info}\n')
     print("\nUser Question: \n", user_message, "\n")
     print('time of the day:', time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()), '\n')
     # No need to retrieve documents if rag is False
@@ -55,7 +62,10 @@ def build_augmented_prompt(
     (
         top_chunk_uuids, top_docs, top_urls, similarity_scores, top_files, top_refs, top_titles,
         top_file_uuids, top_chunk_idxs
-    ), class_name = get_reference_documents(query_message, course, top_k=top_k, timer=timer)
+    ), class_name = get_reference_documents(
+        query_message, course, top_k=top_k, timer=timer,
+        module_path=module_path, file_uuid=file_uuid
+    )
     # Prepare the insert document and reference list
     # Collect file UUIDs that pass threshold, then batch-fetch their descriptions
     passing_indices = [i for i in range(len(top_docs)) if similarity_scores[i] > threshold]

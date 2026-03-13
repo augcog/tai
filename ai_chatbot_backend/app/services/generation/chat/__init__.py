@@ -16,6 +16,7 @@ async def run_chat_pipeline(
     sid: Optional[str] = None,
     timer: Optional[RequestTimer] = None,
     audio_text: Optional[str] = None,
+    module_path: Optional[str] = None,
 ):
     """
     Regular chat pipeline: query -> generate -> handler.
@@ -31,6 +32,7 @@ async def run_chat_pipeline(
         messages, user_focus, answer_content, problem_content,
         course, engine, sid, timer,
         audio_response=audio_response,
+        module_path=module_path,
     )
 
     # Step 2: Generate — call LLM

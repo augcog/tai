@@ -16,6 +16,7 @@ async def run_tutor_pipeline(
     sid: Optional[str] = None,
     timer: Optional[RequestTimer] = None,
     audio_text: Optional[str] = None,
+    module_path: Optional[str] = None,
 ):
     """
     Tutor pipeline: query -> generate -> handler.

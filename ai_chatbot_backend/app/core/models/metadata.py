@@ -1,8 +1,8 @@
 """
-Models for metadata database (files and problems)
+Models for metadata database (files, problems, modules)
 """
 
-from sqlalchemy import Column, String, Integer, Float, Text
+from sqlalchemy import Column, String, Integer, Float, Text, UniqueConstraint
 from app.core.dbs.metadata_db import MetadataBase
 
 
@@ -41,3 +41,21 @@ class ProblemModel(MetadataBase):
 
     def __repr__(self):
         return f"<Problem(uuid={self.uuid}, file_uuid={self.file_uuid}, question_id={self.question_id})>"
+
+
+class ModuleModel(MetadataBase):
+    """Module model for metadata database — represents a logical grouping of course files"""
+    __tablename__ = "module"
+
+    uuid = Column(String, primary_key=True, index=True)
+    name = Column(String, nullable=False)          # Last path segment (e.g., "lab01")
+    path = Column(String, nullable=False)          # Full relative path (e.g., "practice/labs/lab01")
+    category = Column(String, nullable=False)      # "practice", "study", or "support"
+    course_code = Column(String, nullable=False, index=True)
+
+    __table_args__ = (
+        UniqueConstraint("course_code", "path", name="uq_module_course_path"),
+    )
+
+    def __repr__(self):
+        return f"<Module(uuid={self.uuid}, path={self.path}, course={self.course_code})>"

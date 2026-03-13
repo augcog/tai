@@ -109,24 +109,46 @@ async def create_completion(
         print("file_uuid:", params.user_focus.file_uuid)
         print("selected_text:", params.user_focus.selected_text)
         print("chunk_index:", params.user_focus.chunk_index)
+        if params.user_focus.module_uuid:
+            print("module_uuid:", params.user_focus.module_uuid)
     elif isinstance(params, PracticeCompletionParams):
         problem_content = _get_problem_content(params, db)
 
+    # Resolve module_uuid → module_path if provided
+    module_path = None
+    user_focus = getattr(params, 'user_focus', None)
+    if user_focus and user_focus.module_uuid:
+        from app.services.module_service import module_service as _module_service
+        module = _module_service.get_by_uuid(db, user_focus.module_uuid)
+        if not module:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Module not found: {user_focus.module_uuid}",
+            )
+        module_path = module.path
+
     # Dispatch to chat or tutor pipeline
-    pipeline_fn = run_tutor_pipeline if params.tutor_mode else run_chat_pipeline
-    result = await pipeline_fn(
-        messages=params.messages,
-        user_focus=getattr(params, 'user_focus', None),
-        answer_content=getattr(params, 'answer_content', None),
-        problem_content=problem_content,
-        stream=params.stream,
-        course=params.course_code,
-        engine=llm_engine,
-        audio_response=params.audio_response,
-        sid=sid,
-        timer=timer,
-        audio_text=audio_text,
-    )
+    try:
+        pipeline_fn = run_tutor_pipeline if params.tutor_mode else run_chat_pipeline
+        result = await pipeline_fn(
+            messages=params.messages,
+            user_focus=user_focus,
+            answer_content=getattr(params, 'answer_content', None),
+            problem_content=problem_content,
+            stream=params.stream,
+            course=params.course_code,
+            engine=llm_engine,
+            audio_response=params.audio_response,
+            sid=sid,
+            timer=timer,
+            audio_text=audio_text,
+            module_path=module_path,
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
 
     if params.stream:
         return StreamingResponse(result, media_type="text/event-stream")

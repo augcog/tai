@@ -2,6 +2,7 @@ from app.api.routes import (
     completions,
     courses,
     files,
+    modules,
     problems,
 )
 from fastapi import APIRouter
@@ -19,6 +20,9 @@ api_router.include_router(courses.router, prefix="/courses", tags=["courses"])
 
 # Files management
 api_router.include_router(files.router, prefix="/files", tags=["files"])
+
+# Modules management
+api_router.include_router(modules.router, prefix="/modules", tags=["modules"])
 
 # Problems management
 api_router.include_router(

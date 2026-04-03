@@ -5,7 +5,7 @@ import sqlite3
 from pathlib import Path
 from typing import List, Dict
 
-from file_conversion_router.services.directory_service import SQL_INIT
+from file_conversion_router.services.directory_service import SQL_INIT, SQL_UPSERT_MODULE
 
 
 def merge_course_databases_into_collective(
@@ -135,6 +135,11 @@ def _delete_course_data_from_collective(
             "DELETE FROM file WHERE course_code = ?", (course_code,)
         )
 
+        # Delete modules for this course
+        collective_conn.execute(
+            "DELETE FROM module WHERE course_code = ?", (course_code,)
+        )
+
         logging.info(f"Deleted existing course data for {course_code}: {deletion_stats}")
 
     except Exception as e:
@@ -159,7 +164,7 @@ def _merge_single_course_db(
     course_conn.row_factory = sqlite3.Row
     collective_conn.row_factory = sqlite3.Row
 
-    stats = {"files": 0, "chunks": 0, "problems": 0, "conflicts": 0, "deleted": {}}
+    stats = {"files": 0, "chunks": 0, "problems": 0, "modules": 0, "conflicts": 0, "deleted": {}}
 
     # Get all files from course database to determine course_code
     files = course_conn.execute("SELECT * FROM file").fetchall()
@@ -260,6 +265,22 @@ def _merge_single_course_db(
                 problem_row['explanation'], problem_row['question_type']
             ))
             stats["problems"] += 1
+
+    # Merge modules for this course (table may not exist in older course DBs)
+    try:
+        modules = course_conn.execute(
+            "SELECT uuid, name, path, category, course_code FROM module WHERE course_code = ?",
+            (course_code,),
+        ).fetchall()
+        for mod_row in modules:
+            collective_conn.execute(SQL_UPSERT_MODULE, (
+                mod_row['uuid'], mod_row['name'], mod_row['path'],
+                mod_row['category'], mod_row['course_code'],
+            ))
+            stats["modules"] += 1
+    except Exception:
+        # Older course databases may not have a module table yet; skip gracefully
+        pass
 
     return stats
 

@@ -433,6 +433,9 @@ def process_folder(
     if deleted_count > 0:
         logging.info(f"Database cleanup completed: {deleted_count} deleted file(s) removed")
 
+    # Populate module table from file paths
+    populate_modules(conn, course_code)
+
     # Generate embeddings if requested
     if generate_embeddings:
         logging.info(f"Generating embeddings for course: {course_code}")
@@ -495,6 +498,70 @@ def cleanup_deleted_files(conn: sqlite3.Connection, course_code: str, input_dir_
         logging.info(f"[CLEANUP] Removed {deleted_count} deleted file(s) from database")
 
     return deleted_count
+
+
+def populate_modules(conn: sqlite3.Connection, course_code: str) -> int:
+    """
+    Scan the file table to derive modules and upsert them into the module table.
+    Idempotent — uses ON CONFLICT DO NOTHING so existing rows are preserved.
+
+    Module detection rules (relative_path includes course dir prefix):
+      - practice/*/*/<name>/... → category "practice"  (parts[:4])
+      - study/<name>/...        → category "study"      (parts[:3])
+      - support/<name>/...      → category "support"    (parts[:3])
+
+    Returns the number of new module rows inserted.
+    """
+    rows = conn.execute(
+        "SELECT relative_path FROM file WHERE course_code = ? AND relative_path LIKE '%/%'",
+        (course_code,),
+    ).fetchall()
+
+    seen: set = set()
+    new_count = 0
+
+    conn.execute("BEGIN IMMEDIATE")
+    try:
+        for (relative_path,) in rows:
+            if not relative_path:
+                continue
+            parts = relative_path.split('/')
+            module_path = None
+            category = None
+
+            if len(parts) >= 5 and parts[1] == 'practice':
+                module_path = '/'.join(parts[:4])   # {course_dir}/practice/{sub}/{name}
+                category = 'practice'
+            elif len(parts) >= 4 and parts[1] == 'study':
+                module_path = '/'.join(parts[:3])   # {course_dir}/study/{name}
+                category = 'study'
+            elif len(parts) >= 4 and parts[1] == 'support':
+                module_path = '/'.join(parts[:3])   # {course_dir}/support/{name}
+                category = 'support'
+
+            if module_path and module_path not in seen:
+                seen.add(module_path)
+                module_name = parts[3] if category == 'practice' else parts[2]
+                conn.execute(SQL_UPSERT_MODULE, (
+                    str(uuid.uuid4()),
+                    module_name,
+                    module_path,
+                    category,
+                    course_code,
+                ))
+                new_count += 1
+
+        conn.commit()
+    except Exception:
+        conn.rollback()
+        raise
+
+    if new_count:
+        logging.info(f"Populated {new_count} new module(s) for course {course_code}")
+    else:
+        logging.info(f"Module table already up to date for course {course_code}")
+
+    return new_count
 
 
 def _load_patterns(ignore_file=None,
@@ -821,6 +888,17 @@ CREATE TABLE IF NOT EXISTS problem (
   question_type   TEXT DEFAULT 'regular',
   FOREIGN KEY (file_uuid) REFERENCES file(uuid) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS module (
+  uuid        TEXT PRIMARY KEY,
+  name        TEXT NOT NULL,
+  path        TEXT NOT NULL,
+  category    TEXT NOT NULL,
+  course_code TEXT NOT NULL,
+  UNIQUE(course_code, path)
+);
+
+CREATE INDEX IF NOT EXISTS idx_module_course ON module(course_code);
 """
 SQL_UPSERT_FILE = """
 INSERT INTO file (uuid, file_hash, sections, relative_path, course_code, course_name, file_name, description, extra_info, url, created_at, update_time)
@@ -880,3 +958,9 @@ SQL_SELECT_FILE_UUID_BY_HASH = "SELECT uuid FROM file WHERE file_hash=?;"
 SQL_SELECT_FILES_BY_COURSE = "SELECT uuid, relative_path, file_name FROM file WHERE course_code=?;"
 
 SQL_DELETE_FILE_CASCADE = "DELETE FROM file WHERE uuid=?;"
+
+SQL_UPSERT_MODULE = """
+INSERT INTO module (uuid, name, path, category, course_code)
+VALUES (?, ?, ?, ?, ?)
+ON CONFLICT(course_code, path) DO NOTHING;
+"""
